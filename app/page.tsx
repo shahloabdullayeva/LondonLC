@@ -19,108 +19,130 @@ export default function HomePage() {
   }, [router]);
 
   return (
-    <div className="min-h-screen" style={{ background: "var(--bg-primary)" }}>
+    <div style={{ background: "var(--bg-primary)", minHeight: "100vh", overflowX: "hidden" }}>
+
       {/* Navbar */}
-      <nav className="fixed top-0 left-0 right-0 z-40 flex items-center justify-between px-6 py-4"
-        style={{
-          background: "var(--bg-primary)",
-          borderBottom: "1px solid var(--border)",
-          backdropFilter: "blur(10px)",
-        }}
-      >
-        <div className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-xl flex items-center justify-center"
-            style={{ background: "linear-gradient(135deg, #1e3bbf, #4a6de8)" }}>
-            <BookOpen size={18} className="text-white" />
+      <nav style={{
+        position: "fixed", top: 0, left: 0, right: 0, zIndex: 40,
+        display: "flex", alignItems: "center", justifyContent: "space-between",
+        padding: "0 24px", height: "64px",
+        background: "var(--bg-primary)",
+        borderBottom: "1px solid var(--border)",
+        backdropFilter: "blur(12px)",
+      }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+          <div style={{
+            width: 36, height: 36, borderRadius: 10,
+            background: "linear-gradient(135deg, #1a35b8, #3d62e0)",
+            display: "flex", alignItems: "center", justifyContent: "center",
+          }}>
+            <BookOpen size={18} color="white" />
           </div>
-          <span className="text-xl font-bold logo-gradient">London LC</span>
+          <span style={{ fontSize: 20, fontWeight: 800, letterSpacing: "-0.5px" }} className="logo-gradient">
+            London LC
+          </span>
         </div>
-        <div className="flex items-center gap-4">
+        <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
           <ThemeToggle />
-          <Link href="/auth/login" className="btn-primary text-sm py-2 px-5">
+          <Link href="/auth/login" className="btn-primary" style={{ fontSize: 14, padding: "8px 20px" }}>
             Sign In
           </Link>
         </div>
       </nav>
 
       {/* Hero */}
-      <section className="pt-32 pb-20 px-6 text-center">
+      <section style={{ paddingTop: 120, paddingBottom: 80, textAlign: "center", position: "relative" }}>
+        {/* Background glow */}
+        <div style={{
+          position: "absolute", top: 60, left: "50%", transform: "translateX(-50%)",
+          width: 600, height: 400, borderRadius: "50%",
+          background: "radial-gradient(ellipse, rgba(61,98,224,0.12), transparent 70%)",
+          pointerEvents: "none",
+        }} />
+
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="max-w-4xl mx-auto"
+          style={{ maxWidth: 780, margin: "0 auto", padding: "0 24px", position: "relative" }}
         >
-          {/* Badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold mb-8"
-            style={{ background: "var(--accent-light)", color: "var(--accent)", border: "1px solid var(--border)" }}>
-            <Award size={14} />
+          <div style={{
+            display: "inline-flex", alignItems: "center", gap: 8,
+            padding: "6px 16px", borderRadius: 999,
+            background: "var(--accent-light)", color: "var(--accent)",
+            border: "1px solid var(--border)", fontSize: 13, fontWeight: 600,
+            marginBottom: 28,
+          }}>
+            <Award size={13} />
             Cambridge IELTS Practice Platform
           </div>
 
-          <h1 className="text-5xl md:text-6xl font-black mb-6 leading-tight"
-            style={{ color: "var(--text-primary)" }}>
+          <h1 style={{
+            fontSize: "clamp(2.4rem, 5vw, 3.6rem)", fontWeight: 900,
+            lineHeight: 1.1, marginBottom: 20, letterSpacing: "-1px",
+            color: "var(--text-primary)",
+          }}>
             Master IELTS with{" "}
             <span className="logo-gradient">authentic practice</span>
           </h1>
 
-          <p className="text-xl mb-10 max-w-2xl mx-auto" style={{ color: "var(--text-secondary)" }}>
+          <p style={{
+            fontSize: 18, lineHeight: 1.7, color: "var(--text-secondary)",
+            maxWidth: 560, margin: "0 auto 36px",
+          }}>
             Exam-condition Reading and Listening tests from Cambridge IELTS Books 1–19.
             Academic and General Training. Timed, monitored, and scored instantly.
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/auth/login" className="btn-primary text-base px-8 py-4">
-              Start Practising <ChevronRight size={18} />
+          <div style={{ display: "flex", flexWrap: "wrap", gap: 12, justifyContent: "center" }}>
+            <Link href="/auth/login" className="btn-primary" style={{ fontSize: 15, padding: "13px 32px" }}>
+              Start Practising <ChevronRight size={17} />
             </Link>
-            <Link href="/auth/login?admin=true"
-              className="btn-secondary text-base px-8 py-4">
-              <Shield size={18} />
+            <Link href="/auth/login?admin=true" className="btn-secondary" style={{ fontSize: 15, padding: "13px 32px" }}>
+              <Shield size={17} />
               Teacher Login
             </Link>
           </div>
         </motion.div>
-
-        {/* Floating decorative elements */}
-        <div className="relative max-w-5xl mx-auto mt-20">
-          <div className="absolute -top-10 -left-10 w-64 h-64 rounded-full opacity-10"
-            style={{ background: "radial-gradient(circle, #4a6de8, transparent)" }} />
-          <div className="absolute -bottom-10 -right-10 w-48 h-48 rounded-full opacity-10"
-            style={{ background: "radial-gradient(circle, #7598ff, transparent)" }} />
-        </div>
       </section>
 
       {/* Features */}
-      <section className="py-20 px-6" style={{ background: "var(--bg-secondary)" }}>
-        <div className="max-w-5xl mx-auto">
-          <h2 className="text-3xl font-bold text-center mb-4" style={{ color: "var(--text-primary)" }}>
+      <section style={{ padding: "72px 24px", background: "var(--bg-secondary)" }}>
+        <div style={{ maxWidth: 1000, margin: "0 auto" }}>
+          <h2 style={{ fontSize: 28, fontWeight: 800, textAlign: "center", marginBottom: 8, color: "var(--text-primary)" }}>
             Everything you need to score higher
           </h2>
-          <p className="text-center mb-12" style={{ color: "var(--text-secondary)" }}>
+          <p style={{ textAlign: "center", marginBottom: 48, color: "var(--text-secondary)" }}>
             Built for serious IELTS preparation
           </p>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+            gap: 20,
+          }}>
             {features.map((f, i) => (
-              <motion.div
-                key={f.title}
+              <motion.div key={f.title}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.1, duration: 0.5 }}
-                className="p-6 rounded-2xl"
+                transition={{ delay: i * 0.08, duration: 0.45 }}
                 style={{
+                  padding: 24, borderRadius: 18,
                   background: "var(--bg-card)",
                   border: "1px solid var(--border)",
                   boxShadow: "var(--shadow)",
                 }}
               >
-                <div className="w-12 h-12 rounded-xl flex items-center justify-center mb-4"
-                  style={{ background: "var(--accent-light)" }}>
-                  <f.icon size={22} style={{ color: "var(--accent)" }} />
+                <div style={{
+                  width: 46, height: 46, borderRadius: 12, marginBottom: 16,
+                  background: "var(--accent-light)",
+                  display: "flex", alignItems: "center", justifyContent: "center",
+                }}>
+                  <f.icon size={21} color="var(--accent)" />
                 </div>
-                <h3 className="font-bold text-lg mb-2" style={{ color: "var(--text-primary)" }}>
+                <h3 style={{ fontWeight: 700, fontSize: 16, marginBottom: 8, color: "var(--text-primary)" }}>
                   {f.title}
                 </h3>
-                <p className="text-sm leading-relaxed" style={{ color: "var(--text-secondary)" }}>
+                <p style={{ fontSize: 14, lineHeight: 1.65, color: "var(--text-secondary)" }}>
                   {f.desc}
                 </p>
               </motion.div>
@@ -130,34 +152,43 @@ export default function HomePage() {
       </section>
 
       {/* Stats */}
-      <section className="py-20 px-6">
-        <div className="max-w-4xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+      <section style={{ padding: "72px 24px" }}>
+        <div style={{
+          maxWidth: 800, margin: "0 auto",
+          display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))",
+          gap: 32, textAlign: "center",
+        }}>
           {stats.map((s) => (
             <div key={s.label}>
-              <div className="text-4xl font-black mb-1 logo-gradient">{s.value}</div>
-              <div className="text-sm" style={{ color: "var(--text-muted)" }}>{s.label}</div>
+              <div className="logo-gradient" style={{ fontSize: 40, fontWeight: 900, lineHeight: 1, marginBottom: 6 }}>
+                {s.value}
+              </div>
+              <div style={{ fontSize: 13, color: "var(--text-muted)", fontWeight: 500 }}>{s.label}</div>
             </div>
           ))}
         </div>
       </section>
 
       {/* CTA */}
-      <section className="py-20 px-6" style={{ background: "var(--bg-secondary)" }}>
-        <div className="max-w-2xl mx-auto text-center">
-          <h2 className="text-3xl font-bold mb-4" style={{ color: "var(--text-primary)" }}>
+      <section style={{ padding: "72px 24px", background: "var(--bg-secondary)", textAlign: "center" }}>
+        <div style={{ maxWidth: 520, margin: "0 auto" }}>
+          <h2 style={{ fontSize: 28, fontWeight: 800, marginBottom: 12, color: "var(--text-primary)" }}>
             Ready to start?
           </h2>
-          <p className="mb-8" style={{ color: "var(--text-secondary)" }}>
+          <p style={{ marginBottom: 32, color: "var(--text-secondary)" }}>
             Sign in with your name and group code provided by your teacher.
           </p>
-          <Link href="/auth/login" className="btn-primary text-base px-10 py-4">
-            Get Started <ChevronRight size={18} />
+          <Link href="/auth/login" className="btn-primary" style={{ fontSize: 15, padding: "13px 40px" }}>
+            Get Started <ChevronRight size={17} />
           </Link>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="py-8 px-6 text-center text-sm" style={{ borderTop: "1px solid var(--border)", color: "var(--text-muted)" }}>
+      <footer style={{
+        padding: "28px 24px", textAlign: "center", fontSize: 13,
+        borderTop: "1px solid var(--border)", color: "var(--text-muted)",
+      }}>
         © 2025 London Language Centre · IELTS Practice Platform
       </footer>
     </div>
@@ -165,36 +196,12 @@ export default function HomePage() {
 }
 
 const features = [
-  {
-    icon: BookOpen,
-    title: "Reading Tests",
-    desc: "Academic and General Training passages with multiple question types: True/False/NG, multiple choice, fill in the blank, and matching.",
-  },
-  {
-    icon: Headphones,
-    title: "Listening Tests",
-    desc: "Four sections with authentic audio. No pause, no rewind — exactly like the real IELTS exam. 10-minute transfer time included.",
-  },
-  {
-    icon: Clock,
-    title: "Timed Conditions",
-    desc: "Automatic timers, tab-switch detection, and anti-copy measures ensure you practise under real exam pressure.",
-  },
-  {
-    icon: Award,
-    title: "Instant Band Scores",
-    desc: "Get your IELTS band score immediately after submission using the official Cambridge conversion table.",
-  },
-  {
-    icon: Shield,
-    title: "Teacher Dashboard",
-    desc: "Administrators can view all student results, filter by group, and track progress over time.",
-  },
-  {
-    icon: BookOpen,
-    title: "Books 1–19",
-    desc: "Tests from Cambridge IELTS books 1 through 19 — both Academic and General Training versions.",
-  },
+  { icon: BookOpen, title: "Reading Tests", desc: "Academic and General Training passages with multiple question types: True/False/NG, multiple choice, fill in the blank, and matching." },
+  { icon: Headphones, title: "Listening Tests", desc: "Four sections with authentic audio. No pause, no rewind — exactly like the real IELTS exam. 10-minute transfer time included." },
+  { icon: Clock, title: "Timed Conditions", desc: "Automatic timers, tab-switch detection, and anti-copy measures ensure you practise under real exam pressure." },
+  { icon: Award, title: "Instant Band Scores", desc: "Get your IELTS band score immediately after submission using the official Cambridge conversion table." },
+  { icon: Shield, title: "Teacher Dashboard", desc: "Administrators can view all student results, filter by group, and track progress over time." },
+  { icon: BookOpen, title: "Books 1–19", desc: "Tests from Cambridge IELTS books 1 through 19 — both Academic and General Training versions." },
 ];
 
 const stats = [

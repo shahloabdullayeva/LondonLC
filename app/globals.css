@@ -4,38 +4,39 @@
 :root {
   --font-inter: 'Inter', system-ui, sans-serif;
 
-  /* Light theme */
-  --bg-primary: #ffffff;
-  --bg-secondary: #f8faff;
+  /* Light theme — crisp blue-white */
+  --bg-primary: #f4f7ff;
+  --bg-secondary: #eaefff;
   --bg-card: #ffffff;
-  --text-primary: #0d1a5e;
-  --text-secondary: #4a5568;
-  --text-muted: #718096;
-  --border: #e2e8f0;
-  --accent: #1e3bbf;
-  --accent-light: #eef2ff;
+  --text-primary: #0a1540;
+  --text-secondary: #3a4a7a;
+  --text-muted: #6b7db3;
+  --border: #d0d9f5;
+  --accent: #1a35b8;
+  --accent-light: #dde5ff;
   --success: #10b981;
   --warning: #f59e0b;
   --danger: #ef4444;
-  --shadow: 0 4px 24px rgba(13, 26, 94, 0.08);
-  --shadow-lg: 0 10px 40px rgba(13, 26, 94, 0.12);
+  --shadow: 0 4px 24px rgba(10, 21, 64, 0.10);
+  --shadow-lg: 0 10px 40px rgba(10, 21, 64, 0.15);
 }
 
 .dark {
-  --bg-primary: #080f3a;
-  --bg-secondary: #0d1a5e;
-  --bg-card: #162580;
-  --text-primary: #f0f4ff;
-  --text-secondary: #aac0ff;
-  --text-muted: #7598ff;
-  --border: #1e3bbf;
-  --accent: #4a6de8;
-  --accent-light: #1a2f96;
+  /* Dark theme — very deep navy, almost black */
+  --bg-primary: #02040f;
+  --bg-secondary: #060c1f;
+  --bg-card: #0b1530;
+  --text-primary: #e8eeff;
+  --text-secondary: #8ba4e8;
+  --text-muted: #4d6bb5;
+  --border: #142050;
+  --accent: #3d62e0;
+  --accent-light: #0d1c4a;
   --success: #10b981;
   --warning: #f59e0b;
   --danger: #ef4444;
-  --shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
-  --shadow-lg: 0 10px 40px rgba(0, 0, 0, 0.4);
+  --shadow: 0 4px 24px rgba(0, 0, 0, 0.6);
+  --shadow-lg: 0 10px 40px rgba(0, 0, 0, 0.7);
 }
 
 * {
@@ -288,14 +289,14 @@ body {
 
 /* Logo text */
 .logo-gradient {
-  background: linear-gradient(135deg, #1e3bbf, #4a6de8);
+  background: linear-gradient(135deg, #1a35b8, #3d62e0);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
 .dark .logo-gradient {
-  background: linear-gradient(135deg, #7598ff, #aac0ff);
+  background: linear-gradient(135deg, #6b94ff, #a8c0ff);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
