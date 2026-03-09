@@ -4,14 +4,14 @@ import { useRouter, useParams } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Clock, AlertTriangle, CheckCircle, X, ChevronLeft, ChevronRight,
-  Headphones, BookOpen, Volume2, Play
+  Headphones, BookOpen, Volume2
 } from "lucide-react";
 import { getSession, saveAttempt } from "@/lib/store";
 import { getTestById, type IELTSTest, type IELTSSection } from "@/data/ielts-tests";
 import { formatTime, bandScore } from "@/lib/utils";
 import type { StudentSession } from "@/lib/store";
 
-type Phase = "warning" | "reading" | "test" | "audio_playing" | "transfer" | "submitted";
+type Phase = "warning" | "test" | "audio_playing" | "transfer" | "submitted";
 
 export default function TestPage() {
   const router = useRouter();
@@ -39,6 +39,8 @@ export default function TestPage() {
   const audioTimerRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const violationRef = useRef(0);
   const cancelledRef = useRef(false);
+  const anticheatActiveRef = useRef(false);
+  const audioAutoStartedRef = useRef(-1);
 
   // ── Load session and test ───────────────────────────────────────────
   useEffect(() => {
@@ -56,19 +58,28 @@ export default function TestPage() {
   useEffect(() => {
     if (phase !== "test" && phase !== "audio_playing" && phase !== "transfer") return;
 
+    // Grace period: ignore visibility events for the first 3 seconds
+    anticheatActiveRef.current = false;
+    const activateTimer = setTimeout(() => {
+      anticheatActiveRef.current = true;
+    }, 3000);
+
     const handleVisibility = () => {
-      if (document.hidden) {
+      if (document.hidden && anticheatActiveRef.current) {
         violationRef.current += 1;
         setViolationCount(violationRef.current);
         setShowViolationWarning(true);
-        if (violationRef.current >= 2) {
+        if (violationRef.current >= 3) {
           cancelTest("You left the exam screen too many times.");
         }
       }
     };
 
     document.addEventListener("visibilitychange", handleVisibility);
-    return () => document.removeEventListener("visibilitychange", handleVisibility);
+    return () => {
+      clearTimeout(activateTimer);
+      document.removeEventListener("visibilitychange", handleVisibility);
+    };
   }, [phase]);
 
   // ── Anti-cheat: context menu + copy/paste ───────────────────────────
@@ -133,6 +144,7 @@ export default function TestPage() {
   // ── Audio simulation (for listening tests) ─────────────────────────
   const startAudio = useCallback(() => {
     if (!test) return;
+    if (audioTimerRef.current) clearInterval(audioTimerRef.current);
     const sec = test.sections[audioCurrentSection];
     const dur = sec.audioDurationSeconds || 300;
     setAudioTotal(dur);
@@ -143,7 +155,6 @@ export default function TestPage() {
       setAudioProgress((p) => {
         if (p >= dur - 1) {
           clearInterval(audioTimerRef.current!);
-          // Move to next section or transfer
           if (audioCurrentSection < test.sections.length - 1) {
             setAudioCurrentSection((n) => n + 1);
             setCurrentSection((n) => n + 1);
@@ -157,6 +168,14 @@ export default function TestPage() {
       });
     }, 1000);
   }, [test, audioCurrentSection]);
+
+  // ── Auto-start audio for listening tests ────────────────────────────
+  useEffect(() => {
+    if (phase === "test" && test?.type === "listening" && audioCurrentSection !== audioAutoStartedRef.current) {
+      audioAutoStartedRef.current = audioCurrentSection;
+      startAudio();
+    }
+  }, [phase, audioCurrentSection, test, startAudio]);
 
   // ── Cancel test ─────────────────────────────────────────────────────
   const cancelTest = useCallback((reason: string) => {
@@ -303,70 +322,10 @@ export default function TestPage() {
   const section = test.sections[currentSection];
 
   // ============================================================
-  // PHASE: Audio playing (listening)
+  // PHASE: Test (reading or listening questions) + audio_playing
   // ============================================================
-  if (phase === "audio_playing") {
-    return (
-      <div className="min-h-screen flex flex-col items-center justify-center px-6"
-        style={{ background: "var(--bg-primary)" }}>
-        <div className="text-center max-w-md w-full">
-          <div className="w-16 h-16 rounded-full mx-auto mb-6 flex items-center justify-center animate-pulse-slow"
-            style={{ background: "linear-gradient(135deg, #5b21b6, #7c3aed)" }}>
-            <Volume2 size={28} className="text-white" />
-          </div>
-          <h2 className="text-xl font-bold mb-2" style={{ color: "var(--text-primary)" }}>
-            Section {audioCurrentSection + 1} – Now Playing
-          </h2>
-          <p className="text-sm mb-6" style={{ color: "var(--text-muted)" }}>
-            Listen carefully. The audio cannot be paused or rewound.
-          </p>
+  if (phase !== "test" && phase !== "audio_playing") return null;
 
-          {/* Progress bar */}
-          <div className="progress-bar mb-2">
-            <div className="progress-bar-fill" style={{ width: `${(audioProgress / audioTotal) * 100}%` }} />
-          </div>
-          <div className="flex justify-between text-xs mb-8" style={{ color: "var(--text-muted)" }}>
-            <span>{formatTime(audioProgress)}</span>
-            <span>{formatTime(audioTotal)}</span>
-          </div>
-
-          {/* Soundwave animation */}
-          <div className="flex items-center justify-center gap-1 mb-6">
-            {Array.from({ length: 20 }).map((_, i) => (
-              <div key={i}
-                className="w-1 rounded-full"
-                style={{
-                  background: "var(--accent)",
-                  height: `${8 + Math.sin(Date.now() / 200 + i) * 8 + 8}px`,
-                  animation: `soundwave ${0.5 + (i % 5) * 0.1}s ease-in-out infinite alternate`,
-                  animationDelay: `${i * 0.05}s`,
-                }}
-              />
-            ))}
-          </div>
-
-          <div className="p-4 rounded-xl text-sm" style={{
-            background: "var(--bg-secondary)",
-            border: "1px solid var(--border)",
-            color: "var(--text-secondary)",
-          }}>
-            <strong>Note:</strong> Write your answers on the question paper as you listen.
-            You will have 10 minutes to transfer your answers when all sections are complete.
-          </div>
-        </div>
-        <style>{`
-          @keyframes soundwave {
-            from { transform: scaleY(0.5); }
-            to { transform: scaleY(1.5); }
-          }
-        `}</style>
-      </div>
-    );
-  }
-
-  // ============================================================
-  // PHASE: Test (reading or listening questions)
-  // ============================================================
   return (
     <div className="min-h-screen flex flex-col test-zone" style={{ background: "var(--bg-primary)" }}>
       {/* Violation warning */}
@@ -387,12 +346,12 @@ export default function TestPage() {
             >
               <AlertTriangle size={40} className="text-red-500 mx-auto mb-4" />
               <h2 className="text-xl font-bold mb-2" style={{ color: "var(--text-primary)" }}>
-                Warning! ({violationCount}/2)
+                Warning! ({violationCount}/3)
               </h2>
               <p className="text-sm mb-6" style={{ color: "var(--text-secondary)" }}>
                 You left the exam screen. This is a violation.
-                {violationCount < 2
-                  ? " One more violation will automatically cancel your test."
+                {violationCount < 3
+                  ? ` ${3 - violationCount} more violation${3 - violationCount > 1 ? "s" : ""} will automatically cancel your test.`
                   : " Your test will now be cancelled."}
               </p>
               <button
@@ -448,13 +407,6 @@ export default function TestPage() {
             <Clock size={14} />
             {formatTime(timeLeft)}
           </div>
-          {test.type === "listening" && phase === "test" && (
-            <button onClick={startAudio}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-sm font-semibold text-white"
-              style={{ background: "linear-gradient(135deg, #5b21b6, #7c3aed)" }}>
-              <Play size={14} /> Play Audio
-            </button>
-          )}
           <button onClick={() => {
             if (confirm("Are you sure you want to submit your test? This cannot be undone.")) {
               submitTest();
@@ -472,19 +424,45 @@ export default function TestPage() {
         }} />
       </div>
 
+      {/* Audio banner (listening – audio playing) */}
+      {phase === "audio_playing" && (
+        <div style={{ background: "#1a0a3a", borderBottom: "1px solid #3b1f6a", padding: "10px 20px", display: "flex", alignItems: "center", gap: 14 }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 8, flexShrink: 0 }}>
+            <Volume2 size={16} color="#c4b5fd" />
+            <span style={{ fontSize: 13, fontWeight: 700, color: "#c4b5fd" }}>
+              Section {audioCurrentSection + 1} – Audio Playing
+            </span>
+          </div>
+          <div style={{ flex: 1, height: 6, background: "rgba(255,255,255,0.1)", borderRadius: 3, overflow: "hidden" }}>
+            <div style={{ height: "100%", background: "linear-gradient(90deg,#7c3aed,#c4b5fd)", borderRadius: 3, width: `${audioTotal > 0 ? (audioProgress / audioTotal) * 100 : 0}%`, transition: "width 0.5s linear" }} />
+          </div>
+          <div style={{ display: "flex", gap: 8, alignItems: "center", flexShrink: 0 }}>
+            <div style={{ display: "flex", gap: 2, alignItems: "center" }}>
+              {Array.from({ length: 8 }).map((_, i) => (
+                <div key={i} style={{ width: 3, borderRadius: 2, background: "#a78bfa", animation: `soundwave ${0.5 + (i % 4) * 0.15}s ease-in-out infinite alternate`, animationDelay: `${i * 0.07}s` }} />
+              ))}
+            </div>
+            <span style={{ fontSize: 12, color: "#a78bfa", fontFamily: "monospace", fontWeight: 600 }}>
+              {formatTime(audioProgress)} / {formatTime(audioTotal)}
+            </span>
+          </div>
+          <style>{`@keyframes soundwave { from { height: 4px; } to { height: 18px; } }`}</style>
+        </div>
+      )}
+
       {/* Content */}
       <div className={`flex-1 flex flex-col md:flex-row ${test.type === "reading" ? "overflow-hidden" : ""}`}
         style={{ height: test.type === "reading" ? "calc(100vh - 80px)" : "auto" }}>
 
         {/* Left: Passage (reading) */}
         {test.type === "reading" && section.passageText && (
-          <div className="w-full md:w-1/2 overflow-y-auto p-6"
-            style={{ borderRight: "1px solid var(--border)" }}>
-            <h2 className="text-lg font-bold mb-4" style={{ color: "var(--text-primary)" }}>
+          <div className="w-full md:w-1/2 overflow-y-auto p-8"
+            style={{ borderRight: "1px solid var(--border)", background: "#f8faff" }}>
+            <h2 className="text-lg font-bold mb-5" style={{ color: "#0a1540", fontSize: 17 }}>
               {section.passageTitle}
             </h2>
             <div className="passage-text"
-              style={{ color: "var(--text-primary)" }}
+              style={{ color: "#1a2550", lineHeight: 1.85, fontSize: "0.9375rem" }}
               dangerouslySetInnerHTML={{
                 __html: section.passageText
                   .replace(/\n\n/g, "</p><p>")
@@ -498,7 +476,8 @@ export default function TestPage() {
         )}
 
         {/* Right: Questions */}
-        <div className={`${test.type === "reading" ? "w-full md:w-1/2 overflow-y-auto" : "w-full"} p-6`}>
+        <div className={`${test.type === "reading" ? "w-full md:w-1/2 overflow-y-auto" : "w-full"}`}
+          style={{ padding: "24px 28px" }}>
           {/* Listening: show passage text (notes/questions layout) */}
           {test.type === "listening" && section.passageText && (
             <div className="mb-6 p-4 rounded-xl"
@@ -686,7 +665,7 @@ function WarningScreen({ test, onAccept }: { test: IELTSTest; onAccept: () => vo
 
         <div className="space-y-3 mb-6">
           {[
-            { icon: "🚫", text: "Do NOT switch tabs or open other windows. Your test will be cancelled after 2 violations." },
+            { icon: "🚫", text: "Do NOT switch tabs or open other windows. Your test will be cancelled after 3 violations." },
             { icon: "📋", text: "Copy and paste are disabled. All answers must be typed manually." },
             { icon: "⏱️", text: test.type === "reading"
               ? `You have exactly ${test.durationMinutes} minutes. The timer cannot be paused.`
