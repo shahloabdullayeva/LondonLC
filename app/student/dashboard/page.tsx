@@ -1,283 +1,211 @@
 "use client";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { motion } from "framer-motion";
-import {
-  BookOpen, Headphones, LogOut, User, ChevronRight,
-  Clock, Award, Filter, BookMarked
-} from "lucide-react";
+import { BookOpen, Headphones, LogOut, User, Clock, Award, ChevronRight, BarChart3, Star } from "lucide-react";
 import { getSession, clearSession, getAttempts } from "@/lib/store";
 import { allTests } from "@/data/ielts-tests";
-import { ThemeToggle } from "@/components/layout/ThemeToggle";
 import type { StudentSession } from "@/lib/store";
-import Link from "next/link";
-import { bandScore } from "@/lib/utils";
+
+type TestType = "reading" | "listening";
+type Level = "academic" | "general";
+
+const S = {
+  page: { minHeight: "100vh", background: "#020817", fontFamily: "Inter, system-ui, sans-serif", display: "flex", flexDirection: "column" as const },
+  nav: { display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 28px", height: 60, background: "#0a1628", borderBottom: "1px solid rgba(255,255,255,0.08)", flexShrink: 0 as const },
+};
 
 export default function StudentDashboard() {
   const router = useRouter();
   const [session, setSession] = useState<StudentSession | null>(null);
-  const [filter, setFilter] = useState<{ type: "all" | "reading" | "listening"; level: "all" | "academic" | "general" }>({
-    type: "all",
-    level: "all",
-  });
+  const [typeFilter, setTypeFilter] = useState<TestType>("reading");
+  const [levelFilter, setLevelFilter] = useState<Level>("academic");
 
   useEffect(() => {
     const s = getSession();
-    if (!s || s.isAdmin) {
-      router.push("/auth/login");
-      return;
-    }
+    if (!s || s.isAdmin) { router.push("/auth/login"); return; }
     setSession(s);
   }, [router]);
 
-  const attempts = getAttempts().filter((a) => a.studentId === session?.id);
+  const attempts = getAttempts().filter(a => a.studentId === session?.id);
+  const completed = attempts.filter(a => a.status === "completed");
+  const avgBand = completed.length ? (completed.reduce((s, a) => s + a.bandScore, 0) / completed.length).toFixed(1) : "—";
+  const bestBand = completed.length ? Math.max(...completed.map(a => a.bandScore)).toFixed(1) : "—";
 
-  const filteredTests = allTests.filter((t) => {
-    if (filter.type !== "all" && t.type !== filter.type) return false;
-    if (filter.level !== "all" && t.level !== filter.level) return false;
+  const filteredTests = allTests.filter(t => {
+    if (t.type !== typeFilter) return false;
+    if (typeFilter === "reading" && t.level !== levelFilter) return false;
     return true;
   });
-
-  const handleLogout = () => {
-    clearSession();
-    router.push("/");
-  };
 
   if (!session) return null;
 
   return (
-    <div className="min-h-screen" style={{ background: "var(--bg-primary)" }}>
-      {/* Header */}
-      <header className="sticky top-0 z-30 flex items-center justify-between px-6 py-4"
-        style={{ background: "var(--bg-primary)", borderBottom: "1px solid var(--border)", backdropFilter: "blur(10px)" }}>
-        <div className="flex items-center gap-3">
-          <div className="w-8 h-8 rounded-lg flex items-center justify-center"
-            style={{ background: "linear-gradient(135deg, #1e3bbf, #4a6de8)" }}>
-            <BookOpen size={16} className="text-white" />
+    <div style={S.page}>
+      {/* Navbar */}
+      <nav style={S.nav}>
+        <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+          <div style={{ width: 32, height: 32, borderRadius: 9, background: "linear-gradient(135deg,#2563eb,#1d4ed8)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <BookOpen size={15} color="white" />
           </div>
-          <span className="font-bold logo-gradient">London LC</span>
+          <span style={{ fontWeight: 800, fontSize: 17, color: "#fff" }}>London LC</span>
         </div>
-        <div className="flex items-center gap-3">
-          <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-xl text-sm"
-            style={{ background: "var(--bg-secondary)", border: "1px solid var(--border)" }}>
-            <User size={14} style={{ color: "var(--accent)" }} />
-            <span className="font-medium" style={{ color: "var(--text-primary)" }}>
-              {session.name} {session.surname}
-            </span>
-            <span className="text-xs px-2 py-0.5 rounded-full"
-              style={{ background: "var(--accent-light)", color: "var(--accent)" }}>
-              {session.group_name}
-            </span>
+        <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 8, padding: "6px 14px", background: "rgba(255,255,255,0.06)", borderRadius: 20, border: "1px solid rgba(255,255,255,0.1)" }}>
+            <div style={{ width: 26, height: 26, borderRadius: "50%", background: "linear-gradient(135deg,#2563eb,#60a5fa)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+              <User size={12} color="white" />
+            </div>
+            <span style={{ fontSize: 13, fontWeight: 600, color: "#e8eeff" }}>{session.name} {session.surname}</span>
+            <span style={{ fontSize: 11, padding: "2px 8px", background: "rgba(37,99,235,0.3)", borderRadius: 10, color: "#93c5fd", fontWeight: 600 }}>{session.group_name}</span>
           </div>
-          <ThemeToggle />
-          <button onClick={handleLogout}
-            className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-sm font-medium transition-colors"
-            style={{ color: "var(--text-muted)", border: "1px solid var(--border)" }}>
-            <LogOut size={14} /> <span className="hidden sm:inline">Sign Out</span>
+          <button onClick={() => { clearSession(); router.push("/"); }}
+            style={{ display: "flex", alignItems: "center", gap: 6, padding: "7px 14px", background: "transparent", border: "1px solid rgba(255,255,255,0.12)", borderRadius: 9, color: "rgba(255,255,255,0.5)", fontSize: 13, cursor: "pointer" }}>
+            <LogOut size={13} /> Sign Out
           </button>
         </div>
-      </header>
+      </nav>
 
-      <main className="max-w-6xl mx-auto px-6 py-8">
-        {/* Welcome */}
-        <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}
-          className="mb-8">
-          <h1 className="text-2xl font-bold mb-1" style={{ color: "var(--text-primary)" }}>
-            Hello, {session.name}! 👋
-          </h1>
-          <p style={{ color: "var(--text-muted)" }}>Choose a test to begin practising. Good luck!</p>
-        </motion.div>
+      <div style={{ flex: 1, display: "flex", overflow: "hidden" }}>
+        {/* Sidebar */}
+        <aside style={{ width: 220, background: "#060c1f", borderRight: "1px solid rgba(255,255,255,0.07)", padding: "28px 16px", display: "flex", flexDirection: "column", gap: 6, flexShrink: 0 }}>
+          <p style={{ fontSize: 11, fontWeight: 700, color: "rgba(255,255,255,0.3)", letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: 8, paddingLeft: 8 }}>Test Type</p>
+          {[
+            { type: "reading" as TestType, icon: BookOpen, label: "Reading" },
+            { type: "listening" as TestType, icon: Headphones, label: "Listening" },
+          ].map(item => (
+            <button key={item.type} onClick={() => setTypeFilter(item.type)}
+              style={{ display: "flex", alignItems: "center", gap: 10, padding: "11px 14px", borderRadius: 11, border: "none", cursor: "pointer", fontWeight: 600, fontSize: 14, transition: "all 0.18s", textAlign: "left",
+                background: typeFilter === item.type ? "rgba(37,99,235,0.18)" : "transparent",
+                color: typeFilter === item.type ? "#93c5fd" : "rgba(255,255,255,0.45)",
+                borderLeft: typeFilter === item.type ? "2px solid #2563eb" : "2px solid transparent",
+              }}>
+              <item.icon size={16} /> {item.label}
+            </button>
+          ))}
 
-        {/* Stats */}
-        {attempts.length > 0 && (
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+          {typeFilter === "reading" && (
+            <>
+              <div style={{ height: 1, background: "rgba(255,255,255,0.07)", margin: "12px 0" }} />
+              <p style={{ fontSize: 11, fontWeight: 700, color: "rgba(255,255,255,0.3)", letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: 6, paddingLeft: 8 }}>Level</p>
+              {[{ val: "academic" as Level, label: "Academic" }, { val: "general" as Level, label: "General Training" }].map(l => (
+                <button key={l.val} onClick={() => setLevelFilter(l.val)}
+                  style={{ display: "flex", alignItems: "center", gap: 10, padding: "11px 14px", borderRadius: 11, border: "none", cursor: "pointer", fontWeight: 600, fontSize: 14, transition: "all 0.18s",
+                    background: levelFilter === l.val ? "rgba(37,99,235,0.18)" : "transparent",
+                    color: levelFilter === l.val ? "#93c5fd" : "rgba(255,255,255,0.45)",
+                    borderLeft: levelFilter === l.val ? "2px solid #2563eb" : "2px solid transparent",
+                  }}>
+                  {l.label}
+                </button>
+              ))}
+            </>
+          )}
+        </aside>
+
+        {/* Main content */}
+        <main style={{ flex: 1, overflowY: "auto", padding: "32px 36px" }}>
+          {/* Welcome */}
+          <div style={{ marginBottom: 28 }}>
+            <h1 style={{ fontSize: 26, fontWeight: 800, color: "#fff", marginBottom: 4 }}>
+              Welcome Back, {session.name}! 👋
+            </h1>
+            <p style={{ color: "rgba(255,255,255,0.4)", fontSize: 14 }}>Ready to boost your IELTS band score? Let&apos;s practice!</p>
+          </div>
+
+          {/* Stats */}
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", gap: 14, marginBottom: 36 }}>
             {[
-              { label: "Tests Taken", value: attempts.length, icon: BookMarked },
-              {
-                label: "Avg Band Score",
-                value: attempts.length ? (attempts.reduce((a, c) => a + c.bandScore, 0) / attempts.length).toFixed(1) : "–",
-                icon: Award,
-              },
-              {
-                label: "Best Score",
-                value: attempts.length ? Math.max(...attempts.map((a) => a.bandScore)).toFixed(1) : "–",
-                icon: Award,
-              },
-              {
-                label: "Completed",
-                value: attempts.filter((a) => a.status === "completed").length,
-                icon: Clock,
-              },
-            ].map((stat) => (
-              <div key={stat.label} className="p-4 rounded-2xl"
-                style={{ background: "var(--bg-card)", border: "1px solid var(--border)", boxShadow: "var(--shadow)" }}>
-                <div className="flex items-center gap-2 mb-2">
-                  <stat.icon size={16} style={{ color: "var(--accent)" }} />
-                  <span className="text-xs" style={{ color: "var(--text-muted)" }}>{stat.label}</span>
+              { label: "Total Tests", value: attempts.length, icon: BarChart3, sub: "All time", color: "#3b82f6" },
+              { label: "Average Score", value: avgBand, icon: Award, sub: "Band score", color: "#10b981" },
+              { label: "Best Score", value: bestBand, icon: Star, sub: "Personal best", color: "#f59e0b" },
+              { label: "Completed", value: completed.length, icon: Clock, sub: "Finished tests", color: "#8b5cf6" },
+            ].map(s => (
+              <div key={s.label} style={{ background: "#0b1530", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 16, padding: "20px 20px 16px" }}>
+                <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 12 }}>
+                  <s.icon size={15} color={s.color} />
+                  <span style={{ fontSize: 12, color: "rgba(255,255,255,0.4)", fontWeight: 600 }}>{s.label}</span>
                 </div>
-                <div className="text-2xl font-bold" style={{ color: "var(--text-primary)" }}>{stat.value}</div>
+                <div style={{ fontSize: 28, fontWeight: 900, color: "#fff", lineHeight: 1, marginBottom: 4 }}>{s.value}</div>
+                <div style={{ fontSize: 11, color: "rgba(255,255,255,0.3)" }}>{s.sub}</div>
               </div>
             ))}
           </div>
-        )}
 
-        {/* Filters */}
-        <div className="flex flex-wrap gap-3 mb-6">
-          <div className="flex items-center gap-1.5 text-sm font-medium" style={{ color: "var(--text-muted)" }}>
-            <Filter size={14} /> Filter:
-          </div>
-          {/* Type */}
-          {(["all", "reading", "listening"] as const).map((t) => (
-            <button key={t}
-              onClick={() => setFilter((f) => ({ ...f, type: t }))}
-              className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-all ${filter.type === t ? "text-white" : ""}`}
-              style={filter.type === t
-                ? { background: "var(--accent)" }
-                : { background: "var(--bg-secondary)", color: "var(--text-muted)", border: "1px solid var(--border)" }}
-            >
-              {t === "all" ? "All Types" : t.charAt(0).toUpperCase() + t.slice(1)}
-            </button>
-          ))}
-          <div className="w-px self-stretch" style={{ background: "var(--border)" }} />
-          {/* Level */}
-          {(["all", "academic", "general"] as const).map((l) => (
-            <button key={l}
-              onClick={() => setFilter((f) => ({ ...f, level: l }))}
-              className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-all ${filter.level === l ? "text-white" : ""}`}
-              style={filter.level === l
-                ? { background: "var(--accent)" }
-                : { background: "var(--bg-secondary)", color: "var(--text-muted)", border: "1px solid var(--border)" }}
-            >
-              {l === "all" ? "All Levels" : l.charAt(0).toUpperCase() + l.slice(1)}
-            </button>
-          ))}
-        </div>
-
-        {/* Tests grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {filteredTests.map((test, i) => {
-            const myAttempts = attempts.filter((a) => a.testId === test.id && a.status === "completed");
-            const best = myAttempts.length ? Math.max(...myAttempts.map((a) => a.bandScore)) : null;
-            return (
-              <motion.div
-                key={test.id}
-                initial={{ opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.05, duration: 0.35 }}
-                className="group rounded-2xl p-5 cursor-pointer transition-all duration-200 hover:-translate-y-0.5"
-                style={{
-                  background: "var(--bg-card)",
-                  border: "1px solid var(--border)",
-                  boxShadow: "var(--shadow)",
-                }}
-                onClick={() => router.push(`/student/test/${test.id}`)}
-              >
-                {/* Top row */}
-                <div className="flex items-start justify-between mb-4">
-                  <div className="w-10 h-10 rounded-xl flex items-center justify-center"
-                    style={{ background: test.type === "listening" ? "#ede9fe" : "#fef3c7" }}>
-                    {test.type === "listening"
-                      ? <Headphones size={18} style={{ color: "#5b21b6" }} />
-                      : <BookOpen size={18} style={{ color: "#92400e" }} />
-                    }
-                  </div>
-                  {best !== null && (
-                    <div className="flex items-center gap-1 px-2 py-1 rounded-lg text-xs font-bold"
-                      style={{ background: "var(--accent-light)", color: "var(--accent)" }}>
-                      <Award size={11} /> {best}
+          {/* Tests grid */}
+          <h2 style={{ fontSize: 16, fontWeight: 700, color: "#fff", marginBottom: 16 }}>
+            {typeFilter === "listening" ? "Listening Tests" : `${levelFilter === "academic" ? "Academic" : "General Training"} Reading`}
+          </h2>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))", gap: 16 }}>
+            {filteredTests.map(test => {
+              const myBest = attempts.filter(a => a.testId === test.id && a.status === "completed");
+              const best = myBest.length ? Math.max(...myBest.map(a => a.bandScore)) : null;
+              const totalQ = test.sections.reduce((s, sec) => s + sec.questions.length, 0);
+              return (
+                <div key={test.id}
+                  style={{ background: "#0b1530", border: "1px solid rgba(255,255,255,0.09)", borderRadius: 16, padding: 22, cursor: "pointer", transition: "all 0.2s" }}
+                  onMouseEnter={e => { (e.currentTarget as HTMLElement).style.borderColor = "rgba(37,99,235,0.5)"; (e.currentTarget as HTMLElement).style.transform = "translateY(-2px)"; }}
+                  onMouseLeave={e => { (e.currentTarget as HTMLElement).style.borderColor = "rgba(255,255,255,0.09)"; (e.currentTarget as HTMLElement).style.transform = "none"; }}
+                  onClick={() => router.push(`/student/test/${test.id}`)}>
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 14 }}>
+                    <div>
+                      <h3 style={{ fontSize: 15, fontWeight: 800, color: "#fff", marginBottom: 4 }}>{test.title}</h3>
+                      <p style={{ fontSize: 12, color: "rgba(255,255,255,0.4)" }}>
+                        {test.type === "listening" ? "Listening Test" : `${test.level === "academic" ? "Academic" : "General"} Reading`}
+                      </p>
                     </div>
-                  )}
-                </div>
-
-                {/* Title */}
-                <h3 className="font-bold text-sm mb-1" style={{ color: "var(--text-primary)" }}>
-                  {test.title}
-                </h3>
-
-                {/* Badges */}
-                <div className="flex flex-wrap gap-1.5 mb-4">
-                  <span className={`badge badge-${test.type}`}>{test.type}</span>
-                  {test.type === "reading" && (
-                    <span className={`badge badge-${test.level}`}>{test.level}</span>
-                  )}
-                  <span className="badge" style={{ background: "var(--bg-secondary)", color: "var(--text-muted)" }}>
-                    Book {test.bookNumber}
-                  </span>
-                </div>
-
-                {/* Info row */}
-                <div className="flex items-center justify-between text-xs"
-                  style={{ color: "var(--text-muted)" }}>
-                  <div className="flex items-center gap-1">
-                    <Clock size={12} />
-                    {test.durationMinutes} min
-                    {test.transferMinutes > 0 && ` + ${test.transferMinutes} min transfer`}
+                    {best !== null && (
+                      <span style={{ fontSize: 12, fontWeight: 700, padding: "4px 10px", background: "rgba(16,185,129,0.15)", color: "#34d399", borderRadius: 20, border: "1px solid rgba(16,185,129,0.2)" }}>
+                        Band {best}
+                      </span>
+                    )}
                   </div>
-                  <div className="flex items-center gap-0.5 font-medium group-hover:gap-1.5 transition-all"
-                    style={{ color: "var(--accent)" }}>
-                    Start <ChevronRight size={13} />
-                  </div>
-                </div>
-              </motion.div>
-            );
-          })}
-        </div>
 
-        {filteredTests.length === 0 && (
-          <div className="text-center py-20" style={{ color: "var(--text-muted)" }}>
-            <BookOpen size={40} className="mx-auto mb-4 opacity-30" />
-            <p>No tests match your filters.</p>
+                  <div style={{ display: "flex", gap: 16, marginBottom: 18, fontSize: 12, color: "rgba(255,255,255,0.4)" }}>
+                    <span style={{ display: "flex", alignItems: "center", gap: 5 }}><Clock size={12} /> {test.durationMinutes} min{test.transferMinutes > 0 ? ` + ${test.transferMinutes} transfer` : ""}</span>
+                    <span style={{ display: "flex", alignItems: "center", gap: 5 }}><BarChart3 size={12} /> {totalQ} questions</span>
+                  </div>
+
+                  <button style={{ width: "100%", padding: "11px", background: "linear-gradient(135deg,#2563eb,#1d4ed8)", color: "#fff", fontWeight: 700, fontSize: 14, border: "none", borderRadius: 10, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", gap: 6 }}>
+                    Start practice <ChevronRight size={15} />
+                  </button>
+                </div>
+              );
+            })}
           </div>
-        )}
 
-        {/* Previous attempts */}
-        {attempts.length > 0 && (
-          <div className="mt-12">
-            <h2 className="text-lg font-bold mb-4" style={{ color: "var(--text-primary)" }}>
-              Your Recent Attempts
-            </h2>
-            <div className="rounded-2xl overflow-hidden" style={{ border: "1px solid var(--border)" }}>
-              <table className="w-full text-sm">
-                <thead>
-                  <tr style={{ background: "var(--bg-secondary)", borderBottom: "1px solid var(--border)" }}>
-                    {["Test", "Type", "Score", "Band", "Status", "Date"].map((h) => (
-                      <th key={h} className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide"
-                        style={{ color: "var(--text-muted)" }}>{h}</th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody>
-                  {[...attempts].reverse().slice(0, 10).map((a, i) => (
-                    <tr key={a.id}
-                      style={{
-                        background: i % 2 === 0 ? "var(--bg-card)" : "var(--bg-secondary)",
-                        borderBottom: "1px solid var(--border)",
-                      }}>
-                      <td className="px-4 py-3 font-medium" style={{ color: "var(--text-primary)" }}>{a.testTitle}</td>
-                      <td className="px-4 py-3">
-                        <span className={`badge badge-${a.testType}`}>{a.testType}</span>
-                      </td>
-                      <td className="px-4 py-3" style={{ color: "var(--text-secondary)" }}>{a.score}/{a.maxScore}</td>
-                      <td className="px-4 py-3">
-                        <span className="font-bold" style={{ color: "var(--accent)" }}>Band {a.bandScore}</span>
-                      </td>
-                      <td className="px-4 py-3">
-                        <span className={`badge ${a.status === "completed" ? "badge-general" : ""}`}
-                          style={a.status === "cancelled" ? { background: "#fef2f2", color: "#dc2626" } : {}}>
-                          {a.status}
-                        </span>
-                      </td>
-                      <td className="px-4 py-3 text-xs" style={{ color: "var(--text-muted)" }}>
-                        {new Date(a.submittedAt).toLocaleDateString()}
-                      </td>
+          {/* Recent attempts */}
+          {attempts.length > 0 && (
+            <div style={{ marginTop: 40 }}>
+              <h2 style={{ fontSize: 16, fontWeight: 700, color: "#fff", marginBottom: 16 }}>Recent Attempts</h2>
+              <div style={{ background: "#0b1530", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 16, overflow: "hidden" }}>
+                <table style={{ width: "100%", borderCollapse: "collapse" }}>
+                  <thead>
+                    <tr style={{ background: "rgba(255,255,255,0.04)" }}>
+                      {["Test", "Type", "Score", "Band", "Status", "Date"].map(h => (
+                        <th key={h} style={{ padding: "12px 16px", textAlign: "left", fontSize: 11, fontWeight: 700, color: "rgba(255,255,255,0.35)", textTransform: "uppercase", letterSpacing: "0.07em", borderBottom: "1px solid rgba(255,255,255,0.07)" }}>{h}</th>
+                      ))}
                     </tr>
-                  ))}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody>
+                    {[...attempts].reverse().slice(0, 8).map((a, i) => (
+                      <tr key={a.id} style={{ borderBottom: i < attempts.length - 1 ? "1px solid rgba(255,255,255,0.05)" : "none" }}>
+                        <td style={{ padding: "13px 16px", fontSize: 13, fontWeight: 600, color: "#e8eeff" }}>{a.testTitle}</td>
+                        <td style={{ padding: "13px 16px" }}>
+                          <span style={{ fontSize: 11, padding: "3px 9px", borderRadius: 10, fontWeight: 600, background: a.testType === "listening" ? "rgba(139,92,246,0.2)" : "rgba(37,99,235,0.2)", color: a.testType === "listening" ? "#c4b5fd" : "#93c5fd" }}>{a.testType}</span>
+                        </td>
+                        <td style={{ padding: "13px 16px", fontSize: 13, color: "rgba(255,255,255,0.55)" }}>{a.score}/{a.maxScore}</td>
+                        <td style={{ padding: "13px 16px", fontSize: 13, fontWeight: 700, color: "#60a5fa" }}>Band {a.bandScore}</td>
+                        <td style={{ padding: "13px 16px" }}>
+                          <span style={{ fontSize: 11, padding: "3px 9px", borderRadius: 10, fontWeight: 600, background: a.status === "completed" ? "rgba(16,185,129,0.15)" : "rgba(239,68,68,0.15)", color: a.status === "completed" ? "#34d399" : "#f87171" }}>{a.status}</span>
+                        </td>
+                        <td style={{ padding: "13px 16px", fontSize: 12, color: "rgba(255,255,255,0.35)" }}>{new Date(a.submittedAt).toLocaleDateString()}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
             </div>
-          </div>
-        )}
-      </main>
+          )}
+        </main>
+      </div>
     </div>
   );
 }
