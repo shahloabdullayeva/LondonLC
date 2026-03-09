@@ -68,10 +68,7 @@ export default function TestPage() {
       if (document.hidden && anticheatActiveRef.current) {
         violationRef.current += 1;
         setViolationCount(violationRef.current);
-        setShowViolationWarning(true);
-        if (violationRef.current >= 3) {
-          cancelTest("You left the exam screen too many times.");
-        }
+        cancelTest("You left the exam screen. Your test has been cancelled.");
       }
     };
 
@@ -346,13 +343,10 @@ export default function TestPage() {
             >
               <AlertTriangle size={40} className="text-red-500 mx-auto mb-4" />
               <h2 className="text-xl font-bold mb-2" style={{ color: "var(--text-primary)" }}>
-                Warning! ({violationCount}/3)
+                Test Cancelled
               </h2>
               <p className="text-sm mb-6" style={{ color: "var(--text-secondary)" }}>
-                You left the exam screen. This is a violation.
-                {violationCount < 3
-                  ? ` ${3 - violationCount} more violation${3 - violationCount > 1 ? "s" : ""} will automatically cancel your test.`
-                  : " Your test will now be cancelled."}
+                You left the exam screen. Your test has been automatically cancelled.
               </p>
               <button
                 onClick={() => setShowViolationWarning(false)}
@@ -665,7 +659,7 @@ function WarningScreen({ test, onAccept }: { test: IELTSTest; onAccept: () => vo
 
         <div className="space-y-3 mb-6">
           {[
-            { icon: "🚫", text: "Do NOT switch tabs or open other windows. Your test will be cancelled after 3 violations." },
+            { icon: "🚫", text: "Do NOT switch tabs or open other windows. Your test will be immediately cancelled if you leave this screen." },
             { icon: "📋", text: "Copy and paste are disabled. All answers must be typed manually." },
             { icon: "⏱️", text: test.type === "reading"
               ? `You have exactly ${test.durationMinutes} minutes. The timer cannot be paused.`
