@@ -198,6 +198,7 @@ export default function TestPage() {
       maxScore: test.sections.reduce((a, s) => a + s.questions.length, 0),
       bandScore: 0,
       status: "cancelled" as const,
+      cancelReason: reason,
       startedAt: new Date(startTime).toISOString(),
       submittedAt: new Date().toISOString(),
       timeSpentSeconds: Math.floor((Date.now() - startTime) / 1000),

@@ -257,6 +257,11 @@ export default function AdminDashboard() {
                             {a.status === "completed" ? <CheckCircle size={12} /> : <X size={12} />}
                             {a.status}
                           </span>
+                          {a.status === "cancelled" && a.cancelReason && (
+                            <div style={{ fontSize: 11, color: "#fca5a5", marginTop: 3, maxWidth: 160, lineHeight: 1.3 }}>
+                              {a.cancelReason}
+                            </div>
+                          )}
                         </td>
                         <td style={{ padding: "12px 14px", color: C.muted, whiteSpace: "nowrap" }}>
                           {a.timeSpentSeconds ? `${Math.floor(a.timeSpentSeconds / 60)}m ${a.timeSpentSeconds % 60}s` : "–"}
@@ -374,7 +379,20 @@ export default function AdminDashboard() {
                                         <td style={{ padding: "11px 14px", color: C.sub }}>{a.status === "completed" ? `${correct}/${a.maxScore} (${pct}%)` : "–"}</td>
                                         <td style={{ padding: "11px 14px", fontWeight: 700, color: "#10b981" }}>{a.status === "completed" ? correct : "–"}</td>
                                         <td style={{ padding: "11px 14px", fontWeight: 700, color: wrong > 0 ? "#ef4444" : C.muted }}>{a.status === "completed" ? wrong : "–"}</td>
-                                        <td style={{ padding: "11px 14px", fontWeight: 800, fontSize: 15, color: C.accent }}>{a.status === "completed" && a.bandScore > 0 ? a.bandScore : "–"}</td>
+                                        <td style={{ padding: "11px 14px", fontWeight: 800, fontSize: 15, color: C.accent }}>
+                                          {a.status === "completed" && a.bandScore > 0 ? a.bandScore : (
+                                            a.status === "cancelled" ? (
+                                              <span style={{ display: "flex", flexDirection: "column", gap: 2 }}>
+                                                <span style={{ fontSize: 11, fontWeight: 600, color: "#ef4444" }}>Cancelled</span>
+                                                {a.cancelReason && (
+                                                  <span style={{ fontSize: 10, color: "#fca5a5", fontWeight: 400, lineHeight: 1.3, whiteSpace: "normal", maxWidth: 140 }}>
+                                                    {a.cancelReason}
+                                                  </span>
+                                                )}
+                                              </span>
+                                            ) : "–"
+                                          )}
+                                        </td>
                                         <td style={{ padding: "11px 14px", color: C.muted, whiteSpace: "nowrap" }}>{a.timeSpentSeconds ? `${Math.floor(a.timeSpentSeconds / 60)}m ${a.timeSpentSeconds % 60}s` : "–"}</td>
                                         <td style={{ padding: "11px 14px", fontSize: 12, color: C.muted, whiteSpace: "nowrap" }}>{new Date(a.submittedAt).toLocaleDateString()}</td>
                                       </tr>

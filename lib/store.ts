@@ -178,6 +178,7 @@ export type AttemptData = {
   maxScore: number;
   bandScore: number;
   status: "completed" | "cancelled";
+  cancelReason?: string;
   startedAt: string;
   submittedAt: string;
   timeSpentSeconds: number;
