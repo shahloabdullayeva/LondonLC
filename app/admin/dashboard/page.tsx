@@ -191,10 +191,10 @@ export default function AdminDashboard() {
         </div>
 
         {/* Filters */}
-        <div className="p-4 rounded-2xl mb-6 flex flex-wrap gap-3"
+        <div className="p-4 rounded-2xl mb-6"
           style={{ background: "var(--bg-card)", border: "1px solid var(--border)" }}>
-          {/* Search */}
-          <div className="relative flex-1 min-w-48">
+          {/* Search — full width */}
+          <div className="relative mb-3">
             <Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2"
               style={{ color: "var(--text-muted)" }} />
             <input
@@ -205,51 +205,25 @@ export default function AdminDashboard() {
               className="input-field pl-9 py-2 text-sm"
             />
           </div>
-
-          {/* Group filter */}
-          <select
-            value={filterGroup}
-            onChange={(e) => setFilterGroup(e.target.value)}
-            className="input-field py-2 text-sm w-auto"
-            style={{ minWidth: "140px" }}
-          >
-            {groups.map((g) => (
-              <option key={g} value={g}>{g === "all" ? "All Groups" : g}</option>
+          {/* Dropdowns row — wrap on small screens */}
+          <div className="flex flex-wrap gap-2">
+            {[
+              { value: filterGroup, onChange: (v: string) => setFilterGroup(v),
+                options: groups.map(g => ({ v: g, l: g === "all" ? "All Groups" : g })) },
+              { value: filterType, onChange: (v: string) => setFilterType(v as typeof filterType),
+                options: [{ v: "all", l: "All Types" }, { v: "reading", l: "Reading" }, { v: "listening", l: "Listening" }] },
+              { value: filterStatus, onChange: (v: string) => setFilterStatus(v as typeof filterStatus),
+                options: [{ v: "all", l: "All Statuses" }, { v: "completed", l: "Completed" }, { v: "cancelled", l: "Cancelled" }] },
+              { value: sortBy, onChange: (v: string) => setSortBy(v as typeof sortBy),
+                options: [{ v: "date", l: "Sort: Date" }, { v: "band", l: "Sort: Band" }, { v: "name", l: "Sort: Name" }] },
+            ].map((sel, i) => (
+              <select key={i} value={sel.value} onChange={e => sel.onChange(e.target.value)}
+                className="py-2 px-3 rounded-xl text-sm font-medium outline-none transition-all"
+                style={{ background: "var(--bg-secondary)", border: "1.5px solid var(--border)", color: "var(--text-primary)", flex: "1 1 130px", minWidth: 0 }}>
+                {sel.options.map(o => <option key={o.v} value={o.v}>{o.l}</option>)}
+              </select>
             ))}
-          </select>
-
-          {/* Type filter */}
-          <select
-            value={filterType}
-            onChange={(e) => setFilterType(e.target.value as typeof filterType)}
-            className="input-field py-2 text-sm w-auto"
-          >
-            <option value="all">All Types</option>
-            <option value="reading">Reading</option>
-            <option value="listening">Listening</option>
-          </select>
-
-          {/* Status filter */}
-          <select
-            value={filterStatus}
-            onChange={(e) => setFilterStatus(e.target.value as typeof filterStatus)}
-            className="input-field py-2 text-sm w-auto"
-          >
-            <option value="all">All Statuses</option>
-            <option value="completed">Completed</option>
-            <option value="cancelled">Cancelled</option>
-          </select>
-
-          {/* Sort */}
-          <select
-            value={sortBy}
-            onChange={(e) => setSortBy(e.target.value as typeof sortBy)}
-            className="input-field py-2 text-sm w-auto"
-          >
-            <option value="date">Sort: Date</option>
-            <option value="band">Sort: Band Score</option>
-            <option value="name">Sort: Name</option>
-          </select>
+          </div>
         </div>
 
         {/* Results table */}

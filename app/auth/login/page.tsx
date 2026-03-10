@@ -3,7 +3,7 @@ import { useState, useEffect, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { motion } from "framer-motion";
 import { Eye, EyeOff, BookOpen, ChevronRight, User, Users, Lock, Shield } from "lucide-react";
-import { saveSession, getSession, findTeacher } from "@/lib/store";
+import { saveSession, getSession, findTeacher, getStudentCache } from "@/lib/store";
 
 function LoginContent() {
   const router = useRouter();
@@ -13,10 +13,17 @@ function LoginContent() {
   const [showPw, setShowPw] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [hasCachedStudent, setHasCachedStudent] = useState(false);
 
   useEffect(() => {
     const s = getSession();
-    if (s) router.push(s.isAdmin ? "/admin/dashboard" : "/student/dashboard");
+    if (s) { router.push(s.isAdmin ? "/admin/dashboard" : "/student/dashboard"); return; }
+    // Pre-fill form from cached student info
+    const cache = getStudentCache();
+    if (cache) {
+      setForm(f => ({ ...f, name: cache.name, surname: cache.surname, group: cache.group }));
+      setHasCachedStudent(true);
+    }
   }, [router]);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -84,6 +91,16 @@ function LoginContent() {
                 </button>
               ))}
             </div>
+
+            {/* Welcome back hint */}
+            {!isAdmin && hasCachedStudent && (
+              <div style={{ display: "flex", alignItems: "center", gap: 8, padding: "10px 14px", background: "rgba(37,99,235,0.12)", border: "1px solid rgba(37,99,235,0.25)", borderRadius: 10, marginBottom: 16 }}>
+                <span style={{ fontSize: 14 }}>👋</span>
+                <span style={{ fontSize: 13, color: "#93c5fd" }}>
+                  Welcome back, <strong>{form.name}</strong>! Your details are pre-filled.
+                </span>
+              </div>
+            )}
 
             <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: 14 }}>
               {!isAdmin ? (

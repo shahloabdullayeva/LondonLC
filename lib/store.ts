@@ -57,15 +57,26 @@ export function deleteTeacher(id: string): void {
   localStorage.setItem(TEACHERS_KEY, JSON.stringify(teachers));
 }
 
+const SESSION_KEY = "llc_session";
+const STUDENT_CACHE_KEY = "llc_student_cache";
+
 export function saveSession(session: StudentSession) {
   if (typeof window !== "undefined") {
-    sessionStorage.setItem("llc_session", JSON.stringify(session));
+    localStorage.setItem(SESSION_KEY, JSON.stringify(session));
+    // Cache student info for pre-filling the login form next time
+    if (!session.isAdmin) {
+      localStorage.setItem(STUDENT_CACHE_KEY, JSON.stringify({
+        name: session.name,
+        surname: session.surname,
+        group: session.group_name,
+      }));
+    }
   }
 }
 
 export function getSession(): StudentSession | null {
   if (typeof window !== "undefined") {
-    const raw = sessionStorage.getItem("llc_session");
+    const raw = localStorage.getItem(SESSION_KEY);
     if (raw) return JSON.parse(raw);
   }
   return null;
@@ -73,8 +84,18 @@ export function getSession(): StudentSession | null {
 
 export function clearSession() {
   if (typeof window !== "undefined") {
-    sessionStorage.removeItem("llc_session");
+    localStorage.removeItem(SESSION_KEY);
+    // Keep student cache so the form stays pre-filled next visit
   }
+}
+
+/** Returns last-used student details for pre-filling the login form. */
+export function getStudentCache(): { name: string; surname: string; group: string } | null {
+  if (typeof window !== "undefined") {
+    const raw = localStorage.getItem(STUDENT_CACHE_KEY);
+    if (raw) return JSON.parse(raw);
+  }
+  return null;
 }
 
 export function saveAttempt(attempt: AttemptData) {
