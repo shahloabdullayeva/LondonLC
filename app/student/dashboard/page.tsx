@@ -2,7 +2,6 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { BookOpen, Headphones, LogOut, User, Clock, Award, ChevronRight, BarChart3, Star } from "lucide-react";
-import Image from "next/image";
 import { getSession, clearSession, getAttempts } from "@/lib/store";
 import { allTests } from "@/data/ielts-tests";
 import type { StudentSession } from "@/lib/store";
@@ -46,7 +45,7 @@ export default function StudentDashboard() {
     <div style={S.page}>
       {/* Navbar */}
       <nav style={S.nav}>
-        <Image src="/logo.svg" alt="London LC" width={110} height={40} style={{ filter: "brightness(0) invert(1)" }} />
+        <span style={{ fontWeight: 900, fontSize: 19, color: "#fff", letterSpacing: "-0.3px", fontFamily: "Inter, system-ui, sans-serif" }}>London <span style={{ color: "#a78bfa" }}>LC</span></span>
         <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
           <div style={{ display: "flex", alignItems: "center", gap: 8, padding: "6px 14px", background: "rgba(255,255,255,0.06)", borderRadius: 20, border: "1px solid rgba(255,255,255,0.1)" }}>
             <div style={{ width: 26, height: 26, borderRadius: "50%", background: "linear-gradient(135deg,#7c3aed,#a78bfa)", display: "flex", alignItems: "center", justifyContent: "center" }}>

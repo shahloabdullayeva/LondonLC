@@ -5,8 +5,6 @@ import { getSession } from "@/lib/store";
 import { motion } from "framer-motion";
 import { ChevronRight, BookOpen, Headphones, Clock, Award, CheckCircle, Shield } from "lucide-react";
 import Link from "next/link";
-import Image from "next/image";
-
 export default function HomePage() {
   const router = useRouter();
   useEffect(() => {
@@ -20,7 +18,7 @@ export default function HomePage() {
       {/* Nav */}
       <nav style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 32px", height: 64, borderBottom: "1px solid rgba(255,255,255,0.07)", position: "sticky", top: 0, zIndex: 40, background: "rgba(10,5,31,0.92)", backdropFilter: "blur(12px)" }}>
         <Link href="/" style={{ textDecoration: "none" }}>
-          <Image src="/logo.svg" alt="London LC" width={140} height={52} style={{ filter: "brightness(0) invert(1)" }} priority />
+          <span style={{ fontWeight: 900, fontSize: 19, color: "#fff", letterSpacing: "-0.3px", fontFamily: "Inter, system-ui, sans-serif" }}>London <span style={{ color: "#a78bfa" }}>LC</span></span>
         </Link>
         <div className="home-nav-right" style={{ display: "flex", alignItems: "center", gap: 32 }}>
           <nav className="home-nav-links" style={{ display: "flex", gap: 28 }}>
@@ -48,9 +46,9 @@ export default function HomePage() {
         <div style={{ position: "absolute", top: 0, left: "50%", transform: "translateX(-50%)", width: 800, height: 500, background: "radial-gradient(ellipse at center, rgba(124,58,237,0.18) 0%, transparent 65%)", pointerEvents: "none" }} />
 
         <motion.div initial={{ opacity: 0, y: 28 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.65 }} style={{ position: "relative", maxWidth: 720, margin: "0 auto" }}>
-          {/* Logo */}
+          {/* Brand */}
           <div style={{ marginBottom: 24 }}>
-            <Image src="/logo.svg" alt="London LC" width={220} height={82} style={{ filter: "brightness(0) invert(1)" }} priority />
+            <span style={{ fontWeight: 900, fontSize: 34, color: "#fff", letterSpacing: "-1px", fontFamily: "Inter, system-ui, sans-serif" }}>London <span style={{ color: "#a78bfa" }}>LC</span></span>
           </div>
 
           <h1 style={{ fontSize: "clamp(2.4rem, 5.5vw, 3.8rem)", fontWeight: 900, lineHeight: 1.08, letterSpacing: "-1.5px", color: "#fff", marginBottom: 20 }}>

@@ -13,6 +13,15 @@ import type { StudentSession } from "@/lib/store";
 
 type Phase = "warning" | "test" | "audio_playing" | "transfer" | "submitted";
 
+type Highlight = { id: string; text: string; color: string; sectionIdx: number };
+
+const HIGHLIGHT_COLORS = [
+  { bg: "#fde68a", label: "Yellow" },
+  { bg: "#bbf7d0", label: "Green" },
+  { bg: "#bae6fd", label: "Blue" },
+  { bg: "#fecdd3", label: "Pink" },
+];
+
 // Read the current theme from the HTML class
 function getTheme(): "dark" | "light" {
   if (typeof document === "undefined") return "dark";
@@ -42,6 +51,9 @@ export default function TestPage() {
   const [mobileView, setMobileView] = useState<"passage" | "questions">("passage");
   const [passageCollapsed, setPassageCollapsed] = useState(false);
   const [theme, setTheme] = useState<"dark" | "light">("dark");
+  const [highlights, setHighlights] = useState<Highlight[]>([]);
+  const [toolbarPos, setToolbarPos] = useState<{ x: number; y: number } | null>(null);
+  const [pendingText, setPendingText] = useState("");
 
   // Detect theme on mount and when it changes
   useEffect(() => {
@@ -64,6 +76,61 @@ export default function TestPage() {
     border: "rgba(109,40,217,0.12)", accent: "#6d28d9", accentBtn: "linear-gradient(135deg,#6d28d9,#7c3aed)",
     accentDim: "rgba(109,40,217,0.08)", accentBorder: "rgba(109,40,217,0.2)",
     inputBg: "#ffffff", shadow: "rgba(109,40,217,0.1)",
+  };
+
+  // ── Highlight toolbar dismiss ────────────────────────────────────────
+  useEffect(() => {
+    if (!toolbarPos) return;
+    const dismiss = (e: MouseEvent) => {
+      if (!(e.target as HTMLElement).closest("[data-highlight-toolbar]")) {
+        setToolbarPos(null); setPendingText("");
+      }
+    };
+    document.addEventListener("mousedown", dismiss);
+    return () => document.removeEventListener("mousedown", dismiss);
+  }, [toolbarPos]);
+
+  const handlePassageMouseUp = () => {
+    const sel = window.getSelection();
+    if (!sel || sel.isCollapsed) return;
+    const text = sel.toString().trim();
+    if (!text) return;
+    const range = sel.getRangeAt(0);
+    const rect = range.getBoundingClientRect();
+    setPendingText(text);
+    setToolbarPos({ x: rect.left + rect.width / 2, y: rect.top });
+  };
+
+  const applyHighlight = (color: string) => {
+    if (!pendingText) return;
+    setHighlights(prev => [...prev, { id: `h-${Date.now()}`, text: pendingText, color, sectionIdx: currentSection }]);
+    setToolbarPos(null); setPendingText("");
+    window.getSelection()?.removeAllRanges();
+  };
+
+  const removeHighlight = (id: string) => setHighlights(prev => prev.filter(h => h.id !== id));
+
+  const handlePassageClick = (e: React.MouseEvent) => {
+    const el = e.target as HTMLElement;
+    if (el.tagName === "MARK" && el.dataset.hid) removeHighlight(el.dataset.hid);
+  };
+
+  const buildPassageHtml = (text: string, idx: number): string => {
+    let result = text;
+    const active = [...highlights.filter(h => h.sectionIdx === idx)].sort((a, b) => b.text.length - a.text.length);
+    for (const h of active) {
+      const escaped = h.text.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+      result = result.replace(
+        new RegExp(escaped, "g"),
+        `<mark data-hid="${h.id}" style="background:${h.color};border-radius:3px;cursor:pointer;padding:0 1px" title="Click to remove highlight">${h.text}</mark>`
+      );
+    }
+    return result
+      .replace(/\n\n/g, "</p><p style='margin-bottom:14px'>")
+      .replace(/\n/g, "<br/>")
+      .replace(/^/, "<p style='margin-bottom:14px'>")
+      .replace(/$/, "</p>")
+      .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
   };
 
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
@@ -465,19 +532,47 @@ export default function TestPage() {
         {test.type === "reading" && section.passageText && (
           <div className={`passage-panel ${mobileView === "passage" ? "panel-visible" : "panel-hidden"}`}
             style={{ width: passageCollapsed ? 0 : "50%", minWidth: passageCollapsed ? 0 : undefined, overflow: "hidden", transition: "width 0.25s ease", background: T.passage, position: "relative", display: "flex", flexDirection: "column" }}>
-            <div style={{ flex: 1, overflowY: "auto", padding: "28px 32px" }}>
+            {/* Passage header with highlight controls */}
+            <div style={{ padding: "10px 20px 0", display: "flex", alignItems: "center", justifyContent: "space-between", flexShrink: 0 }}>
+              <span style={{ fontSize: 11, color: T.textMuted, fontWeight: 600 }}>Select text to highlight · Click highlight to remove</span>
+              <div style={{ display: "flex", alignItems: "center", gap: 5 }}>
+                {HIGHLIGHT_COLORS.map(c => (
+                  <div key={c.bg} style={{ width: 14, height: 14, borderRadius: "50%", background: c.bg, border: "1.5px solid rgba(0,0,0,0.15)" }} title={c.label} />
+                ))}
+                {highlights.filter(h => h.sectionIdx === currentSection).length > 0 && (
+                  <button onClick={() => setHighlights(prev => prev.filter(h => h.sectionIdx !== currentSection))}
+                    style={{ marginLeft: 4, fontSize: 10, padding: "2px 7px", borderRadius: 6, border: `1px solid ${T.border}`, background: "transparent", color: T.textMuted, cursor: "pointer", fontWeight: 600 }}>
+                    Clear
+                  </button>
+                )}
+              </div>
+            </div>
+            <div style={{ flex: 1, overflowY: "auto", padding: "16px 32px 28px" }}>
               <h2 style={{ fontSize: 17, fontWeight: 800, color: T.text, marginBottom: 20 }}>{section.passageTitle}</h2>
-              <div style={{ color: T.text, lineHeight: 1.9, fontSize: 15 }}
-                dangerouslySetInnerHTML={{
-                  __html: section.passageText
-                    .replace(/\n\n/g, "</p><p style='margin-bottom:14px'>")
-                    .replace(/\n/g, "<br/>")
-                    .replace(/^/, "<p style='margin-bottom:14px'>")
-                    .replace(/$/, "</p>")
-                    .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
-                }}
+              <div
+                onMouseUp={handlePassageMouseUp}
+                onClick={handlePassageClick}
+                style={{ color: T.text, lineHeight: 1.9, fontSize: 15, userSelect: "text" }}
+                dangerouslySetInnerHTML={{ __html: buildPassageHtml(section.passageText, currentSection) }}
               />
             </div>
+          </div>
+        )}
+
+        {/* Floating highlight toolbar */}
+        {toolbarPos && (
+          <div data-highlight-toolbar
+            style={{ position: "fixed", left: toolbarPos.x, top: toolbarPos.y - 44, transform: "translateX(-50%)", zIndex: 1000,
+              background: T.nav, border: `1px solid ${T.border}`, borderRadius: 10, padding: "6px 10px",
+              display: "flex", alignItems: "center", gap: 7, boxShadow: `0 6px 24px rgba(0,0,0,0.4)` }}>
+            <span style={{ fontSize: 10, color: T.textMuted, marginRight: 2, whiteSpace: "nowrap" }}>Highlight:</span>
+            {HIGHLIGHT_COLORS.map(c => (
+              <button key={c.bg} onClick={() => applyHighlight(c.bg)} title={c.label}
+                style={{ width: 20, height: 20, borderRadius: "50%", background: c.bg, border: "2px solid rgba(0,0,0,0.15)", cursor: "pointer", transition: "transform 0.1s" }}
+                onMouseEnter={e => (e.currentTarget.style.transform = "scale(1.25)")}
+                onMouseLeave={e => (e.currentTarget.style.transform = "scale(1)")}
+              />
+            ))}
           </div>
         )}
 

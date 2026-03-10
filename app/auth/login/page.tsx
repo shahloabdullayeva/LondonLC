@@ -3,7 +3,6 @@ import { useState, useEffect, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { motion } from "framer-motion";
 import { Eye, EyeOff, BookOpen, ChevronRight, User, Lock, Shield } from "lucide-react";
-import Image from "next/image";
 import { saveSession, getSession, findTeacher, loginStudent } from "@/lib/store";
 import Link from "next/link";
 
@@ -54,7 +53,7 @@ function LoginContent() {
       {/* Nav */}
       <div style={{ display: "flex", alignItems: "center", padding: "0 24px", height: 56, borderBottom: "1px solid rgba(255,255,255,0.07)" }}>
         <Link href="/" style={{ textDecoration: "none" }}>
-          <Image src="/logo.svg" alt="London LC" width={120} height={44} style={{ filter: "brightness(0) invert(1)" }} />
+          <span style={{ fontWeight: 900, fontSize: 19, color: "#fff", letterSpacing: "-0.3px", fontFamily: "Inter, system-ui, sans-serif" }}>London <span style={{ color: "#a78bfa" }}>LC</span></span>
         </Link>
       </div>
 
@@ -63,10 +62,10 @@ function LoginContent() {
           style={{ width: "100%", maxWidth: 420 }}>
 
           <div style={{ background: "#140b35", border: "1px solid rgba(124,58,237,0.2)", borderRadius: 20, padding: "36px 28px", boxShadow: "0 24px 64px rgba(0,0,0,0.6)" }}>
-            {/* Logo */}
+            {/* Brand */}
             <div style={{ textAlign: "center", marginBottom: 24 }}>
               <div style={{ marginBottom: 12, display: "flex", justifyContent: "center" }}>
-                <Image src="/logo.svg" alt="London LC" width={160} height={60} style={{ filter: "brightness(0) invert(1)" }} />
+                <span style={{ fontWeight: 900, fontSize: 26, color: "#fff", letterSpacing: "-0.5px", fontFamily: "Inter, system-ui, sans-serif" }}>London <span style={{ color: "#a78bfa" }}>LC</span></span>
               </div>
               <h1 style={{ color: "#fff", fontWeight: 800, fontSize: 21, marginBottom: 3 }}>
                 {isAdmin ? "Teacher Access" : "Sign In"}

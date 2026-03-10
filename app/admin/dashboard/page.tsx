@@ -6,7 +6,6 @@ import {
   Download, CheckCircle, X, Shield, Plus, Trash2, Eye, EyeOff
 } from "lucide-react";
 import { getSession, clearSession, getAttempts, getTeachers, addTeacher, deleteTeacher, type AttemptData, type TeacherAccount } from "@/lib/store";
-import Image from "next/image";
 
 // ── Hardcoded dark theme colours ─────────────────────────────
 const C = {
@@ -146,7 +145,7 @@ export default function AdminDashboard() {
       {/* ── Header ────────────────────────────────── */}
       <header style={{ position: "sticky", top: 0, zIndex: 30, display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 24px", height: 56, background: C.card2, borderBottom: `1px solid ${C.border}` }}>
         <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-          <Image src="/logo.svg" alt="London LC" width={110} height={40} style={{ filter: "brightness(0) invert(1)" }} />
+          <span style={{ fontWeight: 900, fontSize: 19, color: "#fff", letterSpacing: "-0.3px", fontFamily: "Inter, system-ui, sans-serif" }}>London <span style={{ color: "#a78bfa" }}>LC</span></span>
           <span style={{ padding: "2px 10px", borderRadius: 20, fontSize: 11, fontWeight: 700, background: C.accentLight, color: C.accent }}>Admin</span>
         </div>
         <button onClick={handleLogout}
