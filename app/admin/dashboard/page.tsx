@@ -4,25 +4,56 @@ import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import {
   BookOpen, LogOut, Users, Award, BarChart3, Search,
-  Download, Filter, Clock, CheckCircle, X, Shield
+  Download, Clock, CheckCircle, X, Shield, Plus, Trash2, Eye, EyeOff
 } from "lucide-react";
-import { getSession, clearSession, getAttempts, type AttemptData } from "@/lib/store";
+import { getSession, clearSession, getAttempts, getTeachers, addTeacher, deleteTeacher, type AttemptData, type TeacherAccount } from "@/lib/store";
 import { ThemeToggle } from "@/components/layout/ThemeToggle";
 
 export default function AdminDashboard() {
   const router = useRouter();
   const [attempts, setAttempts] = useState<AttemptData[]>([]);
+  const [activeTab, setActiveTab] = useState<"results" | "teachers">("results");
   const [search, setSearch] = useState("");
   const [filterGroup, setFilterGroup] = useState("all");
   const [filterType, setFilterType] = useState<"all" | "reading" | "listening">("all");
   const [filterStatus, setFilterStatus] = useState<"all" | "completed" | "cancelled">("all");
   const [sortBy, setSortBy] = useState<"date" | "band" | "name">("date");
 
+  // Teachers state
+  const [teachers, setTeachers] = useState<TeacherAccount[]>([]);
+  const [newUsername, setNewUsername] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [showNewPw, setShowNewPw] = useState(false);
+  const [teacherError, setTeacherError] = useState("");
+  const [teacherSuccess, setTeacherSuccess] = useState("");
+
   useEffect(() => {
     const s = getSession();
     if (!s || !s.isAdmin) { router.push("/auth/login?admin=true"); return; }
     setAttempts(getAttempts());
+    setTeachers(getTeachers());
   }, [router]);
+
+  const handleAddTeacher = () => {
+    setTeacherError(""); setTeacherSuccess("");
+    if (!newUsername.trim() || !newPassword.trim()) {
+      setTeacherError("Both username and password are required."); return;
+    }
+    const result = addTeacher(newUsername.trim(), newPassword.trim());
+    if (result.ok) {
+      setTeachers(getTeachers());
+      setNewUsername(""); setNewPassword("");
+      setTeacherSuccess("Teacher account created.");
+    } else {
+      setTeacherError(result.error ?? "Error");
+    }
+  };
+
+  const handleDeleteTeacher = (id: string) => {
+    if (!confirm("Delete this teacher account?")) return;
+    deleteTeacher(id);
+    setTeachers(getTeachers());
+  };
 
   const handleLogout = () => { clearSession(); router.push("/"); };
 
@@ -102,7 +133,25 @@ export default function AdminDashboard() {
         </div>
       </header>
 
+      {/* Tab bar */}
+      <div style={{ borderBottom: "1px solid var(--border)", background: "var(--bg-primary)" }}>
+        <div className="max-w-7xl mx-auto px-6 flex gap-1 pt-3">
+          {([["results", BarChart3, "Results"], ["teachers", Shield, "Manage Teachers"]] as const).map(([tab, Icon, label]) => (
+            <button key={tab} onClick={() => setActiveTab(tab)}
+              className="flex items-center gap-2 px-4 py-2.5 text-sm font-semibold rounded-t-xl transition-all"
+              style={{
+                color: activeTab === tab ? "var(--accent)" : "var(--text-muted)",
+                background: activeTab === tab ? "var(--bg-card)" : "transparent",
+                borderBottom: activeTab === tab ? "2px solid var(--accent)" : "2px solid transparent",
+              }}>
+              <Icon size={14} /> {label}
+            </button>
+          ))}
+        </div>
+      </div>
+
       <main className="max-w-7xl mx-auto px-6 py-8">
+        {activeTab === "results" && <>
         {/* Welcome */}
         <div className="flex items-center justify-between mb-8">
           <div>
@@ -317,6 +366,79 @@ export default function AdminDashboard() {
                   </div>
                 );
               })}
+            </div>
+          </div>
+        )}
+        </>}
+
+        {/* ── Teachers tab ──────────────────────────────────── */}
+        {activeTab === "teachers" && (
+          <div className="max-w-2xl">
+            <h1 className="text-2xl font-bold mb-2" style={{ color: "var(--text-primary)" }}>Manage Teachers</h1>
+            <p className="text-sm mb-8" style={{ color: "var(--text-muted)" }}>Add or remove teacher login accounts.</p>
+
+            {/* Add new teacher */}
+            <div className="p-6 rounded-2xl mb-8" style={{ background: "var(--bg-card)", border: "1px solid var(--border)" }}>
+              <h2 className="text-sm font-bold mb-4 uppercase tracking-wide" style={{ color: "var(--text-muted)" }}>Add New Teacher</h2>
+              <div className="flex flex-col gap-3">
+                <input
+                  type="text"
+                  placeholder="Username (e.g. ShahloA13)"
+                  value={newUsername}
+                  onChange={e => setNewUsername(e.target.value)}
+                  className="input-field py-2.5 text-sm"
+                />
+                <div className="relative">
+                  <input
+                    type={showNewPw ? "text" : "password"}
+                    placeholder="Password"
+                    value={newPassword}
+                    onChange={e => setNewPassword(e.target.value)}
+                    className="input-field py-2.5 text-sm pr-10"
+                  />
+                  <button type="button" onClick={() => setShowNewPw(!showNewPw)}
+                    className="absolute right-3 top-1/2 -translate-y-1/2"
+                    style={{ background: "none", border: "none", cursor: "pointer", color: "var(--text-muted)", padding: 0 }}>
+                    {showNewPw ? <EyeOff size={15} /> : <Eye size={15} />}
+                  </button>
+                </div>
+                {teacherError && <p className="text-sm" style={{ color: "var(--danger)" }}>{teacherError}</p>}
+                {teacherSuccess && <p className="text-sm" style={{ color: "var(--success)" }}>{teacherSuccess}</p>}
+                <button onClick={handleAddTeacher} className="btn-primary self-start text-sm py-2.5 px-5">
+                  <Plus size={14} /> Add Teacher
+                </button>
+              </div>
+            </div>
+
+            {/* Existing teachers list */}
+            <div className="rounded-2xl overflow-hidden" style={{ border: "1px solid var(--border)" }}>
+              <div className="px-4 py-3 text-xs font-bold uppercase tracking-wide" style={{ background: "var(--bg-secondary)", color: "var(--text-muted)", borderBottom: "1px solid var(--border)" }}>
+                Existing Accounts ({teachers.length})
+              </div>
+              {teachers.map((t) => (
+                <div key={t.id} className="flex items-center justify-between px-4 py-3"
+                  style={{ borderBottom: "1px solid var(--border)", background: "var(--bg-card)" }}>
+                  <div className="flex items-center gap-3">
+                    <div className="w-8 h-8 rounded-full flex items-center justify-center"
+                      style={{ background: "var(--accent-light)" }}>
+                      <Shield size={14} style={{ color: "var(--accent)" }} />
+                    </div>
+                    <div>
+                      <div className="font-semibold text-sm" style={{ color: "var(--text-primary)" }}>{t.username}</div>
+                      {t.id === "admin-root" && (
+                        <div className="text-xs" style={{ color: "var(--accent)" }}>Super Admin</div>
+                      )}
+                    </div>
+                  </div>
+                  <button
+                    onClick={() => handleDeleteTeacher(t.id)}
+                    disabled={t.id === "admin-root"}
+                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all disabled:opacity-30 disabled:cursor-not-allowed"
+                    style={{ color: "var(--danger)", border: "1px solid var(--border)" }}>
+                    <Trash2 size={12} /> Delete
+                  </button>
+                </div>
+              ))}
             </div>
           </div>
         )}

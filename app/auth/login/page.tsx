@@ -3,13 +3,13 @@ import { useState, useEffect, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { motion } from "framer-motion";
 import { Eye, EyeOff, BookOpen, ChevronRight, User, Users, Lock, Shield } from "lucide-react";
-import { saveSession, getSession } from "@/lib/store";
+import { saveSession, getSession, findTeacher } from "@/lib/store";
 
 function LoginContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [isAdmin, setIsAdmin] = useState(searchParams.get("admin") === "true");
-  const [form, setForm] = useState({ name: "", surname: "", group: "", password: "" });
+  const [form, setForm] = useState({ name: "", surname: "", group: "", username: "", password: "" });
   const [showPw, setShowPw] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -25,10 +25,11 @@ function LoginContent() {
     setLoading(true);
     await new Promise(r => setTimeout(r, 500));
     if (isAdmin) {
-      if (form.password === "LondonLC2024Admin") {
-        saveSession({ id: "admin-1", name: "Teacher", surname: "", group_name: "admin", isAdmin: true });
+      const teacher = findTeacher(form.username.trim(), form.password);
+      if (teacher) {
+        saveSession({ id: teacher.id, name: teacher.username, surname: "", group_name: "admin", isAdmin: true, username: teacher.username });
         router.push("/admin/dashboard");
-      } else { setError("Incorrect password."); setLoading(false); }
+      } else { setError("Incorrect username or password."); setLoading(false); }
     } else {
       if (!form.name.trim() || !form.surname.trim() || !form.group.trim()) {
         setError("Please fill in all fields."); setLoading(false); return;
@@ -108,21 +109,35 @@ function LoginContent() {
                   ))}
                 </>
               ) : (
-                <div>
-                  <label style={{ display: "block", fontSize: 11, fontWeight: 700, color: "rgba(255,255,255,0.4)", letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: 6 }}>Password</label>
-                  <div style={{ position: "relative" }}>
-                    <Lock size={14} color="rgba(255,255,255,0.3)" style={{ position: "absolute", left: 13, top: "50%", transform: "translateY(-50%)" }} />
-                    <input type={showPw ? "text" : "password"} placeholder="Admin password"
-                      value={form.password} onChange={e => setForm({ ...form, password: e.target.value })}
-                      style={{ width: "100%", padding: "11px 40px 11px 36px", background: "rgba(255,255,255,0.07)", border: "1.5px solid rgba(255,255,255,0.1)", borderRadius: 10, color: "#fff", fontSize: 14, outline: "none", boxSizing: "border-box" }}
-                      onFocus={e => e.currentTarget.style.borderColor = "#2563eb"}
-                      onBlur={e => e.currentTarget.style.borderColor = "rgba(255,255,255,0.1)"}
-                    />
-                    <button type="button" onClick={() => setShowPw(!showPw)} style={{ position: "absolute", right: 12, top: "50%", transform: "translateY(-50%)", background: "none", border: "none", cursor: "pointer", color: "rgba(255,255,255,0.3)", padding: 0 }}>
-                      {showPw ? <EyeOff size={15} /> : <Eye size={15} />}
-                    </button>
+                <>
+                  <div>
+                    <label style={{ display: "block", fontSize: 11, fontWeight: 700, color: "rgba(255,255,255,0.4)", letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: 6 }}>Username</label>
+                    <div style={{ position: "relative" }}>
+                      <Shield size={14} color="rgba(255,255,255,0.3)" style={{ position: "absolute", left: 13, top: "50%", transform: "translateY(-50%)" }} />
+                      <input type="text" placeholder="Teacher username"
+                        value={form.username} onChange={e => setForm({ ...form, username: e.target.value })}
+                        style={{ width: "100%", padding: "11px 14px 11px 36px", background: "rgba(255,255,255,0.07)", border: "1.5px solid rgba(255,255,255,0.1)", borderRadius: 10, color: "#fff", fontSize: 14, outline: "none", boxSizing: "border-box" }}
+                        onFocus={e => e.currentTarget.style.borderColor = "#2563eb"}
+                        onBlur={e => e.currentTarget.style.borderColor = "rgba(255,255,255,0.1)"}
+                      />
+                    </div>
                   </div>
-                </div>
+                  <div>
+                    <label style={{ display: "block", fontSize: 11, fontWeight: 700, color: "rgba(255,255,255,0.4)", letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: 6 }}>Password</label>
+                    <div style={{ position: "relative" }}>
+                      <Lock size={14} color="rgba(255,255,255,0.3)" style={{ position: "absolute", left: 13, top: "50%", transform: "translateY(-50%)" }} />
+                      <input type={showPw ? "text" : "password"} placeholder="Teacher password"
+                        value={form.password} onChange={e => setForm({ ...form, password: e.target.value })}
+                        style={{ width: "100%", padding: "11px 40px 11px 36px", background: "rgba(255,255,255,0.07)", border: "1.5px solid rgba(255,255,255,0.1)", borderRadius: 10, color: "#fff", fontSize: 14, outline: "none", boxSizing: "border-box" }}
+                        onFocus={e => e.currentTarget.style.borderColor = "#2563eb"}
+                        onBlur={e => e.currentTarget.style.borderColor = "rgba(255,255,255,0.1)"}
+                      />
+                      <button type="button" onClick={() => setShowPw(!showPw)} style={{ position: "absolute", right: 12, top: "50%", transform: "translateY(-50%)", background: "none", border: "none", cursor: "pointer", color: "rgba(255,255,255,0.3)", padding: 0 }}>
+                        {showPw ? <EyeOff size={15} /> : <Eye size={15} />}
+                      </button>
+                    </div>
+                  </div>
+                </>
               )}
 
               {error && (
