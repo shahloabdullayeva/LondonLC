@@ -1,12 +1,40 @@
 "use client";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { motion } from "framer-motion";
 import {
   BookOpen, LogOut, Users, Award, BarChart3, Search,
   Download, CheckCircle, X, Shield, Plus, Trash2, Eye, EyeOff
 } from "lucide-react";
 import { getSession, clearSession, getAttempts, getTeachers, addTeacher, deleteTeacher, type AttemptData, type TeacherAccount } from "@/lib/store";
+
+// ── Hardcoded dark theme colours ─────────────────────────────
+const C = {
+  bg: "#02040f",
+  card: "#0b1530",
+  card2: "#060c1f",
+  border: "rgba(255,255,255,0.08)",
+  text: "#e8eeff",
+  muted: "#4d6bb5",
+  sub: "#8ba4e8",
+  accent: "#3d62e0",
+  accentLight: "rgba(61,98,224,0.15)",
+  success: "#10b981",
+  danger: "#ef4444",
+};
+
+const sel: React.CSSProperties = {
+  padding: "9px 12px",
+  background: C.card2,
+  border: `1.5px solid ${C.border}`,
+  borderRadius: 10,
+  color: C.text,
+  fontSize: 13,
+  fontWeight: 500,
+  outline: "none",
+  cursor: "pointer",
+  fontFamily: "Inter, system-ui, sans-serif",
+  width: "100%",
+};
 
 export default function AdminDashboard() {
   const router = useRouter();
@@ -18,8 +46,6 @@ export default function AdminDashboard() {
   const [filterType, setFilterType] = useState<"all" | "reading" | "listening">("all");
   const [filterStatus, setFilterStatus] = useState<"all" | "completed" | "cancelled">("all");
   const [sortBy, setSortBy] = useState<"date" | "band" | "name">("date");
-
-  // Teachers state
   const [teachers, setTeachers] = useState<TeacherAccount[]>([]);
   const [newUsername, setNewUsername] = useState("");
   const [newPassword, setNewPassword] = useState("");
@@ -37,70 +63,47 @@ export default function AdminDashboard() {
 
   const handleAddTeacher = () => {
     setTeacherError(""); setTeacherSuccess("");
-    if (!newUsername.trim() || !newPassword.trim()) {
-      setTeacherError("Both username and password are required."); return;
-    }
+    if (!newUsername.trim() || !newPassword.trim()) { setTeacherError("Both fields required."); return; }
     const result = addTeacher(newUsername.trim(), newPassword.trim());
-    if (result.ok) {
-      setTeachers(getTeachers());
-      setNewUsername(""); setNewPassword("");
-      setTeacherSuccess("Teacher account created.");
-    } else {
-      setTeacherError(result.error ?? "Error");
-    }
+    if (result.ok) { setTeachers(getTeachers()); setNewUsername(""); setNewPassword(""); setTeacherSuccess("Teacher account created."); }
+    else setTeacherError(result.error ?? "Error");
   };
 
   const handleDeleteTeacher = (id: string) => {
     if (!confirm("Delete this teacher account?")) return;
-    deleteTeacher(id);
-    setTeachers(getTeachers());
+    deleteTeacher(id); setTeachers(getTeachers());
   };
 
   const handleLogout = () => { clearSession(); router.push("/"); };
 
-  // Derived data
   const groups = ["all", ...Array.from(new Set(attempts.map((a) => a.groupName)))];
 
-  const filtered = attempts
-    .filter((a) => {
-      if (filterGroup !== "all" && a.groupName !== filterGroup) return false;
-      if (filterType !== "all" && a.testType !== filterType) return false;
-      if (filterStatus !== "all" && a.status !== filterStatus) return false;
-      if (search) {
-        const q = search.toLowerCase();
-        return (
-          a.studentName.toLowerCase().includes(q) ||
-          a.studentSurname.toLowerCase().includes(q) ||
-          a.groupName.toLowerCase().includes(q) ||
-          a.testTitle.toLowerCase().includes(q)
-        );
-      }
-      return true;
-    })
-    .sort((a, b) => {
-      if (sortBy === "date") return new Date(b.submittedAt).getTime() - new Date(a.submittedAt).getTime();
-      if (sortBy === "band") return b.bandScore - a.bandScore;
-      if (sortBy === "name") return a.studentSurname.localeCompare(b.studentSurname);
-      return 0;
-    });
+  const filtered = attempts.filter((a) => {
+    if (filterGroup !== "all" && a.groupName !== filterGroup) return false;
+    if (filterType !== "all" && a.testType !== filterType) return false;
+    if (filterStatus !== "all" && a.status !== filterStatus) return false;
+    if (search) {
+      const q = search.toLowerCase();
+      return a.studentName.toLowerCase().includes(q) || a.studentSurname.toLowerCase().includes(q) ||
+        a.groupName.toLowerCase().includes(q) || a.testTitle.toLowerCase().includes(q);
+    }
+    return true;
+  }).sort((a, b) => {
+    if (sortBy === "date") return new Date(b.submittedAt).getTime() - new Date(a.submittedAt).getTime();
+    if (sortBy === "band") return b.bandScore - a.bandScore;
+    return a.studentSurname.localeCompare(b.studentSurname);
+  });
 
   const completed = filtered.filter((a) => a.status === "completed");
-  const avgBand = completed.length
-    ? (completed.reduce((s, a) => s + a.bandScore, 0) / completed.length).toFixed(1)
-    : "–";
+  const avgBand = completed.length ? (completed.reduce((s, a) => s + a.bandScore, 0) / completed.length).toFixed(1) : "–";
   const uniqueStudents = new Set(attempts.map((a) => a.studentId)).size;
 
-  // Excel export
   const exportExcel = async () => {
     const XLSX = await import("xlsx");
     const rows = filtered.map((a) => ({
-      "First Name": a.studentName,
-      "Surname": a.studentSurname,
-      "Group": a.groupName,
-      "Test": a.testTitle,
-      "Type": a.testType.charAt(0).toUpperCase() + a.testType.slice(1),
-      "Score": `${a.score}/${a.maxScore}`,
-      "Band Score": a.bandScore > 0 ? a.bandScore : "–",
+      "First Name": a.studentName, "Surname": a.studentSurname, "Group": a.groupName,
+      "Test": a.testTitle, "Type": a.testType.charAt(0).toUpperCase() + a.testType.slice(1),
+      "Score": `${a.score}/${a.maxScore}`, "Band Score": a.bandScore > 0 ? a.bandScore : "–",
       "Status": a.status.charAt(0).toUpperCase() + a.status.slice(1),
       "Duration": a.timeSpentSeconds ? `${Math.floor(a.timeSpentSeconds / 60)}m ${a.timeSpentSeconds % 60}s` : "–",
       "Date": new Date(a.submittedAt).toLocaleString(),
@@ -111,307 +114,243 @@ export default function AdminDashboard() {
     XLSX.writeFile(wb, `london-lc-results-${new Date().toISOString().slice(0, 10)}.xlsx`);
   };
 
+  const tabs = [
+    { id: "results" as const, Icon: BarChart3, label: "Results" },
+    ...(isRootAdmin ? [{ id: "teachers" as const, Icon: Shield, label: "Manage Teachers" }] : []),
+  ];
+
   return (
-    <div className="min-h-screen" style={{ background: "var(--bg-primary)" }}>
-      {/* Header */}
-      <header className="sticky top-0 z-30 flex items-center justify-between px-4 sm:px-6 py-3 sm:py-4"
-        style={{ background: "var(--bg-primary)", borderBottom: "1px solid var(--border)" }}>
-        <div className="flex items-center gap-3">
-          <div className="w-8 h-8 rounded-lg flex items-center justify-center"
-            style={{ background: "linear-gradient(135deg, #1e3bbf, #4a6de8)" }}>
-            <BookOpen size={16} className="text-white" />
+    <div style={{ minHeight: "100vh", background: C.bg, fontFamily: "Inter, system-ui, sans-serif", color: C.text }}>
+
+      {/* ── Header ────────────────────────────────── */}
+      <header style={{ position: "sticky", top: 0, zIndex: 30, display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 24px", height: 56, background: C.card2, borderBottom: `1px solid ${C.border}` }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+          <div style={{ width: 30, height: 30, borderRadius: 8, background: "linear-gradient(135deg,#1e3bbf,#4a6de8)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <BookOpen size={14} color="white" />
           </div>
-          <span className="font-bold logo-gradient">London LC</span>
-          <span className="px-2 py-0.5 rounded-full text-xs font-semibold"
-            style={{ background: "var(--accent-light)", color: "var(--accent)" }}>
-            Admin
-          </span>
+          <span style={{ fontWeight: 800, fontSize: 16, color: C.text }}>London LC</span>
+          <span style={{ padding: "2px 10px", borderRadius: 20, fontSize: 11, fontWeight: 700, background: C.accentLight, color: C.accent }}>Admin</span>
         </div>
         <button onClick={handleLogout}
-          className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-sm font-medium transition-colors"
-          style={{ color: "var(--text-muted)", border: "1px solid var(--border)" }}>
-          <LogOut size={14} /> <span className="hidden sm:inline">Sign Out</span>
+          style={{ display: "flex", alignItems: "center", gap: 6, padding: "7px 14px", background: "transparent", border: `1px solid ${C.border}`, borderRadius: 9, color: C.muted, fontSize: 13, cursor: "pointer" }}>
+          <LogOut size={13} /> Sign Out
         </button>
       </header>
 
-      {/* Tab bar */}
-      <div style={{ borderBottom: "1px solid var(--border)", background: "var(--bg-primary)", overflowX: "auto" }}>
-        <div className="max-w-7xl mx-auto px-4 flex gap-1 pt-3" style={{ whiteSpace: "nowrap" }}>
-          {([ { id: "results" as const, Icon: BarChart3, label: "Results" },
-              ...(isRootAdmin ? [{ id: "teachers" as const, Icon: Shield, label: "Manage Teachers" }] : [])
-            ]).map(({ id, Icon, label }) => (
+      {/* ── Tab bar ───────────────────────────────── */}
+      <div style={{ background: C.card2, borderBottom: `1px solid ${C.border}`, overflowX: "auto" }}>
+        <div style={{ display: "flex", gap: 4, padding: "8px 24px 0", maxWidth: 1280, margin: "0 auto", whiteSpace: "nowrap" }}>
+          {tabs.map(({ id, Icon, label }) => (
             <button key={id} onClick={() => setActiveTab(id)}
-              className="flex items-center gap-2 px-4 py-2.5 text-sm font-semibold rounded-t-xl transition-all"
-              style={{
-                color: activeTab === id ? "var(--accent)" : "var(--text-muted)",
-                background: activeTab === id ? "var(--bg-card)" : "transparent",
-                borderBottom: activeTab === id ? "2px solid var(--accent)" : "2px solid transparent",
-              }}>
+              style={{ display: "inline-flex", alignItems: "center", gap: 7, padding: "10px 16px", borderRadius: "10px 10px 0 0", border: "none", cursor: "pointer", fontWeight: 600, fontSize: 13, transition: "all 0.15s",
+                background: activeTab === id ? C.card : "transparent",
+                color: activeTab === id ? C.accent : C.muted,
+                borderBottom: activeTab === id ? `2px solid ${C.accent}` : "2px solid transparent" }}>
               <Icon size={14} /> {label}
             </button>
           ))}
         </div>
       </div>
 
-      <main className="max-w-7xl mx-auto px-3 sm:px-6 py-6 sm:py-8">
+      <main style={{ maxWidth: 1280, margin: "0 auto", padding: "28px 24px" }}>
+
+        {/* ══════════════════ RESULTS TAB ══════════════════ */}
         {activeTab === "results" && <>
-        {/* Welcome */}
-        <div className="flex items-center justify-between mb-8">
-          <div>
-            <h1 className="text-2xl font-bold" style={{ color: "var(--text-primary)" }}>
-              Teacher Dashboard
-            </h1>
-            <p style={{ color: "var(--text-muted)" }}>
-              View and analyse all student results
-            </p>
-          </div>
-          <button onClick={exportExcel}
-            className="btn-secondary text-sm py-2 px-4">
-            <Download size={14} /> Export Excel
-          </button>
-        </div>
 
-        {/* Stats cards */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-          {[
-            { label: "Total Attempts", value: attempts.length, icon: BarChart3 },
-            { label: "Unique Students", value: uniqueStudents, icon: Users },
-            { label: "Avg Band Score", value: avgBand, icon: Award },
-            { label: "Completed Tests", value: attempts.filter((a) => a.status === "completed").length, icon: CheckCircle },
-          ].map((s) => (
-            <motion.div key={s.label}
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="p-5 rounded-2xl"
-              style={{ background: "var(--bg-card)", border: "1px solid var(--border)", boxShadow: "var(--shadow)" }}>
-              <div className="flex items-center gap-2 mb-3">
-                <s.icon size={16} style={{ color: "var(--accent)" }} />
-                <span className="text-xs" style={{ color: "var(--text-muted)" }}>{s.label}</span>
-              </div>
-              <div className="text-3xl font-black" style={{ color: "var(--text-primary)" }}>{s.value}</div>
-            </motion.div>
-          ))}
-        </div>
-
-        {/* Filters */}
-        <div className="p-4 rounded-2xl mb-6"
-          style={{ background: "var(--bg-card)", border: "1px solid var(--border)" }}>
-          {/* Search — full width */}
-          <div className="relative mb-3">
-            <Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2"
-              style={{ color: "var(--text-muted)" }} />
-            <input
-              type="text"
-              placeholder="Search by name, group, or test..."
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              className="input-field pl-9 py-2 text-sm"
-            />
+          {/* Title row */}
+          <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 16, marginBottom: 24, flexWrap: "wrap" }}>
+            <div>
+              <h1 style={{ fontSize: 22, fontWeight: 800, color: C.text, marginBottom: 2 }}>Teacher Dashboard</h1>
+              <p style={{ fontSize: 13, color: C.muted }}>View and analyse all student results</p>
+            </div>
+            <button onClick={exportExcel}
+              style={{ display: "flex", alignItems: "center", gap: 7, padding: "9px 18px", background: C.accentLight, border: `1px solid ${C.accent}`, borderRadius: 10, color: C.accent, fontSize: 13, fontWeight: 600, cursor: "pointer" }}>
+              <Download size={14} /> Export Excel
+            </button>
           </div>
-          {/* Dropdowns row — wrap on small screens */}
-          <div className="flex flex-wrap gap-2">
+
+          {/* Stats */}
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: 14, marginBottom: 24 }}>
             {[
-              { value: filterGroup, onChange: (v: string) => setFilterGroup(v),
-                options: groups.map(g => ({ v: g, l: g === "all" ? "All Groups" : g })) },
-              { value: filterType, onChange: (v: string) => setFilterType(v as typeof filterType),
-                options: [{ v: "all", l: "All Types" }, { v: "reading", l: "Reading" }, { v: "listening", l: "Listening" }] },
-              { value: filterStatus, onChange: (v: string) => setFilterStatus(v as typeof filterStatus),
-                options: [{ v: "all", l: "All Statuses" }, { v: "completed", l: "Completed" }, { v: "cancelled", l: "Cancelled" }] },
-              { value: sortBy, onChange: (v: string) => setSortBy(v as typeof sortBy),
-                options: [{ v: "date", l: "Sort: Date" }, { v: "band", l: "Sort: Band" }, { v: "name", l: "Sort: Name" }] },
-            ].map((sel, i) => (
-              <select key={i} value={sel.value} onChange={e => sel.onChange(e.target.value)}
-                className="py-2 px-3 rounded-xl text-sm font-medium outline-none transition-all"
-                style={{ background: "var(--bg-secondary)", border: "1.5px solid var(--border)", color: "var(--text-primary)", flex: "1 1 130px", minWidth: 0 }}>
-                {sel.options.map(o => <option key={o.v} value={o.v}>{o.l}</option>)}
-              </select>
+              { label: "Total Attempts", value: attempts.length, Icon: BarChart3, color: C.accent },
+              { label: "Unique Students", value: uniqueStudents, Icon: Users, color: "#10b981" },
+              { label: "Avg Band Score", value: avgBand, Icon: Award, color: "#f59e0b" },
+              { label: "Completed", value: attempts.filter(a => a.status === "completed").length, Icon: CheckCircle, color: "#8b5cf6" },
+            ].map(s => (
+              <div key={s.label} style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 14, padding: "18px 20px" }}>
+                <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 10 }}>
+                  <s.Icon size={15} color={s.color} />
+                  <span style={{ fontSize: 12, color: C.muted, fontWeight: 600 }}>{s.label}</span>
+                </div>
+                <div style={{ fontSize: 30, fontWeight: 900, color: C.text, lineHeight: 1 }}>{s.value}</div>
+              </div>
             ))}
           </div>
-        </div>
 
-        {/* Results table */}
-        {filtered.length > 0 ? (
-          <div className="rounded-2xl overflow-hidden"
-            style={{ border: "1px solid var(--border)", boxShadow: "var(--shadow)" }}>
-            <div className="overflow-x-auto">
-              <table className="w-full text-sm">
-                <thead>
-                  <tr style={{ background: "var(--bg-secondary)", borderBottom: "1px solid var(--border)" }}>
-                    {["Student", "Group", "Test", "Type", "Score", "Band", "Status", "Duration", "Date"].map((h) => (
-                      <th key={h} className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide whitespace-nowrap"
-                        style={{ color: "var(--text-muted)" }}>{h}</th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody>
-                  {filtered.map((a, i) => (
-                    <tr key={a.id}
-                      style={{
-                        background: i % 2 === 0 ? "var(--bg-card)" : "var(--bg-secondary)",
-                        borderBottom: "1px solid var(--border)",
-                      }}>
-                      <td className="px-4 py-3">
-                        <div className="font-semibold" style={{ color: "var(--text-primary)" }}>
-                          {a.studentName} {a.studentSurname}
-                        </div>
-                      </td>
-                      <td className="px-4 py-3">
-                        <span className="px-2 py-0.5 rounded-full text-xs font-medium"
-                          style={{ background: "var(--accent-light)", color: "var(--accent)" }}>
-                          {a.groupName}
-                        </span>
-                      </td>
-                      <td className="px-4 py-3 max-w-32">
-                        <span style={{ color: "var(--text-secondary)" }} className="truncate block">
-                          {a.testTitle}
-                        </span>
-                      </td>
-                      <td className="px-4 py-3">
-                        <span className={`badge badge-${a.testType}`}>{a.testType}</span>
-                      </td>
-                      <td className="px-4 py-3" style={{ color: "var(--text-secondary)" }}>
-                        {a.score}/{a.maxScore}
-                      </td>
-                      <td className="px-4 py-3">
-                        <span className="font-bold text-base" style={{ color: "var(--accent)" }}>
-                          {a.bandScore > 0 ? a.bandScore : "–"}
-                        </span>
-                      </td>
-                      <td className="px-4 py-3">
-                        <span className="flex items-center gap-1 text-xs font-medium"
-                          style={a.status === "completed"
-                            ? { color: "#10b981" }
-                            : { color: "#ef4444" }}>
-                          {a.status === "completed" ? <CheckCircle size={12} /> : <X size={12} />}
-                          {a.status}
-                        </span>
-                      </td>
-                      <td className="px-4 py-3 text-xs whitespace-nowrap" style={{ color: "var(--text-muted)" }}>
-                        {a.timeSpentSeconds
-                          ? `${Math.floor(a.timeSpentSeconds / 60)}m ${a.timeSpentSeconds % 60}s`
-                          : "–"}
-                      </td>
-                      <td className="px-4 py-3 text-xs whitespace-nowrap" style={{ color: "var(--text-muted)" }}>
-                        {new Date(a.submittedAt).toLocaleString()}
-                      </td>
+          {/* Filters */}
+          <div style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 14, padding: "16px", marginBottom: 20 }}>
+            {/* Search */}
+            <div style={{ position: "relative", marginBottom: 12 }}>
+              <Search size={14} color={C.muted} style={{ position: "absolute", left: 12, top: "50%", transform: "translateY(-50%)" }} />
+              <input type="text" placeholder="Search by name, group, or test..."
+                value={search} onChange={e => setSearch(e.target.value)}
+                style={{ width: "100%", padding: "10px 14px 10px 36px", background: C.card2, border: `1.5px solid ${C.border}`, borderRadius: 10, color: C.text, fontSize: 13, outline: "none", boxSizing: "border-box", fontFamily: "inherit" }}
+              />
+            </div>
+            {/* Dropdowns — CSS grid, always 4 on desktop, 2 on tablet, 1 on phone */}
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 8 }}>
+              <select value={filterGroup} onChange={e => setFilterGroup(e.target.value)} style={sel}>
+                {groups.map(g => <option key={g} value={g}>{g === "all" ? "All Groups" : g}</option>)}
+              </select>
+              <select value={filterType} onChange={e => setFilterType(e.target.value as typeof filterType)} style={sel}>
+                <option value="all">All Types</option>
+                <option value="reading">Reading</option>
+                <option value="listening">Listening</option>
+              </select>
+              <select value={filterStatus} onChange={e => setFilterStatus(e.target.value as typeof filterStatus)} style={sel}>
+                <option value="all">All Statuses</option>
+                <option value="completed">Completed</option>
+                <option value="cancelled">Cancelled</option>
+              </select>
+              <select value={sortBy} onChange={e => setSortBy(e.target.value as typeof sortBy)} style={sel}>
+                <option value="date">Sort: Date</option>
+                <option value="band">Sort: Band Score</option>
+                <option value="name">Sort: Name</option>
+              </select>
+            </div>
+          </div>
+
+          {/* Table */}
+          {filtered.length > 0 ? (
+            <div style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 14, overflow: "hidden", marginBottom: 28 }}>
+              <div style={{ overflowX: "auto" }}>
+                <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 13, minWidth: 700 }}>
+                  <thead>
+                    <tr style={{ background: C.card2 }}>
+                      {["Student", "Group", "Test", "Type", "Score", "Band", "Status", "Duration", "Date"].map(h => (
+                        <th key={h} style={{ padding: "11px 14px", textAlign: "left", fontSize: 11, fontWeight: 700, color: C.muted, textTransform: "uppercase", letterSpacing: "0.06em", borderBottom: `1px solid ${C.border}`, whiteSpace: "nowrap" }}>{h}</th>
+                      ))}
                     </tr>
-                  ))}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody>
+                    {filtered.map((a, i) => (
+                      <tr key={a.id} style={{ borderBottom: `1px solid ${C.border}`, background: i % 2 === 0 ? C.card : "rgba(6,12,31,0.6)" }}>
+                        <td style={{ padding: "12px 14px", fontWeight: 600, color: C.text, whiteSpace: "nowrap" }}>{a.studentName} {a.studentSurname}</td>
+                        <td style={{ padding: "12px 14px" }}>
+                          <span style={{ padding: "3px 9px", borderRadius: 20, fontSize: 11, fontWeight: 600, background: C.accentLight, color: C.accent }}>{a.groupName}</span>
+                        </td>
+                        <td style={{ padding: "12px 14px", color: C.sub, maxWidth: 160, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{a.testTitle}</td>
+                        <td style={{ padding: "12px 14px" }}>
+                          <span style={{ padding: "3px 9px", borderRadius: 20, fontSize: 11, fontWeight: 600,
+                            background: a.testType === "listening" ? "rgba(139,92,246,0.2)" : "rgba(245,158,11,0.15)",
+                            color: a.testType === "listening" ? "#c4b5fd" : "#fcd34d" }}>
+                            {a.testType}
+                          </span>
+                        </td>
+                        <td style={{ padding: "12px 14px", color: C.sub }}>{a.score}/{a.maxScore}</td>
+                        <td style={{ padding: "12px 14px", fontWeight: 700, fontSize: 15, color: C.accent }}>{a.bandScore > 0 ? a.bandScore : "–"}</td>
+                        <td style={{ padding: "12px 14px" }}>
+                          <span style={{ display: "inline-flex", alignItems: "center", gap: 4, fontSize: 12, fontWeight: 600,
+                            color: a.status === "completed" ? C.success : C.danger }}>
+                            {a.status === "completed" ? <CheckCircle size={12} /> : <X size={12} />}
+                            {a.status}
+                          </span>
+                        </td>
+                        <td style={{ padding: "12px 14px", color: C.muted, whiteSpace: "nowrap" }}>
+                          {a.timeSpentSeconds ? `${Math.floor(a.timeSpentSeconds / 60)}m ${a.timeSpentSeconds % 60}s` : "–"}
+                        </td>
+                        <td style={{ padding: "12px 14px", color: C.muted, whiteSpace: "nowrap", fontSize: 12 }}>
+                          {new Date(a.submittedAt).toLocaleString()}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              <div style={{ padding: "10px 14px", background: C.card2, borderTop: `1px solid ${C.border}`, fontSize: 12, color: C.muted }}>
+                Showing {filtered.length} of {attempts.length} attempts
+              </div>
             </div>
-            <div className="px-4 py-3 text-xs"
-              style={{ background: "var(--bg-secondary)", borderTop: "1px solid var(--border)", color: "var(--text-muted)" }}>
-              Showing {filtered.length} of {attempts.length} attempts
+          ) : (
+            <div style={{ textAlign: "center", padding: "60px 0", color: C.muted }}>
+              <BarChart3 size={36} style={{ margin: "0 auto 12px", opacity: 0.3 }} />
+              <p style={{ fontWeight: 600 }}>No results yet.</p>
+              <p style={{ fontSize: 13, marginTop: 4 }}>Results will appear here once students complete tests.</p>
             </div>
-          </div>
-        ) : (
-          <div className="text-center py-20" style={{ color: "var(--text-muted)" }}>
-            <BarChart3 size={40} className="mx-auto mb-4 opacity-30" />
-            <p className="font-medium">No results yet.</p>
-            <p className="text-sm mt-1">Students&apos; results will appear here once they complete tests.</p>
-          </div>
-        )}
+          )}
 
-        {/* Group breakdown */}
-        {groups.length > 1 && (
-          <div className="mt-8">
-            <h2 className="text-lg font-bold mb-4" style={{ color: "var(--text-primary)" }}>
-              Group Summary
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {groups.filter((g) => g !== "all").map((group) => {
-                const groupAttempts = attempts.filter((a) => a.groupName === group && a.status === "completed");
-                const avg = groupAttempts.length
-                  ? (groupAttempts.reduce((s, a) => s + a.bandScore, 0) / groupAttempts.length).toFixed(1)
-                  : "–";
-                const students = new Set(attempts.filter((a) => a.groupName === group).map((a) => a.studentId)).size;
-                return (
-                  <div key={group} className="p-5 rounded-2xl"
-                    style={{ background: "var(--bg-card)", border: "1px solid var(--border)" }}>
-                    <div className="flex items-center justify-between mb-3">
-                      <span className="font-bold" style={{ color: "var(--text-primary)" }}>{group}</span>
-                      <span className="px-2 py-0.5 rounded-full text-xs"
-                        style={{ background: "var(--accent-light)", color: "var(--accent)" }}>
-                        {students} students
-                      </span>
+          {/* Group summary */}
+          {groups.length > 1 && (
+            <div>
+              <h2 style={{ fontSize: 16, fontWeight: 700, color: C.text, marginBottom: 14 }}>Group Summary</h2>
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))", gap: 14 }}>
+                {groups.filter(g => g !== "all").map(group => {
+                  const ga = attempts.filter(a => a.groupName === group && a.status === "completed");
+                  const avg = ga.length ? (ga.reduce((s, a) => s + a.bandScore, 0) / ga.length).toFixed(1) : "–";
+                  const students = new Set(attempts.filter(a => a.groupName === group).map(a => a.studentId)).size;
+                  return (
+                    <div key={group} style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 14, padding: "18px 20px" }}>
+                      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 10 }}>
+                        <span style={{ fontWeight: 700, fontSize: 15, color: C.text }}>{group}</span>
+                        <span style={{ padding: "2px 8px", borderRadius: 20, fontSize: 11, background: C.accentLight, color: C.accent }}>{students} students</span>
+                      </div>
+                      <div style={{ fontSize: 28, fontWeight: 900, color: C.accent, marginBottom: 2 }}>{avg}</div>
+                      <div style={{ fontSize: 12, color: C.muted }}>Average band · {ga.length} completed</div>
                     </div>
-                    <div className="text-2xl font-black mb-1" style={{ color: "var(--accent)" }}>{avg}</div>
-                    <div className="text-xs" style={{ color: "var(--text-muted)" }}>Average band score</div>
-                    <div className="text-xs mt-1" style={{ color: "var(--text-muted)" }}>
-                      {groupAttempts.length} completed tests
-                    </div>
-                  </div>
-                );
-              })}
+                  );
+                })}
+              </div>
             </div>
-          </div>
-        )}
+          )}
         </>}
 
-        {/* ── Teachers tab ──────────────────────────────────── */}
+        {/* ══════════════════ TEACHERS TAB ══════════════════ */}
         {activeTab === "teachers" && isRootAdmin && (
-          <div className="max-w-2xl">
-            <h1 className="text-2xl font-bold mb-2" style={{ color: "var(--text-primary)" }}>Manage Teachers</h1>
-            <p className="text-sm mb-8" style={{ color: "var(--text-muted)" }}>Add or remove teacher login accounts.</p>
+          <div style={{ maxWidth: 560 }}>
+            <h1 style={{ fontSize: 22, fontWeight: 800, color: C.text, marginBottom: 4 }}>Manage Teachers</h1>
+            <p style={{ fontSize: 13, color: C.muted, marginBottom: 24 }}>Add or remove teacher login accounts.</p>
 
-            {/* Add new teacher */}
-            <div className="p-6 rounded-2xl mb-8" style={{ background: "var(--bg-card)", border: "1px solid var(--border)" }}>
-              <h2 className="text-sm font-bold mb-4 uppercase tracking-wide" style={{ color: "var(--text-muted)" }}>Add New Teacher</h2>
-              <div className="flex flex-col gap-3">
-                <input
-                  type="text"
-                  placeholder="Username (e.g. ShahloA13)"
-                  value={newUsername}
-                  onChange={e => setNewUsername(e.target.value)}
-                  className="input-field py-2.5 text-sm"
-                />
-                <div className="relative">
-                  <input
-                    type={showNewPw ? "text" : "password"}
-                    placeholder="Password"
-                    value={newPassword}
-                    onChange={e => setNewPassword(e.target.value)}
-                    className="input-field py-2.5 text-sm pr-10"
-                  />
+            {/* Add form */}
+            <div style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 14, padding: "22px", marginBottom: 24 }}>
+              <p style={{ fontSize: 11, fontWeight: 700, color: C.muted, textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 14 }}>Add New Teacher</p>
+              <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+                <input type="text" placeholder="Username" value={newUsername} onChange={e => setNewUsername(e.target.value)}
+                  style={{ ...sel, padding: "11px 14px" }} />
+                <div style={{ position: "relative" }}>
+                  <input type={showNewPw ? "text" : "password"} placeholder="Password" value={newPassword} onChange={e => setNewPassword(e.target.value)}
+                    style={{ ...sel, padding: "11px 40px 11px 14px" }} />
                   <button type="button" onClick={() => setShowNewPw(!showNewPw)}
-                    className="absolute right-3 top-1/2 -translate-y-1/2"
-                    style={{ background: "none", border: "none", cursor: "pointer", color: "var(--text-muted)", padding: 0 }}>
-                    {showNewPw ? <EyeOff size={15} /> : <Eye size={15} />}
+                    style={{ position: "absolute", right: 12, top: "50%", transform: "translateY(-50%)", background: "none", border: "none", cursor: "pointer", color: C.muted, padding: 0 }}>
+                    {showNewPw ? <EyeOff size={14} /> : <Eye size={14} />}
                   </button>
                 </div>
-                {teacherError && <p className="text-sm" style={{ color: "var(--danger)" }}>{teacherError}</p>}
-                {teacherSuccess && <p className="text-sm" style={{ color: "var(--success)" }}>{teacherSuccess}</p>}
-                <button onClick={handleAddTeacher} className="btn-primary self-start text-sm py-2.5 px-5">
+                {teacherError && <p style={{ fontSize: 13, color: C.danger }}>{teacherError}</p>}
+                {teacherSuccess && <p style={{ fontSize: 13, color: C.success }}>{teacherSuccess}</p>}
+                <button onClick={handleAddTeacher}
+                  style={{ alignSelf: "flex-start", display: "flex", alignItems: "center", gap: 6, padding: "10px 18px", background: "linear-gradient(135deg,#1e3bbf,#3d62e0)", border: "none", borderRadius: 10, color: "#fff", fontSize: 13, fontWeight: 600, cursor: "pointer" }}>
                   <Plus size={14} /> Add Teacher
                 </button>
               </div>
             </div>
 
-            {/* Existing teachers list */}
-            <div className="rounded-2xl overflow-hidden" style={{ border: "1px solid var(--border)" }}>
-              <div className="px-4 py-3 text-xs font-bold uppercase tracking-wide" style={{ background: "var(--bg-secondary)", color: "var(--text-muted)", borderBottom: "1px solid var(--border)" }}>
-                Existing Accounts ({teachers.length})
+            {/* List */}
+            <div style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 14, overflow: "hidden" }}>
+              <div style={{ padding: "10px 16px", background: C.card2, borderBottom: `1px solid ${C.border}`, fontSize: 11, fontWeight: 700, color: C.muted, textTransform: "uppercase", letterSpacing: "0.08em" }}>
+                Accounts ({teachers.length})
               </div>
-              {teachers.map((t) => (
-                <div key={t.id} className="flex items-center justify-between px-4 py-3"
-                  style={{ borderBottom: "1px solid var(--border)", background: "var(--bg-card)" }}>
-                  <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-full flex items-center justify-center"
-                      style={{ background: "var(--accent-light)" }}>
-                      <Shield size={14} style={{ color: "var(--accent)" }} />
+              {teachers.map(t => (
+                <div key={t.id} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "14px 16px", borderBottom: `1px solid ${C.border}` }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                    <div style={{ width: 34, height: 34, borderRadius: "50%", background: C.accentLight, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                      <Shield size={14} color={C.accent} />
                     </div>
                     <div>
-                      <div className="font-semibold text-sm" style={{ color: "var(--text-primary)" }}>{t.username}</div>
-                      {t.id === "admin-root" && (
-                        <div className="text-xs" style={{ color: "var(--accent)" }}>Super Admin</div>
-                      )}
+                      <div style={{ fontWeight: 600, fontSize: 14, color: C.text }}>{t.username}</div>
+                      {t.id === "admin-root" && <div style={{ fontSize: 11, color: C.accent }}>Super Admin</div>}
                     </div>
                   </div>
-                  <button
-                    onClick={() => handleDeleteTeacher(t.id)}
-                    disabled={t.id === "admin-root"}
-                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all disabled:opacity-30 disabled:cursor-not-allowed"
-                    style={{ color: "var(--danger)", border: "1px solid var(--border)" }}>
+                  <button onClick={() => handleDeleteTeacher(t.id)} disabled={t.id === "admin-root"}
+                    style={{ display: "flex", alignItems: "center", gap: 5, padding: "6px 12px", background: "transparent", border: `1px solid ${C.border}`, borderRadius: 8, color: t.id === "admin-root" ? C.muted : C.danger, fontSize: 12, fontWeight: 600, cursor: t.id === "admin-root" ? "not-allowed" : "pointer", opacity: t.id === "admin-root" ? 0.35 : 1 }}>
                     <Trash2 size={12} /> Delete
                   </button>
                 </div>
@@ -420,6 +359,16 @@ export default function AdminDashboard() {
           </div>
         )}
       </main>
+
+      {/* Mobile responsive filter grid */}
+      <style>{`
+        @media (max-width: 640px) {
+          .admin-filter-grid { grid-template-columns: repeat(2, 1fr) !important; }
+        }
+        @media (max-width: 400px) {
+          .admin-filter-grid { grid-template-columns: 1fr !important; }
+        }
+      `}</style>
     </div>
   );
 }
