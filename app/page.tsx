@@ -34,8 +34,8 @@ export default function HomePage() {
           </svg>
           <span style={{ fontWeight: 800, fontSize: 18, color: "#fff" }}>London LC</span>
         </div>
-        <div style={{ display: "flex", alignItems: "center", gap: 32 }}>
-          <nav style={{ display: "flex", gap: 28 }}>
+        <div className="home-nav-right" style={{ display: "flex", alignItems: "center", gap: 32 }}>
+          <nav className="home-nav-links" style={{ display: "flex", gap: 28 }}>
             {["Features", "Tests", "FAQ", "Contact"].map(n => (
               <span key={n} style={{ fontSize: 14, color: "rgba(255,255,255,0.6)", cursor: "pointer", transition: "color 0.2s" }}
                 onMouseEnter={e => (e.currentTarget.style.color = "#fff")}
@@ -45,7 +45,7 @@ export default function HomePage() {
           </nav>
           <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
             <ThemeToggle />
-            <Link href="/auth/login" style={{ fontSize: 14, color: "rgba(255,255,255,0.7)", textDecoration: "none", padding: "8px 16px", border: "1px solid rgba(255,255,255,0.2)", borderRadius: 8 }}>
+            <Link href="/auth/login" className="home-nav-signin" style={{ fontSize: 14, color: "rgba(255,255,255,0.7)", textDecoration: "none", padding: "8px 16px", border: "1px solid rgba(255,255,255,0.2)", borderRadius: 8 }}>
               Sign In
             </Link>
             <Link href="/auth/login" style={{ fontSize: 14, fontWeight: 600, color: "#fff", background: "linear-gradient(135deg, #2563eb, #1d4ed8)", padding: "9px 20px", borderRadius: 10, textDecoration: "none", boxShadow: "0 4px 15px rgba(37,99,235,0.4)" }}>

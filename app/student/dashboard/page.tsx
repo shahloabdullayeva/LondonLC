@@ -64,9 +64,9 @@ export default function StudentDashboard() {
         </div>
       </nav>
 
-      <div style={{ flex: 1, display: "flex", overflow: "hidden" }}>
+      <div className="student-layout" style={{ flex: 1, display: "flex", overflow: "hidden" }}>
         {/* Sidebar */}
-        <aside style={{ width: 220, background: "#060c1f", borderRight: "1px solid rgba(255,255,255,0.07)", padding: "28px 16px", display: "flex", flexDirection: "column", gap: 6, flexShrink: 0 }}>
+        <aside className="student-sidebar" style={{ width: 220, background: "#060c1f", borderRight: "1px solid rgba(255,255,255,0.07)", padding: "28px 16px", display: "flex", flexDirection: "column", gap: 6, flexShrink: 0 }}>
           <p style={{ fontSize: 11, fontWeight: 700, color: "rgba(255,255,255,0.3)", letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: 8, paddingLeft: 8 }}>Test Type</p>
           {[
             { type: "reading" as TestType, icon: BookOpen, label: "Reading" },
@@ -101,7 +101,7 @@ export default function StudentDashboard() {
         </aside>
 
         {/* Main content */}
-        <main style={{ flex: 1, overflowY: "auto", padding: "32px 36px" }}>
+        <main className="student-main" style={{ flex: 1, overflowY: "auto", padding: "32px 36px" }}>
           {/* Welcome */}
           <div style={{ marginBottom: 28 }}>
             <h1 style={{ fontSize: 26, fontWeight: 800, color: "#fff", marginBottom: 4 }}>
@@ -175,7 +175,7 @@ export default function StudentDashboard() {
           {attempts.length > 0 && (
             <div style={{ marginTop: 40 }}>
               <h2 style={{ fontSize: 16, fontWeight: 700, color: "#fff", marginBottom: 16 }}>Recent Attempts</h2>
-              <div style={{ background: "#0b1530", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 16, overflow: "hidden" }}>
+              <div className="attempts-table-wrapper" style={{ background: "#0b1530", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 16, overflow: "hidden" }}>
                 <table style={{ width: "100%", borderCollapse: "collapse" }}>
                   <thead>
                     <tr style={{ background: "rgba(255,255,255,0.04)" }}>

@@ -287,6 +287,48 @@ body {
   color: #fcd34d;
 }
 
+/* ── Mobile responsive ─────────────────────────────────────── */
+@media (max-width: 768px) {
+  /* Homepage nav */
+  .home-nav-links { display: none !important; }
+  .home-nav-signin { display: none !important; }
+  .home-nav-right { gap: 8px !important; }
+
+  /* Student dashboard layout */
+  .student-layout {
+    flex-direction: column !important;
+    overflow: visible !important;
+    height: auto !important;
+  }
+
+  /* Sidebar becomes a horizontal scrollable tab strip */
+  .student-sidebar {
+    width: 100% !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    padding: 10px 12px !important;
+    border-right: none !important;
+    border-bottom: 1px solid rgba(255,255,255,0.07) !important;
+    gap: 6px !important;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .student-sidebar::-webkit-scrollbar { display: none; }
+  .student-sidebar p { display: none !important; }
+  .student-sidebar div[style*="height: 1px"] { display: none !important; }
+
+  /* Main content padding */
+  .student-main {
+    padding: 16px !important;
+    overflow-y: visible !important;
+  }
+
+  /* Table horizontal scroll */
+  .attempts-table-wrapper { overflow-x: auto !important; -webkit-overflow-scrolling: touch; }
+  .attempts-table-wrapper table { min-width: 560px; }
+}
+
 /* Logo text */
 .logo-gradient {
   background: linear-gradient(135deg, #1a35b8, #3d62e0);
