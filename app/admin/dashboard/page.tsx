@@ -41,6 +41,7 @@ export default function AdminDashboard() {
   const [attempts, setAttempts] = useState<AttemptData[]>([]);
   const [activeTab, setActiveTab] = useState<"results" | "teachers">("results");
   const [expandedGroup, setExpandedGroup] = useState<string | null>(null);
+  const [expandedStudent, setExpandedStudent] = useState<string | null>(null);
   const [isRootAdmin, setIsRootAdmin] = useState(false);
   const [search, setSearch] = useState("");
   const [filterGroup, setFilterGroup] = useState("all");
@@ -309,43 +310,83 @@ export default function AdminDashboard() {
               {expandedGroup && (() => {
                 const groupStudentIds = Array.from(new Set(attempts.filter(a => a.groupName === expandedGroup).map(a => a.studentId)));
                 return (
-                  <div style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 14, overflow: "hidden", marginBottom: 28 }}>
-                    <div style={{ padding: "12px 16px", background: C.card2, borderBottom: `1px solid ${C.border}`, display: "flex", alignItems: "center", gap: 8 }}>
-                      <Users size={14} color={C.accent} />
-                      <span style={{ fontSize: 13, fontWeight: 700, color: C.text }}>{expandedGroup}</span>
-                      <span style={{ fontSize: 12, color: C.muted }}>— {groupStudentIds.length} students</span>
-                    </div>
-                    <div style={{ overflowX: "auto" }}>
-                      <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 13, minWidth: 600 }}>
-                        <thead>
-                          <tr style={{ background: "rgba(6,12,31,0.6)" }}>
-                            {["Student", "Reading Tests", "Avg Reading Band", "Listening Tests", "Avg Listening Band", "Total Tests"].map(h => (
-                              <th key={h} style={{ padding: "10px 14px", textAlign: "left", fontSize: 11, fontWeight: 700, color: C.muted, textTransform: "uppercase", letterSpacing: "0.06em", borderBottom: `1px solid ${C.border}`, whiteSpace: "nowrap" }}>{h}</th>
-                            ))}
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {groupStudentIds.map((sid, i) => {
-                            const studentAttempts = attempts.filter(a => a.studentId === sid);
-                            const first = studentAttempts[0];
-                            const reading = studentAttempts.filter(a => a.testType === "reading" && a.status === "completed");
-                            const listening = studentAttempts.filter(a => a.testType === "listening" && a.status === "completed");
-                            const avgR = reading.length ? (reading.reduce((s, a) => s + a.bandScore, 0) / reading.length).toFixed(1) : "–";
-                            const avgL = listening.length ? (listening.reduce((s, a) => s + a.bandScore, 0) / listening.length).toFixed(1) : "–";
-                            return (
-                              <tr key={sid} style={{ borderBottom: `1px solid ${C.border}`, background: i % 2 === 0 ? C.card : "rgba(6,12,31,0.6)" }}>
-                                <td style={{ padding: "12px 14px", fontWeight: 600, color: C.text, whiteSpace: "nowrap" }}>{first.studentName} {first.studentSurname}</td>
-                                <td style={{ padding: "12px 14px", color: C.sub, textAlign: "center" }}>{reading.length}</td>
-                                <td style={{ padding: "12px 14px", fontWeight: 700, color: reading.length ? "#fbbf24" : C.muted, textAlign: "center" }}>{avgR}</td>
-                                <td style={{ padding: "12px 14px", color: C.sub, textAlign: "center" }}>{listening.length}</td>
-                                <td style={{ padding: "12px 14px", fontWeight: 700, color: listening.length ? "#a78bfa" : C.muted, textAlign: "center" }}>{avgL}</td>
-                                <td style={{ padding: "12px 14px", fontWeight: 700, color: C.accent, textAlign: "center" }}>{studentAttempts.filter(a => a.status === "completed").length}</td>
-                              </tr>
-                            );
-                          })}
-                        </tbody>
-                      </table>
-                    </div>
+                  <div style={{ display: "flex", flexDirection: "column", gap: 12, marginBottom: 28 }}>
+                    {groupStudentIds.map(sid => {
+                      const studentAttempts = attempts.filter(a => a.studentId === sid);
+                      const first = studentAttempts[0];
+                      const completed = studentAttempts.filter(a => a.status === "completed");
+                      const reading = completed.filter(a => a.testType === "reading");
+                      const listening = completed.filter(a => a.testType === "listening");
+                      const avgR = reading.length ? (reading.reduce((s, a) => s + a.bandScore, 0) / reading.length).toFixed(1) : "–";
+                      const avgL = listening.length ? (listening.reduce((s, a) => s + a.bandScore, 0) / listening.length).toFixed(1) : "–";
+                      const isOpen = expandedStudent === sid;
+                      return (
+                        <div key={sid} style={{ background: C.card, border: `1.5px solid ${isOpen ? C.accent : C.border}`, borderRadius: 14, overflow: "hidden" }}>
+                          {/* Student header row */}
+                          <div onClick={() => setExpandedStudent(isOpen ? null : sid)}
+                            style={{ display: "flex", alignItems: "center", gap: 14, padding: "14px 18px", cursor: "pointer", flexWrap: "wrap" }}>
+                            <div style={{ width: 36, height: 36, borderRadius: "50%", background: C.accentLight, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                              <Users size={15} color={C.accent} />
+                            </div>
+                            <div style={{ flex: 1, minWidth: 120 }}>
+                              <div style={{ fontWeight: 700, fontSize: 14, color: C.text }}>{first.studentName} {first.studentSurname}</div>
+                              <div style={{ fontSize: 12, color: C.muted }}>{completed.length} test{completed.length !== 1 ? "s" : ""} completed</div>
+                            </div>
+                            <div style={{ display: "flex", gap: 20, flexWrap: "wrap" }}>
+                              <div style={{ textAlign: "center" }}>
+                                <div style={{ fontSize: 18, fontWeight: 800, color: reading.length ? "#fbbf24" : C.muted }}>{avgR}</div>
+                                <div style={{ fontSize: 11, color: C.muted }}>Reading avg</div>
+                              </div>
+                              <div style={{ textAlign: "center" }}>
+                                <div style={{ fontSize: 18, fontWeight: 800, color: listening.length ? "#a78bfa" : C.muted }}>{avgL}</div>
+                                <div style={{ fontSize: 11, color: C.muted }}>Listening avg</div>
+                              </div>
+                            </div>
+                            <span style={{ fontSize: 12, color: C.muted, flexShrink: 0 }}>{isOpen ? "▲" : "▼"} details</span>
+                          </div>
+
+                          {/* Per-test detail table */}
+                          {isOpen && (
+                            <div style={{ borderTop: `1px solid ${C.border}`, overflowX: "auto" }}>
+                              <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 13, minWidth: 680 }}>
+                                <thead>
+                                  <tr style={{ background: C.card2 }}>
+                                    {["Test", "Type", "Score", "Correct", "Wrong", "Band", "Duration", "Date"].map(h => (
+                                      <th key={h} style={{ padding: "9px 14px", textAlign: "left", fontSize: 11, fontWeight: 700, color: C.muted, textTransform: "uppercase", letterSpacing: "0.06em", borderBottom: `1px solid ${C.border}`, whiteSpace: "nowrap" }}>{h}</th>
+                                    ))}
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  {[...studentAttempts].reverse().map((a, i) => {
+                                    const correct = a.status === "completed" ? a.score : 0;
+                                    const wrong = a.status === "completed" ? (a.maxScore - a.score) : 0;
+                                    const pct = a.maxScore > 0 ? Math.round((correct / a.maxScore) * 100) : 0;
+                                    return (
+                                      <tr key={a.id} style={{ borderBottom: `1px solid ${C.border}`, background: i % 2 === 0 ? C.card : "rgba(6,12,31,0.5)" }}>
+                                        <td style={{ padding: "11px 14px", fontWeight: 600, color: C.text, maxWidth: 180, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{a.testTitle}</td>
+                                        <td style={{ padding: "11px 14px" }}>
+                                          <span style={{ padding: "2px 8px", borderRadius: 20, fontSize: 11, fontWeight: 600,
+                                            background: a.testType === "listening" ? "rgba(139,92,246,0.2)" : "rgba(245,158,11,0.15)",
+                                            color: a.testType === "listening" ? "#c4b5fd" : "#fcd34d" }}>
+                                            {a.testType}
+                                          </span>
+                                        </td>
+                                        <td style={{ padding: "11px 14px", color: C.sub }}>{a.status === "completed" ? `${correct}/${a.maxScore} (${pct}%)` : "–"}</td>
+                                        <td style={{ padding: "11px 14px", fontWeight: 700, color: "#10b981" }}>{a.status === "completed" ? correct : "–"}</td>
+                                        <td style={{ padding: "11px 14px", fontWeight: 700, color: wrong > 0 ? "#ef4444" : C.muted }}>{a.status === "completed" ? wrong : "–"}</td>
+                                        <td style={{ padding: "11px 14px", fontWeight: 800, fontSize: 15, color: C.accent }}>{a.status === "completed" && a.bandScore > 0 ? a.bandScore : "–"}</td>
+                                        <td style={{ padding: "11px 14px", color: C.muted, whiteSpace: "nowrap" }}>{a.timeSpentSeconds ? `${Math.floor(a.timeSpentSeconds / 60)}m ${a.timeSpentSeconds % 60}s` : "–"}</td>
+                                        <td style={{ padding: "11px 14px", fontSize: 12, color: C.muted, whiteSpace: "nowrap" }}>{new Date(a.submittedAt).toLocaleDateString()}</td>
+                                      </tr>
+                                    );
+                                  })}
+                                </tbody>
+                              </table>
+                            </div>
+                          )}
+                        </div>
+                      );
+                    })}
                   </div>
                 );
               })()}
