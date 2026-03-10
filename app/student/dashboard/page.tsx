@@ -7,7 +7,6 @@ import { allTests } from "@/data/ielts-tests";
 import type { StudentSession } from "@/lib/store";
 
 type TestType = "reading" | "listening";
-type Level = "academic" | "general";
 
 const S = {
   page: { minHeight: "100vh", background: "#020817", fontFamily: "Inter, system-ui, sans-serif", display: "flex", flexDirection: "column" as const },
@@ -18,7 +17,6 @@ export default function StudentDashboard() {
   const router = useRouter();
   const [session, setSession] = useState<StudentSession | null>(null);
   const [typeFilter, setTypeFilter] = useState<TestType>("reading");
-  const [levelFilter, setLevelFilter] = useState<Level>("academic");
 
   useEffect(() => {
     const s = getSession();
@@ -27,15 +25,12 @@ export default function StudentDashboard() {
   }, [router]);
 
   const attempts = getAttempts().filter(a => a.studentId === session?.id);
+  const typeAttempts = attempts.filter(a => a.testType === typeFilter && a.status === "completed");
   const completed = attempts.filter(a => a.status === "completed");
-  const avgBand = completed.length ? (completed.reduce((s, a) => s + a.bandScore, 0) / completed.length).toFixed(1) : "—";
-  const bestBand = completed.length ? Math.max(...completed.map(a => a.bandScore)).toFixed(1) : "—";
+  const avgBand = typeAttempts.length ? (typeAttempts.reduce((s, a) => s + a.bandScore, 0) / typeAttempts.length).toFixed(1) : "—";
+  const bestBand = typeAttempts.length ? Math.max(...typeAttempts.map(a => a.bandScore)).toFixed(1) : "—";
 
-  const filteredTests = allTests.filter(t => {
-    if (t.type !== typeFilter) return false;
-    if (typeFilter === "reading" && t.level !== levelFilter) return false;
-    return true;
-  });
+  const filteredTests = allTests.filter(t => t.type === typeFilter);
 
   if (!session) return null;
 
@@ -82,22 +77,6 @@ export default function StudentDashboard() {
             </button>
           ))}
 
-          {typeFilter === "reading" && (
-            <>
-              <div style={{ height: 1, background: "rgba(255,255,255,0.07)", margin: "12px 0" }} />
-              <p style={{ fontSize: 11, fontWeight: 700, color: "rgba(255,255,255,0.3)", letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: 6, paddingLeft: 8 }}>Level</p>
-              {[{ val: "academic" as Level, label: "Academic" }, { val: "general" as Level, label: "General Training" }].map(l => (
-                <button key={l.val} onClick={() => setLevelFilter(l.val)}
-                  style={{ display: "flex", alignItems: "center", gap: 10, padding: "11px 14px", borderRadius: 11, border: "none", cursor: "pointer", fontWeight: 600, fontSize: 14, transition: "all 0.18s",
-                    background: levelFilter === l.val ? "rgba(37,99,235,0.18)" : "transparent",
-                    color: levelFilter === l.val ? "#93c5fd" : "rgba(255,255,255,0.45)",
-                    borderLeft: levelFilter === l.val ? "2px solid #2563eb" : "2px solid transparent",
-                  }}>
-                  {l.label}
-                </button>
-              ))}
-            </>
-          )}
         </aside>
 
         {/* Main content */}
@@ -113,10 +92,10 @@ export default function StudentDashboard() {
           {/* Stats */}
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", gap: 14, marginBottom: 36 }}>
             {[
-              { label: "Total Tests", value: attempts.length, icon: BarChart3, sub: "All time", color: "#3b82f6" },
-              { label: "Average Score", value: avgBand, icon: Award, sub: "Band score", color: "#10b981" },
-              { label: "Best Score", value: bestBand, icon: Star, sub: "Personal best", color: "#f59e0b" },
-              { label: "Completed", value: completed.length, icon: Clock, sub: "Finished tests", color: "#8b5cf6" },
+              { label: "Total Tests", value: typeAttempts.length, icon: BarChart3, sub: typeFilter === "reading" ? "Reading tests" : "Listening tests", color: "#3b82f6" },
+              { label: "Average Band", value: avgBand, icon: Award, sub: typeFilter === "reading" ? "Reading average" : "Listening average", color: "#10b981" },
+              { label: "Best Band", value: bestBand, icon: Star, sub: typeFilter === "reading" ? "Reading best" : "Listening best", color: "#f59e0b" },
+              { label: "All Completed", value: completed.length, icon: Clock, sub: "All test types", color: "#8b5cf6" },
             ].map(s => (
               <div key={s.label} style={{ background: "#0b1530", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 16, padding: "20px 20px 16px" }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 12 }}>
@@ -131,7 +110,7 @@ export default function StudentDashboard() {
 
           {/* Tests grid */}
           <h2 style={{ fontSize: 16, fontWeight: 700, color: "#fff", marginBottom: 16 }}>
-            {typeFilter === "listening" ? "Listening Tests" : `${levelFilter === "academic" ? "Academic" : "General Training"} Reading`}
+            {typeFilter === "listening" ? "Listening Tests" : "Academic Reading Tests"}
           </h2>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))", gap: 16 }}>
             {filteredTests.map(test => {
@@ -148,7 +127,7 @@ export default function StudentDashboard() {
                     <div>
                       <h3 style={{ fontSize: 15, fontWeight: 800, color: "#fff", marginBottom: 4 }}>{test.title}</h3>
                       <p style={{ fontSize: 12, color: "rgba(255,255,255,0.4)" }}>
-                        {test.type === "listening" ? "Listening Test" : `${test.level === "academic" ? "Academic" : "General"} Reading`}
+                        {test.type === "listening" ? "Listening Test" : "Academic Reading"}
                       </p>
                     </div>
                     {best !== null && (
