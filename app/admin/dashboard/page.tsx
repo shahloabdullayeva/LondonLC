@@ -40,6 +40,7 @@ export default function AdminDashboard() {
   const router = useRouter();
   const [attempts, setAttempts] = useState<AttemptData[]>([]);
   const [activeTab, setActiveTab] = useState<"results" | "teachers">("results");
+  const [expandedGroup, setExpandedGroup] = useState<string | null>(null);
   const [isRootAdmin, setIsRootAdmin] = useState(false);
   const [search, setSearch] = useState("");
   const [filterGroup, setFilterGroup] = useState("all");
@@ -283,23 +284,71 @@ export default function AdminDashboard() {
           {groups.length > 1 && (
             <div>
               <h2 style={{ fontSize: 16, fontWeight: 700, color: C.text, marginBottom: 14 }}>Group Summary</h2>
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))", gap: 14 }}>
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))", gap: 14, marginBottom: 16 }}>
                 {groups.filter(g => g !== "all").map(group => {
                   const ga = attempts.filter(a => a.groupName === group && a.status === "completed");
                   const avg = ga.length ? (ga.reduce((s, a) => s + a.bandScore, 0) / ga.length).toFixed(1) : "–";
                   const students = new Set(attempts.filter(a => a.groupName === group).map(a => a.studentId)).size;
+                  const isOpen = expandedGroup === group;
                   return (
-                    <div key={group} style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 14, padding: "18px 20px" }}>
+                    <div key={group}
+                      onClick={() => setExpandedGroup(isOpen ? null : group)}
+                      style={{ background: C.card, border: `1.5px solid ${isOpen ? C.accent : C.border}`, borderRadius: 14, padding: "18px 20px", cursor: "pointer", transition: "border-color 0.15s" }}>
                       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 10 }}>
                         <span style={{ fontWeight: 700, fontSize: 15, color: C.text }}>{group}</span>
                         <span style={{ padding: "2px 8px", borderRadius: 20, fontSize: 11, background: C.accentLight, color: C.accent }}>{students} students</span>
                       </div>
                       <div style={{ fontSize: 28, fontWeight: 900, color: C.accent, marginBottom: 2 }}>{avg}</div>
-                      <div style={{ fontSize: 12, color: C.muted }}>Average band · {ga.length} completed</div>
+                      <div style={{ fontSize: 12, color: C.muted }}>Avg band · {ga.length} completed · {isOpen ? "▲ hide" : "▼ show students"}</div>
                     </div>
                   );
                 })}
               </div>
+
+              {/* Expanded student breakdown */}
+              {expandedGroup && (() => {
+                const groupStudentIds = Array.from(new Set(attempts.filter(a => a.groupName === expandedGroup).map(a => a.studentId)));
+                return (
+                  <div style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 14, overflow: "hidden", marginBottom: 28 }}>
+                    <div style={{ padding: "12px 16px", background: C.card2, borderBottom: `1px solid ${C.border}`, display: "flex", alignItems: "center", gap: 8 }}>
+                      <Users size={14} color={C.accent} />
+                      <span style={{ fontSize: 13, fontWeight: 700, color: C.text }}>{expandedGroup}</span>
+                      <span style={{ fontSize: 12, color: C.muted }}>— {groupStudentIds.length} students</span>
+                    </div>
+                    <div style={{ overflowX: "auto" }}>
+                      <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 13, minWidth: 600 }}>
+                        <thead>
+                          <tr style={{ background: "rgba(6,12,31,0.6)" }}>
+                            {["Student", "Reading Tests", "Avg Reading Band", "Listening Tests", "Avg Listening Band", "Total Tests"].map(h => (
+                              <th key={h} style={{ padding: "10px 14px", textAlign: "left", fontSize: 11, fontWeight: 700, color: C.muted, textTransform: "uppercase", letterSpacing: "0.06em", borderBottom: `1px solid ${C.border}`, whiteSpace: "nowrap" }}>{h}</th>
+                            ))}
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {groupStudentIds.map((sid, i) => {
+                            const studentAttempts = attempts.filter(a => a.studentId === sid);
+                            const first = studentAttempts[0];
+                            const reading = studentAttempts.filter(a => a.testType === "reading" && a.status === "completed");
+                            const listening = studentAttempts.filter(a => a.testType === "listening" && a.status === "completed");
+                            const avgR = reading.length ? (reading.reduce((s, a) => s + a.bandScore, 0) / reading.length).toFixed(1) : "–";
+                            const avgL = listening.length ? (listening.reduce((s, a) => s + a.bandScore, 0) / listening.length).toFixed(1) : "–";
+                            return (
+                              <tr key={sid} style={{ borderBottom: `1px solid ${C.border}`, background: i % 2 === 0 ? C.card : "rgba(6,12,31,0.6)" }}>
+                                <td style={{ padding: "12px 14px", fontWeight: 600, color: C.text, whiteSpace: "nowrap" }}>{first.studentName} {first.studentSurname}</td>
+                                <td style={{ padding: "12px 14px", color: C.sub, textAlign: "center" }}>{reading.length}</td>
+                                <td style={{ padding: "12px 14px", fontWeight: 700, color: reading.length ? "#fbbf24" : C.muted, textAlign: "center" }}>{avgR}</td>
+                                <td style={{ padding: "12px 14px", color: C.sub, textAlign: "center" }}>{listening.length}</td>
+                                <td style={{ padding: "12px 14px", fontWeight: 700, color: listening.length ? "#a78bfa" : C.muted, textAlign: "center" }}>{avgL}</td>
+                                <td style={{ padding: "12px 14px", fontWeight: 700, color: C.accent, textAlign: "center" }}>{studentAttempts.filter(a => a.status === "completed").length}</td>
+                              </tr>
+                            );
+                          })}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                );
+              })()}
             </div>
           )}
         </>}
