@@ -6,18 +6,19 @@ import {
   Download, CheckCircle, X, Shield, Plus, Trash2, Eye, EyeOff
 } from "lucide-react";
 import { getSession, clearSession, getAttempts, getTeachers, addTeacher, deleteTeacher, type AttemptData, type TeacherAccount } from "@/lib/store";
+import Image from "next/image";
 
 // ── Hardcoded dark theme colours ─────────────────────────────
 const C = {
-  bg: "#02040f",
-  card: "#0b1530",
-  card2: "#060c1f",
+  bg: "#0a051f",
+  card: "#140b35",
+  card2: "#0e0828",
   border: "rgba(255,255,255,0.08)",
-  text: "#e8eeff",
-  muted: "#4d6bb5",
-  sub: "#8ba4e8",
-  accent: "#3d62e0",
-  accentLight: "rgba(61,98,224,0.15)",
+  text: "#f0eaff",
+  muted: "#7c5fad",
+  sub: "#c4aff5",
+  accent: "#7c3aed",
+  accentLight: "rgba(124,58,237,0.15)",
   success: "#10b981",
   danger: "#ef4444",
 };
@@ -127,10 +128,7 @@ export default function AdminDashboard() {
       {/* ── Header ────────────────────────────────── */}
       <header style={{ position: "sticky", top: 0, zIndex: 30, display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 24px", height: 56, background: C.card2, borderBottom: `1px solid ${C.border}` }}>
         <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-          <div style={{ width: 30, height: 30, borderRadius: 8, background: "linear-gradient(135deg,#1e3bbf,#4a6de8)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-            <BookOpen size={14} color="white" />
-          </div>
-          <span style={{ fontWeight: 800, fontSize: 16, color: C.text }}>London LC</span>
+          <Image src="/logo.svg" alt="London LC" width={110} height={40} style={{ filter: "brightness(0) invert(1)" }} />
           <span style={{ padding: "2px 10px", borderRadius: 20, fontSize: 11, fontWeight: 700, background: C.accentLight, color: C.accent }}>Admin</span>
         </div>
         <button onClick={handleLogout}
@@ -435,7 +433,7 @@ export default function AdminDashboard() {
                 {teacherError && <p style={{ fontSize: 13, color: C.danger }}>{teacherError}</p>}
                 {teacherSuccess && <p style={{ fontSize: 13, color: C.success }}>{teacherSuccess}</p>}
                 <button onClick={handleAddTeacher}
-                  style={{ alignSelf: "flex-start", display: "flex", alignItems: "center", gap: 6, padding: "10px 18px", background: "linear-gradient(135deg,#1e3bbf,#3d62e0)", border: "none", borderRadius: 10, color: "#fff", fontSize: 13, fontWeight: 600, cursor: "pointer" }}>
+                  style={{ alignSelf: "flex-start", display: "flex", alignItems: "center", gap: 6, padding: "10px 18px", background: "linear-gradient(135deg,#6d28d9,#7c3aed)", border: "none", borderRadius: 10, color: "#fff", fontSize: 13, fontWeight: 600, cursor: "pointer" }}>
                   <Plus size={14} /> Add Teacher
                 </button>
               </div>

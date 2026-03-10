@@ -3,6 +3,7 @@ import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { BookOpen, User, Users, ChevronRight, Copy, Check, KeyRound } from "lucide-react";
+import Image from "next/image";
 import { registerStudent, getSession, saveSession } from "@/lib/store";
 import Link from "next/link";
 
@@ -58,14 +59,11 @@ export default function SignupPage() {
   };
 
   return (
-    <div style={{ minHeight: "100vh", background: "#020817", display: "flex", flexDirection: "column", fontFamily: "Inter, system-ui, sans-serif" }}>
+    <div style={{ minHeight: "100vh", background: "#0a051f", display: "flex", flexDirection: "column", fontFamily: "Inter, system-ui, sans-serif" }}>
       {/* Nav */}
       <div style={{ display: "flex", alignItems: "center", padding: "0 24px", height: 56, borderBottom: "1px solid rgba(255,255,255,0.07)" }}>
-        <Link href="/" style={{ display: "flex", alignItems: "center", gap: 9, textDecoration: "none" }}>
-          <div style={{ width: 30, height: 30, borderRadius: 8, background: "linear-gradient(135deg,#2563eb,#1d4ed8)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-            <BookOpen size={14} color="white" />
-          </div>
-          <span style={{ fontWeight: 800, fontSize: 16, color: "#fff" }}>London LC</span>
+        <Link href="/" style={{ textDecoration: "none" }}>
+          <Image src="/logo.svg" alt="London LC" width={120} height={44} style={{ filter: "brightness(0) invert(1)" }} />
         </Link>
       </div>
 
@@ -76,10 +74,10 @@ export default function SignupPage() {
           <AnimatePresence mode="wait">
             {!created ? (
               <motion.div key="form" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-                <div style={{ background: "#0b1530", border: "1px solid rgba(255,255,255,0.1)", borderRadius: 20, padding: "36px 28px", boxShadow: "0 24px 64px rgba(0,0,0,0.6)" }}>
+                <div style={{ background: "#140b35", border: "1px solid rgba(255,255,255,0.1)", borderRadius: 20, padding: "36px 28px", boxShadow: "0 24px 64px rgba(0,0,0,0.6)" }}>
                   <div style={{ textAlign: "center", marginBottom: 24 }}>
-                    <div style={{ display: "inline-flex", width: 52, height: 52, background: "linear-gradient(135deg,#2563eb,#1d4ed8)", borderRadius: "50%", alignItems: "center", justifyContent: "center", marginBottom: 12, boxShadow: "0 6px 20px rgba(37,99,235,0.4)" }}>
-                      <BookOpen size={22} color="white" />
+                    <div style={{ marginBottom: 12, display: "flex", justifyContent: "center" }}>
+                      <Image src="/logo.svg" alt="London LC" width={160} height={60} style={{ filter: "brightness(0) invert(1)" }} />
                     </div>
                     <h1 style={{ color: "#fff", fontWeight: 800, fontSize: 21, marginBottom: 3 }}>Create Account</h1>
                     <p style={{ color: "rgba(255,255,255,0.4)", fontSize: 13 }}>Enter your details to get your login</p>
@@ -99,7 +97,7 @@ export default function SignupPage() {
                             value={form[f.key as keyof typeof form]}
                             onChange={e => setForm({ ...form, [f.key]: e.target.value })}
                             style={inputStyle}
-                            onFocus={e => e.currentTarget.style.borderColor = "#2563eb"}
+                            onFocus={e => e.currentTarget.style.borderColor = "#7c3aed"}
                             onBlur={e => e.currentTarget.style.borderColor = "rgba(255,255,255,0.1)"}
                           />
                         </div>
@@ -113,7 +111,7 @@ export default function SignupPage() {
                     )}
 
                     <button type="submit" disabled={loading}
-                      style={{ marginTop: 2, display: "flex", alignItems: "center", justifyContent: "center", gap: 8, padding: "13px", background: loading ? "rgba(37,99,235,0.5)" : "linear-gradient(135deg,#2563eb,#1d4ed8)", color: "#fff", fontWeight: 700, fontSize: 15, border: "none", borderRadius: 12, cursor: loading ? "not-allowed" : "pointer", boxShadow: "0 4px 15px rgba(37,99,235,0.4)", transition: "all 0.2s" }}>
+                      style={{ marginTop: 2, display: "flex", alignItems: "center", justifyContent: "center", gap: 8, padding: "13px", background: loading ? "rgba(124,58,237,0.5)" : "linear-gradient(135deg,#7c3aed,#6d28d9)", color: "#fff", fontWeight: 700, fontSize: 15, border: "none", borderRadius: 12, cursor: loading ? "not-allowed" : "pointer", boxShadow: "0 4px 15px rgba(124,58,237,0.4)", transition: "all 0.2s" }}>
                       {loading
                         ? <><span style={{ width: 15, height: 15, border: "2px solid rgba(255,255,255,0.3)", borderTopColor: "#fff", borderRadius: "50%", display: "inline-block", animation: "spin 0.7s linear infinite" }} /> Creating...</>
                         : <>Create Account <ChevronRight size={16} /></>
@@ -123,13 +121,13 @@ export default function SignupPage() {
 
                   <div style={{ marginTop: 18, textAlign: "center", fontSize: 13, color: "rgba(255,255,255,0.35)" }}>
                     Already have an account?{" "}
-                    <Link href="/auth/login" style={{ color: "#60a5fa", fontWeight: 600, textDecoration: "none" }}>Sign in</Link>
+                    <Link href="/auth/login" style={{ color: "#a78bfa", fontWeight: 600, textDecoration: "none" }}>Sign in</Link>
                   </div>
                 </div>
               </motion.div>
             ) : (
               <motion.div key="created" initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }}>
-                <div style={{ background: "#0b1530", border: "1px solid rgba(255,255,255,0.1)", borderRadius: 20, padding: "36px 28px", boxShadow: "0 24px 64px rgba(0,0,0,0.6)" }}>
+                <div style={{ background: "#140b35", border: "1px solid rgba(255,255,255,0.1)", borderRadius: 20, padding: "36px 28px", boxShadow: "0 24px 64px rgba(0,0,0,0.6)" }}>
                   {/* Success header */}
                   <div style={{ textAlign: "center", marginBottom: 24 }}>
                     <div style={{ display: "inline-flex", width: 52, height: 52, background: "rgba(16,185,129,0.15)", border: "2px solid rgba(16,185,129,0.3)", borderRadius: "50%", alignItems: "center", justifyContent: "center", marginBottom: 12 }}>
@@ -175,7 +173,7 @@ export default function SignupPage() {
                   </div>
 
                   <button onClick={handleContinue}
-                    style={{ width: "100%", display: "flex", alignItems: "center", justifyContent: "center", gap: 8, padding: "13px", background: "linear-gradient(135deg,#2563eb,#1d4ed8)", color: "#fff", fontWeight: 700, fontSize: 15, border: "none", borderRadius: 12, cursor: "pointer", boxShadow: "0 4px 15px rgba(37,99,235,0.4)" }}>
+                    style={{ width: "100%", display: "flex", alignItems: "center", justifyContent: "center", gap: 8, padding: "13px", background: "linear-gradient(135deg,#7c3aed,#6d28d9)", color: "#fff", fontWeight: 700, fontSize: 15, border: "none", borderRadius: 12, cursor: "pointer", boxShadow: "0 4px 15px rgba(124,58,237,0.4)" }}>
                     Continue to Dashboard <ChevronRight size={16} />
                   </button>
                 </div>

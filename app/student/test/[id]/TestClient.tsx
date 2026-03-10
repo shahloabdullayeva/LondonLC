@@ -13,6 +13,12 @@ import type { StudentSession } from "@/lib/store";
 
 type Phase = "warning" | "test" | "audio_playing" | "transfer" | "submitted";
 
+// Read the current theme from the HTML class
+function getTheme(): "dark" | "light" {
+  if (typeof document === "undefined") return "dark";
+  return document.documentElement.classList.contains("dark") ? "dark" : "light";
+}
+
 export default function TestPage() {
   const router = useRouter();
   const params = useParams();
@@ -35,6 +41,30 @@ export default function TestPage() {
   const [audioCurrentSection, setAudioCurrentSection] = useState(0);
   const [mobileView, setMobileView] = useState<"passage" | "questions">("passage");
   const [passageCollapsed, setPassageCollapsed] = useState(false);
+  const [theme, setTheme] = useState<"dark" | "light">("dark");
+
+  // Detect theme on mount and when it changes
+  useEffect(() => {
+    setTheme(getTheme());
+    const obs = new MutationObserver(() => setTheme(getTheme()));
+    obs.observe(document.documentElement, { attributes: true, attributeFilter: ["class"] });
+    return () => obs.disconnect();
+  }, []);
+
+  // Theme-aware colours
+  const T = theme === "dark" ? {
+    bg: "#0a051f", nav: "#0e0828", card: "#140b35", passage: "#1a0e42",
+    text: "#f0eaff", textSub: "rgba(255,255,255,0.5)", textMuted: "rgba(255,255,255,0.35)",
+    border: "rgba(255,255,255,0.08)", accent: "#7c3aed", accentBtn: "linear-gradient(135deg,#6d28d9,#7c3aed)",
+    accentDim: "rgba(124,58,237,0.12)", accentBorder: "rgba(124,58,237,0.2)",
+    inputBg: "#0a051f", shadow: "rgba(0,0,0,0.6)",
+  } : {
+    bg: "#ffffff", nav: "#f4f0ff", card: "#ffffff", passage: "#f9f7ff",
+    text: "#1a0040", textSub: "rgba(26,0,64,0.55)", textMuted: "rgba(26,0,64,0.4)",
+    border: "rgba(109,40,217,0.12)", accent: "#6d28d9", accentBtn: "linear-gradient(135deg,#6d28d9,#7c3aed)",
+    accentDim: "rgba(109,40,217,0.08)", accentBorder: "rgba(109,40,217,0.2)",
+    inputBg: "#ffffff", shadow: "rgba(109,40,217,0.1)",
+  };
 
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const transferTimerRef = useRef<ReturnType<typeof setInterval> | null>(null);
@@ -289,21 +319,21 @@ export default function TestPage() {
   // ============================================================
   if (phase === "transfer") {
     return (
-      <div style={{ minHeight: "100vh", background: "#020817", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "24px", fontFamily: "Inter, system-ui, sans-serif" }}>
+      <div style={{ minHeight: "100vh", background: "#0a051f", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "24px", fontFamily: "Inter, system-ui, sans-serif" }}>
         <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }}
           style={{ textAlign: "center", maxWidth: 440, width: "100%" }}>
-          <div style={{ width: 64, height: 64, borderRadius: "50%", background: "rgba(61,98,224,0.15)", border: "2px solid rgba(61,98,224,0.3)", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 24px" }}>
-            <Clock size={28} color="#3d62e0" />
+          <div style={{ width: 64, height: 64, borderRadius: "50%", background: "rgba(124,58,237,0.15)", border: "2px solid rgba(124,58,237,0.3)", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 24px" }}>
+            <Clock size={28} color="#7c3aed" />
           </div>
           <h2 style={{ fontSize: 26, fontWeight: 800, color: "#e8eeff", marginBottom: 8 }}>Transfer Time</h2>
           <p style={{ color: "rgba(255,255,255,0.5)", marginBottom: 28, lineHeight: 1.6 }}>
             You now have <strong style={{ color: "#e8eeff" }}>10 minutes</strong> to review your answers.
           </p>
-          <div style={{ fontSize: 60, fontWeight: 900, color: transferTimeLeft < 60 ? "#ef4444" : "#3d62e0", marginBottom: 32, fontFamily: "monospace" }}>
+          <div style={{ fontSize: 60, fontWeight: 900, color: transferTimeLeft < 60 ? "#ef4444" : "#7c3aed", marginBottom: 32, fontFamily: "monospace" }}>
             {formatTime(transferTimeLeft)}
           </div>
           <button onClick={submitTest}
-            style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "13px 28px", background: "linear-gradient(135deg,#1e3bbf,#3d62e0)", color: "#fff", fontWeight: 700, fontSize: 15, border: "none", borderRadius: 12, cursor: "pointer" }}>
+            style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "13px 28px", background: "linear-gradient(135deg,#6d28d9,#7c3aed)", color: "#fff", fontWeight: 700, fontSize: 15, border: "none", borderRadius: 12, cursor: "pointer" }}>
             Submit Now <CheckCircle size={16} />
           </button>
         </motion.div>
@@ -319,21 +349,21 @@ export default function TestPage() {
   if (phase !== "test" && phase !== "audio_playing") return null;
 
   return (
-    <div className="test-zone" style={{ minHeight: "100vh", display: "flex", flexDirection: "column", background: "#020817", fontFamily: "Inter, system-ui, sans-serif" }}>
+    <div className="test-zone" style={{ minHeight: "100vh", display: "flex", flexDirection: "column", background: T.bg, fontFamily: "Inter, system-ui, sans-serif" }}>
       {/* Violation warning */}
       <AnimatePresence>
         {showViolationWarning && (
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
             style={{ position: "fixed", inset: 0, zIndex: 50, display: "flex", alignItems: "center", justifyContent: "center", background: "rgba(0,0,0,0.75)" }}>
             <motion.div initial={{ scale: 0.85, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.85, opacity: 0 }}
-              style={{ background: "#0b1530", border: "2px solid #ef4444", borderRadius: 16, padding: 32, maxWidth: 360, width: "100%", margin: "0 16px", textAlign: "center" }}>
+              style={{ background: T.card, border: "2px solid #ef4444", borderRadius: 16, padding: 32, maxWidth: 360, width: "100%", margin: "0 16px", textAlign: "center" }}>
               <AlertTriangle size={40} color="#ef4444" style={{ margin: "0 auto 16px" }} />
-              <h2 style={{ fontSize: 20, fontWeight: 700, color: "#e8eeff", marginBottom: 8 }}>Test Cancelled</h2>
-              <p style={{ fontSize: 14, color: "rgba(255,255,255,0.5)", marginBottom: 24 }}>
+              <h2 style={{ fontSize: 20, fontWeight: 700, color: T.text, marginBottom: 8 }}>Test Cancelled</h2>
+              <p style={{ fontSize: 14, color: T.textSub, marginBottom: 24 }}>
                 You left the exam screen. Your test has been automatically cancelled.
               </p>
               <button onClick={() => setShowViolationWarning(false)}
-                style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", gap: 8, padding: "11px 24px", background: "linear-gradient(135deg,#1e3bbf,#3d62e0)", color: "#fff", fontWeight: 700, border: "none", borderRadius: 10, cursor: "pointer", width: "100%" }}>
+                style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", gap: 8, padding: "11px 24px", background: T.accentBtn, color: "#fff", fontWeight: 700, border: "none", borderRadius: 10, cursor: "pointer", width: "100%" }}>
                 Return to Dashboard
               </button>
             </motion.div>
@@ -342,17 +372,17 @@ export default function TestPage() {
       </AnimatePresence>
 
       {/* Test header */}
-      <header style={{ position: "sticky", top: 0, zIndex: 20, display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 16px", height: 54, background: "#060c1f", borderBottom: "1px solid rgba(255,255,255,0.08)" }}>
+      <header style={{ position: "sticky", top: 0, zIndex: 20, display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 16px", height: 54, background: T.nav, borderBottom: `1px solid ${T.border}` }}>
         {/* Left: test info */}
         <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-          <div style={{ width: 28, height: 28, borderRadius: 8, display: "flex", alignItems: "center", justifyContent: "center", background: test.type === "listening" ? "#2d1b5c" : "#3d2000" }}>
+          <div style={{ width: 28, height: 28, borderRadius: 8, display: "flex", alignItems: "center", justifyContent: "center", background: T.accentDim }}>
             {test.type === "listening"
-              ? <Headphones size={14} color="#c4b5fd" />
-              : <BookOpen size={14} color="#fcd34d" />}
+              ? <Headphones size={14} color={T.accent} />
+              : <BookOpen size={14} color={T.accent} />}
           </div>
           <div>
-            <div style={{ fontSize: 13, fontWeight: 700, color: "#e8eeff" }}>{test.title}</div>
-            <div style={{ fontSize: 11, color: "rgba(255,255,255,0.35)" }}>Section {currentSection + 1} of {test.sections.length}</div>
+            <div style={{ fontSize: 13, fontWeight: 700, color: T.text }}>{test.title}</div>
+            <div style={{ fontSize: 11, color: T.textMuted }}>Section {currentSection + 1} of {test.sections.length}</div>
           </div>
         </div>
 
@@ -363,8 +393,8 @@ export default function TestPage() {
               onClick={() => test.type === "reading" && setCurrentSection(i)}
               title={s.title}
               style={{ padding: "6px 14px", borderRadius: 8, border: "none", cursor: test.type === "reading" ? "pointer" : "default", fontWeight: 600, fontSize: 13, transition: "all 0.15s",
-                background: currentSection === i ? "#3d62e0" : "transparent",
-                color: currentSection === i ? "#fff" : "rgba(255,255,255,0.35)" }}>
+                background: currentSection === i ? T.accent : "transparent",
+                color: currentSection === i ? "#fff" : T.textMuted }}>
               P{i + 1}
             </button>
           ))}
@@ -372,41 +402,41 @@ export default function TestPage() {
 
         {/* Right: timer + submit */}
         <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-          <div style={{ display: "flex", alignItems: "center", gap: 6, padding: "6px 12px", borderRadius: 10, background: "#060c1f", border: "1px solid rgba(255,255,255,0.08)", fontSize: 14, fontWeight: 700, color: timeLeft < 300 ? "#ef4444" : "#3d62e0", fontFamily: "monospace" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 6, padding: "6px 12px", borderRadius: 10, background: T.nav, border: `1px solid ${T.border}`, fontSize: 14, fontWeight: 700, color: timeLeft < 300 ? "#ef4444" : T.accent, fontFamily: "monospace" }}>
             <Clock size={14} />
             {formatTime(timeLeft)}
           </div>
           <button onClick={() => { if (confirm("Are you sure you want to submit your test? This cannot be undone.")) submitTest(); }}
-            style={{ display: "inline-flex", alignItems: "center", gap: 6, padding: "7px 16px", background: "linear-gradient(135deg,#1e3bbf,#3d62e0)", color: "#fff", fontWeight: 700, fontSize: 13, border: "none", borderRadius: 10, cursor: "pointer" }}>
+            style={{ display: "inline-flex", alignItems: "center", gap: 6, padding: "7px 16px", background: T.accentBtn, color: "#fff", fontWeight: 700, fontSize: 13, border: "none", borderRadius: 10, cursor: "pointer" }}>
             Submit <CheckCircle size={14} />
           </button>
         </div>
       </header>
 
       {/* Progress bar */}
-      <div style={{ height: 3, background: "rgba(255,255,255,0.07)", borderRadius: 0 }}>
-        <div style={{ height: "100%", background: "linear-gradient(90deg,#3d62e0,#7598ff)", borderRadius: 0, transition: "width 0.3s ease", width: `${((currentSection + 1) / test.sections.length) * 100}%` }} />
+      <div style={{ height: 3, background: T.border, borderRadius: 0 }}>
+        <div style={{ height: "100%", background: "linear-gradient(90deg,#7c3aed,#b87fff)", borderRadius: 0, transition: "width 0.3s ease", width: `${((currentSection + 1) / test.sections.length) * 100}%` }} />
       </div>
 
       {/* Audio banner (listening – audio playing) */}
       {phase === "audio_playing" && (
-        <div style={{ background: "#1a0a3a", borderBottom: "1px solid #3b1f6a", padding: "10px 20px", display: "flex", alignItems: "center", gap: 14 }}>
+        <div style={{ background: T.card, borderBottom: `1px solid ${T.accentBorder}`, padding: "10px 20px", display: "flex", alignItems: "center", gap: 14 }}>
           <div style={{ display: "flex", alignItems: "center", gap: 8, flexShrink: 0 }}>
-            <Volume2 size={16} color="#c4b5fd" />
-            <span style={{ fontSize: 13, fontWeight: 700, color: "#c4b5fd" }}>
+            <Volume2 size={16} color={T.accent} />
+            <span style={{ fontSize: 13, fontWeight: 700, color: T.accent }}>
               Section {audioCurrentSection + 1} – Audio Playing
             </span>
           </div>
-          <div style={{ flex: 1, height: 6, background: "rgba(255,255,255,0.1)", borderRadius: 3, overflow: "hidden" }}>
+          <div style={{ flex: 1, height: 6, background: T.accentDim, borderRadius: 3, overflow: "hidden" }}>
             <div style={{ height: "100%", background: "linear-gradient(90deg,#7c3aed,#c4b5fd)", borderRadius: 3, width: `${audioTotal > 0 ? (audioProgress / audioTotal) * 100 : 0}%`, transition: "width 0.5s linear" }} />
           </div>
           <div style={{ display: "flex", gap: 8, alignItems: "center", flexShrink: 0 }}>
             <div style={{ display: "flex", gap: 2, alignItems: "center" }}>
               {Array.from({ length: 8 }).map((_, i) => (
-                <div key={i} style={{ width: 3, borderRadius: 2, background: "#a78bfa", animation: `soundwave ${0.5 + (i % 4) * 0.15}s ease-in-out infinite alternate`, animationDelay: `${i * 0.07}s` }} />
+                <div key={i} style={{ width: 3, borderRadius: 2, background: T.accent, animation: `soundwave ${0.5 + (i % 4) * 0.15}s ease-in-out infinite alternate`, animationDelay: `${i * 0.07}s` }} />
               ))}
             </div>
-            <span style={{ fontSize: 12, color: "#a78bfa", fontFamily: "monospace", fontWeight: 600 }}>
+            <span style={{ fontSize: 12, color: T.accent, fontFamily: "monospace", fontWeight: 600 }}>
               {formatTime(audioProgress)} / {formatTime(audioTotal)}
             </span>
           </div>
@@ -416,12 +446,12 @@ export default function TestPage() {
 
       {/* Mobile toggle (reading only) */}
       {test.type === "reading" && (
-        <div style={{ display: "flex", background: "#060c1f", borderBottom: "1px solid rgba(255,255,255,0.07)", padding: "8px 16px", gap: 8 }} className="mobile-toggle-bar">
+        <div style={{ display: "flex", background: T.nav, borderBottom: `1px solid ${T.border}`, padding: "8px 16px", gap: 8 }} className="mobile-toggle-bar">
           {(["passage", "questions"] as const).map(v => (
             <button key={v} onClick={() => setMobileView(v)}
               style={{ flex: 1, padding: "8px", borderRadius: 8, border: "none", cursor: "pointer", fontWeight: 600, fontSize: 13, transition: "all 0.15s",
-                background: mobileView === v ? "#3d62e0" : "transparent",
-                color: mobileView === v ? "#fff" : "rgba(255,255,255,0.4)" }}>
+                background: mobileView === v ? T.accent : "transparent",
+                color: mobileView === v ? "#fff" : T.textMuted }}>
               {v === "passage" ? "📖 Passage" : "✏️ Questions"}
             </button>
           ))}
@@ -434,10 +464,10 @@ export default function TestPage() {
         {/* Left: Passage (reading) */}
         {test.type === "reading" && section.passageText && (
           <div className={`passage-panel ${mobileView === "passage" ? "panel-visible" : "panel-hidden"}`}
-            style={{ width: passageCollapsed ? 0 : "50%", minWidth: passageCollapsed ? 0 : undefined, overflow: "hidden", transition: "width 0.25s ease", background: "#0d1b3e", position: "relative", display: "flex", flexDirection: "column" }}>
+            style={{ width: passageCollapsed ? 0 : "50%", minWidth: passageCollapsed ? 0 : undefined, overflow: "hidden", transition: "width 0.25s ease", background: T.passage, position: "relative", display: "flex", flexDirection: "column" }}>
             <div style={{ flex: 1, overflowY: "auto", padding: "28px 32px" }}>
-              <h2 style={{ fontSize: 17, fontWeight: 800, color: "#e8eeff", marginBottom: 20 }}>{section.passageTitle}</h2>
-              <div style={{ color: "rgba(255,255,255,0.82)", lineHeight: 1.9, fontSize: 15 }}
+              <h2 style={{ fontSize: 17, fontWeight: 800, color: T.text, marginBottom: 20 }}>{section.passageTitle}</h2>
+              <div style={{ color: T.text, lineHeight: 1.9, fontSize: 15 }}
                 dangerouslySetInnerHTML={{
                   __html: section.passageText
                     .replace(/\n\n/g, "</p><p style='margin-bottom:14px'>")
@@ -454,12 +484,12 @@ export default function TestPage() {
         {/* Divider toggle button (reading only, desktop) */}
         {test.type === "reading" && (
           <div className="divider-toggle" style={{ position: "relative", width: 0, display: "flex", alignItems: "center", justifyContent: "center", zIndex: 10, flexShrink: 0 }}>
-            <div style={{ position: "absolute", top: 0, bottom: 0, width: 1, background: "rgba(255,255,255,0.08)" }} />
+            <div style={{ position: "absolute", top: 0, bottom: 0, width: 1, background: T.border }} />
             <button onClick={() => setPassageCollapsed(p => !p)}
               title={passageCollapsed ? "Show passage" : "Hide passage"}
-              style={{ position: "relative", width: 28, height: 28, borderRadius: "50%", background: "#1a2a5e", border: "1.5px solid rgba(255,255,255,0.15)", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", color: "#93c5fd", fontSize: 14, fontWeight: 700, zIndex: 1, flexShrink: 0, transition: "background 0.15s" }}
-              onMouseEnter={e => (e.currentTarget.style.background = "#2a3f8f")}
-              onMouseLeave={e => (e.currentTarget.style.background = "#1a2a5e")}>
+              style={{ position: "relative", width: 28, height: 28, borderRadius: "50%", background: T.accentDim, border: `1.5px solid ${T.accentBorder}`, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", color: T.accent, fontSize: 14, fontWeight: 700, zIndex: 1, flexShrink: 0, transition: "background 0.15s" }}
+              onMouseEnter={e => (e.currentTarget.style.background = T.accentDim)}
+              onMouseLeave={e => (e.currentTarget.style.background = T.accentDim)}>
               {passageCollapsed ? "›" : "‹"}
             </button>
           </div>
@@ -467,18 +497,18 @@ export default function TestPage() {
 
         {/* Right: Questions */}
         <div className={`questions-panel ${test.type === "reading" && mobileView === "passage" ? "panel-hidden" : "panel-visible"}`}
-          style={{ flex: 1, overflowY: "auto", padding: "24px 28px", background: "#020817" }}>
+          style={{ flex: 1, overflowY: "auto", padding: "24px 28px", background: T.bg }}>
 
           {/* Listening: passage text */}
           {test.type === "listening" && section.passageText && (
-            <div style={{ marginBottom: 20, padding: 16, borderRadius: 12, background: "#060c1f", border: "1px solid rgba(255,255,255,0.08)" }}>
-              <pre style={{ whiteSpace: "pre-wrap", fontSize: 14, color: "#e8eeff", fontFamily: "Inter, system-ui, sans-serif", lineHeight: 1.7 }}>
+            <div style={{ marginBottom: 20, padding: 16, borderRadius: 12, background: T.nav, border: `1px solid ${T.border}` }}>
+              <pre style={{ whiteSpace: "pre-wrap", fontSize: 14, color: T.text, fontFamily: "Inter, system-ui, sans-serif", lineHeight: 1.7 }}>
                 {section.passageText}
               </pre>
             </div>
           )}
 
-          <div style={{ fontSize: 13, marginBottom: 20, padding: "11px 14px", borderRadius: 10, background: "rgba(61,98,224,0.12)", color: "#93c5fd", border: "1px solid rgba(61,98,224,0.2)", fontWeight: 500, lineHeight: 1.5 }}>
+          <div style={{ fontSize: 13, marginBottom: 20, padding: "11px 14px", borderRadius: 10, background: T.accentDim, color: T.accent, border: `1px solid ${T.accentBorder}`, fontWeight: 500, lineHeight: 1.5 }}>
             {section.instructions}
           </div>
 
@@ -486,26 +516,27 @@ export default function TestPage() {
             {section.questions.map((q) => (
               <QuestionItem key={q.id} question={q}
                 answer={answers[q.id] || ""}
-                onAnswer={(val) => setAnswer(q.id, val)} />
+                onAnswer={(val) => setAnswer(q.id, val)}
+                T={T} />
             ))}
           </div>
 
           {/* Section navigation (reading) */}
           {test.type === "reading" && (
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: 32, paddingTop: 24, borderTop: "1px solid rgba(255,255,255,0.08)" }}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: 32, paddingTop: 24, borderTop: `1px solid ${T.border}` }}>
               <button onClick={() => setCurrentSection((n) => Math.max(0, n - 1))} disabled={currentSection === 0}
-                style={{ display: "inline-flex", alignItems: "center", gap: 6, padding: "9px 18px", background: "rgba(61,98,224,0.12)", color: "#93c5fd", border: "1px solid rgba(61,98,224,0.2)", borderRadius: 10, cursor: currentSection === 0 ? "not-allowed" : "pointer", fontWeight: 600, fontSize: 13, opacity: currentSection === 0 ? 0.4 : 1 }}>
+                style={{ display: "inline-flex", alignItems: "center", gap: 6, padding: "9px 18px", background: T.accentDim, color: T.accent, border: `1px solid ${T.accentBorder}`, borderRadius: 10, cursor: currentSection === 0 ? "not-allowed" : "pointer", fontWeight: 600, fontSize: 13, opacity: currentSection === 0 ? 0.4 : 1 }}>
                 <ChevronLeft size={14} /> Previous
               </button>
-              <span style={{ fontSize: 13, color: "rgba(255,255,255,0.35)" }}>{currentSection + 1} / {test.sections.length}</span>
+              <span style={{ fontSize: 13, color: T.textMuted }}>{currentSection + 1} / {test.sections.length}</span>
               {currentSection < test.sections.length - 1 ? (
                 <button onClick={() => { setCurrentSection((n) => Math.min(test.sections.length - 1, n + 1)); setMobileView("passage"); }}
-                  style={{ display: "inline-flex", alignItems: "center", gap: 6, padding: "9px 18px", background: "rgba(61,98,224,0.12)", color: "#93c5fd", border: "1px solid rgba(61,98,224,0.2)", borderRadius: 10, cursor: "pointer", fontWeight: 600, fontSize: 13 }}>
+                  style={{ display: "inline-flex", alignItems: "center", gap: 6, padding: "9px 18px", background: T.accentDim, color: T.accent, border: `1px solid ${T.accentBorder}`, borderRadius: 10, cursor: "pointer", fontWeight: 600, fontSize: 13 }}>
                   Next <ChevronRight size={14} />
                 </button>
               ) : (
                 <button onClick={() => { if (confirm("Submit the test now?")) submitTest(); }}
-                  style={{ display: "inline-flex", alignItems: "center", gap: 6, padding: "9px 18px", background: "linear-gradient(135deg,#1e3bbf,#3d62e0)", color: "#fff", border: "none", borderRadius: 10, cursor: "pointer", fontWeight: 700, fontSize: 13 }}>
+                  style={{ display: "inline-flex", alignItems: "center", gap: 6, padding: "9px 18px", background: T.accentBtn, color: "#fff", border: "none", borderRadius: 10, cursor: "pointer", fontWeight: 700, fontSize: 13 }}>
                   Submit <CheckCircle size={14} />
                 </button>
               )}
@@ -539,20 +570,21 @@ export default function TestPage() {
 // Question Item Component
 // ============================================================
 function QuestionItem({
-  question, answer, onAnswer,
+  question, answer, onAnswer, T,
 }: {
   question: IELTSSection["questions"][0];
   answer: string;
   onAnswer: (v: string) => void;
+  T: { bg: string; nav: string; card: string; text: string; textSub: string; textMuted: string; border: string; accent: string; accentDim: string; accentBorder: string; inputBg: string; [k: string]: string };
 }) {
   const btnBase: React.CSSProperties = { padding: "8px 16px", borderRadius: 8, fontSize: 13, fontWeight: 600, cursor: "pointer", border: "1px solid", transition: "all 0.15s" };
   return (
-    <div style={{ paddingBottom: 24, borderBottom: "1px solid rgba(255,255,255,0.07)" }}>
+    <div style={{ paddingBottom: 24, borderBottom: `1px solid ${T.border}` }}>
       <div style={{ display: "flex", gap: 12, marginBottom: 12 }}>
-        <span style={{ flexShrink: 0, width: 26, height: 26, borderRadius: "50%", background: "#3d62e0", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 11, fontWeight: 700, color: "#fff" }}>
+        <span style={{ flexShrink: 0, width: 26, height: 26, borderRadius: "50%", background: T.accent, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 11, fontWeight: 700, color: "#fff" }}>
           {question.number}
         </span>
-        <p style={{ fontSize: 14, color: "#e8eeff", lineHeight: 1.6 }}>{question.question}</p>
+        <p style={{ fontSize: 14, color: T.text, lineHeight: 1.6 }}>{question.question}</p>
       </div>
 
       <div style={{ marginLeft: 38 }}>
@@ -561,12 +593,12 @@ function QuestionItem({
           <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
             {question.options.map((opt) => (
               <label key={opt.value} style={{ display: "flex", alignItems: "center", gap: 10, cursor: "pointer" }}>
-                <div style={{ width: 18, height: 18, borderRadius: "50%", border: `2px solid ${answer === opt.value ? "#3d62e0" : "rgba(255,255,255,0.2)"}`, background: answer === opt.value ? "#3d62e0" : "transparent", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}
+                <div style={{ width: 18, height: 18, borderRadius: "50%", border: `2px solid ${answer === opt.value ? T.accent : T.border}`, background: answer === opt.value ? T.accent : "transparent", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}
                   onClick={() => onAnswer(opt.value)}>
                   {answer === opt.value && <div style={{ width: 7, height: 7, borderRadius: "50%", background: "#fff" }} />}
                 </div>
                 <input type="radio" name={`q-${question.id}`} value={opt.value} checked={answer === opt.value} onChange={() => onAnswer(opt.value)} style={{ display: "none" }} />
-                <span style={{ fontSize: 14, color: "#e8eeff" }}>{opt.label}</span>
+                <span style={{ fontSize: 14, color: T.text }}>{opt.label}</span>
               </label>
             ))}
           </div>
@@ -577,7 +609,7 @@ function QuestionItem({
           <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
             {question.options.map((opt) => (
               <button key={opt.value} onClick={() => onAnswer(opt.value)}
-                style={{ ...btnBase, background: answer === opt.value ? "#3d62e0" : "#060c1f", color: answer === opt.value ? "#fff" : "rgba(255,255,255,0.6)", borderColor: answer === opt.value ? "#3d62e0" : "rgba(255,255,255,0.12)" }}>
+                style={{ ...btnBase, background: answer === opt.value ? T.accent : T.nav, color: answer === opt.value ? "#fff" : T.textSub, borderColor: answer === opt.value ? T.accent : T.border }}>
                 {opt.label}
               </button>
             ))}
@@ -589,7 +621,7 @@ function QuestionItem({
           <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
             {question.options.map((opt) => (
               <button key={opt.value} onClick={() => onAnswer(opt.value)}
-                style={{ ...btnBase, background: answer === opt.value ? "#3d62e0" : "#060c1f", color: answer === opt.value ? "#fff" : "rgba(255,255,255,0.6)", borderColor: answer === opt.value ? "#3d62e0" : "rgba(255,255,255,0.12)" }}>
+                style={{ ...btnBase, background: answer === opt.value ? T.accent : T.nav, color: answer === opt.value ? "#fff" : T.textSub, borderColor: answer === opt.value ? T.accent : T.border }}>
                 {opt.label}
               </button>
             ))}
@@ -601,9 +633,9 @@ function QuestionItem({
           "table_completion", "note_completion", "diagram_labelling"].includes(question.type) && (
           <input type="text" value={answer} onChange={(e) => onAnswer(e.target.value)}
             placeholder="Write your answer here..."
-            style={{ padding: "9px 14px", borderRadius: 8, fontSize: 14, background: "#020817", border: "1.5px solid rgba(255,255,255,0.12)", color: "#e8eeff", outline: "none", minWidth: 200, fontFamily: "Inter, system-ui, sans-serif", userSelect: "text", WebkitUserSelect: "text" } as React.CSSProperties}
-            onFocus={e => e.currentTarget.style.borderColor = "#3d62e0"}
-            onBlur={e => e.currentTarget.style.borderColor = "rgba(255,255,255,0.12)"}
+            style={{ padding: "9px 14px", borderRadius: 8, fontSize: 14, background: T.inputBg, border: `1.5px solid ${T.border}`, color: T.text, outline: "none", minWidth: 200, fontFamily: "Inter, system-ui, sans-serif", userSelect: "text", WebkitUserSelect: "text" } as React.CSSProperties}
+            onFocus={e => e.currentTarget.style.borderColor = T.accent}
+            onBlur={e => e.currentTarget.style.borderColor = T.border}
           />
         )}
       </div>
@@ -631,9 +663,9 @@ function WarningScreen({ test, onAccept }: { test: IELTSTest; onAccept: () => vo
   ];
 
   return (
-    <div style={{ minHeight: "100vh", background: "#020817", display: "flex", alignItems: "center", justifyContent: "center", padding: 24, fontFamily: "Inter, system-ui, sans-serif" }}>
+    <div style={{ minHeight: "100vh", background: "#0a051f", display: "flex", alignItems: "center", justifyContent: "center", padding: 24, fontFamily: "Inter, system-ui, sans-serif" }}>
       <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }}
-        style={{ maxWidth: 520, width: "100%", background: "#0b1530", border: "1px solid rgba(255,255,255,0.1)", borderRadius: 24, padding: "36px 32px", boxShadow: "0 24px 64px rgba(0,0,0,0.6)" }}>
+        style={{ maxWidth: 520, width: "100%", background: "#140b35", border: "1px solid rgba(255,255,255,0.1)", borderRadius: 24, padding: "36px 32px", boxShadow: "0 24px 64px rgba(0,0,0,0.6)" }}>
 
         <div style={{ width: 56, height: 56, borderRadius: 14, background: "#fef3c7", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 20px" }}>
           <AlertTriangle size={26} color="#d97706" />
@@ -655,7 +687,7 @@ function WarningScreen({ test, onAccept }: { test: IELTSTest; onAccept: () => vo
 
         <label style={{ display: "flex", alignItems: "flex-start", gap: 12, cursor: "pointer", marginBottom: 24 }}>
           <div onClick={() => setAgreed(!agreed)}
-            style={{ flexShrink: 0, width: 20, height: 20, borderRadius: 6, border: `2px solid ${agreed ? "#3d62e0" : "rgba(255,255,255,0.2)"}`, background: agreed ? "#3d62e0" : "transparent", display: "flex", alignItems: "center", justifyContent: "center", marginTop: 2, cursor: "pointer", transition: "all 0.15s" }}>
+            style={{ flexShrink: 0, width: 20, height: 20, borderRadius: 6, border: `2px solid ${agreed ? "#7c3aed" : "rgba(255,255,255,0.2)"}`, background: agreed ? "#7c3aed" : "transparent", display: "flex", alignItems: "center", justifyContent: "center", marginTop: 2, cursor: "pointer", transition: "all 0.15s" }}>
             {agreed && <CheckCircle size={13} color="#fff" />}
           </div>
           <span style={{ fontSize: 14, color: "rgba(255,255,255,0.65)", lineHeight: 1.5 }}>
@@ -664,7 +696,7 @@ function WarningScreen({ test, onAccept }: { test: IELTSTest; onAccept: () => vo
         </label>
 
         <button onClick={onAccept} disabled={!agreed}
-          style={{ width: "100%", display: "flex", alignItems: "center", justifyContent: "center", gap: 8, padding: "14px", background: agreed ? "linear-gradient(135deg,#1e3bbf,#3d62e0)" : "rgba(61,98,224,0.3)", color: "#fff", fontWeight: 700, fontSize: 15, border: "none", borderRadius: 12, cursor: agreed ? "pointer" : "not-allowed", boxShadow: agreed ? "0 4px 15px rgba(37,99,235,0.4)" : "none", transition: "all 0.2s" }}>
+          style={{ width: "100%", display: "flex", alignItems: "center", justifyContent: "center", gap: 8, padding: "14px", background: agreed ? "linear-gradient(135deg,#6d28d9,#7c3aed)" : "rgba(124,58,237,0.3)", color: "#fff", fontWeight: 700, fontSize: 15, border: "none", borderRadius: 12, cursor: agreed ? "pointer" : "not-allowed", boxShadow: agreed ? "0 4px 15px rgba(37,99,235,0.4)" : "none", transition: "all 0.2s" }}>
           Start Test <ChevronRight size={16} />
         </button>
       </motion.div>
@@ -687,17 +719,17 @@ function ResultScreen({
   const msg = pct >= 80 ? "Excellent performance!" : pct >= 60 ? "Good effort — keep practising!" : "Keep working hard — you can do it!";
 
   return (
-    <div style={{ minHeight: "100vh", background: "#020817", display: "flex", alignItems: "center", justifyContent: "center", padding: 24, fontFamily: "Inter, system-ui, sans-serif" }}>
+    <div style={{ minHeight: "100vh", background: "#0a051f", display: "flex", alignItems: "center", justifyContent: "center", padding: 24, fontFamily: "Inter, system-ui, sans-serif" }}>
       <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }}
         style={{ maxWidth: 420, width: "100%", textAlign: "center" }}>
-        <div style={{ width: 80, height: 80, borderRadius: "50%", background: "linear-gradient(135deg,#1e3bbf,#4a6de8)", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 20px" }}>
+        <div style={{ width: 80, height: 80, borderRadius: "50%", background: "linear-gradient(135deg,#6d28d9,#7c3aed)", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 20px" }}>
           <CheckCircle size={36} color="#fff" />
         </div>
         <h1 style={{ fontSize: 30, fontWeight: 900, color: "#e8eeff", marginBottom: 6 }}>Test Complete!</h1>
         <p style={{ color: "rgba(255,255,255,0.4)", marginBottom: 32 }}>Well done, {session.name}! Here are your results.</p>
 
-        <div style={{ background: "#0b1530", border: "1px solid rgba(255,255,255,0.1)", borderRadius: 24, padding: "32px", marginBottom: 20 }}>
-          <div style={{ fontSize: 72, fontWeight: 900, color: "#3d62e0", lineHeight: 1, marginBottom: 4 }}>{result.band}</div>
+        <div style={{ background: "#140b35", border: "1px solid rgba(255,255,255,0.1)", borderRadius: 24, padding: "32px", marginBottom: 20 }}>
+          <div style={{ fontSize: 72, fontWeight: 900, color: "#7c3aed", lineHeight: 1, marginBottom: 4 }}>{result.band}</div>
           <div style={{ fontSize: 13, fontWeight: 600, color: "rgba(255,255,255,0.4)", marginBottom: 24 }}>IELTS Band Score</div>
 
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginBottom: 20 }}>
@@ -705,7 +737,7 @@ function ResultScreen({
               { label: "Raw Score", value: `${result.score}/${result.max}` },
               { label: "Percentage", value: `${pct}%` },
             ].map(s => (
-              <div key={s.label} style={{ padding: 16, borderRadius: 14, background: "#060c1f", border: "1px solid rgba(255,255,255,0.08)" }}>
+              <div key={s.label} style={{ padding: 16, borderRadius: 14, background: "#0e0828", border: "1px solid rgba(255,255,255,0.08)" }}>
                 <div style={{ fontSize: 22, fontWeight: 700, color: "#e8eeff", marginBottom: 4 }}>{s.value}</div>
                 <div style={{ fontSize: 12, color: "rgba(255,255,255,0.35)" }}>{s.label}</div>
               </div>
@@ -713,13 +745,13 @@ function ResultScreen({
           </div>
 
           <div style={{ height: 6, background: "rgba(255,255,255,0.07)", borderRadius: 3, marginBottom: 8 }}>
-            <div style={{ height: "100%", background: "linear-gradient(90deg,#3d62e0,#7598ff)", borderRadius: 3, width: `${pct}%`, transition: "width 0.5s ease" }} />
+            <div style={{ height: "100%", background: "linear-gradient(90deg,#7c3aed,#b87fff)", borderRadius: 3, width: `${pct}%`, transition: "width 0.5s ease" }} />
           </div>
           <p style={{ fontSize: 13, color: "rgba(255,255,255,0.4)" }}>{msg}</p>
         </div>
 
         <button onClick={onBack}
-          style={{ width: "100%", display: "flex", alignItems: "center", justifyContent: "center", gap: 8, padding: "14px", background: "linear-gradient(135deg,#1e3bbf,#3d62e0)", color: "#fff", fontWeight: 700, fontSize: 15, border: "none", borderRadius: 12, cursor: "pointer", boxShadow: "0 4px 15px rgba(37,99,235,0.4)" }}>
+          style={{ width: "100%", display: "flex", alignItems: "center", justifyContent: "center", gap: 8, padding: "14px", background: "linear-gradient(135deg,#6d28d9,#7c3aed)", color: "#fff", fontWeight: 700, fontSize: 15, border: "none", borderRadius: 12, cursor: "pointer", boxShadow: "0 4px 15px rgba(37,99,235,0.4)" }}>
           Back to Dashboard <ChevronRight size={16} />
         </button>
       </motion.div>

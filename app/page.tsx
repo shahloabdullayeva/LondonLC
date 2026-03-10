@@ -5,6 +5,7 @@ import { getSession } from "@/lib/store";
 import { motion } from "framer-motion";
 import { ChevronRight, BookOpen, Headphones, Clock, Award, CheckCircle, Shield } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function HomePage() {
   const router = useRouter();
@@ -14,25 +15,13 @@ export default function HomePage() {
   }, [router]);
 
   return (
-    <div style={{ minHeight: "100vh", background: "#020817", color: "#e8eeff", overflowX: "hidden", fontFamily: "Inter, system-ui, sans-serif" }}>
+    <div style={{ minHeight: "100vh", background: "#0a051f", color: "#f0eaff", overflowX: "hidden", fontFamily: "Inter, system-ui, sans-serif" }}>
 
       {/* Nav */}
-      <nav style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 32px", height: 64, borderBottom: "1px solid rgba(255,255,255,0.07)", position: "sticky", top: 0, zIndex: 40, background: "rgba(2,8,23,0.92)", backdropFilter: "blur(12px)" }}>
-        <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-          {/* Shield logo */}
-          <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
-            <path d="M18 3L4 9v10c0 8.3 5.9 16 14 18 8.1-2 14-9.7 14-18V9L18 3z" fill="url(#shieldGrad)" />
-            <defs>
-              <linearGradient id="shieldGrad" x1="4" y1="3" x2="32" y2="33">
-                <stop stopColor="#2563eb" />
-                <stop offset="1" stopColor="#1e40af" />
-              </linearGradient>
-            </defs>
-            <BookOpen size={14} color="white" style={{ position: "absolute" }} />
-            <text x="18" y="22" textAnchor="middle" fontSize="11" fontWeight="bold" fill="white">LC</text>
-          </svg>
-          <span style={{ fontWeight: 800, fontSize: 18, color: "#fff" }}>London LC</span>
-        </div>
+      <nav style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 32px", height: 64, borderBottom: "1px solid rgba(255,255,255,0.07)", position: "sticky", top: 0, zIndex: 40, background: "rgba(10,5,31,0.92)", backdropFilter: "blur(12px)" }}>
+        <Link href="/" style={{ textDecoration: "none" }}>
+          <Image src="/logo.svg" alt="London LC" width={140} height={52} style={{ filter: "brightness(0) invert(1)" }} priority />
+        </Link>
         <div className="home-nav-right" style={{ display: "flex", alignItems: "center", gap: 32 }}>
           <nav className="home-nav-links" style={{ display: "flex", gap: 28 }}>
             {["Features", "Tests", "FAQ", "Contact"].map(n => (
@@ -46,7 +35,7 @@ export default function HomePage() {
             <Link href="/auth/login" className="home-nav-signin" style={{ fontSize: 14, color: "rgba(255,255,255,0.7)", textDecoration: "none", padding: "8px 16px", border: "1px solid rgba(255,255,255,0.2)", borderRadius: 8 }}>
               Sign In
             </Link>
-            <Link href="/auth/signup" style={{ fontSize: 14, fontWeight: 600, color: "#fff", background: "linear-gradient(135deg, #2563eb, #1d4ed8)", padding: "9px 20px", borderRadius: 10, textDecoration: "none", boxShadow: "0 4px 15px rgba(37,99,235,0.4)" }}>
+            <Link href="/auth/signup" style={{ fontSize: 14, fontWeight: 600, color: "#fff", background: "linear-gradient(135deg, #7c3aed, #6d28d9)", padding: "9px 20px", borderRadius: 10, textDecoration: "none", boxShadow: "0 4px 15px rgba(124,58,237,0.4)" }}>
               Get Started
             </Link>
           </div>
@@ -56,22 +45,17 @@ export default function HomePage() {
       {/* Hero */}
       <section style={{ textAlign: "center", padding: "96px 24px 80px", position: "relative" }}>
         {/* Background glow */}
-        <div style={{ position: "absolute", top: 0, left: "50%", transform: "translateX(-50%)", width: 800, height: 500, background: "radial-gradient(ellipse at center, rgba(37,99,235,0.15) 0%, transparent 65%)", pointerEvents: "none" }} />
+        <div style={{ position: "absolute", top: 0, left: "50%", transform: "translateX(-50%)", width: 800, height: 500, background: "radial-gradient(ellipse at center, rgba(124,58,237,0.18) 0%, transparent 65%)", pointerEvents: "none" }} />
 
         <motion.div initial={{ opacity: 0, y: 28 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.65 }} style={{ position: "relative", maxWidth: 720, margin: "0 auto" }}>
-          {/* Shield icon */}
-          <div style={{ marginBottom: 32 }}>
-            <div style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", width: 90, height: 90, background: "linear-gradient(135deg, #1e3a8a, #2563eb)", borderRadius: "50%", boxShadow: "0 8px 32px rgba(37,99,235,0.4)", border: "2px solid rgba(255,255,255,0.15)" }}>
-              <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
-                <path d="M24 4L6 12v13c0 11 7.8 21.3 18 24 10.2-2.7 18-13 18-24V12L24 4z" fill="rgba(255,255,255,0.15)" stroke="rgba(255,255,255,0.4)" strokeWidth="1.5" />
-                <BookOpen size={22} color="white" style={{ position: "absolute" }} />
-              </svg>
-            </div>
+          {/* Logo */}
+          <div style={{ marginBottom: 24 }}>
+            <Image src="/logo.svg" alt="London LC" width={220} height={82} style={{ filter: "brightness(0) invert(1)" }} priority />
           </div>
 
           <h1 style={{ fontSize: "clamp(2.4rem, 5.5vw, 3.8rem)", fontWeight: 900, lineHeight: 1.08, letterSpacing: "-1.5px", color: "#fff", marginBottom: 20 }}>
             Master IELTS with{" "}
-            <span style={{ background: "linear-gradient(90deg, #60a5fa, #93c5fd)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
+            <span style={{ background: "linear-gradient(90deg, #a78bfa, #c4b5fd)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
               Cambridge Practice
             </span>
           </h1>
@@ -82,7 +66,7 @@ export default function HomePage() {
           </p>
 
           <div style={{ display: "flex", gap: 14, justifyContent: "center", flexWrap: "wrap", marginBottom: 16 }}>
-            <Link href="/auth/signup" style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "14px 36px", background: "linear-gradient(135deg, #2563eb, #1d4ed8)", color: "#fff", fontWeight: 700, fontSize: 16, borderRadius: 50, textDecoration: "none", boxShadow: "0 6px 20px rgba(37,99,235,0.45)" }}>
+            <Link href="/auth/signup" style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "14px 36px", background: "linear-gradient(135deg, #7c3aed, #6d28d9)", color: "#fff", fontWeight: 700, fontSize: 16, borderRadius: 50, textDecoration: "none", boxShadow: "0 6px 20px rgba(124,58,237,0.5)" }}>
               Get Started <ChevronRight size={18} />
             </Link>
             <Link href="/auth/login" style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "14px 36px", background: "rgba(255,255,255,0.08)", color: "#fff", fontWeight: 600, fontSize: 16, borderRadius: 50, textDecoration: "none", border: "1px solid rgba(255,255,255,0.15)" }}>
@@ -91,7 +75,7 @@ export default function HomePage() {
           </div>
           <p style={{ fontSize: 13, color: "rgba(255,255,255,0.3)", marginBottom: 36 }}>
             Already have an account?{" "}
-            <Link href="/auth/login" style={{ color: "#60a5fa", textDecoration: "none" }}>Sign in here</Link>
+            <Link href="/auth/login" style={{ color: "#a78bfa", textDecoration: "none" }}>Sign in here</Link>
           </p>
 
           {/* Trust badges */}
@@ -114,9 +98,9 @@ export default function HomePage() {
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(290px, 1fr))", gap: 18 }}>
             {features.map((f, i) => (
               <motion.div key={f.title} initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.08 }}
-                style={{ padding: "24px 22px", borderRadius: 16, background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}>
-                <div style={{ width: 44, height: 44, borderRadius: 12, background: "rgba(37,99,235,0.2)", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 14 }}>
-                  <f.icon size={20} color="#60a5fa" />
+                style={{ padding: "24px 22px", borderRadius: 16, background: "rgba(124,58,237,0.08)", border: "1px solid rgba(124,58,237,0.18)" }}>
+                <div style={{ width: 44, height: 44, borderRadius: 12, background: "rgba(124,58,237,0.2)", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 14 }}>
+                  <f.icon size={20} color="#a78bfa" />
                 </div>
                 <h3 style={{ fontWeight: 700, fontSize: 15, color: "#fff", marginBottom: 7 }}>{f.title}</h3>
                 <p style={{ fontSize: 13.5, lineHeight: 1.65, color: "rgba(255,255,255,0.5)" }}>{f.desc}</p>
@@ -131,7 +115,7 @@ export default function HomePage() {
         <div style={{ maxWidth: 800, margin: "0 auto", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", gap: 32, textAlign: "center" }}>
           {stats.map(s => (
             <div key={s.label}>
-              <div style={{ fontSize: 42, fontWeight: 900, background: "linear-gradient(90deg, #60a5fa, #93c5fd)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text", lineHeight: 1, marginBottom: 6 }}>{s.value}</div>
+              <div style={{ fontSize: 42, fontWeight: 900, background: "linear-gradient(90deg, #a78bfa, #c4b5fd)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text", lineHeight: 1, marginBottom: 6 }}>{s.value}</div>
               <div style={{ fontSize: 13, color: "rgba(255,255,255,0.4)", fontWeight: 500 }}>{s.label}</div>
             </div>
           ))}
@@ -142,7 +126,7 @@ export default function HomePage() {
       <section style={{ padding: "72px 24px", textAlign: "center", borderTop: "1px solid rgba(255,255,255,0.06)" }}>
         <h2 style={{ fontSize: 30, fontWeight: 800, color: "#fff", marginBottom: 12 }}>Ready to start?</h2>
         <p style={{ color: "rgba(255,255,255,0.5)", marginBottom: 32, fontSize: 15 }}>Sign in with your name and group code provided by your teacher.</p>
-        <Link href="/auth/login" style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "14px 44px", background: "linear-gradient(135deg, #2563eb, #1d4ed8)", color: "#fff", fontWeight: 700, fontSize: 16, borderRadius: 50, textDecoration: "none", boxShadow: "0 6px 20px rgba(37,99,235,0.45)" }}>
+        <Link href="/auth/login" style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "14px 44px", background: "linear-gradient(135deg, #7c3aed, #6d28d9)", color: "#fff", fontWeight: 700, fontSize: 16, borderRadius: 50, textDecoration: "none", boxShadow: "0 6px 20px rgba(124,58,237,0.5)" }}>
           Get Started <ChevronRight size={18} />
         </Link>
       </section>

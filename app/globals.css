@@ -4,34 +4,34 @@
 :root {
   --font-inter: 'Inter', system-ui, sans-serif;
 
-  /* Light theme — crisp blue-white */
-  --bg-primary: #f4f7ff;
-  --bg-secondary: #eaefff;
+  /* Light theme — clean white with purple accents */
+  --bg-primary: #ffffff;
+  --bg-secondary: #f4f0ff;
   --bg-card: #ffffff;
-  --text-primary: #0a1540;
-  --text-secondary: #3a4a7a;
-  --text-muted: #6b7db3;
-  --border: #d0d9f5;
-  --accent: #1a35b8;
-  --accent-light: #dde5ff;
+  --text-primary: #1a0040;
+  --text-secondary: #4c1d95;
+  --text-muted: #7c5fad;
+  --border: #ddd0f8;
+  --accent: #6d28d9;
+  --accent-light: #ede9ff;
   --success: #10b981;
   --warning: #f59e0b;
   --danger: #ef4444;
-  --shadow: 0 4px 24px rgba(10, 21, 64, 0.10);
-  --shadow-lg: 0 10px 40px rgba(10, 21, 64, 0.15);
+  --shadow: 0 4px 24px rgba(109, 40, 217, 0.10);
+  --shadow-lg: 0 10px 40px rgba(109, 40, 217, 0.15);
 }
 
 .dark {
-  /* Dark theme — very deep navy, almost black */
-  --bg-primary: #02040f;
-  --bg-secondary: #060c1f;
-  --bg-card: #0b1530;
-  --text-primary: #e8eeff;
-  --text-secondary: #8ba4e8;
-  --text-muted: #4d6bb5;
-  --border: #142050;
-  --accent: #3d62e0;
-  --accent-light: #0d1c4a;
+  /* Dark theme — deep purple-black */
+  --bg-primary: #0a051f;
+  --bg-secondary: #0e0828;
+  --bg-card: #140b35;
+  --text-primary: #f0eaff;
+  --text-secondary: #c4aff5;
+  --text-muted: #7c5fad;
+  --border: #2a1a55;
+  --accent: #7c3aed;
+  --accent-light: #1e1050;
   --success: #10b981;
   --warning: #f59e0b;
   --danger: #ef4444;
@@ -135,7 +135,7 @@ body {
 
 .progress-bar-fill {
   height: 100%;
-  background: linear-gradient(90deg, var(--accent), #7598ff);
+  background: linear-gradient(90deg, var(--accent), #b87fff);
   border-radius: 2px;
   transition: width 0.3s ease;
 }
@@ -148,20 +148,20 @@ body {
 }
 
 .dark .glass-card {
-  background: rgba(22, 37, 128, 0.85);
-  border: 1px solid rgba(74, 109, 232, 0.3);
+  background: rgba(30, 16, 80, 0.85);
+  border: 1px solid rgba(124, 58, 237, 0.3);
 }
 
 /* Button styles */
 .btn-primary {
   @apply inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-semibold text-white transition-all duration-200;
-  background: linear-gradient(135deg, #1e3bbf, #2d4fd4);
-  box-shadow: 0 4px 15px rgba(30, 59, 191, 0.35);
+  background: linear-gradient(135deg, #6d28d9, #7c3aed);
+  box-shadow: 0 4px 15px rgba(109, 40, 217, 0.35);
 }
 
 .btn-primary:hover {
   transform: translateY(-1px);
-  box-shadow: 0 6px 20px rgba(30, 59, 191, 0.45);
+  box-shadow: 0 6px 20px rgba(109, 40, 217, 0.45);
 }
 
 .btn-primary:active {
@@ -169,8 +169,8 @@ body {
 }
 
 .dark .btn-primary {
-  background: linear-gradient(135deg, #4a6de8, #6b8eff);
-  box-shadow: 0 4px 15px rgba(74, 109, 232, 0.35);
+  background: linear-gradient(135deg, #7c3aed, #9f60ff);
+  box-shadow: 0 4px 15px rgba(124, 58, 237, 0.35);
 }
 
 .btn-secondary {
@@ -196,7 +196,7 @@ body {
 
 .input-field:focus {
   border-color: var(--accent);
-  box-shadow: 0 0 0 3px rgba(30, 59, 191, 0.12);
+  box-shadow: 0 0 0 3px rgba(109, 40, 217, 0.12);
 }
 
 .input-field::placeholder {
@@ -214,7 +214,7 @@ body {
 
 .answer-input:focus {
   border-color: var(--accent);
-  box-shadow: 0 0 0 3px rgba(30, 59, 191, 0.1);
+  box-shadow: 0 0 0 3px rgba(109, 40, 217, 0.1);
 }
 
 /* Section tabs */
@@ -248,13 +248,13 @@ body {
 }
 
 .badge-academic {
-  background: #dbeafe;
-  color: #1e40af;
+  background: #ede9fe;
+  color: #4c1d95;
 }
 
 .dark .badge-academic {
-  background: #1e3a8a;
-  color: #93c5fd;
+  background: #2e1065;
+  color: #c4b5fd;
 }
 
 .badge-general {
@@ -278,13 +278,13 @@ body {
 }
 
 .badge-reading {
-  background: #fef3c7;
-  color: #92400e;
+  background: #ede9fe;
+  color: #6d28d9;
 }
 
 .dark .badge-reading {
-  background: #451a03;
-  color: #fcd34d;
+  background: #2e1065;
+  color: #c4b5fd;
 }
 
 /* ── Mobile responsive ─────────────────────────────────────── */
@@ -331,14 +331,14 @@ body {
 
 /* Logo text */
 .logo-gradient {
-  background: linear-gradient(135deg, #1a35b8, #3d62e0);
+  background: linear-gradient(135deg, #6d28d9, #7c3aed);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
 .dark .logo-gradient {
-  background: linear-gradient(135deg, #6b94ff, #a8c0ff);
+  background: linear-gradient(135deg, #a78bfa, #c4b5fd);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
