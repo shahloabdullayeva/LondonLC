@@ -33,6 +33,13 @@ export default function StudentDashboard() {
 
   const filteredTests = allTests.filter(t => t.type === typeFilter);
 
+  // Group tests by bookNumber
+  const bookNumbers = [...new Set(filteredTests.map(t => t.bookNumber))].sort((a, b) => a - b);
+  const testsByBook = bookNumbers.map(book => ({
+    book,
+    tests: filteredTests.filter(t => t.bookNumber === book).sort((a, b) => a.testNumber - b.testNumber),
+  }));
+
   if (!session) return null;
 
   return (
@@ -104,47 +111,63 @@ export default function StudentDashboard() {
             ))}
           </div>
 
-          {/* Tests grid */}
-          <h2 style={{ fontSize: 16, fontWeight: 700, color: "#fff", marginBottom: 16 }}>
+          {/* Tests grouped by Cambridge book */}
+          <h2 style={{ fontSize: 16, fontWeight: 700, color: "#fff", marginBottom: 20 }}>
             {typeFilter === "listening" ? "Listening Tests" : "Academic Reading Tests"}
           </h2>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))", gap: 16 }}>
-            {filteredTests.map(test => {
-              const myBest = attempts.filter(a => a.testId === test.id && a.status === "completed");
-              const best = myBest.length ? Math.max(...myBest.map(a => a.bandScore)) : null;
-              const totalQ = test.sections.reduce((s, sec) => s + sec.questions.length, 0);
-              return (
-                <div key={test.id}
-                  style={{ background: "#140b35", border: "1px solid rgba(255,255,255,0.09)", borderRadius: 16, padding: 22, cursor: "pointer", transition: "all 0.2s" }}
-                  onMouseEnter={e => { (e.currentTarget as HTMLElement).style.borderColor = "rgba(124,58,237,0.5)"; (e.currentTarget as HTMLElement).style.transform = "translateY(-2px)"; }}
-                  onMouseLeave={e => { (e.currentTarget as HTMLElement).style.borderColor = "rgba(255,255,255,0.09)"; (e.currentTarget as HTMLElement).style.transform = "none"; }}
-                  onClick={() => router.push(`/student/test/${test.id}`)}>
-                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 14 }}>
-                    <div>
-                      <h3 style={{ fontSize: 15, fontWeight: 800, color: "#fff", marginBottom: 4 }}>{test.title}</h3>
-                      <p style={{ fontSize: 12, color: "rgba(255,255,255,0.4)" }}>
-                        {test.type === "listening" ? "Listening Test" : "Academic Reading"}
-                      </p>
-                    </div>
-                    {best !== null && (
-                      <span style={{ fontSize: 12, fontWeight: 700, padding: "4px 10px", background: "rgba(16,185,129,0.15)", color: "#34d399", borderRadius: 20, border: "1px solid rgba(16,185,129,0.2)" }}>
-                        Band {best}
-                      </span>
-                    )}
-                  </div>
-
-                  <div style={{ display: "flex", gap: 16, marginBottom: 18, fontSize: 12, color: "rgba(255,255,255,0.4)" }}>
-                    <span style={{ display: "flex", alignItems: "center", gap: 5 }}><Clock size={12} /> {test.durationMinutes} min{test.transferMinutes > 0 ? ` + ${test.transferMinutes} transfer` : ""}</span>
-                    <span style={{ display: "flex", alignItems: "center", gap: 5 }}><BarChart3 size={12} /> {totalQ} questions</span>
-                  </div>
-
-                  <button style={{ width: "100%", padding: "11px", background: "linear-gradient(135deg,#7c3aed,#6d28d9)", color: "#fff", fontWeight: 700, fontSize: 14, border: "none", borderRadius: 10, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", gap: 6 }}>
-                    Start practice <ChevronRight size={15} />
-                  </button>
+          {testsByBook.map(({ book, tests }) => (
+            <div key={book} style={{ marginBottom: 36 }}>
+              {/* Book section header */}
+              <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 16 }}>
+                <div style={{ display: "flex", alignItems: "center", gap: 10, padding: "8px 16px", background: "rgba(124,58,237,0.15)", border: "1px solid rgba(124,58,237,0.3)", borderRadius: 12 }}>
+                  <BookOpen size={15} color="#a78bfa" />
+                  <span style={{ fontSize: 14, fontWeight: 700, color: "#c4b5fd" }}>Cambridge IELTS {book}</span>
                 </div>
-              );
-            })}
-          </div>
+                <div style={{ flex: 1, height: 1, background: "rgba(255,255,255,0.07)" }} />
+                <span style={{ fontSize: 12, color: "rgba(255,255,255,0.3)" }}>{tests.length} test{tests.length !== 1 ? "s" : ""}</span>
+              </div>
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: 14 }}>
+                {tests.map(test => {
+                  const myBest = attempts.filter(a => a.testId === test.id && a.status === "completed");
+                  const best = myBest.length ? Math.max(...myBest.map(a => a.bandScore)) : null;
+                  const totalQ = test.sections.reduce((s, sec) => s + sec.questions.length, 0);
+                  return (
+                    <div key={test.id}
+                      style={{ background: "#140b35", border: "1px solid rgba(255,255,255,0.09)", borderRadius: 16, padding: 20, cursor: "pointer", transition: "all 0.2s" }}
+                      onMouseEnter={e => { (e.currentTarget as HTMLElement).style.borderColor = "rgba(124,58,237,0.5)"; (e.currentTarget as HTMLElement).style.transform = "translateY(-2px)"; }}
+                      onMouseLeave={e => { (e.currentTarget as HTMLElement).style.borderColor = "rgba(255,255,255,0.09)"; (e.currentTarget as HTMLElement).style.transform = "none"; }}
+                      onClick={() => router.push(`/student/test/${test.id}`)}>
+                      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 12 }}>
+                        <div>
+                          <div style={{ fontSize: 11, fontWeight: 600, color: "#7c3aed", marginBottom: 4, textTransform: "uppercase", letterSpacing: "0.05em" }}>
+                            Test {test.testNumber}
+                          </div>
+                          <h3 style={{ fontSize: 14, fontWeight: 800, color: "#fff", marginBottom: 3 }}>{test.title}</h3>
+                          <p style={{ fontSize: 12, color: "rgba(255,255,255,0.4)" }}>
+                            {test.type === "listening" ? "Listening Test" : "Academic Reading"}
+                          </p>
+                        </div>
+                        {best !== null && (
+                          <span style={{ fontSize: 12, fontWeight: 700, padding: "4px 10px", background: "rgba(16,185,129,0.15)", color: "#34d399", borderRadius: 20, border: "1px solid rgba(16,185,129,0.2)", flexShrink: 0 }}>
+                            Band {best}
+                          </span>
+                        )}
+                      </div>
+
+                      <div style={{ display: "flex", gap: 14, marginBottom: 16, fontSize: 12, color: "rgba(255,255,255,0.4)" }}>
+                        <span style={{ display: "flex", alignItems: "center", gap: 5 }}><Clock size={12} /> {test.durationMinutes} min{test.transferMinutes > 0 ? ` + ${test.transferMinutes} transfer` : ""}</span>
+                        <span style={{ display: "flex", alignItems: "center", gap: 5 }}><BarChart3 size={12} /> {totalQ} questions</span>
+                      </div>
+
+                      <button style={{ width: "100%", padding: "10px", background: "linear-gradient(135deg,#7c3aed,#6d28d9)", color: "#fff", fontWeight: 700, fontSize: 13, border: "none", borderRadius: 10, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", gap: 6 }}>
+                        Start practice <ChevronRight size={14} />
+                      </button>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          ))}
 
           {/* Recent attempts */}
           {attempts.length > 0 && (
