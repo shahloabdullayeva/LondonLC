@@ -34,6 +34,7 @@ export default function TestPage() {
   const [audioTotal, setAudioTotal] = useState(0);
   const [audioCurrentSection, setAudioCurrentSection] = useState(0);
   const [mobileView, setMobileView] = useState<"passage" | "questions">("passage");
+  const [passageCollapsed, setPassageCollapsed] = useState(false);
 
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const transferTimerRef = useRef<ReturnType<typeof setInterval> | null>(null);
@@ -432,24 +433,40 @@ export default function TestPage() {
         {/* Left: Passage (reading) */}
         {test.type === "reading" && section.passageText && (
           <div className={`passage-panel ${mobileView === "passage" ? "panel-visible" : "panel-hidden"}`}
-            style={{ width: "50%", overflowY: "auto", padding: "28px 32px", borderRight: "1px solid rgba(255,255,255,0.08)", background: "#0d1b3e" }}>
-            <h2 style={{ fontSize: 17, fontWeight: 800, color: "#e8eeff", marginBottom: 20 }}>{section.passageTitle}</h2>
-            <div style={{ color: "rgba(255,255,255,0.82)", lineHeight: 1.9, fontSize: 15 }}
-              dangerouslySetInnerHTML={{
-                __html: section.passageText
-                  .replace(/\n\n/g, "</p><p style='margin-bottom:14px'>")
-                  .replace(/\n/g, "<br/>")
-                  .replace(/^/, "<p style='margin-bottom:14px'>")
-                  .replace(/$/, "</p>")
-                  .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
-              }}
-            />
+            style={{ width: passageCollapsed ? 0 : "50%", minWidth: passageCollapsed ? 0 : undefined, overflow: "hidden", transition: "width 0.25s ease", background: "#0d1b3e", position: "relative", display: "flex", flexDirection: "column" }}>
+            <div style={{ flex: 1, overflowY: "auto", padding: "28px 32px" }}>
+              <h2 style={{ fontSize: 17, fontWeight: 800, color: "#e8eeff", marginBottom: 20 }}>{section.passageTitle}</h2>
+              <div style={{ color: "rgba(255,255,255,0.82)", lineHeight: 1.9, fontSize: 15 }}
+                dangerouslySetInnerHTML={{
+                  __html: section.passageText
+                    .replace(/\n\n/g, "</p><p style='margin-bottom:14px'>")
+                    .replace(/\n/g, "<br/>")
+                    .replace(/^/, "<p style='margin-bottom:14px'>")
+                    .replace(/$/, "</p>")
+                    .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
+                }}
+              />
+            </div>
+          </div>
+        )}
+
+        {/* Divider toggle button (reading only, desktop) */}
+        {test.type === "reading" && (
+          <div className="divider-toggle" style={{ position: "relative", width: 0, display: "flex", alignItems: "center", justifyContent: "center", zIndex: 10, flexShrink: 0 }}>
+            <div style={{ position: "absolute", top: 0, bottom: 0, width: 1, background: "rgba(255,255,255,0.08)" }} />
+            <button onClick={() => setPassageCollapsed(p => !p)}
+              title={passageCollapsed ? "Show passage" : "Hide passage"}
+              style={{ position: "relative", width: 28, height: 28, borderRadius: "50%", background: "#1a2a5e", border: "1.5px solid rgba(255,255,255,0.15)", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", color: "#93c5fd", fontSize: 14, fontWeight: 700, zIndex: 1, flexShrink: 0, transition: "background 0.15s" }}
+              onMouseEnter={e => (e.currentTarget.style.background = "#2a3f8f")}
+              onMouseLeave={e => (e.currentTarget.style.background = "#1a2a5e")}>
+              {passageCollapsed ? "›" : "‹"}
+            </button>
           </div>
         )}
 
         {/* Right: Questions */}
         <div className={`questions-panel ${test.type === "reading" && mobileView === "passage" ? "panel-hidden" : "panel-visible"}`}
-          style={{ width: test.type === "reading" ? "50%" : "100%", overflowY: "auto", padding: "24px 28px", background: "#020817" }}>
+          style={{ flex: 1, overflowY: "auto", padding: "24px 28px", background: "#020817" }}>
 
           {/* Listening: passage text */}
           {test.type === "listening" && section.passageText && (
@@ -497,15 +514,18 @@ export default function TestPage() {
       </div>
 
       <style>{`
-        /* Desktop: always show both panels, hide toggle bar */
+        /* Desktop: both panels side by side, hide mobile bar */
         @media (min-width: 768px) {
           .mobile-toggle-bar { display: none !important; }
-          .passage-panel, .questions-panel { display: block !important; width: 50% !important; }
+          .divider-toggle { display: flex !important; }
+          .passage-panel { display: flex !important; }
+          .questions-panel { display: block !important; }
         }
-        /* Mobile: show one panel at a time */
+        /* Mobile: one panel at a time, hide divider button */
         @media (max-width: 767px) {
           .mobile-toggle-bar { display: flex !important; }
-          .passage-panel, .questions-panel { width: 100% !important; }
+          .divider-toggle { display: none !important; }
+          .passage-panel, .questions-panel { width: 100% !important; flex: none !important; }
           .panel-hidden { display: none !important; }
           .panel-visible { display: block !important; }
         }
