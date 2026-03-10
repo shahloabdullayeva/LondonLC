@@ -90,22 +90,25 @@ export default function AdminDashboard() {
     : "–";
   const uniqueStudents = new Set(attempts.map((a) => a.studentId)).size;
 
-  // CSV export
-  const exportCSV = () => {
-    const headers = ["Name", "Surname", "Group", "Test", "Type", "Score", "Max", "Band", "Status", "Date"];
-    const rows = filtered.map((a) => [
-      a.studentName, a.studentSurname, a.groupName, a.testTitle,
-      a.testType, a.score, a.maxScore, a.bandScore, a.status,
-      new Date(a.submittedAt).toLocaleString(),
-    ]);
-    const csv = [headers, ...rows].map((r) => r.join(",")).join("\n");
-    const blob = new Blob([csv], { type: "text/csv" });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = `london-lc-results-${new Date().toISOString().slice(0, 10)}.csv`;
-    a.click();
-    URL.revokeObjectURL(url);
+  // Excel export
+  const exportExcel = async () => {
+    const XLSX = await import("xlsx");
+    const rows = filtered.map((a) => ({
+      "First Name": a.studentName,
+      "Surname": a.studentSurname,
+      "Group": a.groupName,
+      "Test": a.testTitle,
+      "Type": a.testType.charAt(0).toUpperCase() + a.testType.slice(1),
+      "Score": `${a.score}/${a.maxScore}`,
+      "Band Score": a.bandScore > 0 ? a.bandScore : "–",
+      "Status": a.status.charAt(0).toUpperCase() + a.status.slice(1),
+      "Duration": a.timeSpentSeconds ? `${Math.floor(a.timeSpentSeconds / 60)}m ${a.timeSpentSeconds % 60}s` : "–",
+      "Date": new Date(a.submittedAt).toLocaleString(),
+    }));
+    const ws = XLSX.utils.json_to_sheet(rows);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, "Results");
+    XLSX.writeFile(wb, `london-lc-results-${new Date().toISOString().slice(0, 10)}.xlsx`);
   };
 
   return (
@@ -162,9 +165,9 @@ export default function AdminDashboard() {
               View and analyse all student results
             </p>
           </div>
-          <button onClick={exportCSV}
+          <button onClick={exportExcel}
             className="btn-secondary text-sm py-2 px-4">
-            <Download size={14} /> Export CSV
+            <Download size={14} /> Export Excel
           </button>
         </div>
 

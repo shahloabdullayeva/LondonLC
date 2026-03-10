@@ -2,6 +2,54 @@
 // Simple in-memory + localStorage store for student session
 // Replaced by Supabase in production
 
+// ── Student accounts ──────────────────────────────────────────
+export type StudentAccount = {
+  id: string;
+  username: string;
+  password: string;
+  name: string;
+  surname: string;
+  group_name: string;
+  createdAt: string;
+};
+
+const STUDENTS_KEY = "llc_students";
+
+function generateUsername(name: string, surname: string): string {
+  const clean = (s: string) => s.trim().replace(/\s+/g, "").replace(/[^a-zA-Z]/g, "");
+  const num = Math.floor(1000 + Math.random() * 9000);
+  return clean(name) + clean(surname).charAt(0).toUpperCase() + num;
+}
+
+function generatePassword(): string {
+  const chars = "ABCDEFGHJKLMNPQRSTUVWXYZabcdefghjkmnpqrstuvwxyz23456789";
+  return Array.from({ length: 8 }, () => chars[Math.floor(Math.random() * chars.length)]).join("");
+}
+
+export function getStudentAccounts(): StudentAccount[] {
+  if (typeof window === "undefined") return [];
+  const raw = localStorage.getItem(STUDENTS_KEY);
+  return raw ? JSON.parse(raw) : [];
+}
+
+export function registerStudent(
+  name: string, surname: string, group: string
+): { username: string; password: string; id: string } {
+  const accounts = getStudentAccounts();
+  const username = generateUsername(name, surname);
+  const password = generatePassword();
+  const id = `student-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
+  accounts.push({ id, username, password, name: name.trim(), surname: surname.trim(), group_name: group.trim(), createdAt: new Date().toISOString() });
+  localStorage.setItem(STUDENTS_KEY, JSON.stringify(accounts));
+  return { username, password, id };
+}
+
+export function loginStudent(username: string, password: string): StudentAccount | null {
+  return getStudentAccounts().find(
+    (s) => s.username === username && s.password === password
+  ) ?? null;
+}
+
 export type StudentSession = {
   id: string;
   name: string;
