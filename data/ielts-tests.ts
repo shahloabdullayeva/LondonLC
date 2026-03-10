@@ -1238,10 +1238,13 @@ Volunteer days: first __20__ of every month`,
 // ============================================================
 // All tests index
 // ============================================================
+import { cambridge10Tests } from "./cambridge10";
+
 export const allTests: IELTSTest[] = [
   cambridge1_reading_academic_test1,
   cambridge1_reading_general_test1,
   cambridge1_listening_test1,
+  ...cambridge10Tests,
   // More tests (Books 2–19) can be added here
 ];
 
