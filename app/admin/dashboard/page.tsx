@@ -56,12 +56,30 @@ export default function AdminDashboard() {
   const [teacherError, setTeacherError] = useState("");
   const [teacherSuccess, setTeacherSuccess] = useState("");
 
+  const refreshData = () => {
+    setAttempts(getAttempts());
+    setTeachers(getTeachers());
+  };
+
   useEffect(() => {
     const s = getSession();
     if (!s || !s.isAdmin) { router.push("/auth/login?admin=true"); return; }
     setIsRootAdmin(s.id === "admin-root");
-    setAttempts(getAttempts());
-    setTeachers(getTeachers());
+    refreshData();
+
+    // Refresh when a student submits in another tab
+    const onStorage = (e: StorageEvent) => {
+      if (e.key === "llc_attempts" || e.key === "llc_students") refreshData();
+    };
+    // Refresh when teacher switches back to this tab
+    const onVisible = () => { if (document.visibilityState === "visible") refreshData(); };
+
+    window.addEventListener("storage", onStorage);
+    document.addEventListener("visibilitychange", onVisible);
+    return () => {
+      window.removeEventListener("storage", onStorage);
+      document.removeEventListener("visibilitychange", onVisible);
+    };
   }, [router]);
 
   const handleAddTeacher = () => {
