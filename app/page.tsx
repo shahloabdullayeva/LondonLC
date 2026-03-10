@@ -2,7 +2,6 @@
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { getSession } from "@/lib/store";
-import { ThemeToggle } from "@/components/layout/ThemeToggle";
 import { motion } from "framer-motion";
 import { ChevronRight, BookOpen, Headphones, Clock, Award, CheckCircle, Shield } from "lucide-react";
 import Link from "next/link";
@@ -44,7 +43,6 @@ export default function HomePage() {
             ))}
           </nav>
           <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-            <ThemeToggle />
             <Link href="/auth/login" className="home-nav-signin" style={{ fontSize: 14, color: "rgba(255,255,255,0.7)", textDecoration: "none", padding: "8px 16px", border: "1px solid rgba(255,255,255,0.2)", borderRadius: 8 }}>
               Sign In
             </Link>

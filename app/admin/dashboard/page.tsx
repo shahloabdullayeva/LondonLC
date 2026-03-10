@@ -4,15 +4,15 @@ import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import {
   BookOpen, LogOut, Users, Award, BarChart3, Search,
-  Download, Clock, CheckCircle, X, Shield, Plus, Trash2, Eye, EyeOff
+  Download, CheckCircle, X, Shield, Plus, Trash2, Eye, EyeOff
 } from "lucide-react";
 import { getSession, clearSession, getAttempts, getTeachers, addTeacher, deleteTeacher, type AttemptData, type TeacherAccount } from "@/lib/store";
-import { ThemeToggle } from "@/components/layout/ThemeToggle";
 
 export default function AdminDashboard() {
   const router = useRouter();
   const [attempts, setAttempts] = useState<AttemptData[]>([]);
   const [activeTab, setActiveTab] = useState<"results" | "teachers">("results");
+  const [isRootAdmin, setIsRootAdmin] = useState(false);
   const [search, setSearch] = useState("");
   const [filterGroup, setFilterGroup] = useState("all");
   const [filterType, setFilterType] = useState<"all" | "reading" | "listening">("all");
@@ -30,6 +30,7 @@ export default function AdminDashboard() {
   useEffect(() => {
     const s = getSession();
     if (!s || !s.isAdmin) { router.push("/auth/login?admin=true"); return; }
+    setIsRootAdmin(s.id === "admin-root");
     setAttempts(getAttempts());
     setTeachers(getTeachers());
   }, [router]);
@@ -110,7 +111,7 @@ export default function AdminDashboard() {
   return (
     <div className="min-h-screen" style={{ background: "var(--bg-primary)" }}>
       {/* Header */}
-      <header className="sticky top-0 z-30 flex items-center justify-between px-6 py-4"
+      <header className="sticky top-0 z-30 flex items-center justify-between px-4 sm:px-6 py-3 sm:py-4"
         style={{ background: "var(--bg-primary)", borderBottom: "1px solid var(--border)" }}>
         <div className="flex items-center gap-3">
           <div className="w-8 h-8 rounded-lg flex items-center justify-center"
@@ -123,26 +124,25 @@ export default function AdminDashboard() {
             Admin
           </span>
         </div>
-        <div className="flex items-center gap-3">
-          <ThemeToggle />
-          <button onClick={handleLogout}
-            className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-sm font-medium transition-colors"
-            style={{ color: "var(--text-muted)", border: "1px solid var(--border)" }}>
-            <LogOut size={14} /> Sign Out
-          </button>
-        </div>
+        <button onClick={handleLogout}
+          className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-sm font-medium transition-colors"
+          style={{ color: "var(--text-muted)", border: "1px solid var(--border)" }}>
+          <LogOut size={14} /> <span className="hidden sm:inline">Sign Out</span>
+        </button>
       </header>
 
       {/* Tab bar */}
-      <div style={{ borderBottom: "1px solid var(--border)", background: "var(--bg-primary)" }}>
-        <div className="max-w-7xl mx-auto px-6 flex gap-1 pt-3">
-          {([["results", BarChart3, "Results"], ["teachers", Shield, "Manage Teachers"]] as const).map(([tab, Icon, label]) => (
-            <button key={tab} onClick={() => setActiveTab(tab)}
+      <div style={{ borderBottom: "1px solid var(--border)", background: "var(--bg-primary)", overflowX: "auto" }}>
+        <div className="max-w-7xl mx-auto px-4 flex gap-1 pt-3" style={{ whiteSpace: "nowrap" }}>
+          {([ { id: "results" as const, Icon: BarChart3, label: "Results" },
+              ...(isRootAdmin ? [{ id: "teachers" as const, Icon: Shield, label: "Manage Teachers" }] : [])
+            ]).map(({ id, Icon, label }) => (
+            <button key={id} onClick={() => setActiveTab(id)}
               className="flex items-center gap-2 px-4 py-2.5 text-sm font-semibold rounded-t-xl transition-all"
               style={{
-                color: activeTab === tab ? "var(--accent)" : "var(--text-muted)",
-                background: activeTab === tab ? "var(--bg-card)" : "transparent",
-                borderBottom: activeTab === tab ? "2px solid var(--accent)" : "2px solid transparent",
+                color: activeTab === id ? "var(--accent)" : "var(--text-muted)",
+                background: activeTab === id ? "var(--bg-card)" : "transparent",
+                borderBottom: activeTab === id ? "2px solid var(--accent)" : "2px solid transparent",
               }}>
               <Icon size={14} /> {label}
             </button>
@@ -150,7 +150,7 @@ export default function AdminDashboard() {
         </div>
       </div>
 
-      <main className="max-w-7xl mx-auto px-6 py-8">
+      <main className="max-w-7xl mx-auto px-3 sm:px-6 py-6 sm:py-8">
         {activeTab === "results" && <>
         {/* Welcome */}
         <div className="flex items-center justify-between mb-8">
@@ -346,7 +346,7 @@ export default function AdminDashboard() {
         </>}
 
         {/* ── Teachers tab ──────────────────────────────────── */}
-        {activeTab === "teachers" && (
+        {activeTab === "teachers" && isRootAdmin && (
           <div className="max-w-2xl">
             <h1 className="text-2xl font-bold mb-2" style={{ color: "var(--text-primary)" }}>Manage Teachers</h1>
             <p className="text-sm mb-8" style={{ color: "var(--text-muted)" }}>Add or remove teacher login accounts.</p>
