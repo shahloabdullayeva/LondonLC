@@ -11,9 +11,9 @@ import { getTestById, type IELTSTest, type IELTSSection } from "@/data/ielts-tes
 import { formatTime, bandScore } from "@/lib/utils";
 import type { StudentSession } from "@/lib/store";
 
-type Phase = "warning" | "test" | "audio_playing" | "transfer" | "submitted";
+type Phase = "warning" | "test" | "audio_playing" | "transfer" | "submitted" | "cancelled";
 
-type Highlight = { id: string; text: string; color: string; sectionIdx: number; side: "passage" | "questions" };
+type Highlight = { id: string; text: string; color: string; sectionIdx: number; side: "passage" | "questions"; occurrenceIdx: number; questionId?: string };
 
 const HIGHLIGHT_COLORS = [
   { bg: "#fde68a", label: "Yellow" },
@@ -54,8 +54,12 @@ export default function TestPage() {
   const [theme, setTheme] = useState<"dark" | "light">("dark");
   const [highlights, setHighlights] = useState<Highlight[]>([]);
   const [toolbarPos, setToolbarPos] = useState<{ x: number; y: number } | null>(null);
+  // showViolationWarning replaced by phase === "cancelled"
   const [pendingText, setPendingText] = useState("");
+  const [pendingOccurrence, setPendingOccurrence] = useState(0);
+  const [pendingQuestionId, setPendingQuestionId] = useState<string | undefined>(undefined);
   const [pendingSide, setPendingSide] = useState<"passage" | "questions">("passage");
+  const [cancelMessage, setCancelMessage] = useState("");
   const [pageMode, setPageMode] = useState<"dark" | "white">("dark");
   const [fontSize, setFontSize] = useState(15);
   const [showDetails, setShowDetails] = useState(false);
@@ -109,16 +113,62 @@ export default function TestPage() {
     const sel = window.getSelection();
     if (!sel || sel.isCollapsed) return;
     const text = sel.toString().trim();
-    if (!text) return;
+    if (text.length < 2) return;
+
+    let occurrenceIdx = 0;
+    let questionId: string | undefined;
+
+    if (sel.rangeCount > 0) {
+      try {
+        const range = sel.getRangeAt(0);
+        const container = e.currentTarget as HTMLElement;
+
+        // Count how many times the selected text appears before the selection start
+        const preRange = document.createRange();
+        preRange.selectNodeContents(container);
+        preRange.setEnd(range.startContainer, range.startOffset);
+        const textBefore = preRange.toString();
+        let pos = 0;
+        while (true) {
+          const idx = textBefore.indexOf(text, pos);
+          if (idx === -1) break;
+          occurrenceIdx++;
+          pos = idx + 1;
+        }
+
+        // For questions side, find which question element was selected
+        if (side === "questions") {
+          const startEl = range.startContainer.nodeType === Node.TEXT_NODE
+            ? (range.startContainer as Text).parentElement
+            : range.startContainer as HTMLElement;
+          const qEl = startEl?.closest("[data-question-id]") as HTMLElement | null;
+          questionId = qEl?.dataset.questionId;
+        }
+      } catch {
+        occurrenceIdx = 0;
+      }
+    }
+
     setPendingText(text);
+    setPendingOccurrence(occurrenceIdx);
+    setPendingQuestionId(questionId);
     setPendingSide(side);
     // Position toolbar just above where the mouse was released
-    setToolbarPos({ x: e.clientX, y: e.clientY - 52 });
+    const toolY = Math.max(e.clientY - 56, 60);
+    setToolbarPos({ x: e.clientX, y: toolY });
   };
 
   const applyHighlight = (color: string) => {
     if (!pendingText) return;
-    setHighlights(prev => [...prev, { id: `h-${Date.now()}`, text: pendingText, color, sectionIdx: currentSection, side: pendingSide }]);
+    setHighlights(prev => [...prev, {
+      id: `h-${Date.now()}`,
+      text: pendingText,
+      color,
+      sectionIdx: currentSection,
+      side: pendingSide,
+      occurrenceIdx: pendingOccurrence,
+      questionId: pendingQuestionId,
+    }]);
     setToolbarPos(null); setPendingText("");
     window.getSelection()?.removeAllRanges();
   };
@@ -131,21 +181,47 @@ export default function TestPage() {
   };
 
   const buildAnnotatedHtml = (text: string, sectionIdx: number, side: "passage" | "questions"): string => {
-    let result = text;
-    // Sort longest first to avoid partial-match conflicts; process one highlight at a time
-    const active = [...highlights.filter(h => h.sectionIdx === sectionIdx && h.side === side)]
-      .sort((a, b) => b.text.length - a.text.length);
+    const active = highlights.filter(h => h.sectionIdx === sectionIdx && h.side === side);
+
+    // Find the exact char position of each highlight's Nth occurrence in the raw text
+    type Pos = { start: number; end: number; id: string; color: string };
+    const positioned: Pos[] = [];
     for (const h of active) {
+      if (!h.text) continue;
       const escaped = h.text.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-      // No 'g' flag → only first occurrence; each highlight is stored separately
-      const styleAttr = h.color === "underline"
-        ? `text-decoration:underline;text-decoration-color:#7c3aed;text-underline-offset:3px;cursor:pointer`
-        : `background:${h.color};border-radius:3px;cursor:pointer;padding:0 1px`;
-      result = result.replace(
-        new RegExp(escaped),
-        `<mark data-hid="${h.id}" style="${styleAttr}" title="Click to remove">${h.text}</mark>`
-      );
+      const regex = new RegExp(escaped, "g");
+      let count = 0;
+      let match: RegExpExecArray | null;
+      while ((match = regex.exec(text)) !== null) {
+        if (count === (h.occurrenceIdx ?? 0)) {
+          positioned.push({ start: match.index, end: match.index + match[0].length, id: h.id, color: h.color });
+          break;
+        }
+        count++;
+      }
     }
+
+    // Sort by position, skip overlapping ranges
+    positioned.sort((a, b) => a.start - b.start);
+    const clean: Pos[] = [];
+    let lastEnd = 0;
+    for (const p of positioned) {
+      if (p.start >= lastEnd) { clean.push(p); lastEnd = p.end; }
+    }
+
+    // Build result in one pass over the raw text
+    let result = "";
+    let pos = 0;
+    for (const p of clean) {
+      result += text.slice(pos, p.start);
+      const styleAttr = p.color === "underline"
+        ? `text-decoration:underline;text-decoration-color:#7c3aed;text-underline-offset:3px;cursor:pointer`
+        : `background:${p.color};border-radius:3px;cursor:pointer;padding:0 1px`;
+      result += `<mark data-hid="${p.id}" style="${styleAttr}" title="Click to remove">${text.slice(p.start, p.end)}</mark>`;
+      pos = p.end;
+    }
+    result += text.slice(pos);
+
     return result
       .replace(/\n\n/g, "</p><p style='margin-bottom:14px'>")
       .replace(/\n/g, "<br/>")
@@ -322,9 +398,9 @@ export default function TestPage() {
       timeSpentSeconds: Math.floor((Date.now() - startTime) / 1000),
     };
     saveAttempt(attempt);
-    alert(`Test cancelled: ${reason}`);
-    router.push("/student/dashboard");
-  }, [session, test, answers, startTime, router]);
+    setCancelMessage(reason);
+    setPhase("cancelled");
+  }, [session, test, answers, startTime]);
 
   // ── Submit test ─────────────────────────────────────────────────────
   const submitTest = useCallback(() => {
@@ -395,6 +471,36 @@ export default function TestPage() {
   }
 
   // ============================================================
+  // PHASE: Cancelled
+  // ============================================================
+  if (phase === "cancelled") {
+    return (
+      <div style={{ minHeight: "100vh", background: "#0a051f", display: "flex", alignItems: "center", justifyContent: "center", padding: 24, fontFamily: "Inter, system-ui, sans-serif" }}>
+        <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }}
+          style={{ maxWidth: 420, width: "100%", textAlign: "center" }}>
+          <div style={{ width: 72, height: 72, borderRadius: "50%", background: "rgba(239,68,68,0.15)", border: "2px solid rgba(239,68,68,0.35)", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 24px" }}>
+            <AlertTriangle size={32} color="#ef4444" />
+          </div>
+          <h1 style={{ fontSize: 26, fontWeight: 900, color: "#fff", marginBottom: 10 }}>Test Cancelled</h1>
+          <p style={{ fontSize: 15, color: "rgba(255,255,255,0.55)", lineHeight: 1.7, marginBottom: 32, padding: "0 8px" }}>
+            {cancelMessage}
+          </p>
+          <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+            <button onClick={() => { cancelledRef.current = false; window.location.reload(); }}
+              style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 8, padding: "13px", background: "linear-gradient(135deg,#7c3aed,#6d28d9)", color: "#fff", fontWeight: 700, fontSize: 15, border: "none", borderRadius: 12, cursor: "pointer", boxShadow: "0 4px 15px rgba(124,58,237,0.4)" }}>
+              Try Again
+            </button>
+            <button onClick={() => router.push("/student/dashboard")}
+              style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 8, padding: "13px", background: "rgba(255,255,255,0.07)", color: "rgba(255,255,255,0.7)", fontWeight: 600, fontSize: 15, border: "1px solid rgba(255,255,255,0.15)", borderRadius: 12, cursor: "pointer" }}>
+              Go to Homepage
+            </button>
+          </div>
+        </motion.div>
+      </div>
+    );
+  }
+
+  // ============================================================
   // PHASE: Submitted
   // ============================================================
   if (phase === "submitted" && result) {
@@ -438,27 +544,6 @@ export default function TestPage() {
 
   return (
     <div className="test-zone" style={{ minHeight: "100vh", display: "flex", flexDirection: "column", background: T.bg, fontFamily: "Inter, system-ui, sans-serif" }}>
-      {/* Violation warning */}
-      <AnimatePresence>
-        {showViolationWarning && (
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-            style={{ position: "fixed", inset: 0, zIndex: 50, display: "flex", alignItems: "center", justifyContent: "center", background: "rgba(0,0,0,0.75)" }}>
-            <motion.div initial={{ scale: 0.85, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.85, opacity: 0 }}
-              style={{ background: T.card, border: "2px solid #ef4444", borderRadius: 16, padding: 32, maxWidth: 360, width: "100%", margin: "0 16px", textAlign: "center" }}>
-              <AlertTriangle size={40} color="#ef4444" style={{ margin: "0 auto 16px" }} />
-              <h2 style={{ fontSize: 20, fontWeight: 700, color: T.text, marginBottom: 8 }}>Test Cancelled</h2>
-              <p style={{ fontSize: 14, color: T.textSub, marginBottom: 24 }}>
-                You left the exam screen. Your test has been automatically cancelled.
-              </p>
-              <button onClick={() => setShowViolationWarning(false)}
-                style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", gap: 8, padding: "11px 24px", background: T.accentBtn, color: "#fff", fontWeight: 700, border: "none", borderRadius: 10, cursor: "pointer", width: "100%" }}>
-                Return to Dashboard
-              </button>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
       {/* Test header */}
       <header style={{ position: "sticky", top: 0, zIndex: 20, display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 16px", height: 54, background: T.nav, borderBottom: `1px solid ${T.border}` }}>
         {/* Left: test info */}
@@ -716,16 +801,47 @@ export default function TestPage() {
 // ============================================================
 // Question Item Component
 // ============================================================
-function buildQuestionHtml(text: string, questionHighlights: Highlight[]): string {
-  let result = text;
-  const active = [...questionHighlights].sort((a, b) => b.text.length - a.text.length);
+function buildQuestionHtml(text: string, questionHighlights: Highlight[], questionId: string): string {
+  // Only apply highlights that belong to this specific question
+  const active = questionHighlights.filter(h => h.questionId === questionId);
+
+  type Pos = { start: number; end: number; id: string; color: string };
+  const positioned: Pos[] = [];
   for (const h of active) {
+    if (!h.text) continue;
     const escaped = h.text.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-    const styleAttr = h.color === "underline"
-      ? `text-decoration:underline;text-decoration-color:#7c3aed;text-underline-offset:3px;cursor:pointer`
-      : `background:${h.color};border-radius:3px;cursor:pointer;padding:0 1px`;
-    result = result.replace(new RegExp(escaped), `<mark data-hid="${h.id}" style="${styleAttr}" title="Click to remove">${h.text}</mark>`);
+    const regex = new RegExp(escaped, "g");
+    let count = 0;
+    let match: RegExpExecArray | null;
+    while ((match = regex.exec(text)) !== null) {
+      // For question highlights, occurrenceIdx is relative to the full panel;
+      // use count 0 (first match in this question) since the question text is short and unique
+      if (count === 0) {
+        positioned.push({ start: match.index, end: match.index + match[0].length, id: h.id, color: h.color });
+        break;
+      }
+      count++;
+    }
   }
+
+  positioned.sort((a, b) => a.start - b.start);
+  const clean: Pos[] = [];
+  let lastEnd = 0;
+  for (const p of positioned) {
+    if (p.start >= lastEnd) { clean.push(p); lastEnd = p.end; }
+  }
+
+  let result = "";
+  let pos = 0;
+  for (const p of clean) {
+    result += text.slice(pos, p.start);
+    const styleAttr = p.color === "underline"
+      ? `text-decoration:underline;text-decoration-color:#7c3aed;text-underline-offset:3px;cursor:pointer`
+      : `background:${p.color};border-radius:3px;cursor:pointer;padding:0 1px`;
+    result += `<mark data-hid="${p.id}" style="${styleAttr}" title="Click to remove">${text.slice(p.start, p.end)}</mark>`;
+    pos = p.end;
+  }
+  result += text.slice(pos);
   return result.replace(/\n/g, "<br/>");
 }
 
@@ -754,8 +870,9 @@ function QuestionItem({
           {question.number}
         </span>
         <div onClick={handleQuestionClick}
+          data-question-id={question.id}
           style={{ fontSize: fontSize - 1, color: T.text, lineHeight: 1.6, userSelect: "text" }}
-          dangerouslySetInnerHTML={{ __html: buildQuestionHtml(question.question, questionHighlights) }}
+          dangerouslySetInnerHTML={{ __html: buildQuestionHtml(question.question, questionHighlights, question.id) }}
         />
       </div>
 
