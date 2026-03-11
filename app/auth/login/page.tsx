@@ -37,7 +37,7 @@ function LoginContent() {
       if (student) {
         saveSession({ id: student.id, name: student.name, surname: student.surname, group_name: student.group_name, isAdmin: false });
         router.push("/student/dashboard");
-      } else { setError("Incorrect username or password. No account? Sign up below."); setLoading(false); }
+      } else { setError("Incorrect username or password."); setLoading(false); }
     }
     setLoading(false);
   };

@@ -33,9 +33,6 @@ export default function HomePage() {
             <Link href="/auth/login" className="home-nav-signin" style={{ fontSize: 14, color: "rgba(255,255,255,0.7)", textDecoration: "none", padding: "8px 16px", border: "1px solid rgba(255,255,255,0.2)", borderRadius: 8 }}>
               Sign In
             </Link>
-            <Link href="/auth/signup" style={{ fontSize: 14, fontWeight: 600, color: "#fff", background: "linear-gradient(135deg, #7c3aed, #6d28d9)", padding: "9px 20px", borderRadius: 10, textDecoration: "none", boxShadow: "0 4px 15px rgba(124,58,237,0.4)" }}>
-              Get Started
-            </Link>
           </div>
         </div>
       </nav>
@@ -63,18 +60,11 @@ export default function HomePage() {
             Timed, monitored, and scored instantly. Academic & General Training.
           </p>
 
-          <div style={{ display: "flex", gap: 14, justifyContent: "center", flexWrap: "wrap", marginBottom: 16 }}>
-            <Link href="/auth/signup" style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "14px 36px", background: "linear-gradient(135deg, #7c3aed, #6d28d9)", color: "#fff", fontWeight: 700, fontSize: 16, borderRadius: 50, textDecoration: "none", boxShadow: "0 6px 20px rgba(124,58,237,0.5)" }}>
-              Get Started <ChevronRight size={18} />
-            </Link>
-            <Link href="/auth/login" style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "14px 36px", background: "rgba(255,255,255,0.08)", color: "#fff", fontWeight: 600, fontSize: 16, borderRadius: 50, textDecoration: "none", border: "1px solid rgba(255,255,255,0.15)" }}>
-              Sign In
+          <div style={{ display: "flex", gap: 14, justifyContent: "center", flexWrap: "wrap", marginBottom: 36 }}>
+            <Link href="/auth/login" style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "14px 36px", background: "linear-gradient(135deg, #7c3aed, #6d28d9)", color: "#fff", fontWeight: 700, fontSize: 16, borderRadius: 50, textDecoration: "none", boxShadow: "0 6px 20px rgba(124,58,237,0.5)" }}>
+              Sign In <ChevronRight size={18} />
             </Link>
           </div>
-          <p style={{ fontSize: 13, color: "rgba(255,255,255,0.3)", marginBottom: 36 }}>
-            Already have an account?{" "}
-            <Link href="/auth/login" style={{ color: "#a78bfa", textDecoration: "none" }}>Sign in here</Link>
-          </p>
 
           {/* Trust badges */}
           <div style={{ display: "flex", gap: 28, justifyContent: "center", flexWrap: "wrap" }}>
