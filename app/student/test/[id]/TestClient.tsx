@@ -13,7 +13,7 @@ import type { StudentSession } from "@/lib/store";
 
 type Phase = "warning" | "test" | "audio_playing" | "transfer" | "submitted" | "cancelled";
 
-type Highlight = { id: string; text: string; color: string; sectionIdx: number; side: "passage" | "questions"; occurrenceIdx: number; questionId?: string };
+type Highlight = { id: string; text: string; color: string; sectionIdx: number; side: "passage" | "questions"; rawStart: number; rawEnd: number; questionId?: string };
 
 const HIGHLIGHT_COLORS = [
   { bg: "#fde68a", label: "Yellow" },
@@ -22,6 +22,35 @@ const HIGHLIGHT_COLORS = [
   { bg: "#fecdd3", label: "Pink" },
   { bg: "underline", label: "Underline" },
 ];
+
+// Walk DOM text nodes to compute absolute char offset within container
+function getDomTextOffset(container: HTMLElement, targetNode: Node, targetOffset: number): number {
+  let offset = 0;
+  const walker = document.createTreeWalker(container, NodeFilter.SHOW_TEXT, null);
+  let node: Node | null = walker.nextNode();
+  while (node) {
+    if (node === targetNode) return offset + targetOffset;
+    offset += (node as Text).length;
+    node = walker.nextNode();
+  }
+  return offset;
+}
+
+// Map DOM text offset → raw text offset (raw text has ** markers and \n chars that don't appear in DOM)
+function domOffsetToRawOffset(rawText: string, domOffset: number): number {
+  let domIdx = 0;
+  let i = 0;
+  while (i <= rawText.length) {
+    if (domIdx === domOffset) return i;
+    if (i === rawText.length) break;
+    const ch = rawText[i];
+    if (ch === '*' && i + 1 < rawText.length && rawText[i + 1] === '*') { i += 2; continue; }
+    if (ch === '\n') { i++; continue; }
+    domIdx++;
+    i++;
+  }
+  return rawText.length;
+}
 
 // Read the current theme from the HTML class
 function getTheme(): "dark" | "light" {
@@ -56,7 +85,8 @@ export default function TestPage() {
   const [toolbarPos, setToolbarPos] = useState<{ x: number; y: number } | null>(null);
   // showViolationWarning replaced by phase === "cancelled"
   const [pendingText, setPendingText] = useState("");
-  const [pendingOccurrence, setPendingOccurrence] = useState(0);
+  const [pendingRawStart, setPendingRawStart] = useState(0);
+  const [pendingRawEnd, setPendingRawEnd] = useState(0);
   const [pendingQuestionId, setPendingQuestionId] = useState<string | undefined>(undefined);
   const [pendingSide, setPendingSide] = useState<"passage" | "questions">("passage");
   const [cancelMessage, setCancelMessage] = useState("");
@@ -114,46 +144,45 @@ export default function TestPage() {
     if (!sel || sel.isCollapsed) return;
     const text = sel.toString().trim();
     if (text.length < 2) return;
+    if (sel.rangeCount === 0) return;
 
-    let occurrenceIdx = 0;
+    let rawStart = 0;
+    let rawEnd = text.length;
     let questionId: string | undefined;
 
-    if (sel.rangeCount > 0) {
-      try {
-        const range = sel.getRangeAt(0);
-        const container = e.currentTarget as HTMLElement;
+    try {
+      const range = sel.getRangeAt(0);
+      const container = e.currentTarget as HTMLElement;
 
-        // Count how many times the selected text appears before the selection start
-        const preRange = document.createRange();
-        preRange.selectNodeContents(container);
-        preRange.setEnd(range.startContainer, range.startOffset);
-        const textBefore = preRange.toString();
-        let pos = 0;
-        while (true) {
-          const idx = textBefore.indexOf(text, pos);
-          if (idx === -1) break;
-          occurrenceIdx++;
-          pos = idx + 1;
+      if (side === "passage") {
+        const passageText = test?.sections[currentSection]?.passageText || "";
+        const startDom = getDomTextOffset(container, range.startContainer, range.startOffset);
+        const endDom = getDomTextOffset(container, range.endContainer, range.endOffset);
+        rawStart = domOffsetToRawOffset(passageText, startDom);
+        rawEnd = domOffsetToRawOffset(passageText, endDom);
+        rawEnd = Math.min(Math.max(rawEnd, rawStart + 1), passageText.length);
+      } else {
+        // Questions side: position within the specific question element
+        const startEl = range.startContainer.nodeType === Node.TEXT_NODE
+          ? (range.startContainer as Text).parentElement
+          : range.startContainer as HTMLElement;
+        const qEl = startEl?.closest("[data-question-id]") as HTMLElement | null;
+        questionId = qEl?.dataset.questionId;
+        if (qEl) {
+          rawStart = getDomTextOffset(qEl, range.startContainer, range.startOffset);
+          rawEnd = rawStart + text.length;
         }
-
-        // For questions side, find which question element was selected
-        if (side === "questions") {
-          const startEl = range.startContainer.nodeType === Node.TEXT_NODE
-            ? (range.startContainer as Text).parentElement
-            : range.startContainer as HTMLElement;
-          const qEl = startEl?.closest("[data-question-id]") as HTMLElement | null;
-          questionId = qEl?.dataset.questionId;
-        }
-      } catch {
-        occurrenceIdx = 0;
       }
+    } catch {
+      rawStart = 0;
+      rawEnd = text.length;
     }
 
     setPendingText(text);
-    setPendingOccurrence(occurrenceIdx);
+    setPendingRawStart(rawStart);
+    setPendingRawEnd(rawEnd);
     setPendingQuestionId(questionId);
     setPendingSide(side);
-    // Position toolbar just above where the mouse was released
     const toolY = Math.max(e.clientY - 56, 60);
     setToolbarPos({ x: e.clientX, y: toolY });
   };
@@ -166,7 +195,8 @@ export default function TestPage() {
       color,
       sectionIdx: currentSection,
       side: pendingSide,
-      occurrenceIdx: pendingOccurrence,
+      rawStart: pendingRawStart,
+      rawEnd: pendingRawEnd,
       questionId: pendingQuestionId,
     }]);
     setToolbarPos(null); setPendingText("");
@@ -180,28 +210,14 @@ export default function TestPage() {
     if (el.tagName === "MARK" && el.dataset.hid) removeHighlight(el.dataset.hid);
   };
 
-  const buildAnnotatedHtml = (text: string, sectionIdx: number, side: "passage" | "questions"): string => {
+  const buildAnnotatedHtml = (rawText: string, sectionIdx: number, side: "passage" | "questions"): string => {
     const active = highlights.filter(h => h.sectionIdx === sectionIdx && h.side === side);
 
-    // Find the exact char position of each highlight's Nth occurrence in the raw text
     type Pos = { start: number; end: number; id: string; color: string };
-    const positioned: Pos[] = [];
-    for (const h of active) {
-      if (!h.text) continue;
-      const escaped = h.text.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-      const regex = new RegExp(escaped, "g");
-      let count = 0;
-      let match: RegExpExecArray | null;
-      while ((match = regex.exec(text)) !== null) {
-        if (count === (h.occurrenceIdx ?? 0)) {
-          positioned.push({ start: match.index, end: match.index + match[0].length, id: h.id, color: h.color });
-          break;
-        }
-        count++;
-      }
-    }
+    const positioned: Pos[] = active
+      .filter(h => h.rawStart < h.rawEnd && h.rawStart >= 0 && h.rawEnd <= rawText.length)
+      .map(h => ({ start: h.rawStart, end: h.rawEnd, id: h.id, color: h.color }));
 
-    // Sort by position, skip overlapping ranges
     positioned.sort((a, b) => a.start - b.start);
     const clean: Pos[] = [];
     let lastEnd = 0;
@@ -209,25 +225,25 @@ export default function TestPage() {
       if (p.start >= lastEnd) { clean.push(p); lastEnd = p.end; }
     }
 
-    // Build result in one pass over the raw text
-    let result = "";
+    const fmt = (s: string) => s
+      .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
+      .replace(/\n\n/g, "</p><p style='margin-bottom:14px'>")
+      .replace(/\n/g, "<br/>");
+
+    const styleFor = (color: string) => color === "underline"
+      ? `text-decoration:underline;text-decoration-color:#7c3aed;text-underline-offset:3px;cursor:pointer`
+      : `background:${color};border-radius:3px;cursor:pointer;padding:0 1px`;
+
+    let html = "";
     let pos = 0;
     for (const p of clean) {
-      result += text.slice(pos, p.start);
-      const styleAttr = p.color === "underline"
-        ? `text-decoration:underline;text-decoration-color:#7c3aed;text-underline-offset:3px;cursor:pointer`
-        : `background:${p.color};border-radius:3px;cursor:pointer;padding:0 1px`;
-      result += `<mark data-hid="${p.id}" style="${styleAttr}" title="Click to remove">${text.slice(p.start, p.end)}</mark>`;
+      html += fmt(rawText.slice(pos, p.start));
+      html += `<mark data-hid="${p.id}" style="${styleFor(p.color)}" title="Click to remove">${fmt(rawText.slice(p.start, p.end))}</mark>`;
       pos = p.end;
     }
-    result += text.slice(pos);
+    html += fmt(rawText.slice(pos));
 
-    return result
-      .replace(/\n\n/g, "</p><p style='margin-bottom:14px'>")
-      .replace(/\n/g, "<br/>")
-      .replace(/^/, "<p style='margin-bottom:14px'>")
-      .replace(/$/, "</p>")
-      .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
+    return `<p style='margin-bottom:14px'>${html}</p>`;
   };
 
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
@@ -725,7 +741,8 @@ export default function TestPage() {
 
         {/* Right: Questions */}
         <div className={`questions-panel ${test.type === "reading" && mobileView === "passage" ? "panel-hidden" : "panel-visible"}`}
-          style={{ flex: 1, overflowY: "auto", padding: "24px 28px", background: T.bg }}
+          style={{ flex: 1, display: "flex", flexDirection: "column", overflow: "hidden", background: T.bg }}>
+        <div style={{ flex: 1, overflowY: "auto", padding: "24px 28px" }}
           onMouseUp={(e) => handleTextMouseUp(e, "questions")}>
 
           {/* Listening: passage text */}
@@ -774,7 +791,38 @@ export default function TestPage() {
               )}
             </div>
           )}
-        </div>
+        </div>{/* end scroll area */}
+
+        {/* Question progress tracker */}
+        {(() => {
+          const totalQ = section.questions.length;
+          const answeredQ = section.questions.filter(q => (answers[q.id] || "").trim()).length;
+          const leftQ = totalQ - answeredQ;
+          return (
+            <div style={{ flexShrink: 0, borderTop: `1px solid ${T.border}`, background: T.nav, padding: "10px 16px" }}>
+              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 8 }}>
+                <span style={{ fontSize: 12, fontWeight: 700, color: T.text }}>Part {currentSection + 1}</span>
+                <div style={{ display: "flex", gap: 12 }}>
+                  <span style={{ fontSize: 12, fontWeight: 700, color: "#10b981" }}>{answeredQ} answered</span>
+                  <span style={{ fontSize: 12, fontWeight: 700, color: leftQ > 0 ? "#ef4444" : T.textMuted }}>{leftQ} left</span>
+                </div>
+              </div>
+              <div style={{ display: "flex", flexWrap: "wrap", gap: 5 }}>
+                {section.questions.map((q) => {
+                  const done = !!(answers[q.id] || "").trim();
+                  return (
+                    <button key={q.id}
+                      onClick={() => document.getElementById(`question-${q.id}`)?.scrollIntoView({ behavior: "smooth", block: "center" })}
+                      style={{ width: 30, height: 30, borderRadius: 7, border: done ? "none" : `1px solid ${T.border}`, background: done ? "#10b981" : T.accentDim, color: done ? "#fff" : T.textMuted, fontSize: 11, fontWeight: 700, cursor: "pointer", transition: "all 0.15s" }}>
+                      {q.number}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          );
+        })()}
+        </div>{/* end questions-panel */}
       </div>
 
       <style>{`
@@ -802,27 +850,12 @@ export default function TestPage() {
 // Question Item Component
 // ============================================================
 function buildQuestionHtml(text: string, questionHighlights: Highlight[], questionId: string): string {
-  // Only apply highlights that belong to this specific question
   const active = questionHighlights.filter(h => h.questionId === questionId);
 
   type Pos = { start: number; end: number; id: string; color: string };
-  const positioned: Pos[] = [];
-  for (const h of active) {
-    if (!h.text) continue;
-    const escaped = h.text.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-    const regex = new RegExp(escaped, "g");
-    let count = 0;
-    let match: RegExpExecArray | null;
-    while ((match = regex.exec(text)) !== null) {
-      // For question highlights, occurrenceIdx is relative to the full panel;
-      // use count 0 (first match in this question) since the question text is short and unique
-      if (count === 0) {
-        positioned.push({ start: match.index, end: match.index + match[0].length, id: h.id, color: h.color });
-        break;
-      }
-      count++;
-    }
-  }
+  const positioned: Pos[] = active
+    .filter(h => h.rawStart < h.rawEnd && h.rawStart >= 0 && h.rawEnd <= text.length)
+    .map(h => ({ start: h.rawStart, end: Math.min(h.rawEnd, text.length), id: h.id, color: h.color }));
 
   positioned.sort((a, b) => a.start - b.start);
   const clean: Pos[] = [];
@@ -831,14 +864,15 @@ function buildQuestionHtml(text: string, questionHighlights: Highlight[], questi
     if (p.start >= lastEnd) { clean.push(p); lastEnd = p.end; }
   }
 
+  const styleFor = (color: string) => color === "underline"
+    ? `text-decoration:underline;text-decoration-color:#7c3aed;text-underline-offset:3px;cursor:pointer`
+    : `background:${color};border-radius:3px;cursor:pointer;padding:0 1px`;
+
   let result = "";
   let pos = 0;
   for (const p of clean) {
     result += text.slice(pos, p.start);
-    const styleAttr = p.color === "underline"
-      ? `text-decoration:underline;text-decoration-color:#7c3aed;text-underline-offset:3px;cursor:pointer`
-      : `background:${p.color};border-radius:3px;cursor:pointer;padding:0 1px`;
-    result += `<mark data-hid="${p.id}" style="${styleAttr}" title="Click to remove">${text.slice(p.start, p.end)}</mark>`;
+    result += `<mark data-hid="${p.id}" style="${styleFor(p.color)}" title="Click to remove">${text.slice(p.start, p.end)}</mark>`;
     pos = p.end;
   }
   result += text.slice(pos);
@@ -864,7 +898,7 @@ function QuestionItem({
   };
 
   return (
-    <div style={{ paddingBottom: 24, borderBottom: `1px solid ${T.border}` }}>
+    <div id={`question-${question.id}`} style={{ paddingBottom: 24, borderBottom: `1px solid ${T.border}` }}>
       <div style={{ display: "flex", gap: 12, marginBottom: 12 }}>
         <span style={{ flexShrink: 0, width: 26, height: 26, borderRadius: "50%", background: T.accent, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 11, fontWeight: 700, color: "#fff" }}>
           {question.number}
