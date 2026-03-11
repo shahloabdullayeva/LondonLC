@@ -4,7 +4,7 @@ import { useRouter, useParams } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Clock, AlertTriangle, CheckCircle, X, ChevronLeft, ChevronRight,
-  Headphones, BookOpen, Volume2
+  Headphones, BookOpen, Volume2, Sun, Moon, Minus, Plus, List
 } from "lucide-react";
 import { getSession, saveAttempt } from "@/lib/store";
 import { getTestById, type IELTSTest, type IELTSSection } from "@/data/ielts-tests";
@@ -13,13 +13,14 @@ import type { StudentSession } from "@/lib/store";
 
 type Phase = "warning" | "test" | "audio_playing" | "transfer" | "submitted";
 
-type Highlight = { id: string; text: string; color: string; sectionIdx: number };
+type Highlight = { id: string; text: string; color: string; sectionIdx: number; side: "passage" | "questions" };
 
 const HIGHLIGHT_COLORS = [
   { bg: "#fde68a", label: "Yellow" },
   { bg: "#bbf7d0", label: "Green" },
   { bg: "#bae6fd", label: "Blue" },
   { bg: "#fecdd3", label: "Pink" },
+  { bg: "underline", label: "Underline" },
 ];
 
 // Read the current theme from the HTML class
@@ -54,6 +55,10 @@ export default function TestPage() {
   const [highlights, setHighlights] = useState<Highlight[]>([]);
   const [toolbarPos, setToolbarPos] = useState<{ x: number; y: number } | null>(null);
   const [pendingText, setPendingText] = useState("");
+  const [pendingSide, setPendingSide] = useState<"passage" | "questions">("passage");
+  const [pageMode, setPageMode] = useState<"dark" | "white">("dark");
+  const [fontSize, setFontSize] = useState(15);
+  const [showDetails, setShowDetails] = useState(false);
 
   // Detect theme on mount and when it changes
   useEffect(() => {
@@ -63,19 +68,29 @@ export default function TestPage() {
     return () => obs.disconnect();
   }, []);
 
+  // White page mode overrides system theme
+  const effectiveTheme = pageMode === "white" ? "light" : theme;
+
   // Theme-aware colours
-  const T = theme === "dark" ? {
+  const T = effectiveTheme === "dark" ? {
     bg: "#0a051f", nav: "#0e0828", card: "#140b35", passage: "#1a0e42",
     text: "#f0eaff", textSub: "rgba(255,255,255,0.5)", textMuted: "rgba(255,255,255,0.35)",
     border: "rgba(255,255,255,0.08)", accent: "#7c3aed", accentBtn: "linear-gradient(135deg,#6d28d9,#7c3aed)",
     accentDim: "rgba(124,58,237,0.12)", accentBorder: "rgba(124,58,237,0.2)",
     inputBg: "#0a051f", shadow: "rgba(0,0,0,0.6)",
   } : {
-    bg: "#ffffff", nav: "#f4f0ff", card: "#ffffff", passage: "#f9f7ff",
-    text: "#1a0040", textSub: "rgba(26,0,64,0.55)", textMuted: "rgba(26,0,64,0.4)",
-    border: "rgba(109,40,217,0.12)", accent: "#6d28d9", accentBtn: "linear-gradient(135deg,#6d28d9,#7c3aed)",
+    bg: pageMode === "white" ? "#faf8f4" : "#ffffff",
+    nav: pageMode === "white" ? "#f0ede6" : "#f4f0ff",
+    card: pageMode === "white" ? "#faf8f4" : "#ffffff",
+    passage: pageMode === "white" ? "#f5f2ec" : "#f9f7ff",
+    text: pageMode === "white" ? "#2c2416" : "#1a0040",
+    textSub: pageMode === "white" ? "rgba(44,36,22,0.6)" : "rgba(26,0,64,0.55)",
+    textMuted: pageMode === "white" ? "rgba(44,36,22,0.45)" : "rgba(26,0,64,0.4)",
+    border: pageMode === "white" ? "rgba(44,36,22,0.12)" : "rgba(109,40,217,0.12)",
+    accent: "#6d28d9", accentBtn: "linear-gradient(135deg,#6d28d9,#7c3aed)",
     accentDim: "rgba(109,40,217,0.08)", accentBorder: "rgba(109,40,217,0.2)",
-    inputBg: "#ffffff", shadow: "rgba(109,40,217,0.1)",
+    inputBg: pageMode === "white" ? "#faf8f4" : "#ffffff",
+    shadow: pageMode === "white" ? "rgba(44,36,22,0.08)" : "rgba(109,40,217,0.1)",
   };
 
   // ── Highlight toolbar dismiss ────────────────────────────────────────
@@ -90,20 +105,20 @@ export default function TestPage() {
     return () => document.removeEventListener("mousedown", dismiss);
   }, [toolbarPos]);
 
-  const handlePassageMouseUp = () => {
+  const handleTextMouseUp = (e: React.MouseEvent, side: "passage" | "questions") => {
     const sel = window.getSelection();
     if (!sel || sel.isCollapsed) return;
     const text = sel.toString().trim();
     if (!text) return;
-    const range = sel.getRangeAt(0);
-    const rect = range.getBoundingClientRect();
     setPendingText(text);
-    setToolbarPos({ x: rect.left + rect.width / 2, y: rect.top });
+    setPendingSide(side);
+    // Position toolbar just above where the mouse was released
+    setToolbarPos({ x: e.clientX, y: e.clientY - 52 });
   };
 
   const applyHighlight = (color: string) => {
     if (!pendingText) return;
-    setHighlights(prev => [...prev, { id: `h-${Date.now()}`, text: pendingText, color, sectionIdx: currentSection }]);
+    setHighlights(prev => [...prev, { id: `h-${Date.now()}`, text: pendingText, color, sectionIdx: currentSection, side: pendingSide }]);
     setToolbarPos(null); setPendingText("");
     window.getSelection()?.removeAllRanges();
   };
@@ -115,14 +130,20 @@ export default function TestPage() {
     if (el.tagName === "MARK" && el.dataset.hid) removeHighlight(el.dataset.hid);
   };
 
-  const buildPassageHtml = (text: string, idx: number): string => {
+  const buildAnnotatedHtml = (text: string, sectionIdx: number, side: "passage" | "questions"): string => {
     let result = text;
-    const active = [...highlights.filter(h => h.sectionIdx === idx)].sort((a, b) => b.text.length - a.text.length);
+    // Sort longest first to avoid partial-match conflicts; process one highlight at a time
+    const active = [...highlights.filter(h => h.sectionIdx === sectionIdx && h.side === side)]
+      .sort((a, b) => b.text.length - a.text.length);
     for (const h of active) {
       const escaped = h.text.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+      // No 'g' flag → only first occurrence; each highlight is stored separately
+      const styleAttr = h.color === "underline"
+        ? `text-decoration:underline;text-decoration-color:#7c3aed;text-underline-offset:3px;cursor:pointer`
+        : `background:${h.color};border-radius:3px;cursor:pointer;padding:0 1px`;
       result = result.replace(
-        new RegExp(escaped, "g"),
-        `<mark data-hid="${h.id}" style="background:${h.color};border-radius:3px;cursor:pointer;padding:0 1px" title="Click to remove highlight">${h.text}</mark>`
+        new RegExp(escaped),
+        `<mark data-hid="${h.id}" style="${styleAttr}" title="Click to remove">${h.text}</mark>`
       );
     }
     return result
@@ -377,7 +398,7 @@ export default function TestPage() {
   // PHASE: Submitted
   // ============================================================
   if (phase === "submitted" && result) {
-    return <ResultScreen result={result} test={test} session={session}
+    return <ResultScreen result={result} test={test} session={session} answers={answers}
       onBack={() => router.push("/student/dashboard")} />;
   }
 
@@ -467,8 +488,25 @@ export default function TestPage() {
           ))}
         </div>
 
-        {/* Right: timer + submit */}
-        <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+        {/* Right: controls + timer + submit */}
+        <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+          {/* Font size */}
+          <div style={{ display: "flex", alignItems: "center", gap: 2, border: `1px solid ${T.border}`, borderRadius: 8, overflow: "hidden" }}>
+            <button onClick={() => setFontSize(s => Math.max(12, s - 1))} title="Decrease font size"
+              style={{ padding: "5px 7px", background: "transparent", border: "none", cursor: "pointer", color: T.textMuted, display: "flex", alignItems: "center" }}>
+              <Minus size={12} />
+            </button>
+            <span style={{ fontSize: 11, fontWeight: 700, color: T.textMuted, minWidth: 22, textAlign: "center" }}>{fontSize}</span>
+            <button onClick={() => setFontSize(s => Math.min(22, s + 1))} title="Increase font size"
+              style={{ padding: "5px 7px", background: "transparent", border: "none", cursor: "pointer", color: T.textMuted, display: "flex", alignItems: "center" }}>
+              <Plus size={12} />
+            </button>
+          </div>
+          {/* White/Dark mode toggle */}
+          <button onClick={() => setPageMode(m => m === "dark" ? "white" : "dark")} title={pageMode === "dark" ? "Switch to white page" : "Switch to dark mode"}
+            style={{ padding: "5px 8px", background: T.accentDim, border: `1px solid ${T.accentBorder}`, borderRadius: 8, cursor: "pointer", color: T.accent, display: "flex", alignItems: "center" }}>
+            {pageMode === "dark" ? <Sun size={14} /> : <Moon size={14} />}
+          </button>
           <div style={{ display: "flex", alignItems: "center", gap: 6, padding: "6px 12px", borderRadius: 10, background: T.nav, border: `1px solid ${T.border}`, fontSize: 14, fontWeight: 700, color: timeLeft < 300 ? "#ef4444" : T.accent, fontFamily: "monospace" }}>
             <Clock size={14} />
             {formatTime(timeLeft)}
@@ -550,10 +588,10 @@ export default function TestPage() {
             <div style={{ flex: 1, overflowY: "auto", padding: "16px 32px 28px" }}>
               <h2 style={{ fontSize: 17, fontWeight: 800, color: T.text, marginBottom: 20 }}>{section.passageTitle}</h2>
               <div
-                onMouseUp={handlePassageMouseUp}
+                onMouseUp={(e) => handleTextMouseUp(e, "passage")}
                 onClick={handlePassageClick}
-                style={{ color: T.text, lineHeight: 1.9, fontSize: 15, userSelect: "text" }}
-                dangerouslySetInnerHTML={{ __html: buildPassageHtml(section.passageText, currentSection) }}
+                style={{ color: T.text, lineHeight: 1.9, fontSize: fontSize, userSelect: "text" }}
+                dangerouslySetInnerHTML={{ __html: buildAnnotatedHtml(section.passageText, currentSection, "passage") }}
               />
             </div>
           </div>
@@ -562,17 +600,27 @@ export default function TestPage() {
         {/* Floating highlight toolbar */}
         {toolbarPos && (
           <div data-highlight-toolbar
-            style={{ position: "fixed", left: toolbarPos.x, top: toolbarPos.y - 44, transform: "translateX(-50%)", zIndex: 1000,
-              background: T.nav, border: `1px solid ${T.border}`, borderRadius: 10, padding: "6px 10px",
+            style={{ position: "fixed", left: Math.min(Math.max(toolbarPos.x, 100), window.innerWidth - 100), top: Math.max(toolbarPos.y, 8), transform: "translateX(-50%)", zIndex: 1000,
+              background: pageMode === "white" ? "#f0ede6" : "#1a0e42", border: `1px solid ${T.border}`, borderRadius: 10, padding: "6px 10px",
               display: "flex", alignItems: "center", gap: 7, boxShadow: `0 6px 24px rgba(0,0,0,0.4)` }}>
-            <span style={{ fontSize: 10, color: T.textMuted, marginRight: 2, whiteSpace: "nowrap" }}>Highlight:</span>
-            {HIGHLIGHT_COLORS.map(c => (
+            <span style={{ fontSize: 10, color: T.textMuted, marginRight: 2, whiteSpace: "nowrap" }}>
+              {pendingSide === "passage" ? "Highlight:" : "Mark:"}
+            </span>
+            {HIGHLIGHT_COLORS.filter(c => c.bg !== "underline").map(c => (
               <button key={c.bg} onClick={() => applyHighlight(c.bg)} title={c.label}
                 style={{ width: 20, height: 20, borderRadius: "50%", background: c.bg, border: "2px solid rgba(0,0,0,0.15)", cursor: "pointer", transition: "transform 0.1s" }}
                 onMouseEnter={e => (e.currentTarget.style.transform = "scale(1.25)")}
                 onMouseLeave={e => (e.currentTarget.style.transform = "scale(1)")}
               />
             ))}
+            <button onClick={() => applyHighlight("underline")} title="Underline"
+              style={{ padding: "2px 7px", borderRadius: 6, background: "transparent", border: "2px solid #7c3aed", color: "#7c3aed", fontSize: 12, fontWeight: 800, cursor: "pointer", textDecoration: "underline", textUnderlineOffset: "2px" }}
+              onMouseEnter={e => (e.currentTarget.style.background = "rgba(124,58,237,0.12)")}
+              onMouseLeave={e => (e.currentTarget.style.background = "transparent")}>
+              U
+            </button>
+            <button onClick={() => { setToolbarPos(null); setPendingText(""); window.getSelection()?.removeAllRanges(); }} title="Cancel"
+              style={{ padding: "2px 5px", borderRadius: 5, background: "transparent", border: "none", color: T.textMuted, cursor: "pointer", fontSize: 14, lineHeight: 1 }}>✕</button>
           </div>
         )}
 
@@ -592,7 +640,8 @@ export default function TestPage() {
 
         {/* Right: Questions */}
         <div className={`questions-panel ${test.type === "reading" && mobileView === "passage" ? "panel-hidden" : "panel-visible"}`}
-          style={{ flex: 1, overflowY: "auto", padding: "24px 28px", background: T.bg }}>
+          style={{ flex: 1, overflowY: "auto", padding: "24px 28px", background: T.bg }}
+          onMouseUp={(e) => handleTextMouseUp(e, "questions")}>
 
           {/* Listening: passage text */}
           {test.type === "listening" && section.passageText && (
@@ -612,7 +661,10 @@ export default function TestPage() {
               <QuestionItem key={q.id} question={q}
                 answer={answers[q.id] || ""}
                 onAnswer={(val) => setAnswer(q.id, val)}
-                T={T} />
+                T={T} fontSize={fontSize}
+                questionHighlights={highlights.filter(h => h.sectionIdx === currentSection && h.side === "questions")}
+                onRemoveHighlight={removeHighlight}
+              />
             ))}
           </div>
 
@@ -664,22 +716,47 @@ export default function TestPage() {
 // ============================================================
 // Question Item Component
 // ============================================================
+function buildQuestionHtml(text: string, questionHighlights: Highlight[]): string {
+  let result = text;
+  const active = [...questionHighlights].sort((a, b) => b.text.length - a.text.length);
+  for (const h of active) {
+    const escaped = h.text.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    const styleAttr = h.color === "underline"
+      ? `text-decoration:underline;text-decoration-color:#7c3aed;text-underline-offset:3px;cursor:pointer`
+      : `background:${h.color};border-radius:3px;cursor:pointer;padding:0 1px`;
+    result = result.replace(new RegExp(escaped), `<mark data-hid="${h.id}" style="${styleAttr}" title="Click to remove">${h.text}</mark>`);
+  }
+  return result.replace(/\n/g, "<br/>");
+}
+
 function QuestionItem({
-  question, answer, onAnswer, T,
+  question, answer, onAnswer, T, fontSize, questionHighlights, onRemoveHighlight,
 }: {
   question: IELTSSection["questions"][0];
   answer: string;
   onAnswer: (v: string) => void;
   T: { bg: string; nav: string; card: string; text: string; textSub: string; textMuted: string; border: string; accent: string; accentDim: string; accentBorder: string; inputBg: string; [k: string]: string };
+  fontSize: number;
+  questionHighlights: Highlight[];
+  onRemoveHighlight: (id: string) => void;
 }) {
   const btnBase: React.CSSProperties = { padding: "8px 16px", borderRadius: 8, fontSize: 13, fontWeight: 600, cursor: "pointer", border: "1px solid", transition: "all 0.15s" };
+
+  const handleQuestionClick = (e: React.MouseEvent) => {
+    const el = e.target as HTMLElement;
+    if (el.tagName === "MARK" && el.dataset.hid) onRemoveHighlight(el.dataset.hid);
+  };
+
   return (
     <div style={{ paddingBottom: 24, borderBottom: `1px solid ${T.border}` }}>
       <div style={{ display: "flex", gap: 12, marginBottom: 12 }}>
         <span style={{ flexShrink: 0, width: 26, height: 26, borderRadius: "50%", background: T.accent, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 11, fontWeight: 700, color: "#fff" }}>
           {question.number}
         </span>
-        <p style={{ fontSize: 14, color: T.text, lineHeight: 1.6 }}>{question.question}</p>
+        <div onClick={handleQuestionClick}
+          style={{ fontSize: fontSize - 1, color: T.text, lineHeight: 1.6, userSelect: "text" }}
+          dangerouslySetInnerHTML={{ __html: buildQuestionHtml(question.question, questionHighlights) }}
+        />
       </div>
 
       <div style={{ marginLeft: 38 }}>
@@ -803,53 +880,127 @@ function WarningScreen({ test, onAccept }: { test: IELTSTest; onAccept: () => vo
 // Result Screen
 // ============================================================
 function ResultScreen({
-  result, test, session, onBack,
+  result, test, session, answers, onBack,
 }: {
   result: { score: number; max: number; band: number };
   test: IELTSTest;
   session: StudentSession;
+  answers: Record<string, string>;
   onBack: () => void;
 }) {
+  const [showDetails, setShowDetails] = useState(false);
   const pct = Math.round((result.score / result.max) * 100);
   const msg = pct >= 80 ? "Excellent performance!" : pct >= 60 ? "Good effort — keep practising!" : "Keep working hard — you can do it!";
 
+  // Find a short excerpt from the passage containing the correct answer
+  const getPassageExcerpt = (passageText: string | undefined, answer: string): string => {
+    if (!passageText || !answer || answer === "TRUE" || answer === "FALSE" || answer === "NOT GIVEN" || answer === "YES" || answer === "NO" || answer.length <= 1) return "";
+    const parts = answer.split("/");
+    for (const part of parts) {
+      const idx = passageText.toLowerCase().indexOf(part.trim().toLowerCase());
+      if (idx >= 0) {
+        const start = Math.max(0, idx - 60);
+        const end = Math.min(passageText.length, idx + part.length + 60);
+        let excerpt = passageText.slice(start, end).replace(/\n/g, " ").trim();
+        if (start > 0) excerpt = "…" + excerpt;
+        if (end < passageText.length) excerpt = excerpt + "…";
+        return excerpt;
+      }
+    }
+    return "";
+  };
+
   return (
-    <div style={{ minHeight: "100vh", background: "#0a051f", display: "flex", alignItems: "center", justifyContent: "center", padding: 24, fontFamily: "Inter, system-ui, sans-serif" }}>
-      <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }}
-        style={{ maxWidth: 420, width: "100%", textAlign: "center" }}>
-        <div style={{ width: 80, height: 80, borderRadius: "50%", background: "linear-gradient(135deg,#6d28d9,#7c3aed)", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 20px" }}>
-          <CheckCircle size={36} color="#fff" />
-        </div>
-        <h1 style={{ fontSize: 30, fontWeight: 900, color: "#e8eeff", marginBottom: 6 }}>Test Complete!</h1>
-        <p style={{ color: "rgba(255,255,255,0.4)", marginBottom: 32 }}>Well done, {session.name}! Here are your results.</p>
+    <div style={{ minHeight: "100vh", background: "#0a051f", fontFamily: "Inter, system-ui, sans-serif", overflowY: "auto" }}>
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "center", padding: 24 }}>
+        <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }}
+          style={{ maxWidth: 480, width: "100%", textAlign: "center" }}>
+          <div style={{ width: 80, height: 80, borderRadius: "50%", background: "linear-gradient(135deg,#6d28d9,#7c3aed)", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 20px" }}>
+            <CheckCircle size={36} color="#fff" />
+          </div>
+          <h1 style={{ fontSize: 30, fontWeight: 900, color: "#e8eeff", marginBottom: 6 }}>Test Complete!</h1>
+          <p style={{ color: "rgba(255,255,255,0.4)", marginBottom: 32 }}>Well done, {session.name}! Here are your results.</p>
 
-        <div style={{ background: "#140b35", border: "1px solid rgba(255,255,255,0.1)", borderRadius: 24, padding: "32px", marginBottom: 20 }}>
-          <div style={{ fontSize: 72, fontWeight: 900, color: "#7c3aed", lineHeight: 1, marginBottom: 4 }}>{result.band}</div>
-          <div style={{ fontSize: 13, fontWeight: 600, color: "rgba(255,255,255,0.4)", marginBottom: 24 }}>IELTS Band Score</div>
+          <div style={{ background: "#140b35", border: "1px solid rgba(255,255,255,0.1)", borderRadius: 24, padding: "32px", marginBottom: 16 }}>
+            <div style={{ fontSize: 72, fontWeight: 900, color: "#7c3aed", lineHeight: 1, marginBottom: 4 }}>{result.band}</div>
+            <div style={{ fontSize: 13, fontWeight: 600, color: "rgba(255,255,255,0.4)", marginBottom: 24 }}>IELTS Score</div>
 
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginBottom: 20 }}>
-            {[
-              { label: "Raw Score", value: `${result.score}/${result.max}` },
-              { label: "Percentage", value: `${pct}%` },
-            ].map(s => (
-              <div key={s.label} style={{ padding: 16, borderRadius: 14, background: "#0e0828", border: "1px solid rgba(255,255,255,0.08)" }}>
-                <div style={{ fontSize: 22, fontWeight: 700, color: "#e8eeff", marginBottom: 4 }}>{s.value}</div>
-                <div style={{ fontSize: 12, color: "rgba(255,255,255,0.35)" }}>{s.label}</div>
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginBottom: 20 }}>
+              {[
+                { label: "Raw Score", value: `${result.score}/${result.max}` },
+                { label: "Percentage", value: `${pct}%` },
+              ].map(s => (
+                <div key={s.label} style={{ padding: 16, borderRadius: 14, background: "#0e0828", border: "1px solid rgba(255,255,255,0.08)" }}>
+                  <div style={{ fontSize: 22, fontWeight: 700, color: "#e8eeff", marginBottom: 4 }}>{s.value}</div>
+                  <div style={{ fontSize: 12, color: "rgba(255,255,255,0.35)" }}>{s.label}</div>
+                </div>
+              ))}
+            </div>
+
+            <div style={{ height: 6, background: "rgba(255,255,255,0.07)", borderRadius: 3, marginBottom: 8 }}>
+              <div style={{ height: "100%", background: "linear-gradient(90deg,#7c3aed,#b87fff)", borderRadius: 3, width: `${pct}%`, transition: "width 0.5s ease" }} />
+            </div>
+            <p style={{ fontSize: 13, color: "rgba(255,255,255,0.4)" }}>{msg}</p>
+          </div>
+
+          <div style={{ display: "flex", flexDirection: "column", gap: 10, marginBottom: 4 }}>
+            <button onClick={() => setShowDetails(d => !d)}
+              style={{ width: "100%", display: "flex", alignItems: "center", justifyContent: "center", gap: 8, padding: "13px", background: showDetails ? "rgba(124,58,237,0.2)" : "rgba(255,255,255,0.06)", color: "#fff", fontWeight: 700, fontSize: 14, border: "1px solid rgba(255,255,255,0.12)", borderRadius: 12, cursor: "pointer" }}>
+              <List size={15} /> {showDetails ? "Hide Details" : "View Answer Details"}
+            </button>
+            <button onClick={onBack}
+              style={{ width: "100%", display: "flex", alignItems: "center", justifyContent: "center", gap: 8, padding: "14px", background: "linear-gradient(135deg,#6d28d9,#7c3aed)", color: "#fff", fontWeight: 700, fontSize: 15, border: "none", borderRadius: 12, cursor: "pointer", boxShadow: "0 4px 15px rgba(37,99,235,0.4)" }}>
+              Back to Dashboard <ChevronRight size={16} />
+            </button>
+          </div>
+        </motion.div>
+      </div>
+
+      {/* Answer Details Panel */}
+      {showDetails && (
+        <div style={{ maxWidth: 800, margin: "0 auto", padding: "0 24px 48px" }}>
+          {test.sections.map((sec, sIdx) => (
+            <div key={sec.id} style={{ marginBottom: 32 }}>
+              <h2 style={{ fontSize: 16, fontWeight: 800, color: "#e8eeff", marginBottom: 6 }}>{sec.title}{sec.passageTitle ? ` – ${sec.passageTitle}` : ""}</h2>
+              <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+                {sec.questions.map((q) => {
+                  const userAns = (answers[q.id] || "").trim().toLowerCase();
+                  const correctOptions = q.correctAnswer.toLowerCase().split("/").map(s => s.trim());
+                  const isCorrect = correctOptions.some(c => userAns === c || userAns.includes(c));
+                  const excerpt = getPassageExcerpt(sec.passageText, q.correctAnswer);
+                  return (
+                    <div key={q.id} style={{ background: isCorrect ? "rgba(16,185,129,0.07)" : "rgba(239,68,68,0.07)", border: `1px solid ${isCorrect ? "rgba(16,185,129,0.2)" : "rgba(239,68,68,0.2)"}`, borderRadius: 12, padding: "14px 16px" }}>
+                      <div style={{ display: "flex", gap: 10, alignItems: "flex-start", marginBottom: 8 }}>
+                        <span style={{ flexShrink: 0, width: 22, height: 22, borderRadius: "50%", background: isCorrect ? "#10b981" : "#ef4444", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 11, fontWeight: 700, color: "#fff", marginTop: 1 }}>
+                          {isCorrect ? "✓" : "✗"}
+                        </span>
+                        <span style={{ fontSize: 13, color: "rgba(255,255,255,0.75)", lineHeight: 1.5, flex: 1 }}>
+                          <strong style={{ color: "#e8eeff" }}>Q{q.number}.</strong> {q.question.split("\n")[0]}
+                        </span>
+                      </div>
+                      <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginLeft: 32 }}>
+                        <span style={{ fontSize: 12, padding: "3px 10px", borderRadius: 6, background: isCorrect ? "rgba(16,185,129,0.15)" : "rgba(239,68,68,0.15)", color: isCorrect ? "#34d399" : "#fca5a5" }}>
+                          Your answer: {answers[q.id] || "(no answer)"}
+                        </span>
+                        {!isCorrect && (
+                          <span style={{ fontSize: 12, padding: "3px 10px", borderRadius: 6, background: "rgba(124,58,237,0.15)", color: "#c4b5fd" }}>
+                            Correct: {q.correctAnswer}
+                          </span>
+                        )}
+                      </div>
+                      {excerpt && (
+                        <div style={{ marginTop: 8, marginLeft: 32, padding: "8px 12px", background: "rgba(255,255,255,0.04)", borderLeft: "3px solid rgba(124,58,237,0.5)", borderRadius: "0 6px 6px 0", fontSize: 12, color: "rgba(255,255,255,0.5)", lineHeight: 1.6, fontStyle: "italic" }}>
+                          {excerpt}
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
               </div>
-            ))}
-          </div>
-
-          <div style={{ height: 6, background: "rgba(255,255,255,0.07)", borderRadius: 3, marginBottom: 8 }}>
-            <div style={{ height: "100%", background: "linear-gradient(90deg,#7c3aed,#b87fff)", borderRadius: 3, width: `${pct}%`, transition: "width 0.5s ease" }} />
-          </div>
-          <p style={{ fontSize: 13, color: "rgba(255,255,255,0.4)" }}>{msg}</p>
+            </div>
+          ))}
         </div>
-
-        <button onClick={onBack}
-          style={{ width: "100%", display: "flex", alignItems: "center", justifyContent: "center", gap: 8, padding: "14px", background: "linear-gradient(135deg,#6d28d9,#7c3aed)", color: "#fff", fontWeight: 700, fontSize: 15, border: "none", borderRadius: 12, cursor: "pointer", boxShadow: "0 4px 15px rgba(37,99,235,0.4)" }}>
-          Back to Dashboard <ChevronRight size={16} />
-        </button>
-      </motion.div>
+      )}
     </div>
   );
 }

@@ -5,7 +5,7 @@ import {
   BookOpen, LogOut, Users, Award, BarChart3, Search,
   Download, CheckCircle, X, Shield, Plus, Trash2, Eye, EyeOff
 } from "lucide-react";
-import { getSession, clearSession, getAttempts, getTeachers, addTeacher, deleteTeacher, type AttemptData, type TeacherAccount } from "@/lib/store";
+import { getSession, clearSession, getAttempts, getTeachers, addTeacher, deleteTeacher, registerStudent, getStudentAccounts, deleteStudent, type AttemptData, type TeacherAccount, type StudentAccount } from "@/lib/store";
 
 // ── Hardcoded dark theme colours ─────────────────────────────
 const C = {
@@ -39,7 +39,7 @@ const sel: React.CSSProperties = {
 export default function AdminDashboard() {
   const router = useRouter();
   const [attempts, setAttempts] = useState<AttemptData[]>([]);
-  const [activeTab, setActiveTab] = useState<"results" | "teachers">("results");
+  const [activeTab, setActiveTab] = useState<"results" | "students" | "teachers">("results");
   const [expandedGroup, setExpandedGroup] = useState<string | null>(null);
   const [expandedStudent, setExpandedStudent] = useState<string | null>(null);
   const [isRootAdmin, setIsRootAdmin] = useState(false);
@@ -54,10 +54,18 @@ export default function AdminDashboard() {
   const [showNewPw, setShowNewPw] = useState(false);
   const [teacherError, setTeacherError] = useState("");
   const [teacherSuccess, setTeacherSuccess] = useState("");
+  const [students, setStudents] = useState<StudentAccount[]>([]);
+  const [newStudentName, setNewStudentName] = useState("");
+  const [newStudentSurname, setNewStudentSurname] = useState("");
+  const [newStudentGroup, setNewStudentGroup] = useState("");
+  const [studentError, setStudentError] = useState("");
+  const [createdStudent, setCreatedStudent] = useState<{ username: string; password: string; name: string; surname: string } | null>(null);
+  const [studentSearch, setStudentSearch] = useState("");
 
   const refreshData = () => {
     setAttempts(getAttempts());
     setTeachers(getTeachers());
+    setStudents(getStudentAccounts());
   };
 
   useEffect(() => {
@@ -94,6 +102,22 @@ export default function AdminDashboard() {
     deleteTeacher(id); setTeachers(getTeachers());
   };
 
+  const handleAddStudent = () => {
+    setStudentError(""); setCreatedStudent(null);
+    if (!newStudentName.trim() || !newStudentSurname.trim() || !newStudentGroup.trim()) {
+      setStudentError("All fields are required."); return;
+    }
+    const result = registerStudent(newStudentName.trim(), newStudentSurname.trim(), newStudentGroup.trim());
+    setCreatedStudent({ username: result.username, password: result.password, name: newStudentName.trim(), surname: newStudentSurname.trim() });
+    setStudents(getStudentAccounts());
+    setNewStudentName(""); setNewStudentSurname(""); setNewStudentGroup("");
+  };
+
+  const handleDeleteStudent = (id: string) => {
+    if (!confirm("Delete this student account? Their test history will remain.")) return;
+    deleteStudent(id); setStudents(getStudentAccounts());
+  };
+
   const handleLogout = () => { clearSession(); router.push("/"); };
 
   const groups = ["all", ...Array.from(new Set(attempts.map((a) => a.groupName)))];
@@ -123,7 +147,7 @@ export default function AdminDashboard() {
     const rows = filtered.map((a) => ({
       "First Name": a.studentName, "Surname": a.studentSurname, "Group": a.groupName,
       "Test": a.testTitle, "Type": a.testType.charAt(0).toUpperCase() + a.testType.slice(1),
-      "Score": `${a.score}/${a.maxScore}`, "Band Score": a.bandScore > 0 ? a.bandScore : "–",
+      "Score": `${a.score}/${a.maxScore}`, "IELTS Score": a.bandScore > 0 ? a.bandScore : "–",
       "Status": a.status.charAt(0).toUpperCase() + a.status.slice(1),
       "Duration": a.timeSpentSeconds ? `${Math.floor(a.timeSpentSeconds / 60)}m ${a.timeSpentSeconds % 60}s` : "–",
       "Date": new Date(a.submittedAt).toLocaleString(),
@@ -136,6 +160,7 @@ export default function AdminDashboard() {
 
   const tabs = [
     { id: "results" as const, Icon: BarChart3, label: "Results" },
+    { id: "students" as const, Icon: Users, label: "Students" },
     ...(isRootAdmin ? [{ id: "teachers" as const, Icon: Shield, label: "Manage Teachers" }] : []),
   ];
 
@@ -191,7 +216,7 @@ export default function AdminDashboard() {
             {[
               { label: "Total Attempts", value: attempts.length, Icon: BarChart3, color: C.accent },
               { label: "Unique Students", value: uniqueStudents, Icon: Users, color: "#10b981" },
-              { label: "Avg Band Score", value: avgBand, Icon: Award, color: "#f59e0b" },
+              { label: "Avg IELTS Score", value: avgBand, Icon: Award, color: "#f59e0b" },
               { label: "Completed", value: attempts.filter(a => a.status === "completed").length, Icon: CheckCircle, color: "#8b5cf6" },
             ].map(s => (
               <div key={s.label} style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 14, padding: "18px 20px" }}>
@@ -231,7 +256,7 @@ export default function AdminDashboard() {
               </select>
               <select value={sortBy} onChange={e => setSortBy(e.target.value as typeof sortBy)} style={sel}>
                 <option value="date">Sort: Date</option>
-                <option value="band">Sort: Band Score</option>
+                <option value="band">Sort: IELTS Score</option>
                 <option value="name">Sort: Name</option>
               </select>
             </div>
@@ -244,7 +269,7 @@ export default function AdminDashboard() {
                 <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 13, minWidth: 700 }}>
                   <thead>
                     <tr style={{ background: C.card2 }}>
-                      {["Student", "Group", "Test", "Type", "Score", "Band", "Status", "Duration", "Date"].map(h => (
+                      {["Student", "Group", "Test", "Type", "Score", "IELTS", "Status", "Duration", "Date"].map(h => (
                         <th key={h} style={{ padding: "11px 14px", textAlign: "left", fontSize: 11, fontWeight: 700, color: C.muted, textTransform: "uppercase", letterSpacing: "0.06em", borderBottom: `1px solid ${C.border}`, whiteSpace: "nowrap" }}>{h}</th>
                       ))}
                     </tr>
@@ -320,7 +345,7 @@ export default function AdminDashboard() {
                         <span style={{ padding: "2px 8px", borderRadius: 20, fontSize: 11, background: C.accentLight, color: C.accent }}>{students} students</span>
                       </div>
                       <div style={{ fontSize: 28, fontWeight: 900, color: C.accent, marginBottom: 2 }}>{avg}</div>
-                      <div style={{ fontSize: 12, color: C.muted }}>Avg band · {ga.length} completed · {isOpen ? "▲ hide" : "▼ show students"}</div>
+                      <div style={{ fontSize: 12, color: C.muted }}>Avg score · {ga.length} completed · {isOpen ? "▲ hide" : "▼ show students"}</div>
                     </div>
                   );
                 })}
@@ -371,7 +396,7 @@ export default function AdminDashboard() {
                               <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 13, minWidth: 680 }}>
                                 <thead>
                                   <tr style={{ background: C.card2 }}>
-                                    {["Test", "Type", "Score", "Correct", "Wrong", "Band", "Duration", "Date"].map(h => (
+                                    {["Test", "Type", "Score", "Correct", "Wrong", "IELTS", "Duration", "Date"].map(h => (
                                       <th key={h} style={{ padding: "9px 14px", textAlign: "left", fontSize: 11, fontWeight: 700, color: C.muted, textTransform: "uppercase", letterSpacing: "0.06em", borderBottom: `1px solid ${C.border}`, whiteSpace: "nowrap" }}>{h}</th>
                                     ))}
                                   </tr>
@@ -426,6 +451,97 @@ export default function AdminDashboard() {
             </div>
           )}
         </>}
+
+        {/* ══════════════════ STUDENTS TAB ══════════════════ */}
+        {activeTab === "students" && (
+          <div style={{ maxWidth: 760 }}>
+            <h1 style={{ fontSize: 22, fontWeight: 800, color: C.text, marginBottom: 4 }}>Student Accounts</h1>
+            <p style={{ fontSize: 13, color: C.muted, marginBottom: 24 }}>Create and manage student login credentials.</p>
+
+            {/* Add student form */}
+            <div style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 14, padding: "22px", marginBottom: 24 }}>
+              <p style={{ fontSize: 11, fontWeight: 700, color: C.muted, textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 14 }}>Add New Student</p>
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 10, marginBottom: 10 }}>
+                <input type="text" placeholder="First Name" value={newStudentName} onChange={e => setNewStudentName(e.target.value)}
+                  style={{ ...sel, padding: "11px 14px" }} />
+                <input type="text" placeholder="Surname" value={newStudentSurname} onChange={e => setNewStudentSurname(e.target.value)}
+                  style={{ ...sel, padding: "11px 14px" }} />
+                <input type="text" placeholder="Group (e.g. IELTS-A)" value={newStudentGroup} onChange={e => setNewStudentGroup(e.target.value)}
+                  style={{ ...sel, padding: "11px 14px" }} />
+              </div>
+              {studentError && <p style={{ fontSize: 13, color: C.danger, marginBottom: 8 }}>{studentError}</p>}
+              <button onClick={handleAddStudent}
+                style={{ display: "flex", alignItems: "center", gap: 6, padding: "10px 18px", background: "linear-gradient(135deg,#6d28d9,#7c3aed)", border: "none", borderRadius: 10, color: "#fff", fontSize: 13, fontWeight: 600, cursor: "pointer" }}>
+                <Plus size={14} /> Create Student Account
+              </button>
+
+              {/* Created credentials display */}
+              {createdStudent && (
+                <div style={{ marginTop: 16, padding: "16px", background: "rgba(16,185,129,0.08)", border: "1px solid rgba(16,185,129,0.25)", borderRadius: 12 }}>
+                  <p style={{ fontSize: 12, fontWeight: 700, color: "#34d399", marginBottom: 10 }}>✓ Account created for {createdStudent.name} {createdStudent.surname}</p>
+                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
+                    {[{ label: "Username", val: createdStudent.username }, { label: "Password", val: createdStudent.password }].map(item => (
+                      <div key={item.label} style={{ padding: "10px 14px", background: "rgba(255,255,255,0.04)", borderRadius: 9, border: `1px solid ${C.border}` }}>
+                        <div style={{ fontSize: 10, color: C.muted, marginBottom: 4, textTransform: "uppercase", fontWeight: 700 }}>{item.label}</div>
+                        <div style={{ fontFamily: "monospace", fontSize: 15, fontWeight: 700, color: C.text }}>{item.val}</div>
+                      </div>
+                    ))}
+                  </div>
+                  <p style={{ fontSize: 11, color: "#fcd34d", marginTop: 10 }}>⚠ Share these credentials with the student. They cannot be recovered later.</p>
+                </div>
+              )}
+            </div>
+
+            {/* Search */}
+            <div style={{ position: "relative", marginBottom: 16 }}>
+              <Search size={14} color={C.muted} style={{ position: "absolute", left: 12, top: "50%", transform: "translateY(-50%)" }} />
+              <input type="text" placeholder="Search students..." value={studentSearch} onChange={e => setStudentSearch(e.target.value)}
+                style={{ ...sel, padding: "10px 14px 10px 34px", width: "100%", boxSizing: "border-box" as const }} />
+            </div>
+
+            {/* Students list */}
+            <div style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 14, overflow: "hidden" }}>
+              <div style={{ padding: "10px 16px", background: C.card2, borderBottom: `1px solid ${C.border}`, display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                <span style={{ fontSize: 11, fontWeight: 700, color: C.muted, textTransform: "uppercase", letterSpacing: "0.08em" }}>
+                  Accounts ({students.filter(s => !studentSearch || `${s.name} ${s.surname} ${s.username} ${s.group_name}`.toLowerCase().includes(studentSearch.toLowerCase())).length})
+                </span>
+              </div>
+              {students.filter(s => !studentSearch || `${s.name} ${s.surname} ${s.username} ${s.group_name}`.toLowerCase().includes(studentSearch.toLowerCase())).length === 0 ? (
+                <div style={{ padding: "32px", textAlign: "center", color: C.muted, fontSize: 14 }}>No students yet. Use the form above to add students.</div>
+              ) : (
+                <div style={{ overflowX: "auto" }}>
+                  <table style={{ width: "100%", borderCollapse: "collapse" }}>
+                    <thead>
+                      <tr style={{ background: C.card2 }}>
+                        {["Name", "Username", "Group", "Created", ""].map(h => (
+                          <th key={h} style={{ padding: "10px 14px", textAlign: "left", fontSize: 11, fontWeight: 700, color: C.muted, textTransform: "uppercase", letterSpacing: "0.05em", borderBottom: `1px solid ${C.border}` }}>{h}</th>
+                        ))}
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {students.filter(s => !studentSearch || `${s.name} ${s.surname} ${s.username} ${s.group_name}`.toLowerCase().includes(studentSearch.toLowerCase())).map((s, i) => (
+                        <tr key={s.id} style={{ background: i % 2 === 0 ? "transparent" : "rgba(255,255,255,0.02)", borderBottom: `1px solid ${C.border}` }}>
+                          <td style={{ padding: "12px 14px" }}>
+                            <div style={{ fontWeight: 600, fontSize: 14, color: C.text }}>{s.name} {s.surname}</div>
+                          </td>
+                          <td style={{ padding: "12px 14px", fontFamily: "monospace", fontSize: 13, color: C.sub }}>{s.username}</td>
+                          <td style={{ padding: "12px 14px", fontSize: 13, color: C.muted }}>{s.group_name}</td>
+                          <td style={{ padding: "12px 14px", fontSize: 12, color: C.muted }}>{new Date(s.createdAt).toLocaleDateString()}</td>
+                          <td style={{ padding: "12px 14px" }}>
+                            <button onClick={() => handleDeleteStudent(s.id)}
+                              style={{ display: "flex", alignItems: "center", gap: 4, padding: "5px 10px", background: "transparent", border: `1px solid ${C.border}`, borderRadius: 7, color: C.danger, fontSize: 12, fontWeight: 600, cursor: "pointer" }}>
+                              <Trash2 size={11} /> Delete
+                            </button>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
 
         {/* ══════════════════ TEACHERS TAB ══════════════════ */}
         {activeTab === "teachers" && isRootAdmin && (

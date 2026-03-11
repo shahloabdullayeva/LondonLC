@@ -150,13 +150,10 @@ function LoginContent() {
               </button>
             </form>
 
-            {/* Sign up link (students only) */}
+            {/* Info for students */}
             {!isAdmin && (
               <div style={{ marginTop: 18, textAlign: "center", fontSize: 13, color: "rgba(255,255,255,0.35)" }}>
-                Don&apos;t have an account?{" "}
-                <Link href="/auth/signup" style={{ color: "#a78bfa", fontWeight: 600, textDecoration: "none" }}>
-                  Sign up here
-                </Link>
+                Your teacher will provide your username and password.
               </div>
             )}
           </div>

@@ -50,6 +50,11 @@ export function loginStudent(username: string, password: string): StudentAccount
   ) ?? null;
 }
 
+export function deleteStudent(id: string): void {
+  const accounts = getStudentAccounts().filter((s) => s.id !== id);
+  localStorage.setItem(STUDENTS_KEY, JSON.stringify(accounts));
+}
+
 export type StudentSession = {
   id: string;
   name: string;
