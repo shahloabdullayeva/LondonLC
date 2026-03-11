@@ -1,12 +1,15 @@
 "use client";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { BookOpen, Headphones, LogOut, User, Clock, Award, ChevronRight, BarChart3, Star } from "lucide-react";
+import { BookOpen, Headphones, LogOut, User, Clock, Award, ChevronRight, BarChart3, Star, ChevronLeft, Lock } from "lucide-react";
 import { getSession, clearSession, getAttempts } from "@/lib/store";
 import { allTests } from "@/data/ielts-tests";
 import type { StudentSession } from "@/lib/store";
 
 type TestType = "reading" | "listening";
+
+// Books that have real test content available
+const AVAILABLE_BOOKS = [10];
 
 const S = {
   page: { minHeight: "100vh", background: "#0a051f", fontFamily: "Inter, system-ui, sans-serif", display: "flex", flexDirection: "column" as const },
@@ -17,6 +20,7 @@ export default function StudentDashboard() {
   const router = useRouter();
   const [session, setSession] = useState<StudentSession | null>(null);
   const [typeFilter, setTypeFilter] = useState<TestType>("reading");
+  const [selectedBook, setSelectedBook] = useState<number | null>(null);
 
   useEffect(() => {
     const s = getSession();
@@ -30,14 +34,6 @@ export default function StudentDashboard() {
   const avgBand = typeAttempts.length ? (typeAttempts.reduce((s, a) => s + a.bandScore, 0) / typeAttempts.length).toFixed(1) : "—";
   const bestBand = typeAttempts.length ? Math.max(...typeAttempts.map(a => a.bandScore)).toFixed(1) : "—";
 
-  const filteredTests = allTests.filter(t => t.type === typeFilter);
-
-  // Group tests by bookNumber
-  const bookNumbers = [...new Set(filteredTests.map(t => t.bookNumber))].sort((a, b) => a - b);
-  const testsByBook = bookNumbers.map(book => ({
-    book,
-    tests: filteredTests.filter(t => t.bookNumber === book).sort((a, b) => a.testNumber - b.testNumber),
-  }));
 
   if (!session) return null;
 
@@ -110,63 +106,101 @@ export default function StudentDashboard() {
             ))}
           </div>
 
-          {/* Tests grouped by Cambridge book */}
-          <h2 style={{ fontSize: 16, fontWeight: 700, color: "#fff", marginBottom: 20 }}>
-            {typeFilter === "listening" ? "Listening Tests" : "Academic Reading Tests"}
-          </h2>
-          {testsByBook.map(({ book, tests }) => (
-            <div key={book} style={{ marginBottom: 36 }}>
-              {/* Book section header */}
-              <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 16 }}>
-                <div style={{ display: "flex", alignItems: "center", gap: 10, padding: "8px 16px", background: "rgba(124,58,237,0.15)", border: "1px solid rgba(124,58,237,0.3)", borderRadius: 12 }}>
-                  <BookOpen size={15} color="#a78bfa" />
-                  <span style={{ fontSize: 14, fontWeight: 700, color: "#c4b5fd" }}>Cambridge IELTS {book}</span>
-                </div>
-                <div style={{ flex: 1, height: 1, background: "rgba(255,255,255,0.07)" }} />
-                <span style={{ fontSize: 12, color: "rgba(255,255,255,0.3)" }}>{tests.length} test{tests.length !== 1 ? "s" : ""}</span>
-              </div>
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: 14 }}>
-                {tests.map(test => {
-                  const myBest = attempts.filter(a => a.testId === test.id && a.status === "completed");
-                  const best = myBest.length ? Math.max(...myBest.map(a => a.bandScore)) : null;
-                  const totalQ = test.sections.reduce((s, sec) => s + sec.questions.length, 0);
+          {/* Cambridge Books view */}
+          {selectedBook === null ? (
+            <>
+              <h2 style={{ fontSize: 16, fontWeight: 700, color: "#fff", marginBottom: 6 }}>Cambridge IELTS Books</h2>
+              <p style={{ fontSize: 13, color: "rgba(255,255,255,0.35)", marginBottom: 24 }}>Select a book to start practising</p>
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(140px, 1fr))", gap: 12 }}>
+                {Array.from({ length: 19 }, (_, i) => i + 1).map(n => {
+                  const available = AVAILABLE_BOOKS.includes(n);
+                  const bookTests = allTests.filter(t => t.bookNumber === n && t.type === typeFilter);
                   return (
-                    <div key={test.id}
-                      style={{ background: "#140b35", border: "1px solid rgba(255,255,255,0.09)", borderRadius: 16, padding: 20, cursor: "pointer", transition: "all 0.2s" }}
-                      onMouseEnter={e => { (e.currentTarget as HTMLElement).style.borderColor = "rgba(124,58,237,0.5)"; (e.currentTarget as HTMLElement).style.transform = "translateY(-2px)"; }}
-                      onMouseLeave={e => { (e.currentTarget as HTMLElement).style.borderColor = "rgba(255,255,255,0.09)"; (e.currentTarget as HTMLElement).style.transform = "none"; }}
-                      onClick={() => router.push(`/student/test/${test.id}`)}>
-                      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 12 }}>
-                        <div>
-                          <div style={{ fontSize: 11, fontWeight: 600, color: "#7c3aed", marginBottom: 4, textTransform: "uppercase", letterSpacing: "0.05em" }}>
-                            Test {test.testNumber}
-                          </div>
-                          <h3 style={{ fontSize: 14, fontWeight: 800, color: "#fff", marginBottom: 3 }}>{test.title}</h3>
-                          <p style={{ fontSize: 12, color: "rgba(255,255,255,0.4)" }}>
-                            {test.type === "listening" ? "Listening Test" : "Academic Reading"}
-                          </p>
-                        </div>
-                        {best !== null && (
-                          <span style={{ fontSize: 12, fontWeight: 700, padding: "4px 10px", background: "rgba(16,185,129,0.15)", color: "#34d399", borderRadius: 20, border: "1px solid rgba(16,185,129,0.2)", flexShrink: 0 }}>
-                            Score {best}
-                          </span>
-                        )}
+                    <div key={n}
+                      onClick={() => available && setSelectedBook(n)}
+                      style={{ background: available ? "#140b35" : "rgba(255,255,255,0.03)", border: `1px solid ${available ? "rgba(124,58,237,0.3)" : "rgba(255,255,255,0.06)"}`, borderRadius: 16, padding: "20px 14px", textAlign: "center", cursor: available ? "pointer" : "default", transition: "all 0.2s", opacity: available ? 1 : 0.6, position: "relative" }}
+                      onMouseEnter={e => available && ((e.currentTarget as HTMLElement).style.borderColor = "rgba(124,58,237,0.6)", (e.currentTarget as HTMLElement).style.transform = "translateY(-2px)")}
+                      onMouseLeave={e => available && ((e.currentTarget as HTMLElement).style.borderColor = "rgba(124,58,237,0.3)", (e.currentTarget as HTMLElement).style.transform = "none")}>
+                      <div style={{ width: 44, height: 44, borderRadius: 12, background: available ? "linear-gradient(135deg,#7c3aed,#6d28d9)" : "rgba(255,255,255,0.06)", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 12px" }}>
+                        {available ? <BookOpen size={20} color="#fff" /> : <Lock size={16} color="rgba(255,255,255,0.25)" />}
                       </div>
-
-                      <div style={{ display: "flex", gap: 14, marginBottom: 16, fontSize: 12, color: "rgba(255,255,255,0.4)" }}>
-                        <span style={{ display: "flex", alignItems: "center", gap: 5 }}><Clock size={12} /> {test.durationMinutes} min{test.transferMinutes > 0 ? ` + ${test.transferMinutes} transfer` : ""}</span>
-                        <span style={{ display: "flex", alignItems: "center", gap: 5 }}><BarChart3 size={12} /> {totalQ} questions</span>
+                      <div style={{ fontSize: 13, fontWeight: 800, color: available ? "#fff" : "rgba(255,255,255,0.3)", marginBottom: 4 }}>
+                        Cambridge {n}
                       </div>
-
-                      <button style={{ width: "100%", padding: "10px", background: "linear-gradient(135deg,#7c3aed,#6d28d9)", color: "#fff", fontWeight: 700, fontSize: 13, border: "none", borderRadius: 10, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", gap: 6 }}>
-                        Start practice <ChevronRight size={14} />
-                      </button>
+                      {available ? (
+                        <div style={{ fontSize: 11, color: "#a78bfa", fontWeight: 600 }}>{bookTests.length} test{bookTests.length !== 1 ? "s" : ""}</div>
+                      ) : (
+                        <div style={{ fontSize: 10, color: "rgba(255,255,255,0.2)", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.05em" }}>Soon</div>
+                      )}
                     </div>
                   );
                 })}
               </div>
-            </div>
-          ))}
+            </>
+          ) : (
+            <>
+              {/* Back + header */}
+              <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 24 }}>
+                <button onClick={() => setSelectedBook(null)}
+                  style={{ display: "flex", alignItems: "center", gap: 6, padding: "7px 14px", background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.1)", borderRadius: 9, color: "rgba(255,255,255,0.6)", fontSize: 13, cursor: "pointer", fontWeight: 600 }}>
+                  <ChevronLeft size={14} /> All Books
+                </button>
+                <div style={{ display: "flex", alignItems: "center", gap: 8, padding: "7px 16px", background: "rgba(124,58,237,0.15)", border: "1px solid rgba(124,58,237,0.3)", borderRadius: 10 }}>
+                  <BookOpen size={14} color="#a78bfa" />
+                  <span style={{ fontSize: 14, fontWeight: 700, color: "#c4b5fd" }}>Cambridge IELTS {selectedBook}</span>
+                </div>
+              </div>
+
+              {/* Test cards */}
+              {(() => {
+                const bookTests = allTests.filter(t => t.bookNumber === selectedBook && t.type === typeFilter)
+                  .sort((a, b) => a.testNumber - b.testNumber);
+                if (bookTests.length === 0) return (
+                  <p style={{ color: "rgba(255,255,255,0.3)", fontSize: 14 }}>No {typeFilter} tests available for this book yet.</p>
+                );
+                return (
+                  <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: 14 }}>
+                    {bookTests.map(test => {
+                      const myBest = attempts.filter(a => a.testId === test.id && a.status === "completed");
+                      const best = myBest.length ? Math.max(...myBest.map(a => a.bandScore)) : null;
+                      const totalQ = test.sections.reduce((s, sec) => s + sec.questions.length, 0);
+                      return (
+                        <div key={test.id}
+                          style={{ background: "#140b35", border: "1px solid rgba(255,255,255,0.09)", borderRadius: 16, padding: 20, cursor: "pointer", transition: "all 0.2s" }}
+                          onMouseEnter={e => { (e.currentTarget as HTMLElement).style.borderColor = "rgba(124,58,237,0.5)"; (e.currentTarget as HTMLElement).style.transform = "translateY(-2px)"; }}
+                          onMouseLeave={e => { (e.currentTarget as HTMLElement).style.borderColor = "rgba(255,255,255,0.09)"; (e.currentTarget as HTMLElement).style.transform = "none"; }}
+                          onClick={() => router.push(`/student/test/${test.id}`)}>
+                          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 12 }}>
+                            <div>
+                              <div style={{ fontSize: 11, fontWeight: 600, color: "#7c3aed", marginBottom: 4, textTransform: "uppercase", letterSpacing: "0.05em" }}>
+                                Test {test.testNumber}
+                              </div>
+                              <h3 style={{ fontSize: 14, fontWeight: 800, color: "#fff", marginBottom: 3 }}>{test.title}</h3>
+                              <p style={{ fontSize: 12, color: "rgba(255,255,255,0.4)" }}>
+                                {test.type === "listening" ? "Listening Test" : "Academic Reading"}
+                              </p>
+                            </div>
+                            {best !== null && (
+                              <span style={{ fontSize: 12, fontWeight: 700, padding: "4px 10px", background: "rgba(16,185,129,0.15)", color: "#34d399", borderRadius: 20, border: "1px solid rgba(16,185,129,0.2)", flexShrink: 0 }}>
+                                Score {best}
+                              </span>
+                            )}
+                          </div>
+                          <div style={{ display: "flex", gap: 14, marginBottom: 16, fontSize: 12, color: "rgba(255,255,255,0.4)" }}>
+                            <span style={{ display: "flex", alignItems: "center", gap: 5 }}><Clock size={12} /> {test.durationMinutes} min{test.transferMinutes > 0 ? ` + ${test.transferMinutes} transfer` : ""}</span>
+                            <span style={{ display: "flex", alignItems: "center", gap: 5 }}><BarChart3 size={12} /> {totalQ} questions</span>
+                          </div>
+                          <button style={{ width: "100%", padding: "10px", background: "linear-gradient(135deg,#7c3aed,#6d28d9)", color: "#fff", fontWeight: 700, fontSize: 13, border: "none", borderRadius: 10, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", gap: 6 }}>
+                            Start practice <ChevronRight size={14} />
+                          </button>
+                        </div>
+                      );
+                    })}
+                  </div>
+                );
+              })()}
+            </>
+          )}
 
           {/* Recent attempts */}
           {attempts.length > 0 && (

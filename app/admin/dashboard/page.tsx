@@ -554,10 +554,10 @@ export default function AdminDashboard() {
               <p style={{ fontSize: 11, fontWeight: 700, color: C.muted, textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 14 }}>Add New Teacher</p>
               <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
                 <input type="text" placeholder="Username" value={newUsername} onChange={e => setNewUsername(e.target.value)}
-                  style={{ ...sel, padding: "11px 14px" }} />
+                  autoComplete="off" style={{ ...sel, padding: "11px 14px" }} />
                 <div style={{ position: "relative" }}>
                   <input type={showNewPw ? "text" : "password"} placeholder="Password" value={newPassword} onChange={e => setNewPassword(e.target.value)}
-                    style={{ ...sel, padding: "11px 40px 11px 14px" }} />
+                    autoComplete="new-password" style={{ ...sel, padding: "11px 40px 11px 14px" }} />
                   <button type="button" onClick={() => setShowNewPw(!showNewPw)}
                     style={{ position: "absolute", right: 12, top: "50%", transform: "translateY(-50%)", background: "none", border: "none", cursor: "pointer", color: C.muted, padding: 0 }}>
                     {showNewPw ? <EyeOff size={14} /> : <Eye size={14} />}
