@@ -1417,7 +1417,686 @@ const cambridge10_reading_t3: IELTSTest = {
   level: "academic",
   durationMinutes: 60,
   transferMinutes: 0,
-  sections: [],
+  sections: [
+    // ── PASSAGE 1 ──────────────────────────────────────────────
+    {
+      id: "cam10-ra-t3-s1",
+      sectionNumber: 1,
+      title: "Reading Passage 1",
+      passageTitle: "The Context, Meaning and Scope of Tourism",
+      passageText: `A
+Travel has existed since the beginning of time, when primitive man set out, often traversing great distances in search of game, which provided the food and clothing necessary for his survival. Throughout the course of history, people have travelled for purposes of trade, religious conviction, economic gain, war, migration and other equally compelling motivations. In the Roman era, wealthy aristocrats and high government officials also travelled for pleasure. Seaside resorts located at Pompeii and Herculaneum afforded citizens the opportunity to escape to their vacation villas in order to avoid the summer heat of Rome. Travel, except during the Dark Ages, has continued to grow and, throughout recorded history, has played a vital role in the development of civilisations and their economies.
+
+B
+Tourism in the mass form as we know it today is a distinctly twentieth-century phenomenon. Historians suggest that the advent of mass tourism began in England during the industrial revolution with the rise of the middle class and the availability of relatively inexpensive transportation. The creation of the commercial airline industry following the Second World War and the subsequent development of the jet aircraft in the 1950s signalled the rapid growth and expansion of international travel. This growth led to the development of a major new industry: tourism. In turn, international tourism became the concern of a number of world governments since it not only provided new employment opportunities but also produced a means of earning foreign exchange.
+
+C
+Tourism today has grown significantly in both economic and social importance. In most industrialised countries over the past few years the fastest growth has been seen in the area of services. One of the largest segments of the service industry, although largely unrecognised as an entity in some of these countries, is travel and tourism. According to the World Travel and Tourism Council (1992), Travel and tourism is the largest industry in the world on virtually any economic measure including value-added capital investment, employment and tax contributions. In 1992 the industry's gross output was estimated to be $3.5 trillion, over 12 per cent of all consumer spending. The travel and tourism industry is the world's largest employer – almost 130 million jobs, or almost 7 per cent of all employees. This industry is the world's leading industrial contributor, producing over 6 per cent of the world's national product and accounting for capital investment in excess of $422 billion in direct, indirect and personal taxes each year. Thus, tourism has a profound impact both on the world economy and, because of the educative effect of travel and the effects on employment, on society itself.
+
+D
+However, the major problems of the travel and tourism industry that have hidden, or obscured, its economic impact are the diversity and fragmentation of the industry itself. The travel industry includes: hotels, motels and other types of accommodation; restaurants and other food services; transportation services and facilities; amusements, attractions and other leisure facilities; gift shops and a large number of other enterprises. Since many of these businesses also serve local residents, the impact of spending by visitors can easily be overlooked or underestimated. In addition, Meis (1992) points out that the tourism industry involves concepts that have remained amorphous to both analysts and decision makers. Moreover, in all nations this problem has made it difficult for the industry to develop any type of reliable or credible tourism information base in order to estimate the contribution it makes to regional, national and global economies. However, the nature of this very diversity makes travel and tourism ideal vehicles for economic development in a wide variety of countries, regions or communities.
+
+E
+Once the exclusive province of the wealthy, travel and tourism have become an institutionalised way of life for most of the population. In fact, McIntosh and Goeldner (1990) suggest that tourism has become the largest commodity in international trade for many nations and, for a significant number of other countries, it ranks second or third. For example, tourism is the major source of income in Bermuda, Greece, Italy, Spain, Switzerland and most Caribbean countries. In addition, Hawkins and Ritchie, quoting from data published by the American Express Company, suggest that the travel and tourism industry is the number one ranked employer in the Bahamas, Brazil, Canada, France, (the former) West Germany, Hong Kong, Italy, Jamaica, Japan, Singapore, the United Kingdom and the United States. However, because of problems of definition, which directly affect statistical measurement, it is not possible with any degree of certainty to provide precise, valid or reliable data about the extent of world-wide tourism participation or its economic impact. In many cases, similar difficulties arise when attempts are made to measure domestic tourism.`,
+      instructions: "Questions 1–4: Reading Passage 1 has five paragraphs, A–E. Choose the correct heading for paragraphs B–E from the list of headings (i–viii).\n\nQuestions 5–10: Do the following statements agree with the information given in Reading Passage 1? Write TRUE, FALSE, or NOT GIVEN.\n\nQuestions 11–13: Complete the sentences below. Choose NO MORE THAN THREE WORDS from the passage for each answer.",
+      questions: [
+        // ── Q1–4: Heading matching ────────────────────────────────
+        {
+          id: "cam10-ra-t3-s1-q1",
+          number: 1,
+          type: "matching",
+          question: "Choose the correct heading for Paragraph B.\n\ni Economic and social significance of tourism\nii The development of mass tourism\niii Travel for the wealthy\niv Earning foreign exchange through tourism\nv Difficulty in recognising the economic effects of tourism\nvi The contribution of air travel to tourism\nvii The world impact of tourism\nviii The history of travel",
+          options: [
+            { label: "i – Economic and social significance of tourism", value: "i" },
+            { label: "ii – The development of mass tourism", value: "ii" },
+            { label: "iii – Travel for the wealthy", value: "iii" },
+            { label: "iv – Earning foreign exchange through tourism", value: "iv" },
+            { label: "v – Difficulty in recognising the economic effects of tourism", value: "v" },
+            { label: "vi – The contribution of air travel to tourism", value: "vi" },
+            { label: "vii – The world impact of tourism", value: "vii" },
+          ],
+          correctAnswer: "ii",
+          points: 1,
+        },
+        {
+          id: "cam10-ra-t3-s1-q2",
+          number: 2,
+          type: "matching",
+          question: "Choose the correct heading for Paragraph C.\n\ni Economic and social significance of tourism\nii The development of mass tourism\niii Travel for the wealthy\niv Earning foreign exchange through tourism\nv Difficulty in recognising the economic effects of tourism\nvi The contribution of air travel to tourism\nvii The world impact of tourism",
+          options: [
+            { label: "i – Economic and social significance of tourism", value: "i" },
+            { label: "ii – The development of mass tourism", value: "ii" },
+            { label: "iii – Travel for the wealthy", value: "iii" },
+            { label: "iv – Earning foreign exchange through tourism", value: "iv" },
+            { label: "v – Difficulty in recognising the economic effects of tourism", value: "v" },
+            { label: "vi – The contribution of air travel to tourism", value: "vi" },
+            { label: "vii – The world impact of tourism", value: "vii" },
+          ],
+          correctAnswer: "vii",
+          points: 1,
+        },
+        {
+          id: "cam10-ra-t3-s1-q3",
+          number: 3,
+          type: "matching",
+          question: "Choose the correct heading for Paragraph D.\n\ni Economic and social significance of tourism\nii The development of mass tourism\niii Travel for the wealthy\niv Earning foreign exchange through tourism\nv Difficulty in recognising the economic effects of tourism\nvi The contribution of air travel to tourism\nvii The world impact of tourism",
+          options: [
+            { label: "i – Economic and social significance of tourism", value: "i" },
+            { label: "ii – The development of mass tourism", value: "ii" },
+            { label: "iii – Travel for the wealthy", value: "iii" },
+            { label: "iv – Earning foreign exchange through tourism", value: "iv" },
+            { label: "v – Difficulty in recognising the economic effects of tourism", value: "v" },
+            { label: "vi – The contribution of air travel to tourism", value: "vi" },
+            { label: "vii – The world impact of tourism", value: "vii" },
+          ],
+          correctAnswer: "v",
+          points: 1,
+        },
+        {
+          id: "cam10-ra-t3-s1-q4",
+          number: 4,
+          type: "matching",
+          question: "Choose the correct heading for Paragraph E.\n\ni Economic and social significance of tourism\nii The development of mass tourism\niii Travel for the wealthy\niv Earning foreign exchange through tourism\nv Difficulty in recognising the economic effects of tourism\nvi The contribution of air travel to tourism\nvii The world impact of tourism",
+          options: [
+            { label: "i – Economic and social significance of tourism", value: "i" },
+            { label: "ii – The development of mass tourism", value: "ii" },
+            { label: "iii – Travel for the wealthy", value: "iii" },
+            { label: "iv – Earning foreign exchange through tourism", value: "iv" },
+            { label: "v – Difficulty in recognising the economic effects of tourism", value: "v" },
+            { label: "vi – The contribution of air travel to tourism", value: "vi" },
+            { label: "vii – The world impact of tourism", value: "vii" },
+          ],
+          correctAnswer: "iii",
+          points: 1,
+        },
+        // ── Q5–10: True / False / Not Given ──────────────────────
+        {
+          id: "cam10-ra-t3-s1-q5",
+          number: 5,
+          type: "true_false_ng",
+          question: "The largest employment figures in the world are found in the travel and tourism industry.",
+          options: [
+            { label: "TRUE", value: "TRUE" },
+            { label: "FALSE", value: "FALSE" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "TRUE",
+          points: 1,
+        },
+        {
+          id: "cam10-ra-t3-s1-q6",
+          number: 6,
+          type: "true_false_ng",
+          question: "Tourism contributes over six per cent of the Australian gross national product.",
+          options: [
+            { label: "TRUE", value: "TRUE" },
+            { label: "FALSE", value: "FALSE" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "NOT GIVEN",
+          points: 1,
+        },
+        {
+          id: "cam10-ra-t3-s1-q7",
+          number: 7,
+          type: "true_false_ng",
+          question: "Tourism has a social impact because it promotes recreation.",
+          options: [
+            { label: "TRUE", value: "TRUE" },
+            { label: "FALSE", value: "FALSE" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "NOT GIVEN",
+          points: 1,
+        },
+        {
+          id: "cam10-ra-t3-s1-q8",
+          number: 8,
+          type: "true_false_ng",
+          question: "Two main features of the travel and tourism industry make its economic significance difficult to ascertain.",
+          options: [
+            { label: "TRUE", value: "TRUE" },
+            { label: "FALSE", value: "FALSE" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "TRUE",
+          points: 1,
+        },
+        {
+          id: "cam10-ra-t3-s1-q9",
+          number: 9,
+          type: "true_false_ng",
+          question: "Visitor spending is always greater than the spending of residents in tourist areas.",
+          options: [
+            { label: "TRUE", value: "TRUE" },
+            { label: "FALSE", value: "FALSE" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "FALSE",
+          points: 1,
+        },
+        {
+          id: "cam10-ra-t3-s1-q10",
+          number: 10,
+          type: "true_false_ng",
+          question: "It is easy to show statistically how tourism affects individual economies.",
+          options: [
+            { label: "TRUE", value: "TRUE" },
+            { label: "FALSE", value: "FALSE" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "FALSE",
+          points: 1,
+        },
+        // ── Q11–13: Sentence completion ───────────────────────────
+        {
+          id: "cam10-ra-t3-s1-q11",
+          number: 11,
+          type: "sentence_completion",
+          question: "In Greece, tourism is the most important ______. (Choose NO MORE THAN THREE WORDS from the passage)",
+          correctAnswer: "source of income",
+          points: 1,
+        },
+        {
+          id: "cam10-ra-t3-s1-q12",
+          number: 12,
+          type: "sentence_completion",
+          question: "The travel and tourism industry in Jamaica is the major ______. (Choose NO MORE THAN THREE WORDS from the passage)",
+          correctAnswer: "employer",
+          points: 1,
+        },
+        {
+          id: "cam10-ra-t3-s1-q13",
+          number: 13,
+          type: "sentence_completion",
+          question: "The problems associated with measuring international tourism are often reflected in the measurement of ______. (Choose NO MORE THAN THREE WORDS from the passage)",
+          correctAnswer: "domestic tourism",
+          points: 1,
+        },
+      ],
+    },
+
+    // ── PASSAGE 2 ──────────────────────────────────────────────
+    {
+      id: "cam10-ra-t3-s2",
+      sectionNumber: 2,
+      title: "Reading Passage 2",
+      passageTitle: "Autumn Leaves",
+      passageText: `Canadian writer Jay Ingram investigates the mystery of why leaves turn red in the fall
+
+A
+One of the most captivating natural events of the year in many areas throughout North America is the turning of the leaves in the fall. The colours are magnificent, but the question of exactly why some trees turn yellow or orange, and others red or purple, is something which has long puzzled scientists.
+
+B
+Summer leaves are green because they are full of chlorophyll, the molecule that captures sunlight and converts that energy into new building materials for the tree. As fall approaches in the northern hemisphere, the amount of solar energy available declines considerably. For many trees – evergreen conifers being an exception – the best strategy is to abandon photosynthesis until the spring. So rather than maintaining the now redundant leaves throughout the winter, the tree saves its precious resources and discards them. But before letting its leaves go, the tree dismantles their chlorophyll molecules and ships their valuable nitrogen back into the twigs. As chlorophyll is depleted, other colours that have been dominated by it throughout the summer begin to be revealed. This unmasking explains the autumn colours of yellow and orange, but not the brilliant reds and purples of trees such as the maple or sumac.
+
+C
+The source of the red is widely known: it is created by anthocyanins, water-soluble plant pigments reflecting the red to blue range of the visible spectrum. They belong to a class of sugar-based chemical compounds also known as flavonoids. What's puzzling is that anthocyanins are actually newly minted, made in the leaves at the same time as the tree is preparing to drop them. But it is hard to make sense of the manufacture of anthocyanins – why should a tree bother making new chemicals in its leaves when it's already scrambling to withdraw and preserve the ones already there?
+
+D
+Some theories about anthocyanins have argued that they might act as a chemical defence against attacks by insects or fungi, or that they might attract fruit-eating birds or increase a leaf's tolerance to freezing. However there are problems with each of these theories, including the fact that leaves are red for such a relatively short period that the expense of energy needed to manufacture the anthocyanins would outweigh any anti-fungal or anti-herbivore activity achieved.
+
+E
+It has also been proposed that trees may produce vivid red colours to convince herbivorous insects that they are healthy and robust and would be easily able to mount chemical defences against infestation. If insects paid attention to such advertisements, they might be prompted to lay their eggs on a duller, and presumably less resistant host. The flaw in this theory lies in the lack of proof to support it. No one has as yet ascertained whether more robust trees sport the brightest leaves, or whether insects make choices according to colour intensity.
+
+F
+Perhaps the most plausible suggestion as to why leaves would go to the trouble of making anthocyanins when they're busy packing up for the winter is the theory known as the 'light screen' hypothesis. It sounds paradoxical, because the idea behind this hypothesis is that the red pigment is made in autumn leaves to protect chlorophyll, the light-absorbing chemical, from too much light. Why does chlorophyll need protection when it is the natural world's supreme light absorber? Why protect chlorophyll at a time when the tree is breaking it down to salvage as much of it as possible?
+
+G
+Chlorophyll, although exquisitely evolved to capture the energy of sunlight, can sometimes be overwhelmed by it, especially in situations of drought, low temperatures, or nutrient deficiency. Moreover, the problem of oversensitivity to light is even more acute in the fall, when the leaf is busy preparing for winter by dismantling its internal machinery. The energy absorbed by the chlorophyll molecules of the unstable autumn leaf is not immediately channelled into useful products and processes, as it would be in an intact summer leaf. The weakened fall leaf then becomes vulnerable to the highly destructive effects of the oxygen created by the excited chlorophyll molecules.
+
+H
+Even if you had never suspected that this is what was going on when leaves turn red, there are clues out there. One is straightforward: on many trees, the leaves that are the reddest are those on the side of the tree which gets most sun. Not only that, but the red is brighter on the upper side of the leaf. It has also been recognised for decades that the best conditions for intense red colours are dry, sunny days and cool nights, conditions that nicely match those that make leaves susceptible to excess light. And finally, trees such as maples usually get much redder the more north you travel in the northern hemisphere. It's colder there, they're more stressed, their chlorophyll is more sensitive and it needs more sunblock.
+
+I
+What is still not fully understood, however, is why some trees resort to producing red pigments while others don't bother, and simply reveal their orange or yellow hues. Do these trees have other means at their disposal to prevent overexposure to light in autumn? Their story, though not as spectacular to the eye, will surely turn out to be as subtle and as complex.`,
+      instructions: "Questions 14–18: Reading Passage 2 has nine paragraphs, A–I. Which paragraph contains the following information? You may use any letter more than once.\n\nQuestions 19–22: Complete the notes below. Choose ONE WORD ONLY from the passage for each answer.\n\nQuestions 23–25: Do the following statements agree with the information given in Reading Passage 2? Write TRUE, FALSE, or NOT GIVEN.\n\nQuestion 26: Choose the correct letter A, B, C or D.",
+      questions: [
+        // ── Q14–18: Paragraph identification ──────────────────────
+        {
+          id: "cam10-ra-t3-s2-q14",
+          number: 14,
+          type: "multiple_choice",
+          question: "Which paragraph contains: a description of the substance responsible for the red colouration of leaves?",
+          options: [
+            { label: "A", value: "A" },
+            { label: "B", value: "B" },
+            { label: "C", value: "C" },
+            { label: "D", value: "D" },
+            { label: "E", value: "E" },
+            { label: "F", value: "F" },
+            { label: "G", value: "G" },
+            { label: "H", value: "H" },
+            { label: "I", value: "I" },
+          ],
+          correctAnswer: "C",
+          points: 1,
+        },
+        {
+          id: "cam10-ra-t3-s2-q15",
+          number: 15,
+          type: "multiple_choice",
+          question: "Which paragraph contains: the reason why trees drop their leaves in autumn?",
+          options: [
+            { label: "A", value: "A" },
+            { label: "B", value: "B" },
+            { label: "C", value: "C" },
+            { label: "D", value: "D" },
+            { label: "E", value: "E" },
+            { label: "F", value: "F" },
+            { label: "G", value: "G" },
+            { label: "H", value: "H" },
+            { label: "I", value: "I" },
+          ],
+          correctAnswer: "B",
+          points: 1,
+        },
+        {
+          id: "cam10-ra-t3-s2-q16",
+          number: 16,
+          type: "multiple_choice",
+          question: "Which paragraph contains: some evidence to confirm a theory about the purpose of the red leaves?",
+          options: [
+            { label: "A", value: "A" },
+            { label: "B", value: "B" },
+            { label: "C", value: "C" },
+            { label: "D", value: "D" },
+            { label: "E", value: "E" },
+            { label: "F", value: "F" },
+            { label: "G", value: "G" },
+            { label: "H", value: "H" },
+            { label: "I", value: "I" },
+          ],
+          correctAnswer: "H",
+          points: 1,
+        },
+        {
+          id: "cam10-ra-t3-s2-q17",
+          number: 17,
+          type: "multiple_choice",
+          question: "Which paragraph contains: an explanation of the function of chlorophyll?",
+          options: [
+            { label: "A", value: "A" },
+            { label: "B", value: "B" },
+            { label: "C", value: "C" },
+            { label: "D", value: "D" },
+            { label: "E", value: "E" },
+            { label: "F", value: "F" },
+            { label: "G", value: "G" },
+            { label: "H", value: "H" },
+            { label: "I", value: "I" },
+          ],
+          correctAnswer: "B",
+          points: 1,
+        },
+        {
+          id: "cam10-ra-t3-s2-q18",
+          number: 18,
+          type: "multiple_choice",
+          question: "Which paragraph contains: a suggestion that the red colouration in leaves could serve as a warning signal?",
+          options: [
+            { label: "A", value: "A" },
+            { label: "B", value: "B" },
+            { label: "C", value: "C" },
+            { label: "D", value: "D" },
+            { label: "E", value: "E" },
+            { label: "F", value: "F" },
+            { label: "G", value: "G" },
+            { label: "H", value: "H" },
+            { label: "I", value: "I" },
+          ],
+          correctAnswer: "E",
+          points: 1,
+        },
+        // ── Q19–22: Note completion (ONE WORD ONLY) ───────────────
+        {
+          id: "cam10-ra-t3-s2-q19",
+          number: 19,
+          type: "note_completion",
+          question: "The most vividly coloured red leaves are found on the side of the tree facing the ______. (ONE WORD ONLY)",
+          correctAnswer: "sun",
+          points: 1,
+        },
+        {
+          id: "cam10-ra-t3-s2-q20",
+          number: 20,
+          type: "note_completion",
+          question: "The ______ surfaces of leaves contain the most red pigment. (ONE WORD ONLY)",
+          correctAnswer: "upper",
+          points: 1,
+        },
+        {
+          id: "cam10-ra-t3-s2-q21",
+          number: 21,
+          type: "note_completion",
+          question: "Red leaves are most abundant when daytime weather conditions are ______ and sunny. (ONE WORD ONLY)",
+          correctAnswer: "dry",
+          points: 1,
+        },
+        {
+          id: "cam10-ra-t3-s2-q22",
+          number: 22,
+          type: "note_completion",
+          question: "The intensity of the red colour of leaves increases as you go further ______. (ONE WORD ONLY)",
+          correctAnswer: "north",
+          points: 1,
+        },
+        // ── Q23–25: True / False / Not Given ──────────────────────
+        {
+          id: "cam10-ra-t3-s2-q23",
+          number: 23,
+          type: "true_false_ng",
+          question: "It is likely that the red pigments help to protect the leaf from freezing temperatures.",
+          options: [
+            { label: "TRUE", value: "TRUE" },
+            { label: "FALSE", value: "FALSE" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "FALSE",
+          points: 1,
+        },
+        {
+          id: "cam10-ra-t3-s2-q24",
+          number: 24,
+          type: "true_false_ng",
+          question: "The 'light screen' hypothesis would initially seem to contradict what is known about chlorophyll.",
+          options: [
+            { label: "TRUE", value: "TRUE" },
+            { label: "FALSE", value: "FALSE" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "TRUE",
+          points: 1,
+        },
+        {
+          id: "cam10-ra-t3-s2-q25",
+          number: 25,
+          type: "true_false_ng",
+          question: "Leaves which turn colours other than red are more likely to be damaged by sunlight.",
+          options: [
+            { label: "TRUE", value: "TRUE" },
+            { label: "FALSE", value: "FALSE" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "NOT GIVEN",
+          points: 1,
+        },
+        // ── Q26: Multiple choice ──────────────────────────────────
+        {
+          id: "cam10-ra-t3-s2-q26",
+          number: 26,
+          type: "multiple_choice",
+          question: "For which of the following questions does the writer offer an explanation?\n\nA  why conifers remain green in winter\nB  how leaves turn orange and yellow in autumn\nC  how herbivorous insects choose which trees to lay their eggs in\nD  why anthocyanins are restricted to certain trees",
+          options: [
+            { label: "A – why conifers remain green in winter", value: "A" },
+            { label: "B – how leaves turn orange and yellow in autumn", value: "B" },
+            { label: "C – how herbivorous insects choose which trees to lay their eggs in", value: "C" },
+            { label: "D – why anthocyanins are restricted to certain trees", value: "D" },
+          ],
+          correctAnswer: "B",
+          points: 1,
+        },
+      ],
+    },
+
+    // ── PASSAGE 3 ──────────────────────────────────────────────
+    {
+      id: "cam10-ra-t3-s3",
+      sectionNumber: 3,
+      title: "Reading Passage 3",
+      passageTitle: "Beyond the Blue Horizon",
+      passageText: `Ancient voyagers who settled the far-flung islands of the Pacific Ocean
+
+An important archaeological discovery on the island of Efate in the Pacific archipelago of Vanuatu has revealed traces of an ancient seafaring people, the distant ancestors of today's Polynesians. The site came to light only by chance. An agricultural worker, digging in the grounds of a derelict plantation, scraped open a grave – the first of dozens in a burial ground some 3,000 years old. It is the oldest cemetery ever found in the Pacific islands, and it harbors the remains of an ancient people archaeologists call the Lapita.
+
+They were daring blue-water adventurers who used basic canoes to rove across the ocean. But they were not just explorers. They were also pioneers who carried with them everything they would need to build new lives – their livestock, taro seedlings and stone tools. Within the span of several centuries, the Lapita stretched the boundaries of their world from the jungle-clad volcanoes of Papua New Guinea to the loneliest coral outliers of Tonga.
+
+The Lapita left precious few clues about themselves, but Efate expands the volume of data available to researchers dramatically. The remains of 62 individuals have been uncovered so far, and archaeologists were also thrilled to find six complete Lapita pots. Other items included a Lapita burial urn with modeled birds arranged on the rim as though peering down at the human remains sealed inside. 'It's an important discovery,' says Matthew Spriggs, professor of archaeology at the Australian National University and head of the international team digging up the site, 'for it conclusively identifies the remains as Lapita.'
+
+DNA teased from these human remains may help answer one of the most puzzling questions in Pacific anthropology: did all Pacific islanders spring from one source or many? Was there only one outward migration from a single point in Asia, or several from different points? 'This represents the best opportunity we've had yet,' says Spriggs, 'to find out who the Lapita actually were, where they came from, and who their closest descendants are today.'
+
+There is one stubborn question for which archaeology has yet to provide any answers: how did the Lapita accomplish the ancient equivalent of a moon landing, many times over? No-one has found one of their canoes or any rigging, which could reveal how the canoes were sailed. Nor do the oral histories and traditions of later Polynesians offer any insights, for they turn into myths long before they reach as far back in time as the Lapita.
+
+'All we can say for certain is that the Lapita had canoes that were capable of ocean voyages, and they had the ability to sail them,' says Geoff Irwin, a professor of archaeology at the University of Auckland. Those sailing skills, he says, were developed and passed down over thousands of years by earlier mariners who worked their way through the archipelagoes of the western Pacific, making short crossings to nearby islands. The real adventure didn't begin, however, until their Lapita descendants sailed out of sight of land, with empty horizons on every side. This must have been as difficult for them as landing on the moon is for us today. Certainly it distinguished them from their ancestors, but what gave them the courage to launch out on such risky voyages?
+
+The Lapitas' thrust into the Pacific was eastward, against the prevailing trade winds, Irwin notes. Those nagging headwinds, he argues, may have been the key to their success. 'They could sail out for days into the unknown and assess the area, secure in the knowledge that if they didn't find anything, they could turn about and catch a swift ride back on the trade winds. This is what would have made the whole thing work.' Once out there, skilled seafarers would have detected abundant leads to follow to land: seabirds, coconuts and twigs carried out to sea by the tides, and the afternoon pile-up of clouds on the horizon which often indicates an island in the distance.
+
+For returning explorers, successful or not, the geography of their own archipelagoes would have provided a safety net. Without this to go by, overshooting their home ports, getting lost and sailing off into eternity would have been all too easy. Vanuatu, for example, stretches more than 500 miles in a northwest-southeast trend, its scores of intervisible islands forming a backstop for mariners riding the trade winds home.
+
+All this presupposes one essential detail, says Atholl Anderson, professor of prehistory at the Australian National University: the Lapita had mastered the advanced art of sailing against the wind. 'And there's no proof they could do any such thing,' Anderson says. 'There has been this assumption they did, and people have built canoes to re-create those early voyages based on that assumption. But nobody has any idea what their canoes looked like or how they were rigged.'
+
+Rather than give all the credit to human skill, Anderson invokes the winds of chance. El Nino, the same climate disruption that affects the Pacific today, may have helped scatter the Lapita, Anderson suggests. He points out that climate data obtained from slow-growing corals around the Pacific indicate a series of unusually frequent El Ninos around the time of the Lapita expansion. By reversing the regular east-to-west flow of the trade winds for weeks at a time, these super El Ninos might have taken the Lapita on long unplanned voyages.
+
+However they did it, the Lapita spread themselves a third of the way across the Pacific, then called it quits for reasons known only to them. Ahead lay the vast emptiness of the central Pacific and perhaps they were too thinly stretched to venture farther. They probably never numbered more than a few thousand in total, and in their rapid migration eastward they encountered hundreds of islands – more than 300 in Fiji alone.`,
+      instructions: "Questions 27–31: Complete the summary using the list of words and phrases, A–J. Write the correct letter, A–J, in the boxes.\n\nWord bank:\nA proof  B plantation  C harbour  D bones  E data  F archaeological discovery  G burial urn  H source  I animals  J maps\n\nQuestions 32–35: Choose the correct letter A, B, C or D.\n\nQuestions 36–40: Do the following statements agree with the views of the writer? Write YES, NO, or NOT GIVEN.",
+      questions: [
+        // ── Q27–31: Summary completion ────────────────────────────
+        {
+          id: "cam10-ra-t3-s3-q27",
+          number: 27,
+          type: "summary_completion",
+          question: "A 3,000-year-old burial ground of a seafaring people called the Lapita has been found on an abandoned ______ on the Pacific island of Efate.\n\n(Word bank: A proof  B plantation  C harbour  D bones  E data  F archaeological discovery  G burial urn  H source  I animals  J maps)",
+          options: [
+            { label: "A – proof", value: "A" },
+            { label: "B – plantation", value: "B" },
+            { label: "C – harbour", value: "C" },
+            { label: "D – bones", value: "D" },
+            { label: "E – data", value: "E" },
+            { label: "F – archaeological discovery", value: "F" },
+            { label: "G – burial urn", value: "G" },
+            { label: "H – source", value: "H" },
+            { label: "I – animals", value: "I" },
+            { label: "J – maps", value: "J" },
+          ],
+          correctAnswer: "B",
+          points: 1,
+        },
+        {
+          id: "cam10-ra-t3-s3-q28",
+          number: 28,
+          type: "summary_completion",
+          question: "The cemetery, which is a significant ______, was uncovered accidentally by an agricultural worker.\n\n(Word bank: A proof  B plantation  C harbour  D bones  E data  F archaeological discovery  G burial urn  H source  I animals  J maps)",
+          options: [
+            { label: "A – proof", value: "A" },
+            { label: "B – plantation", value: "B" },
+            { label: "C – harbour", value: "C" },
+            { label: "D – bones", value: "D" },
+            { label: "E – data", value: "E" },
+            { label: "F – archaeological discovery", value: "F" },
+            { label: "G – burial urn", value: "G" },
+            { label: "H – source", value: "H" },
+            { label: "I – animals", value: "I" },
+            { label: "J – maps", value: "J" },
+          ],
+          correctAnswer: "F",
+          points: 1,
+        },
+        {
+          id: "cam10-ra-t3-s3-q29",
+          number: 29,
+          type: "summary_completion",
+          question: "The Lapita explored and colonised many Pacific islands. They took many things with them on their voyages including ______ and tools.\n\n(Word bank: A proof  B plantation  C harbour  D bones  E data  F archaeological discovery  G burial urn  H source  I animals  J maps)",
+          options: [
+            { label: "A – proof", value: "A" },
+            { label: "B – plantation", value: "B" },
+            { label: "C – harbour", value: "C" },
+            { label: "D – bones", value: "D" },
+            { label: "E – data", value: "E" },
+            { label: "F – archaeological discovery", value: "F" },
+            { label: "G – burial urn", value: "G" },
+            { label: "H – source", value: "H" },
+            { label: "I – animals", value: "I" },
+            { label: "J – maps", value: "J" },
+          ],
+          correctAnswer: "I",
+          points: 1,
+        },
+        {
+          id: "cam10-ra-t3-s3-q30",
+          number: 30,
+          type: "summary_completion",
+          question: "Spriggs believes the ______ which was found at the site is very important since it confirms that the remains found inside are Lapita.\n\n(Word bank: A proof  B plantation  C harbour  D bones  E data  F archaeological discovery  G burial urn  H source  I animals  J maps)",
+          options: [
+            { label: "A – proof", value: "A" },
+            { label: "B – plantation", value: "B" },
+            { label: "C – harbour", value: "C" },
+            { label: "D – bones", value: "D" },
+            { label: "E – data", value: "E" },
+            { label: "F – archaeological discovery", value: "F" },
+            { label: "G – burial urn", value: "G" },
+            { label: "H – source", value: "H" },
+            { label: "I – animals", value: "I" },
+            { label: "J – maps", value: "J" },
+          ],
+          correctAnswer: "G",
+          points: 1,
+        },
+        {
+          id: "cam10-ra-t3-s3-q31",
+          number: 31,
+          type: "summary_completion",
+          question: "Spriggs believes the burial urn confirms that the ______ found inside are Lapita.\n\n(Word bank: A proof  B plantation  C harbour  D bones  E data  F archaeological discovery  G burial urn  H source  I animals  J maps)",
+          options: [
+            { label: "A – proof", value: "A" },
+            { label: "B – plantation", value: "B" },
+            { label: "C – harbour", value: "C" },
+            { label: "D – bones", value: "D" },
+            { label: "E – data", value: "E" },
+            { label: "F – archaeological discovery", value: "F" },
+            { label: "G – burial urn", value: "G" },
+            { label: "H – source", value: "H" },
+            { label: "I – animals", value: "I" },
+            { label: "J – maps", value: "J" },
+          ],
+          correctAnswer: "D",
+          points: 1,
+        },
+        // ── Q32–35: Multiple choice ───────────────────────────────
+        {
+          id: "cam10-ra-t3-s3-q32",
+          number: 32,
+          type: "multiple_choice",
+          question: "According to the writer, there are difficulties explaining how the Lapita accomplished their journeys because\n\nA  the canoes that have been discovered offer relatively few clues.\nB  archaeologists have shown limited interest in this area of research.\nC  little information relating to this period can be relied upon for accuracy.\nD  technological advances have altered the way such achievements are viewed.",
+          options: [
+            { label: "A – the canoes that have been discovered offer relatively few clues.", value: "A" },
+            { label: "B – archaeologists have shown limited interest in this area of research.", value: "B" },
+            { label: "C – little information relating to this period can be relied upon for accuracy.", value: "C" },
+            { label: "D – technological advances have altered the way such achievements are viewed.", value: "D" },
+          ],
+          correctAnswer: "C",
+          points: 1,
+        },
+        {
+          id: "cam10-ra-t3-s3-q33",
+          number: 33,
+          type: "multiple_choice",
+          question: "According to the sixth paragraph, what was extraordinary about the Lapita?\n\nA  They sailed beyond the point where land was visible.\nB  Their cultural heritage discouraged the expression of fear.\nC  They were able to build canoes that withstood ocean voyages.\nD  Their navigational skills were passed on from one generation to the next.",
+          options: [
+            { label: "A – They sailed beyond the point where land was visible.", value: "A" },
+            { label: "B – Their cultural heritage discouraged the expression of fear.", value: "B" },
+            { label: "C – They were able to build canoes that withstood ocean voyages.", value: "C" },
+            { label: "D – Their navigational skills were passed on from one generation to the next.", value: "D" },
+          ],
+          correctAnswer: "A",
+          points: 1,
+        },
+        {
+          id: "cam10-ra-t3-s3-q34",
+          number: 34,
+          type: "multiple_choice",
+          question: "What does 'This' refer to in the seventh paragraph?\n\nA  the Lapita's seafaring talent\nB  the Lapita's ability to detect signs of land\nC  the Lapita's extensive knowledge of the region\nD  the Lapita's belief they would be able to return home",
+          options: [
+            { label: "A – the Lapita's seafaring talent", value: "A" },
+            { label: "B – the Lapita's ability to detect signs of land", value: "B" },
+            { label: "C – the Lapita's extensive knowledge of the region", value: "C" },
+            { label: "D – the Lapita's belief they would be able to return home", value: "D" },
+          ],
+          correctAnswer: "D",
+          points: 1,
+        },
+        {
+          id: "cam10-ra-t3-s3-q35",
+          number: 35,
+          type: "multiple_choice",
+          question: "According to the eighth paragraph, how was the geography of the region significant?\n\nA  It played an important role in Lapita culture.\nB  It meant there were relatively few storms at sea.\nC  It provided a navigational aid for the Lapita.\nD  It made a large number of islands habitable.",
+          options: [
+            { label: "A – It played an important role in Lapita culture.", value: "A" },
+            { label: "B – It meant there were relatively few storms at sea.", value: "B" },
+            { label: "C – It provided a navigational aid for the Lapita.", value: "C" },
+            { label: "D – It made a large number of islands habitable.", value: "D" },
+          ],
+          correctAnswer: "C",
+          points: 1,
+        },
+        // ── Q36–40: Yes / No / Not Given ──────────────────────────
+        {
+          id: "cam10-ra-t3-s3-q36",
+          number: 36,
+          type: "true_false_ng",
+          question: "It is now clear that the Lapita could sail into a prevailing wind.",
+          options: [
+            { label: "YES", value: "YES" },
+            { label: "NO", value: "NO" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "NO",
+          points: 1,
+        },
+        {
+          id: "cam10-ra-t3-s3-q37",
+          number: 37,
+          type: "true_false_ng",
+          question: "Extreme climate conditions may have played a role in Lapita migration.",
+          options: [
+            { label: "YES", value: "YES" },
+            { label: "NO", value: "NO" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "YES",
+          points: 1,
+        },
+        {
+          id: "cam10-ra-t3-s3-q38",
+          number: 38,
+          type: "true_false_ng",
+          question: "The Lapita learnt to predict the duration of El Ninos.",
+          options: [
+            { label: "YES", value: "YES" },
+            { label: "NO", value: "NO" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "NOT GIVEN",
+          points: 1,
+        },
+        {
+          id: "cam10-ra-t3-s3-q39",
+          number: 39,
+          type: "true_false_ng",
+          question: "It remains unclear why the Lapita halted their expansion across the Pacific.",
+          options: [
+            { label: "YES", value: "YES" },
+            { label: "NO", value: "NO" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "YES",
+          points: 1,
+        },
+        {
+          id: "cam10-ra-t3-s3-q40",
+          number: 40,
+          type: "true_false_ng",
+          question: "It is likely that the majority of Lapita settled on Fiji.",
+          options: [
+            { label: "YES", value: "YES" },
+            { label: "NO", value: "NO" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "NOT GIVEN",
+          points: 1,
+        },
+      ],
+    },
+  ],
 };
 
 const cambridge10_reading_t4: IELTSTest = {
@@ -1429,7 +2108,651 @@ const cambridge10_reading_t4: IELTSTest = {
   level: "academic",
   durationMinutes: 60,
   transferMinutes: 0,
-  sections: [],
+  sections: [
+    // ── PASSAGE 1 ──────────────────────────────────────────────
+    {
+      id: "cam10-ra-t4-s1",
+      sectionNumber: 1,
+      title: "Reading Passage 1",
+      passageTitle: "The Megafires of California",
+      passageText: `Drought, housing expansion, and oversupply of tinder make for bigger, hotter fires in the western United States
+
+Wildfires are becoming an increasing menace in the western United States, with Southern California being the hardest hit area. There's a reason fire squads battling more frequent blazes in Southern California are having such difficulty containing the flames, despite better preparedness than ever and decades of experience fighting fires fanned by the 'Santa Ana Winds'. The wildfires themselves, experts say, are generally hotter, faster, and spread more erratically than in the past.
+
+Megafires, also called 'siege fires', are the increasingly frequent blazes that burn 500,000 acres or more – 10 times the size of the average forest fire of 20 years ago. Some recent wildfires are among the biggest ever in California in terms of acreage burned, according to state figures and news reports.
+
+One explanation for the trend to more superhot fires is that the region, which usually has dry summers, has had significantly below normal precipitation in many recent years. Another reason, experts say, is related to the century-long policy of the US Forest Service to stop wildfires as quickly as possible. The unintentional consequence has been to halt the natural eradication of underbrush, now the primary fuel for megafires.
+
+Three other factors contribute to the trend, they add. First is climate change, marked by a 1-degree Fahrenheit rise in average yearly temperature across the western states. Second is fire seasons that on average are 78 days longer than they were 20 years ago. Third is increased construction of homes in wooded areas.
+
+'We are increasingly building our homes in fire-prone ecosystems,' says Dominik Kulakowski, adjunct professor of biology at Clark University Graduate School of Geography in Worcester, Massachusetts. 'Doing that in many of the forests of the western US is like building homes on the side of an active volcano.'
+
+In California, where population growth has averaged more than 600,000 a year for at least a decade, more residential housing is being built. 'What once was open space is now residential homes providing fuel to make fires burn with greater intensity,' says Terry McHale of the California Department of Forestry firefighters' union. 'With so much dryness, so many communities to catch fire, so many fronts to fight, it becomes an almost incredible job.'
+
+That said, many experts give California high marks for making progress on preparedness in recent years, after some of the largest fires in state history scorched thousands of acres, burned thousands of homes, and killed numerous people. Stung in the past by criticism of bungling that allowed fires to spread when they might have been contained, personnel are meeting the peculiar challenges of neighborhood – and canyon-hopping fires better than previously, observers say.
+
+State promises to provide more up-to-date engines, planes, and helicopters to fight fires have been fulfilled. Firefighters' unions that in the past complained of dilapidated equipment, old fire engines, and insufficient blueprints for fire safety are now praising the state's commitment, noting that funding for firefighting has increased, despite huge cuts in many other programs. 'We are pleased that the current state administration has been very proactive in its support of us, and [has] come through with budgetary support of the infrastructure needs we have long sought,' says Mr. McHale of the firefighters' union.
+
+Besides providing money to upgrade the fire engines that must traverse the mammoth state and wind along serpentine canyon roads, the state has invested in better command-and-control facilities as well as in the strategies to run them. 'In the fire sieges of earlier years, we found that other jurisdictions and states were willing to offer mutual-aid help, but we were not able to communicate adequately with them,' says Kim Zagaris, chief of the state's Office of Emergency Services Fire and Rescue Branch.
+
+After a commission examined and revamped communications procedures, the statewide response 'has become far more professional and responsive,' he says. There is a sense among both government officials and residents that the speed, dedication, and coordination of firefighters from several states and jurisdictions are resulting in greater efficiency than in past 'siege fire' situations.
+
+In recent years, the Southern California region has improved building codes, evacuation procedures, and procurement of new technology. 'I am extraordinarily impressed by the improvements we have witnessed,' says Randy Jacobs, a Southern California-based lawyer who has had to evacuate both his home and business to escape wildfires. 'Notwithstanding all the damage that will continue to be caused by wildfires, we will no longer suffer the loss of life endured in the past because of the fire prevention and firefighting measures that have been put in place,' he says.`,
+      instructions: "Questions 1–6: Complete the notes below. Choose ONE WORD AND/OR A NUMBER from the passage for each answer.\n\nQuestions 7–13: Do the following statements agree with the information given in Reading Passage 1? Write TRUE, FALSE, or NOT GIVEN.",
+      questions: [
+        // ── Q1–6: Note completion ─────────────────────────────────
+        {
+          id: "cam10-ra-t4-s1-q1",
+          number: 1,
+          type: "note_completion",
+          question: "Wildfires – movement: ______ more unpredictably (ONE WORD AND/OR A NUMBER from the passage)",
+          correctAnswer: "spread",
+          points: 1,
+        },
+        {
+          id: "cam10-ra-t4-s1-q2",
+          number: 2,
+          type: "note_completion",
+          question: "Wildfires – size of fires: ______ greater on average than two decades ago (ONE WORD AND/OR A NUMBER from the passage)",
+          correctAnswer: "10 times",
+          points: 1,
+        },
+        {
+          id: "cam10-ra-t4-s1-q3",
+          number: 3,
+          type: "note_completion",
+          question: "Reasons wildfires cause more damage – rainfall: ______ average (ONE WORD AND/OR A NUMBER from the passage)",
+          correctAnswer: "below",
+          points: 1,
+        },
+        {
+          id: "cam10-ra-t4-s1-q4",
+          number: 4,
+          type: "note_completion",
+          question: "Reasons wildfires cause more damage – more brush to act as ______ (ONE WORD AND/OR A NUMBER from the passage)",
+          correctAnswer: "fuel",
+          points: 1,
+        },
+        {
+          id: "cam10-ra-t4-s1-q5",
+          number: 5,
+          type: "note_completion",
+          question: "Reasons wildfires cause more damage – extended fire ______ (ONE WORD AND/OR A NUMBER from the passage)",
+          correctAnswer: "seasons",
+          points: 1,
+        },
+        {
+          id: "cam10-ra-t4-s1-q6",
+          number: 6,
+          type: "note_completion",
+          question: "Reasons wildfires cause more damage – more building of ______ in vulnerable places (ONE WORD AND/OR A NUMBER from the passage)",
+          correctAnswer: "homes",
+          points: 1,
+        },
+        // ── Q7–13: True / False / Not Given ──────────────────────
+        {
+          id: "cam10-ra-t4-s1-q7",
+          number: 7,
+          type: "true_false_ng",
+          question: "The amount of open space in California has diminished over the last ten years.",
+          options: [
+            { label: "TRUE", value: "TRUE" },
+            { label: "FALSE", value: "FALSE" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "TRUE",
+          points: 1,
+        },
+        {
+          id: "cam10-ra-t4-s1-q8",
+          number: 8,
+          type: "true_false_ng",
+          question: "Many experts believe California has made little progress in readying itself to fight fires.",
+          options: [
+            { label: "TRUE", value: "TRUE" },
+            { label: "FALSE", value: "FALSE" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "FALSE",
+          points: 1,
+        },
+        {
+          id: "cam10-ra-t4-s1-q9",
+          number: 9,
+          type: "true_false_ng",
+          question: "Personnel in the past have been criticised for mishandling fire containment.",
+          options: [
+            { label: "TRUE", value: "TRUE" },
+            { label: "FALSE", value: "FALSE" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "TRUE",
+          points: 1,
+        },
+        {
+          id: "cam10-ra-t4-s1-q10",
+          number: 10,
+          type: "true_false_ng",
+          question: "California has replaced a range of firefighting tools.",
+          options: [
+            { label: "TRUE", value: "TRUE" },
+            { label: "FALSE", value: "FALSE" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "TRUE",
+          points: 1,
+        },
+        {
+          id: "cam10-ra-t4-s1-q11",
+          number: 11,
+          type: "true_false_ng",
+          question: "More firefighters have been hired to improve fire-fighting capacity.",
+          options: [
+            { label: "TRUE", value: "TRUE" },
+            { label: "FALSE", value: "FALSE" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "NOT GIVEN",
+          points: 1,
+        },
+        {
+          id: "cam10-ra-t4-s1-q12",
+          number: 12,
+          type: "true_false_ng",
+          question: "Citizens and government groups disapprove of the efforts of different states and agencies working together.",
+          options: [
+            { label: "TRUE", value: "TRUE" },
+            { label: "FALSE", value: "FALSE" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "FALSE",
+          points: 1,
+        },
+        {
+          id: "cam10-ra-t4-s1-q13",
+          number: 13,
+          type: "true_false_ng",
+          question: "Randy Jacobs believes that loss of life from fires will continue at the same levels, despite changes made.",
+          options: [
+            { label: "TRUE", value: "TRUE" },
+            { label: "FALSE", value: "FALSE" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "FALSE",
+          points: 1,
+        },
+      ],
+    },
+
+    // ── PASSAGE 2 ──────────────────────────────────────────────
+    {
+      id: "cam10-ra-t4-s2",
+      sectionNumber: 2,
+      title: "Reading Passage 2",
+      passageTitle: "Second Nature",
+      passageText: `Your personality isn't necessarily set in stone. With a little experimentation, people can reshape their temperaments and inject passion, optimism, joy and courage into their lives
+
+A
+Psychologists have long held that a person's character cannot undergo a transformation in any meaningful way and that the key traits of personality are determined at a very young age. However, researchers have begun looking more closely at ways we can change. Positive psychologists have identified 24 qualities we admire, such as loyalty and kindness, and are studying them to find out why they come so naturally to some people. What they're discovering is that many of these qualities amount to habitual behaviour that determines the way we respond to the world. The good news is that all this can be learned.
+
+Some qualities are less challenging to develop than others, optimism being one of them. However, developing qualities requires mastering a range of skills which are diverse and sometimes surprising. For example, to bring more joy and passion into your life, you must be open to experiencing negative emotions. Cultivating such qualities will help you realise your full potential.
+
+B
+'The evidence is good that most personality traits can be altered,' says Christopher Peterson, professor of psychology at the University of Michigan, who cites himself as an example. Inherently introverted, he realised early on that as an academic, his reticence would prove disastrous in the lecture hall. So he learned to be more outgoing and to entertain his classes. 'Now my extroverted behaviour is spontaneous,' he says.
+
+C
+David Fajgenbaum had to make a similar transition. He was preparing for university, when he had an accident that put an end to his sports career. On campus, he quickly found that beyond ordinary counselling, the university had no services for students who were undergoing physical rehabilitation and suffering from depression like him. He therefore launched a support group to help others in similar situations. He took action despite his own pain – a typical response of an optimist.
+
+D
+Suzanne Segerstrom, professor of psychology at the University of Kentucky, believes that the key to increasing optimism is through cultivating optimistic behaviour, rather than positive thinking. She recommends you train yourself to pay attention to good fortune by writing down three positive things that come about each day. This will help you convince yourself that favourable outcomes actually happen all the time, making it easier to begin taking action.
+
+E
+You can recognise a person who is passionate about a pursuit by the way they are so strongly involved in it. Tanya Streeter's passion is freediving – the sport of plunging deep into the water without tanks or other breathing equipment. Beginning in 1998, she set nine world records and can hold her breath for six minutes. The physical stamina required for this sport is intense but the psychological demands are even more overwhelming. Streeter learned to untangle her fears from her judgment of what her body and mind could do. 'In my career as a competitive freediver, there was a limit to what I could do – but it wasn't anywhere near what I thought it was,' she says.
+
+F
+Finding a pursuit that excites you can improve anyone's life. The secret about consuming passions, though, according to psychologist Paul Silvia of the University of North Carolina, is that 'they require discipline, hard work and ability, which is why they are so rewarding.' Psychologist Todd Kashdan has this advice for those people taking up a new passion: 'As a newcomer, you also have to tolerate and laugh at your own ignorance. You must be willing to accept the negative feelings that come your way,' he says.
+
+G
+In 2004, physician-scientist Mauro Zappaterra began his PhD research at Harvard Medical School. Unfortunately, he was miserable as his research wasn't compatible with his curiosity about healing. He finally took a break and during eight months in Santa Fe, Zappaterra learned about alternative healing techniques not taught at Harvard. When he got back, he switched labs to study how cerebrospinal fluid nourishes the developing nervous system. He also vowed to look for the joy in everything, including failure, as this could help him learn about his research and himself.
+
+One thing that can hold joy back is a person's concentration on avoiding failure rather than their looking forward to doing something well. 'Focusing on being safe might get in the way of your reaching your goals,' explains Kashdan. For example, are you hoping to get through a business lunch without embarrassing yourself, or are you thinking about how fascinating the conversation might be?
+
+H
+Usually, we think of courage in physical terms but ordinary life demands something else. For marketing executive Kenneth Pedeleose, it meant speaking out against something he thought was ethically wrong. The new manager was intimidating staff so Pedeleose carefully recorded each instance of bullying and eventually took the evidence to a senior director, knowing his own job security would be threatened. Eventually the manager was the one to go. According to Cynthia Pury, a psychologist at Clemson University, Pedeleose's story proves the point that courage is not motivated by fearlessness, but by moral obligation. Pury also believes that people can acquire courage. Many of her students said that faced with a risky situation, they first tried to calm themselves down, then looked for a way to mitigate the danger, just as Pedeleose did by documenting his allegations.
+
+Over the long term, picking up a new character trait may help you move toward being the person you want to be. And in the short term, the effort itself could be surprisingly rewarding, a kind of internal adventure.`,
+      instructions: "Questions 14–18: Complete the summary below. Choose NO MORE THAN TWO WORDS from the passage for each answer.\n\nQuestions 19–22: Match each statement with the correct person, A–G.\n\nQuestions 23–26: Which section, A–H, contains the following information?",
+      questions: [
+        // ── Q14–18: Summary completion ────────────────────────────
+        {
+          id: "cam10-ra-t4-s2-q14",
+          number: 14,
+          type: "summary_completion",
+          question: "Psychologists have traditionally believed that a personality ______ was impossible and that by a very young age a person's character tends to be fixed. (NO MORE THAN TWO WORDS from the passage)",
+          correctAnswer: "transformation",
+          points: 1,
+        },
+        {
+          id: "cam10-ra-t4-s2-q15",
+          number: 15,
+          type: "summary_completion",
+          question: "Psychologists have traditionally believed that a personality transformation was impossible and that by a ______ a person's character tends to be fixed. (NO MORE THAN TWO WORDS from the passage)",
+          correctAnswer: "very young age",
+          points: 1,
+        },
+        {
+          id: "cam10-ra-t4-s2-q16",
+          number: 16,
+          type: "summary_completion",
+          question: "One of the easiest qualities to acquire is ______. (NO MORE THAN TWO WORDS from the passage)",
+          correctAnswer: "optimism",
+          points: 1,
+        },
+        {
+          id: "cam10-ra-t4-s2-q17",
+          number: 17,
+          type: "summary_completion",
+          question: "Regardless of the quality, it is necessary to learn a wide variety of different ______ in order for a new quality to develop. (NO MORE THAN TWO WORDS from the passage)",
+          correctAnswer: "skills",
+          points: 1,
+        },
+        {
+          id: "cam10-ra-t4-s2-q18",
+          number: 18,
+          type: "summary_completion",
+          question: "A person must understand and feel some ______ in order to increase their happiness. (NO MORE THAN TWO WORDS from the passage)",
+          correctAnswer: "negative emotions",
+          points: 1,
+        },
+        // ── Q19–22: Matching people ───────────────────────────────
+        {
+          id: "cam10-ra-t4-s2-q19",
+          number: 19,
+          type: "matching",
+          question: "People must accept that they do not know much when first trying something new.\n\nA Christopher Peterson  B David Fajgenbaum  C Suzanne Segerstrom  D Tanya Streeter  E Todd Kashdan  F Kenneth Pedeleose  G Cynthia Pury",
+          options: [
+            { label: "A – Christopher Peterson", value: "A" },
+            { label: "B – David Fajgenbaum", value: "B" },
+            { label: "C – Suzanne Segerstrom", value: "C" },
+            { label: "D – Tanya Streeter", value: "D" },
+            { label: "E – Todd Kashdan", value: "E" },
+            { label: "F – Kenneth Pedeleose", value: "F" },
+            { label: "G – Cynthia Pury", value: "G" },
+          ],
+          correctAnswer: "E",
+          points: 1,
+        },
+        {
+          id: "cam10-ra-t4-s2-q20",
+          number: 20,
+          type: "matching",
+          question: "It is important for people to actively notice when good things happen.\n\nA Christopher Peterson  B David Fajgenbaum  C Suzanne Segerstrom  D Tanya Streeter  E Todd Kashdan  F Kenneth Pedeleose  G Cynthia Pury",
+          options: [
+            { label: "A – Christopher Peterson", value: "A" },
+            { label: "B – David Fajgenbaum", value: "B" },
+            { label: "C – Suzanne Segerstrom", value: "C" },
+            { label: "D – Tanya Streeter", value: "D" },
+            { label: "E – Todd Kashdan", value: "E" },
+            { label: "F – Kenneth Pedeleose", value: "F" },
+            { label: "G – Cynthia Pury", value: "G" },
+          ],
+          correctAnswer: "C",
+          points: 1,
+        },
+        {
+          id: "cam10-ra-t4-s2-q21",
+          number: 21,
+          type: "matching",
+          question: "Courage can be learned once its origins in a sense of responsibility are understood.\n\nA Christopher Peterson  B David Fajgenbaum  C Suzanne Segerstrom  D Tanya Streeter  E Todd Kashdan  F Kenneth Pedeleose  G Cynthia Pury",
+          options: [
+            { label: "A – Christopher Peterson", value: "A" },
+            { label: "B – David Fajgenbaum", value: "B" },
+            { label: "C – Suzanne Segerstrom", value: "C" },
+            { label: "D – Tanya Streeter", value: "D" },
+            { label: "E – Todd Kashdan", value: "E" },
+            { label: "F – Kenneth Pedeleose", value: "F" },
+            { label: "G – Cynthia Pury", value: "G" },
+          ],
+          correctAnswer: "G",
+          points: 1,
+        },
+        {
+          id: "cam10-ra-t4-s2-q22",
+          number: 22,
+          type: "matching",
+          question: "It is possible to overcome shyness when faced with the need to speak in public.\n\nA Christopher Peterson  B David Fajgenbaum  C Suzanne Segerstrom  D Tanya Streeter  E Todd Kashdan  F Kenneth Pedeleose  G Cynthia Pury",
+          options: [
+            { label: "A – Christopher Peterson", value: "A" },
+            { label: "B – David Fajgenbaum", value: "B" },
+            { label: "C – Suzanne Segerstrom", value: "C" },
+            { label: "D – Tanya Streeter", value: "D" },
+            { label: "E – Todd Kashdan", value: "E" },
+            { label: "F – Kenneth Pedeleose", value: "F" },
+            { label: "G – Cynthia Pury", value: "G" },
+          ],
+          correctAnswer: "A",
+          points: 1,
+        },
+        // ── Q23–26: Section matching ──────────────────────────────
+        {
+          id: "cam10-ra-t4-s2-q23",
+          number: 23,
+          type: "matching",
+          question: "Which section (A–H) contains: a mention of how rational thinking enabled someone to achieve physical goals?",
+          options: [
+            { label: "A", value: "A" },
+            { label: "B", value: "B" },
+            { label: "C", value: "C" },
+            { label: "D", value: "D" },
+            { label: "E", value: "E" },
+            { label: "F", value: "F" },
+            { label: "G", value: "G" },
+            { label: "H", value: "H" },
+          ],
+          correctAnswer: "E",
+          points: 1,
+        },
+        {
+          id: "cam10-ra-t4-s2-q24",
+          number: 24,
+          type: "matching",
+          question: "Which section (A–H) contains: an account of how someone overcame a sad experience?",
+          options: [
+            { label: "A", value: "A" },
+            { label: "B", value: "B" },
+            { label: "C", value: "C" },
+            { label: "D", value: "D" },
+            { label: "E", value: "E" },
+            { label: "F", value: "F" },
+            { label: "G", value: "G" },
+            { label: "H", value: "H" },
+          ],
+          correctAnswer: "C",
+          points: 1,
+        },
+        {
+          id: "cam10-ra-t4-s2-q25",
+          number: 25,
+          type: "matching",
+          question: "Which section (A–H) contains: a description of how someone decided to rethink their academic career path?",
+          options: [
+            { label: "A", value: "A" },
+            { label: "B", value: "B" },
+            { label: "C", value: "C" },
+            { label: "D", value: "D" },
+            { label: "E", value: "E" },
+            { label: "F", value: "F" },
+            { label: "G", value: "G" },
+            { label: "H", value: "H" },
+          ],
+          correctAnswer: "G",
+          points: 1,
+        },
+        {
+          id: "cam10-ra-t4-s2-q26",
+          number: 26,
+          type: "matching",
+          question: "Which section (A–H) contains: an example of how someone risked his career out of a sense of duty?",
+          options: [
+            { label: "A", value: "A" },
+            { label: "B", value: "B" },
+            { label: "C", value: "C" },
+            { label: "D", value: "D" },
+            { label: "E", value: "E" },
+            { label: "F", value: "F" },
+            { label: "G", value: "G" },
+            { label: "H", value: "H" },
+          ],
+          correctAnswer: "H",
+          points: 1,
+        },
+      ],
+    },
+
+    // ── PASSAGE 3 ──────────────────────────────────────────────
+    {
+      id: "cam10-ra-t4-s3",
+      sectionNumber: 3,
+      title: "Reading Passage 3",
+      passageTitle: "When Evolution Runs Backwards",
+      passageText: `Evolution isn't supposed to run backwards – yet an increasing number of examples show that it does and that it can sometimes represent the future of a species.
+
+The description of any animal as an 'evolutionary throwback' is controversial. For the better part of a century, most biologists have been reluctant to use those words, mindful of a principle of evolution that says 'evolution cannot run backwards'. But as more and more examples come to light and modern genetics enters the scene, that principle is having to be rewritten. Not only are evolutionary throwbacks possible, they sometimes play an important role in the forward march of evolution.
+
+The technical term for an evolutionary throwback is an 'atavism', from the Latin atavus, meaning forefather. The word has ugly connotations thanks largely to Cesare Lombroso, a 19th-century Italian medic who argued that criminals were born not made and could be identified by certain physical features that were throwbacks to a primitive, sub-human state.
+
+While Lombroso was measuring criminals, a Belgian palaeontologist called Louis Dollo was studying fossil records and coming to the opposite conclusion. In 1890 he proposed that evolution was irreversible: that 'an organism is unable to return, even partially, to a previous stage already realised in the ranks of its ancestors.' Early 20th-century biologists came to a similar conclusion, though they qualified it in terms of probability, stating that there is no reason why evolution cannot run backwards – it is just very unlikely. And so the idea of irreversibility in evolution stuck and came to be known as 'Dollo's law'.
+
+If Dollo's law is right, atavisms should occur only very rarely, if at all. Yet almost since the idea took root, exceptions have been cropping up. In 1919, for example, a humpback whale with a pair of leglike appendages over a metre long, complete with a full set of limb bones, was caught off Vancouver Island in Canada. Explorer Roy Chapman Andrews argued at the time that the whale must be a throwback to a land-living ancestor. 'I can see no other explanation,' he wrote in 1921.
+
+Since then, so many other examples have been discovered that it no longer makes sense to say that evolution is as good as irreversible. And this poses a puzzle: how can characteristics that disappeared millions of years ago suddenly reappear?
+
+In 1994, Rudolf Raff and colleagues at Indiana University in the USA decided to use genetics to put a number on the probability of evolution going into reverse. They reasoned that while some evolutionary changes involve the loss of genes and are therefore irreversible, others may be the result of genes being switched off. If these silent genes are somehow switched back on, they argued, long-lost traits could reappear.
+
+Raff's team went on to calculate the likelihood of it happening. Silent genes accumulate random mutations, they reasoned, eventually rendering them useless. So how long can a gene survive in a species if it is no longer used? The team calculated that there is a good chance of silent genes surviving for up to 6 million years in at least a few individuals in a population, and that some might survive as long as 10 million years. In other words, throwbacks are possible, but only to the relatively recent evolutionary past.
+
+As a possible example, the team pointed to the mole salamanders of Mexico and California. Like most amphibians these begin life in a juvenile 'tadpole' state, then metamorphose into the adult form – except for one species, the axolotl, which famously lives its entire life as a juvenile. The simplest explanation for this is that the axolotl lineage alone lost the ability to metamorphose, while others retained it. From a detailed analysis of the salamanders' family tree, however, it is clear that the other lineages evolved from an ancestor that itself had lost the ability to metamorphose. In other words, metamorphosis in mole salamanders is an atavism. The salamander example fits with Raff's 10-million-year time frame.
+
+More recently, however, examples have been reported that break the time limit, suggesting that silent genes may not be the whole story. In a paper published last year, biologist Gunter Wagner of Yale University reported some work on the evolutionary history of a group of South American lizards called Bachia. Many of these have minuscule limbs; some look more like snakes than lizards and a few have completely lost the toes on their hind limbs. Other species, however, sport up to four toes on their hind legs. The simplest explanation is that the toed lineages never lost their toes, but Wagner begs to differ. According to his analysis of the Bachia family tree, the toed species re-evolved toes from toeless ancestors and, what is more, digit loss and gain has occurred on more than one occasion over tens of millions of years.
+
+So what's going on? One possibility is that these traits are lost and then simply reappear, in much the same way that similar structures can independently arise in unrelated species, such as the dorsal fins of sharks and killer whales. Another more intriguing possibility is that the genetic information needed to make toes somehow survived for tens or perhaps hundreds of millions of years in the lizards and was reactivated. These atavistic traits provided an advantage and spread through the population, effectively reversing evolution.
+
+But if silent genes degrade within 6 to 10 million years, how can long-lost traits be reactivated over longer timescales? The answer may lie in the womb. Early embryos of many species develop ancestral features. Snake embryos, for example, sprout hind limb buds. Later in development these features disappear thanks to developmental programs that say 'lose the leg'. If for any reason this does not happen, the ancestral feature may not disappear, leading to an atavism.`,
+      instructions: "Questions 27–31: Choose the correct letter A, B, C or D.\n\nQuestions 32–36: Complete each sentence with the correct ending, A–G.\n\nWord bank for Q32–36:\nA the question of how certain long-lost traits could reappear.\nB the occurrence of a particular feature in different species.\nC parallels drawn between behaviour and appearance.\nD the continued existence of certain genetic information.\nE the doubts felt about evolutionary throwbacks.\nF the possibility of evolution being reversible.\nG Dollo's findings and the convictions held by Lombroso.\n\nQuestions 37–40: Do the following statements agree with the claims of the writer? Write YES, NO, or NOT GIVEN.",
+      questions: [
+        // ── Q27–31: Multiple choice ───────────────────────────────
+        {
+          id: "cam10-ra-t4-s3-q27",
+          number: 27,
+          type: "multiple_choice",
+          question: "When discussing the theory developed by Louis Dollo, the writer says that\n\nA  it was immediately referred to as Dollo's law.\nB  it supported the possibility of evolutionary throwbacks.\nC  it was modified by biologists in the early twentieth century.\nD  it was based on many years of research.",
+          options: [
+            { label: "A – it was immediately referred to as Dollo's law.", value: "A" },
+            { label: "B – it supported the possibility of evolutionary throwbacks.", value: "B" },
+            { label: "C – it was modified by biologists in the early twentieth century.", value: "C" },
+            { label: "D – it was based on many years of research.", value: "D" },
+          ],
+          correctAnswer: "C",
+          points: 1,
+        },
+        {
+          id: "cam10-ra-t4-s3-q28",
+          number: 28,
+          type: "multiple_choice",
+          question: "The humpback whale caught off Vancouver Island is mentioned because of\n\nA  the exceptional size of its body.\nB  the way it exemplifies Dollo's law.\nC  the amount of local controversy it caused.\nD  the reason given for its unusual features.",
+          options: [
+            { label: "A – the exceptional size of its body.", value: "A" },
+            { label: "B – the way it exemplifies Dollo's law.", value: "B" },
+            { label: "C – the amount of local controversy it caused.", value: "C" },
+            { label: "D – the reason given for its unusual features.", value: "D" },
+          ],
+          correctAnswer: "D",
+          points: 1,
+        },
+        {
+          id: "cam10-ra-t4-s3-q29",
+          number: 29,
+          type: "multiple_choice",
+          question: "What is said about 'silent genes'?\n\nA  Their numbers vary according to species.\nB  Raff disagreed with the use of the term.\nC  They could lead to the re-emergence of certain characteristics.\nD  They can have an unlimited life span.",
+          options: [
+            { label: "A – Their numbers vary according to species.", value: "A" },
+            { label: "B – Raff disagreed with the use of the term.", value: "B" },
+            { label: "C – They could lead to the re-emergence of certain characteristics.", value: "C" },
+            { label: "D – They can have an unlimited life span.", value: "D" },
+          ],
+          correctAnswer: "C",
+          points: 1,
+        },
+        {
+          id: "cam10-ra-t4-s3-q30",
+          number: 30,
+          type: "multiple_choice",
+          question: "The writer mentions the mole salamander because\n\nA  it exemplifies what happens in the development of most amphibians.\nB  it suggests that Raff's theory is correct.\nC  it has lost and regained more than one ability.\nD  its ancestors have become the subject of extensive research.",
+          options: [
+            { label: "A – it exemplifies what happens in the development of most amphibians.", value: "A" },
+            { label: "B – it suggests that Raff's theory is correct.", value: "B" },
+            { label: "C – it has lost and regained more than one ability.", value: "C" },
+            { label: "D – its ancestors have become the subject of extensive research.", value: "D" },
+          ],
+          correctAnswer: "B",
+          points: 1,
+        },
+        {
+          id: "cam10-ra-t4-s3-q31",
+          number: 31,
+          type: "multiple_choice",
+          question: "Which of the following does Wagner claim?\n\nA  Members of the Bachia lizard family have lost and regained certain features several times.\nB  Evidence shows that the evolution of the Bachia lizard is due to the environment.\nC  His research into South American lizards supports Raff's assertions.\nD  His findings will apply to other species of South American lizards.",
+          options: [
+            { label: "A – Members of the Bachia lizard family have lost and regained certain features several times.", value: "A" },
+            { label: "B – Evidence shows that the evolution of the Bachia lizard is due to the environment.", value: "B" },
+            { label: "C – His research into South American lizards supports Raff's assertions.", value: "C" },
+            { label: "D – His findings will apply to other species of South American lizards.", value: "D" },
+          ],
+          correctAnswer: "A",
+          points: 1,
+        },
+        // ── Q32–36: Sentence completion with endings ──────────────
+        {
+          id: "cam10-ra-t4-s3-q32",
+          number: 32,
+          type: "matching",
+          question: "For a long time biologists rejected ______\n\nA the question of how certain long-lost traits could reappear.\nB the occurrence of a particular feature in different species.\nC parallels drawn between behaviour and appearance.\nD the continued existence of certain genetic information.\nE the doubts felt about evolutionary throwbacks.\nF the possibility of evolution being reversible.\nG Dollo's findings and the convictions held by Lombroso.",
+          options: [
+            { label: "A – the question of how certain long-lost traits could reappear.", value: "A" },
+            { label: "B – the occurrence of a particular feature in different species.", value: "B" },
+            { label: "C – parallels drawn between behaviour and appearance.", value: "C" },
+            { label: "D – the continued existence of certain genetic information.", value: "D" },
+            { label: "E – the doubts felt about evolutionary throwbacks.", value: "E" },
+            { label: "F – the possibility of evolution being reversible.", value: "F" },
+            { label: "G – Dollo's findings and the convictions held by Lombroso.", value: "G" },
+          ],
+          correctAnswer: "F",
+          points: 1,
+        },
+        {
+          id: "cam10-ra-t4-s3-q33",
+          number: 33,
+          type: "matching",
+          question: "Opposing views on evolutionary throwbacks are represented by ______\n\nA the question of how certain long-lost traits could reappear.\nB the occurrence of a particular feature in different species.\nC parallels drawn between behaviour and appearance.\nD the continued existence of certain genetic information.\nE the doubts felt about evolutionary throwbacks.\nF the possibility of evolution being reversible.\nG Dollo's findings and the convictions held by Lombroso.",
+          options: [
+            { label: "A – the question of how certain long-lost traits could reappear.", value: "A" },
+            { label: "B – the occurrence of a particular feature in different species.", value: "B" },
+            { label: "C – parallels drawn between behaviour and appearance.", value: "C" },
+            { label: "D – the continued existence of certain genetic information.", value: "D" },
+            { label: "E – the doubts felt about evolutionary throwbacks.", value: "E" },
+            { label: "F – the possibility of evolution being reversible.", value: "F" },
+            { label: "G – Dollo's findings and the convictions held by Lombroso.", value: "G" },
+          ],
+          correctAnswer: "G",
+          points: 1,
+        },
+        {
+          id: "cam10-ra-t4-s3-q34",
+          number: 34,
+          type: "matching",
+          question: "Examples of evolutionary throwbacks have led to ______\n\nA the question of how certain long-lost traits could reappear.\nB the occurrence of a particular feature in different species.\nC parallels drawn between behaviour and appearance.\nD the continued existence of certain genetic information.\nE the doubts felt about evolutionary throwbacks.\nF the possibility of evolution being reversible.\nG Dollo's findings and the convictions held by Lombroso.",
+          options: [
+            { label: "A – the question of how certain long-lost traits could reappear.", value: "A" },
+            { label: "B – the occurrence of a particular feature in different species.", value: "B" },
+            { label: "C – parallels drawn between behaviour and appearance.", value: "C" },
+            { label: "D – the continued existence of certain genetic information.", value: "D" },
+            { label: "E – the doubts felt about evolutionary throwbacks.", value: "E" },
+            { label: "F – the possibility of evolution being reversible.", value: "F" },
+            { label: "G – Dollo's findings and the convictions held by Lombroso.", value: "G" },
+          ],
+          correctAnswer: "A",
+          points: 1,
+        },
+        {
+          id: "cam10-ra-t4-s3-q35",
+          number: 35,
+          type: "matching",
+          question: "The shark and killer whale are mentioned to exemplify ______\n\nA the question of how certain long-lost traits could reappear.\nB the occurrence of a particular feature in different species.\nC parallels drawn between behaviour and appearance.\nD the continued existence of certain genetic information.\nE the doubts felt about evolutionary throwbacks.\nF the possibility of evolution being reversible.\nG Dollo's findings and the convictions held by Lombroso.",
+          options: [
+            { label: "A – the question of how certain long-lost traits could reappear.", value: "A" },
+            { label: "B – the occurrence of a particular feature in different species.", value: "B" },
+            { label: "C – parallels drawn between behaviour and appearance.", value: "C" },
+            { label: "D – the continued existence of certain genetic information.", value: "D" },
+            { label: "E – the doubts felt about evolutionary throwbacks.", value: "E" },
+            { label: "F – the possibility of evolution being reversible.", value: "F" },
+            { label: "G – Dollo's findings and the convictions held by Lombroso.", value: "G" },
+          ],
+          correctAnswer: "B",
+          points: 1,
+        },
+        {
+          id: "cam10-ra-t4-s3-q36",
+          number: 36,
+          type: "matching",
+          question: "One explanation for the findings of Wagner's research is ______\n\nA the question of how certain long-lost traits could reappear.\nB the occurrence of a particular feature in different species.\nC parallels drawn between behaviour and appearance.\nD the continued existence of certain genetic information.\nE the doubts felt about evolutionary throwbacks.\nF the possibility of evolution being reversible.\nG Dollo's findings and the convictions held by Lombroso.",
+          options: [
+            { label: "A – the question of how certain long-lost traits could reappear.", value: "A" },
+            { label: "B – the occurrence of a particular feature in different species.", value: "B" },
+            { label: "C – parallels drawn between behaviour and appearance.", value: "C" },
+            { label: "D – the continued existence of certain genetic information.", value: "D" },
+            { label: "E – the doubts felt about evolutionary throwbacks.", value: "E" },
+            { label: "F – the possibility of evolution being reversible.", value: "F" },
+            { label: "G – Dollo's findings and the convictions held by Lombroso.", value: "G" },
+          ],
+          correctAnswer: "D",
+          points: 1,
+        },
+        // ── Q37–40: Yes / No / Not Given ──────────────────────────
+        {
+          id: "cam10-ra-t4-s3-q37",
+          number: 37,
+          type: "true_false_ng",
+          question: "Wagner was the first person to do research on South American lizards.",
+          options: [
+            { label: "YES", value: "YES" },
+            { label: "NO", value: "NO" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "NOT GIVEN",
+          points: 1,
+        },
+        {
+          id: "cam10-ra-t4-s3-q38",
+          number: 38,
+          type: "true_false_ng",
+          question: "Wagner believes that Bachia lizards with toes had toeless ancestors.",
+          options: [
+            { label: "YES", value: "YES" },
+            { label: "NO", value: "NO" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "YES",
+          points: 1,
+        },
+        {
+          id: "cam10-ra-t4-s3-q39",
+          number: 39,
+          type: "true_false_ng",
+          question: "The temporary occurrence of long-lost traits in embryos is rare.",
+          options: [
+            { label: "YES", value: "YES" },
+            { label: "NO", value: "NO" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "NO",
+          points: 1,
+        },
+        {
+          id: "cam10-ra-t4-s3-q40",
+          number: 40,
+          type: "true_false_ng",
+          question: "Evolutionary throwbacks might be caused by developmental problems in the womb.",
+          options: [
+            { label: "YES", value: "YES" },
+            { label: "NO", value: "NO" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "YES",
+          points: 1,
+        },
+      ],
+    },
+  ],
 };
 
 export const cambridge10Tests: IELTSTest[] = [
