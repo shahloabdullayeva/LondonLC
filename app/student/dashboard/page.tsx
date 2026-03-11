@@ -109,28 +109,47 @@ export default function StudentDashboard() {
           {/* Cambridge Books view */}
           {selectedBook === null ? (
             <>
-              <h2 style={{ fontSize: 16, fontWeight: 700, color: "#fff", marginBottom: 6 }}>Cambridge IELTS Books</h2>
-              <p style={{ fontSize: 13, color: "rgba(255,255,255,0.35)", marginBottom: 24 }}>Select a book to start practising</p>
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(140px, 1fr))", gap: 12 }}>
+              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 20 }}>
+                <div>
+                  <h2 style={{ fontSize: 16, fontWeight: 700, color: "#fff", marginBottom: 3 }}>Cambridge IELTS Books</h2>
+                  <p style={{ fontSize: 13, color: "rgba(255,255,255,0.35)" }}>Cambridge 1 – 19 · Click an available book to practice</p>
+                </div>
+                <span style={{ fontSize: 12, padding: "4px 12px", background: "rgba(124,58,237,0.15)", border: "1px solid rgba(124,58,237,0.25)", borderRadius: 20, color: "#a78bfa", fontWeight: 600 }}>
+                  {AVAILABLE_BOOKS.length} / 19 available
+                </span>
+              </div>
+
+              {/* Books as a 2-column list */}
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(320px, 1fr))", gap: 8 }}>
                 {Array.from({ length: 19 }, (_, i) => i + 1).map(n => {
                   const available = AVAILABLE_BOOKS.includes(n);
                   const bookTests = allTests.filter(t => t.bookNumber === n && t.type === typeFilter);
                   return (
                     <div key={n}
                       onClick={() => available && setSelectedBook(n)}
-                      style={{ background: available ? "#140b35" : "rgba(255,255,255,0.03)", border: `1px solid ${available ? "rgba(124,58,237,0.3)" : "rgba(255,255,255,0.06)"}`, borderRadius: 16, padding: "20px 14px", textAlign: "center", cursor: available ? "pointer" : "default", transition: "all 0.2s", opacity: available ? 1 : 0.6, position: "relative" }}
-                      onMouseEnter={e => available && ((e.currentTarget as HTMLElement).style.borderColor = "rgba(124,58,237,0.6)", (e.currentTarget as HTMLElement).style.transform = "translateY(-2px)")}
-                      onMouseLeave={e => available && ((e.currentTarget as HTMLElement).style.borderColor = "rgba(124,58,237,0.3)", (e.currentTarget as HTMLElement).style.transform = "none")}>
-                      <div style={{ width: 44, height: 44, borderRadius: 12, background: available ? "linear-gradient(135deg,#7c3aed,#6d28d9)" : "rgba(255,255,255,0.06)", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 12px" }}>
-                        {available ? <BookOpen size={20} color="#fff" /> : <Lock size={16} color="rgba(255,255,255,0.25)" />}
+                      style={{ display: "flex", alignItems: "center", gap: 14, padding: "14px 16px", background: available ? "rgba(124,58,237,0.08)" : "rgba(255,255,255,0.02)", border: `1px solid ${available ? "rgba(124,58,237,0.25)" : "rgba(255,255,255,0.05)"}`, borderRadius: 12, cursor: available ? "pointer" : "default", transition: "all 0.15s" }}
+                      onMouseEnter={e => available && ((e.currentTarget as HTMLElement).style.background = "rgba(124,58,237,0.14)", (e.currentTarget as HTMLElement).style.borderColor = "rgba(124,58,237,0.45)")}
+                      onMouseLeave={e => available && ((e.currentTarget as HTMLElement).style.background = "rgba(124,58,237,0.08)", (e.currentTarget as HTMLElement).style.borderColor = "rgba(124,58,237,0.25)")}>
+                      {/* Number badge */}
+                      <div style={{ width: 38, height: 38, borderRadius: 10, flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 900, fontSize: 15, background: available ? "linear-gradient(135deg,#7c3aed,#6d28d9)" : "rgba(255,255,255,0.05)", color: available ? "#fff" : "rgba(255,255,255,0.2)" }}>
+                        {n}
                       </div>
-                      <div style={{ fontSize: 13, fontWeight: 800, color: available ? "#fff" : "rgba(255,255,255,0.3)", marginBottom: 4 }}>
-                        Cambridge {n}
+                      {/* Title */}
+                      <div style={{ flex: 1, minWidth: 0 }}>
+                        <div style={{ fontSize: 13, fontWeight: 700, color: available ? "#e8eeff" : "rgba(255,255,255,0.25)", marginBottom: 2 }}>
+                          Cambridge IELTS {n}
+                        </div>
+                        <div style={{ fontSize: 11, color: available ? "rgba(255,255,255,0.4)" : "rgba(255,255,255,0.15)" }}>
+                          {available ? `${bookTests.length} ${typeFilter} test${bookTests.length !== 1 ? "s" : ""}` : "Coming soon"}
+                        </div>
                       </div>
+                      {/* Status / action */}
                       {available ? (
-                        <div style={{ fontSize: 11, color: "#a78bfa", fontWeight: 600 }}>{bookTests.length} test{bookTests.length !== 1 ? "s" : ""}</div>
+                        <div style={{ display: "flex", alignItems: "center", gap: 5, fontSize: 12, fontWeight: 700, color: "#a78bfa", flexShrink: 0 }}>
+                          Open <ChevronRight size={14} />
+                        </div>
                       ) : (
-                        <div style={{ fontSize: 10, color: "rgba(255,255,255,0.2)", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.05em" }}>Soon</div>
+                        <Lock size={13} color="rgba(255,255,255,0.15)" style={{ flexShrink: 0 }} />
                       )}
                     </div>
                   );
