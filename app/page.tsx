@@ -83,7 +83,7 @@ export default function HomePage() {
         <div style={{ maxWidth: 1040, margin: "0 auto" }}>
           <h2 style={{ textAlign: "center", fontSize: 30, fontWeight: 800, color: "#fff", marginBottom: 10 }}>Everything you need to score higher</h2>
           <p style={{ textAlign: "center", color: "rgba(255,255,255,0.5)", marginBottom: 52, fontSize: 15 }}>Built for serious IELTS preparation</p>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(290px, 1fr))", gap: 18 }}>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: 18 }}>
             {features.map((f, i) => (
               <motion.div key={f.title} initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.08 }}
                 style={{ padding: "24px 22px", borderRadius: 16, background: "rgba(124,58,237,0.08)", border: "1px solid rgba(124,58,237,0.18)" }}>
