@@ -168,6 +168,16 @@ export function getAttempts(): AttemptData[] {
   return [];
 }
 
+export type DeviceInfo = {
+  userAgent: string;
+  platform: string;
+  language: string;
+  screenWidth: number;
+  screenHeight: number;
+  ip: string;
+  timestamp: string;
+};
+
 export type AttemptData = {
   id: string;
   studentId: string;
@@ -187,4 +197,33 @@ export type AttemptData = {
   startedAt: string;
   submittedAt: string;
   timeSpentSeconds: number;
+  deviceInfo?: DeviceInfo;
+  isTeacherAttempt?: boolean;
+  teacherId?: string;
 };
+
+// ── Blocked IPs ──────────────────────────────────────────────
+const BLOCKED_IPS_KEY = "llc_blocked_ips";
+
+export function getBlockedIPs(): string[] {
+  if (typeof window === "undefined") return [];
+  const raw = localStorage.getItem(BLOCKED_IPS_KEY);
+  return raw ? JSON.parse(raw) : [];
+}
+
+export function blockIP(ip: string): void {
+  const ips = getBlockedIPs();
+  if (!ips.includes(ip)) {
+    ips.push(ip);
+    localStorage.setItem(BLOCKED_IPS_KEY, JSON.stringify(ips));
+  }
+}
+
+export function unblockIP(ip: string): void {
+  const ips = getBlockedIPs().filter(i => i !== ip);
+  localStorage.setItem(BLOCKED_IPS_KEY, JSON.stringify(ips));
+}
+
+export function isIPBlocked(ip: string): boolean {
+  return getBlockedIPs().includes(ip);
+}

@@ -3,9 +3,12 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import {
   BookOpen, LogOut, Users, Award, BarChart3, Search,
-  Download, CheckCircle, X, Shield, Plus, Trash2, Eye, EyeOff
+  Download, CheckCircle, X, Shield, Plus, Trash2, Eye, EyeOff,
+  Monitor, Ban, Headphones, ChevronRight, ChevronDown, ChevronUp
 } from "lucide-react";
-import { getSession, clearSession, getAttempts, getTeachers, addTeacher, deleteTeacher, registerStudent, getStudentAccounts, deleteStudent, type AttemptData, type TeacherAccount, type StudentAccount } from "@/lib/store";
+import { getSession, clearSession, getAttempts, getTeachers, addTeacher, deleteTeacher, registerStudent, getStudentAccounts, deleteStudent, getBlockedIPs, blockIP, unblockIP, type AttemptData, type TeacherAccount, type StudentAccount } from "@/lib/store";
+import { getTestById } from "@/data/ielts-tests";
+import { allTests } from "@/data/ielts-tests";
 
 // ── Hardcoded dark theme colours ─────────────────────────────
 const C = {
@@ -39,10 +42,17 @@ const sel: React.CSSProperties = {
 export default function AdminDashboard() {
   const router = useRouter();
   const [attempts, setAttempts] = useState<AttemptData[]>([]);
-  const [activeTab, setActiveTab] = useState<"results" | "students" | "teachers">("results");
+  const [activeTab, setActiveTab] = useState<"results" | "students" | "teachers" | "practice">("results");
   const [expandedGroup, setExpandedGroup] = useState<string | null>(null);
   const [expandedStudent, setExpandedStudent] = useState<string | null>(null);
+  const [expandedAttempt, setExpandedAttempt] = useState<string | null>(null);
+  const [expandedDeviceRow, setExpandedDeviceRow] = useState<string | null>(null);
   const [isRootAdmin, setIsRootAdmin] = useState(false);
+  const [currentTeacherId, setCurrentTeacherId] = useState<string>("");
+  const [blockedIPs, setBlockedIPs] = useState<string[]>([]);
+  const [practiceTypeFilter, setPracticeTypeFilter] = useState<"reading" | "listening">("reading");
+  const [practiceSelectedBook, setPracticeSelectedBook] = useState<number | null>(null);
+  const [myPracticeAttempts, setMyPracticeAttempts] = useState<AttemptData[]>([]);
   const [search, setSearch] = useState("");
   const [filterGroup, setFilterGroup] = useState("all");
   const [filterType, setFilterType] = useState<"all" | "reading" | "listening">("all");
@@ -62,17 +72,21 @@ export default function AdminDashboard() {
   const [createdStudent, setCreatedStudent] = useState<{ username: string; password: string; name: string; surname: string } | null>(null);
   const [studentSearch, setStudentSearch] = useState("");
 
-  const refreshData = () => {
-    setAttempts(getAttempts());
+  const refreshData = (teacherId?: string) => {
+    const all = getAttempts();
+    setAttempts(all);
     setTeachers(getTeachers());
     setStudents(getStudentAccounts());
+    setBlockedIPs(getBlockedIPs());
+    if (teacherId) setMyPracticeAttempts(all.filter(a => a.isTeacherAttempt && a.teacherId === teacherId));
   };
 
   useEffect(() => {
     const s = getSession();
     if (!s || !s.isAdmin) { router.push("/auth/login?admin=true"); return; }
     setIsRootAdmin(s.id === "admin-root");
-    refreshData();
+    setCurrentTeacherId(s.id);
+    refreshData(s.id);
 
     // Refresh when a student submits in another tab
     const onStorage = (e: StorageEvent) => {
@@ -123,6 +137,7 @@ export default function AdminDashboard() {
   const groups = ["all", ...Array.from(new Set(attempts.map((a) => a.groupName)))];
 
   const filtered = attempts.filter((a) => {
+    if (a.isTeacherAttempt) return false; // hide teacher practice from main view
     if (filterGroup !== "all" && a.groupName !== filterGroup) return false;
     if (filterType !== "all" && a.testType !== filterType) return false;
     if (filterStatus !== "all" && a.status !== filterStatus) return false;
@@ -158,9 +173,17 @@ export default function AdminDashboard() {
     XLSX.writeFile(wb, `london-lc-results-${new Date().toISOString().slice(0, 10)}.xlsx`);
   };
 
+  const handleBlockIP = (ip: string) => {
+    blockIP(ip); setBlockedIPs(getBlockedIPs());
+  };
+  const handleUnblockIP = (ip: string) => {
+    unblockIP(ip); setBlockedIPs(getBlockedIPs());
+  };
+
   const tabs = [
     { id: "results" as const, Icon: BarChart3, label: "Results" },
     { id: "students" as const, Icon: Users, label: "Students" },
+    { id: "practice" as const, Icon: BookOpen, label: "Practice Tests" },
     ...(isRootAdmin ? [{ id: "teachers" as const, Icon: Shield, label: "Manage Teachers" }] : []),
   ];
 
@@ -269,53 +292,126 @@ export default function AdminDashboard() {
                 <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 13, minWidth: 700 }}>
                   <thead>
                     <tr style={{ background: C.card2 }}>
-                      {["Student", "Group", "Test", "Type", "Score", "IELTS", "Status", "Duration", "Date"].map(h => (
+                      {["", "Student", "Group", "Test", "Type", "Score", "IELTS", "Status", "Duration", "Date"].map(h => (
                         <th key={h} style={{ padding: "11px 14px", textAlign: "left", fontSize: 11, fontWeight: 700, color: C.muted, textTransform: "uppercase", letterSpacing: "0.06em", borderBottom: `1px solid ${C.border}`, whiteSpace: "nowrap" }}>{h}</th>
                       ))}
                     </tr>
                   </thead>
                   <tbody>
-                    {filtered.map((a, i) => (
-                      <tr key={a.id} style={{ borderBottom: `1px solid ${C.border}`, background: i % 2 === 0 ? C.card : "rgba(6,12,31,0.6)" }}>
-                        <td style={{ padding: "12px 14px", fontWeight: 600, color: C.text, whiteSpace: "nowrap" }}>{a.studentName} {a.studentSurname}</td>
-                        <td style={{ padding: "12px 14px" }}>
-                          <span style={{ padding: "3px 9px", borderRadius: 20, fontSize: 11, fontWeight: 600, background: C.accentLight, color: C.accent }}>{a.groupName}</span>
-                        </td>
-                        <td style={{ padding: "12px 14px", color: C.sub, maxWidth: 160, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{a.testTitle}</td>
-                        <td style={{ padding: "12px 14px" }}>
-                          <span style={{ padding: "3px 9px", borderRadius: 20, fontSize: 11, fontWeight: 600,
-                            background: a.testType === "listening" ? "rgba(139,92,246,0.2)" : "rgba(245,158,11,0.15)",
-                            color: a.testType === "listening" ? "#c4b5fd" : "#fcd34d" }}>
-                            {a.testType}
-                          </span>
-                        </td>
-                        <td style={{ padding: "12px 14px", color: C.sub }}>{a.score}/{a.maxScore}</td>
-                        <td style={{ padding: "12px 14px", fontWeight: 700, fontSize: 15, color: C.accent }}>{a.bandScore > 0 ? a.bandScore : "–"}</td>
-                        <td style={{ padding: "12px 14px" }}>
-                          <span style={{ display: "inline-flex", alignItems: "center", gap: 4, fontSize: 12, fontWeight: 600,
-                            color: a.status === "completed" ? C.success : C.danger }}>
-                            {a.status === "completed" ? <CheckCircle size={12} /> : <X size={12} />}
-                            {a.status}
-                          </span>
-                          {a.status === "cancelled" && a.cancelReason && (
-                            <div style={{ fontSize: 11, color: "#fca5a5", marginTop: 3, maxWidth: 160, lineHeight: 1.3 }}>
-                              {a.cancelReason}
-                            </div>
-                          )}
-                        </td>
-                        <td style={{ padding: "12px 14px", color: C.muted, whiteSpace: "nowrap" }}>
-                          {a.timeSpentSeconds ? `${Math.floor(a.timeSpentSeconds / 60)}m ${a.timeSpentSeconds % 60}s` : "–"}
-                        </td>
-                        <td style={{ padding: "12px 14px", color: C.muted, whiteSpace: "nowrap", fontSize: 12 }}>
-                          {new Date(a.submittedAt).toLocaleString()}
-                        </td>
-                      </tr>
-                    ))}
+                    {filtered.map((a, i) => {
+                      const isExpanded = expandedDeviceRow === a.id;
+                      const testData = a.status === "completed" ? getTestById(a.testId) : null;
+                      return (
+                        <>
+                        <tr key={a.id} style={{ borderBottom: `1px solid ${C.border}`, background: i % 2 === 0 ? C.card : "rgba(6,12,31,0.6)" }}>
+                          <td style={{ padding: "12px 10px", textAlign: "center" }}>
+                            <button onClick={() => setExpandedDeviceRow(isExpanded ? null : a.id)}
+                              style={{ background: "transparent", border: "none", cursor: "pointer", color: C.muted, padding: 2, display: "flex" }}>
+                              {isExpanded ? <ChevronUp size={13} /> : <ChevronDown size={13} />}
+                            </button>
+                          </td>
+                          <td style={{ padding: "12px 14px", fontWeight: 600, color: C.text, whiteSpace: "nowrap" }}>{a.studentName} {a.studentSurname}</td>
+                          <td style={{ padding: "12px 14px" }}>
+                            <span style={{ padding: "3px 9px", borderRadius: 20, fontSize: 11, fontWeight: 600, background: C.accentLight, color: C.accent }}>{a.groupName}</span>
+                          </td>
+                          <td style={{ padding: "12px 14px", color: C.sub, maxWidth: 160, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{a.testTitle}</td>
+                          <td style={{ padding: "12px 14px" }}>
+                            <span style={{ padding: "3px 9px", borderRadius: 20, fontSize: 11, fontWeight: 600,
+                              background: a.testType === "listening" ? "rgba(139,92,246,0.2)" : "rgba(245,158,11,0.15)",
+                              color: a.testType === "listening" ? "#c4b5fd" : "#fcd34d" }}>
+                              {a.testType}
+                            </span>
+                          </td>
+                          <td style={{ padding: "12px 14px", color: C.sub }}>{a.score}/{a.maxScore}</td>
+                          <td style={{ padding: "12px 14px", fontWeight: 700, fontSize: 15, color: C.accent }}>{a.bandScore > 0 ? a.bandScore : "–"}</td>
+                          <td style={{ padding: "12px 14px" }}>
+                            <span style={{ display: "inline-flex", alignItems: "center", gap: 4, fontSize: 12, fontWeight: 600,
+                              color: a.status === "completed" ? C.success : C.danger }}>
+                              {a.status === "completed" ? <CheckCircle size={12} /> : <X size={12} />}
+                              {a.status}
+                            </span>
+                            {a.status === "cancelled" && a.cancelReason && (
+                              <div style={{ fontSize: 11, color: "#fca5a5", marginTop: 3, maxWidth: 160, lineHeight: 1.3 }}>
+                                {a.cancelReason}
+                              </div>
+                            )}
+                          </td>
+                          <td style={{ padding: "12px 14px", color: C.muted, whiteSpace: "nowrap" }}>
+                            {a.timeSpentSeconds ? `${Math.floor(a.timeSpentSeconds / 60)}m ${a.timeSpentSeconds % 60}s` : "–"}
+                          </td>
+                          <td style={{ padding: "12px 14px", color: C.muted, whiteSpace: "nowrap", fontSize: 12 }}>
+                            {new Date(a.submittedAt).toLocaleString()}
+                          </td>
+                        </tr>
+                        {isExpanded && (
+                          <tr key={`${a.id}-detail`} style={{ background: "rgba(124,58,237,0.05)" }}>
+                            <td colSpan={10} style={{ padding: "16px 20px", borderBottom: `1px solid ${C.border}` }}>
+                              {/* Device/IP info */}
+                              {a.deviceInfo && (
+                                <div style={{ marginBottom: 16, padding: "12px 16px", background: C.card2, borderRadius: 10, border: `1px solid ${C.border}` }}>
+                                  <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 8 }}>
+                                    <div style={{ display: "flex", flexWrap: "wrap", gap: 16, fontSize: 12, color: C.sub }}>
+                                      <span><Monitor size={11} style={{ display: "inline", marginRight: 4 }} /><strong style={{ color: C.text }}>IP:</strong> {a.deviceInfo.ip}
+                                        {isRootAdmin && (
+                                          blockedIPs.includes(a.deviceInfo.ip) ? (
+                                            <button onClick={() => handleUnblockIP(a.deviceInfo!.ip)}
+                                              style={{ marginLeft: 8, fontSize: 10, padding: "1px 7px", background: "rgba(16,185,129,0.15)", border: "1px solid rgba(16,185,129,0.3)", borderRadius: 5, color: "#34d399", cursor: "pointer", fontWeight: 600 }}>
+                                              Unblock
+                                            </button>
+                                          ) : (
+                                            <button onClick={() => handleBlockIP(a.deviceInfo!.ip)}
+                                              style={{ marginLeft: 8, fontSize: 10, padding: "1px 7px", background: "rgba(239,68,68,0.12)", border: "1px solid rgba(239,68,68,0.3)", borderRadius: 5, color: "#f87171", cursor: "pointer", fontWeight: 600 }}>
+                                              <Ban size={9} style={{ display: "inline", marginRight: 2 }} />Block IP
+                                            </button>
+                                          )
+                                        )}
+                                      </span>
+                                      <span><strong style={{ color: C.text }}>Platform:</strong> {a.deviceInfo.platform}</span>
+                                      <span><strong style={{ color: C.text }}>Screen:</strong> {a.deviceInfo.screenWidth}×{a.deviceInfo.screenHeight}</span>
+                                      <span><strong style={{ color: C.text }}>Language:</strong> {a.deviceInfo.language}</span>
+                                    </div>
+                                  </div>
+                                  <div style={{ marginTop: 6, fontSize: 11, color: C.muted, wordBreak: "break-all" }}>{a.deviceInfo.userAgent}</div>
+                                </div>
+                              )}
+                              {/* Per-question answer breakdown */}
+                              {testData && a.status === "completed" && (
+                                <div>
+                                  <div style={{ fontSize: 12, fontWeight: 700, color: C.muted, marginBottom: 10, textTransform: "uppercase", letterSpacing: "0.07em" }}>Answer Breakdown</div>
+                                  {testData.sections.map(sec => (
+                                    <div key={sec.id} style={{ marginBottom: 14 }}>
+                                      <div style={{ fontSize: 12, fontWeight: 700, color: C.sub, marginBottom: 6 }}>{sec.title}</div>
+                                      <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
+                                        {sec.questions.map(q => {
+                                          const userAns = (a.answers[q.id] || "").trim().toLowerCase();
+                                          const correctOptions = q.correctAnswer.toLowerCase().split("/").map(s => s.trim());
+                                          const isCorrect = correctOptions.some(c => userAns === c || userAns.includes(c));
+                                          return (
+                                            <div key={q.id} title={`Q${q.number}: Your: "${a.answers[q.id] || "(blank)"}" · Correct: "${q.correctAnswer}"`}
+                                              style={{ padding: "4px 8px", borderRadius: 7, fontSize: 11, fontWeight: 700, cursor: "help",
+                                                background: !a.answers[q.id] ? "rgba(255,255,255,0.06)" : isCorrect ? "rgba(16,185,129,0.15)" : "rgba(239,68,68,0.15)",
+                                                color: !a.answers[q.id] ? C.muted : isCorrect ? "#34d399" : "#f87171",
+                                                border: `1px solid ${!a.answers[q.id] ? C.border : isCorrect ? "rgba(16,185,129,0.3)" : "rgba(239,68,68,0.3)"}` }}>
+                                              Q{q.number} {isCorrect ? "✓" : !a.answers[q.id] ? "—" : "✗"}
+                                            </div>
+                                          );
+                                        })}
+                                      </div>
+                                    </div>
+                                  ))}
+                                </div>
+                              )}
+                            </td>
+                          </tr>
+                        )}
+                        </>
+                      );
+                    })}
                   </tbody>
                 </table>
               </div>
               <div style={{ padding: "10px 14px", background: C.card2, borderTop: `1px solid ${C.border}`, fontSize: 12, color: C.muted }}>
-                Showing {filtered.length} of {attempts.length} attempts
+                Showing {filtered.length} of {attempts.filter(a => !a.isTeacherAttempt).length} attempts
               </div>
             </div>
           ) : (
@@ -327,6 +423,26 @@ export default function AdminDashboard() {
           )}
 
           {/* Group summary */}
+          {/* Blocked IPs (superadmin only) */}
+          {isRootAdmin && blockedIPs.length > 0 && (
+            <div style={{ marginBottom: 28 }}>
+              <h2 style={{ fontSize: 16, fontWeight: 700, color: C.text, marginBottom: 12 }}>
+                <Ban size={14} style={{ display: "inline", marginRight: 6, color: C.danger }} />Blocked IPs ({blockedIPs.length})
+              </h2>
+              <div style={{ background: C.card, border: `1px solid rgba(239,68,68,0.2)`, borderRadius: 12, overflow: "hidden" }}>
+                {blockedIPs.map(ip => (
+                  <div key={ip} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "10px 16px", borderBottom: `1px solid ${C.border}` }}>
+                    <span style={{ fontFamily: "monospace", fontSize: 13, color: C.text }}>{ip}</span>
+                    <button onClick={() => handleUnblockIP(ip)}
+                      style={{ fontSize: 12, padding: "4px 10px", background: "rgba(16,185,129,0.1)", border: "1px solid rgba(16,185,129,0.3)", borderRadius: 7, color: "#34d399", cursor: "pointer", fontWeight: 600 }}>
+                      Unblock
+                    </button>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
           {groups.length > 1 && (
             <div>
               <h2 style={{ fontSize: 16, fontWeight: 700, color: C.text, marginBottom: 14 }}>Group Summary</h2>
@@ -406,9 +522,18 @@ export default function AdminDashboard() {
                                     const correct = a.status === "completed" ? a.score : 0;
                                     const wrong = a.status === "completed" ? (a.maxScore - a.score) : 0;
                                     const pct = a.maxScore > 0 ? Math.round((correct / a.maxScore) * 100) : 0;
+                                    const isAExpanded = expandedAttempt === a.id;
+                                    const testData = a.status === "completed" ? getTestById(a.testId) : null;
                                     return (
+                                      <>
                                       <tr key={a.id} style={{ borderBottom: `1px solid ${C.border}`, background: i % 2 === 0 ? C.card : "rgba(6,12,31,0.5)" }}>
-                                        <td style={{ padding: "11px 14px", fontWeight: 600, color: C.text, maxWidth: 180, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{a.testTitle}</td>
+                                        <td style={{ padding: "11px 14px", fontWeight: 600, color: C.text, maxWidth: 180, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                                          <button onClick={() => setExpandedAttempt(isAExpanded ? null : a.id)}
+                                            style={{ background: "transparent", border: "none", cursor: "pointer", color: C.muted, marginRight: 6, padding: 0, verticalAlign: "middle" }}>
+                                            {isAExpanded ? <ChevronUp size={11} /> : <ChevronDown size={11} />}
+                                          </button>
+                                          {a.testTitle}
+                                        </td>
                                         <td style={{ padding: "11px 14px" }}>
                                           <span style={{ padding: "2px 8px", borderRadius: 20, fontSize: 11, fontWeight: 600,
                                             background: a.testType === "listening" ? "rgba(139,92,246,0.2)" : "rgba(245,158,11,0.15)",
@@ -424,11 +549,7 @@ export default function AdminDashboard() {
                                             a.status === "cancelled" ? (
                                               <span style={{ display: "flex", flexDirection: "column", gap: 2 }}>
                                                 <span style={{ fontSize: 11, fontWeight: 600, color: "#ef4444" }}>Cancelled</span>
-                                                {a.cancelReason && (
-                                                  <span style={{ fontSize: 10, color: "#fca5a5", fontWeight: 400, lineHeight: 1.3, whiteSpace: "normal", maxWidth: 140 }}>
-                                                    {a.cancelReason}
-                                                  </span>
-                                                )}
+                                                {a.cancelReason && <span style={{ fontSize: 10, color: "#fca5a5", fontWeight: 400, lineHeight: 1.3, whiteSpace: "normal", maxWidth: 140 }}>{a.cancelReason}</span>}
                                               </span>
                                             ) : "–"
                                           )}
@@ -436,6 +557,45 @@ export default function AdminDashboard() {
                                         <td style={{ padding: "11px 14px", color: C.muted, whiteSpace: "nowrap" }}>{a.timeSpentSeconds ? `${Math.floor(a.timeSpentSeconds / 60)}m ${a.timeSpentSeconds % 60}s` : "–"}</td>
                                         <td style={{ padding: "11px 14px", fontSize: 12, color: C.muted, whiteSpace: "nowrap" }}>{new Date(a.submittedAt).toLocaleDateString()}</td>
                                       </tr>
+                                      {isAExpanded && testData && a.status === "completed" && (
+                                        <tr key={`${a.id}-expand`} style={{ background: "rgba(124,58,237,0.04)" }}>
+                                          <td colSpan={8} style={{ padding: "14px 18px", borderBottom: `1px solid ${C.border}` }}>
+                                            {testData.sections.map(sec => (
+                                              <div key={sec.id} style={{ marginBottom: 12 }}>
+                                                <div style={{ fontSize: 11, fontWeight: 700, color: C.muted, marginBottom: 8, textTransform: "uppercase" }}>{sec.title}</div>
+                                                <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+                                                  {sec.questions.map(q => {
+                                                    const userAns = (a.answers[q.id] || "").trim();
+                                                    const correctOpts = q.correctAnswer.toLowerCase().split("/").map(s => s.trim());
+                                                    const isCorrect = correctOpts.some(c => userAns.toLowerCase() === c || userAns.toLowerCase().includes(c));
+                                                    return (
+                                                      <div key={q.id} style={{ display: "flex", alignItems: "flex-start", gap: 10, fontSize: 12 }}>
+                                                        <span style={{ width: 22, height: 22, borderRadius: "50%", flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 700, fontSize: 10, background: !userAns ? "rgba(255,255,255,0.07)" : isCorrect ? "rgba(16,185,129,0.2)" : "rgba(239,68,68,0.2)", color: !userAns ? C.muted : isCorrect ? "#34d399" : "#f87171" }}>
+                                                          {q.number}
+                                                        </span>
+                                                        <div style={{ flex: 1 }}>
+                                                          <div style={{ color: C.sub, lineHeight: 1.4, marginBottom: 3 }}>{q.question.split("\n")[0].slice(0, 120)}</div>
+                                                          <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+                                                            <span style={{ fontSize: 11, padding: "2px 8px", borderRadius: 5, background: !userAns ? "rgba(255,255,255,0.05)" : isCorrect ? "rgba(16,185,129,0.12)" : "rgba(239,68,68,0.12)", color: !userAns ? C.muted : isCorrect ? "#34d399" : "#f87171" }}>
+                                                              Your: {userAns || "(blank)"}
+                                                            </span>
+                                                            {!isCorrect && (
+                                                              <span style={{ fontSize: 11, padding: "2px 8px", borderRadius: 5, background: "rgba(124,58,237,0.12)", color: "#c4b5fd" }}>
+                                                                Correct: {q.correctAnswer}
+                                                              </span>
+                                                            )}
+                                                          </div>
+                                                        </div>
+                                                      </div>
+                                                    );
+                                                  })}
+                                                </div>
+                                              </div>
+                                            ))}
+                                          </td>
+                                        </tr>
+                                      )}
+                                      </>
                                     );
                                   })}
                                 </tbody>
@@ -542,6 +702,108 @@ export default function AdminDashboard() {
             </div>
           </div>
         )}
+
+        {/* ══════════════════ PRACTICE TESTS TAB ══════════════════ */}
+        {activeTab === "practice" && (() => {
+          const AVAILABLE_BOOKS = [10];
+          return (
+            <div>
+              <div style={{ marginBottom: 24 }}>
+                <h1 style={{ fontSize: 22, fontWeight: 800, color: C.text, marginBottom: 2 }}>Practice Tests</h1>
+                <p style={{ fontSize: 13, color: C.muted }}>Take IELTS tests yourself. Your results are private and only visible to you and the super admin.</p>
+              </div>
+
+              {/* Type tabs */}
+              <div style={{ display: "flex", gap: 8, marginBottom: 24 }}>
+                {[{ t: "reading" as const, Icon: BookOpen, label: "Reading" }, { t: "listening" as const, Icon: Headphones, label: "Listening" }].map(({ t, Icon, label }) => (
+                  <button key={t} onClick={() => { setPracticeTypeFilter(t); setPracticeSelectedBook(null); }}
+                    style={{ display: "flex", alignItems: "center", gap: 7, padding: "9px 18px", borderRadius: 10, border: "none", cursor: "pointer", fontWeight: 600, fontSize: 13, transition: "all 0.15s",
+                      background: practiceTypeFilter === t ? C.accent : C.card, color: practiceTypeFilter === t ? "#fff" : C.muted }}>
+                    <Icon size={14} /> {label}
+                  </button>
+                ))}
+              </div>
+
+              {practiceSelectedBook === null ? (
+                <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: 10, marginBottom: 32 }}>
+                  {Array.from({ length: 19 }, (_, i) => i + 1).map(n => {
+                    const available = AVAILABLE_BOOKS.includes(n);
+                    const bookTests = allTests.filter(t => t.bookNumber === n && t.type === practiceTypeFilter);
+                    return (
+                      <div key={n} onClick={() => available && setPracticeSelectedBook(n)}
+                        style={{ display: "flex", alignItems: "center", gap: 14, padding: "14px 16px", background: available ? C.accentLight : "rgba(255,255,255,0.02)", border: `1px solid ${available ? "rgba(124,58,237,0.25)" : C.border}`, borderRadius: 12, cursor: available ? "pointer" : "default", transition: "all 0.15s" }}>
+                        <div style={{ width: 38, height: 38, borderRadius: 10, flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 900, fontSize: 15, background: available ? "linear-gradient(135deg,#7c3aed,#6d28d9)" : "rgba(255,255,255,0.05)", color: available ? "#fff" : "rgba(255,255,255,0.2)" }}>{n}</div>
+                        <div style={{ flex: 1 }}>
+                          <div style={{ fontSize: 13, fontWeight: 700, color: available ? C.text : "rgba(255,255,255,0.25)", marginBottom: 2 }}>Cambridge IELTS {n}</div>
+                          <div style={{ fontSize: 11, color: available ? C.muted : "rgba(255,255,255,0.15)" }}>{available ? `${bookTests.length} test${bookTests.length !== 1 ? "s" : ""}` : "Coming soon"}</div>
+                        </div>
+                        {available && <ChevronRight size={14} color={C.muted} />}
+                      </div>
+                    );
+                  })}
+                </div>
+              ) : (
+                <div>
+                  <button onClick={() => setPracticeSelectedBook(null)} style={{ display: "flex", alignItems: "center", gap: 6, padding: "7px 14px", background: "rgba(255,255,255,0.06)", border: `1px solid ${C.border}`, borderRadius: 9, color: C.muted, fontSize: 13, cursor: "pointer", fontWeight: 600, marginBottom: 20 }}>
+                    ← All Books
+                  </button>
+                  <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))", gap: 14, marginBottom: 32 }}>
+                    {allTests.filter(t => t.bookNumber === practiceSelectedBook && t.type === practiceTypeFilter).sort((a, b) => a.testNumber - b.testNumber).map(test => {
+                      const myBest = myPracticeAttempts.filter(a => a.testId === test.id && a.status === "completed");
+                      const best = myBest.length ? Math.max(...myBest.map(a => a.bandScore)) : null;
+                      return (
+                        <div key={test.id} onClick={() => router.push(`/student/test/${test.id}?practice=1`)}
+                          style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 14, padding: 18, cursor: "pointer", transition: "all 0.2s" }}
+                          onMouseEnter={e => { (e.currentTarget as HTMLElement).style.borderColor = "rgba(124,58,237,0.5)"; }}
+                          onMouseLeave={e => { (e.currentTarget as HTMLElement).style.borderColor = C.border; }}>
+                          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 10 }}>
+                            <div>
+                              <div style={{ fontSize: 11, fontWeight: 600, color: C.accent, marginBottom: 3, textTransform: "uppercase" }}>Test {test.testNumber}</div>
+                              <div style={{ fontSize: 14, fontWeight: 700, color: C.text }}>{test.title}</div>
+                            </div>
+                            {best !== null && <span style={{ fontSize: 12, fontWeight: 700, padding: "3px 9px", background: "rgba(16,185,129,0.15)", color: "#34d399", borderRadius: 20, flexShrink: 0 }}>Score {best}</span>}
+                          </div>
+                          <button style={{ width: "100%", padding: "9px", background: "linear-gradient(135deg,#7c3aed,#6d28d9)", color: "#fff", fontWeight: 700, fontSize: 13, border: "none", borderRadius: 9, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", gap: 6 }}>
+                            Start Practice <ChevronRight size={13} />
+                          </button>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
+
+              {/* My practice attempts */}
+              {myPracticeAttempts.length > 0 && (
+                <div>
+                  <h2 style={{ fontSize: 16, fontWeight: 700, color: C.text, marginBottom: 14 }}>My Practice History</h2>
+                  <div style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 12, overflow: "hidden" }}>
+                    <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 13 }}>
+                      <thead>
+                        <tr style={{ background: C.card2 }}>
+                          {["Test", "Type", "Score", "IELTS", "Date"].map(h => (
+                            <th key={h} style={{ padding: "10px 14px", textAlign: "left", fontSize: 11, fontWeight: 700, color: C.muted, textTransform: "uppercase", borderBottom: `1px solid ${C.border}` }}>{h}</th>
+                          ))}
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {[...myPracticeAttempts].reverse().map((a, i) => (
+                          <tr key={a.id} style={{ borderBottom: `1px solid ${C.border}`, background: i % 2 === 0 ? C.card : "rgba(6,12,31,0.5)" }}>
+                            <td style={{ padding: "11px 14px", fontWeight: 600, color: C.text }}>{a.testTitle}</td>
+                            <td style={{ padding: "11px 14px" }}><span style={{ fontSize: 11, padding: "2px 8px", borderRadius: 20, fontWeight: 600, background: a.testType === "listening" ? "rgba(139,92,246,0.2)" : "rgba(245,158,11,0.15)", color: a.testType === "listening" ? "#c4b5fd" : "#fcd34d" }}>{a.testType}</span></td>
+                            <td style={{ padding: "11px 14px", color: C.sub }}>{a.score}/{a.maxScore}</td>
+                            <td style={{ padding: "11px 14px", fontWeight: 700, color: C.accent }}>{a.bandScore}</td>
+                            <td style={{ padding: "11px 14px", fontSize: 12, color: C.muted }}>{new Date(a.submittedAt).toLocaleDateString()}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              )}
+            </div>
+          );
+        })()}
 
         {/* ══════════════════ TEACHERS TAB ══════════════════ */}
         {activeTab === "teachers" && isRootAdmin && (

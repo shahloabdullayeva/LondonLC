@@ -1,12 +1,13 @@
 "use client";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { BookOpen, Headphones, LogOut, User, Clock, Award, ChevronRight, BarChart3, Star, ChevronLeft, Lock } from "lucide-react";
+import { BookOpen, Headphones, LogOut, User, Clock, Award, ChevronRight, BarChart3, Star, ChevronLeft, Lock, History, ChevronDown, ChevronUp } from "lucide-react";
 import { getSession, clearSession, getAttempts } from "@/lib/store";
-import { allTests } from "@/data/ielts-tests";
-import type { StudentSession } from "@/lib/store";
+import { allTests, getTestById } from "@/data/ielts-tests";
+import type { StudentSession, AttemptData } from "@/lib/store";
 
 type TestType = "reading" | "listening";
+type SidebarView = "reading" | "listening" | "history";
 
 // Books that have real test content available
 const AVAILABLE_BOOKS = [10];
@@ -19,8 +20,10 @@ const S = {
 export default function StudentDashboard() {
   const router = useRouter();
   const [session, setSession] = useState<StudentSession | null>(null);
+  const [sidebarView, setSidebarView] = useState<SidebarView>("reading");
   const [typeFilter, setTypeFilter] = useState<TestType>("reading");
   const [selectedBook, setSelectedBook] = useState<number | null>(null);
+  const [expandedAttempt, setExpandedAttempt] = useState<string | null>(null);
 
   useEffect(() => {
     const s = getSession();
@@ -60,20 +63,29 @@ export default function StudentDashboard() {
       <div className="student-layout" style={{ flex: 1, display: "flex", overflow: "hidden" }}>
         {/* Sidebar */}
         <aside className="student-sidebar" style={{ width: 220, background: "#0e0828", borderRight: "1px solid rgba(255,255,255,0.07)", padding: "28px 16px", display: "flex", flexDirection: "column", gap: 6, flexShrink: 0 }}>
-          <p style={{ fontSize: 11, fontWeight: 700, color: "rgba(255,255,255,0.3)", letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: 8, paddingLeft: 8 }}>Test Type</p>
+          <p style={{ fontSize: 11, fontWeight: 700, color: "rgba(255,255,255,0.3)", letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: 8, paddingLeft: 8 }}>Tests</p>
           {[
-            { type: "reading" as TestType, icon: BookOpen, label: "Reading" },
-            { type: "listening" as TestType, icon: Headphones, label: "Listening" },
+            { view: "reading" as SidebarView, type: "reading" as TestType, icon: BookOpen, label: "Reading" },
+            { view: "listening" as SidebarView, type: "listening" as TestType, icon: Headphones, label: "Listening" },
           ].map(item => (
-            <button key={item.type} onClick={() => setTypeFilter(item.type)}
+            <button key={item.view} onClick={() => { setSidebarView(item.view); setTypeFilter(item.type); setSelectedBook(null); }}
               style={{ display: "flex", alignItems: "center", gap: 10, padding: "11px 14px", borderRadius: 11, border: "none", cursor: "pointer", fontWeight: 600, fontSize: 14, transition: "all 0.18s", textAlign: "left",
-                background: typeFilter === item.type ? "rgba(124,58,237,0.18)" : "transparent",
-                color: typeFilter === item.type ? "#c4b5fd" : "rgba(255,255,255,0.45)",
-                borderLeft: typeFilter === item.type ? "2px solid #7c3aed" : "2px solid transparent",
+                background: sidebarView === item.view ? "rgba(124,58,237,0.18)" : "transparent",
+                color: sidebarView === item.view ? "#c4b5fd" : "rgba(255,255,255,0.45)",
+                borderLeft: sidebarView === item.view ? "2px solid #7c3aed" : "2px solid transparent",
               }}>
               <item.icon size={16} /> {item.label}
             </button>
           ))}
+          <div style={{ height: 1, background: "rgba(255,255,255,0.07)", margin: "10px 0" }} />
+          <button onClick={() => { setSidebarView("history"); setSelectedBook(null); }}
+            style={{ display: "flex", alignItems: "center", gap: 10, padding: "11px 14px", borderRadius: 11, border: "none", cursor: "pointer", fontWeight: 600, fontSize: 14, transition: "all 0.18s", textAlign: "left",
+              background: sidebarView === "history" ? "rgba(124,58,237,0.18)" : "transparent",
+              color: sidebarView === "history" ? "#c4b5fd" : "rgba(255,255,255,0.45)",
+              borderLeft: sidebarView === "history" ? "2px solid #7c3aed" : "2px solid transparent",
+            }}>
+            <History size={16} /> My History
+          </button>
 
         </aside>
 
@@ -106,8 +118,95 @@ export default function StudentDashboard() {
             ))}
           </div>
 
-          {/* Cambridge Books view */}
-          {selectedBook === null ? (
+          {/* History view */}
+          {sidebarView === "history" ? (
+            <div>
+              <h2 style={{ fontSize: 18, fontWeight: 800, color: "#fff", marginBottom: 4 }}>My Test History</h2>
+              <p style={{ fontSize: 13, color: "rgba(255,255,255,0.4)", marginBottom: 24 }}>All your completed and cancelled tests with full answer details.</p>
+              {attempts.length === 0 ? (
+                <div style={{ textAlign: "center", padding: "60px 0", color: "rgba(255,255,255,0.3)" }}>
+                  <History size={36} style={{ margin: "0 auto 12px", opacity: 0.3 }} />
+                  <p style={{ fontWeight: 600 }}>No test history yet.</p>
+                </div>
+              ) : (
+                <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+                  {[...attempts].reverse().map(a => {
+                    const isExpanded = expandedAttempt === a.id;
+                    const testData = a.status === "completed" ? getTestById(a.testId) : null;
+                    return (
+                      <div key={a.id} style={{ background: "#140b35", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 14, overflow: "hidden" }}>
+                        <div onClick={() => setExpandedAttempt(isExpanded ? null : a.id)}
+                          style={{ display: "flex", alignItems: "center", gap: 14, padding: "14px 18px", cursor: "pointer", flexWrap: "wrap" }}>
+                          <div style={{ flex: 1, minWidth: 0 }}>
+                            <div style={{ fontWeight: 700, fontSize: 14, color: "#e8eeff", marginBottom: 2 }}>{a.testTitle}</div>
+                            <div style={{ display: "flex", gap: 10, flexWrap: "wrap", fontSize: 12, color: "rgba(255,255,255,0.4)" }}>
+                              <span>{a.testType}</span>
+                              <span>·</span>
+                              <span>{new Date(a.submittedAt).toLocaleDateString()}</span>
+                              <span>·</span>
+                              <span>{a.timeSpentSeconds ? `${Math.floor(a.timeSpentSeconds / 60)}m` : "–"}</span>
+                            </div>
+                          </div>
+                          <div style={{ display: "flex", gap: 10, alignItems: "center", flexShrink: 0 }}>
+                            {a.status === "completed" ? (
+                              <>
+                                <span style={{ fontSize: 12, color: "rgba(255,255,255,0.5)" }}>{a.score}/{a.maxScore}</span>
+                                <span style={{ fontSize: 18, fontWeight: 900, color: "#a78bfa" }}>{a.bandScore}</span>
+                              </>
+                            ) : (
+                              <span style={{ fontSize: 12, padding: "3px 9px", borderRadius: 10, background: "rgba(239,68,68,0.15)", color: "#f87171", fontWeight: 600 }}>Cancelled</span>
+                            )}
+                            {isExpanded ? <ChevronUp size={14} color="rgba(255,255,255,0.35)" /> : <ChevronDown size={14} color="rgba(255,255,255,0.35)" />}
+                          </div>
+                        </div>
+                        {isExpanded && testData && a.status === "completed" && (
+                          <div style={{ borderTop: "1px solid rgba(255,255,255,0.06)", padding: "16px 18px" }}>
+                            {testData.sections.map(sec => (
+                              <div key={sec.id} style={{ marginBottom: 20 }}>
+                                <div style={{ fontSize: 12, fontWeight: 700, color: "rgba(255,255,255,0.4)", marginBottom: 10, textTransform: "uppercase", letterSpacing: "0.06em" }}>{sec.title}</div>
+                                <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+                                  {sec.questions.map(q => {
+                                    const userAns = (a.answers[q.id] || "").trim();
+                                    const correctOpts = q.correctAnswer.toLowerCase().split("/").map(s => s.trim());
+                                    const isCorrect = correctOpts.some(c => userAns.toLowerCase() === c || userAns.toLowerCase().includes(c));
+                                    return (
+                                      <div key={q.id} style={{ display: "flex", alignItems: "flex-start", gap: 10, padding: "8px 12px", borderRadius: 9, background: !userAns ? "rgba(255,255,255,0.03)" : isCorrect ? "rgba(16,185,129,0.07)" : "rgba(239,68,68,0.07)", border: `1px solid ${!userAns ? "rgba(255,255,255,0.06)" : isCorrect ? "rgba(16,185,129,0.2)" : "rgba(239,68,68,0.2)"}` }}>
+                                        <span style={{ width: 22, height: 22, borderRadius: "50%", flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 700, fontSize: 10, background: !userAns ? "rgba(255,255,255,0.07)" : isCorrect ? "rgba(16,185,129,0.25)" : "rgba(239,68,68,0.25)", color: !userAns ? "rgba(255,255,255,0.3)" : isCorrect ? "#34d399" : "#f87171" }}>
+                                          {q.number}
+                                        </span>
+                                        <div style={{ flex: 1, minWidth: 0 }}>
+                                          <div style={{ fontSize: 12, color: "rgba(255,255,255,0.65)", marginBottom: 6, lineHeight: 1.4 }}>{q.question.split("\n")[0].slice(0, 140)}</div>
+                                          <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+                                            <span style={{ fontSize: 11, padding: "2px 8px", borderRadius: 5, fontWeight: 600, background: !userAns ? "rgba(255,255,255,0.05)" : isCorrect ? "rgba(16,185,129,0.15)" : "rgba(239,68,68,0.15)", color: !userAns ? "rgba(255,255,255,0.3)" : isCorrect ? "#34d399" : "#f87171" }}>
+                                              Your answer: {userAns || "(no answer)"}
+                                            </span>
+                                            {!isCorrect && userAns && (
+                                              <span style={{ fontSize: 11, padding: "2px 8px", borderRadius: 5, background: "rgba(124,58,237,0.15)", color: "#c4b5fd", fontWeight: 600 }}>
+                                                Correct: {q.correctAnswer}
+                                              </span>
+                                            )}
+                                          </div>
+                                        </div>
+                                      </div>
+                                    );
+                                  })}
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        )}
+                        {isExpanded && a.status === "cancelled" && (
+                          <div style={{ borderTop: "1px solid rgba(255,255,255,0.06)", padding: "12px 18px" }}>
+                            <p style={{ fontSize: 13, color: "#fca5a5" }}>{a.cancelReason || "Test was cancelled."}</p>
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
+            </div>
+          ) : selectedBook === null ? (
             <>
               <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 20 }}>
                 <div>
@@ -221,8 +320,8 @@ export default function StudentDashboard() {
             </>
           )}
 
-          {/* Recent attempts */}
-          {attempts.length > 0 && (
+          {/* Recent attempts (hidden in history view) */}
+          {attempts.length > 0 && sidebarView !== "history" && (
             <div style={{ marginTop: 40 }}>
               <h2 style={{ fontSize: 16, fontWeight: 700, color: "#fff", marginBottom: 16 }}>Recent Attempts</h2>
               <div className="attempts-table-wrapper" style={{ background: "#140b35", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 16, overflow: "hidden" }}>

@@ -1,15 +1,15 @@
 "use client";
 import { useEffect, useState, useRef, useCallback } from "react";
-import { useRouter, useParams } from "next/navigation";
+import { useRouter, useParams, useSearchParams } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Clock, AlertTriangle, CheckCircle, X, ChevronLeft, ChevronRight,
   Headphones, BookOpen, Volume2, Sun, Moon, Minus, Plus, List
 } from "lucide-react";
-import { getSession, saveAttempt } from "@/lib/store";
+import { getSession, saveAttempt, isIPBlocked } from "@/lib/store";
 import { getTestById, type IELTSTest, type IELTSSection } from "@/data/ielts-tests";
 import { formatTime, bandScore } from "@/lib/utils";
-import type { StudentSession } from "@/lib/store";
+import type { StudentSession, DeviceInfo } from "@/lib/store";
 
 type Phase = "warning" | "test" | "audio_playing" | "transfer" | "submitted" | "cancelled";
 
@@ -61,7 +61,18 @@ function getTheme(): "dark" | "light" {
 export default function TestPage() {
   const router = useRouter();
   const params = useParams();
+  const searchParams = useSearchParams();
+  const isPracticeMode = searchParams.get("practice") === "1";
   const testId = params.id as string;
+  const deviceInfoRef = useRef<DeviceInfo>({
+    userAgent: typeof navigator !== "undefined" ? navigator.userAgent : "",
+    platform: typeof navigator !== "undefined" ? navigator.platform : "",
+    language: typeof navigator !== "undefined" ? navigator.language : "",
+    screenWidth: typeof screen !== "undefined" ? screen.width : 0,
+    screenHeight: typeof screen !== "undefined" ? screen.height : 0,
+    ip: "fetching...",
+    timestamp: new Date().toISOString(),
+  });
 
   const [session, setSession] = useState<StudentSession | null>(null);
   const [test, setTest] = useState<IELTSTest | null>(null);
@@ -254,23 +265,32 @@ export default function TestPage() {
   const anticheatActiveRef = useRef(false);
   const audioAutoStartedRef = useRef(-1);
 
+  // ── Fetch IP on mount ───────────────────────────────────────────────
+  useEffect(() => {
+    fetch("https://api.ipify.org?format=json")
+      .then(r => r.json())
+      .then(data => { deviceInfoRef.current = { ...deviceInfoRef.current, ip: data.ip || "unknown" }; })
+      .catch(() => { deviceInfoRef.current = { ...deviceInfoRef.current, ip: "unknown" }; });
+  }, []);
+
   // ── Load session and test ───────────────────────────────────────────
   useEffect(() => {
     const s = getSession();
-    if (!s || s.isAdmin) { router.push("/auth/login"); return; }
+    if (!s) { router.push("/auth/login"); return; }
+    if (s.isAdmin && !isPracticeMode) { router.push("/admin/dashboard"); return; }
     setSession(s);
     const t = getTestById(testId);
-    if (!t) { router.push("/student/dashboard"); return; }
+    if (!t) { router.push(s.isAdmin ? "/admin/dashboard" : "/student/dashboard"); return; }
     setTest(t);
     setTimeLeft(t.durationMinutes * 60);
     setTransferTimeLeft(t.transferMinutes * 60);
-  }, [testId, router]);
+  }, [testId, router, isPracticeMode]);
 
   // ── Anti-cheat: tab visibility ──────────────────────────────────────
   useEffect(() => {
+    if (isPracticeMode) return; // no anti-cheat for teacher practice
     if (phase !== "test" && phase !== "audio_playing" && phase !== "transfer") return;
 
-    // Grace period: ignore visibility events for the first 3 seconds
     anticheatActiveRef.current = false;
     const activateTimer = setTimeout(() => {
       anticheatActiveRef.current = true;
@@ -289,10 +309,11 @@ export default function TestPage() {
       clearTimeout(activateTimer);
       document.removeEventListener("visibilitychange", handleVisibility);
     };
-  }, [phase]);
+  }, [phase, isPracticeMode]);
 
   // ── Anti-cheat: context menu + copy/paste ───────────────────────────
   useEffect(() => {
+    if (isPracticeMode) return; // no anti-cheat for teacher practice
     if (phase !== "test" && phase !== "audio_playing" && phase !== "transfer") return;
 
     const block = (e: Event) => e.preventDefault();
@@ -316,7 +337,7 @@ export default function TestPage() {
       document.removeEventListener("cut", block);
       document.removeEventListener("keydown", handleKey);
     };
-  }, [phase]);
+  }, [phase, isPracticeMode]);
 
   // ── Main test timer ─────────────────────────────────────────────────
   useEffect(() => {
@@ -398,7 +419,7 @@ export default function TestPage() {
       studentId: session.id,
       studentName: session.name,
       studentSurname: session.surname,
-      groupName: session.group_name,
+      groupName: isPracticeMode ? "__teacher_practice__" : session.group_name,
       testId: test.id,
       testTitle: test.title,
       testType: test.type,
@@ -412,11 +433,14 @@ export default function TestPage() {
       startedAt: new Date(startTime).toISOString(),
       submittedAt: new Date().toISOString(),
       timeSpentSeconds: Math.floor((Date.now() - startTime) / 1000),
+      deviceInfo: { ...deviceInfoRef.current, timestamp: new Date().toISOString() },
+      isTeacherAttempt: isPracticeMode,
+      teacherId: isPracticeMode ? session.id : undefined,
     };
     saveAttempt(attempt);
     setCancelMessage(reason);
     setPhase("cancelled");
-  }, [session, test, answers, startTime]);
+  }, [session, test, answers, startTime, isPracticeMode]);
 
   // ── Submit test ─────────────────────────────────────────────────────
   const submitTest = useCallback(() => {
@@ -449,7 +473,7 @@ export default function TestPage() {
       studentId: session.id,
       studentName: session.name,
       studentSurname: session.surname,
-      groupName: session.group_name,
+      groupName: isPracticeMode ? "__teacher_practice__" : session.group_name,
       testId: test.id,
       testTitle: test.title,
       testType: test.type,
@@ -462,10 +486,13 @@ export default function TestPage() {
       startedAt: new Date(startTime).toISOString(),
       submittedAt: new Date().toISOString(),
       timeSpentSeconds: Math.floor((Date.now() - startTime) / 1000),
+      deviceInfo: { ...deviceInfoRef.current, timestamp: new Date().toISOString() },
+      isTeacherAttempt: isPracticeMode,
+      teacherId: isPracticeMode ? session.id : undefined,
     };
     saveAttempt(attempt);
     setPhase("submitted");
-  }, [submitted, session, test, answers, startTime]);
+  }, [submitted, session, test, answers, startTime, isPracticeMode]);
 
   const setAnswer = (questionId: string, value: string) => {
     setAnswers((prev) => ({ ...prev, [questionId]: value }));
@@ -506,9 +533,9 @@ export default function TestPage() {
               style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 8, padding: "13px", background: "linear-gradient(135deg,#7c3aed,#6d28d9)", color: "#fff", fontWeight: 700, fontSize: 15, border: "none", borderRadius: 12, cursor: "pointer", boxShadow: "0 4px 15px rgba(124,58,237,0.4)" }}>
               Try Again
             </button>
-            <button onClick={() => router.push("/student/dashboard")}
+            <button onClick={() => router.push(isPracticeMode ? "/admin/dashboard" : "/student/dashboard")}
               style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 8, padding: "13px", background: "rgba(255,255,255,0.07)", color: "rgba(255,255,255,0.7)", fontWeight: 600, fontSize: 15, border: "1px solid rgba(255,255,255,0.15)", borderRadius: 12, cursor: "pointer" }}>
-              Go to Homepage
+              Go to Dashboard
             </button>
           </div>
         </motion.div>
@@ -521,7 +548,7 @@ export default function TestPage() {
   // ============================================================
   if (phase === "submitted" && result) {
     return <ResultScreen result={result} test={test} session={session} answers={answers}
-      onBack={() => router.push("/student/dashboard")} />;
+      onBack={() => router.push(isPracticeMode ? "/admin/dashboard" : "/student/dashboard")} />;
   }
 
   // ============================================================
