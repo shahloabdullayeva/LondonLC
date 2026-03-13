@@ -36,8 +36,8 @@ jobs:
         run: npm run build
         env:
           NEXT_PUBLIC_BASE_PATH: /LondonLC
-          NEXT_PUBLIC_SUPABASE_URL: placeholder
-          NEXT_PUBLIC_SUPABASE_ANON_KEY: placeholder
+          NEXT_PUBLIC_SUPABASE_URL: https://jiccyfcnbrhxciomwcmp.supabase.co
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImppY2N5ZmNuYnJoeGNpb213Y21wIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM0Mjg0ODQsImV4cCI6MjA4OTAwNDQ4NH0.FRNJm6sWMwYRu_p7ycL8gOq6A6uaL72CFQEDcqKskkk
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
