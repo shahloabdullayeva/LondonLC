@@ -72,12 +72,14 @@ export default function AdminDashboard() {
   const [createdStudent, setCreatedStudent] = useState<{ username: string; password: string; name: string; surname: string } | null>(null);
   const [studentSearch, setStudentSearch] = useState("");
 
-  const refreshData = (teacherId?: string) => {
-    const all = getAttempts();
+  const refreshData = async (teacherId?: string) => {
+    const [all, teacherList, studentList, ips] = await Promise.all([
+      getAttempts(), getTeachers(), getStudentAccounts(), getBlockedIPs(),
+    ]);
     setAttempts(all);
-    setTeachers(getTeachers());
-    setStudents(getStudentAccounts());
-    setBlockedIPs(getBlockedIPs());
+    setTeachers(teacherList);
+    setStudents(studentList);
+    setBlockedIPs(ips);
     if (teacherId) setMyPracticeAttempts(all.filter(a => a.isTeacherAttempt && a.teacherId === teacherId));
   };
 
@@ -88,48 +90,39 @@ export default function AdminDashboard() {
     setCurrentTeacherId(s.id);
     refreshData(s.id);
 
-    // Refresh when a student submits in another tab
-    const onStorage = (e: StorageEvent) => {
-      if (e.key === "llc_attempts" || e.key === "llc_students") refreshData();
-    };
     // Refresh when teacher switches back to this tab
     const onVisible = () => { if (document.visibilityState === "visible") refreshData(); };
-
-    window.addEventListener("storage", onStorage);
     document.addEventListener("visibilitychange", onVisible);
-    return () => {
-      window.removeEventListener("storage", onStorage);
-      document.removeEventListener("visibilitychange", onVisible);
-    };
+    return () => document.removeEventListener("visibilitychange", onVisible);
   }, [router]);
 
-  const handleAddTeacher = () => {
+  const handleAddTeacher = async () => {
     setTeacherError(""); setTeacherSuccess("");
     if (!newUsername.trim() || !newPassword.trim()) { setTeacherError("Both fields required."); return; }
-    const result = addTeacher(newUsername.trim(), newPassword.trim());
-    if (result.ok) { setTeachers(getTeachers()); setNewUsername(""); setNewPassword(""); setTeacherSuccess("Teacher account created."); }
+    const result = await addTeacher(newUsername.trim(), newPassword.trim());
+    if (result.ok) { setTeachers(await getTeachers()); setNewUsername(""); setNewPassword(""); setTeacherSuccess("Teacher account created."); }
     else setTeacherError(result.error ?? "Error");
   };
 
-  const handleDeleteTeacher = (id: string) => {
+  const handleDeleteTeacher = async (id: string) => {
     if (!confirm("Delete this teacher account?")) return;
-    deleteTeacher(id); setTeachers(getTeachers());
+    await deleteTeacher(id); setTeachers(await getTeachers());
   };
 
-  const handleAddStudent = () => {
+  const handleAddStudent = async () => {
     setStudentError(""); setCreatedStudent(null);
     if (!newStudentName.trim() || !newStudentSurname.trim() || !newStudentGroup.trim()) {
       setStudentError("All fields are required."); return;
     }
-    const result = registerStudent(newStudentName.trim(), newStudentSurname.trim(), newStudentGroup.trim());
+    const result = await registerStudent(newStudentName.trim(), newStudentSurname.trim(), newStudentGroup.trim());
     setCreatedStudent({ username: result.username, password: result.password, name: newStudentName.trim(), surname: newStudentSurname.trim() });
-    setStudents(getStudentAccounts());
+    setStudents(await getStudentAccounts());
     setNewStudentName(""); setNewStudentSurname(""); setNewStudentGroup("");
   };
 
-  const handleDeleteStudent = (id: string) => {
+  const handleDeleteStudent = async (id: string) => {
     if (!confirm("Delete this student account? Their test history will remain.")) return;
-    deleteStudent(id); setStudents(getStudentAccounts());
+    await deleteStudent(id); setStudents(await getStudentAccounts());
   };
 
   const handleLogout = () => { clearSession(); router.push("/"); };
@@ -173,11 +166,11 @@ export default function AdminDashboard() {
     XLSX.writeFile(wb, `london-lc-results-${new Date().toISOString().slice(0, 10)}.xlsx`);
   };
 
-  const handleBlockIP = (ip: string) => {
-    blockIP(ip); setBlockedIPs(getBlockedIPs());
+  const handleBlockIP = async (ip: string) => {
+    await blockIP(ip); setBlockedIPs(await getBlockedIPs());
   };
-  const handleUnblockIP = (ip: string) => {
-    unblockIP(ip); setBlockedIPs(getBlockedIPs());
+  const handleUnblockIP = async (ip: string) => {
+    await unblockIP(ip); setBlockedIPs(await getBlockedIPs());
   };
 
   const tabs = [

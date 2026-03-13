@@ -27,13 +27,13 @@ function LoginContent() {
     await new Promise(r => setTimeout(r, 400));
 
     if (isAdmin) {
-      const teacher = findTeacher(form.username.trim(), form.password);
+      const teacher = await findTeacher(form.username.trim(), form.password);
       if (teacher) {
         saveSession({ id: teacher.id, name: teacher.username, surname: "", group_name: "admin", isAdmin: true, username: teacher.username });
         router.push("/admin/dashboard");
       } else { setError("Incorrect username or password."); setLoading(false); }
     } else {
-      const student = loginStudent(form.username.trim(), form.password);
+      const student = await loginStudent(form.username.trim(), form.password);
       if (student) {
         saveSession({ id: student.id, name: student.name, surname: student.surname, group_name: student.group_name, isAdmin: false });
         router.push("/student/dashboard");

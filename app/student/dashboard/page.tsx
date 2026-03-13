@@ -2,9 +2,9 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { BookOpen, Headphones, LogOut, User, Clock, Award, ChevronRight, BarChart3, Star, ChevronLeft, Lock, History, ChevronDown, ChevronUp } from "lucide-react";
-import { getSession, clearSession, getAttempts } from "@/lib/store";
+import { getSession, clearSession, getAttempts, type AttemptData } from "@/lib/store";
 import { allTests, getTestById } from "@/data/ielts-tests";
-import type { StudentSession, AttemptData } from "@/lib/store";
+import type { StudentSession } from "@/lib/store";
 
 type TestType = "reading" | "listening";
 type SidebarView = "reading" | "listening" | "history";
@@ -24,14 +24,14 @@ export default function StudentDashboard() {
   const [typeFilter, setTypeFilter] = useState<TestType>("reading");
   const [selectedBook, setSelectedBook] = useState<number | null>(null);
   const [expandedAttempt, setExpandedAttempt] = useState<string | null>(null);
+  const [attempts, setAttempts] = useState<AttemptData[]>([]);
 
   useEffect(() => {
     const s = getSession();
     if (!s || s.isAdmin) { router.push("/auth/login"); return; }
     setSession(s);
+    getAttempts().then(all => setAttempts(all.filter(a => a.studentId === s.id)));
   }, [router]);
-
-  const attempts = getAttempts().filter(a => a.studentId === session?.id);
   const typeAttempts = attempts.filter(a => a.testType === typeFilter && a.status === "completed");
   const completed = attempts.filter(a => a.status === "completed");
   const avgBand = typeAttempts.length ? (typeAttempts.reduce((s, a) => s + a.bandScore, 0) / typeAttempts.length).toFixed(1) : "—";

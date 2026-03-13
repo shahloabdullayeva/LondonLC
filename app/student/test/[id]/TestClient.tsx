@@ -265,13 +265,20 @@ export default function TestPage() {
   const anticheatActiveRef = useRef(false);
   const audioAutoStartedRef = useRef(-1);
 
-  // ── Fetch IP on mount ───────────────────────────────────────────────
+  // ── Fetch IP on mount + check if blocked ────────────────────────────
   useEffect(() => {
     fetch("https://api.ipify.org?format=json")
       .then(r => r.json())
-      .then(data => { deviceInfoRef.current = { ...deviceInfoRef.current, ip: data.ip || "unknown" }; })
+      .then(async (data) => {
+        const ip = data.ip || "unknown";
+        deviceInfoRef.current = { ...deviceInfoRef.current, ip };
+        if (!isPracticeMode) {
+          const blocked = await isIPBlocked(ip);
+          if (blocked) router.push("/auth/login");
+        }
+      })
       .catch(() => { deviceInfoRef.current = { ...deviceInfoRef.current, ip: "unknown" }; });
-  }, []);
+  }, [isPracticeMode, router]);
 
   // ── Load session and test ───────────────────────────────────────────
   useEffect(() => {
@@ -437,7 +444,7 @@ export default function TestPage() {
       isTeacherAttempt: isPracticeMode,
       teacherId: isPracticeMode ? session.id : undefined,
     };
-    saveAttempt(attempt);
+    saveAttempt(attempt); // fire-and-forget async save
     setCancelMessage(reason);
     setPhase("cancelled");
   }, [session, test, answers, startTime, isPracticeMode]);
@@ -490,7 +497,7 @@ export default function TestPage() {
       isTeacherAttempt: isPracticeMode,
       teacherId: isPracticeMode ? session.id : undefined,
     };
-    saveAttempt(attempt);
+    saveAttempt(attempt); // fire-and-forget async save
     setPhase("submitted");
   }, [submitted, session, test, answers, startTime, isPracticeMode]);
 
