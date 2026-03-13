@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { allTests } from "@/data/ielts-tests";
 import TestClient from "./TestClient";
 
@@ -6,5 +7,5 @@ export function generateStaticParams() {
 }
 
 export default function TestPage() {
-  return <TestClient />;
+  return <Suspense><TestClient /></Suspense>;
 }
