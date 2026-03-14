@@ -6,7 +6,7 @@ import {
   Download, CheckCircle, X, Shield, Plus, Trash2, Eye, EyeOff,
   Monitor, Ban, Headphones, ChevronRight, ChevronDown, ChevronUp
 } from "lucide-react";
-import { getSession, clearSession, getAttempts, getTeachers, addTeacher, deleteTeacher, registerStudent, getStudentAccounts, deleteStudent, getBlockedIPs, blockIP, unblockIP, type AttemptData, type TeacherAccount, type StudentAccount } from "@/lib/store";
+import { getSession, clearSession, getAttempts, getTeachers, addTeacher, deleteTeacher, updateTeacherPassword, registerStudent, getStudentAccounts, deleteStudent, getBlockedIPs, blockIP, unblockIP, type AttemptData, type TeacherAccount, type StudentAccount } from "@/lib/store";
 import { getTestById } from "@/data/ielts-tests";
 import { allTests } from "@/data/ielts-tests";
 
@@ -71,6 +71,9 @@ export default function AdminDashboard() {
   const [studentError, setStudentError] = useState("");
   const [createdStudent, setCreatedStudent] = useState<{ username: string; password: string; name: string; surname: string } | null>(null);
   const [studentSearch, setStudentSearch] = useState("");
+  const [showPasswordFor, setShowPasswordFor] = useState<string | null>(null);
+  const [editingPasswordFor, setEditingPasswordFor] = useState<string | null>(null);
+  const [editPasswordValue, setEditPasswordValue] = useState("");
 
   const refreshData = async (teacherId?: string) => {
     const [all, teacherList, studentList, ips] = await Promise.all([
@@ -164,6 +167,15 @@ export default function AdminDashboard() {
     const wb = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, "Results");
     XLSX.writeFile(wb, `london-lc-results-${new Date().toISOString().slice(0, 10)}.xlsx`);
+  };
+
+  const handleChangePassword = async (id: string) => {
+    if (!editPasswordValue.trim()) return;
+    await updateTeacherPassword(id, editPasswordValue.trim());
+    setTeachers(await getTeachers());
+    setEditingPasswordFor(null);
+    setEditPasswordValue("");
+    setTeacherSuccess("Password updated.");
   };
 
   const handleBlockIP = async (ip: string) => {
@@ -833,20 +845,51 @@ export default function AdminDashboard() {
                 Accounts ({teachers.length})
               </div>
               {teachers.map(t => (
-                <div key={t.id} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "14px 16px", borderBottom: `1px solid ${C.border}` }}>
-                  <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                    <div style={{ width: 34, height: 34, borderRadius: "50%", background: C.accentLight, display: "flex", alignItems: "center", justifyContent: "center" }}>
-                      <Shield size={14} color={C.accent} />
+                <div key={t.id} style={{ borderBottom: `1px solid ${C.border}` }}>
+                  <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "14px 16px" }}>
+                    <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                      <div style={{ width: 34, height: 34, borderRadius: "50%", background: C.accentLight, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                        <Shield size={14} color={C.accent} />
+                      </div>
+                      <div>
+                        <div style={{ fontWeight: 600, fontSize: 14, color: C.text }}>{t.username}</div>
+                        {t.id === "admin-root" && <div style={{ fontSize: 11, color: C.accent }}>Super Admin</div>}
+                        {showPasswordFor === t.id && (
+                          <div style={{ fontSize: 12, color: C.sub, marginTop: 2, fontFamily: "monospace" }}>{t.password}</div>
+                        )}
+                      </div>
                     </div>
-                    <div>
-                      <div style={{ fontWeight: 600, fontSize: 14, color: C.text }}>{t.username}</div>
-                      {t.id === "admin-root" && <div style={{ fontSize: 11, color: C.accent }}>Super Admin</div>}
+                    <div style={{ display: "flex", gap: 6, alignItems: "center" }}>
+                      <button onClick={() => setShowPasswordFor(showPasswordFor === t.id ? null : t.id)}
+                        style={{ display: "flex", alignItems: "center", gap: 5, padding: "6px 10px", background: "transparent", border: `1px solid ${C.border}`, borderRadius: 8, color: C.muted, fontSize: 12, fontWeight: 600, cursor: "pointer" }}>
+                        {showPasswordFor === t.id ? <EyeOff size={12} /> : <Eye size={12} />}
+                        {showPasswordFor === t.id ? "Hide" : "Show"}
+                      </button>
+                      <button onClick={() => { setEditingPasswordFor(editingPasswordFor === t.id ? null : t.id); setEditPasswordValue(""); }}
+                        style={{ display: "flex", alignItems: "center", gap: 5, padding: "6px 10px", background: "transparent", border: `1px solid ${C.border}`, borderRadius: 8, color: C.sub, fontSize: 12, fontWeight: 600, cursor: "pointer" }}>
+                        Change PW
+                      </button>
+                      <button onClick={() => handleDeleteTeacher(t.id)} disabled={t.id === "admin-root"}
+                        style={{ display: "flex", alignItems: "center", gap: 5, padding: "6px 12px", background: "transparent", border: `1px solid ${C.border}`, borderRadius: 8, color: t.id === "admin-root" ? C.muted : C.danger, fontSize: 12, fontWeight: 600, cursor: t.id === "admin-root" ? "not-allowed" : "pointer", opacity: t.id === "admin-root" ? 0.35 : 1 }}>
+                        <Trash2 size={12} /> Delete
+                      </button>
                     </div>
                   </div>
-                  <button onClick={() => handleDeleteTeacher(t.id)} disabled={t.id === "admin-root"}
-                    style={{ display: "flex", alignItems: "center", gap: 5, padding: "6px 12px", background: "transparent", border: `1px solid ${C.border}`, borderRadius: 8, color: t.id === "admin-root" ? C.muted : C.danger, fontSize: 12, fontWeight: 600, cursor: t.id === "admin-root" ? "not-allowed" : "pointer", opacity: t.id === "admin-root" ? 0.35 : 1 }}>
-                    <Trash2 size={12} /> Delete
-                  </button>
+                  {editingPasswordFor === t.id && (
+                    <div style={{ display: "flex", gap: 8, padding: "0 16px 14px", alignItems: "center" }}>
+                      <input type="text" placeholder="New password" value={editPasswordValue}
+                        onChange={e => setEditPasswordValue(e.target.value)}
+                        style={{ flex: 1, padding: "7px 12px", background: C.card2, border: `1px solid ${C.border}`, borderRadius: 8, color: C.text, fontSize: 13, outline: "none", fontFamily: "inherit" }} />
+                      <button onClick={() => handleChangePassword(t.id)}
+                        style={{ padding: "7px 14px", background: "linear-gradient(135deg,#6d28d9,#7c3aed)", border: "none", borderRadius: 8, color: "#fff", fontSize: 13, fontWeight: 600, cursor: "pointer" }}>
+                        Save
+                      </button>
+                      <button onClick={() => setEditingPasswordFor(null)}
+                        style={{ padding: "7px 12px", background: "transparent", border: `1px solid ${C.border}`, borderRadius: 8, color: C.muted, fontSize: 13, cursor: "pointer" }}>
+                        Cancel
+                      </button>
+                    </div>
+                  )}
                 </div>
               ))}
             </div>

@@ -140,6 +140,10 @@ export async function deleteTeacher(id: string): Promise<void> {
   await supabase.from("teachers").delete().eq("id", id);
 }
 
+export async function updateTeacherPassword(id: string, newPassword: string): Promise<void> {
+  await supabase.from("teachers").update({ password: newPassword }).eq("id", id);
+}
+
 // ── Session (localStorage — intentionally per-device) ──────────────────
 const SESSION_KEY = "llc_session";
 const STUDENT_CACHE_KEY = "llc_student_cache";
