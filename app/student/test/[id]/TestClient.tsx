@@ -301,7 +301,7 @@ export default function TestPage() {
 
     const ulColor = effectiveTheme === "dark" ? "#c4b5fd" : "#7c3aed";
     const styleFor = (color: string) => color === "underline"
-      ? `background:transparent;text-decoration:underline;text-decoration-color:${ulColor};text-decoration-thickness:2px;text-underline-offset:3px;cursor:pointer`
+      ? `background:transparent;color:inherit;text-decoration:underline;text-decoration-color:${ulColor};text-decoration-thickness:2px;text-underline-offset:3px;cursor:pointer`
       : `background:${color};border-radius:3px;cursor:pointer;padding:0 1px`;
 
     let html = "";
@@ -968,7 +968,7 @@ function buildQuestionHtml(text: string, questionHighlights: Highlight[], questi
   }
 
   const styleFor = (color: string) => color === "underline"
-    ? `background:transparent;text-decoration:underline;text-decoration-color:${ulColor};text-decoration-thickness:2px;text-underline-offset:3px;cursor:pointer`
+    ? `background:transparent;color:inherit;text-decoration:underline;text-decoration-color:${ulColor};text-decoration-thickness:2px;text-underline-offset:3px;cursor:pointer`
     : `background:${color};border-radius:3px;cursor:pointer;padding:0 1px`;
 
   let result = "";
