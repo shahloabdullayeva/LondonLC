@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import {
   BookOpen, LogOut, Users, Award, BarChart3, Search,
@@ -102,7 +102,7 @@ export default function AdminDashboard() {
     const s = getSession();
     if (!s || !s.isAdmin) { router.push("/auth/login?admin=true"); return; }
     setIsRootAdmin(s.id === ROOT_ADMIN_ID);
-    setIsAdminUser(s.username === ADMIN_USERNAME);
+    setIsAdminUser(s.username === ADMIN_USERNAME || s.name === ADMIN_USERNAME);
     setCurrentTeacherId(s.id);
     setCurrentUsername(s.username || s.name || "");
     refreshData(s.id);
@@ -401,8 +401,8 @@ export default function AdminDashboard() {
                       const isExpanded = expandedDeviceRow === a.id;
                       const testData = a.status === "completed" ? getTestById(a.testId) : null;
                       return (
-                        <>
-                        <tr key={a.id} style={{ borderBottom: `1px solid ${C.border}`, background: i % 2 === 0 ? C.card : "rgba(6,12,31,0.6)" }}>
+                        <React.Fragment key={a.id}>
+                        <tr style={{ borderBottom: `1px solid ${C.border}`, background: i % 2 === 0 ? C.card : "rgba(6,12,31,0.6)" }}>
                           <td style={{ padding: "12px 10px", textAlign: "center" }}>
                             <button onClick={() => setExpandedDeviceRow(isExpanded ? null : a.id)}
                               style={{ background: "transparent", border: "none", cursor: "pointer", color: C.muted, padding: 2, display: "flex" }}>
@@ -503,7 +503,7 @@ export default function AdminDashboard() {
                             </td>
                           </tr>
                         )}
-                        </>
+                        </React.Fragment>
                       );
                     })}
                   </tbody>
@@ -624,8 +624,8 @@ export default function AdminDashboard() {
                                     const isAExpanded = expandedAttempt === a.id;
                                     const testData = a.status === "completed" ? getTestById(a.testId) : null;
                                     return (
-                                      <>
-                                      <tr key={a.id} style={{ borderBottom: `1px solid ${C.border}`, background: i % 2 === 0 ? C.card : "rgba(6,12,31,0.5)" }}>
+                                      <React.Fragment key={a.id}>
+                                      <tr style={{ borderBottom: `1px solid ${C.border}`, background: i % 2 === 0 ? C.card : "rgba(6,12,31,0.5)" }}>
                                         <td style={{ padding: "11px 14px", fontWeight: 600, color: C.text, maxWidth: 180, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
                                           <button onClick={() => setExpandedAttempt(isAExpanded ? null : a.id)}
                                             style={{ background: "transparent", border: "none", cursor: "pointer", color: C.muted, marginRight: 6, padding: 0, verticalAlign: "middle" }}>
@@ -694,7 +694,7 @@ export default function AdminDashboard() {
                                           </td>
                                         </tr>
                                       )}
-                                      </>
+                                      </React.Fragment>
                                     );
                                   })}
                                 </tbody>
@@ -779,8 +779,8 @@ export default function AdminDashboard() {
                     </thead>
                     <tbody>
                       {students.filter(s => !studentSearch || `${s.name} ${s.surname} ${s.username} ${s.group_name}`.toLowerCase().includes(studentSearch.toLowerCase())).map((s, i) => (
-                        <>
-                        <tr key={s.id} style={{ background: i % 2 === 0 ? "transparent" : "rgba(255,255,255,0.02)", borderBottom: editingStudentId === s.id ? "none" : `1px solid ${C.border}` }}>
+                        <React.Fragment key={s.id}>
+                        <tr style={{ background: i % 2 === 0 ? "transparent" : "rgba(255,255,255,0.02)", borderBottom: editingStudentId === s.id ? "none" : `1px solid ${C.border}` }}>
                           <td style={{ padding: "12px 14px" }}>
                             <div style={{ fontWeight: 600, fontSize: 14, color: C.text }}>{s.name} {s.surname}</div>
                           </td>
@@ -859,7 +859,7 @@ export default function AdminDashboard() {
                             </td>
                           </tr>
                         )}
-                        </>
+                        </React.Fragment>
                       ))}
                     </tbody>
                   </table>

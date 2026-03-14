@@ -202,10 +202,24 @@ export default function TestPage() {
         const passageText = test?.sections[currentSection]?.passageText || "";
         const endDom = getRangeCharCount(container, range.endContainer, range.endOffset);
         if (endDom < 0) return;
-        // Derive startDom from endDom and visible selection length to avoid
-        // the "select everything above" bug caused by element-boundary start positions
-        const selLen = text.replace(/\n/g, "").length;
-        const startDom = Math.max(0, endDom - selLen);
+        // Only use the fallback calculation when startContainer is the container
+        // element itself (drag started in padding) — that's the root cause of the
+        // "selects everything above" bug. For normal text-node starts, use exact position.
+        let startDom: number;
+        const startIsContainerBoundary =
+          range.startContainer === container ||
+          (range.startContainer.nodeType !== Node.TEXT_NODE &&
+           range.startContainer === container.firstChild);
+        if (startIsContainerBoundary) {
+          const selLen = sel.toString().replace(/\n/g, "").length;
+          startDom = Math.max(0, endDom - selLen);
+        } else {
+          startDom = getRangeCharCount(container, range.startContainer, range.startOffset);
+          if (startDom < 0) {
+            const selLen = sel.toString().replace(/\n/g, "").length;
+            startDom = Math.max(0, endDom - selLen);
+          }
+        }
         rawStart = domOffsetToRawOffset(passageText, startDom, true);
         rawEnd = domOffsetToRawOffset(passageText, endDom, false);
         rawEnd = Math.min(Math.max(rawEnd, rawStart + 1), passageText.length);
