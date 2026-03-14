@@ -41,7 +41,17 @@ function domOffsetToRawOffset(rawText: string, domOffset: number): number {
   let domIdx = 0;
   let i = 0;
   while (i <= rawText.length) {
-    if (domIdx === domOffset) return i;
+    if (domIdx === domOffset) {
+      // Skip any non-visible chars at this position (newlines, ** markers)
+      // so we land on the next actual visible character
+      while (i < rawText.length) {
+        const c = rawText[i];
+        if (c === '\n') { i++; continue; }
+        if (c === '*' && i + 1 < rawText.length && rawText[i + 1] === '*') { i += 2; continue; }
+        break;
+      }
+      return i;
+    }
     if (i === rawText.length) break;
     const ch = rawText[i];
     if (ch === '*' && i + 1 < rawText.length && rawText[i + 1] === '*') { i += 2; continue; }
@@ -157,8 +167,8 @@ export default function TestPage() {
     if (text.length < 2) return;
     if (sel.rangeCount === 0) return;
 
-    let rawStart = 0;
-    let rawEnd = text.length;
+    let rawStart = -1;
+    let rawEnd = -1;
     let questionId: string | undefined;
 
     try {
@@ -185,9 +195,11 @@ export default function TestPage() {
         }
       }
     } catch {
-      rawStart = 0;
-      rawEnd = text.length;
+      rawStart = -1;
+      rawEnd = -1;
     }
+
+    if (rawStart < 0 || rawEnd <= rawStart) return;
 
     setPendingText(text);
     setPendingRawStart(rawStart);
@@ -254,7 +266,7 @@ export default function TestPage() {
     }
     html += fmt(rawText.slice(pos));
 
-    return `<p style='margin-bottom:14px'>${html}</p>`;
+    return `<div>${html}</div>`;
   };
 
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
