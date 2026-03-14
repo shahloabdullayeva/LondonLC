@@ -53,6 +53,7 @@ export default function AdminDashboard() {
   const [isRootAdmin, setIsRootAdmin] = useState(false);
   const [isAdminUser, setIsAdminUser] = useState(false);
   const [currentTeacherId, setCurrentTeacherId] = useState<string>("");
+  const [currentUsername, setCurrentUsername] = useState<string>("");
   const [blockedIPs, setBlockedIPs] = useState<string[]>([]);
   const [practiceTypeFilter, setPracticeTypeFilter] = useState<"reading" | "listening">("reading");
   const [practiceSelectedBook, setPracticeSelectedBook] = useState<number | null>(null);
@@ -103,6 +104,7 @@ export default function AdminDashboard() {
     setIsRootAdmin(s.id === ROOT_ADMIN_ID);
     setIsAdminUser(s.username === ADMIN_USERNAME);
     setCurrentTeacherId(s.id);
+    setCurrentUsername(s.username || s.name || "");
     refreshData(s.id);
 
     // Refresh when teacher switches back to this tab
@@ -232,14 +234,38 @@ export default function AdminDashboard() {
 
       {/* ── Sidebar ──────────────────────────────── */}
       <aside style={{ width: 220, flexShrink: 0, background: C.card2, borderRight: `1px solid ${C.border}`, display: "flex", flexDirection: "column", overflow: "hidden" }}>
+        {/* Role colour strip at top of sidebar */}
+        <div style={{ height: 4, background: isRootAdmin ? "linear-gradient(90deg,#d97706,#fbbf24)" : isAdminUser ? "linear-gradient(90deg,#2563eb,#60a5fa)" : "linear-gradient(90deg,#7c3aed,#a78bfa)" }} />
         {/* Logo */}
         <div style={{ padding: "22px 20px 18px" }}>
           <div style={{ fontWeight: 900, fontSize: 20, color: "#fff", letterSpacing: "-0.3px" }}>
             London <span style={{ color: "#a78bfa" }}>LC</span>
           </div>
-          <span style={{ display: "inline-block", marginTop: 6, padding: "2px 10px", borderRadius: 20, fontSize: 11, fontWeight: 700, background: C.accentLight, color: C.accent }}>
-            {isRootAdmin ? "Super Admin" : isAdminUser ? "Admin" : "Teacher"}
+          {/* Role badge — colour-coded by role */}
+          <span style={{
+            display: "inline-flex", alignItems: "center", gap: 5, marginTop: 8,
+            padding: "4px 12px", borderRadius: 20, fontSize: 11, fontWeight: 800,
+            background: isRootAdmin
+              ? "linear-gradient(135deg,#d97706,#b45309)"
+              : isAdminUser
+                ? "linear-gradient(135deg,#2563eb,#1d4ed8)"
+                : "linear-gradient(135deg,#7c3aed,#6d28d9)",
+            color: "#fff",
+            boxShadow: isRootAdmin ? "0 2px 8px rgba(217,119,6,0.4)" : isAdminUser ? "0 2px 8px rgba(37,99,235,0.4)" : "0 2px 8px rgba(124,58,237,0.3)",
+          }}>
+            {isRootAdmin ? "👑 Super Admin" : isAdminUser ? "🛡 Admin" : "🎓 Teacher"}
           </span>
+          {/* Logged-in username */}
+          <div style={{ marginTop: 8, display: "flex", alignItems: "center", gap: 6 }}>
+            <div style={{ width: 28, height: 28, borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 800, fontSize: 12, color: "#fff",
+              background: isRootAdmin ? "rgba(217,119,6,0.3)" : isAdminUser ? "rgba(37,99,235,0.3)" : C.accentLight,
+              border: `1.5px solid ${isRootAdmin ? "rgba(217,119,6,0.5)" : isAdminUser ? "rgba(37,99,235,0.5)" : C.accent}` }}>
+              {currentUsername.charAt(0).toUpperCase()}
+            </div>
+            <span style={{ fontSize: 13, fontWeight: 700, color: C.text, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", maxWidth: 140 }}>
+              {currentUsername}
+            </span>
+          </div>
         </div>
 
         <div style={{ width: "calc(100% - 32px)", height: 1, background: C.border, margin: "0 16px 12px" }} />
@@ -296,8 +322,10 @@ export default function AdminDashboard() {
           {/* Title row */}
           <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 16, marginBottom: 24, flexWrap: "wrap" }}>
             <div>
-              <h1 style={{ fontSize: 22, fontWeight: 800, color: C.text, marginBottom: 2 }}>Teacher Dashboard</h1>
-              <p style={{ fontSize: 13, color: C.muted }}>View and analyse all student results</p>
+              <h1 style={{ fontSize: 22, fontWeight: 800, color: C.text, marginBottom: 2 }}>
+              {isRootAdmin ? "Super Admin Dashboard" : isAdminUser ? "Admin Dashboard" : "Teacher Dashboard"}
+            </h1>
+              <p style={{ fontSize: 13, color: C.muted }}>Signed in as <strong style={{ color: isRootAdmin ? "#fbbf24" : isAdminUser ? "#60a5fa" : C.accent }}>{currentUsername}</strong> · View and analyse all student results</p>
             </div>
             <button onClick={exportExcel}
               style={{ display: "flex", alignItems: "center", gap: 7, padding: "9px 18px", background: C.accentLight, border: `1px solid ${C.accent}`, borderRadius: 10, color: C.accent, fontSize: 13, fontWeight: 600, cursor: "pointer" }}>
@@ -773,19 +801,23 @@ export default function AdminDashboard() {
                           <td style={{ padding: "12px 14px" }}>
                             <div style={{ display: "flex", gap: 6 }}>
                               <button onClick={() => editingStudentId === s.id ? setEditingStudentId(null) : startEditStudent(s)}
-                                style={{ display: "flex", alignItems: "center", gap: 4, padding: "5px 10px", background: editingStudentId === s.id ? C.accentLight : "transparent", border: `1px solid ${editingStudentId === s.id ? C.accent : C.border}`, borderRadius: 7, color: editingStudentId === s.id ? C.accent : C.sub, fontSize: 12, fontWeight: 600, cursor: "pointer" }}>
-                                <Pencil size={11} /> Edit
+                                style={{ display: "flex", alignItems: "center", gap: 5, padding: "7px 14px",
+                                  background: editingStudentId === s.id ? C.accentLight : "linear-gradient(135deg,rgba(124,58,237,0.2),rgba(109,40,217,0.2))",
+                                  border: `1.5px solid ${editingStudentId === s.id ? C.accent : "rgba(124,58,237,0.4)"}`,
+                                  borderRadius: 8, color: C.accent, fontSize: 12, fontWeight: 700, cursor: "pointer" }}>
+                                <Pencil size={12} /> {editingStudentId === s.id ? "Cancel" : "Edit"}
                               </button>
                               <button onClick={() => handleDeleteStudent(s.id)}
-                                style={{ display: "flex", alignItems: "center", gap: 4, padding: "5px 10px", background: "transparent", border: `1px solid ${C.border}`, borderRadius: 7, color: C.danger, fontSize: 12, fontWeight: 600, cursor: "pointer" }}>
-                                <Trash2 size={11} /> Delete
+                                style={{ display: "flex", alignItems: "center", gap: 4, padding: "7px 12px", background: "rgba(239,68,68,0.08)", border: `1px solid rgba(239,68,68,0.3)`, borderRadius: 8, color: C.danger, fontSize: 12, fontWeight: 600, cursor: "pointer" }}>
+                                <Trash2 size={12} /> Delete
                               </button>
                             </div>
                           </td>
                         </tr>
                         {editingStudentId === s.id && (
-                          <tr key={`${s.id}-edit`} style={{ borderBottom: `1px solid ${C.border}`, background: "rgba(124,58,237,0.04)" }}>
-                            <td colSpan={6} style={{ padding: "16px 18px" }}>
+                          <tr key={`${s.id}-edit`} style={{ borderBottom: `2px solid ${C.accent}`, background: "rgba(124,58,237,0.08)" }}>
+                            <td colSpan={6} style={{ padding: "20px 18px" }}>
+                              <div style={{ fontSize: 13, fontWeight: 700, color: C.accent, marginBottom: 12 }}>✏️ Editing: {s.name} {s.surname}</div>
                               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 10, marginBottom: 10 }}>
                                 <div>
                                   <div style={{ fontSize: 10, color: C.muted, marginBottom: 4, textTransform: "uppercase", fontWeight: 700 }}>First Name</div>
