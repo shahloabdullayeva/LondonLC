@@ -1245,4 +1245,610 @@ Question 40: Choose the correct letter, A, B, C or D.`,
   ],
 };
 
-export const cambridge11Tests: IELTSTest[] = [cambridge11_reading_t1, cambridge11_reading_t2];
+// ============================================================
+// CAMBRIDGE IELTS 11 – TEST 3  (Academic Reading)
+// ============================================================
+export const cambridge11_reading_t3: IELTSTest = {
+  id: "cam11-reading-academic-t3",
+  title: "Cambridge IELTS 11 – Test 3",
+  bookNumber: 11,
+  testNumber: 3,
+  type: "reading",
+  level: "academic",
+  durationMinutes: 60,
+  transferMinutes: 0,
+  sections: [
+    // ── PASSAGE 1 ─────────────────────────────────────────────
+    {
+      id: "cam11-ra-t3-s1",
+      sectionNumber: 1,
+      title: "Reading Passage 1",
+      passageTitle: "The story of silk",
+      passageText: `The history of the world's most luxurious fabric, from ancient China to the present day
+
+Silk is a fine, smooth material produced from the cocoons – soft protective shells – that are made by mulberry silkworms (insect larvae). Legend has it that it was Lei Tzu, wife of the Yellow Emperor, ruler of China in about 3000 BC, who discovered silkworms. One account of the story goes that as she was taking a walk in her husband's gardens, she discovered that silkworms were responsible for the destruction of several mulberry trees. She collected a number of cocoons and sat down to have a rest. It just so happened that while she was sipping some tea, one of the cocoons that she had collected landed in the hot tea and started to unravel into a fine thread. Lei Tzu found that she could wind this thread around her fingers. Subsequently, she persuaded her husband to allow her to rear silkworms on a grove of mulberry trees. She also devised a special reel to draw the fibres from the cocoon into a single thread so that they would be strong enough to be woven into fabric. While it is unknown just how much of this is true, it is certainly known that silk cultivation has existed in China for several millennia.
+
+Originally, silkworm farming was solely restricted to women, and it was they who were responsible for the growing, harvesting and weaving. Silk quickly grew into a symbol of status, and originally, only royalty were entitled to have clothes made of silk. The rules were gradually relaxed over the years until finally during the Qing Dynasty (1644–1911 AD), even peasants, the lowest caste, were also entitled to wear silk. Sometime during the Han Dynasty (206 BC–220 AD), silk was so prized that it was also used as a unit of currency. Government officials were paid their salary in silk, and farmers paid their taxes in grain and silk. Silk was also used as diplomatic gifts by the emperor. Fishing lines, bowstrings, musical instruments and paper were all made using silk. The earliest indication of silk paper being used was discovered in the tomb of a noble who is estimated to have died around 168 AD.
+
+Demand for this exotic fabric eventually created the lucrative trade route now known as the Silk Road, taking silk westward and bringing gold, silver and wool to the East. It was named the Silk Road after its most precious commodity, which was considered to be worth more than gold. The Silk Road stretched over 6,000 kilometres from Eastern China to the Mediterranean Sea, following the Great Wall of China, climbing the Pamir mountain range, crossing modern-day Afghanistan and going on to the Middle East, with a major trading market in Damascus. From there, the merchandise was shipped across the Mediterranean Sea. Few merchants travelled the entire route; goods were handled mostly by a series of middlemen.
+
+With the mulberry silkworm being native to China, the country was the world's sole producer of silk for many hundreds of years. The secret of silk-making eventually reached the rest of the world via the Byzantine Empire, which ruled over the Mediterranean region of southern Europe, North Africa and the Middle East during the period 330–1453 AD. According to another legend, monks working for the Byzantine emperor Justinian smuggled silkworm eggs to Constantinople (Istanbul in modern-day Turkey) in 550 AD, concealed inside hollow bamboo walking canes. The Byzantines were as secretive as the Chinese, however, and for many centuries the weaving and trading of silk fabric was a strict imperial monopoly. Then in the seventh century, the Arabs conquered Persia, capturing their magnificent silks in the process.
+
+Silk production thus spread through Africa, Sicily and Spain as the Arabs swept through these lands. Andalusia in southern Spain was Europe's main silk-producing centre in the tenth century. By the thirteenth century, however, Italy had become Europe's leader in silk production and export. Venetian merchants traded extensively in silk and encouraged silk growers to settle in Italy. Even now, silk processed in the province of Como in northern Italy enjoys an esteemed reputation.
+
+The nineteenth century and industrialisation saw the downfall of the European silk industry. Cheaper Japanese silk, trade in which was greatly facilitated by the opening of the Suez Canal, was one of the many factors driving the trend. Then in the twentieth century, new manmade fibres, such as nylon, started to be used in what had traditionally been silk products, such as stockings and parachutes. The two world wars, which interrupted the supply of raw material from Japan, also stifled the European silk industry. After the Second World War, Japan's silk production was restored, with improved production and quality of raw silk. Japan was to remain the world's biggest producer of raw silk, and practically the only major exporter of raw silk, until the 1970s. However, in more recent decades, China has gradually recaptured its position as the world's biggest producer and exporter of raw silk and silk yarn. Today, around 125,000 metric tons of silk are produced in the world, and almost two thirds of that production takes place in China.`,
+      instructions: `Questions 1–9: Complete the notes below. Choose ONE WORD ONLY from the passage for each answer.
+
+Questions 10–13: Do the following statements agree with the information given in Reading Passage 1? Write TRUE, FALSE, or NOT GIVEN.`,
+      questions: [
+        // ── Q1–9: Note completion ─────────────────────────────────
+        {
+          id: "cam11-ra-t3-s1-q1",
+          number: 1,
+          groupLabel: "Questions 1–9: Complete the notes below.\nChoose ONE WORD ONLY from the passage for each answer.",
+          type: "sentence_completion",
+          question: "1. Silkworm cocoon fell into emperor's wife's _______",
+          correctAnswer: "tea",
+          points: 1,
+        },
+        {
+          id: "cam11-ra-t3-s1-q2",
+          number: 2,
+          type: "sentence_completion",
+          question: "2. Emperor's wife invented a _______ to pull out silk fibres",
+          correctAnswer: "reel",
+          points: 1,
+        },
+        {
+          id: "cam11-ra-t3-s1-q3",
+          number: 3,
+          type: "sentence_completion",
+          question: "3. Only _______ were allowed to produce silk",
+          correctAnswer: "women",
+          points: 1,
+        },
+        {
+          id: "cam11-ra-t3-s1-q4",
+          number: 4,
+          type: "sentence_completion",
+          question: "4. Only _______ were allowed to wear silk",
+          correctAnswer: "royalty",
+          points: 1,
+        },
+        {
+          id: "cam11-ra-t3-s1-q5",
+          number: 5,
+          type: "sentence_completion",
+          question: "5. Silk used as a form of _______",
+          correctAnswer: "currency",
+          points: 1,
+        },
+        {
+          id: "cam11-ra-t3-s1-q6",
+          number: 6,
+          type: "sentence_completion",
+          question: "6. Evidence found of _______ made from silk around 168 AD",
+          correctAnswer: "paper",
+          points: 1,
+        },
+        {
+          id: "cam11-ra-t3-s1-q7",
+          number: 7,
+          type: "sentence_completion",
+          question: "7. Merchants use Silk Road to take silk westward and bring back _______ and precious metals",
+          correctAnswer: "wool",
+          points: 1,
+        },
+        {
+          id: "cam11-ra-t3-s1-q8",
+          number: 8,
+          type: "sentence_completion",
+          question: "8. 550 AD: _______ hide silkworm eggs in canes and take them to Constantinople",
+          correctAnswer: "monks",
+          points: 1,
+        },
+        {
+          id: "cam11-ra-t3-s1-q9",
+          number: 9,
+          type: "sentence_completion",
+          question: "9. 20th century: _______ and other manmade fibres cause decline in silk production",
+          correctAnswer: "nylon",
+          points: 1,
+        },
+        // ── Q10–13: TRUE / FALSE / NOT GIVEN ─────────────────────
+        {
+          id: "cam11-ra-t3-s1-q10",
+          number: 10,
+          groupLabel: "Questions 10–13: Do the following statements agree with the information given in Reading Passage 1? Write TRUE, FALSE, or NOT GIVEN.",
+          type: "true_false_ng",
+          question: "10. Gold was the most valuable material transported along the Silk Road.",
+          options: [
+            { label: "TRUE", value: "TRUE" },
+            { label: "FALSE", value: "FALSE" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "FALSE",
+          points: 1,
+        },
+        {
+          id: "cam11-ra-t3-s1-q11",
+          number: 11,
+          type: "true_false_ng",
+          question: "11. Most tradesmen only went along certain sections of the Silk Road.",
+          options: [
+            { label: "TRUE", value: "TRUE" },
+            { label: "FALSE", value: "FALSE" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "TRUE",
+          points: 1,
+        },
+        {
+          id: "cam11-ra-t3-s1-q12",
+          number: 12,
+          type: "true_false_ng",
+          question: "12. The Byzantines spread the practice of silk production across the West.",
+          options: [
+            { label: "TRUE", value: "TRUE" },
+            { label: "FALSE", value: "FALSE" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "FALSE",
+          points: 1,
+        },
+        {
+          id: "cam11-ra-t3-s1-q13",
+          number: 13,
+          type: "true_false_ng",
+          question: "13. Silk yarn makes up the majority of silk currently exported from China.",
+          options: [
+            { label: "TRUE", value: "TRUE" },
+            { label: "FALSE", value: "FALSE" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "NOT GIVEN",
+          points: 1,
+        },
+      ],
+    },
+
+    // ── PASSAGE 2 ─────────────────────────────────────────────
+    {
+      id: "cam11-ra-t3-s2",
+      sectionNumber: 2,
+      title: "Reading Passage 2",
+      passageTitle: "Great Migrations",
+      passageText: `Animal migration, however it is defined, is far more than just the movement of animals. It can loosely be described as travel that takes place at regular intervals – often in an annual cycle – that may involve many members of a species, and is rewarded only after a long journey. It suggests inherited instinct. The biologist Hugh Dingle has identified five characteristics that apply, in varying degrees and combinations, to all migrations. They are prolonged movements that carry animals outside familiar habitats; they tend to be linear, not zigzaggy; they involve special behaviours concerning preparation (such as overfeeding) and arrival; they demand special allocations of energy. And one more: migrating animals maintain an intense attentiveness to the greater mission, which keeps them undistracted by temptations and undeterred by challenges that would turn other animals aside.
+
+An arctic tern, on its 20,000 km flight from the extreme south of South America to the Arctic circle, will take no notice of a nice smelly herring offered from a bird-watcher's boat along the way. While local gulls will dive voraciously for such handouts, the tern flies on. Why? The arctic tern resists distraction because it is driven at that moment by an instinctive sense of something we humans find admirable: larger purpose. In other words, it is determined to reach its destination. The bird senses that it can eat, rest and mate later. Right now it is totally focused on the journey; its undivided intent is arrival.
+
+Reaching some gravelly coastline in the Arctic, upon which other arctic terns have converged, will serve its larger purpose as shaped by evolution: finding a place, a time, and a set of circumstances in which it can successfully hatch and rear offspring.
+
+But migration is a complex issue, and biologists define it differently, depending in part on what sorts of animals they study. Joel Berger, of the University of Montana, who works on the American pronghorn and other large terrestrial mammals, prefers what he calls a simple, practical definition suited to his beasts: 'movements from a seasonal home area away to another home area and back again'. Generally the reason for such seasonal back-and-forth movement is to seek resources that aren't available within a single area year-round.
+
+But daily vertical movements by zooplankton in the ocean – upward by night to seek food, downward by day to escape predators – can also be considered migration. So can the movement of aphids when, having depleted the young leaves on one food plant, their offspring then fly onward to a different host plant, with no one aphid ever returning to where it started.
+
+Dingle is an evolutionary biologist who studies insects. His definition is more intricate than Berger's, citing those five features that distinguish migration from other forms of movement. They allow for the fact that, for example, aphids will become sensitive to blue light (from the sky) when it's time for takeoff on their big journey, and sensitive to yellow light (reflected from tender young leaves) when it's appropriate to land. Birds will fatten themselves with heavy feeding in advance of a long migrational flight. The value of his definition, Dingle argues, is that it focuses attention on what the phenomenon of wildebeest migration shares with the phenomenon of the aphids, and therefore helps guide researchers towards understanding how evolution has produced them all.
+
+Human behaviour, however, is having a detrimental impact on animal migration. The pronghorn, which resembles an antelope, though they are unrelated, is the fastest land mammal of the New World. One population, which spends the summer in the mountainous Grand Teton National Park of the western USA, follows a narrow route from its summer range in the mountains, across a river, and down onto the plains. Here they wait out the frozen months, feeding mainly on sagebrush blown clear of snow. These pronghorn are notable for the invariance of their migration route and the severity of its constriction at three bottlenecks. If they can't pass through each of the three during their spring migration, they can't reach their bounty of summer grazing; if they can't pass through again in autumn, escaping south onto those windblown plains, they are likely to die trying to overwinter in the deep snow. Pronghorn, dependent on distance vision and speed to keep safe from predators, traverse high, open shoulders of land, where they can see and run. At one of the bottlenecks, forested hills rise to form a V, leaving a corridor of open ground only about 150 metres wide, filled with private homes. Increasing development is leading toward a crisis for the pronghorn, threatening to choke off their passageway.
+
+Conservation scientists, along with some biologists and land managers within the USA's National Park Service and other agencies, are now working to preserve migrational behaviours, not just species and habitats. A National Forest has recognised the path of the pronghorn, much of which passes across its land, as a protected migration corridor. But neither the Forest Service nor the Park Service can control what happens on private land at a bottleneck. And with certain other migrating species, the challenge is complicated further – by vastly greater distances traversed, more jurisdictions, more borders, more dangers along the way. We will require wisdom and resoluteness to ensure that migrating species can continue their journeying a while longer.`,
+      instructions: `Questions 14–18: Do the following statements agree with the information given in Reading Passage 2? Write TRUE, FALSE, or NOT GIVEN.
+
+Questions 19–22: Complete each sentence with the correct ending, A–G below.
+A be discouraged by difficulties.
+B travel on open land where they can look out for predators.
+C eat more than they need for immediate purposes.
+D be repeated daily.
+E ignore distractions.
+F be governed by the availability of water.
+G follow a straight line.
+
+Questions 23–26: Complete the summary below. Choose ONE WORD ONLY from the passage for each answer.`,
+      questions: [
+        // ── Q14–18: TRUE / FALSE / NOT GIVEN ─────────────────────
+        {
+          id: "cam11-ra-t3-s2-q14",
+          number: 14,
+          type: "true_false_ng",
+          question: "14. Local gulls and migrating arctic terns behave in the same way when offered food.",
+          options: [
+            { label: "TRUE", value: "TRUE" },
+            { label: "FALSE", value: "FALSE" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "FALSE",
+          points: 1,
+        },
+        {
+          id: "cam11-ra-t3-s2-q15",
+          number: 15,
+          type: "true_false_ng",
+          question: "15. Experts' definitions of migration tend to vary according to their area of study.",
+          options: [
+            { label: "TRUE", value: "TRUE" },
+            { label: "FALSE", value: "FALSE" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "TRUE",
+          points: 1,
+        },
+        {
+          id: "cam11-ra-t3-s2-q16",
+          number: 16,
+          type: "true_false_ng",
+          question: "16. Very few experts agree that the movement of aphids can be considered migration.",
+          options: [
+            { label: "TRUE", value: "TRUE" },
+            { label: "FALSE", value: "FALSE" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "NOT GIVEN",
+          points: 1,
+        },
+        {
+          id: "cam11-ra-t3-s2-q17",
+          number: 17,
+          type: "true_false_ng",
+          question: "17. Aphids' journeys are affected by changes in the light that they perceive.",
+          options: [
+            { label: "TRUE", value: "TRUE" },
+            { label: "FALSE", value: "FALSE" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "TRUE",
+          points: 1,
+        },
+        {
+          id: "cam11-ra-t3-s2-q18",
+          number: 18,
+          type: "true_false_ng",
+          question: "18. Dingle's aim is to distinguish between the migratory behaviours of different species.",
+          options: [
+            { label: "TRUE", value: "TRUE" },
+            { label: "FALSE", value: "FALSE" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "FALSE",
+          points: 1,
+        },
+        // ── Q19–22: Sentence endings matching ────────────────────
+        {
+          id: "cam11-ra-t3-s2-q19",
+          number: 19,
+          groupLabel: "Questions 19–22: Complete each sentence with the correct ending, A–G below.\nA  be discouraged by difficulties.\nB  travel on open land where they can look out for predators.\nC  eat more than they need for immediate purposes.\nD  be repeated daily.\nE  ignore distractions.\nF  be governed by the availability of water.\nG  follow a straight line.",
+          type: "matching",
+          question: "19. According to Dingle, migratory routes are likely to",
+          options: [
+            { label: "A – be discouraged by difficulties", value: "A" },
+            { label: "B – travel on open land where they can look out for predators", value: "B" },
+            { label: "C – eat more than they need for immediate purposes", value: "C" },
+            { label: "D – be repeated daily", value: "D" },
+            { label: "E – ignore distractions", value: "E" },
+            { label: "F – be governed by the availability of water", value: "F" },
+            { label: "G – follow a straight line", value: "G" },
+          ],
+          correctAnswer: "G",
+          points: 1,
+        },
+        {
+          id: "cam11-ra-t3-s2-q20",
+          number: 20,
+          type: "matching",
+          question: "20. To prepare for migration, animals are likely to",
+          options: [
+            { label: "A – be discouraged by difficulties", value: "A" },
+            { label: "B – travel on open land where they can look out for predators", value: "B" },
+            { label: "C – eat more than they need for immediate purposes", value: "C" },
+            { label: "D – be repeated daily", value: "D" },
+            { label: "E – ignore distractions", value: "E" },
+            { label: "F – be governed by the availability of water", value: "F" },
+            { label: "G – follow a straight line", value: "G" },
+          ],
+          correctAnswer: "C",
+          points: 1,
+        },
+        {
+          id: "cam11-ra-t3-s2-q21",
+          number: 21,
+          type: "matching",
+          question: "21. During migration, animals are unlikely to",
+          options: [
+            { label: "A – be discouraged by difficulties", value: "A" },
+            { label: "B – travel on open land where they can look out for predators", value: "B" },
+            { label: "C – eat more than they need for immediate purposes", value: "C" },
+            { label: "D – be repeated daily", value: "D" },
+            { label: "E – ignore distractions", value: "E" },
+            { label: "F – be governed by the availability of water", value: "F" },
+            { label: "G – follow a straight line", value: "G" },
+          ],
+          correctAnswer: "A",
+          points: 1,
+        },
+        {
+          id: "cam11-ra-t3-s2-q22",
+          number: 22,
+          type: "matching",
+          question: "22. Arctic terns illustrate migrating animals' ability to",
+          options: [
+            { label: "A – be discouraged by difficulties", value: "A" },
+            { label: "B – travel on open land where they can look out for predators", value: "B" },
+            { label: "C – eat more than they need for immediate purposes", value: "C" },
+            { label: "D – be repeated daily", value: "D" },
+            { label: "E – ignore distractions", value: "E" },
+            { label: "F – be governed by the availability of water", value: "F" },
+            { label: "G – follow a straight line", value: "G" },
+          ],
+          correctAnswer: "E",
+          points: 1,
+        },
+        // ── Q23–26: Summary completion ────────────────────────────
+        {
+          id: "cam11-ra-t3-s2-q23",
+          number: 23,
+          groupLabel: "Questions 23–26: Complete the summary below.\nChoose ONE WORD ONLY from the passage for each answer.\n\nThe migration of pronghorns",
+          type: "sentence_completion",
+          question: "23. Pronghorns rely on their eyesight and _______ to avoid predators.",
+          correctAnswer: "speed",
+          points: 1,
+        },
+        {
+          id: "cam11-ra-t3-s2-q24",
+          number: 24,
+          type: "sentence_completion",
+          question: "24. One population's winter home is on the _______ where they avoid danger from deep snow.",
+          correctAnswer: "plains",
+          points: 1,
+        },
+        {
+          id: "cam11-ra-t3-s2-q25",
+          number: 25,
+          type: "sentence_completion",
+          question: "25. Their route between summer and winter areas contains three _______.",
+          correctAnswer: "bottlenecks",
+          points: 1,
+        },
+        {
+          id: "cam11-ra-t3-s2-q26",
+          number: 26,
+          type: "sentence_completion",
+          question: "26. One problem is the construction of new homes in a narrow _______ of land on the pronghorns' route.",
+          correctAnswer: "corridor",
+          points: 1,
+        },
+      ],
+    },
+
+    // ── PASSAGE 3 ─────────────────────────────────────────────
+    {
+      id: "cam11-ra-t3-s3",
+      sectionNumber: 3,
+      title: "Reading Passage 3",
+      passageTitle: "Preface to 'How the other half thinks: Adventures in mathematical reasoning'",
+      passageText: `A
+Occasionally, in some difficult musical compositions, there are beautiful, but easy parts – parts so simple a beginner could play them. So it is with mathematics as well. There are some discoveries in advanced mathematics that do not depend on specialized knowledge, not even on algebra, geometry, or trigonometry. Instead they may involve, at most, a little arithmetic, such as 'the sum of two odd numbers is even', and common sense. Each of the eight chapters in this book illustrates this phenomenon. Anyone can understand every step in the reasoning.
+
+The thinking in each chapter uses at most only elementary arithmetic, and sometimes not even that. Thus all readers will have the chance to participate in a mathematical experience, to appreciate the beauty of mathematics, and to become familiar with its logical, yet intuitive, style of thinking.
+
+B
+One of my purposes in writing this book is to give readers who haven't had the opportunity to see and enjoy real mathematics the chance to appreciate the mathematical way of thinking. I want to reveal not only some of the fascinating discoveries, but, more importantly, the reasoning behind them.
+
+In that respect, this book differs from most books on mathematics written for the general public. Some present the lives of colorful mathematicians. Others describe important applications of mathematics. Yet others go into mathematical procedures, but assume that the reader is adept in using algebra.
+
+C
+I hope this book will help bridge that notorious gap that separates the two cultures: the humanities and the sciences, or should I say the right brain (intuitive) and the left brain (analytical, numerical). As the chapters will illustrate, mathematics is not restricted to the analytical and numerical; intuition plays a significant role. The alleged gap can be narrowed or completely overcome by anyone, in part because each of us is far from using the full capacity of either side of the brain. To illustrate our human potential, I cite a structural engineer who is an artist, an electrical engineer who is an opera singer, an opera singer who published mathematical research, and a mathematician who publishes short stories.
+
+D
+Other scientists have written books to explain their fields to non-scientists, but have necessarily had to omit the mathematics, although it provides the foundation of their theories. The reader must remain a tantalized spectator rather than an involved participant, since the appropriate language for describing the details in much of science is mathematics, whether the subject is expanding universe, subatomic particles, or chromosomes. Though the broad outline of a scientific theory can be sketched intuitively, when a part of the physical universe is finally understood, its description often looks like a page in a mathematics text.
+
+E
+Still, the non-mathematical reader can go far in understanding mathematical reasoning. This book presents the details that illustrate the mathematical style of thinking, which involves sustained, step-by-step analysis, experiments, and insights. You will turn these pages much more slowly than when reading a novel or a newspaper. It may help to have a pencil and paper ready to check claims and carry out experiments.
+
+F
+As I wrote, I kept in mind two types of readers: those who enjoyed mathematics until they were turned off by an unpleasant episode, usually around fifth grade, and mathematics aficionados, who will find much that is new throughout the book.
+
+This book also serves readers who simply want to sharpen their analytical skills. Many careers, such as law and medicine, require extended, precise analysis. Each chapter offers practice in following a sustained and closely argued line of thought. That mathematics can develop this skill is shown by these two testimonials:
+
+G
+A physician wrote, 'The discipline of analytical thought processes [in mathematics] prepared me extremely well for medical school. In medicine one is faced with a problem which must be thoroughly analyzed before a solution can be found. The process is similar to doing mathematics.'
+
+A lawyer made the same point, 'Although I had no background in law – not even one political science course – I did well at one of the best law schools. I attribute much of my success there to having learned, through the study of mathematics, and, in particular, theorems, how to analyze complicated principles. Lawyers who have studied mathematics can master the legal principles in a way that most others cannot.'
+
+I hope you will share my delight in watching as simple, even naive, questions lead to remarkable solutions and purely theoretical discoveries find unanticipated applications.`,
+      instructions: `Questions 27–34: Reading Passage 3 has seven sections, A–G. Which section contains the following information? Write the correct letter, A–G. NB You may use any letter more than once.
+
+Questions 35–40: Complete the sentences below. Choose ONE WORD ONLY from the passage for each answer.`,
+      questions: [
+        // ── Q27–34: Which section ─────────────────────────────────
+        {
+          id: "cam11-ra-t3-s3-q27",
+          number: 27,
+          type: "matching",
+          question: "27. A reference to books that assume a lack of mathematical knowledge",
+          options: [
+            { label: "A", value: "A" },
+            { label: "B", value: "B" },
+            { label: "C", value: "C" },
+            { label: "D", value: "D" },
+            { label: "E", value: "E" },
+            { label: "F", value: "F" },
+            { label: "G", value: "G" },
+          ],
+          correctAnswer: "D",
+          points: 1,
+        },
+        {
+          id: "cam11-ra-t3-s3-q28",
+          number: 28,
+          type: "matching",
+          question: "28. The way in which this is not a typical book about mathematics",
+          options: [
+            { label: "A", value: "A" },
+            { label: "B", value: "B" },
+            { label: "C", value: "C" },
+            { label: "D", value: "D" },
+            { label: "E", value: "E" },
+            { label: "F", value: "F" },
+            { label: "G", value: "G" },
+          ],
+          correctAnswer: "B",
+          points: 1,
+        },
+        {
+          id: "cam11-ra-t3-s3-q29",
+          number: 29,
+          type: "matching",
+          question: "29. Personal examples of being helped by mathematics",
+          options: [
+            { label: "A", value: "A" },
+            { label: "B", value: "B" },
+            { label: "C", value: "C" },
+            { label: "D", value: "D" },
+            { label: "E", value: "E" },
+            { label: "F", value: "F" },
+            { label: "G", value: "G" },
+          ],
+          correctAnswer: "G",
+          points: 1,
+        },
+        {
+          id: "cam11-ra-t3-s3-q30",
+          number: 30,
+          type: "matching",
+          question: "30. Examples of people who each had abilities that seemed incompatible",
+          options: [
+            { label: "A", value: "A" },
+            { label: "B", value: "B" },
+            { label: "C", value: "C" },
+            { label: "D", value: "D" },
+            { label: "E", value: "E" },
+            { label: "F", value: "F" },
+            { label: "G", value: "G" },
+          ],
+          correctAnswer: "C",
+          points: 1,
+        },
+        {
+          id: "cam11-ra-t3-s3-q31",
+          number: 31,
+          type: "matching",
+          question: "31. Mention of different focuses of books about mathematics",
+          options: [
+            { label: "A", value: "A" },
+            { label: "B", value: "B" },
+            { label: "C", value: "C" },
+            { label: "D", value: "D" },
+            { label: "E", value: "E" },
+            { label: "F", value: "F" },
+            { label: "G", value: "G" },
+          ],
+          correctAnswer: "B",
+          points: 1,
+        },
+        {
+          id: "cam11-ra-t3-s3-q32",
+          number: 32,
+          type: "matching",
+          question: "32. A contrast between reading this book and reading other kinds of publication",
+          options: [
+            { label: "A", value: "A" },
+            { label: "B", value: "B" },
+            { label: "C", value: "C" },
+            { label: "D", value: "D" },
+            { label: "E", value: "E" },
+            { label: "F", value: "F" },
+            { label: "G", value: "G" },
+          ],
+          correctAnswer: "E",
+          points: 1,
+        },
+        {
+          id: "cam11-ra-t3-s3-q33",
+          number: 33,
+          type: "matching",
+          question: "33. A claim that the whole of the book is accessible to everybody",
+          options: [
+            { label: "A", value: "A" },
+            { label: "B", value: "B" },
+            { label: "C", value: "C" },
+            { label: "D", value: "D" },
+            { label: "E", value: "E" },
+            { label: "F", value: "F" },
+            { label: "G", value: "G" },
+          ],
+          correctAnswer: "A",
+          points: 1,
+        },
+        {
+          id: "cam11-ra-t3-s3-q34",
+          number: 34,
+          type: "matching",
+          question: "34. A reference to different categories of intended readers of this book",
+          options: [
+            { label: "A", value: "A" },
+            { label: "B", value: "B" },
+            { label: "C", value: "C" },
+            { label: "D", value: "D" },
+            { label: "E", value: "E" },
+            { label: "F", value: "F" },
+            { label: "G", value: "G" },
+          ],
+          correctAnswer: "F",
+          points: 1,
+        },
+        // ── Q35–40: Sentence completion ───────────────────────────
+        {
+          id: "cam11-ra-t3-s3-q35",
+          number: 35,
+          groupLabel: "Questions 35–40: Complete the sentences below.\nChoose ONE WORD ONLY from the passage for each answer.",
+          type: "sentence_completion",
+          question: "35. Some areas of both music and mathematics are suitable for someone who is a _______.",
+          correctAnswer: "beginner",
+          points: 1,
+        },
+        {
+          id: "cam11-ra-t3-s3-q36",
+          number: 36,
+          type: "sentence_completion",
+          question: "36. It is sometimes possible to understand advanced mathematics using no more than a limited knowledge of _______.",
+          correctAnswer: "arithmetic",
+          points: 1,
+        },
+        {
+          id: "cam11-ra-t3-s3-q37",
+          number: 37,
+          type: "sentence_completion",
+          question: "37. The writer intends to show that mathematics requires _______ thinking, as well as analytical skills.",
+          correctAnswer: "intuitive",
+          points: 1,
+        },
+        {
+          id: "cam11-ra-t3-s3-q38",
+          number: 38,
+          type: "sentence_completion",
+          question: "38. Some books written by _______ have had to leave out the mathematics that is central to their theories.",
+          correctAnswer: "scientists",
+          points: 1,
+        },
+        {
+          id: "cam11-ra-t3-s3-q39",
+          number: 39,
+          type: "sentence_completion",
+          question: "39. The writer advises non-mathematical readers to perform _______ while reading.",
+          correctAnswer: "experiments",
+          points: 1,
+        },
+        {
+          id: "cam11-ra-t3-s3-q40",
+          number: 40,
+          type: "sentence_completion",
+          question: "40. A lawyer found that studying _______ helped even more than other areas of mathematics in the study of law.",
+          correctAnswer: "theorems",
+          points: 1,
+        },
+      ],
+    },
+  ],
+};
+
+export const cambridge11Tests: IELTSTest[] = [cambridge11_reading_t1, cambridge11_reading_t2, cambridge11_reading_t3];
