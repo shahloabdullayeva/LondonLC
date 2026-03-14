@@ -24,31 +24,34 @@ const HIGHLIGHT_COLORS = [
 ];
 
 // Walk DOM text nodes to compute absolute char offset within container
-function getDomTextOffset(container: HTMLElement, targetNode: Node, targetOffset: number): number {
-  let offset = 0;
-  const walker = document.createTreeWalker(container, NodeFilter.SHOW_TEXT, null);
-  let node: Node | null = walker.nextNode();
-  while (node) {
-    if (node === targetNode) return offset + targetOffset;
-    offset += (node as Text).length;
-    node = walker.nextNode();
+// Count visible chars from start of container to a range endpoint using Range.toString()
+// This correctly handles element nodes (not just text nodes) as range containers.
+function getRangeCharCount(container: HTMLElement, rangeNode: Node, rangeOffset: number): number {
+  try {
+    const r = document.createRange();
+    r.setStart(container, 0);
+    r.setEnd(rangeNode, rangeOffset);
+    return r.toString().length;
+  } catch {
+    return 0;
   }
-  return offset;
 }
 
-// Map DOM text offset → raw text offset (raw text has ** markers and \n chars that don't appear in DOM)
-function domOffsetToRawOffset(rawText: string, domOffset: number): number {
+// Map visible-char DOM offset → raw text offset (raw text has ** markers and \n chars that don't appear in DOM)
+// skipInvisible=true: land on next visible char (use for rawStart)
+// skipInvisible=false: stop right after last visible char (use for rawEnd)
+function domOffsetToRawOffset(rawText: string, domOffset: number, skipInvisible = true): number {
   let domIdx = 0;
   let i = 0;
   while (i <= rawText.length) {
     if (domIdx === domOffset) {
-      // Skip any non-visible chars at this position (newlines, ** markers)
-      // so we land on the next actual visible character
-      while (i < rawText.length) {
-        const c = rawText[i];
-        if (c === '\n') { i++; continue; }
-        if (c === '*' && i + 1 < rawText.length && rawText[i + 1] === '*') { i += 2; continue; }
-        break;
+      if (skipInvisible) {
+        while (i < rawText.length) {
+          const c = rawText[i];
+          if (c === '\n') { i++; continue; }
+          if (c === '*' && i + 1 < rawText.length && rawText[i + 1] === '*') { i += 2; continue; }
+          break;
+        }
       }
       return i;
     }
@@ -177,10 +180,10 @@ export default function TestPage() {
 
       if (side === "passage") {
         const passageText = test?.sections[currentSection]?.passageText || "";
-        const startDom = getDomTextOffset(container, range.startContainer, range.startOffset);
-        const endDom = getDomTextOffset(container, range.endContainer, range.endOffset);
-        rawStart = domOffsetToRawOffset(passageText, startDom);
-        rawEnd = domOffsetToRawOffset(passageText, endDom);
+        const startDom = getRangeCharCount(container, range.startContainer, range.startOffset);
+        const endDom = getRangeCharCount(container, range.endContainer, range.endOffset);
+        rawStart = domOffsetToRawOffset(passageText, startDom, true);
+        rawEnd = domOffsetToRawOffset(passageText, endDom, false);
         rawEnd = Math.min(Math.max(rawEnd, rawStart + 1), passageText.length);
       } else {
         // Questions side: position within the specific question element
@@ -190,7 +193,7 @@ export default function TestPage() {
         const qEl = startEl?.closest("[data-question-id]") as HTMLElement | null;
         questionId = qEl?.dataset.questionId;
         if (qEl) {
-          rawStart = getDomTextOffset(qEl, range.startContainer, range.startOffset);
+          rawStart = getRangeCharCount(qEl, range.startContainer, range.startOffset);
           rawEnd = rawStart + text.length;
         }
       }
@@ -250,7 +253,7 @@ export default function TestPage() {
 
     const fmt = (s: string) => s
       .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
-      .replace(/\n\n/g, "</p><p style='margin-bottom:14px'>")
+      .replace(/\n\n/g, "<br/><br/>")
       .replace(/\n/g, "<br/>");
 
     const styleFor = (color: string) => color === "underline"
@@ -803,6 +806,12 @@ export default function TestPage() {
           <div style={{ fontSize: 13, marginBottom: 20, padding: "11px 14px", borderRadius: 10, background: T.accentDim, color: T.accent, border: `1px solid ${T.accentBorder}`, fontWeight: 500, lineHeight: 1.5 }}>
             {section.instructions}
           </div>
+
+          {section.diagramUrl && (
+            <div style={{ marginBottom: 24, textAlign: "center" }}>
+              <img src={section.diagramUrl} alt="Diagram" style={{ maxWidth: "100%", borderRadius: 10, border: `1px solid ${T.border}` }} />
+            </div>
+          )}
 
           <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
             {section.questions.map((q) => (
