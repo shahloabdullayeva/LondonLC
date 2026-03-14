@@ -199,6 +199,7 @@ The remaining 11 metres of lift needed to reach the Union Canal is achieved by m
       instructions: `Questions 14–19: Do the following statements agree with the information given in the passage? Write TRUE, FALSE, or NOT GIVEN.
 
 Questions 20–26: Label the diagram below. Choose ONE WORD from the passage for each answer.`,
+      diagramUrl: "/LondonLC/images/falkirk-wheel-diagram.png",
       questions: [
         {
           id: "cam11-ra-t1-s2-q14",
@@ -372,7 +373,7 @@ The main reason why geo-engineering is supported by many in the scientific commu
 
 Questions 30–36: Complete the table below. Choose ONE WORD from the passage for each answer.
 
-Questions 37–40: Match each statement with the correct scientist (A–D).
+Questions 37–40: Match each statement with the correct scientist.
 A = Roger Angel   B = Phil Rasch   C = Dan Lunt   D = Martin Sommerkorn`,
       questions: [
         {
@@ -489,7 +490,7 @@ A = Roger Angel   B = Phil Rasch   C = Dan Lunt   D = Martin Sommerkorn`,
           id: "cam11-ra-t1-s3-q37",
           number: 37,
           type: "multiple_choice",
-          question: "37. The effects of geo-engineering may not be long-lasting.\n(A = Roger Angel, B = Phil Rasch, C = Dan Lunt, D = Martin Sommerkorn)",
+          question: "37. The effects of geo-engineering may not be long-lasting.",
           options: [
             { label: "A – Roger Angel", value: "A" },
             { label: "B – Phil Rasch", value: "B" },
@@ -503,7 +504,7 @@ A = Roger Angel   B = Phil Rasch   C = Dan Lunt   D = Martin Sommerkorn`,
           id: "cam11-ra-t1-s3-q38",
           number: 38,
           type: "multiple_choice",
-          question: "38. Geo-engineering is a topic worth exploring.\n(A = Roger Angel, B = Phil Rasch, C = Dan Lunt, D = Martin Sommerkorn)",
+          question: "38. Geo-engineering is a topic worth exploring.",
           options: [
             { label: "A – Roger Angel", value: "A" },
             { label: "B – Phil Rasch", value: "B" },
@@ -517,7 +518,7 @@ A = Roger Angel   B = Phil Rasch   C = Dan Lunt   D = Martin Sommerkorn`,
           id: "cam11-ra-t1-s3-q39",
           number: 39,
           type: "multiple_choice",
-          question: "39. It may be necessary to limit the effectiveness of geo-engineering projects.\n(A = Roger Angel, B = Phil Rasch, C = Dan Lunt, D = Martin Sommerkorn)",
+          question: "39. It may be necessary to limit the effectiveness of geo-engineering projects.",
           options: [
             { label: "A – Roger Angel", value: "A" },
             { label: "B – Phil Rasch", value: "B" },
@@ -531,7 +532,7 @@ A = Roger Angel   B = Phil Rasch   C = Dan Lunt   D = Martin Sommerkorn`,
           id: "cam11-ra-t1-s3-q40",
           number: 40,
           type: "multiple_choice",
-          question: "40. Research into non-fossil-based fuels cannot be replaced by geo-engineering.\n(A = Roger Angel, B = Phil Rasch, C = Dan Lunt, D = Martin Sommerkorn)",
+          question: "40. Research into non-fossil-based fuels cannot be replaced by geo-engineering.",
           options: [
             { label: "A – Roger Angel", value: "A" },
             { label: "B – Phil Rasch", value: "B" },

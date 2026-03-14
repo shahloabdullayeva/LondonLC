@@ -22,6 +22,7 @@ export type IELTSSection = {
   audioUrl?: string;
   audioDurationSeconds?: number;
   instructions: string;
+  diagramUrl?: string;
   questions: IELTSQuestion[];
 };
 
