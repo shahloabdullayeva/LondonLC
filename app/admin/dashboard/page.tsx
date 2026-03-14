@@ -197,36 +197,65 @@ export default function AdminDashboard() {
   ];
 
   return (
-    <div style={{ minHeight: "100vh", background: C.bg, fontFamily: "Inter, system-ui, sans-serif", color: C.text }}>
+    <div style={{ height: "100vh", display: "flex", flexDirection: "row", overflow: "hidden", background: C.bg, fontFamily: "Inter, system-ui, sans-serif", color: C.text }}>
 
-      {/* ── Header ────────────────────────────────── */}
-      <header style={{ position: "sticky", top: 0, zIndex: 30, display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 24px", height: 56, background: C.card2, borderBottom: `1px solid ${C.border}` }}>
-        <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-          <span style={{ fontWeight: 900, fontSize: 19, color: "#fff", letterSpacing: "-0.3px", fontFamily: "Inter, system-ui, sans-serif" }}>London <span style={{ color: "#a78bfa" }}>LC</span></span>
-          <span style={{ padding: "2px 10px", borderRadius: 20, fontSize: 11, fontWeight: 700, background: C.accentLight, color: C.accent }}>Admin</span>
+      {/* ── Sidebar ──────────────────────────────── */}
+      <aside style={{ width: 220, flexShrink: 0, background: C.card2, borderRight: `1px solid ${C.border}`, display: "flex", flexDirection: "column", overflow: "hidden" }}>
+        {/* Logo */}
+        <div style={{ padding: "22px 20px 18px" }}>
+          <div style={{ fontWeight: 900, fontSize: 20, color: "#fff", letterSpacing: "-0.3px" }}>
+            London <span style={{ color: "#a78bfa" }}>LC</span>
+          </div>
+          <span style={{ display: "inline-block", marginTop: 6, padding: "2px 10px", borderRadius: 20, fontSize: 11, fontWeight: 700, background: C.accentLight, color: C.accent }}>Admin</span>
         </div>
-        <button onClick={handleLogout}
-          style={{ display: "flex", alignItems: "center", gap: 6, padding: "7px 14px", background: "transparent", border: `1px solid ${C.border}`, borderRadius: 9, color: C.muted, fontSize: 13, cursor: "pointer" }}>
-          <LogOut size={13} /> Sign Out
-        </button>
-      </header>
 
-      {/* ── Tab bar ───────────────────────────────── */}
-      <div style={{ background: C.card2, borderBottom: `1px solid ${C.border}`, overflowX: "auto" }}>
-        <div style={{ display: "flex", gap: 4, padding: "8px 24px 0", maxWidth: 1280, margin: "0 auto", whiteSpace: "nowrap" }}>
+        <div style={{ width: "calc(100% - 32px)", height: 1, background: C.border, margin: "0 16px 12px" }} />
+
+        {/* Nav items */}
+        <nav style={{ flex: 1, overflowY: "auto", padding: "4px 10px" }}>
           {tabs.map(({ id, Icon, label }) => (
             <button key={id} onClick={() => setActiveTab(id)}
-              style={{ display: "inline-flex", alignItems: "center", gap: 7, padding: "10px 16px", borderRadius: "10px 10px 0 0", border: "none", cursor: "pointer", fontWeight: 600, fontSize: 13, transition: "all 0.15s",
-                background: activeTab === id ? C.card : "transparent",
-                color: activeTab === id ? C.accent : C.muted,
-                borderBottom: activeTab === id ? `2px solid ${C.accent}` : "2px solid transparent" }}>
-              <Icon size={14} /> {label}
+              style={{ display: "flex", alignItems: "center", gap: 10, width: "100%", padding: "10px 12px", borderRadius: 10, border: "none", cursor: "pointer", fontWeight: 600, fontSize: 13, textAlign: "left", marginBottom: 2, transition: "all 0.15s",
+                background: activeTab === id ? C.accentLight : "transparent",
+                color: activeTab === id ? C.accent : C.muted }}>
+              <Icon size={15} />
+              {label}
+            </button>
+          ))}
+        </nav>
+
+        {/* Sign out */}
+        <div style={{ padding: "12px 10px 20px" }}>
+          <button onClick={handleLogout}
+            style={{ display: "flex", alignItems: "center", gap: 8, width: "100%", padding: "10px 12px", borderRadius: 10, background: "transparent", border: `1px solid ${C.border}`, color: C.muted, fontSize: 13, fontWeight: 600, cursor: "pointer" }}>
+            <LogOut size={14} /> Sign Out
+          </button>
+        </div>
+      </aside>
+
+      {/* ── Main content ─────────────────────────── */}
+      <div style={{ flex: 1, minWidth: 0, display: "flex", flexDirection: "column", overflow: "hidden" }}>
+
+        {/* Mobile header (hidden on desktop by CSS) */}
+        <div className="admin-mobile-header" style={{ display: "none", alignItems: "center", justifyContent: "space-between", padding: "0 16px", height: 52, background: C.card2, borderBottom: `1px solid ${C.border}`, flexShrink: 0 }}>
+          <span style={{ fontWeight: 900, fontSize: 17, color: "#fff" }}>London <span style={{ color: "#a78bfa" }}>LC</span> <span style={{ fontSize: 11, fontWeight: 700, color: C.accent }}>Admin</span></span>
+          <button onClick={handleLogout} style={{ display: "flex", alignItems: "center", gap: 5, padding: "6px 12px", background: "transparent", border: `1px solid ${C.border}`, borderRadius: 8, color: C.muted, fontSize: 12, cursor: "pointer" }}>
+            <LogOut size={12} /> Sign Out
+          </button>
+        </div>
+        {/* Mobile tab bar */}
+        <div className="admin-mobile-header" style={{ display: "none", overflowX: "auto", background: C.card2, borderBottom: `1px solid ${C.border}`, padding: "8px 12px", gap: 6, flexShrink: 0 }}>
+          {tabs.map(({ id, Icon, label }) => (
+            <button key={id} onClick={() => setActiveTab(id)}
+              style={{ display: "inline-flex", alignItems: "center", gap: 6, padding: "7px 12px", borderRadius: 8, border: "none", cursor: "pointer", fontWeight: 600, fontSize: 12, whiteSpace: "nowrap",
+                background: activeTab === id ? C.accentLight : "transparent",
+                color: activeTab === id ? C.accent : C.muted }}>
+              <Icon size={13} /> {label}
             </button>
           ))}
         </div>
-      </div>
 
-      <main style={{ maxWidth: 1280, margin: "0 auto", padding: "28px 24px" }}>
+      <main style={{ flex: 1, overflowY: "auto", padding: "32px 36px" }}>
 
         {/* ══════════════════ RESULTS TAB ══════════════════ */}
         {activeTab === "results" && <>
@@ -1012,17 +1041,20 @@ export default function AdminDashboard() {
             </div>
           </div>
         )}
-      </main>
 
-      {/* Mobile responsive filter grid */}
+      {/* Mobile responsive */}
       <style>{`
         @media (max-width: 640px) {
           .admin-filter-grid { grid-template-columns: repeat(2, 1fr) !important; }
+          aside { display: none !important; }
+          .admin-mobile-header { display: flex !important; }
         }
         @media (max-width: 400px) {
           .admin-filter-grid { grid-template-columns: 1fr !important; }
         }
       `}</style>
+      </main>
+      </div>
     </div>
   );
 }

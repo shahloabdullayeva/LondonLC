@@ -27,13 +27,19 @@ const HIGHLIGHT_COLORS = [
 // Count visible chars from start of container to a range endpoint using Range.toString()
 // This correctly handles element nodes (not just text nodes) as range containers.
 function getRangeCharCount(container: HTMLElement, rangeNode: Node, rangeOffset: number): number {
+  // If rangeNode is outside the container we can't compute a meaningful offset
+  if (rangeNode !== container && !container.contains(rangeNode)) return -1;
   try {
+    const inner = container.firstChild;
+    if (!inner) return 0;
     const r = document.createRange();
-    r.setStart(container, 0);
+    // Start from inside the first child (the inner wrapper div) so element-node
+    // selections don't collapse the range back to zero
+    r.setStart(inner, 0);
     r.setEnd(rangeNode, rangeOffset);
     return r.toString().length;
   } catch {
-    return 0;
+    return -1;
   }
 }
 
@@ -103,8 +109,6 @@ export default function TestPage() {
   const [audioTotal, setAudioTotal] = useState(0);
   const [audioCurrentSection, setAudioCurrentSection] = useState(0);
   const [mobileView, setMobileView] = useState<"passage" | "questions">("passage");
-  const [passageCollapsed, setPassageCollapsed] = useState(false);
-  const [questionsCollapsed, setQuestionsCollapsed] = useState(false);
   const [passageWidthPct, setPassageWidthPct] = useState(50);
   const contentAreaRef = useRef<HTMLDivElement>(null);
   const isResizingRef = useRef(false);
@@ -186,6 +190,7 @@ export default function TestPage() {
         const passageText = test?.sections[currentSection]?.passageText || "";
         const startDom = getRangeCharCount(container, range.startContainer, range.startOffset);
         const endDom = getRangeCharCount(container, range.endContainer, range.endOffset);
+        if (startDom < 0 || endDom < 0) return;
         rawStart = domOffsetToRawOffset(passageText, startDom, true);
         rawEnd = domOffsetToRawOffset(passageText, endDom, false);
         rawEnd = Math.min(Math.max(rawEnd, rawStart + 1), passageText.length);
@@ -634,7 +639,7 @@ export default function TestPage() {
   if (phase !== "test" && phase !== "audio_playing") return null;
 
   return (
-    <div className="test-zone" style={{ height: "100vh", display: "flex", flexDirection: "column", background: T.bg, fontFamily: "Inter, system-ui, sans-serif", overflow: "hidden" }}>
+    <div className="test-zone" style={{ height: "100svh", display: "flex", flexDirection: "column", background: T.bg, fontFamily: "Inter, system-ui, sans-serif", overflow: "hidden" }}>
       {/* Test header */}
       <header style={{ position: "sticky", top: 0, zIndex: 20, display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 16px", height: 54, background: T.nav, borderBottom: `1px solid ${T.border}` }}>
         {/* Left: test info */}
@@ -745,7 +750,7 @@ export default function TestPage() {
         {/* Left: Passage (reading) */}
         {test.type === "reading" && section.passageText && (
           <div className={`passage-panel ${mobileView === "passage" ? "panel-visible" : "panel-hidden"}`}
-            style={{ width: passageCollapsed ? 0 : `${passageWidthPct}%`, minWidth: 0, overflow: "hidden", transition: isResizingRef.current ? "none" : "width 0.22s ease", background: T.passage, position: "relative", display: "flex", flexDirection: "column", flexShrink: 0 }}>
+            style={{ width: `${passageWidthPct}%`, minWidth: 0, overflow: "hidden", transition: isResizingRef.current ? "none" : "width 0.22s ease", background: T.passage, position: "relative", display: "flex", flexDirection: "column", flexShrink: 0 }}>
             {/* Passage header with highlight controls */}
             <div style={{ padding: "10px 20px 0", display: "flex", alignItems: "center", justifyContent: "space-between", flexShrink: 0 }}>
               <span style={{ fontSize: 11, color: T.textMuted, fontWeight: 600 }}>Select text to highlight · Click highlight to remove</span>
@@ -811,26 +816,12 @@ export default function TestPage() {
             <div style={{ position: "absolute", top: "50%", transform: "translateY(-50%)", display: "flex", flexDirection: "column", gap: 4, pointerEvents: "none" }}>
               {[0,1,2].map(i => <div key={i} style={{ width: 4, height: 4, borderRadius: "50%", background: T.textMuted, opacity: 0.7 }} />)}
             </div>
-            {/* Collapse passage button */}
-            <button
-              onClick={e => { e.stopPropagation(); setPassageCollapsed(p => !p); if (questionsCollapsed) setQuestionsCollapsed(false); }}
-              title={passageCollapsed ? "Show passage" : "Hide passage"}
-              style={{ position: "absolute", top: 18, width: 22, height: 22, borderRadius: "50%", background: T.accentDim, border: `1.5px solid ${T.accentBorder}`, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", color: T.accent, fontSize: 13, fontWeight: 700, zIndex: 2, pointerEvents: "auto" }}>
-              {passageCollapsed ? "›" : "‹"}
-            </button>
-            {/* Collapse questions button */}
-            <button
-              onClick={e => { e.stopPropagation(); setQuestionsCollapsed(p => !p); if (passageCollapsed) setPassageCollapsed(false); }}
-              title={questionsCollapsed ? "Show questions" : "Hide questions"}
-              style={{ position: "absolute", top: 46, width: 22, height: 22, borderRadius: "50%", background: T.accentDim, border: `1.5px solid ${T.accentBorder}`, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", color: T.accent, fontSize: 13, fontWeight: 700, zIndex: 2, pointerEvents: "auto" }}>
-              {questionsCollapsed ? "‹" : "›"}
-            </button>
           </div>
         )}
 
         {/* Right: Questions */}
         <div className={`questions-panel ${test.type === "reading" && mobileView === "passage" ? "panel-hidden" : "panel-visible"}`}
-          style={{ flex: 1, minWidth: 0, display: "flex", flexDirection: "column", overflow: questionsCollapsed ? "hidden" : "hidden", width: questionsCollapsed ? 0 : undefined, transition: isResizingRef.current ? "none" : "width 0.22s ease", background: T.bg }}>
+          style={{ flex: 1, minWidth: 0, minHeight: 0, display: "flex", flexDirection: "column", overflow: "hidden", background: T.bg }}>
         <div style={{ flex: 1, overflowY: "auto", padding: "24px 28px", minHeight: 0 }}
           onMouseUp={(e) => handleTextMouseUp(e, "questions")}>
 
@@ -921,6 +912,8 @@ export default function TestPage() {
       </div>
 
       <style>{`
+        /* 100dvh fallback for older browsers */
+        .test-zone { height: 100vh; height: 100dvh; }
         /* Desktop: both panels side by side, hide mobile bar */
         @media (min-width: 768px) {
           .mobile-toggle-bar { display: none !important; }
@@ -928,13 +921,15 @@ export default function TestPage() {
           .passage-panel { display: flex !important; }
           .questions-panel { display: block !important; }
         }
-        /* Mobile: one panel at a time, hide divider button */
+        /* Mobile: one panel at a time, hide divider */
         @media (max-width: 767px) {
           .mobile-toggle-bar { display: flex !important; }
           .divider-toggle { display: none !important; }
-          .passage-panel, .questions-panel { width: 100% !important; flex: none !important; }
+          .passage-panel, .questions-panel { width: 100% !important; flex: 1 !important; }
           .panel-hidden { display: none !important; }
-          .panel-visible { display: block !important; }
+          .panel-visible { display: flex !important; flex-direction: column !important; }
+          /* Bigger tap targets on mobile */
+          button { min-height: 36px; }
         }
       `}</style>
     </div>
