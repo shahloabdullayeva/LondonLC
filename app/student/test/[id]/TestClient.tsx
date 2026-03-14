@@ -874,6 +874,11 @@ export default function TestPage() {
           <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
             {section.questions.map((q) => (
               <React.Fragment key={q.id}>
+                {q.groupLabel && (
+                  <div style={{ fontSize: 13, padding: "10px 14px", borderRadius: 10, background: T.accentDim, color: T.accent, border: `1px solid ${T.accentBorder}`, fontWeight: 500, lineHeight: 1.6, whiteSpace: "pre-line" }}>
+                    {q.groupLabel}
+                  </div>
+                )}
                 {section.diagramUrl && q.type === "diagram_labelling" &&
                   section.questions.findIndex(x => x.type === "diagram_labelling") === section.questions.indexOf(q) && (
                   <div style={{ textAlign: "center", margin: "8px 0 4px" }}>

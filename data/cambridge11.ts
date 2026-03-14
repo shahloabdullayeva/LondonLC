@@ -713,6 +713,7 @@ Questions 9–13: Label the diagram below. Choose NO MORE THAN TWO WORDS from th
         {
           id: "cam11-ra-t2-s1-q9",
           number: 9,
+          groupLabel: "Questions 9–13: Label the diagram below.\nChoose NO MORE THAN TWO WORDS from the passage for each answer.",
           type: "diagram_labelling",
           question: "9. _______ attached to hull by wires",
           correctAnswer: "lifting frame",

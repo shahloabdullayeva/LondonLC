@@ -29,6 +29,7 @@ export type IELTSSection = {
 export type IELTSQuestion = {
   id: string;
   number: number;
+  groupLabel?: string;
   type:
     | "multiple_choice"
     | "fill_blank"
