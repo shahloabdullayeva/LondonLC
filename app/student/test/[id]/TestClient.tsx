@@ -23,24 +23,36 @@ const HIGHLIGHT_COLORS = [
   { bg: "underline", label: "Underline" },
 ];
 
-// Walk DOM text nodes to compute absolute char offset within container
-// Count visible chars from start of container to a range endpoint using Range.toString()
-// This correctly handles element nodes (not just text nodes) as range containers.
+// Walk text nodes in DOM order to count visible chars from container start to (rangeNode, rangeOffset).
+// Uses TreeWalker + compareDocumentPosition so element-node range endpoints and void elements
+// (BR, IMG) never cause Range.toString() to collapse to zero.
 function getRangeCharCount(container: HTMLElement, rangeNode: Node, rangeOffset: number): number {
-  // If rangeNode is outside the container we can't compute a meaningful offset
   if (rangeNode !== container && !container.contains(rangeNode)) return -1;
-  try {
-    const inner = container.firstChild;
-    if (!inner) return 0;
-    const r = document.createRange();
-    // Start from inside the first child (the inner wrapper div) so element-node
-    // selections don't collapse the range back to zero
-    r.setStart(inner, 0);
-    r.setEnd(rangeNode, rangeOffset);
-    return r.toString().length;
-  } catch {
-    return -1;
+
+  let count = 0;
+  const walker = document.createTreeWalker(container, NodeFilter.SHOW_TEXT);
+  let textNode: Node | null = walker.nextNode();
+
+  while (textNode) {
+    if (rangeNode.nodeType === Node.TEXT_NODE) {
+      // Text node endpoint: count chars up to the offset within this node
+      if (textNode === rangeNode) return count + rangeOffset;
+      count += (textNode as Text).length;
+    } else {
+      // Element endpoint: rangeOffset is child index.
+      // child[rangeOffset] is the first node AT OR AFTER the cursor position.
+      const refChild = rangeNode.childNodes[rangeOffset];
+      if (refChild) {
+        // Stop when textNode is at or after refChild in document order
+        const cmp = textNode.compareDocumentPosition(refChild);
+        if (!(cmp & Node.DOCUMENT_POSITION_FOLLOWING)) return count;
+      }
+      count += (textNode as Text).length;
+    }
+    textNode = walker.nextNode();
   }
+
+  return count;
 }
 
 // Map visible-char DOM offset → raw text offset (raw text has ** markers and \n chars that don't appear in DOM)
@@ -287,8 +299,9 @@ export default function TestPage() {
       .replace(/\n\n/g, "<br/><br/>")
       .replace(/\n/g, "<br/>");
 
+    const ulColor = effectiveTheme === "dark" ? "#c4b5fd" : "#7c3aed";
     const styleFor = (color: string) => color === "underline"
-      ? `text-decoration:underline;text-decoration-color:#7c3aed;text-underline-offset:3px;cursor:pointer`
+      ? `background:transparent;text-decoration:underline;text-decoration-color:${ulColor};text-decoration-thickness:2px;text-underline-offset:3px;cursor:pointer`
       : `background:${color};border-radius:3px;cursor:pointer;padding:0 1px`;
 
     let html = "";
@@ -939,7 +952,7 @@ export default function TestPage() {
 // ============================================================
 // Question Item Component
 // ============================================================
-function buildQuestionHtml(text: string, questionHighlights: Highlight[], questionId: string): string {
+function buildQuestionHtml(text: string, questionHighlights: Highlight[], questionId: string, ulColor = "#7c3aed"): string {
   const active = questionHighlights.filter(h => h.questionId === questionId);
 
   type Pos = { start: number; end: number; id: string; color: string };
@@ -955,7 +968,7 @@ function buildQuestionHtml(text: string, questionHighlights: Highlight[], questi
   }
 
   const styleFor = (color: string) => color === "underline"
-    ? `text-decoration:underline;text-decoration-color:#7c3aed;text-underline-offset:3px;cursor:pointer`
+    ? `background:transparent;text-decoration:underline;text-decoration-color:${ulColor};text-decoration-thickness:2px;text-underline-offset:3px;cursor:pointer`
     : `background:${color};border-radius:3px;cursor:pointer;padding:0 1px`;
 
   let result = "";
@@ -996,7 +1009,7 @@ function QuestionItem({
         <div onClick={handleQuestionClick}
           data-question-id={question.id}
           style={{ fontSize: fontSize - 1, color: T.text, lineHeight: 1.6, userSelect: "text" }}
-          dangerouslySetInnerHTML={{ __html: buildQuestionHtml(question.question, questionHighlights, question.id) }}
+          dangerouslySetInnerHTML={{ __html: buildQuestionHtml(question.question, questionHighlights, question.id, T.bg.startsWith("#0") ? "#c4b5fd" : "#7c3aed") }}
         />
       </div>
 
