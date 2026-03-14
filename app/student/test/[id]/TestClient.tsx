@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState, useRef, useCallback } from "react";
+import React, { useEffect, useState, useRef, useCallback } from "react";
 import { useRouter, useParams, useSearchParams } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -854,21 +854,23 @@ export default function TestPage() {
             {section.instructions}
           </div>
 
-          {section.diagramUrl && (
-            <div style={{ marginBottom: 24, textAlign: "center" }}>
-              <img src={section.diagramUrl} alt="Diagram" style={{ maxWidth: "100%", borderRadius: 10, border: `1px solid ${T.border}` }} />
-            </div>
-          )}
-
           <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
             {section.questions.map((q) => (
-              <QuestionItem key={q.id} question={q}
-                answer={answers[q.id] || ""}
-                onAnswer={(val) => setAnswer(q.id, val)}
-                T={T} fontSize={fontSize}
-                questionHighlights={highlights.filter(h => h.sectionIdx === currentSection && h.side === "questions")}
-                onRemoveHighlight={removeHighlight}
-              />
+              <React.Fragment key={q.id}>
+                {section.diagramUrl && q.type === "diagram_labelling" &&
+                  section.questions.findIndex(x => x.type === "diagram_labelling") === section.questions.indexOf(q) && (
+                  <div style={{ textAlign: "center", margin: "8px 0 4px" }}>
+                    <img src={section.diagramUrl} alt="Diagram" style={{ maxWidth: "100%", borderRadius: 10, border: `1px solid ${T.border}` }} />
+                  </div>
+                )}
+                <QuestionItem question={q}
+                  answer={answers[q.id] || ""}
+                  onAnswer={(val) => setAnswer(q.id, val)}
+                  T={T} fontSize={fontSize}
+                  questionHighlights={highlights.filter(h => h.sectionIdx === currentSection && h.side === "questions")}
+                  onRemoveHighlight={removeHighlight}
+                />
+              </React.Fragment>
             ))}
           </div>
 
