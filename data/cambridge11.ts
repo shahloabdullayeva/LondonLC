@@ -1851,4 +1851,733 @@ Questions 35–40: Complete the sentences below. Choose ONE WORD ONLY from the p
   ],
 };
 
-export const cambridge11Tests: IELTSTest[] = [cambridge11_reading_t1, cambridge11_reading_t2, cambridge11_reading_t3];
+// ============================================================
+// CAMBRIDGE IELTS 11 – TEST 4  (Academic Reading)
+// ============================================================
+export const cambridge11_reading_t4: IELTSTest = {
+  id: "cam11-reading-academic-t4",
+  title: "Cambridge IELTS 11 – Test 4",
+  bookNumber: 11,
+  testNumber: 4,
+  type: "reading",
+  level: "academic",
+  durationMinutes: 60,
+  transferMinutes: 0,
+  sections: [
+    // ── PASSAGE 1 ─────────────────────────────────────────────
+    {
+      id: "cam11-ra-t4-s1",
+      sectionNumber: 1,
+      title: "Reading Passage 1",
+      passageTitle: "Research using twins",
+      passageText: `To biomedical researchers all over the world, twins offer a precious opportunity to untangle the influence of genes and the environment – of nature and nurture. Because identical twins come from a single fertilized egg that splits into two, they share virtually the same genetic code. Any differences between them – one twin having younger looking skin, for example – must be due to environmental factors such as less time spent in the sun.
+
+Alternatively, by comparing the experiences of identical twins with those of fraternal twins, who come from separate eggs and share on average half their DNA, researchers can quantify the extent to which our genes affect our lives. If identical twins are more similar to each other with respect to an ailment than fraternal twins are, then vulnerability to the disease must be rooted at least in part in heredity.
+
+These two lines of research – studying the differences between identical twins to pinpoint the influence of environment, and comparing identical twins with fraternal ones to measure the role of inheritance – have been crucial to understanding the interplay of nature and nurture in determining our personalities, behavior, and vulnerability to disease.
+
+The idea of using twins to measure the influence of heredity dates back to 1875, when the English scientist Francis Galton first suggested the approach (and coined the phrase 'nature and nurture'). But twin studies took a surprising twist in the 1980s, with the arrival of studies into identical twins who had been separated at birth and reunited as adults. Over two decades 137 sets of twins eventually visited Thomas Bouchard's lab in what became known as the Minnesota Study of Twins Reared Apart. Numerous tests were carried out on the twins, and they were each asked more than 15,000 questions.
+
+Bouchard and his colleagues used this mountain of data to identify how far twins were affected by their genetic makeup. The key to their approach was a statistical concept called heritability. In broad terms, the heritability of a trait measures the extent to which differences among members of a population can be explained by differences in their genetics. And wherever Bouchard and other scientists looked, it seemed, they found the invisible hand of genetic influence helping to shape our lives.
+
+Lately, however, twin studies have helped lead scientists to a radical new conclusion: that nature and nurture are not the only elemental forces at work. According to a recent field called epigenetics, there is a third factor also in play, one that in some cases serves as a bridge between the environment and our genes, and in others operates on its own to shape who we are.
+
+Epigenetic processes are chemical reactions tied to neither nature nor nurture but representing what researchers have called a 'third component'. These reactions influence how our genetic code is expressed: how each gene is strengthened or weakened, even turned on or off, to build our bones, brains and all the other parts of our bodies.
+
+If you think of our DNA as an immense piano keyboard and our genes as the keys – each key symbolizing a segment of DNA responsible for a particular note, or trait, and all the keys combining to make us who we are – then epigenetic processes determine when and how each key can be struck, changing the tune being played.
+
+One way the study of epigenetics is revolutionizing our understanding of biology is by revealing a mechanism by which the environment directly impacts on genes. Studies of animals, for example, have shown that when a rat experiences stress during pregnancy, it can cause epigenetic changes in a fetus that lead to behavioral problems as the rodent grows up. Other epigenetic processes appear to occur randomly, while others are normal, such as those that guide embryonic cells as they become heart, brain, or liver cells, for example.
+
+Geneticist Danielle Reed has worked with many twins over the years and thought deeply about what twin studies have taught us. 'It's very clear when you look at twins that much of what they share is hardwired,' she says. 'Many things about them are absolutely the same and unalterable. But it's also clear, when you get to know them, that other things about them are different. Epigenetics is the origin of a lot of those differences, in my view.'
+
+Reed credits Thomas Bouchard's work for today's surge in twin studies. 'He was the trailblazer,' she says. 'We forget that 50 years ago things like heart disease were thought to be caused entirely by lifestyle. Schizophrenia was thought to be due to poor mothering. Twin studies have allowed us to be more reflective about what people are actually born with and what's caused by experience.'
+
+Having said that, Reed adds, the latest work in epigenetics promises to take our understanding even further. 'What I like to say is that nature writes some things in pencil and some things in pen,' she says. 'Things written in pen you can't change. That's DNA. But things written in pencil you can. That's epigenetics. Now that we're actually able to look at the DNA and see where the pencil writings are, it's sort of a whole new world.'`,
+      instructions: `Questions 1–4: Do the following statements agree with the information given in Reading Passage 1? Write TRUE, FALSE, or NOT GIVEN.
+
+Questions 5–9: Match each statement with the correct researcher, A, B or C.
+A Francis Galton   B Thomas Bouchard   C Danielle Reed
+NB You may use any letter more than once.
+
+Questions 10–13: Complete the summary using the list of words, A–F below.
+A nurture   B organs   C code   D chemicals   E environment   F behaviour`,
+      questions: [
+        // ── Q1–4: TRUE / FALSE / NOT GIVEN ───────────────────────
+        {
+          id: "cam11-ra-t4-s1-q1",
+          number: 1,
+          type: "true_false_ng",
+          question: "1. There may be genetic causes for the differences in how young the skin of identical twins looks.",
+          options: [
+            { label: "TRUE", value: "TRUE" },
+            { label: "FALSE", value: "FALSE" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "FALSE",
+          points: 1,
+        },
+        {
+          id: "cam11-ra-t4-s1-q2",
+          number: 2,
+          type: "true_false_ng",
+          question: "2. Twins are at greater risk of developing certain illnesses than non-twins.",
+          options: [
+            { label: "TRUE", value: "TRUE" },
+            { label: "FALSE", value: "FALSE" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "NOT GIVEN",
+          points: 1,
+        },
+        {
+          id: "cam11-ra-t4-s1-q3",
+          number: 3,
+          type: "true_false_ng",
+          question: "3. Bouchard advertised in newspapers for twins who had been separated at birth.",
+          options: [
+            { label: "TRUE", value: "TRUE" },
+            { label: "FALSE", value: "FALSE" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "NOT GIVEN",
+          points: 1,
+        },
+        {
+          id: "cam11-ra-t4-s1-q4",
+          number: 4,
+          type: "true_false_ng",
+          question: "4. Epigenetic processes are different from both genetic and environmental processes.",
+          options: [
+            { label: "TRUE", value: "TRUE" },
+            { label: "FALSE", value: "FALSE" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "TRUE",
+          points: 1,
+        },
+        // ── Q5–9: Matching researchers ────────────────────────────
+        {
+          id: "cam11-ra-t4-s1-q5",
+          number: 5,
+          groupLabel: "Questions 5–9: Match each statement with the correct researcher, A, B or C.\nA  Francis Galton\nB  Thomas Bouchard\nC  Danielle Reed\nNB You may use any letter more than once.",
+          type: "matching",
+          question: "5. Invented a term used to distinguish two factors affecting human characteristics",
+          options: [
+            { label: "A – Francis Galton", value: "A" },
+            { label: "B – Thomas Bouchard", value: "B" },
+            { label: "C – Danielle Reed", value: "C" },
+          ],
+          correctAnswer: "A",
+          points: 1,
+        },
+        {
+          id: "cam11-ra-t4-s1-q6",
+          number: 6,
+          type: "matching",
+          question: "6. Expressed the view that the study of epigenetics will increase our knowledge",
+          options: [
+            { label: "A – Francis Galton", value: "A" },
+            { label: "B – Thomas Bouchard", value: "B" },
+            { label: "C – Danielle Reed", value: "C" },
+          ],
+          correctAnswer: "C",
+          points: 1,
+        },
+        {
+          id: "cam11-ra-t4-s1-q7",
+          number: 7,
+          type: "matching",
+          question: "7. Developed a mathematical method of measuring genetic influences",
+          options: [
+            { label: "A – Francis Galton", value: "A" },
+            { label: "B – Thomas Bouchard", value: "B" },
+            { label: "C – Danielle Reed", value: "C" },
+          ],
+          correctAnswer: "B",
+          points: 1,
+        },
+        {
+          id: "cam11-ra-t4-s1-q8",
+          number: 8,
+          type: "matching",
+          question: "8. Pioneered research into genetics using twins",
+          options: [
+            { label: "A – Francis Galton", value: "A" },
+            { label: "B – Thomas Bouchard", value: "B" },
+            { label: "C – Danielle Reed", value: "C" },
+          ],
+          correctAnswer: "A",
+          points: 1,
+        },
+        {
+          id: "cam11-ra-t4-s1-q9",
+          number: 9,
+          type: "matching",
+          question: "9. Carried out research into twins who had lived apart",
+          options: [
+            { label: "A – Francis Galton", value: "A" },
+            { label: "B – Thomas Bouchard", value: "B" },
+            { label: "C – Danielle Reed", value: "C" },
+          ],
+          correctAnswer: "B",
+          points: 1,
+        },
+        // ── Q10–13: Summary completion with word bank ─────────────
+        {
+          id: "cam11-ra-t4-s1-q10",
+          number: 10,
+          groupLabel: "Questions 10–13: Complete the summary using the list of words, A–F below.\nA nurture   B organs   C code   D chemicals   E environment   F behaviour\n\nEpigenetic processes",
+          type: "multiple_choice",
+          question: "10. In epigenetic processes, _______ influence the activity of our genes. (Choose from word bank A–F)",
+          options: [
+            { label: "A – nurture", value: "A" },
+            { label: "B – organs", value: "B" },
+            { label: "C – code", value: "C" },
+            { label: "D – chemicals", value: "D" },
+            { label: "E – environment", value: "E" },
+            { label: "F – behaviour", value: "F" },
+          ],
+          correctAnswer: "D",
+          points: 1,
+        },
+        {
+          id: "cam11-ra-t4-s1-q11",
+          number: 11,
+          type: "multiple_choice",
+          question: "11. Epigenetic processes play a role in creating our internal _______. (Choose from word bank A–F)",
+          options: [
+            { label: "A – nurture", value: "A" },
+            { label: "B – organs", value: "B" },
+            { label: "C – code", value: "C" },
+            { label: "D – chemicals", value: "D" },
+            { label: "E – environment", value: "E" },
+            { label: "F – behaviour", value: "F" },
+          ],
+          correctAnswer: "B",
+          points: 1,
+        },
+        {
+          id: "cam11-ra-t4-s1-q12",
+          number: 12,
+          type: "multiple_choice",
+          question: "12. The study of epigenetic processes is revealing how our genes can be affected by our _______. (Choose from word bank A–F)",
+          options: [
+            { label: "A – nurture", value: "A" },
+            { label: "B – organs", value: "B" },
+            { label: "C – code", value: "C" },
+            { label: "D – chemicals", value: "D" },
+            { label: "E – environment", value: "E" },
+            { label: "F – behaviour", value: "F" },
+          ],
+          correctAnswer: "E",
+          points: 1,
+        },
+        {
+          id: "cam11-ra-t4-s1-q13",
+          number: 13,
+          type: "multiple_choice",
+          question: "13. If a pregnant rat suffers stress, the new-born rat may later show problems in its _______. (Choose from word bank A–F)",
+          options: [
+            { label: "A – nurture", value: "A" },
+            { label: "B – organs", value: "B" },
+            { label: "C – code", value: "C" },
+            { label: "D – chemicals", value: "D" },
+            { label: "E – environment", value: "E" },
+            { label: "F – behaviour", value: "F" },
+          ],
+          correctAnswer: "F",
+          points: 1,
+        },
+      ],
+    },
+
+    // ── PASSAGE 2 ─────────────────────────────────────────────
+    {
+      id: "cam11-ra-t4-s2",
+      sectionNumber: 2,
+      title: "Reading Passage 2",
+      passageTitle: "An Introduction to Film Sound",
+      passageText: `Though we might think of film as an essentially visual experience, we really cannot afford to underestimate the importance of film sound. A meaningful sound track is often as complicated as the image on the screen, and is ultimately just as much the responsibility of the director. The entire sound track consists of three essential ingredients: the human voice, sound effects and music. These three tracks must be mixed and balanced so as to produce the necessary emphases which in turn create desired effects. Topics which essentially refer to the three previously mentioned tracks are discussed below. They include dialogue, synchronous and asynchronous sound effects, and music.
+
+Let us start with dialogue. As is the case with stage drama, dialogue serves to tell the story and expresses feelings and motivations of characters as well. Often with film characterization the audience perceives little or no difference between the character and the actor. Thus, for example, the actor Humphrey Bogart is the character Sam Spade; film personality and life personality seem to merge. Perhaps this is because the very texture of a performer's voice supplies an element of character.
+
+When voice textures fit the performer's physiognomy and gestures, a whole and very realistic persona emerges. The viewer sees not an actor working at his craft, but another human being struggling with life. It is interesting to note that how dialogue is used and the very amount of dialogue used varies widely among films. For example, in the highly successful science-fiction film 2001, little dialogue was evident, and most of it was banal and of little intrinsic interest. In this way the film-maker was able to portray what Thomas Sobochack and Vivian Sobochack call, in An Introduction to Film, the 'inadequacy of human responses when compared with the magnificent technology created by man and the visual beauties of the universe'.
+
+The comedy Bringing Up Baby, on the other hand, presents practically non-stop dialogue delivered at breakneck speed. This use of dialogue underscores not only the dizzy quality of the character played by Katherine Hepburn, but also the absurdity of the film itself and thus its humor. The audience is bounced from gag to gag and conversation to conversation; there is no time for audience reflection. The audience is caught up in a whirlwind of activity in simply managing to follow the plot. This film presents pure escapism – largely due to its frenetic dialogue.
+
+Synchronous sound effects are those sounds which are synchronized or matched with what is viewed. For example, if the film portrays a character playing the piano, the sounds of the piano are projected. Synchronous sounds contribute to the realism of film and also help to create a particular atmosphere. For example, the 'click' of a door being opened may simply serve to convince the audience that the image portrayed is real, and the audience may only subconsciously note the expected sound. However, if the 'click' of an opening door is part of an ominous action such as a burglary, the sound mixer may call attention to the 'click' with an increase in volume; this helps to engage the audience in a moment of suspense.
+
+Asynchronous sound effects, on the other hand, are not matched with a visible source of the sound on screen. Such sounds are included so as to provide an appropriate emotional nuance, and they may also add to the realism of the film. For example, a film-maker might opt to include the background sound of an ambulance's siren while the foreground sound and image portrays an arguing couple. The asynchronous ambulance siren underscores the psychic injury incurred in the argument; at the same time the noise of the siren adds to the realism of the film by acknowledging the film's city setting.
+
+We are probably all familiar with background music in films, which has become so ubiquitous as to be noticeable in its absence. We are aware that it is used to add emotion and rhythm. Usually not meant to be noticeable, it often provides a tone or an emotional attitude toward the story and/or the characters depicted. In addition, background music often foreshadows a change in mood. For example, dissonant music may be used in film to indicate an approaching (but not yet visible) menace or disaster.
+
+Background music may aid viewer understanding by linking scenes. For example, a particular musical theme associated with an individual character or situation may be repeated at various points in a film in order to remind the audience of salient motifs or ideas.
+
+Film sound comprises conventions and innovations. We have come to expect an acceleration of music during car chases and creaky doors in horror films. Yet, it is important to note as well that sound is often brilliantly conceived. The effects of sound are often largely subtle and often are noted by only our subconscious minds. We need to foster an awareness of film sound as well as film space so as to truly appreciate an art form that sprang to life during the twentieth century – the modern film.`,
+      instructions: `Questions 14–18: Choose the correct letter, A, B, C or D.
+
+Questions 19–23: Do the following statements agree with the information given in Reading Passage 2? Write TRUE, FALSE, or NOT GIVEN.
+
+Questions 24–26: Complete each sentence with the correct ending, A–E below.
+A when the audience listens to the dialogue.
+B if the film reflects the audience's own concerns.
+C if voice, sound and music are combined appropriately.
+D when the director is aware of how the audience will respond.
+E when the actor's appearance, voice and moves are consistent with each other.`,
+      questions: [
+        // ── Q14–18: Multiple choice ───────────────────────────────
+        {
+          id: "cam11-ra-t4-s2-q14",
+          number: 14,
+          type: "multiple_choice",
+          question: "14. In the first paragraph, the writer makes a point that",
+          options: [
+            { label: "A – the director should plan the sound track at an early stage in filming", value: "A" },
+            { label: "B – it would be wrong to overlook the contribution of sound to the artistry of films", value: "B" },
+            { label: "C – the music industry can have a beneficial influence on sound in film", value: "C" },
+            { label: "D – it is important for those working on the sound in a film to have sole responsibility for it", value: "D" },
+          ],
+          correctAnswer: "B",
+          points: 1,
+        },
+        {
+          id: "cam11-ra-t4-s2-q15",
+          number: 15,
+          type: "multiple_choice",
+          question: "15. One reason that the writer refers to Humphrey Bogart is to exemplify",
+          options: [
+            { label: "A – the importance of the actor and the character appearing to have similar personalities", value: "A" },
+            { label: "B – the audience's wish that actors are visually appropriate for their roles", value: "B" },
+            { label: "C – the value of the actor having had similar feelings to the character", value: "C" },
+            { label: "D – the audience's preference for dialogue to be as authentic as possible", value: "D" },
+          ],
+          correctAnswer: "A",
+          points: 1,
+        },
+        {
+          id: "cam11-ra-t4-s2-q16",
+          number: 16,
+          type: "multiple_choice",
+          question: "16. In the third paragraph, the writer suggests that",
+          options: [
+            { label: "A – audiences are likely to be critical of film dialogue that does not reflect their own experience", value: "A" },
+            { label: "B – film dialogue that appears to be dull may have a specific purpose", value: "B" },
+            { label: "C – filmmakers vary considerably in the skill with which they handle dialogue", value: "C" },
+            { label: "D – the most successful films are those with dialogue of a high quality", value: "D" },
+          ],
+          correctAnswer: "B",
+          points: 1,
+        },
+        {
+          id: "cam11-ra-t4-s2-q17",
+          number: 17,
+          type: "multiple_choice",
+          question: "17. What does the writer suggest about Bringing Up Baby?",
+          options: [
+            { label: "A – The plot suffers from the filmmaker's wish to focus on humorous dialogue", value: "A" },
+            { label: "B – The dialogue helps to make it one of the best comedy films ever produced", value: "B" },
+            { label: "C – There is a mismatch between the speed of the dialogue and the speed of actions", value: "C" },
+            { label: "D – The nature of the dialogue emphasises key elements of the film", value: "D" },
+          ],
+          correctAnswer: "D",
+          points: 1,
+        },
+        {
+          id: "cam11-ra-t4-s2-q18",
+          number: 18,
+          type: "multiple_choice",
+          question: "18. The writer refers to the 'click' of a door to make the point that realistic sounds",
+          options: [
+            { label: "A – are often used to give the audience a false impression of events in the film", value: "A" },
+            { label: "B – may be interpreted in different ways by different members of the audience", value: "B" },
+            { label: "C – may be modified in order to manipulate the audience's response to the film", value: "C" },
+            { label: "D – tend to be more significant in films presenting realistic situations", value: "D" },
+          ],
+          correctAnswer: "C",
+          points: 1,
+        },
+        // ── Q19–23: TRUE / FALSE / NOT GIVEN ─────────────────────
+        {
+          id: "cam11-ra-t4-s2-q19",
+          number: 19,
+          type: "true_false_ng",
+          question: "19. Audiences are likely to be surprised if a film lacks background music.",
+          options: [
+            { label: "TRUE", value: "TRUE" },
+            { label: "FALSE", value: "FALSE" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "TRUE",
+          points: 1,
+        },
+        {
+          id: "cam11-ra-t4-s2-q20",
+          number: 20,
+          type: "true_false_ng",
+          question: "20. Background music may anticipate a development in a film.",
+          options: [
+            { label: "TRUE", value: "TRUE" },
+            { label: "FALSE", value: "FALSE" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "TRUE",
+          points: 1,
+        },
+        {
+          id: "cam11-ra-t4-s2-q21",
+          number: 21,
+          type: "true_false_ng",
+          question: "21. Background music has more effect on some people than on others.",
+          options: [
+            { label: "TRUE", value: "TRUE" },
+            { label: "FALSE", value: "FALSE" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "NOT GIVEN",
+          points: 1,
+        },
+        {
+          id: "cam11-ra-t4-s2-q22",
+          number: 22,
+          type: "true_false_ng",
+          question: "22. Background music may help the audience to make certain connections within the film.",
+          options: [
+            { label: "TRUE", value: "TRUE" },
+            { label: "FALSE", value: "FALSE" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "TRUE",
+          points: 1,
+        },
+        {
+          id: "cam11-ra-t4-s2-q23",
+          number: 23,
+          type: "true_false_ng",
+          question: "23. Audiences tend to be aware of how the background music is affecting them.",
+          options: [
+            { label: "TRUE", value: "TRUE" },
+            { label: "FALSE", value: "FALSE" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "FALSE",
+          points: 1,
+        },
+        // ── Q24–26: Sentence endings matching ────────────────────
+        {
+          id: "cam11-ra-t4-s2-q24",
+          number: 24,
+          groupLabel: "Questions 24–26: Complete each sentence with the correct ending, A–E below.\nA  when the audience listens to the dialogue.\nB  if the film reflects the audience's own concerns.\nC  if voice, sound and music are combined appropriately.\nD  when the director is aware of how the audience will respond.\nE  when the actor's appearance, voice and moves are consistent with each other.",
+          type: "matching",
+          question: "24. The audience's response to different parts of a film can be controlled",
+          options: [
+            { label: "A – when the audience listens to the dialogue", value: "A" },
+            { label: "B – if the film reflects the audience's own concerns", value: "B" },
+            { label: "C – if voice, sound and music are combined appropriately", value: "C" },
+            { label: "D – when the director is aware of how the audience will respond", value: "D" },
+            { label: "E – when the actor's appearance, voice and moves are consistent with each other", value: "E" },
+          ],
+          correctAnswer: "C",
+          points: 1,
+        },
+        {
+          id: "cam11-ra-t4-s2-q25",
+          number: 25,
+          type: "matching",
+          question: "25. The feelings and motivations of characters become clear",
+          options: [
+            { label: "A – when the audience listens to the dialogue", value: "A" },
+            { label: "B – if the film reflects the audience's own concerns", value: "B" },
+            { label: "C – if voice, sound and music are combined appropriately", value: "C" },
+            { label: "D – when the director is aware of how the audience will respond", value: "D" },
+            { label: "E – when the actor's appearance, voice and moves are consistent with each other", value: "E" },
+          ],
+          correctAnswer: "A",
+          points: 1,
+        },
+        {
+          id: "cam11-ra-t4-s2-q26",
+          number: 26,
+          type: "matching",
+          question: "26. A character seems to be a real person rather than an actor",
+          options: [
+            { label: "A – when the audience listens to the dialogue", value: "A" },
+            { label: "B – if the film reflects the audience's own concerns", value: "B" },
+            { label: "C – if voice, sound and music are combined appropriately", value: "C" },
+            { label: "D – when the director is aware of how the audience will respond", value: "D" },
+            { label: "E – when the actor's appearance, voice and moves are consistent with each other", value: "E" },
+          ],
+          correctAnswer: "E",
+          points: 1,
+        },
+      ],
+    },
+
+    // ── PASSAGE 3 ─────────────────────────────────────────────
+    {
+      id: "cam11-ra-t4-s3",
+      sectionNumber: 3,
+      title: "Reading Passage 3",
+      passageTitle: "'This Marvellous Invention'",
+      passageText: `A
+Of all mankind's manifold creations, language must take pride of place. Other inventions – the wheel, agriculture, sliced bread – may have transformed our material existence, but the advent of language is what made us human. Compared to language, all other inventions pale in significance, since everything we have ever achieved depends on language and originates from it. Without language, we could never have embarked on our ascent to unparalleled power over all other animals, and even over nature itself.
+
+B
+But language is foremost not just because it came first. In its own right it is a tool of extraordinary sophistication, yet based on an idea of ingenious simplicity: 'this marvellous invention of composing out of twenty-five or thirty sounds that infinite variety of expressions which, whilst having in themselves no likeness to what is in our mind, allow us to disclose to others its whole secret, and to make known to those who cannot penetrate it all that we imagine, and all the various stirrings of our soul'. This was how, in 1660, the renowned French grammarians of the Port-Royal abbey near Versailles distilled the essence of language, and no one since has celebrated more eloquently the magnitude of its achievement. Even so, there is just one flaw in all these hymns of praise, for the homage to language's unique accomplishment conceals a simple yet critical incongruity. Language is mankind's greatest invention – except, of course, that it was never invented. This apparent paradox is at the core of our fascination with language, and it holds many of its secrets.
+
+C
+Language often seems so skillfully drafted that one can hardly imagine it as anything other than the perfected handiwork of a master craftsman. How else could this instrument make so much out of barely three dozen measly morsels of sound? In themselves, these configurations of mouth – p, f, b, v, t, d, k, g, sh, a, e and so on – amount to nothing more than a few haphazard spits and splutters, random noises with no meaning, no ability to express, no power to explain. But run them through the cogs and wheels of the language machine, let it arrange them in some very special orders, and there is nothing that these meaningless streams of air cannot do: from sighing the interminable boredom of existence to unravelling the fundamental order of the universe.
+
+D
+The most extraordinary thing about language, however, is that one doesn't have to be a genius to set its wheels in motion. The language machine allows just about everybody – from pre-modern foragers in the subtropical savannah, to post-modern philosophers in the suburban sprawl – to tie these meaningless sounds together into an infinite variety of subtle senses, and all apparently without the slightest exertion. Yet it is precisely this deceptive ease which makes language a victim of its own success, since in everyday life its triumphs are usually taken for granted. The wheels of language run so smoothly that one rarely bothers to stop and think about all the resourcefulness and expertise that must have gone into making it tick. Language conceals art.
+
+E
+Often, it is only the estrangement of foreign tongues, with their many exotic and outlandish features, that brings home the wonder of language's design. One of the showiest stunts that some languages can pull off is an ability to build up words of breath-breaking length, and thus express in one word what English takes a whole sentence to say. The Turkish word çehirliliçtiremediklerimizdensiniz, to take one example, means nothing less than 'you are one of those whom we can't turn into a town-dweller'. (In case you were wondering, this monstrosity really is one word, not merely many different words squashed together – most of its components cannot even stand up on their own.)
+
+F
+And if that sounds like some one-off freak, then consider Sumerian, the language spoken on the banks of the Euphrates some 5,000 years ago by the people who invented writing and thus enabled the documentation of history. A Sumerian word like munintuma'a ('when he had made it suitable for her') might seem rather trim compared to the Turkish colossus above. What is so impressive about it, however, is not its lengthiness but rather the reverse – the thrifty compactness of its construction. The word is made up of different slots, each corresponding to a particular portion of meaning. This sleek design allows single sounds to convey useful information, and in fact even the absence of a sound has been enlisted to express something specific. If you were to ask which bit in the Sumerian word corresponds to the pronoun 'it' in the English translation 'when he had made it suitable for her', then the answer would have to be nothing. Mind you, a very particular kind of nothing: the nothing that stands in the empty slot in the middle. The technology is so fine-tuned then that even a non-sound, when carefully placed in a particular position, has been invested with a specific function. Who could possibly have come up with such a nifty contraption?`,
+      instructions: `Questions 27–32: Reading Passage 3 has six paragraphs, A–F. Choose the correct heading for each paragraph from the list of headings below.
+i Differences between languages highlight their impressiveness
+ii The way in which a few sounds are organised to convey a huge range of meaning
+iii Why the sounds used in different languages are not identical
+iv Apparently incompatible characteristics of language
+v Even silence can be meaningful
+vi Why language is the most important invention of all
+vii The universal ability to use language
+
+Questions 33–36: Complete the summary using the list of words, A–G below.
+A difficult   B complex   C original   D admired   E material   F easy   G fundamental
+
+Questions 37–40: Do the following statements agree with the views of the writer? Write YES, NO, or NOT GIVEN.`,
+      questions: [
+        // ── Q27–32: Paragraph headings ────────────────────────────
+        {
+          id: "cam11-ra-t4-s3-q27",
+          number: 27,
+          type: "matching",
+          question: "27. Paragraph A",
+          options: [
+            { label: "i – Differences between languages highlight their impressiveness", value: "i" },
+            { label: "ii – The way in which a few sounds are organised to convey a huge range of meaning", value: "ii" },
+            { label: "iii – Why the sounds used in different languages are not identical", value: "iii" },
+            { label: "iv – Apparently incompatible characteristics of language", value: "iv" },
+            { label: "v – Even silence can be meaningful", value: "v" },
+            { label: "vi – Why language is the most important invention of all", value: "vi" },
+            { label: "vii – The universal ability to use language", value: "vii" },
+          ],
+          correctAnswer: "vi",
+          points: 1,
+        },
+        {
+          id: "cam11-ra-t4-s3-q28",
+          number: 28,
+          type: "matching",
+          question: "28. Paragraph B",
+          options: [
+            { label: "i – Differences between languages highlight their impressiveness", value: "i" },
+            { label: "ii – The way in which a few sounds are organised to convey a huge range of meaning", value: "ii" },
+            { label: "iii – Why the sounds used in different languages are not identical", value: "iii" },
+            { label: "iv – Apparently incompatible characteristics of language", value: "iv" },
+            { label: "v – Even silence can be meaningful", value: "v" },
+            { label: "vi – Why language is the most important invention of all", value: "vi" },
+            { label: "vii – The universal ability to use language", value: "vii" },
+          ],
+          correctAnswer: "iv",
+          points: 1,
+        },
+        {
+          id: "cam11-ra-t4-s3-q29",
+          number: 29,
+          type: "matching",
+          question: "29. Paragraph C",
+          options: [
+            { label: "i – Differences between languages highlight their impressiveness", value: "i" },
+            { label: "ii – The way in which a few sounds are organised to convey a huge range of meaning", value: "ii" },
+            { label: "iii – Why the sounds used in different languages are not identical", value: "iii" },
+            { label: "iv – Apparently incompatible characteristics of language", value: "iv" },
+            { label: "v – Even silence can be meaningful", value: "v" },
+            { label: "vi – Why language is the most important invention of all", value: "vi" },
+            { label: "vii – The universal ability to use language", value: "vii" },
+          ],
+          correctAnswer: "ii",
+          points: 1,
+        },
+        {
+          id: "cam11-ra-t4-s3-q30",
+          number: 30,
+          type: "matching",
+          question: "30. Paragraph D",
+          options: [
+            { label: "i – Differences between languages highlight their impressiveness", value: "i" },
+            { label: "ii – The way in which a few sounds are organised to convey a huge range of meaning", value: "ii" },
+            { label: "iii – Why the sounds used in different languages are not identical", value: "iii" },
+            { label: "iv – Apparently incompatible characteristics of language", value: "iv" },
+            { label: "v – Even silence can be meaningful", value: "v" },
+            { label: "vi – Why language is the most important invention of all", value: "vi" },
+            { label: "vii – The universal ability to use language", value: "vii" },
+          ],
+          correctAnswer: "vii",
+          points: 1,
+        },
+        {
+          id: "cam11-ra-t4-s3-q31",
+          number: 31,
+          type: "matching",
+          question: "31. Paragraph E",
+          options: [
+            { label: "i – Differences between languages highlight their impressiveness", value: "i" },
+            { label: "ii – The way in which a few sounds are organised to convey a huge range of meaning", value: "ii" },
+            { label: "iii – Why the sounds used in different languages are not identical", value: "iii" },
+            { label: "iv – Apparently incompatible characteristics of language", value: "iv" },
+            { label: "v – Even silence can be meaningful", value: "v" },
+            { label: "vi – Why language is the most important invention of all", value: "vi" },
+            { label: "vii – The universal ability to use language", value: "vii" },
+          ],
+          correctAnswer: "i",
+          points: 1,
+        },
+        {
+          id: "cam11-ra-t4-s3-q32",
+          number: 32,
+          type: "matching",
+          question: "32. Paragraph F",
+          options: [
+            { label: "i – Differences between languages highlight their impressiveness", value: "i" },
+            { label: "ii – The way in which a few sounds are organised to convey a huge range of meaning", value: "ii" },
+            { label: "iii – Why the sounds used in different languages are not identical", value: "iii" },
+            { label: "iv – Apparently incompatible characteristics of language", value: "iv" },
+            { label: "v – Even silence can be meaningful", value: "v" },
+            { label: "vi – Why language is the most important invention of all", value: "vi" },
+            { label: "vii – The universal ability to use language", value: "vii" },
+          ],
+          correctAnswer: "v",
+          points: 1,
+        },
+        // ── Q33–36: Summary completion with word bank ─────────────
+        {
+          id: "cam11-ra-t4-s3-q33",
+          number: 33,
+          groupLabel: "Questions 33–36: Complete the summary using the list of words, A–G below.\nA difficult   B complex   C original   D admired   E material   F easy   G fundamental\n\nThe importance of language",
+          type: "multiple_choice",
+          question: "33. The wheel is one invention that has had a major impact on _______ aspects of life. (Choose from word bank A–G)",
+          options: [
+            { label: "A – difficult", value: "A" },
+            { label: "B – complex", value: "B" },
+            { label: "C – original", value: "C" },
+            { label: "D – admired", value: "D" },
+            { label: "E – material", value: "E" },
+            { label: "F – easy", value: "F" },
+            { label: "G – fundamental", value: "G" },
+          ],
+          correctAnswer: "E",
+          points: 1,
+        },
+        {
+          id: "cam11-ra-t4-s3-q34",
+          number: 34,
+          type: "multiple_choice",
+          question: "34. No impact has been as _______ as that of language. (Choose from word bank A–G)",
+          options: [
+            { label: "A – difficult", value: "A" },
+            { label: "B – complex", value: "B" },
+            { label: "C – original", value: "C" },
+            { label: "D – admired", value: "D" },
+            { label: "E – material", value: "E" },
+            { label: "F – easy", value: "F" },
+            { label: "G – fundamental", value: "G" },
+          ],
+          correctAnswer: "G",
+          points: 1,
+        },
+        {
+          id: "cam11-ra-t4-s3-q35",
+          number: 35,
+          type: "multiple_choice",
+          question: "35. Language is very _______, yet composed of just a small number of sounds. (Choose from word bank A–G)",
+          options: [
+            { label: "A – difficult", value: "A" },
+            { label: "B – complex", value: "B" },
+            { label: "C – original", value: "C" },
+            { label: "D – admired", value: "D" },
+            { label: "E – material", value: "E" },
+            { label: "F – easy", value: "F" },
+            { label: "G – fundamental", value: "G" },
+          ],
+          correctAnswer: "B",
+          points: 1,
+        },
+        {
+          id: "cam11-ra-t4-s3-q36",
+          number: 36,
+          type: "multiple_choice",
+          question: "36. Language appears to be _______ to use. However, its sophistication is often overlooked. (Choose from word bank A–G)",
+          options: [
+            { label: "A – difficult", value: "A" },
+            { label: "B – complex", value: "B" },
+            { label: "C – original", value: "C" },
+            { label: "D – admired", value: "D" },
+            { label: "E – material", value: "E" },
+            { label: "F – easy", value: "F" },
+            { label: "G – fundamental", value: "G" },
+          ],
+          correctAnswer: "F",
+          points: 1,
+        },
+        // ── Q37–40: YES / NO / NOT GIVEN ─────────────────────────
+        {
+          id: "cam11-ra-t4-s3-q37",
+          number: 37,
+          type: "true_false_ng",
+          question: "37. Human beings might have achieved their present position without language.",
+          options: [
+            { label: "YES", value: "YES" },
+            { label: "NO", value: "NO" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "NO",
+          points: 1,
+        },
+        {
+          id: "cam11-ra-t4-s3-q38",
+          number: 38,
+          type: "true_false_ng",
+          question: "38. The Port-Royal grammarians did justice to the nature of language.",
+          options: [
+            { label: "YES", value: "YES" },
+            { label: "NO", value: "NO" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "YES",
+          points: 1,
+        },
+        {
+          id: "cam11-ra-t4-s3-q39",
+          number: 39,
+          type: "true_false_ng",
+          question: "39. A complex idea can be explained more clearly in a sentence than in a single word.",
+          options: [
+            { label: "YES", value: "YES" },
+            { label: "NO", value: "NO" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "NOT GIVEN",
+          points: 1,
+        },
+        {
+          id: "cam11-ra-t4-s3-q40",
+          number: 40,
+          type: "true_false_ng",
+          question: "40. The Sumerians were responsible for starting the recording of events.",
+          options: [
+            { label: "YES", value: "YES" },
+            { label: "NO", value: "NO" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "YES",
+          points: 1,
+        },
+      ],
+    },
+  ],
+};
+
+export const cambridge11Tests: IELTSTest[] = [cambridge11_reading_t1, cambridge11_reading_t2, cambridge11_reading_t3, cambridge11_reading_t4];
