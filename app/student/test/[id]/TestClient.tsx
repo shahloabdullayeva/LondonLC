@@ -134,7 +134,7 @@ export default function TestPage() {
   const [pendingQuestionId, setPendingQuestionId] = useState<string | undefined>(undefined);
   const [pendingSide, setPendingSide] = useState<"passage" | "questions">("passage");
   const [cancelMessage, setCancelMessage] = useState("");
-  const [pageMode, setPageMode] = useState<"dark" | "white">("dark");
+  const [pageMode, setPageMode] = useState<"dark" | "sepia" | "white">("dark");
   const [fontSize, setFontSize] = useState(15);
   const [showDetails, setShowDetails] = useState(false);
 
@@ -146,8 +146,8 @@ export default function TestPage() {
     return () => obs.disconnect();
   }, []);
 
-  // White page mode = light; dark page mode = always dark (not system)
-  const effectiveTheme = pageMode === "white" ? "light" : "dark";
+  // White/sepia = light; dark = always dark
+  const effectiveTheme = pageMode === "dark" ? "dark" : "light";
 
   // Theme-aware colours
   const T = effectiveTheme === "dark" ? {
@@ -156,19 +156,18 @@ export default function TestPage() {
     border: "rgba(255,255,255,0.08)", accent: "#7c3aed", accentBtn: "linear-gradient(135deg,#6d28d9,#7c3aed)",
     accentDim: "rgba(124,58,237,0.12)", accentBorder: "rgba(124,58,237,0.2)",
     inputBg: "#0a051f", shadow: "rgba(0,0,0,0.6)",
+  } : pageMode === "sepia" ? {
+    bg: "#f4e8d0", nav: "#ecdfc4", card: "#f4e8d0", passage: "#efe2ca",
+    text: "#3b2a14", textSub: "rgba(59,42,20,0.6)", textMuted: "rgba(59,42,20,0.45)",
+    border: "rgba(59,42,20,0.14)", accent: "#92400e", accentBtn: "linear-gradient(135deg,#92400e,#b45309)",
+    accentDim: "rgba(146,64,14,0.1)", accentBorder: "rgba(146,64,14,0.25)",
+    inputBg: "#f4e8d0", shadow: "rgba(59,42,20,0.1)",
   } : {
-    bg: pageMode === "white" ? "#faf8f4" : "#ffffff",
-    nav: pageMode === "white" ? "#f0ede6" : "#f4f0ff",
-    card: pageMode === "white" ? "#faf8f4" : "#ffffff",
-    passage: pageMode === "white" ? "#f5f2ec" : "#f9f7ff",
-    text: pageMode === "white" ? "#2c2416" : "#1a0040",
-    textSub: pageMode === "white" ? "rgba(44,36,22,0.6)" : "rgba(26,0,64,0.55)",
-    textMuted: pageMode === "white" ? "rgba(44,36,22,0.45)" : "rgba(26,0,64,0.4)",
-    border: pageMode === "white" ? "rgba(44,36,22,0.12)" : "rgba(109,40,217,0.12)",
-    accent: "#6d28d9", accentBtn: "linear-gradient(135deg,#6d28d9,#7c3aed)",
+    bg: "#faf8f4", nav: "#f0ede6", card: "#faf8f4", passage: "#f5f2ec",
+    text: "#2c2416", textSub: "rgba(44,36,22,0.6)", textMuted: "rgba(44,36,22,0.45)",
+    border: "rgba(44,36,22,0.12)", accent: "#6d28d9", accentBtn: "linear-gradient(135deg,#6d28d9,#7c3aed)",
     accentDim: "rgba(109,40,217,0.08)", accentBorder: "rgba(109,40,217,0.2)",
-    inputBg: pageMode === "white" ? "#faf8f4" : "#ffffff",
-    shadow: pageMode === "white" ? "rgba(44,36,22,0.08)" : "rgba(109,40,217,0.1)",
+    inputBg: "#faf8f4", shadow: "rgba(44,36,22,0.08)",
   };
 
   // ── Highlight toolbar dismiss ────────────────────────────────────────
@@ -715,10 +714,12 @@ export default function TestPage() {
               <Plus size={12} />
             </button>
           </div>
-          {/* White/Dark mode toggle */}
-          <button onClick={() => setPageMode(m => m === "dark" ? "white" : "dark")} title={pageMode === "dark" ? "Switch to white page" : "Switch to dark mode"}
-            style={{ padding: "5px 8px", background: T.accentDim, border: `1px solid ${T.accentBorder}`, borderRadius: 8, cursor: "pointer", color: T.accent, display: "flex", alignItems: "center" }}>
-            {pageMode === "dark" ? <Sun size={14} /> : <Moon size={14} />}
+          {/* Theme cycle: dark → sepia → white → dark */}
+          <button
+            onClick={() => setPageMode(m => m === "dark" ? "sepia" : m === "sepia" ? "white" : "dark")}
+            title={pageMode === "dark" ? "Switch to sepia" : pageMode === "sepia" ? "Switch to white" : "Switch to dark"}
+            style={{ padding: "5px 10px", background: T.accentDim, border: `1px solid ${T.accentBorder}`, borderRadius: 8, cursor: "pointer", color: T.accent, display: "flex", alignItems: "center", gap: 4, fontSize: 13, fontWeight: 600 }}>
+            {pageMode === "dark" ? <><Sun size={14} />📜</> : pageMode === "sepia" ? <><Sun size={14} /></> : <Moon size={14} />}
           </button>
           <div style={{ display: "flex", alignItems: "center", gap: 6, padding: "6px 12px", borderRadius: 10, background: T.nav, border: `1px solid ${T.border}`, fontSize: 14, fontWeight: 700, color: timeLeft < 300 ? "#ef4444" : T.accent, fontFamily: "monospace" }}>
             <Clock size={14} />
@@ -814,7 +815,7 @@ export default function TestPage() {
         {toolbarPos && (
           <div data-highlight-toolbar
             style={{ position: "fixed", left: Math.min(Math.max(toolbarPos.x, 100), window.innerWidth - 100), top: Math.max(toolbarPos.y, 8), transform: "translateX(-50%)", zIndex: 1000,
-              background: pageMode === "white" ? "#f0ede6" : "#1a0e42", border: `1px solid ${T.border}`, borderRadius: 10, padding: "6px 10px",
+              background: pageMode === "dark" ? "#1a0e42" : T.nav, border: `1px solid ${T.border}`, borderRadius: 10, padding: "6px 10px",
               display: "flex", alignItems: "center", gap: 7, boxShadow: `0 6px 24px rgba(0,0,0,0.4)` }}>
             <span style={{ fontSize: 10, color: T.textMuted, marginRight: 2, whiteSpace: "nowrap" }}>
               {pendingSide === "passage" ? "Highlight:" : "Mark:"}
