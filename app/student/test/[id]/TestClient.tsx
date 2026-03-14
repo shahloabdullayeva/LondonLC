@@ -104,6 +104,10 @@ export default function TestPage() {
   const [audioCurrentSection, setAudioCurrentSection] = useState(0);
   const [mobileView, setMobileView] = useState<"passage" | "questions">("passage");
   const [passageCollapsed, setPassageCollapsed] = useState(false);
+  const [questionsCollapsed, setQuestionsCollapsed] = useState(false);
+  const [passageWidthPct, setPassageWidthPct] = useState(50);
+  const contentAreaRef = useRef<HTMLDivElement>(null);
+  const isResizingRef = useRef(false);
   const [theme, setTheme] = useState<"dark" | "light">("dark");
   const [highlights, setHighlights] = useState<Highlight[]>([]);
   const [toolbarPos, setToolbarPos] = useState<{ x: number; y: number } | null>(null);
@@ -234,6 +238,28 @@ export default function TestPage() {
   const handlePassageClick = (e: React.MouseEvent) => {
     const el = e.target as HTMLElement;
     if (el.tagName === "MARK" && el.dataset.hid) removeHighlight(el.dataset.hid);
+  };
+
+  const handleDividerMouseDown = (e: React.MouseEvent) => {
+    e.preventDefault();
+    isResizingRef.current = true;
+    document.body.style.cursor = "col-resize";
+    document.body.style.userSelect = "none";
+    const onMouseMove = (ev: MouseEvent) => {
+      if (!isResizingRef.current || !contentAreaRef.current) return;
+      const rect = contentAreaRef.current.getBoundingClientRect();
+      const pct = Math.min(Math.max(((ev.clientX - rect.left) / rect.width) * 100, 20), 80);
+      setPassageWidthPct(pct);
+    };
+    const onMouseUp = () => {
+      isResizingRef.current = false;
+      document.body.style.cursor = "";
+      document.body.style.userSelect = "";
+      document.removeEventListener("mousemove", onMouseMove);
+      document.removeEventListener("mouseup", onMouseUp);
+    };
+    document.addEventListener("mousemove", onMouseMove);
+    document.addEventListener("mouseup", onMouseUp);
   };
 
   const buildAnnotatedHtml = (rawText: string, sectionIdx: number, side: "passage" | "questions"): string => {
@@ -608,7 +634,7 @@ export default function TestPage() {
   if (phase !== "test" && phase !== "audio_playing") return null;
 
   return (
-    <div className="test-zone" style={{ minHeight: "100vh", display: "flex", flexDirection: "column", background: T.bg, fontFamily: "Inter, system-ui, sans-serif" }}>
+    <div className="test-zone" style={{ height: "100vh", display: "flex", flexDirection: "column", background: T.bg, fontFamily: "Inter, system-ui, sans-serif", overflow: "hidden" }}>
       {/* Test header */}
       <header style={{ position: "sticky", top: 0, zIndex: 20, display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 16px", height: 54, background: T.nav, borderBottom: `1px solid ${T.border}` }}>
         {/* Left: test info */}
@@ -714,12 +740,12 @@ export default function TestPage() {
       )}
 
       {/* Content */}
-      <div style={{ flex: 1, display: "flex", flexDirection: "row", overflow: test.type === "reading" ? "hidden" : "visible", height: test.type === "reading" ? "calc(100vh - 57px)" : "auto" }}>
+      <div ref={contentAreaRef} style={{ flex: 1, display: "flex", flexDirection: "row", overflow: "hidden", minHeight: 0 }}>
 
         {/* Left: Passage (reading) */}
         {test.type === "reading" && section.passageText && (
           <div className={`passage-panel ${mobileView === "passage" ? "panel-visible" : "panel-hidden"}`}
-            style={{ width: passageCollapsed ? 0 : "50%", minWidth: passageCollapsed ? 0 : undefined, overflow: "hidden", transition: "width 0.25s ease", background: T.passage, position: "relative", display: "flex", flexDirection: "column" }}>
+            style={{ width: passageCollapsed ? 0 : `${passageWidthPct}%`, minWidth: 0, overflow: "hidden", transition: isResizingRef.current ? "none" : "width 0.22s ease", background: T.passage, position: "relative", display: "flex", flexDirection: "column", flexShrink: 0 }}>
             {/* Passage header with highlight controls */}
             <div style={{ padding: "10px 20px 0", display: "flex", alignItems: "center", justifyContent: "space-between", flexShrink: 0 }}>
               <span style={{ fontSize: 11, color: T.textMuted, fontWeight: 600 }}>Select text to highlight · Click highlight to remove</span>
@@ -735,7 +761,7 @@ export default function TestPage() {
                 )}
               </div>
             </div>
-            <div style={{ flex: 1, overflowY: "auto", padding: "16px 32px 28px" }}>
+            <div style={{ flex: 1, overflowY: "auto", padding: "16px 32px 28px", minHeight: 0 }}>
               <h2 style={{ fontSize: 17, fontWeight: 800, color: T.text, marginBottom: 20 }}>{section.passageTitle}</h2>
               <div
                 onMouseUp={(e) => handleTextMouseUp(e, "passage")}
@@ -774,24 +800,38 @@ export default function TestPage() {
           </div>
         )}
 
-        {/* Divider toggle button (reading only, desktop) */}
+        {/* Resizable divider (reading only, desktop) */}
         {test.type === "reading" && (
-          <div className="divider-toggle" style={{ position: "relative", width: 0, display: "flex", alignItems: "center", justifyContent: "center", zIndex: 10, flexShrink: 0 }}>
-            <div style={{ position: "absolute", top: 0, bottom: 0, width: 1, background: T.border }} />
-            <button onClick={() => setPassageCollapsed(p => !p)}
+          <div className="divider-toggle"
+            style={{ position: "relative", width: 10, display: "flex", alignItems: "center", justifyContent: "center", zIndex: 10, flexShrink: 0, cursor: "col-resize" }}
+            onMouseDown={handleDividerMouseDown}>
+            {/* Track line */}
+            <div style={{ position: "absolute", top: 0, bottom: 0, left: "50%", width: 2, background: T.border, transform: "translateX(-50%)", pointerEvents: "none" }} />
+            {/* Drag grip dots */}
+            <div style={{ position: "absolute", top: "50%", transform: "translateY(-50%)", display: "flex", flexDirection: "column", gap: 4, pointerEvents: "none" }}>
+              {[0,1,2].map(i => <div key={i} style={{ width: 4, height: 4, borderRadius: "50%", background: T.textMuted, opacity: 0.7 }} />)}
+            </div>
+            {/* Collapse passage button */}
+            <button
+              onClick={e => { e.stopPropagation(); setPassageCollapsed(p => !p); if (questionsCollapsed) setQuestionsCollapsed(false); }}
               title={passageCollapsed ? "Show passage" : "Hide passage"}
-              style={{ position: "relative", width: 28, height: 28, borderRadius: "50%", background: T.accentDim, border: `1.5px solid ${T.accentBorder}`, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", color: T.accent, fontSize: 14, fontWeight: 700, zIndex: 1, flexShrink: 0, transition: "background 0.15s" }}
-              onMouseEnter={e => (e.currentTarget.style.background = T.accentDim)}
-              onMouseLeave={e => (e.currentTarget.style.background = T.accentDim)}>
+              style={{ position: "absolute", top: 18, width: 22, height: 22, borderRadius: "50%", background: T.accentDim, border: `1.5px solid ${T.accentBorder}`, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", color: T.accent, fontSize: 13, fontWeight: 700, zIndex: 2, pointerEvents: "auto" }}>
               {passageCollapsed ? "›" : "‹"}
+            </button>
+            {/* Collapse questions button */}
+            <button
+              onClick={e => { e.stopPropagation(); setQuestionsCollapsed(p => !p); if (passageCollapsed) setPassageCollapsed(false); }}
+              title={questionsCollapsed ? "Show questions" : "Hide questions"}
+              style={{ position: "absolute", top: 46, width: 22, height: 22, borderRadius: "50%", background: T.accentDim, border: `1.5px solid ${T.accentBorder}`, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", color: T.accent, fontSize: 13, fontWeight: 700, zIndex: 2, pointerEvents: "auto" }}>
+              {questionsCollapsed ? "‹" : "›"}
             </button>
           </div>
         )}
 
         {/* Right: Questions */}
         <div className={`questions-panel ${test.type === "reading" && mobileView === "passage" ? "panel-hidden" : "panel-visible"}`}
-          style={{ flex: 1, display: "flex", flexDirection: "column", overflow: "hidden", background: T.bg }}>
-        <div style={{ flex: 1, overflowY: "auto", padding: "24px 28px" }}
+          style={{ flex: 1, minWidth: 0, display: "flex", flexDirection: "column", overflow: questionsCollapsed ? "hidden" : "hidden", width: questionsCollapsed ? 0 : undefined, transition: isResizingRef.current ? "none" : "width 0.22s ease", background: T.bg }}>
+        <div style={{ flex: 1, overflowY: "auto", padding: "24px 28px", minHeight: 0 }}
           onMouseUp={(e) => handleTextMouseUp(e, "questions")}>
 
           {/* Listening: passage text */}
