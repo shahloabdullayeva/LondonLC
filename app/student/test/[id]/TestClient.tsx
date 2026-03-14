@@ -146,8 +146,8 @@ export default function TestPage() {
     return () => obs.disconnect();
   }, []);
 
-  // White page mode overrides system theme
-  const effectiveTheme = pageMode === "white" ? "light" : theme;
+  // White page mode = light; dark page mode = always dark (not system)
+  const effectiveTheme = pageMode === "white" ? "light" : "dark";
 
   // Theme-aware colours
   const T = effectiveTheme === "dark" ? {
@@ -340,6 +340,7 @@ export default function TestPage() {
   const cancelledRef = useRef(false);
   const anticheatActiveRef = useRef(false);
   const audioAutoStartedRef = useRef(-1);
+  const cancelTestRef = useRef<(reason: string) => void>(() => {});
 
   // ── Fetch IP on mount + check if blocked ────────────────────────────
   useEffect(() => {
@@ -383,7 +384,7 @@ export default function TestPage() {
       if (document.hidden && anticheatActiveRef.current) {
         violationRef.current += 1;
         setViolationCount(violationRef.current);
-        cancelTest("You left the exam screen. Your test has been cancelled.");
+        cancelTestRef.current("You left the exam screen. Your test has been cancelled.");
       }
     };
 
@@ -524,6 +525,7 @@ export default function TestPage() {
     setCancelMessage(reason);
     setPhase("cancelled");
   }, [session, test, answers, startTime, isPracticeMode]);
+  cancelTestRef.current = cancelTest;
 
   // ── Submit test ─────────────────────────────────────────────────────
   const submitTest = useCallback(() => {
