@@ -199,7 +199,7 @@ The remaining 11 metres of lift needed to reach the Union Canal is achieved by m
       instructions: `Questions 14–19: Do the following statements agree with the information given in the passage? Write TRUE, FALSE, or NOT GIVEN.
 
 Questions 20–26: Label the diagram below. Choose ONE WORD from the passage for each answer.`,
-      diagramUrl: "/images/falkirk-wheel-diagram.png",
+      diagramUrl: "/images/falkirk-wheel-diagram.svg",
       questions: [
         {
           id: "cam11-ra-t1-s2-q14",
