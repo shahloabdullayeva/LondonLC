@@ -1,4 +1,5 @@
 import { cambridge10Tests } from "./cambridge10";
+import { cambridge11Tests } from "./cambridge11";
 
 export type IELTSTest = {
   id: string;
@@ -1243,6 +1244,7 @@ Volunteer days: first __20__ of every month`,
 export const allTests: IELTSTest[] = [
   cambridge1_listening_test1,
   ...cambridge10Tests,
+  ...cambridge11Tests,
   // More tests (Books 2–19) can be added here
 ];
 

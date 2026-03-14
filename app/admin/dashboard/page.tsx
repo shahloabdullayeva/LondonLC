@@ -710,7 +710,7 @@ export default function AdminDashboard() {
 
         {/* ══════════════════ PRACTICE TESTS TAB ══════════════════ */}
         {activeTab === "practice" && (() => {
-          const AVAILABLE_BOOKS = [10];
+          const AVAILABLE_BOOKS = [10, 11];
           return (
             <div>
               <div style={{ marginBottom: 24 }}>
