@@ -5,6 +5,7 @@ on:
     branches:
       - main
       - claude/london-lc-website-btFT9
+      - claude/general-session-xgznl
   workflow_dispatch:
 
 permissions:
