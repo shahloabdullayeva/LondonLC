@@ -919,7 +919,7 @@ export default function TestPage() {
           .mobile-toggle-bar { display: none !important; }
           .divider-toggle { display: flex !important; }
           .passage-panel { display: flex !important; }
-          .questions-panel { display: block !important; }
+          .questions-panel { display: flex !important; }
         }
         /* Mobile: one panel at a time, hide divider */
         @media (max-width: 767px) {
