@@ -4,9 +4,12 @@ import { useRouter } from "next/navigation";
 import {
   BookOpen, LogOut, Users, Award, BarChart3, Search,
   Download, CheckCircle, X, Shield, Plus, Trash2, Eye, EyeOff,
-  Monitor, Ban, Headphones, ChevronRight, ChevronDown, ChevronUp
+  Monitor, Ban, Headphones, ChevronRight, ChevronDown, ChevronUp, Pencil, Save
 } from "lucide-react";
-import { getSession, clearSession, getAttempts, getTeachers, addTeacher, deleteTeacher, updateTeacherPassword, registerStudent, getStudentAccounts, deleteStudent, getBlockedIPs, blockIP, unblockIP, type AttemptData, type TeacherAccount, type StudentAccount } from "@/lib/store";
+
+const ROOT_ADMIN_ID = "admin-root";
+const ADMIN_USERNAME = "SarvarxonP";
+import { getSession, clearSession, getAttempts, getTeachers, addTeacher, deleteTeacher, updateTeacherPassword, registerStudent, getStudentAccounts, deleteStudent, updateStudent, getBlockedIPs, blockIP, unblockIP, type AttemptData, type TeacherAccount, type StudentAccount } from "@/lib/store";
 import { getTestById } from "@/data/ielts-tests";
 import { allTests } from "@/data/ielts-tests";
 
@@ -48,6 +51,7 @@ export default function AdminDashboard() {
   const [expandedAttempt, setExpandedAttempt] = useState<string | null>(null);
   const [expandedDeviceRow, setExpandedDeviceRow] = useState<string | null>(null);
   const [isRootAdmin, setIsRootAdmin] = useState(false);
+  const [isAdminUser, setIsAdminUser] = useState(false);
   const [currentTeacherId, setCurrentTeacherId] = useState<string>("");
   const [blockedIPs, setBlockedIPs] = useState<string[]>([]);
   const [practiceTypeFilter, setPracticeTypeFilter] = useState<"reading" | "listening">("reading");
@@ -77,6 +81,10 @@ export default function AdminDashboard() {
   const [showPasswordFor, setShowPasswordFor] = useState<string | null>(null);
   const [editingPasswordFor, setEditingPasswordFor] = useState<string | null>(null);
   const [editPasswordValue, setEditPasswordValue] = useState("");
+  const [editingStudentId, setEditingStudentId] = useState<string | null>(null);
+  const [editStudentForm, setEditStudentForm] = useState({ name: "", surname: "", group_name: "", username: "", password: "" });
+  const [showStudentPasswordFor, setShowStudentPasswordFor] = useState<string | null>(null);
+  const [studentEditError, setStudentEditError] = useState("");
 
   const refreshData = async (teacherId?: string) => {
     const [all, teacherList, studentList, ips] = await Promise.all([
@@ -92,7 +100,8 @@ export default function AdminDashboard() {
   useEffect(() => {
     const s = getSession();
     if (!s || !s.isAdmin) { router.push("/auth/login?admin=true"); return; }
-    setIsRootAdmin(s.id === "admin-root");
+    setIsRootAdmin(s.id === ROOT_ADMIN_ID);
+    setIsAdminUser(s.username === ADMIN_USERNAME);
     setCurrentTeacherId(s.id);
     refreshData(s.id);
 
@@ -129,6 +138,27 @@ export default function AdminDashboard() {
   const handleDeleteStudent = async (id: string) => {
     if (!confirm("Delete this student account? Their test history will remain.")) return;
     await deleteStudent(id); setStudents(await getStudentAccounts());
+  };
+
+  const startEditStudent = (s: StudentAccount) => {
+    setEditingStudentId(s.id);
+    setEditStudentForm({ name: s.name, surname: s.surname, group_name: s.group_name, username: s.username, password: s.password });
+    setStudentEditError("");
+  };
+
+  const handleSaveStudent = async () => {
+    if (!editingStudentId) return;
+    if (!editStudentForm.name.trim() || !editStudentForm.surname.trim() || !editStudentForm.group_name.trim() || !editStudentForm.username.trim() || !editStudentForm.password.trim()) {
+      setStudentEditError("All fields are required."); return;
+    }
+    const result = await updateStudent(editingStudentId, editStudentForm);
+    if (result.ok) {
+      setStudents(await getStudentAccounts());
+      setEditingStudentId(null);
+      setStudentEditError("");
+    } else {
+      setStudentEditError(result.error ?? "Error saving.");
+    }
   };
 
   const handleLogout = () => { clearSession(); router.push("/"); };
@@ -188,12 +218,13 @@ export default function AdminDashboard() {
     await unblockIP(ip); setBlockedIPs(await getBlockedIPs());
   };
 
+  const canManageTeachers = isRootAdmin || isAdminUser;
+
   const tabs = [
     { id: "results" as const, Icon: BarChart3, label: "Results" },
     { id: "students" as const, Icon: Users, label: "Students" },
     { id: "tests" as const, Icon: BookOpen, label: "Tests" },
-    { id: "practice" as const, Icon: Monitor, label: "Practice" },
-    ...(isRootAdmin ? [{ id: "teachers" as const, Icon: Shield, label: "Manage Teachers" }] : []),
+    ...(canManageTeachers ? [{ id: "teachers" as const, Icon: Shield, label: "Manage Teachers" }] : []),
   ];
 
   return (
@@ -206,7 +237,9 @@ export default function AdminDashboard() {
           <div style={{ fontWeight: 900, fontSize: 20, color: "#fff", letterSpacing: "-0.3px" }}>
             London <span style={{ color: "#a78bfa" }}>LC</span>
           </div>
-          <span style={{ display: "inline-block", marginTop: 6, padding: "2px 10px", borderRadius: 20, fontSize: 11, fontWeight: 700, background: C.accentLight, color: C.accent }}>Admin</span>
+          <span style={{ display: "inline-block", marginTop: 6, padding: "2px 10px", borderRadius: 20, fontSize: 11, fontWeight: 700, background: C.accentLight, color: C.accent }}>
+            {isRootAdmin ? "Super Admin" : isAdminUser ? "Admin" : "Teacher"}
+          </span>
         </div>
 
         <div style={{ width: "calc(100% - 32px)", height: 1, background: C.border, margin: "0 16px 12px" }} />
@@ -711,27 +744,90 @@ export default function AdminDashboard() {
                   <table style={{ width: "100%", borderCollapse: "collapse" }}>
                     <thead>
                       <tr style={{ background: C.card2 }}>
-                        {["Name", "Username", "Group", "Created", ""].map(h => (
+                        {["Name", "Username", "Password", "Group", "Created", ""].map(h => (
                           <th key={h} style={{ padding: "10px 14px", textAlign: "left", fontSize: 11, fontWeight: 700, color: C.muted, textTransform: "uppercase", letterSpacing: "0.05em", borderBottom: `1px solid ${C.border}` }}>{h}</th>
                         ))}
                       </tr>
                     </thead>
                     <tbody>
                       {students.filter(s => !studentSearch || `${s.name} ${s.surname} ${s.username} ${s.group_name}`.toLowerCase().includes(studentSearch.toLowerCase())).map((s, i) => (
-                        <tr key={s.id} style={{ background: i % 2 === 0 ? "transparent" : "rgba(255,255,255,0.02)", borderBottom: `1px solid ${C.border}` }}>
+                        <>
+                        <tr key={s.id} style={{ background: i % 2 === 0 ? "transparent" : "rgba(255,255,255,0.02)", borderBottom: editingStudentId === s.id ? "none" : `1px solid ${C.border}` }}>
                           <td style={{ padding: "12px 14px" }}>
                             <div style={{ fontWeight: 600, fontSize: 14, color: C.text }}>{s.name} {s.surname}</div>
                           </td>
                           <td style={{ padding: "12px 14px", fontFamily: "monospace", fontSize: 13, color: C.sub }}>{s.username}</td>
+                          <td style={{ padding: "12px 14px" }}>
+                            <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+                              <span style={{ fontFamily: "monospace", fontSize: 13, color: C.sub }}>
+                                {showStudentPasswordFor === s.id ? s.password : "••••••••"}
+                              </span>
+                              <button onClick={() => setShowStudentPasswordFor(showStudentPasswordFor === s.id ? null : s.id)}
+                                style={{ background: "none", border: "none", cursor: "pointer", color: C.muted, padding: 0, display: "flex" }}>
+                                {showStudentPasswordFor === s.id ? <EyeOff size={13} /> : <Eye size={13} />}
+                              </button>
+                            </div>
+                          </td>
                           <td style={{ padding: "12px 14px", fontSize: 13, color: C.muted }}>{s.group_name}</td>
                           <td style={{ padding: "12px 14px", fontSize: 12, color: C.muted }}>{new Date(s.createdAt).toLocaleDateString()}</td>
                           <td style={{ padding: "12px 14px" }}>
-                            <button onClick={() => handleDeleteStudent(s.id)}
-                              style={{ display: "flex", alignItems: "center", gap: 4, padding: "5px 10px", background: "transparent", border: `1px solid ${C.border}`, borderRadius: 7, color: C.danger, fontSize: 12, fontWeight: 600, cursor: "pointer" }}>
-                              <Trash2 size={11} /> Delete
-                            </button>
+                            <div style={{ display: "flex", gap: 6 }}>
+                              <button onClick={() => editingStudentId === s.id ? setEditingStudentId(null) : startEditStudent(s)}
+                                style={{ display: "flex", alignItems: "center", gap: 4, padding: "5px 10px", background: editingStudentId === s.id ? C.accentLight : "transparent", border: `1px solid ${editingStudentId === s.id ? C.accent : C.border}`, borderRadius: 7, color: editingStudentId === s.id ? C.accent : C.sub, fontSize: 12, fontWeight: 600, cursor: "pointer" }}>
+                                <Pencil size={11} /> Edit
+                              </button>
+                              <button onClick={() => handleDeleteStudent(s.id)}
+                                style={{ display: "flex", alignItems: "center", gap: 4, padding: "5px 10px", background: "transparent", border: `1px solid ${C.border}`, borderRadius: 7, color: C.danger, fontSize: 12, fontWeight: 600, cursor: "pointer" }}>
+                                <Trash2 size={11} /> Delete
+                              </button>
+                            </div>
                           </td>
                         </tr>
+                        {editingStudentId === s.id && (
+                          <tr key={`${s.id}-edit`} style={{ borderBottom: `1px solid ${C.border}`, background: "rgba(124,58,237,0.04)" }}>
+                            <td colSpan={6} style={{ padding: "16px 18px" }}>
+                              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 10, marginBottom: 10 }}>
+                                <div>
+                                  <div style={{ fontSize: 10, color: C.muted, marginBottom: 4, textTransform: "uppercase", fontWeight: 700 }}>First Name</div>
+                                  <input value={editStudentForm.name} onChange={e => setEditStudentForm(f => ({ ...f, name: e.target.value }))}
+                                    style={{ ...sel, padding: "8px 12px" }} />
+                                </div>
+                                <div>
+                                  <div style={{ fontSize: 10, color: C.muted, marginBottom: 4, textTransform: "uppercase", fontWeight: 700 }}>Surname</div>
+                                  <input value={editStudentForm.surname} onChange={e => setEditStudentForm(f => ({ ...f, surname: e.target.value }))}
+                                    style={{ ...sel, padding: "8px 12px" }} />
+                                </div>
+                                <div>
+                                  <div style={{ fontSize: 10, color: C.muted, marginBottom: 4, textTransform: "uppercase", fontWeight: 700 }}>Group</div>
+                                  <input value={editStudentForm.group_name} onChange={e => setEditStudentForm(f => ({ ...f, group_name: e.target.value }))}
+                                    style={{ ...sel, padding: "8px 12px" }} />
+                                </div>
+                                <div>
+                                  <div style={{ fontSize: 10, color: C.muted, marginBottom: 4, textTransform: "uppercase", fontWeight: 700 }}>Username</div>
+                                  <input value={editStudentForm.username} onChange={e => setEditStudentForm(f => ({ ...f, username: e.target.value }))}
+                                    style={{ ...sel, padding: "8px 12px" }} autoComplete="off" />
+                                </div>
+                                <div>
+                                  <div style={{ fontSize: 10, color: C.muted, marginBottom: 4, textTransform: "uppercase", fontWeight: 700 }}>Password</div>
+                                  <input value={editStudentForm.password} onChange={e => setEditStudentForm(f => ({ ...f, password: e.target.value }))}
+                                    style={{ ...sel, padding: "8px 12px" }} autoComplete="new-password" />
+                                </div>
+                              </div>
+                              {studentEditError && <p style={{ fontSize: 13, color: C.danger, marginBottom: 8 }}>{studentEditError}</p>}
+                              <div style={{ display: "flex", gap: 8 }}>
+                                <button onClick={handleSaveStudent}
+                                  style={{ display: "flex", alignItems: "center", gap: 5, padding: "8px 16px", background: "linear-gradient(135deg,#6d28d9,#7c3aed)", border: "none", borderRadius: 8, color: "#fff", fontSize: 13, fontWeight: 600, cursor: "pointer" }}>
+                                  <Save size={13} /> Save Changes
+                                </button>
+                                <button onClick={() => { setEditingStudentId(null); setStudentEditError(""); }}
+                                  style={{ padding: "8px 14px", background: "transparent", border: `1px solid ${C.border}`, borderRadius: 8, color: C.muted, fontSize: 13, cursor: "pointer" }}>
+                                  Cancel
+                                </button>
+                              </div>
+                            </td>
+                          </tr>
+                        )}
+                        </>
                       ))}
                     </tbody>
                   </table>
@@ -831,10 +927,18 @@ export default function AdminDashboard() {
                     ← All Books
                   </button>
                   <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: 14 }}>
-                    {allTests.filter(t => t.bookNumber === testsSelectedBook && t.type === testsTypeFilter).sort((a, b) => a.testNumber - b.testNumber).map(test => (
+                    {allTests.filter(t => t.bookNumber === testsSelectedBook && t.type === testsTypeFilter).sort((a, b) => a.testNumber - b.testNumber).map(test => {
+                      const myBest = myPracticeAttempts.filter(a => a.testId === test.id && a.status === "completed");
+                      const best = myBest.length ? Math.max(...myBest.map(a => a.bandScore)) : null;
+                      return (
                       <div key={test.id} style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 14, padding: 18 }}>
-                        <div style={{ fontSize: 11, fontWeight: 600, color: C.accent, marginBottom: 3, textTransform: "uppercase" }}>Test {test.testNumber}</div>
-                        <div style={{ fontSize: 14, fontWeight: 700, color: C.text, marginBottom: 14 }}>{test.title}</div>
+                        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 12 }}>
+                          <div>
+                            <div style={{ fontSize: 11, fontWeight: 600, color: C.accent, marginBottom: 3, textTransform: "uppercase" }}>Test {test.testNumber}</div>
+                            <div style={{ fontSize: 14, fontWeight: 700, color: C.text }}>{test.title}</div>
+                          </div>
+                          {best !== null && <span style={{ fontSize: 12, fontWeight: 700, padding: "3px 9px", background: "rgba(16,185,129,0.15)", color: "#34d399", borderRadius: 20, flexShrink: 0 }}>Score {best}</span>}
+                        </div>
                         <div style={{ display: "flex", gap: 8 }}>
                           <button onClick={() => setTestsAnswerKeyId(test.id)}
                             style={{ flex: 1, padding: "8px", background: C.accentLight, color: C.accent, fontWeight: 700, fontSize: 12, border: `1px solid rgba(124,58,237,0.3)`, borderRadius: 9, cursor: "pointer" }}>
@@ -842,122 +946,50 @@ export default function AdminDashboard() {
                           </button>
                           <button onClick={() => router.push(`/student/test/${test.id}?practice=1`)}
                             style={{ flex: 1, padding: "8px", background: "linear-gradient(135deg,#7c3aed,#6d28d9)", color: "#fff", fontWeight: 700, fontSize: 12, border: "none", borderRadius: 9, cursor: "pointer" }}>
-                            Take Test
+                            Practice
                           </button>
                         </div>
                       </div>
-                    ))}
-                  </div>
-                </div>
-              )}
-            </div>
-          );
-        })()}
-
-        {/* ══════════════════ PRACTICE TESTS TAB ══════════════════ */}
-        {activeTab === "practice" && (() => {
-          const AVAILABLE_BOOKS = [10, 11];
-          return (
-            <div>
-              <div style={{ marginBottom: 24 }}>
-                <h1 style={{ fontSize: 22, fontWeight: 800, color: C.text, marginBottom: 2 }}>Practice Tests</h1>
-                <p style={{ fontSize: 13, color: C.muted }}>Take IELTS tests yourself. Your results are private and only visible to you and the super admin.</p>
-              </div>
-
-              {/* Type tabs */}
-              <div style={{ display: "flex", gap: 8, marginBottom: 24 }}>
-                {[{ t: "reading" as const, Icon: BookOpen, label: "Reading" }, { t: "listening" as const, Icon: Headphones, label: "Listening" }].map(({ t, Icon, label }) => (
-                  <button key={t} onClick={() => { setPracticeTypeFilter(t); setPracticeSelectedBook(null); }}
-                    style={{ display: "flex", alignItems: "center", gap: 7, padding: "9px 18px", borderRadius: 10, border: "none", cursor: "pointer", fontWeight: 600, fontSize: 13, transition: "all 0.15s",
-                      background: practiceTypeFilter === t ? C.accent : C.card, color: practiceTypeFilter === t ? "#fff" : C.muted }}>
-                    <Icon size={14} /> {label}
-                  </button>
-                ))}
-              </div>
-
-              {practiceSelectedBook === null ? (
-                <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: 10, marginBottom: 32 }}>
-                  {Array.from({ length: 19 }, (_, i) => i + 1).map(n => {
-                    const available = AVAILABLE_BOOKS.includes(n);
-                    const bookTests = allTests.filter(t => t.bookNumber === n && t.type === practiceTypeFilter);
-                    return (
-                      <div key={n} onClick={() => available && setPracticeSelectedBook(n)}
-                        style={{ display: "flex", alignItems: "center", gap: 14, padding: "14px 16px", background: available ? C.accentLight : "rgba(255,255,255,0.02)", border: `1px solid ${available ? "rgba(124,58,237,0.25)" : C.border}`, borderRadius: 12, cursor: available ? "pointer" : "default", transition: "all 0.15s" }}>
-                        <div style={{ width: 38, height: 38, borderRadius: 10, flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 900, fontSize: 15, background: available ? "linear-gradient(135deg,#7c3aed,#6d28d9)" : "rgba(255,255,255,0.05)", color: available ? "#fff" : "rgba(255,255,255,0.2)" }}>{n}</div>
-                        <div style={{ flex: 1 }}>
-                          <div style={{ fontSize: 13, fontWeight: 700, color: available ? C.text : "rgba(255,255,255,0.25)", marginBottom: 2 }}>Cambridge IELTS {n}</div>
-                          <div style={{ fontSize: 11, color: available ? C.muted : "rgba(255,255,255,0.15)" }}>{available ? `${bookTests.length} test${bookTests.length !== 1 ? "s" : ""}` : "Coming soon"}</div>
-                        </div>
-                        {available && <ChevronRight size={14} color={C.muted} />}
-                      </div>
-                    );
-                  })}
-                </div>
-              ) : (
-                <div>
-                  <button onClick={() => setPracticeSelectedBook(null)} style={{ display: "flex", alignItems: "center", gap: 6, padding: "7px 14px", background: "rgba(255,255,255,0.06)", border: `1px solid ${C.border}`, borderRadius: 9, color: C.muted, fontSize: 13, cursor: "pointer", fontWeight: 600, marginBottom: 20 }}>
-                    ← All Books
-                  </button>
-                  <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))", gap: 14, marginBottom: 32 }}>
-                    {allTests.filter(t => t.bookNumber === practiceSelectedBook && t.type === practiceTypeFilter).sort((a, b) => a.testNumber - b.testNumber).map(test => {
-                      const myBest = myPracticeAttempts.filter(a => a.testId === test.id && a.status === "completed");
-                      const best = myBest.length ? Math.max(...myBest.map(a => a.bandScore)) : null;
-                      return (
-                        <div key={test.id} onClick={() => router.push(`/student/test/${test.id}?practice=1`)}
-                          style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 14, padding: 18, cursor: "pointer", transition: "all 0.2s" }}
-                          onMouseEnter={e => { (e.currentTarget as HTMLElement).style.borderColor = "rgba(124,58,237,0.5)"; }}
-                          onMouseLeave={e => { (e.currentTarget as HTMLElement).style.borderColor = C.border; }}>
-                          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 10 }}>
-                            <div>
-                              <div style={{ fontSize: 11, fontWeight: 600, color: C.accent, marginBottom: 3, textTransform: "uppercase" }}>Test {test.testNumber}</div>
-                              <div style={{ fontSize: 14, fontWeight: 700, color: C.text }}>{test.title}</div>
-                            </div>
-                            {best !== null && <span style={{ fontSize: 12, fontWeight: 700, padding: "3px 9px", background: "rgba(16,185,129,0.15)", color: "#34d399", borderRadius: 20, flexShrink: 0 }}>Score {best}</span>}
-                          </div>
-                          <button style={{ width: "100%", padding: "9px", background: "linear-gradient(135deg,#7c3aed,#6d28d9)", color: "#fff", fontWeight: 700, fontSize: 13, border: "none", borderRadius: 9, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", gap: 6 }}>
-                            Start Practice <ChevronRight size={13} />
-                          </button>
-                        </div>
                       );
                     })}
                   </div>
                 </div>
               )}
 
-              {/* My practice attempts */}
               {myPracticeAttempts.length > 0 && (
-                <div>
-                  <h2 style={{ fontSize: 16, fontWeight: 700, color: C.text, marginBottom: 14 }}>My Practice History</h2>
-                  <div style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 12, overflow: "hidden" }}>
-                    <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 13 }}>
-                      <thead>
-                        <tr style={{ background: C.card2 }}>
-                          {["Test", "Type", "Score", "IELTS", "Date"].map(h => (
-                            <th key={h} style={{ padding: "10px 14px", textAlign: "left", fontSize: 11, fontWeight: 700, color: C.muted, textTransform: "uppercase", borderBottom: `1px solid ${C.border}` }}>{h}</th>
-                          ))}
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {[...myPracticeAttempts].reverse().map((a, i) => (
-                          <tr key={a.id} style={{ borderBottom: `1px solid ${C.border}`, background: i % 2 === 0 ? C.card : "rgba(6,12,31,0.5)" }}>
-                            <td style={{ padding: "11px 14px", fontWeight: 600, color: C.text }}>{a.testTitle}</td>
-                            <td style={{ padding: "11px 14px" }}><span style={{ fontSize: 11, padding: "2px 8px", borderRadius: 20, fontWeight: 600, background: a.testType === "listening" ? "rgba(139,92,246,0.2)" : "rgba(245,158,11,0.15)", color: a.testType === "listening" ? "#c4b5fd" : "#fcd34d" }}>{a.testType}</span></td>
-                            <td style={{ padding: "11px 14px", color: C.sub }}>{a.score}/{a.maxScore}</td>
-                            <td style={{ padding: "11px 14px", fontWeight: 700, color: C.accent }}>{a.bandScore}</td>
-                            <td style={{ padding: "11px 14px", fontSize: 12, color: C.muted }}>{new Date(a.submittedAt).toLocaleDateString()}</td>
-                          </tr>
+              <div style={{ marginTop: 32 }}>
+                <h2 style={{ fontSize: 16, fontWeight: 700, color: C.text, marginBottom: 14 }}>My Practice History</h2>
+                <div style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 12, overflow: "hidden" }}>
+                  <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 13 }}>
+                    <thead>
+                      <tr style={{ background: C.card2 }}>
+                        {["Test", "Type", "Score", "IELTS", "Date"].map(h => (
+                          <th key={h} style={{ padding: "10px 14px", textAlign: "left", fontSize: 11, fontWeight: 700, color: C.muted, textTransform: "uppercase", borderBottom: `1px solid ${C.border}` }}>{h}</th>
                         ))}
-                      </tbody>
-                    </table>
-                  </div>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {[...myPracticeAttempts].reverse().map((a, i) => (
+                        <tr key={a.id} style={{ borderBottom: `1px solid ${C.border}`, background: i % 2 === 0 ? C.card : "rgba(6,12,31,0.5)" }}>
+                          <td style={{ padding: "11px 14px", fontWeight: 600, color: C.text }}>{a.testTitle}</td>
+                          <td style={{ padding: "11px 14px" }}><span style={{ fontSize: 11, padding: "2px 8px", borderRadius: 20, fontWeight: 600, background: a.testType === "listening" ? "rgba(139,92,246,0.2)" : "rgba(245,158,11,0.15)", color: a.testType === "listening" ? "#c4b5fd" : "#fcd34d" }}>{a.testType}</span></td>
+                          <td style={{ padding: "11px 14px", color: C.sub }}>{a.score}/{a.maxScore}</td>
+                          <td style={{ padding: "11px 14px", fontWeight: 700, color: C.accent }}>{a.bandScore}</td>
+                          <td style={{ padding: "11px 14px", fontSize: 12, color: C.muted }}>{new Date(a.submittedAt).toLocaleDateString()}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
                 </div>
-              )}
-            </div>
+              </div>
+            )}
+          </div>
           );
         })()}
 
+
         {/* ══════════════════ TEACHERS TAB ══════════════════ */}
-        {activeTab === "teachers" && isRootAdmin && (
+        {activeTab === "teachers" && canManageTeachers && (
           <div style={{ maxWidth: 560 }}>
             <h1 style={{ fontSize: 22, fontWeight: 800, color: C.text, marginBottom: 4 }}>Manage Teachers</h1>
             <p style={{ fontSize: 13, color: C.muted, marginBottom: 24 }}>Add or remove teacher login accounts.</p>
@@ -990,7 +1022,10 @@ export default function AdminDashboard() {
               <div style={{ padding: "10px 16px", background: C.card2, borderBottom: `1px solid ${C.border}`, fontSize: 11, fontWeight: 700, color: C.muted, textTransform: "uppercase", letterSpacing: "0.08em" }}>
                 Accounts ({teachers.length})
               </div>
-              {teachers.map(t => (
+              {teachers.map(t => {
+                // Admin user cannot edit/delete the root admin account
+                const isProtected = t.id === ROOT_ADMIN_ID && !isRootAdmin;
+                return (
                 <div key={t.id} style={{ borderBottom: `1px solid ${C.border}` }}>
                   <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "14px 16px" }}>
                     <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
@@ -999,24 +1034,29 @@ export default function AdminDashboard() {
                       </div>
                       <div>
                         <div style={{ fontWeight: 600, fontSize: 14, color: C.text }}>{t.username}</div>
-                        {t.id === "admin-root" && <div style={{ fontSize: 11, color: C.accent }}>Super Admin</div>}
-                        {showPasswordFor === t.id && (
+                        {t.id === ROOT_ADMIN_ID && <div style={{ fontSize: 11, color: C.accent }}>Super Admin</div>}
+                        {t.username === ADMIN_USERNAME && t.id !== ROOT_ADMIN_ID && <div style={{ fontSize: 11, color: "#f59e0b" }}>Admin</div>}
+                        {showPasswordFor === t.id && !isProtected && (
                           <div style={{ fontSize: 12, color: C.sub, marginTop: 2, fontFamily: "monospace" }}>{t.password}</div>
                         )}
                       </div>
                     </div>
                     <div style={{ display: "flex", gap: 6, alignItems: "center" }}>
-                      <button onClick={() => setShowPasswordFor(showPasswordFor === t.id ? null : t.id)}
-                        style={{ display: "flex", alignItems: "center", gap: 5, padding: "6px 10px", background: "transparent", border: `1px solid ${C.border}`, borderRadius: 8, color: C.muted, fontSize: 12, fontWeight: 600, cursor: "pointer" }}>
-                        {showPasswordFor === t.id ? <EyeOff size={12} /> : <Eye size={12} />}
-                        {showPasswordFor === t.id ? "Hide" : "Show"}
-                      </button>
-                      <button onClick={() => { setEditingPasswordFor(editingPasswordFor === t.id ? null : t.id); setEditPasswordValue(""); }}
-                        style={{ display: "flex", alignItems: "center", gap: 5, padding: "6px 10px", background: "transparent", border: `1px solid ${C.border}`, borderRadius: 8, color: C.sub, fontSize: 12, fontWeight: 600, cursor: "pointer" }}>
-                        Change PW
-                      </button>
-                      <button onClick={() => handleDeleteTeacher(t.id)} disabled={t.id === "admin-root"}
-                        style={{ display: "flex", alignItems: "center", gap: 5, padding: "6px 12px", background: "transparent", border: `1px solid ${C.border}`, borderRadius: 8, color: t.id === "admin-root" ? C.muted : C.danger, fontSize: 12, fontWeight: 600, cursor: t.id === "admin-root" ? "not-allowed" : "pointer", opacity: t.id === "admin-root" ? 0.35 : 1 }}>
+                      {!isProtected && (
+                        <button onClick={() => setShowPasswordFor(showPasswordFor === t.id ? null : t.id)}
+                          style={{ display: "flex", alignItems: "center", gap: 5, padding: "6px 10px", background: "transparent", border: `1px solid ${C.border}`, borderRadius: 8, color: C.muted, fontSize: 12, fontWeight: 600, cursor: "pointer" }}>
+                          {showPasswordFor === t.id ? <EyeOff size={12} /> : <Eye size={12} />}
+                          {showPasswordFor === t.id ? "Hide" : "Show"}
+                        </button>
+                      )}
+                      {!isProtected && (
+                        <button onClick={() => { setEditingPasswordFor(editingPasswordFor === t.id ? null : t.id); setEditPasswordValue(""); }}
+                          style={{ display: "flex", alignItems: "center", gap: 5, padding: "6px 10px", background: "transparent", border: `1px solid ${C.border}`, borderRadius: 8, color: C.sub, fontSize: 12, fontWeight: 600, cursor: "pointer" }}>
+                          Change PW
+                        </button>
+                      )}
+                      <button onClick={() => handleDeleteTeacher(t.id)} disabled={isProtected || t.id === ROOT_ADMIN_ID}
+                        style={{ display: "flex", alignItems: "center", gap: 5, padding: "6px 12px", background: "transparent", border: `1px solid ${C.border}`, borderRadius: 8, color: (isProtected || t.id === ROOT_ADMIN_ID) ? C.muted : C.danger, fontSize: 12, fontWeight: 600, cursor: (isProtected || t.id === ROOT_ADMIN_ID) ? "not-allowed" : "pointer", opacity: (isProtected || t.id === ROOT_ADMIN_ID) ? 0.35 : 1 }}>
                         <Trash2 size={12} /> Delete
                       </button>
                     </div>
@@ -1037,7 +1077,8 @@ export default function AdminDashboard() {
                     </div>
                   )}
                 </div>
-              ))}
+                );
+              })}
             </div>
           </div>
         )}

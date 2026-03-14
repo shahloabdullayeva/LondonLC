@@ -107,6 +107,24 @@ export async function deleteStudent(id: string): Promise<void> {
   await supabase.from("students").delete().eq("id", id);
 }
 
+export async function updateStudent(
+  id: string,
+  fields: { name?: string; surname?: string; group_name?: string; username?: string; password?: string }
+): Promise<{ ok: boolean; error?: string }> {
+  const update: Record<string, string> = {};
+  if (fields.name !== undefined) update.name = fields.name.trim();
+  if (fields.surname !== undefined) update.surname = fields.surname.trim();
+  if (fields.group_name !== undefined) update.group_name = fields.group_name.trim();
+  if (fields.username !== undefined) update.username = fields.username.trim();
+  if (fields.password !== undefined) update.password = fields.password.trim();
+  const { error } = await supabase.from("students").update(update).eq("id", id);
+  if (error) {
+    if (error.code === "23505") return { ok: false, error: "Username already exists" };
+    return { ok: false, error: error.message };
+  }
+  return { ok: true };
+}
+
 // ── Teacher accounts ───────────────────────────────────────────────────
 const ROOT_ID = "admin-root";
 

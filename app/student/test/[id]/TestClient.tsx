@@ -200,9 +200,12 @@ export default function TestPage() {
 
       if (side === "passage") {
         const passageText = test?.sections[currentSection]?.passageText || "";
-        const startDom = getRangeCharCount(container, range.startContainer, range.startOffset);
         const endDom = getRangeCharCount(container, range.endContainer, range.endOffset);
-        if (startDom < 0 || endDom < 0) return;
+        if (endDom < 0) return;
+        // Derive startDom from endDom and visible selection length to avoid
+        // the "select everything above" bug caused by element-boundary start positions
+        const selLen = text.replace(/\n/g, "").length;
+        const startDom = Math.max(0, endDom - selLen);
         rawStart = domOffsetToRawOffset(passageText, startDom, true);
         rawEnd = domOffsetToRawOffset(passageText, endDom, false);
         rawEnd = Math.min(Math.max(rawEnd, rawStart + 1), passageText.length);
