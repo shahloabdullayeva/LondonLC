@@ -42,7 +42,7 @@ const sel: React.CSSProperties = {
 export default function AdminDashboard() {
   const router = useRouter();
   const [attempts, setAttempts] = useState<AttemptData[]>([]);
-  const [activeTab, setActiveTab] = useState<"results" | "students" | "teachers" | "practice">("results");
+  const [activeTab, setActiveTab] = useState<"results" | "students" | "teachers" | "practice" | "tests">("results");
   const [expandedGroup, setExpandedGroup] = useState<string | null>(null);
   const [expandedStudent, setExpandedStudent] = useState<string | null>(null);
   const [expandedAttempt, setExpandedAttempt] = useState<string | null>(null);
@@ -53,6 +53,9 @@ export default function AdminDashboard() {
   const [practiceTypeFilter, setPracticeTypeFilter] = useState<"reading" | "listening">("reading");
   const [practiceSelectedBook, setPracticeSelectedBook] = useState<number | null>(null);
   const [myPracticeAttempts, setMyPracticeAttempts] = useState<AttemptData[]>([]);
+  const [testsTypeFilter, setTestsTypeFilter] = useState<"reading" | "listening">("reading");
+  const [testsSelectedBook, setTestsSelectedBook] = useState<number | null>(null);
+  const [testsAnswerKeyId, setTestsAnswerKeyId] = useState<string | null>(null);
   const [search, setSearch] = useState("");
   const [filterGroup, setFilterGroup] = useState("all");
   const [filterType, setFilterType] = useState<"all" | "reading" | "listening">("all");
@@ -188,7 +191,8 @@ export default function AdminDashboard() {
   const tabs = [
     { id: "results" as const, Icon: BarChart3, label: "Results" },
     { id: "students" as const, Icon: Users, label: "Students" },
-    { id: "practice" as const, Icon: BookOpen, label: "Practice Tests" },
+    { id: "tests" as const, Icon: BookOpen, label: "Tests" },
+    { id: "practice" as const, Icon: Monitor, label: "Practice" },
     ...(isRootAdmin ? [{ id: "teachers" as const, Icon: Shield, label: "Manage Teachers" }] : []),
   ];
 
@@ -707,6 +711,119 @@ export default function AdminDashboard() {
             </div>
           </div>
         )}
+
+        {/* ══════════════════ TESTS TAB ══════════════════ */}
+        {activeTab === "tests" && (() => {
+          const AVAILABLE_BOOKS = [10, 11];
+          const answerKeyTest = testsAnswerKeyId ? allTests.find(t => t.id === testsAnswerKeyId) : null;
+          if (answerKeyTest) {
+            return (
+              <div>
+                <button onClick={() => setTestsAnswerKeyId(null)}
+                  style={{ display: "flex", alignItems: "center", gap: 6, padding: "7px 14px", background: "rgba(255,255,255,0.06)", border: `1px solid ${C.border}`, borderRadius: 9, color: C.muted, fontSize: 13, cursor: "pointer", fontWeight: 600, marginBottom: 22 }}>
+                  ← Back to Tests
+                </button>
+                <div style={{ marginBottom: 20 }}>
+                  <h1 style={{ fontSize: 20, fontWeight: 800, color: C.text, marginBottom: 4 }}>{answerKeyTest.title} — Answer Key</h1>
+                  <div style={{ display: "flex", gap: 10 }}>
+                    <button onClick={() => router.push(`/student/test/${answerKeyTest.id}?practice=1`)}
+                      style={{ padding: "8px 18px", background: "linear-gradient(135deg,#7c3aed,#6d28d9)", color: "#fff", fontWeight: 700, fontSize: 13, border: "none", borderRadius: 9, cursor: "pointer" }}>
+                      Take in Practice Mode
+                    </button>
+                  </div>
+                </div>
+                {answerKeyTest.sections.map((sec, si) => (
+                  <div key={sec.id} style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 14, padding: "22px 24px", marginBottom: 20 }}>
+                    <div style={{ fontSize: 11, fontWeight: 700, color: C.accent, textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 4 }}>Section {si + 1}</div>
+                    <div style={{ fontSize: 16, fontWeight: 800, color: C.text, marginBottom: 16 }}>{sec.passageTitle || sec.title}</div>
+                    {sec.passageText && (
+                      <details style={{ marginBottom: 16 }}>
+                        <summary style={{ fontSize: 13, fontWeight: 600, color: C.muted, cursor: "pointer", marginBottom: 8 }}>View Passage Text</summary>
+                        <div style={{ marginTop: 10, padding: "14px 16px", background: C.card2, borderRadius: 10, fontSize: 13, color: C.sub, lineHeight: 1.8, whiteSpace: "pre-wrap", maxHeight: 360, overflowY: "auto" }}>
+                          {sec.passageText}
+                        </div>
+                      </details>
+                    )}
+                    <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+                      {sec.questions.map(q => (
+                        <div key={q.id} style={{ display: "flex", alignItems: "flex-start", gap: 12, padding: "10px 14px", background: C.card2, borderRadius: 10, border: `1px solid ${C.border}` }}>
+                          <span style={{ width: 26, height: 26, borderRadius: "50%", flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 800, fontSize: 11, background: C.accentLight, color: C.accent }}>{q.number}</span>
+                          <div style={{ flex: 1, minWidth: 0 }}>
+                            <div style={{ fontSize: 13, color: C.sub, marginBottom: 6, lineHeight: 1.5 }}>{q.question.split("\n")[0].slice(0, 200)}</div>
+                            <span style={{ fontSize: 12, padding: "3px 10px", borderRadius: 6, background: "rgba(16,185,129,0.15)", color: "#34d399", fontWeight: 700 }}>
+                              ✓ {q.correctAnswer}
+                            </span>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            );
+          }
+          return (
+            <div>
+              <div style={{ marginBottom: 24 }}>
+                <h1 style={{ fontSize: 22, fontWeight: 800, color: C.text, marginBottom: 2 }}>Tests</h1>
+                <p style={{ fontSize: 13, color: C.muted }}>Browse available tests, view answer keys, or take them in practice mode.</p>
+              </div>
+              <div style={{ display: "flex", gap: 8, marginBottom: 24 }}>
+                {[{ t: "reading" as const, Icon: BookOpen, label: "Reading" }, { t: "listening" as const, Icon: Headphones, label: "Listening" }].map(({ t, Icon, label }) => (
+                  <button key={t} onClick={() => { setTestsTypeFilter(t); setTestsSelectedBook(null); }}
+                    style={{ display: "flex", alignItems: "center", gap: 7, padding: "9px 18px", borderRadius: 10, border: "none", cursor: "pointer", fontWeight: 600, fontSize: 13,
+                      background: testsTypeFilter === t ? C.accent : C.card, color: testsTypeFilter === t ? "#fff" : C.muted }}>
+                    <Icon size={14} /> {label}
+                  </button>
+                ))}
+              </div>
+              {testsSelectedBook === null ? (
+                <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: 10, marginBottom: 32 }}>
+                  {Array.from({ length: 19 }, (_, i) => i + 1).map(n => {
+                    const available = AVAILABLE_BOOKS.includes(n);
+                    const bookTests = allTests.filter(t => t.bookNumber === n && t.type === testsTypeFilter);
+                    return (
+                      <div key={n} onClick={() => available && setTestsSelectedBook(n)}
+                        style={{ display: "flex", alignItems: "center", gap: 14, padding: "14px 16px", background: available ? C.accentLight : "rgba(255,255,255,0.02)", border: `1px solid ${available ? "rgba(124,58,237,0.25)" : C.border}`, borderRadius: 12, cursor: available ? "pointer" : "default" }}>
+                        <div style={{ width: 38, height: 38, borderRadius: 10, flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 900, fontSize: 15, background: available ? "linear-gradient(135deg,#7c3aed,#6d28d9)" : "rgba(255,255,255,0.05)", color: available ? "#fff" : "rgba(255,255,255,0.2)" }}>{n}</div>
+                        <div style={{ flex: 1 }}>
+                          <div style={{ fontSize: 13, fontWeight: 700, color: available ? C.text : "rgba(255,255,255,0.25)", marginBottom: 2 }}>Cambridge IELTS {n}</div>
+                          <div style={{ fontSize: 11, color: available ? C.muted : "rgba(255,255,255,0.15)" }}>{available ? `${bookTests.length} test${bookTests.length !== 1 ? "s" : ""}` : "Coming soon"}</div>
+                        </div>
+                        {available && <ChevronRight size={14} color={C.muted} />}
+                      </div>
+                    );
+                  })}
+                </div>
+              ) : (
+                <div>
+                  <button onClick={() => setTestsSelectedBook(null)}
+                    style={{ display: "flex", alignItems: "center", gap: 6, padding: "7px 14px", background: "rgba(255,255,255,0.06)", border: `1px solid ${C.border}`, borderRadius: 9, color: C.muted, fontSize: 13, cursor: "pointer", fontWeight: 600, marginBottom: 20 }}>
+                    ← All Books
+                  </button>
+                  <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: 14 }}>
+                    {allTests.filter(t => t.bookNumber === testsSelectedBook && t.type === testsTypeFilter).sort((a, b) => a.testNumber - b.testNumber).map(test => (
+                      <div key={test.id} style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 14, padding: 18 }}>
+                        <div style={{ fontSize: 11, fontWeight: 600, color: C.accent, marginBottom: 3, textTransform: "uppercase" }}>Test {test.testNumber}</div>
+                        <div style={{ fontSize: 14, fontWeight: 700, color: C.text, marginBottom: 14 }}>{test.title}</div>
+                        <div style={{ display: "flex", gap: 8 }}>
+                          <button onClick={() => setTestsAnswerKeyId(test.id)}
+                            style={{ flex: 1, padding: "8px", background: C.accentLight, color: C.accent, fontWeight: 700, fontSize: 12, border: `1px solid rgba(124,58,237,0.3)`, borderRadius: 9, cursor: "pointer" }}>
+                            Answer Key
+                          </button>
+                          <button onClick={() => router.push(`/student/test/${test.id}?practice=1`)}
+                            style={{ flex: 1, padding: "8px", background: "linear-gradient(135deg,#7c3aed,#6d28d9)", color: "#fff", fontWeight: 700, fontSize: 12, border: "none", borderRadius: 9, cursor: "pointer" }}>
+                            Take Test
+                          </button>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          );
+        })()}
 
         {/* ══════════════════ PRACTICE TESTS TAB ══════════════════ */}
         {activeTab === "practice" && (() => {
