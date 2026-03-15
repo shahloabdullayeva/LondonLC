@@ -1287,4 +1287,606 @@ Questions 38–40: Complete each sentence with the correct ending, A, B, C or D 
   ],
 };
 
-export const cambridge13Tests: IELTSTest[] = [cambridge13_reading_t1, cambridge13_reading_t2];
+// ============================================================
+// CAMBRIDGE IELTS 13 – TEST 3  (Academic Reading)
+// Passages: The coconut palm /
+//           How baby talk gives infant brains a boost /
+//           Whatever happened to the Harappan Civilisation?
+// ============================================================
+export const cambridge13_reading_t3: IELTSTest = {
+  id: "cam13-reading-academic-t3",
+  title: "Cambridge IELTS 13 – Test 3",
+  bookNumber: 13,
+  testNumber: 3,
+  type: "reading",
+  level: "academic",
+  durationMinutes: 60,
+  transferMinutes: 0,
+  sections: [
+    // ── PASSAGE 1 ─────────────────────────────────────────────
+    {
+      id: "cam13-ra-t3-s1",
+      sectionNumber: 1,
+      title: "Reading Passage 1",
+      passageTitle: "The coconut palm",
+      passageText: `For millennia, the coconut has been central to the lives of Polynesian and Asian peoples. In the western world, on the other hand, coconuts have always been exotic and unusual, sometimes rare. The Italian merchant traveller Marco Polo apparently saw coconuts in South Asia in the late 13th century, and among the mid-14th-century travel writings of Sir John Mandeville there is mention of 'great Notes of Ynde' (great Nuts of India). Today, images of palm-fringed tropical beaches are clichés in the west to sell holidays, chocolate bars, fizzy drinks and even romance.
+
+Typically, we envisage coconuts as brown cannonballs that, when opened, provide sweet white flesh. But we see only part of the fruit and none of the plant from which they come. The coconut palm has a smooth, slender, grey trunk, up to 30 metres tall. This is an important source of timber for building houses, and is increasingly being used as a replacement for endangered hardwoods in the furniture construction industry. The trunk is surmounted by a rosette of leaves, each of which may be up to six metres long. The leaves have hard veins in their centres which, in many parts of the world, are used as brushes after the green part of the leaf has been stripped away. Immature coconut flowers are tightly clustered together among the leaves at the top of the trunk. The flower stems may be tapped for their sap to produce a drink, and the sap can also be reduced by boiling to produce a type of sugar used for cooking.
+
+Coconut palms produce as many as seventy fruits per year, weighing more than a kilogram each. The wall of the fruit has three layers: a waterproof outer layer, a fibrous middle layer and a hard, inner layer. The thick fibrous middle layer produces coconut fibre, 'coir', which has numerous uses and is particularly important in manufacturing ropes. The woody innermost layer, the shell, with its three prominent 'eyes', surrounds the seed. An important product obtained from the shell is charcoal, which is widely used in various industries as well as in the home as a cooking fuel. When broken in half, the shells are also used as bowls in many parts of Asia.
+
+Inside the shell are the nutrients (endosperm) needed by the developing seed. Initially, the endosperm is a sweetish liquid, coconut water, which is enjoyed as a drink, but also provides the hormones which encourage other plants to grow more rapidly and produce higher yields. As the fruit matures, the coconut water gradually solidifies to form the brilliant white, fat-rich, edible flesh or meat. Dried coconut flesh, 'copra', is made into coconut oil and coconut milk, which are widely used in cooking in different parts of the world, as well as in cosmetics. A derivative of coconut fat, glycerine, acquired strategic importance in a quite different sphere, as Alfred Nobel introduced the world to his nitroglycerine-based invention: dynamite.
+
+Their biology would appear to make coconuts the great maritime voyagers and coastal colonizers of the plant world. The large, energy-rich fruits are able to float in water and tolerate salt, but cannot remain viable indefinitely; studies suggest after about 110 days at sea they are no longer able to germinate. Literally cast onto desert island shores, with little more than sand to grow in and exposed to the full glare of the tropical sun, coconut seeds are able to germinate and root. The air pocket in the seed, created as the endosperm solidifies, protects the embryo. In addition, the fibrous fruit wall that helped it to float during the voyage stores moisture that can be taken up by the roots of the coconut seedling as it starts to grow.
+
+There have been centuries of academic debate over the origins of the coconut. There were no coconut palms in West Africa, the Caribbean or the east coast of the Americas before the voyages of the European explorers Vasco da Gama and Columbus in the late 15th and early 16th centuries. 16th century trade and human migration patterns reveal that Arab traders and European sailors are likely to have moved coconuts from South and Southeast Asia to Africa and then across the Atlantic to the east coast of America. But the origin of coconuts discovered along the west coast of America by 16th century sailors has been the subject of centuries of discussion. Two diametrically opposed origins have been proposed: that they came from Asia, or that they were native to America. Both suggestions have problems. In Asia, there is a large degree of coconut diversity and evidence of millennia of human use – but there are no relatives growing in the wild. In America, there are close coconut relatives, but no evidence that coconuts are indigenous. These problems have led to the intriguing suggestion that coconuts originated on coral islands in the Pacific and were dispersed from there.`,
+      instructions: `Questions 1–8: Complete the table below.
+Choose ONE WORD ONLY from the passage for each answer.
+
+Questions 9–13: Do the following statements agree with the information given in Reading Passage 1?
+Write TRUE, FALSE, or NOT GIVEN.`,
+      questions: [
+        // ── Q1–8: Table completion ────────────────────────────────
+        {
+          id: "cam13-ra-t3-s1-q1",
+          number: 1,
+          groupLabel: "Questions 1–8: Complete the table below.\nChoose ONE WORD ONLY from the passage for each answer.\n\nTHE COCONUT PALM\nPart | Description | Uses\ntrunk | up to 30 metres | timber for houses and the making of 1………………………\nleaves | up to 6 metres long | to make brushes\nflowers | at the top of the trunk | stems provide sap, used as a drink or a source of 2………………………\nfruits outer layer | — | —\nmiddle layer (coir fibres) | — | used for 3………………………\ninner layer (shell) | — | a source of 4……………………… / (when halved) for 5………………………\ncoconut water | — | a drink / a source of 6……………………… for other plants\ncoconut flesh | — | oil and milk for cooking and 7……………………… / glycerine (an ingredient in 8………………………)",
+          type: "table_completion",
+          question: "1. Trunk – timber for houses and the making of _______",
+          correctAnswer: "furniture",
+          points: 1,
+        },
+        {
+          id: "cam13-ra-t3-s1-q2",
+          number: 2,
+          type: "table_completion",
+          question: "2. Flowers – stems provide sap, used as a drink or a source of _______",
+          correctAnswer: "sugar",
+          points: 1,
+        },
+        {
+          id: "cam13-ra-t3-s1-q3",
+          number: 3,
+          type: "table_completion",
+          question: "3. Middle layer (coir fibres) – used for _______",
+          correctAnswer: "ropes",
+          points: 1,
+        },
+        {
+          id: "cam13-ra-t3-s1-q4",
+          number: 4,
+          type: "table_completion",
+          question: "4. Inner layer (shell) – a source of _______",
+          correctAnswer: "charcoal",
+          points: 1,
+        },
+        {
+          id: "cam13-ra-t3-s1-q5",
+          number: 5,
+          type: "table_completion",
+          question: "5. Inner layer (shell) – when halved, used as _______",
+          correctAnswer: "bowls",
+          points: 1,
+        },
+        {
+          id: "cam13-ra-t3-s1-q6",
+          number: 6,
+          type: "table_completion",
+          question: "6. Coconut water – a source of _______ for other plants",
+          correctAnswer: "hormones",
+          points: 1,
+        },
+        {
+          id: "cam13-ra-t3-s1-q7",
+          number: 7,
+          type: "table_completion",
+          question: "7. Coconut flesh – oil and milk for cooking and _______",
+          correctAnswer: "cosmetics",
+          points: 1,
+        },
+        {
+          id: "cam13-ra-t3-s1-q8",
+          number: 8,
+          type: "table_completion",
+          question: "8. Coconut flesh – glycerine (an ingredient in _______)",
+          correctAnswer: "dynamite",
+          points: 1,
+        },
+        // ── Q9–13: TRUE / FALSE / NOT GIVEN ──────────────────────
+        {
+          id: "cam13-ra-t3-s1-q9",
+          number: 9,
+          groupLabel: "Questions 9–13: Do the following statements agree with the information given in Reading Passage 1?\nWrite TRUE, FALSE, or NOT GIVEN.",
+          type: "true_false_ng",
+          question: "9. Coconut seeds need shade in order to germinate.",
+          options: [
+            { label: "TRUE", value: "TRUE" },
+            { label: "FALSE", value: "FALSE" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "FALSE",
+          points: 1,
+        },
+        {
+          id: "cam13-ra-t3-s1-q10",
+          number: 10,
+          type: "true_false_ng",
+          question: "10. Coconuts were probably transported to Asia from America in the 16th century.",
+          options: [
+            { label: "TRUE", value: "TRUE" },
+            { label: "FALSE", value: "FALSE" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "FALSE",
+          points: 1,
+        },
+        {
+          id: "cam13-ra-t3-s1-q11",
+          number: 11,
+          type: "true_false_ng",
+          question: "11. Coconuts found on the west coast of America were a different type from those found on the east coast.",
+          options: [
+            { label: "TRUE", value: "TRUE" },
+            { label: "FALSE", value: "FALSE" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "NOT GIVEN",
+          points: 1,
+        },
+        {
+          id: "cam13-ra-t3-s1-q12",
+          number: 12,
+          type: "true_false_ng",
+          question: "12. All the coconuts found in Asia are cultivated varieties.",
+          options: [
+            { label: "TRUE", value: "TRUE" },
+            { label: "FALSE", value: "FALSE" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "TRUE",
+          points: 1,
+        },
+        {
+          id: "cam13-ra-t3-s1-q13",
+          number: 13,
+          type: "true_false_ng",
+          question: "13. Coconuts are cultivated in different ways in America and the Pacific.",
+          options: [
+            { label: "TRUE", value: "TRUE" },
+            { label: "FALSE", value: "FALSE" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "NOT GIVEN",
+          points: 1,
+        },
+      ],
+    },
+
+    // ── PASSAGE 2 ─────────────────────────────────────────────
+    {
+      id: "cam13-ra-t3-s2",
+      sectionNumber: 2,
+      title: "Reading Passage 2",
+      passageTitle: "How baby talk gives infant brains a boost",
+      passageText: `A
+The typical way of talking to a baby – high-pitched, exaggerated and repetitious – is a source of fascination for linguists who hope to understand how 'baby talk' impacts on learning. Most babies start developing their hearing while still in the womb, prompting some hopeful parents to play classical music to their pregnant bellies. Some research even suggests that infants are listening to adult speech as early as 10 weeks before being born, gathering the basic building blocks of their family's native tongue.
+
+B
+Early language exposure seems to have benefits to the brain – for instance, studies suggest that babies raised in bilingual homes are better at learning how to mentally prioritize information. So how does the sweet if sometimes absurd sound of infant-directed speech influence a baby's development? Here are some recent studies that explore the science behind baby talk.
+
+C
+Fathers don't use baby talk as often or in the same ways as mothers – and that's perfectly OK, according to a new study. Mark VanDam of Washington State University at Spokane and colleagues equipped parents with recording devices and speech-recognition software to study the way they interacted with their youngsters during a normal day. 'We found that moms do exactly what you'd expect and what's been described many times over,' VanDam explains. 'But we found that dads aren't doing the same thing. Dads didn't raise their pitch or fundamental frequency when they talked to kids.' Their role may be rooted in what is called the bridge hypothesis, which dates back to 1975. It suggests that fathers use less familial language to provide their children with a bridge to the kind of speech they'll hear in public. 'The idea is that a kid gets to practice a certain kind of speech with mom and another kind of speech with dad, so the kid then has a wider repertoire of kinds of speech to practice,' says VanDam.
+
+D
+Scientists from the University of Washington and the University of Connecticut collected thousands of 30-second conversations between parents and their babies, fitting 26 children with audio-recording vests that captured language and sound during a typical eight-hour day. The study found that the more baby talk parents used, the more their youngsters began to babble. And when researchers saw the same babies at age two, they found that frequent baby talk had dramatically boosted vocabulary, regardless of socioeconomic status. 'Those children who listened to a lot of baby talk were talking more than the babies that listened to more adult talk or standard speech,' says Nairán Ramirez-Esparza of the University of Connecticut. 'We also found that it really matters whether you use baby talk in a one-on-one context,' she adds. 'The more parents use baby talk one-on-one, the more babies babble, and the more they babble, the more words they produce later in life.'
+
+E
+Another study suggests that parents might want to pair their youngsters up so they can babble more with their own kind. Researchers from McGill University and Université du Québec à Montréal found that babies seem to like listening to each other rather than to adults – which may be why baby talk is such a universal tool among parents. They played repeating vowel sounds made by a special synthesizing device that mimicked sounds made by either an adult woman or another baby. This way, only the impact of the auditory cues was observed. The team then measured how long each type of sound held the infants' attention. They found that the 'infant' sounds held babies' attention nearly 40 percent longer. The baby noises also induced more reactions in the listening infants, like smiling or lip moving, which approximates sound making. The team theorizes that this attraction to other infant sounds could help launch the learning process that leads to speech. 'It may be some property of the sound that is just drawing their attention,' says study co-author Linda Polka. 'Or maybe they are really interested in that particular type of sound because they are starting to focus on their own ability to make sounds. We are speculating here but it might catch their attention because they recognize it as a sound they could possibly make.'
+
+F
+In a study published in Proceedings of the National Academy of Sciences, a total of 57 babies from two slightly different age groups – seven months and eleven and a half months – were played a number of syllables from both their native language (English) and a non-native tongue (Spanish). The infants were placed in a brain-activation scanner that recorded activity in a brain region known to guide the motor movements that produce speech. The results suggest that listening to baby talk prompts infant brains to start practicing their language skills. Finding activation in motor areas suggests the baby brain is engaged in trying to talk back right from the start, and suggests that seven-month-olds' brains are already trying to figure out how to make sounds. An interesting finding was that while the seven-month-olds responded to all speech sounds regardless of language, the brains of the older infants worked harder at the motor activations of non-native sounds compared to native sounds. The study, led by Patricia Kuhl of the University of Washington, may have also uncovered a process by which babies recognize differences between their native language and other tongues.`,
+      instructions: `Questions 14–17: Match each idea with the correct researcher, A, B or C.
+NB You may use any letter more than once.
+
+Questions 18–23: Complete the summary below.
+Choose NO MORE THAN TWO WORDS from the passage for each answer.
+
+Questions 24–26: Reading Passage 2 has six paragraphs, A–F.
+Which paragraph contains the following information?`,
+      questions: [
+        // ── Q14–17: Researcher matching ───────────────────────────
+        {
+          id: "cam13-ra-t3-s2-q14",
+          number: 14,
+          groupLabel: "Questions 14–17: Match each idea with the correct researcher, A, B or C.\nWrite the correct letter, A, B or C, in boxes 14–17 on your answer sheet.\nNB You may use any letter more than once.\n\nList of Researchers\nA  Mark VanDam\nB  Nairán Ramirez-Esparza\nC  Patricia Kuhl",
+          type: "matching",
+          question: "14. the importance of adults giving babies individual attention when talking to them",
+          options: [
+            { label: "A – Mark VanDam", value: "A" },
+            { label: "B – Nairán Ramirez-Esparza", value: "B" },
+            { label: "C – Patricia Kuhl", value: "C" },
+          ],
+          correctAnswer: "B",
+          points: 1,
+        },
+        {
+          id: "cam13-ra-t3-s2-q15",
+          number: 15,
+          type: "matching",
+          question: "15. the connection between what babies hear and their own efforts to create speech",
+          options: [
+            { label: "A – Mark VanDam", value: "A" },
+            { label: "B – Nairán Ramirez-Esparza", value: "B" },
+            { label: "C – Patricia Kuhl", value: "C" },
+          ],
+          correctAnswer: "C",
+          points: 1,
+        },
+        {
+          id: "cam13-ra-t3-s2-q16",
+          number: 16,
+          type: "matching",
+          question: "16. the advantage for the baby of having two parents each speaking in a different way",
+          options: [
+            { label: "A – Mark VanDam", value: "A" },
+            { label: "B – Nairán Ramirez-Esparza", value: "B" },
+            { label: "C – Patricia Kuhl", value: "C" },
+          ],
+          correctAnswer: "A",
+          points: 1,
+        },
+        {
+          id: "cam13-ra-t3-s2-q17",
+          number: 17,
+          type: "matching",
+          question: "17. the connection between the amount of baby talk babies hear and how much vocalising they do themselves",
+          options: [
+            { label: "A – Mark VanDam", value: "A" },
+            { label: "B – Nairán Ramirez-Esparza", value: "B" },
+            { label: "C – Patricia Kuhl", value: "C" },
+          ],
+          correctAnswer: "B",
+          points: 1,
+        },
+        // ── Q18–23: Summary completion ────────────────────────────
+        {
+          id: "cam13-ra-t3-s2-q18",
+          number: 18,
+          groupLabel: "Questions 18–23: Complete the summary below.\nChoose NO MORE THAN TWO WORDS from the passage for each answer.\n\nResearch into how parents talk to babies\nResearchers at Washington State University used 18……………………………, together with specialised computer programs, to analyse how parents interacted with their babies during a normal day. The study revealed that 19………………………… tended not to modify their ordinary speech patterns when interacting with their babies. According to an idea known as the 20……………………….., they may use a more adult type of speech to prepare infants for the language they will hear outside the family home. According to the researchers, hearing baby talk from one parent and 'normal' language from the other expands the baby's 21………………………… of types of speech which they can practise.\nMeanwhile, another study carried out by scientists from the University of Washington and the University of Connecticut recorded speech and sound using special 22……………………………… that the babies were equipped with. When they studied the babies again at age two, they found that those who had heard a lot of baby talk in infancy had a much larger 23……………………………. than those who had not.",
+          type: "summary_completion",
+          question: "18. Researchers used _______, together with specialised computer programs, to analyse how parents interacted with their babies",
+          correctAnswer: "recording devices",
+          points: 1,
+        },
+        {
+          id: "cam13-ra-t3-s2-q19",
+          number: 19,
+          type: "summary_completion",
+          question: "19. The study revealed that _______ tended not to modify their ordinary speech patterns when interacting with their babies",
+          correctAnswer: "dads",
+          points: 1,
+        },
+        {
+          id: "cam13-ra-t3-s2-q20",
+          number: 20,
+          type: "summary_completion",
+          question: "20. According to an idea known as the _______, they may use a more adult type of speech to prepare infants for language outside the home",
+          correctAnswer: "bridge hypothesis",
+          points: 1,
+        },
+        {
+          id: "cam13-ra-t3-s2-q21",
+          number: 21,
+          type: "summary_completion",
+          question: "21. Hearing baby talk from one parent and 'normal' language from the other expands the baby's _______ of types of speech",
+          correctAnswer: "repertoire",
+          points: 1,
+        },
+        {
+          id: "cam13-ra-t3-s2-q22",
+          number: 22,
+          type: "summary_completion",
+          question: "22. Another study recorded speech and sound using special _______ that the babies were equipped with",
+          correctAnswer: "vests",
+          points: 1,
+        },
+        {
+          id: "cam13-ra-t3-s2-q23",
+          number: 23,
+          type: "summary_completion",
+          question: "23. Those who had heard a lot of baby talk in infancy had a much larger _______ than those who had not",
+          correctAnswer: "vocabulary",
+          points: 1,
+        },
+        // ── Q24–26: Paragraph matching ────────────────────────────
+        {
+          id: "cam13-ra-t3-s2-q24",
+          number: 24,
+          groupLabel: "Questions 24–26: Reading Passage 2 has six paragraphs, A–F.\nWhich paragraph contains the following information?\nWrite the correct letter, A–F, in boxes 24–26 on your answer sheet.",
+          type: "matching",
+          question: "24. a reference to a change which occurs in babies' brain activity before the end of their first year",
+          options: [
+            { label: "A", value: "A" },
+            { label: "B", value: "B" },
+            { label: "C", value: "C" },
+            { label: "D", value: "D" },
+            { label: "E", value: "E" },
+            { label: "F", value: "F" },
+          ],
+          correctAnswer: "F",
+          points: 1,
+        },
+        {
+          id: "cam13-ra-t3-s2-q25",
+          number: 25,
+          type: "matching",
+          question: "25. an example of what some parents do for their baby's benefit before birth",
+          options: [
+            { label: "A", value: "A" },
+            { label: "B", value: "B" },
+            { label: "C", value: "C" },
+            { label: "D", value: "D" },
+            { label: "E", value: "E" },
+            { label: "F", value: "F" },
+          ],
+          correctAnswer: "A",
+          points: 1,
+        },
+        {
+          id: "cam13-ra-t3-s2-q26",
+          number: 26,
+          type: "matching",
+          question: "26. a mention of babies' preference for the sounds that other babies make",
+          options: [
+            { label: "A", value: "A" },
+            { label: "B", value: "B" },
+            { label: "C", value: "C" },
+            { label: "D", value: "D" },
+            { label: "E", value: "E" },
+            { label: "F", value: "F" },
+          ],
+          correctAnswer: "E",
+          points: 1,
+        },
+      ],
+    },
+
+    // ── PASSAGE 3 ─────────────────────────────────────────────
+    {
+      id: "cam13-ra-t3-s3",
+      sectionNumber: 3,
+      title: "Reading Passage 3",
+      passageTitle: "Whatever happened to the Harappan Civilisation?",
+      passageText: `New research sheds light on the disappearance of an ancient society
+
+A
+The Harappan Civilisation of ancient Pakistan and India flourished 5,000 years ago, but a thousand years later their cities were abandoned. The Harappan Civilisation was a sophisticated Bronze Age society who built 'megacities' and traded internationally in luxury craft products, and yet seemed to have left almost no depictions of themselves. But their lack of self-imagery – at a time when the Egyptians were carving and painting representations of themselves all over their temples – is only part of the mystery.
+
+B
+'There is plenty of archaeological evidence to tell us about the rise of the Harappan Civilisation, but relatively little about its fall,' explains archaeologist Dr Cameron Petrie of the University of Cambridge. 'As populations increased, cities were built that had great baths, craft workshops, palaces and halls laid out in distinct sectors. Houses were arranged in blocks, with wide main streets and narrow alleyways, and many had their own wells and drainage systems. It was very much a "thriving" civilisation.' Then around 2100 BC, a transformation began. Streets went uncleaned, buildings started to be abandoned, and ritual structures fell out of use. After their final demise, a millennium passed before really large-scale cities appeared once more in South Asia.
+
+C
+Some have claimed that major glacier-fed rivers changed their course, dramatically affecting the water supply and agriculture; or that the cities could not cope with an increasing population, they exhausted their resource base, the trading economy broke down or they succumbed to invasion and conflict; and yet others that climate change caused an environmental change that affected food and water provision. 'It is unlikely that there was a single cause for the decline of the civilisation. But the fact is, until now, we have had little solid evidence from the area for most of the key elements,' said Petrie. 'A lot of the archaeological debate has really only been well-argued speculation.'
+
+D
+A research team led by Petrie, together with Dr Ravindanath Singh of Banaras Hindu University in India, found early in their investigations that many of the archaeological sites were not where they were supposed to be, completely altering understanding of the way that this region was inhabited in the past. When they carried out a survey of how the larger area was settled in relation to sources of water, they found inaccuracies in the published geographic locations of ancient settlements ranging from several hundred metres to many kilometres. They realised that any attempts to use the existing data were likely to be fundamentally flawed. Over the course of several seasons of fieldwork they carried out new surveys, finding an astonishing 198 settlement sites that were previously unknown.
+
+E
+Now, research published by Dr Yama Dixit and Professor David Hodell, both from Cambridge's Department of Earth Sciences, has provided the first definitive evidence for climate change affecting the plains of north-western India, where hundreds of Harappan sites are known to have been situated. The researchers gathered shells of Melanoides tuberculata snails from the sediments of an ancient lake and used geochemical analysis as a means of tracing the climate history of the region. 'As today, the major source of water into the lake is likely to have been the summer monsoon,' says Dixit. 'But we have observed that there was an abrupt change about 4,100 years ago, when the amount of evaporation from the lake exceeded the rainfall – indicative of a drought.' Hodell adds: 'We estimate that the weakening of the Indian summer monsoon climate lasted about 200 years before recovering to the previous conditions, which we still see today.'
+
+F
+It has long been thought that other great Bronze Age civilisations also declined at a similar time, with a global-scale climate event being seen as the cause. While it is possible that these local-scale processes were linked, the real archaeological interest lies in understanding the impact of these larger-scale events on different environments and different populations. 'Considering the vast area of the Harappan Civilisation with its variable weather systems,' explains Singh, 'it is essential that we obtain more climate data from areas close to the two great cities at Mohenjodaro and Harappa and also from the Indian Punjab.'
+
+G
+Petrie and Singh's team is now examining archaeological records and trying to understand details of how people led their lives in the region five millennia ago. They are analysing grains cultivated at the time, and trying to work out whether they were grown under extreme conditions of water stress, and whether they were adjusting the combinations of crops they were growing for different weather systems. They are also looking at whether the types of pottery used, and other aspects of their material culture, were distinctive to specific regions or were more similar across larger areas. This gives us insight into the types of interactive networks that the population was involved in, and whether those changed.
+
+H
+Petrie believes that archaeologists are in a unique position to investigate how past societies responded to environmental and climatic change. 'By investigating responses to environmental pressures and threats, we can learn from the past to engage with the public, and the relevant governmental and administrative bodies, to be more proactive in issues such as the management and administration of water supply, the balance of urban and rural development, and the importance of preserving cultural heritage in the future.'`,
+      instructions: `Questions 27–31: Reading Passage 3 has eight paragraphs, A–H.
+Which paragraph contains the following information?
+NB You may use any letter more than once.
+
+Questions 32–36: Complete the summary below.
+Choose ONE WORD ONLY from the passage for each answer.
+
+Questions 37–40: Match each statement with the correct researcher, A, B, C or D.
+NB You may use any letter more than once.`,
+      questions: [
+        // ── Q27–31: Paragraph matching ────────────────────────────
+        {
+          id: "cam13-ra-t3-s3-q27",
+          number: 27,
+          groupLabel: "Questions 27–31: Reading Passage 3 has eight paragraphs, A–H.\nWhich paragraph contains the following information?\nWrite the correct letter, A–H, in boxes 27–31 on your answer sheet.\nNB You may use any letter more than once.",
+          type: "matching",
+          question: "27. proposed explanations for the decline of the Harappan Civilisation",
+          options: [
+            { label: "A", value: "A" },
+            { label: "B", value: "B" },
+            { label: "C", value: "C" },
+            { label: "D", value: "D" },
+            { label: "E", value: "E" },
+            { label: "F", value: "F" },
+            { label: "G", value: "G" },
+            { label: "H", value: "H" },
+          ],
+          correctAnswer: "C",
+          points: 1,
+        },
+        {
+          id: "cam13-ra-t3-s3-q28",
+          number: 28,
+          type: "matching",
+          question: "28. reference to a present-day application of some archaeological research findings",
+          options: [
+            { label: "A", value: "A" },
+            { label: "B", value: "B" },
+            { label: "C", value: "C" },
+            { label: "D", value: "D" },
+            { label: "E", value: "E" },
+            { label: "F", value: "F" },
+            { label: "G", value: "G" },
+            { label: "H", value: "H" },
+          ],
+          correctAnswer: "H",
+          points: 1,
+        },
+        {
+          id: "cam13-ra-t3-s3-q29",
+          number: 29,
+          type: "matching",
+          question: "29. a difference between the Harappan Civilisation and another culture of the same period",
+          options: [
+            { label: "A", value: "A" },
+            { label: "B", value: "B" },
+            { label: "C", value: "C" },
+            { label: "D", value: "D" },
+            { label: "E", value: "E" },
+            { label: "F", value: "F" },
+            { label: "G", value: "G" },
+            { label: "H", value: "H" },
+          ],
+          correctAnswer: "A",
+          points: 1,
+        },
+        {
+          id: "cam13-ra-t3-s3-q30",
+          number: 30,
+          type: "matching",
+          question: "30. a description of some features of Harappan urban design",
+          options: [
+            { label: "A", value: "A" },
+            { label: "B", value: "B" },
+            { label: "C", value: "C" },
+            { label: "D", value: "D" },
+            { label: "E", value: "E" },
+            { label: "F", value: "F" },
+            { label: "G", value: "G" },
+            { label: "H", value: "H" },
+          ],
+          correctAnswer: "B",
+          points: 1,
+        },
+        {
+          id: "cam13-ra-t3-s3-q31",
+          number: 31,
+          type: "matching",
+          question: "31. reference to the discovery of errors made by previous archaeologists",
+          options: [
+            { label: "A", value: "A" },
+            { label: "B", value: "B" },
+            { label: "C", value: "C" },
+            { label: "D", value: "D" },
+            { label: "E", value: "E" },
+            { label: "F", value: "F" },
+            { label: "G", value: "G" },
+            { label: "H", value: "H" },
+          ],
+          correctAnswer: "D",
+          points: 1,
+        },
+        // ── Q32–36: Summary completion ────────────────────────────
+        {
+          id: "cam13-ra-t3-s3-q32",
+          number: 32,
+          groupLabel: "Questions 32–36: Complete the summary below.\nChoose ONE WORD ONLY from the passage for each answer.\n\nLooking at evidence of climate change\nYama Dixit and David Hodell have found the first definitive evidence of climate change affecting the plains of north-western India thousands of years ago. By collecting the 32………………………… of snails and analysing them, they discovered evidence of a change in water levels in a 33………………………… in the region. This occurred when there was less 34……………………………… than evaporation, and suggests that there was an extended period of drought.\nPetrie and Singh's team are using archaeological records to look at 35……………………………… from five millennia ago, in order to know whether people had adapted their agricultural practices to changing climatic conditions. They are also examining objects including 36…………………………… , so as to find out about links between inhabitants of different parts of the region and whether these changed over time.",
+          type: "summary_completion",
+          question: "32. By collecting the _______ of snails and analysing them, they discovered evidence of a change in water levels",
+          correctAnswer: "shells",
+          points: 1,
+        },
+        {
+          id: "cam13-ra-t3-s3-q33",
+          number: 33,
+          type: "summary_completion",
+          question: "33. They discovered evidence of a change in water levels in a _______ in the region",
+          correctAnswer: "lake",
+          points: 1,
+        },
+        {
+          id: "cam13-ra-t3-s3-q34",
+          number: 34,
+          type: "summary_completion",
+          question: "34. This occurred when there was less _______ than evaporation, suggesting an extended period of drought",
+          correctAnswer: "rainfall",
+          points: 1,
+        },
+        {
+          id: "cam13-ra-t3-s3-q35",
+          number: 35,
+          type: "summary_completion",
+          question: "35. Petrie and Singh's team are using archaeological records to look at _______ from five millennia ago",
+          correctAnswer: "grains",
+          points: 1,
+        },
+        {
+          id: "cam13-ra-t3-s3-q36",
+          number: 36,
+          type: "summary_completion",
+          question: "36. They are also examining objects including _______, to find out about links between inhabitants of different parts of the region",
+          correctAnswer: "pottery",
+          points: 1,
+        },
+        // ── Q37–40: Researcher matching ───────────────────────────
+        {
+          id: "cam13-ra-t3-s3-q37",
+          number: 37,
+          groupLabel: "Questions 37–40: Match each statement with the correct researcher, A, B, C or D.\nWrite the correct letter, A, B, C or D, in boxes 37–40 on your answer sheet.\nNB You may use any letter more than once.\n\nList of Researchers\nA  Cameron Petrie\nB  Ravindanath Singh\nC  Yama Dixit\nD  David Hodell",
+          type: "matching",
+          question: "37. Finding further information about changes to environmental conditions in the region is vital.",
+          options: [
+            { label: "A – Cameron Petrie", value: "A" },
+            { label: "B – Ravindanath Singh", value: "B" },
+            { label: "C – Yama Dixit", value: "C" },
+            { label: "D – David Hodell", value: "D" },
+          ],
+          correctAnswer: "B",
+          points: 1,
+        },
+        {
+          id: "cam13-ra-t3-s3-q38",
+          number: 38,
+          type: "matching",
+          question: "38. Examining previous patterns of behaviour may have long-term benefits.",
+          options: [
+            { label: "A – Cameron Petrie", value: "A" },
+            { label: "B – Ravindanath Singh", value: "B" },
+            { label: "C – Yama Dixit", value: "C" },
+            { label: "D – David Hodell", value: "D" },
+          ],
+          correctAnswer: "A",
+          points: 1,
+        },
+        {
+          id: "cam13-ra-t3-s3-q39",
+          number: 39,
+          type: "matching",
+          question: "39. Rough calculations indicate the approximate length of a period of water shortage.",
+          options: [
+            { label: "A – Cameron Petrie", value: "A" },
+            { label: "B – Ravindanath Singh", value: "B" },
+            { label: "C – Yama Dixit", value: "C" },
+            { label: "D – David Hodell", value: "D" },
+          ],
+          correctAnswer: "D",
+          points: 1,
+        },
+        {
+          id: "cam13-ra-t3-s3-q40",
+          number: 40,
+          type: "matching",
+          question: "40. Information about the decline of the Harappan Civilisation has been lacking.",
+          options: [
+            { label: "A – Cameron Petrie", value: "A" },
+            { label: "B – Ravindanath Singh", value: "B" },
+            { label: "C – Yama Dixit", value: "C" },
+            { label: "D – David Hodell", value: "D" },
+          ],
+          correctAnswer: "A",
+          points: 1,
+        },
+      ],
+    },
+  ],
+};
+
+export const cambridge13Tests: IELTSTest[] = [cambridge13_reading_t1, cambridge13_reading_t2, cambridge13_reading_t3];
