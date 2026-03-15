@@ -643,4 +643,712 @@ Choose ONE WORD ONLY from the passage for each answer.`,
   ],
 };
 
-export const cambridge14Tests: IELTSTest[] = [cambridge14_reading_t1];
+// ============================================================
+// CAMBRIDGE IELTS 14 – TEST 2  (Academic Reading)
+// Passages: Alexander Henderson (1831-1913) /
+//           Back to the Future of Skyscraper Design /
+//           Why Companies Should Welcome Disorder
+// ============================================================
+export const cambridge14_reading_t2: IELTSTest = {
+  id: "cam14-reading-academic-t2",
+  title: "Cambridge IELTS 14 – Test 2",
+  bookNumber: 14,
+  testNumber: 2,
+  type: "reading",
+  level: "academic",
+  durationMinutes: 60,
+  transferMinutes: 0,
+  sections: [
+    // ── PASSAGE 1 ─────────────────────────────────────────────
+    {
+      id: "cam14-ra-t2-s1",
+      sectionNumber: 1,
+      title: "Reading Passage 1",
+      passageTitle: "Alexander Henderson (1831–1913)",
+      passageText: `Born in Scotland, Henderson emigrated to Canada in 1855 and became a well-known landscape photographer.
+
+Alexander Henderson was born in Scotland in 1831 and was the son of a successful merchant. His grandfather, also called Alexander, had founded the family business, and later became the first chairman of the National Bank of Scotland. The family had extensive landholding in Scotland. Besides its residence in Edinburgh, it owned Press Estate, 650 acres of farmland about 35 miles southeast of the city. The family often stayed at Press Castle, the large mansion on the northern edge of the property, and Alexander spent much of his childhood in the area, playing on the beach near Eyemouth or fishing in the streams nearby.
+
+Even after he went to school at Murcheston Academy on the outskirts of Edinburgh, Henderson returned to Press at weekends. In 1849 he began a three-year apprenticeship to become an accountant. Although he never liked the prospect of a business career, he stayed with it to please his family. In October 1855, however, he emigrated to Canada with his wife Agnes Elder Robertson and they settled in Montreal.
+
+Henderson learned photography in Montreal around the year 1857 and quickly took it up as a serious amateur. He became a personal friend and colleague of the Scottish–Canadian photographer William Notman. The two men made a photographic excursion to Niagara Falls in 1860 and they cooperated on experiments with magnesium flares as a source of artificial light in 1865. They belonged to the same societies and were among the founding members of the Art Association of Montreal. Henderson acted as chairman of the association's first meeting, which was held in Notman's studio on 11 January 1860.
+
+In spite of their friendship, their styles of photography were quite different. While Notman's landscapes were noted for their bold realism, Henderson for the first 20 years of his career produced romantic images, showing the strong influence of the British landscape tradition. His artistic and technical progress was rapid and in 1865 he published his first major collection of landscape photographs. The publication had limited circulation (only seven copies have ever been found), and was called Canadian Views and Studies. The contents of each copy vary significantly and have proved a useful source for evaluating Henderson's early work.
+
+In 1866, he gave up his business to open a photographic studio, advertising himself as a portrait and landscape photographer. From about 1870 he dropped portraiture to specialise in landscape photography and other views. His numerous photographs of city life revealed in street scenes, houses, and markets are alive with human activity, and although his favourite subject was landscape he usually composed his scenes around such human pursuits as farming the land, cutting ice on a river, or sailing down a woodland stream. There was sufficient demand for these types of scenes and others he took depicting the lumber trade, steamboats and waterfalls to enable him to make a living. There was little competing hobby or amateur photography before the late 1880s because of the time-consuming techniques involved and the weight of equipment. People wanted to buy photographs as souvenirs of a trip or as gifts, and catering to this market, Henderson had stock photographs on display at his studio for mounting, framing, or inclusion in albums.
+
+Henderson frequently exhibited his photographs in Montreal and abroad, in London, Edinburgh, Dublin, Paris, New York, and Philadelphia. He met with greater success in 1877 and 1878 in New York when he won first prizes in the exhibition held by E and H T Anthony and Company for landscapes using the Lambertype process. In 1878 his work won second prize at the world exhibition in Paris.
+
+In the 1870s and 1880s Henderson travelled widely throughout Quebec and Ontario, in Canada, documenting the major cities of the two provinces and many of the villages in Quebec. He was especially fond of the wilderness and often travelled by canoe on the Blanche, du Lièvre, and other noted eastern rivers. He went on several occasions to the Maritimes and in 1872 he sailed by yacht along the lower north shore of the St Lawrence River. That same year, while in the lower St Lawrence River region, he took some photographs of the construction of the Intercolonial Railway. This undertaking led in 1875 to a commission from the railway to record the principal structures along the almost-completed line connecting Montreal to Halifax. Commissions from other railways followed. In 1876 he photographed bridges on the Quebec, Montreal, Ottawa and Occidental Railway between Montreal and Ottawa. In 1885 he went west along the Canadian Pacific Railway (CPR) as far as Rogers Pass in British Columbia, where he took photographs of the mountains and the progress of construction.
+
+In 1892 Henderson accepted a full-time position with the CPR as manager of a photographic department which he was to set up and administer. His duties included spending four months in the field each year. That summer he made his second trip west, photographing extensively along the railway line as far as Victoria. He continued in this post until 1897, when he retired completely from photography.
+
+When Henderson died in 1913, his huge collection of glass negatives was stored in the basement of his house. Today collections of his work are held at the National Archives of Canada, Ottawa, and the McCord Museum of Canadian History, Montreal.`,
+      instructions: `Questions 1–8: Do the following statements agree with the information given in Reading Passage 1?
+Write TRUE, FALSE, or NOT GIVEN.
+
+Questions 9–13: Complete the notes below.
+Choose ONE WORD ONLY from the passage for each answer.`,
+      questions: [
+        // ── Q1–8: TRUE / FALSE / NOT GIVEN ───────────────────────
+        {
+          id: "cam14-ra-t2-s1-q1",
+          number: 1,
+          groupLabel: "Questions 1–8: Do the following statements agree with the information given in Reading Passage 1?\nWrite TRUE, FALSE, or NOT GIVEN.",
+          type: "true_false_ng",
+          question: "1. Henderson rarely visited the area around Press Estate when he was younger.",
+          options: [
+            { label: "TRUE", value: "TRUE" },
+            { label: "FALSE", value: "FALSE" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "FALSE",
+          points: 1,
+        },
+        {
+          id: "cam14-ra-t2-s1-q2",
+          number: 2,
+          type: "true_false_ng",
+          question: "2. Henderson pursued a business career because it was what his family wanted.",
+          options: [
+            { label: "TRUE", value: "TRUE" },
+            { label: "FALSE", value: "FALSE" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "TRUE",
+          points: 1,
+        },
+        {
+          id: "cam14-ra-t2-s1-q3",
+          number: 3,
+          type: "true_false_ng",
+          question: "3. Henderson and Notman were surprised by the results of their 1865 experiment.",
+          options: [
+            { label: "TRUE", value: "TRUE" },
+            { label: "FALSE", value: "FALSE" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "NOT GIVEN",
+          points: 1,
+        },
+        {
+          id: "cam14-ra-t2-s1-q4",
+          number: 4,
+          type: "true_false_ng",
+          question: "4. There were many similarities between Henderson's early landscapes and those of Notman.",
+          options: [
+            { label: "TRUE", value: "TRUE" },
+            { label: "FALSE", value: "FALSE" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "FALSE",
+          points: 1,
+        },
+        {
+          id: "cam14-ra-t2-s1-q5",
+          number: 5,
+          type: "true_false_ng",
+          question: "5. The studio that Henderson opened in 1866 was close to his home.",
+          options: [
+            { label: "TRUE", value: "TRUE" },
+            { label: "FALSE", value: "FALSE" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "NOT GIVEN",
+          points: 1,
+        },
+        {
+          id: "cam14-ra-t2-s1-q6",
+          number: 6,
+          type: "true_false_ng",
+          question: "6. Henderson gave up portraiture so that he could focus on taking photographs of scenery.",
+          options: [
+            { label: "TRUE", value: "TRUE" },
+            { label: "FALSE", value: "FALSE" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "TRUE",
+          points: 1,
+        },
+        {
+          id: "cam14-ra-t2-s1-q7",
+          number: 7,
+          type: "true_false_ng",
+          question: "7. When Henderson began work for the Intercolonial Railway, the Montreal to Halifax line had been finished.",
+          options: [
+            { label: "TRUE", value: "TRUE" },
+            { label: "FALSE", value: "FALSE" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "FALSE",
+          points: 1,
+        },
+        {
+          id: "cam14-ra-t2-s1-q8",
+          number: 8,
+          type: "true_false_ng",
+          question: "8. Henderson's last work as a photographer was with the Canadian Pacific Railway.",
+          options: [
+            { label: "TRUE", value: "TRUE" },
+            { label: "FALSE", value: "FALSE" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "TRUE",
+          points: 1,
+        },
+        // ── Q9–13: Notes completion ────────────────────────────────
+        {
+          id: "cam14-ra-t2-s1-q9",
+          number: 9,
+          groupLabel: "Questions 9–13: Complete the notes below.\nChoose ONE WORD ONLY from the passage for each answer.\n\nAlexander Henderson\nEarly life\n• was born in Scotland in 1831 – father was a 9…………………………\n• trained as an accountant, emigrated to Canada in 1855\nStart of a photographic career\n• opened up a photographic studio in 1866\n• took photos of city life, but preferred landscape photography\n• people bought Henderson's photos because photography took up considerable time and the 10……………………… was heavy\n• the photographs Henderson sold were 11…………………………… or souvenirs\nTravelling as a professional photographer\n• travelled widely in Quebec and Ontario in 1870s and 1880s\n• took many trips along eastern rivers in a 12…………………………..\n• worked for Canadian railways between 1875 and 1897\n• worked for CPR in 1885 and photographed the 13……………………………… and the railway at Rogers Pass",
+          type: "sentence_completion",
+          question: "9. father was a _______",
+          correctAnswer: "merchant",
+          points: 1,
+        },
+        {
+          id: "cam14-ra-t2-s1-q10",
+          number: 10,
+          type: "sentence_completion",
+          question: "10. photography took up considerable time and the _______ was heavy",
+          correctAnswer: "equipment",
+          points: 1,
+        },
+        {
+          id: "cam14-ra-t2-s1-q11",
+          number: 11,
+          type: "sentence_completion",
+          question: "11. the photographs Henderson sold were _______ or souvenirs",
+          correctAnswer: "gifts",
+          points: 1,
+        },
+        {
+          id: "cam14-ra-t2-s1-q12",
+          number: 12,
+          type: "sentence_completion",
+          question: "12. took many trips along eastern rivers in a _______",
+          correctAnswer: "canoe",
+          points: 1,
+        },
+        {
+          id: "cam14-ra-t2-s1-q13",
+          number: 13,
+          type: "sentence_completion",
+          question: "13. photographed the _______ and the railway at Rogers Pass",
+          correctAnswer: "mountains",
+          points: 1,
+        },
+      ],
+    },
+
+    // ── PASSAGE 2 ─────────────────────────────────────────────
+    {
+      id: "cam14-ra-t2-s2",
+      sectionNumber: 2,
+      title: "Reading Passage 2",
+      passageTitle: "Back to the future of skyscraper design",
+      passageText: `Answers to the problem of excessive electricity use by skyscrapers and large public buildings can be found in ingenious but forgotten architectural designs of the 19th and early-20th centuries.
+
+A
+The Recovery of Natural Environments in Architecture by Professor Alan Short is the culmination of 30 years of research and award-winning green building design by Short and colleagues in Architecture, Engineering, Applied Maths and Earth Sciences at the University of Cambridge.
+
+'The crisis in building design is already here,' said Short. 'Policy makers think you can solve energy and building problems with gadgets. You can't. As global temperatures continue to rise, we are going to continue to squander more and more energy on keeping our buildings mechanically cool until we have run out of capacity.'
+
+B
+Short is calling for a sweeping reinvention of how skyscrapers and major public buildings are designed – to end the reliance on sealed buildings which exist solely via the 'life support' system of vast air conditioning units.
+
+Instead, he shows it is entirely possible to accommodate natural ventilation and cooling in large buildings by looking into the past, before the widespread introduction of air conditioning systems, which were 'relentlessly and aggressively marketed' by their inventors.
+
+C
+Short points out that to make most contemporary buildings habitable, they have to be sealed and air conditioned. The energy use and carbon emissions this generates is spectacular and largely unnecessary. Buildings in the West account for 40–50% of electricity usage, generating substantial carbon emissions, and the rest of the world is catching up at a frightening rate. Short regards glass, steel and air-conditioned skyscrapers as symbols of status, rather than practical ways of meeting our requirements.
+
+D
+Short's book highlights a developing and sophisticated art and science of ventilating buildings through the 19th and earlier-20th centuries, including the design of ingeniously ventilated hospitals. Of particular interest were those built to the designs of John Shaw Billings, including the first Johns Hopkins Hospital in the US city of Baltimore (1873–1889).
+
+'We spent three years digitally modelling Billings' final designs,' says Short. 'We put pathogens in the airstreams, modelled for someone with tuberculosis (TB) coughing in the wards and we found the ventilation systems in the room would have kept other patients safe from harm.
+
+E
+'We discovered that 19th-century hospital wards could generate up to 24 air changes an hour – that's similar to the performance of a modern-day, computer-controlled operating theatre. We believe you could build wards based on these principles now.
+
+Single rooms are not appropriate for all patients. Communal wards appropriate for certain patients – older people with dementia, for example – would work just as well in today's hospitals, at a fraction of the energy cost.'
+
+Professor Short contends the mindset and skill-sets behind these designs have been completely lost, lamenting the disappearance of expertly designed theatres, opera houses, and other buildings where up to half the volume of the building was given over to ensuring everyone got fresh air.
+
+F
+Much of the ingenuity present in 19th-century hospital and building design was driven by a panicked public clamouring for buildings that could protect against what was thought to be the lethal threat of miasmas – toxic air that spread disease. Miasmas were feared as the principal agents of disease and epidemics for centuries, and were used to explain the spread of infection from the Middle Ages right through to the cholera outbreaks in London and Paris during the 1850s. Foul air, rather than germs, was believed to be the main driver of 'hospital fever', leading to disease and frequent death. The prosperous steered clear of hospitals.
+
+While miasma theory has been long since disproved, Short has for the last 30 years advocated a return to some of the building design principles produced in its wake.
+
+G
+Today, huge amounts of a building's space and construction cost are given over to air conditioning. 'But I have designed and built a series of buildings over the past three decades which have tried to reinvent some of these ideas and then measure what happens.
+
+'To go forward into our new low-energy, low-carbon future, we would be well advised to look back at design before our high-energy, high-carbon present appeared. What is surprising is what a rich legacy we have abandoned.'
+
+H
+Successful examples of Short's approach include the Queen's Building at De Montfort University in Leicester. Containing as many as 2,000 staff and students, the entire building is naturally ventilated, passively cooled and naturally lit, including the two largest auditoria, each seating more than 150 people. The award-winning building uses a fraction of the electricity of comparable buildings in the UK.
+
+Short contends that glass skyscrapers in London and around the world will become a liability over the next 20 or 30 years if climate modelling predictions and energy price rises come to pass as expected.
+
+I
+He is convinced that sufficiently cooled skyscrapers using the natural environment can be produced in almost any climate. He and his team have worked on hybrid buildings in the harsh climates of Beijing and Chicago – built with natural ventilation assisted by back-up air conditioning – which, surprisingly perhaps, can be switched off more than half the time on milder days and during the spring and autumn.
+
+Short looks at how we might reimagine the cities, offices and homes of the future. Maybe it's time we changed our outlook.`,
+      instructions: `Questions 14–18: Reading Passage 2 has nine sections, A–I.
+Which section contains the following information?
+Write the correct letter, A–I, in boxes 14–18 on your answer sheet.
+
+Questions 19–26: Complete the summary below.
+Choose ONE WORD ONLY from the passage for each answer.`,
+      questions: [
+        // ── Q14–18: Section matching ──────────────────────────────
+        {
+          id: "cam14-ra-t2-s2-q14",
+          number: 14,
+          groupLabel: "Questions 14–18: Reading Passage 2 has nine sections, A–I.\nWhich section contains the following information?\nWrite the correct letter, A–I, in boxes 14–18 on your answer sheet.",
+          type: "matching",
+          question: "14. why some people avoided hospitals in the 19th century",
+          options: [
+            { label: "A", value: "A" },
+            { label: "B", value: "B" },
+            { label: "C", value: "C" },
+            { label: "D", value: "D" },
+            { label: "E", value: "E" },
+            { label: "F", value: "F" },
+            { label: "G", value: "G" },
+            { label: "H", value: "H" },
+            { label: "I", value: "I" },
+          ],
+          correctAnswer: "F",
+          points: 1,
+        },
+        {
+          id: "cam14-ra-t2-s2-q15",
+          number: 15,
+          type: "matching",
+          question: "15. a suggestion that the popularity of tall buildings is linked to prestige",
+          options: [
+            { label: "A", value: "A" },
+            { label: "B", value: "B" },
+            { label: "C", value: "C" },
+            { label: "D", value: "D" },
+            { label: "E", value: "E" },
+            { label: "F", value: "F" },
+            { label: "G", value: "G" },
+            { label: "H", value: "H" },
+            { label: "I", value: "I" },
+          ],
+          correctAnswer: "C",
+          points: 1,
+        },
+        {
+          id: "cam14-ra-t2-s2-q16",
+          number: 16,
+          type: "matching",
+          question: "16. a comparison between the circulation of air in a 19th-century building and modern standards",
+          options: [
+            { label: "A", value: "A" },
+            { label: "B", value: "B" },
+            { label: "C", value: "C" },
+            { label: "D", value: "D" },
+            { label: "E", value: "E" },
+            { label: "F", value: "F" },
+            { label: "G", value: "G" },
+            { label: "H", value: "H" },
+            { label: "I", value: "I" },
+          ],
+          correctAnswer: "E",
+          points: 1,
+        },
+        {
+          id: "cam14-ra-t2-s2-q17",
+          number: 17,
+          type: "matching",
+          question: "17. how Short tested the circulation of air in a 19th-century building",
+          options: [
+            { label: "A", value: "A" },
+            { label: "B", value: "B" },
+            { label: "C", value: "C" },
+            { label: "D", value: "D" },
+            { label: "E", value: "E" },
+            { label: "F", value: "F" },
+            { label: "G", value: "G" },
+            { label: "H", value: "H" },
+            { label: "I", value: "I" },
+          ],
+          correctAnswer: "D",
+          points: 1,
+        },
+        {
+          id: "cam14-ra-t2-s2-q18",
+          number: 18,
+          type: "matching",
+          question: "18. an implication that advertising led to the large increase in the use of air conditioning",
+          options: [
+            { label: "A", value: "A" },
+            { label: "B", value: "B" },
+            { label: "C", value: "C" },
+            { label: "D", value: "D" },
+            { label: "E", value: "E" },
+            { label: "F", value: "F" },
+            { label: "G", value: "G" },
+            { label: "H", value: "H" },
+            { label: "I", value: "I" },
+          ],
+          correctAnswer: "B",
+          points: 1,
+        },
+        // ── Q19–26: Summary completion ────────────────────────────
+        {
+          id: "cam14-ra-t2-s2-q19",
+          number: 19,
+          groupLabel: "Questions 19–26: Complete the summary below.\nChoose ONE WORD ONLY from the passage for each answer.\n\nVentilation in 19th-century hospital wards\nProfessor Alan Short examined the work of John Shaw Billings, who influenced the architectural 19……………………… of hospitals to ensure they had good ventilation. He calculated that 20……………………………… in the air coming from patients suffering from 21……………………………… would not have harmed other patients. He also found that the air in 22…………………………… in hospitals could change as often as in a modern operating theatre. He suggests that energy use could be reduced by locating more patients in 23……………………………… areas.\nA major reason for improving ventilation in 19th-century hospitals was the demand from the 24……………………………… for protection against bad air, known as 25…………………………………… These were blamed for the spread of disease for hundreds of years, including epidemics of 26……………………………… in London and Paris in the middle of the 19th century.",
+          type: "summary_completion",
+          question: "19. who influenced the architectural _______ of hospitals",
+          correctAnswer: "designs",
+          points: 1,
+        },
+        {
+          id: "cam14-ra-t2-s2-q20",
+          number: 20,
+          type: "summary_completion",
+          question: "20. _______ in the air coming from patients would not have harmed other patients",
+          correctAnswer: "pathogens",
+          points: 1,
+        },
+        {
+          id: "cam14-ra-t2-s2-q21",
+          number: 21,
+          type: "summary_completion",
+          question: "21. patients suffering from _______",
+          correctAnswer: "tuberculosis",
+          points: 1,
+        },
+        {
+          id: "cam14-ra-t2-s2-q22",
+          number: 22,
+          type: "summary_completion",
+          question: "22. the air in _______ in hospitals could change as often as in a modern operating theatre",
+          correctAnswer: "wards",
+          points: 1,
+        },
+        {
+          id: "cam14-ra-t2-s2-q23",
+          number: 23,
+          type: "summary_completion",
+          question: "23. energy use could be reduced by locating more patients in _______ areas",
+          correctAnswer: "communal",
+          points: 1,
+        },
+        {
+          id: "cam14-ra-t2-s2-q24",
+          number: 24,
+          type: "summary_completion",
+          question: "24. demand from the _______ for protection against bad air",
+          correctAnswer: "public",
+          points: 1,
+        },
+        {
+          id: "cam14-ra-t2-s2-q25",
+          number: 25,
+          type: "summary_completion",
+          question: "25. bad air known as _______",
+          correctAnswer: "miasmas",
+          points: 1,
+        },
+        {
+          id: "cam14-ra-t2-s2-q26",
+          number: 26,
+          type: "summary_completion",
+          question: "26. including epidemics of _______ in London and Paris",
+          correctAnswer: "cholera",
+          points: 1,
+        },
+      ],
+    },
+
+    // ── PASSAGE 3 ─────────────────────────────────────────────
+    {
+      id: "cam14-ra-t2-s3",
+      sectionNumber: 3,
+      title: "Reading Passage 3",
+      passageTitle: "Why companies should welcome disorder",
+      passageText: `A
+Organisation is big business. Whether it is of our lives – all those inboxes and calendars – or how companies are structured, a multi-billion dollar industry helps to meet this need.
+
+We have more strategies for time management, project management and self-organisation than at any other time in human history. We are told that we ought to organise our company, our home life, our week, our day and even our sleep, all as a means to becoming more productive. Every week, countless seminars and workshops take place around the world to tell a paying public that they ought to structure their lives in order to achieve this.
+
+This rhetoric has also crept into the thinking of business leaders and entrepreneurs, much to the delight of self-proclaimed perfectionists with the need to get everything right. The number of business schools and graduates has massively increased over the past 50 years, essentially teaching people how to organise well.
+
+B
+Ironically, however, the number of businesses that fail has also steadily increased. Work-related stress has increased. A large proportion of workers from all demographics claim to be dissatisfied with the way their work is structured and the way they are managed.
+
+This begs the question: what has gone wrong? Why is it that on paper the drive for organisation seems a sure shot for increasing productivity, but in reality falls well short of what is expected?
+
+C
+This has been a problem for a while now. Frederick Taylor was one of the forefathers of scientific management. Writing in the first half of the 20th century, he designed a number of principles to improve the efficiency of the work process, which have since become widespread in modern companies. So the approach has been around for a while.
+
+D
+New research suggests that this obsession with efficiency is misguided. The problem is not necessarily the management theories or strategies we use to organise our work; it's the basic assumptions we hold in approaching how we work. Here it's the assumption that order is a necessary condition for productivity. This assumption has also fostered the idea that disorder must be detrimental to organizational productivity. The result is that businesses and people spend time and money organising themselves for the sake of organising, rather than actually looking at the end goal and usefulness of such an effort.
+
+E
+What's more, recent studies show that order actually has diminishing returns. Order does increase productivity to a certain extent, but eventually the usefulness of the process of organisation, and the benefit it yields, reduce until the point where any further increase in order reduces productivity. Some argue that in a business, if the cost of formally structuring something outweighs the benefit of doing it, then that thing ought not to be formally structured. Instead, the resources involved can be better used elsewhere.
+
+F
+In fact, research shows that, when innovating, the best approach is to create an environment devoid of structure and hierarchy and enable everyone involved to engage as one organic group. These environments can lead to new solutions that, under conventionally structured environments (filled with bottlenecks in terms of information flow, power structures, rules, and routines) would never be reached.
+
+G
+In recent times companies have slowly started to embrace this disorganisation. Many of them embrace it in terms of perception (embracing the idea of disorder, as opposed to fearing it) and in terms of process (putting mechanisms in place to reduce structure).
+
+For example, Oticon, a large Danish manufacturer of hearing aids, used what it called a 'spaghetti' structure in order to reduce the organisation's rigid hierarchies. This involved scrapping formal job titles and giving staff huge amounts of ownership over their own time and projects. This approach proved to be highly successful initially, with clear improvements in worker productivity in all facets of the business.
+
+In similar fashion, the former chairman of General Electric embraced disorganisation, putting forward the idea of the 'boundaryless' organisation. Again, it involves breaking down the barriers between different parts of a company and encouraging virtual collaboration and flexible working. Google and a number of other tech companies have embraced (at least in part) these kinds of flexible structures, facilitated by technology and strong company values which glue people together.
+
+H
+A word of warning to others thinking of jumping on this bandwagon: the evidence so far suggests disorder, much like order, also seems to have diminishing utility, and can also have detrimental effects on performance if overused. Like order, disorder should be embraced only so far as it is useful. But we should not fear it – nor venerate one over the other. This research also shows that we should continually question whether or not our existing assumptions work.`,
+      instructions: `Questions 27–34: Choose the correct heading for each section from the list of headings below.
+Write the correct number, i–ix.
+
+List of Headings:
+i    Complaints about the impact of a certain approach
+ii   Fundamental beliefs that are in fact incorrect
+iii  Early recommendations concerning business activities
+iv  Organisations that put a new approach into practice
+v   Companies that have suffered from changing their approach
+vi  What people are increasingly expected to do
+vii How to achieve outcomes that are currently impossible
+viii Neither approach guarantees continuous improvement
+ix  Evidence that a certain approach can have more disadvantages than advantages
+
+Questions 35–37: Complete the sentences below.
+Choose ONE WORD ONLY from the passage for each answer.
+
+Questions 38–40: Do the following statements agree with the information given in Reading Passage 3?
+Write TRUE, FALSE, or NOT GIVEN.`,
+      questions: [
+        // ── Q27–34: Heading matching ──────────────────────────────
+        {
+          id: "cam14-ra-t2-s3-q27",
+          number: 27,
+          groupLabel: "Questions 27–34: Reading Passage 3 has eight sections, A–H.\nChoose the correct heading for each section from the list of headings below.\nWrite the correct number, i–ix, in boxes 27–34 on your answer sheet.\n\ni    Complaints about the impact of a certain approach\nii   Fundamental beliefs that are in fact incorrect\niii  Early recommendations concerning business activities\niv  Organisations that put a new approach into practice\nv   Companies that have suffered from changing their approach\nvi  What people are increasingly expected to do\nvii How to achieve outcomes that are currently impossible\nviii Neither approach guarantees continuous improvement\nix  Evidence that a certain approach can have more disadvantages than advantages",
+          type: "matching",
+          question: "27. Section A",
+          options: [
+            { label: "i – Complaints about the impact of a certain approach", value: "i" },
+            { label: "ii – Fundamental beliefs that are in fact incorrect", value: "ii" },
+            { label: "iii – Early recommendations concerning business activities", value: "iii" },
+            { label: "iv – Organisations that put a new approach into practice", value: "iv" },
+            { label: "v – Companies that have suffered from changing their approach", value: "v" },
+            { label: "vi – What people are increasingly expected to do", value: "vi" },
+            { label: "vii – How to achieve outcomes that are currently impossible", value: "vii" },
+            { label: "viii – Neither approach guarantees continuous improvement", value: "viii" },
+            { label: "ix – Evidence that a certain approach can have more disadvantages than advantages", value: "ix" },
+          ],
+          correctAnswer: "vi",
+          points: 1,
+        },
+        {
+          id: "cam14-ra-t2-s3-q28",
+          number: 28,
+          type: "matching",
+          question: "28. Section B",
+          options: [
+            { label: "i – Complaints about the impact of a certain approach", value: "i" },
+            { label: "ii – Fundamental beliefs that are in fact incorrect", value: "ii" },
+            { label: "iii – Early recommendations concerning business activities", value: "iii" },
+            { label: "iv – Organisations that put a new approach into practice", value: "iv" },
+            { label: "v – Companies that have suffered from changing their approach", value: "v" },
+            { label: "vi – What people are increasingly expected to do", value: "vi" },
+            { label: "vii – How to achieve outcomes that are currently impossible", value: "vii" },
+            { label: "viii – Neither approach guarantees continuous improvement", value: "viii" },
+            { label: "ix – Evidence that a certain approach can have more disadvantages than advantages", value: "ix" },
+          ],
+          correctAnswer: "i",
+          points: 1,
+        },
+        {
+          id: "cam14-ra-t2-s3-q29",
+          number: 29,
+          type: "matching",
+          question: "29. Section C",
+          options: [
+            { label: "i – Complaints about the impact of a certain approach", value: "i" },
+            { label: "ii – Fundamental beliefs that are in fact incorrect", value: "ii" },
+            { label: "iii – Early recommendations concerning business activities", value: "iii" },
+            { label: "iv – Organisations that put a new approach into practice", value: "iv" },
+            { label: "v – Companies that have suffered from changing their approach", value: "v" },
+            { label: "vi – What people are increasingly expected to do", value: "vi" },
+            { label: "vii – How to achieve outcomes that are currently impossible", value: "vii" },
+            { label: "viii – Neither approach guarantees continuous improvement", value: "viii" },
+            { label: "ix – Evidence that a certain approach can have more disadvantages than advantages", value: "ix" },
+          ],
+          correctAnswer: "iii",
+          points: 1,
+        },
+        {
+          id: "cam14-ra-t2-s3-q30",
+          number: 30,
+          type: "matching",
+          question: "30. Section D",
+          options: [
+            { label: "i – Complaints about the impact of a certain approach", value: "i" },
+            { label: "ii – Fundamental beliefs that are in fact incorrect", value: "ii" },
+            { label: "iii – Early recommendations concerning business activities", value: "iii" },
+            { label: "iv – Organisations that put a new approach into practice", value: "iv" },
+            { label: "v – Companies that have suffered from changing their approach", value: "v" },
+            { label: "vi – What people are increasingly expected to do", value: "vi" },
+            { label: "vii – How to achieve outcomes that are currently impossible", value: "vii" },
+            { label: "viii – Neither approach guarantees continuous improvement", value: "viii" },
+            { label: "ix – Evidence that a certain approach can have more disadvantages than advantages", value: "ix" },
+          ],
+          correctAnswer: "ii",
+          points: 1,
+        },
+        {
+          id: "cam14-ra-t2-s3-q31",
+          number: 31,
+          type: "matching",
+          question: "31. Section E",
+          options: [
+            { label: "i – Complaints about the impact of a certain approach", value: "i" },
+            { label: "ii – Fundamental beliefs that are in fact incorrect", value: "ii" },
+            { label: "iii – Early recommendations concerning business activities", value: "iii" },
+            { label: "iv – Organisations that put a new approach into practice", value: "iv" },
+            { label: "v – Companies that have suffered from changing their approach", value: "v" },
+            { label: "vi – What people are increasingly expected to do", value: "vi" },
+            { label: "vii – How to achieve outcomes that are currently impossible", value: "vii" },
+            { label: "viii – Neither approach guarantees continuous improvement", value: "viii" },
+            { label: "ix – Evidence that a certain approach can have more disadvantages than advantages", value: "ix" },
+          ],
+          correctAnswer: "ix",
+          points: 1,
+        },
+        {
+          id: "cam14-ra-t2-s3-q32",
+          number: 32,
+          type: "matching",
+          question: "32. Section F",
+          options: [
+            { label: "i – Complaints about the impact of a certain approach", value: "i" },
+            { label: "ii – Fundamental beliefs that are in fact incorrect", value: "ii" },
+            { label: "iii – Early recommendations concerning business activities", value: "iii" },
+            { label: "iv – Organisations that put a new approach into practice", value: "iv" },
+            { label: "v – Companies that have suffered from changing their approach", value: "v" },
+            { label: "vi – What people are increasingly expected to do", value: "vi" },
+            { label: "vii – How to achieve outcomes that are currently impossible", value: "vii" },
+            { label: "viii – Neither approach guarantees continuous improvement", value: "viii" },
+            { label: "ix – Evidence that a certain approach can have more disadvantages than advantages", value: "ix" },
+          ],
+          correctAnswer: "vii",
+          points: 1,
+        },
+        {
+          id: "cam14-ra-t2-s3-q33",
+          number: 33,
+          type: "matching",
+          question: "33. Section G",
+          options: [
+            { label: "i – Complaints about the impact of a certain approach", value: "i" },
+            { label: "ii – Fundamental beliefs that are in fact incorrect", value: "ii" },
+            { label: "iii – Early recommendations concerning business activities", value: "iii" },
+            { label: "iv – Organisations that put a new approach into practice", value: "iv" },
+            { label: "v – Companies that have suffered from changing their approach", value: "v" },
+            { label: "vi – What people are increasingly expected to do", value: "vi" },
+            { label: "vii – How to achieve outcomes that are currently impossible", value: "vii" },
+            { label: "viii – Neither approach guarantees continuous improvement", value: "viii" },
+            { label: "ix – Evidence that a certain approach can have more disadvantages than advantages", value: "ix" },
+          ],
+          correctAnswer: "iv",
+          points: 1,
+        },
+        {
+          id: "cam14-ra-t2-s3-q34",
+          number: 34,
+          type: "matching",
+          question: "34. Section H",
+          options: [
+            { label: "i – Complaints about the impact of a certain approach", value: "i" },
+            { label: "ii – Fundamental beliefs that are in fact incorrect", value: "ii" },
+            { label: "iii – Early recommendations concerning business activities", value: "iii" },
+            { label: "iv – Organisations that put a new approach into practice", value: "iv" },
+            { label: "v – Companies that have suffered from changing their approach", value: "v" },
+            { label: "vi – What people are increasingly expected to do", value: "vi" },
+            { label: "vii – How to achieve outcomes that are currently impossible", value: "vii" },
+            { label: "viii – Neither approach guarantees continuous improvement", value: "viii" },
+            { label: "ix – Evidence that a certain approach can have more disadvantages than advantages", value: "ix" },
+          ],
+          correctAnswer: "viii",
+          points: 1,
+        },
+        // ── Q35–37: Sentence completion ───────────────────────────
+        {
+          id: "cam14-ra-t2-s3-q35",
+          number: 35,
+          groupLabel: "Questions 35–37: Complete the sentences below.\nChoose ONE WORD ONLY from the passage for each answer.",
+          type: "sentence_completion",
+          question: "35. Numerous training sessions are aimed at people who feel they are not _______ enough.",
+          correctAnswer: "productive",
+          points: 1,
+        },
+        {
+          id: "cam14-ra-t2-s3-q36",
+          number: 36,
+          type: "sentence_completion",
+          question: "36. Being organised appeals to people who regard themselves as _______.",
+          correctAnswer: "perfectionists",
+          points: 1,
+        },
+        {
+          id: "cam14-ra-t2-s3-q37",
+          number: 37,
+          type: "sentence_completion",
+          question: "37. Many people feel _______ with aspects of their work.",
+          correctAnswer: "dissatisfied",
+          points: 1,
+        },
+        // ── Q38–40: TRUE / FALSE / NOT GIVEN ─────────────────────
+        {
+          id: "cam14-ra-t2-s3-q38",
+          number: 38,
+          groupLabel: "Questions 38–40: Do the following statements agree with the information given in Reading Passage 3?\nWrite TRUE, FALSE, or NOT GIVEN.",
+          type: "true_false_ng",
+          question: "38. Both businesses and people aim at order without really considering its value.",
+          options: [
+            { label: "TRUE", value: "TRUE" },
+            { label: "FALSE", value: "FALSE" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "TRUE",
+          points: 1,
+        },
+        {
+          id: "cam14-ra-t2-s3-q39",
+          number: 39,
+          type: "true_false_ng",
+          question: "39. Innovation is most successful if the people involved have distinct roles.",
+          options: [
+            { label: "TRUE", value: "TRUE" },
+            { label: "FALSE", value: "FALSE" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "FALSE",
+          points: 1,
+        },
+        {
+          id: "cam14-ra-t2-s3-q40",
+          number: 40,
+          type: "true_false_ng",
+          question: "40. Google was inspired to adopt flexibility by the success of General Electric.",
+          options: [
+            { label: "TRUE", value: "TRUE" },
+            { label: "FALSE", value: "FALSE" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "NOT GIVEN",
+          points: 1,
+        },
+      ],
+    },
+  ],
+};
+
+export const cambridge14Tests: IELTSTest[] = [cambridge14_reading_t1, cambridge14_reading_t2];
