@@ -10,7 +10,7 @@ type TestType = "reading" | "listening";
 type SidebarView = "reading" | "listening" | "history";
 
 // Books that have real test content available
-const AVAILABLE_BOOKS = [10, 11];
+const AVAILABLE_BOOKS = [10, 11, 12];
 
 const S = {
   page: { minHeight: "100vh", background: "#0a051f", fontFamily: "Inter, system-ui, sans-serif", display: "flex", flexDirection: "column" as const },
