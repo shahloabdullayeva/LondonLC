@@ -1286,6 +1286,8 @@ Questions 37–40: Reading Passage 3 has seven paragraphs, A–G. Which paragrap
 
 // ============================================================
 // CAMBRIDGE IELTS 12 – TEST 3  (Academic Reading)
+// Passages: Flying Tortoises / The Intersection of Health Sciences
+//           and Geography / Music and the Emotions
 // ============================================================
 export const cambridge12_reading_t3: IELTSTest = {
   id: "cam12-reading-academic-t3",
@@ -1302,172 +1304,222 @@ export const cambridge12_reading_t3: IELTSTest = {
       id: "cam12-ra-t3-s1",
       sectionNumber: 1,
       title: "Reading Passage 1",
-      passageTitle: "The History of Glass",
-      passageText: `Glass is one of the oldest and most versatile materials known to humankind. Occurring naturally in various forms, it has been used by people since prehistoric times and manufactured for at least 5,000 years. Today, glass is indispensable to modern life – from the windows in our homes and offices to the screens of our phones and computers, from fibre-optic cables to laboratory equipment. Yet glass itself has not changed fundamentally: it is still made primarily from silica (sand), combined with other minerals, and shaped by heat.
+      passageTitle: "Flying Tortoises",
+      passageText: `An airborne reintroduction programme has helped conservationists take significant steps to protect the endangered Galápagos tortoise.
 
-Natural glass has been present on Earth for millions of years. Obsidian – a hard, black volcanic glass – was one of the first materials used by early humans for cutting tools, as it could be sharpened to an edge far finer than that achievable with stone. Another form of natural glass, fulgurite, is produced when lightning strikes sand, fusing the grains together into hollow tubes. Tektites – small glassy objects formed by the impact of meteorites – are yet another natural variety. These naturally occurring glasses were collected and used by prehistoric peoples long before anyone thought to make glass deliberately.
+A
+Forests of spiny cacti cover much of the uneven lava plains that separate the interior of the Galápagos island of Isabela from the Pacific Ocean. With its five distinct volcanoes, the island resembles a lunar landscape. Only the thick vegetation at the skirt of the often cloud-covered peak of Sierra Negra offers respite from the barren terrain below. This inhospitable environment is home to the giant Galápagos tortoise. Some time after the Galápagos's birth, around five million years ago, the islands were colonised by one or more tortoises from mainland South America. As these ancestral tortoises settled on the individual islands, the different populations adapted to their unique environments, giving rise to at least 14 different subspecies. Island life agreed with them. In the absence of significant predators, they grew to become the largest and longest-living tortoises on the planet, weighing more than 400 kilograms, occasionally exceeding 1.8 metres in length and living for more than a century.
 
-The first man-made glass dates to around 3500 BC, appearing in both Egypt and Mesopotamia. Exactly which civilisation deserves credit as the 'inventor' of glass-making is still disputed by archaeologists. The earliest manufactured glass objects were solid – primarily beads and amulets used for personal adornment and as religious artefacts. These early glass workers had mastered the art of mixing silica with plant ash or limestone to lower the melting point and create a workable molten material.
+B
+Before human arrival, the archipelago's tortoises numbered in the hundreds of thousands. From the 17th century onwards, pirates took a few on board for food, but the arrival of whaling ships in the 1790s saw this exploitation grow exponentially. Relatively immobile and capable of surviving for months without food or water, the tortoises were taken on board these ships to act as food supplies during long ocean passages. Sometimes, their bodies were processed into high-grade oil. In total, an estimated 200,000 animals were taken from the archipelago before the 20th century. This historical exploitation was then exacerbated when settlers came to the islands. They hunted the tortoises and destroyed their habitat to clear land for agriculture. They also introduced alien species – ranging from cattle, pigs, goats, rats and dogs to plants and ants – that either prey on the eggs and young tortoises or damage or destroy their habitat.
 
-Around 1500 BC, craftsmen in Egypt and Mesopotamia began producing glass vessels – containers for precious oils and perfumes – using the core-forming technique. A rod with a clay or sand core in the shape of the desired vessel was dipped into molten glass and then rolled on a flat stone to create an even surface. The clay was then removed once the glass cooled. This method was skilled and laborious, and the resulting objects were costly luxury items.
+C
+Today, only 11 of the original subspecies survive and of these, several are highly endangered. In 1989, work began on a tortoise-breeding centre just outside the town of Puerto Villamil on Isabela, dedicated to protecting the island's tortoise populations. The centre's captive-breeding programme proved to be extremely successful, and it eventually had to deal with an overpopulation problem.
 
-The most significant innovation in the history of glass-making was the invention of glassblowing, around 50 BC in the Syria–Palestine region. By gathering a blob of molten glass on the end of a hollow iron pipe and blowing through the tube, a glass-maker could create a bubble of glass that could be shaped into almost any form. This technique was faster, cheaper, and more flexible than core-forming, and it spread rapidly throughout the Roman Empire. For the first time, glass became affordable for ordinary people as well as the wealthy.
+D
+The problem was also a pressing one. Captive-bred tortoises can't be reintroduced into the wild until they're at least five years old and weigh at least 4.5 kilograms, at which point their size and weight – and their hardened shells – are sufficient to protect them from predators. But if people wait too long after that point, the tortoises eventually become too large to transport.
 
-The Romans were quick to see the possibilities of glass for architecture. They used it for windows, particularly in bathhouses where light was valued and privacy needed. Roman window glass was produced by blowing a cylinder of glass, cutting it lengthways, and flattening it. The resulting panes were of uneven thickness and greenish in colour, but they fulfilled the essential purpose of admitting light while excluding the weather. Wealthy Romans also used glass for decorative mosaics and fine drinking vessels.
+E
+For years, repatriation efforts were carried out in small numbers, with the tortoises carried on the backs of men over weeks of long, treacherous hikes along narrow trails. But in November 2010, the environmentalist and Galápagos National Park liaison officer Godfrey Merlin, a visiting private motor yacht captain and a helicopter pilot gathered around a table in a small café in Puerto Ayora on the island of Santa Cruz to work out more ambitious reintroduction. The aim was to use a helicopter to move 300 of the breeding centre's tortoises to various locations close to Sierra Negra.
 
-With the decline of the Roman Empire in the 5th century AD, the centre of glass-making expertise shifted to the Islamic world, where craftsmen maintained and refined Roman techniques. By the Middle Ages, Venice had emerged as the dominant force in European glass production. The Venetian Senate, recognising that the knowledge of its glass-workers was a priceless commercial asset, ordered in 1291 that all glass-making activity be confined to the island of Murano, some distance from the main city. The official justification was the risk of fire from the furnaces, but the relocation also made it far easier to control the movement of the glass-workers and prevent them from sharing their secrets with foreign rivals. Murano glass-makers were treated as an elite: they were permitted to bear a sword and to marry into the Venetian nobility. But there was a price – those who revealed trade secrets or attempted to emigrate without permission faced severe punishment, including, in some cases, death.
+F
+This unprecedented effort was made possible by the owners of the 67-metre yacht White Cloud, who provided the Galápagos National Park with free use of their helicopter and its experienced pilot, as well as the logistical support of the yacht, its captain and crew. Originally an air ambulance, the yacht's helicopter has a rear double door and a large internal space that's well suited for cargo, so a custom crate was designed to hold up to 33 tortoises with a total weight of about 150 kilograms. This weight, together with that of the fuel, pilot and four crew, approached the helicopter's maximum payload, and there were times when it was clearly right on the edge of the helicopter's capabilities. During a period of three days, a group of volunteers from the breeding centre worked around the clock to prepare the young tortoises for transport. Meanwhile, park wardens, dropped off ahead of time in remote locations, cleared landing sites within the thick brush, cacti and lava rocks.
 
-Medieval European glass-makers made a crucial contribution to architecture through stained glass. The Gothic cathedrals of the 12th and 13th centuries are distinguished above all by their windows, which fill interiors with coloured light. Glass-makers learned to add metallic salts to produce a range of colours: cobalt for blue, copper or gold for red, iron for green, and silver for yellow. The cathedral at Chartres, in France, contains some of the finest surviving examples of medieval stained glass.
+G
+Upon their release, the juvenile tortoises quickly spread out over their ancestral territory, investigating their new surroundings and feeding on the vegetation. Eventually, one tiny tortoise came across a fully grown giant who had been lumbering around the island for around a hundred years. The two stood side by side, a powerful symbol of the regeneration of an ancient species.`,
+      instructions: `Questions 1–7: Reading Passage 1 has seven paragraphs, A–G.
+Choose the correct heading for each paragraph from the list of headings below.
+Write the correct number, i–viii, in boxes 1–7 on your answer sheet.
 
-In England, the glass industry took a new direction in 1674, when George Ravenscroft patented a new formula using lead oxide. Lead crystal glass was denser and more brilliant than ordinary glass, producing wonderful visual effects when cut with facets. It became fashionable for tableware and remained the standard for fine glass well into the 20th century.
+List of Headings
+i    The importance of getting the timing right
+ii   Young meets old
+iii  Developments to the disadvantage of tortoise populations
+iv   Planning a bigger idea
+v    Tortoises populate the islands
+vi   Carrying out a carefully prepared operation
+vii  Looking for a home for the islands' tortoises
+viii The start of the conservation project
 
-The industrial revolution transformed glass production in the 18th and 19th centuries, enabling the mass production of window glass and plate glass for mirrors and shop fronts. The most significant modern advance was the float glass process, developed by Alastair Pilkington of the UK in the mid-20th century. In this technique, molten glass is poured onto a bath of molten tin, floating on its surface and spreading to a uniform thickness. The result is perfectly flat, clear glass with fire-polished surfaces, produced continuously and at high speed. Float glass now accounts for the great majority of flat glass manufactured worldwide.`,
-      instructions: `Questions 1–6: Do the following statements agree with the information given in Reading Passage 1?
-Write TRUE, FALSE, or NOT GIVEN.
-
-Questions 7–13: Complete the notes below.
+Questions 8–13: Complete the notes below.
 Choose ONE WORD ONLY from the passage for each answer.`,
       questions: [
-        // ── Q1–6: TRUE / FALSE / NOT GIVEN ───────────────────────
+        // ── Q1–7: List of Headings ────────────────────────────────
         {
           id: "cam12-ra-t3-s1-q1",
           number: 1,
-          type: "true_false_ng",
-          question: "1. Natural glass was in existence long before humans started making their own glass.",
+          groupLabel: "Questions 1–7: Choose the correct heading for each paragraph from the list of headings below.\n\ni  The importance of getting the timing right\nii  Young meets old\niii  Developments to the disadvantage of tortoise populations\niv  Planning a bigger idea\nv  Tortoises populate the islands\nvi  Carrying out a carefully prepared operation\nvii  Looking for a home for the islands' tortoises\nviii  The start of the conservation project",
+          type: "matching",
+          question: "1. Paragraph A",
           options: [
-            { label: "TRUE", value: "TRUE" },
-            { label: "FALSE", value: "FALSE" },
-            { label: "NOT GIVEN", value: "NOT GIVEN" },
+            { label: "i – The importance of getting the timing right", value: "i" },
+            { label: "ii – Young meets old", value: "ii" },
+            { label: "iii – Developments to the disadvantage of tortoise populations", value: "iii" },
+            { label: "iv – Planning a bigger idea", value: "iv" },
+            { label: "v – Tortoises populate the islands", value: "v" },
+            { label: "vi – Carrying out a carefully prepared operation", value: "vi" },
+            { label: "vii – Looking for a home for the islands' tortoises", value: "vii" },
+            { label: "viii – The start of the conservation project", value: "viii" },
           ],
-          correctAnswer: "TRUE",
+          correctAnswer: "v",
           points: 1,
         },
         {
           id: "cam12-ra-t3-s1-q2",
           number: 2,
-          type: "true_false_ng",
-          question: "2. Archaeologists have identified Egypt as the first civilisation to make glass.",
+          type: "matching",
+          question: "2. Paragraph B",
           options: [
-            { label: "TRUE", value: "TRUE" },
-            { label: "FALSE", value: "FALSE" },
-            { label: "NOT GIVEN", value: "NOT GIVEN" },
+            { label: "i – The importance of getting the timing right", value: "i" },
+            { label: "ii – Young meets old", value: "ii" },
+            { label: "iii – Developments to the disadvantage of tortoise populations", value: "iii" },
+            { label: "iv – Planning a bigger idea", value: "iv" },
+            { label: "v – Tortoises populate the islands", value: "v" },
+            { label: "vi – Carrying out a carefully prepared operation", value: "vi" },
+            { label: "vii – Looking for a home for the islands' tortoises", value: "vii" },
+            { label: "viii – The start of the conservation project", value: "viii" },
           ],
-          correctAnswer: "FALSE",
+          correctAnswer: "iii",
           points: 1,
         },
         {
           id: "cam12-ra-t3-s1-q3",
           number: 3,
-          type: "true_false_ng",
-          question: "3. The core-forming technique made glass vessels cheap enough for ordinary people to buy.",
+          type: "matching",
+          question: "3. Paragraph C",
           options: [
-            { label: "TRUE", value: "TRUE" },
-            { label: "FALSE", value: "FALSE" },
-            { label: "NOT GIVEN", value: "NOT GIVEN" },
+            { label: "i – The importance of getting the timing right", value: "i" },
+            { label: "ii – Young meets old", value: "ii" },
+            { label: "iii – Developments to the disadvantage of tortoise populations", value: "iii" },
+            { label: "iv – Planning a bigger idea", value: "iv" },
+            { label: "v – Tortoises populate the islands", value: "v" },
+            { label: "vi – Carrying out a carefully prepared operation", value: "vi" },
+            { label: "vii – Looking for a home for the islands' tortoises", value: "vii" },
+            { label: "viii – The start of the conservation project", value: "viii" },
           ],
-          correctAnswer: "FALSE",
+          correctAnswer: "viii",
           points: 1,
         },
         {
           id: "cam12-ra-t3-s1-q4",
           number: 4,
-          type: "true_false_ng",
-          question: "4. Roman window glass was perfectly transparent.",
+          type: "matching",
+          question: "4. Paragraph D",
           options: [
-            { label: "TRUE", value: "TRUE" },
-            { label: "FALSE", value: "FALSE" },
-            { label: "NOT GIVEN", value: "NOT GIVEN" },
+            { label: "i – The importance of getting the timing right", value: "i" },
+            { label: "ii – Young meets old", value: "ii" },
+            { label: "iii – Developments to the disadvantage of tortoise populations", value: "iii" },
+            { label: "iv – Planning a bigger idea", value: "iv" },
+            { label: "v – Tortoises populate the islands", value: "v" },
+            { label: "vi – Carrying out a carefully prepared operation", value: "vi" },
+            { label: "vii – Looking for a home for the islands' tortoises", value: "vii" },
+            { label: "viii – The start of the conservation project", value: "viii" },
           ],
-          correctAnswer: "FALSE",
+          correctAnswer: "i",
           points: 1,
         },
         {
           id: "cam12-ra-t3-s1-q5",
           number: 5,
-          type: "true_false_ng",
-          question: "5. The reason officially given for moving glass-making to Murano was the danger of fire.",
+          type: "matching",
+          question: "5. Paragraph E",
           options: [
-            { label: "TRUE", value: "TRUE" },
-            { label: "FALSE", value: "FALSE" },
-            { label: "NOT GIVEN", value: "NOT GIVEN" },
+            { label: "i – The importance of getting the timing right", value: "i" },
+            { label: "ii – Young meets old", value: "ii" },
+            { label: "iii – Developments to the disadvantage of tortoise populations", value: "iii" },
+            { label: "iv – Planning a bigger idea", value: "iv" },
+            { label: "v – Tortoises populate the islands", value: "v" },
+            { label: "vi – Carrying out a carefully prepared operation", value: "vi" },
+            { label: "vii – Looking for a home for the islands' tortoises", value: "vii" },
+            { label: "viii – The start of the conservation project", value: "viii" },
           ],
-          correctAnswer: "TRUE",
+          correctAnswer: "iv",
           points: 1,
         },
         {
           id: "cam12-ra-t3-s1-q6",
           number: 6,
-          type: "true_false_ng",
-          question: "6. Lead crystal glass was developed in France.",
+          type: "matching",
+          question: "6. Paragraph F",
           options: [
-            { label: "TRUE", value: "TRUE" },
-            { label: "FALSE", value: "FALSE" },
-            { label: "NOT GIVEN", value: "NOT GIVEN" },
+            { label: "i – The importance of getting the timing right", value: "i" },
+            { label: "ii – Young meets old", value: "ii" },
+            { label: "iii – Developments to the disadvantage of tortoise populations", value: "iii" },
+            { label: "iv – Planning a bigger idea", value: "iv" },
+            { label: "v – Tortoises populate the islands", value: "v" },
+            { label: "vi – Carrying out a carefully prepared operation", value: "vi" },
+            { label: "vii – Looking for a home for the islands' tortoises", value: "vii" },
+            { label: "viii – The start of the conservation project", value: "viii" },
           ],
-          correctAnswer: "FALSE",
+          correctAnswer: "vi",
           points: 1,
         },
-        // ── Q7–13: Notes completion ───────────────────────────────
         {
           id: "cam12-ra-t3-s1-q7",
           number: 7,
-          groupLabel: "Questions 7–13: Complete the notes below.\nChoose ONE WORD ONLY from the passage.\n\nKey developments in the history of glass\n\nNatural glass:",
-          type: "sentence_completion",
-          question: "7. Obsidian – a volcanic glass used as cutting tools because it could be made sharper than _______",
-          correctAnswer: "stone",
+          type: "matching",
+          question: "7. Paragraph G",
+          options: [
+            { label: "i – The importance of getting the timing right", value: "i" },
+            { label: "ii – Young meets old", value: "ii" },
+            { label: "iii – Developments to the disadvantage of tortoise populations", value: "iii" },
+            { label: "iv – Planning a bigger idea", value: "iv" },
+            { label: "v – Tortoises populate the islands", value: "v" },
+            { label: "vi – Carrying out a carefully prepared operation", value: "vi" },
+            { label: "vii – Looking for a home for the islands' tortoises", value: "vii" },
+            { label: "viii – The start of the conservation project", value: "viii" },
+          ],
+          correctAnswer: "ii",
           points: 1,
         },
+        // ── Q8–13: Notes completion ───────────────────────────────
         {
           id: "cam12-ra-t3-s1-q8",
           number: 8,
-          groupLabel: "First man-made glass:",
+          groupLabel: "Questions 8–13: Complete the notes below.\nChoose ONE WORD ONLY from the passage for each answer.\n\nThe decline of the Galápagos tortoise\n• Originally from mainland South America\n• Numbers on Galápagos islands increased, due to lack of predators\n• 17th century: small numbers taken onto ships used by 8………………………………\n• 1790s: very large numbers taken onto whaling ships, kept for 9………………………………, and also used to produce 10………………………………\n• Hunted by 11……………………………… on the islands\n• Habitat destruction: for the establishment of agriculture and by various 12……………………………… not native to the islands, which also fed on baby tortoises and tortoises' 13………………………………",
           type: "sentence_completion",
-          question: "8. First glass objects were beads and _______ – used for personal decoration and religious purposes",
-          correctAnswer: "amulets",
+          question: "8. 17th century: small numbers taken onto ships used by _______",
+          correctAnswer: "pirates",
           points: 1,
         },
         {
           id: "cam12-ra-t3-s1-q9",
           number: 9,
           type: "sentence_completion",
-          question: "9. The core-forming technique: a clay core was coated in molten glass, then the clay was _______",
-          correctAnswer: "removed",
+          question: "9. 1790s: very large numbers taken onto whaling ships, kept for _______",
+          correctAnswer: "food",
           points: 1,
         },
         {
           id: "cam12-ra-t3-s1-q10",
           number: 10,
-          groupLabel: "Glassblowing (invented ~50 BC):",
           type: "sentence_completion",
-          question: "10. Made glass production faster, cheaper and more _______, so ordinary people could afford it",
-          correctAnswer: "flexible",
+          question: "10. Also used to produce _______",
+          correctAnswer: "oil",
           points: 1,
         },
         {
           id: "cam12-ra-t3-s1-q11",
           number: 11,
-          groupLabel: "Venetian glass (from 1291):",
           type: "sentence_completion",
-          question: "11. Glass-makers confined to Murano – they could face severe _______ for revealing trade secrets",
-          correctAnswer: "punishment",
+          question: "11. Hunted by _______ on the islands",
+          correctAnswer: "settlers",
           points: 1,
         },
         {
           id: "cam12-ra-t3-s1-q12",
           number: 12,
-          groupLabel: "Medieval stained glass:",
           type: "sentence_completion",
-          question: "12. Metallic _______ added to glass to produce colours (e.g. cobalt for blue, copper for red)",
-          correctAnswer: "salts",
+          question: "12. Habitat destruction by various _______ not native to the islands, which also fed on baby tortoises",
+          correctAnswer: "species",
           points: 1,
         },
         {
           id: "cam12-ra-t3-s1-q13",
           number: 13,
-          groupLabel: "Modern glass production:",
           type: "sentence_completion",
-          question: "13. Float glass process: molten glass floats on molten _______ to produce perfectly flat glass",
-          correctAnswer: "tin",
+          question: "13. Alien species also fed on baby tortoises and tortoises' _______",
+          correctAnswer: "eggs",
           points: 1,
         },
       ],
@@ -1478,190 +1530,174 @@ Choose ONE WORD ONLY from the passage for each answer.`,
       id: "cam12-ra-t3-s2",
       sectionNumber: 2,
       title: "Reading Passage 2",
-      passageTitle: "Bring Back the Big Cats",
+      passageTitle: "The Intersection of Health Sciences and Geography",
       passageText: `A
-Britain is home to a surprising variety of wildlife, but it lacks the large predators that once roamed its forests and hills. Wolves, bears, and lynx all lived in Britain as recently as a few thousand years ago; bears hung on longest, surviving into the early medieval period. These animals were not hunted to extinction by some sudden catastrophe but disappeared gradually as the forests were cleared for farmland and as hunting pressure increased. Now, growing numbers of conservation scientists and rewilding advocates are arguing that these species – or, in the case of the European lynx, very close relatives of the British ones – should be reintroduced.
+While many diseases that affect humans have been eradicated due to improvements in vaccinations and the availability of healthcare, there are still areas around the world where certain health issues are more prevalent. In a world that is far more globalised than ever before, people come into contact with one another through travel and living closer and closer to each other. As a result, super-viruses and other infections resistant to antibiotics are becoming more and more common.
 
 B
-The case for reintroduction is most often made on ecological grounds. Large predators play a disproportionate role in shaping ecosystems – a phenomenon ecologists call a 'trophic cascade'. The classic example is the wolf in Yellowstone National Park in the USA. Before wolves were reintroduced in 1995, elk were damaging riverside vegetation by overgrazing. When wolves returned, the elk changed their behaviour, avoiding areas where they could be easily caught. This allowed vegetation to recover along riverbanks, which in turn stabilised the banks and changed the course of some rivers. The wolves had altered not just the ecology but the physical geography of the park – purely through the 'landscape of fear' they imposed on the elk.
+Geography can often play a very large role in the health concerns of certain populations. For instance, depending on where you live, you will not have the same health concerns as someone who lives in a different geographical region. Perhaps one of the most obvious examples of this idea is malaria-prone areas, which are usually tropical regions that foster a warm and damp environment in which the mosquitos that can give people this disease can grow. Malaria is much less of a problem in high-altitude deserts, for instance.
 
 C
-In Britain, the animal most commonly proposed for reintroduction is the lynx. The Eurasian lynx is a medium-sized cat that feeds primarily on deer and smaller mammals. Proponents argue that lynx could help address the serious problem of deer overgrazing in Britain's woodlands. Deer numbers have risen dramatically in recent decades, partly because deer have no natural predators in Britain. In many areas, deer browsing prevents woodland from regenerating – young trees are eaten before they can grow beyond a few centimetres. Introducing lynx, it is argued, would reduce deer numbers and, crucially, alter their behaviour: deer would avoid open areas where they could be caught, allowing woodland to regenerate more naturally.
+In some countries, geographical factors influence the health and well-being of the population in very obvious ways. In many large cities, the wind is not strong enough to clear the air of the massive amounts of smog and pollution that cause asthma, lung problems, eyesight issues and more in the people who live there. Part of the problem is, of course, the massive number of cars being driven, in addition to factories that run on coal power. The rapid industrialisation of some countries in recent years has also led to the cutting down of forests to allow for the expansion of big cities, which makes it even harder to fight the pollution with the fresh air that is produced by plants.
 
 D
-The ecological case has been strengthened by research in countries where lynx are already present. Studies in Scandinavia and central Europe have found that the presence of lynx does indeed suppress deer populations and alter their spatial distribution. One study in Sweden found that areas with lynx had significantly lower deer densities than comparable areas without. However, it is worth noting that these effects took time to manifest and that lynx are themselves slow to colonise new territories.
+It is in situations like these that the field of health geography comes into its own. It is an increasingly important area of study in a world where diseases like polio are re-emerging, respiratory diseases continue to spread, and malaria-prone areas are still fighting to find a better cure. Health geography is the combination of, on the one hand, knowledge regarding geography and methods used to analyse and interpret geographical information, and on the other, the study of health, diseases and healthcare practices around the world. The aim of this hybrid science is to create solutions for common geography-based health problems. While people will always be prone to illness, the study of how geography affects our health could lead to the eradication of certain illnesses, and the prevention of others in the future. By understanding why and how we get sick, we can change the way we treat illness and disease specific to certain geographical locations.
 
 E
-Perhaps unsurprisingly, the prospect of reintroducing large carnivores is not universally welcomed. Farmers and landowners worry about the risk to livestock. Lynx are known to take sheep in some European countries, and the farming community in Britain has been largely resistant to reintroduction proposals. Proponents of reintroduction point out that compensation schemes have worked well in other European countries, and that the scale of livestock predation is often overstated. But for many farmers, the symbolic dimension is as important as the economic one: the presence of a large predator represents a fundamental change to the countryside and the relationship between people and the land.
+The geography of disease and ill health analyses the frequency with which certain diseases appear in different parts of the world, and overlays the data with the geography of the region, to see if there could be a correlation between the two. Health geographers also study factors that could make certain individuals or a population more likely to be taken ill with a specific health concern or disease, as compared with the population of another area. Health geographers in this field are usually trained as healthcare workers, and have an understanding of basic epidemiology as it relates to the spread of diseases among the population.
 
 F
-There is also debate among scientists about the scale of the ecological benefits. Some researchers argue that the trophic cascade effect seen in Yellowstone is specific to that particular ecosystem and cannot be assumed to apply in Britain. British woodlands are more fragmented than the continuous forests of Yellowstone, and deer have few alternatives to the areas they currently inhabit. Others question whether lynx alone could achieve meaningful reductions in deer numbers given the size of the current deer population. On the other hand, supporters note that the ecology of Britain's forests is so degraded by deer overgrazing that even a modest improvement would be significant.
+Researchers study the interactions between humans and their environment that could lead to illness (such as asthma in places with high levels of pollution) and work to create a clear way of categorizing illnesses, diseases and epidemics into local and global scales. Health geographers can map the spread of illnesses and attempt to identify the reasons behind an increase or decrease in illnesses, as they work to find a way to halt the further spread or re-emergence of diseases in vulnerable populations.
 
 G
-A small number of reintroduction projects are already under way or planned in Britain. Beavers, absent from Scotland for several centuries, have been successfully reintroduced to the River Tay and the River Otter in Devon, and their impact on water quality and flood management has been largely positive. White-tailed eagles, once extinct in England, have been reintroduced in several locations. Plans for lynx reintroduction remain more controversial and have not yet received official approval in England or Scotland, though feasibility studies have been conducted. Advocates hope that the success of other reintroduction programmes will help build public confidence and political will for tackling the bigger challenge of the large predators.`,
-      instructions: `Questions 14–17: Reading Passage 2 has seven paragraphs, A–G.
+The second subcategory of health geography is the geography of healthcare provision. This group studies the availability (or lack thereof) of healthcare resources to individuals and populations around the world. In both developed and developing nations there is often a very large discrepancy between the options available to people in different social classes, income brackets, and levels of education. Individuals working in the area of the geography of healthcare provision attempt to assess the levels of healthcare in the area (for instance, it may be very difficult for people to get medical attention because there is a mountain between their village and the nearest hospital). These researchers are on the frontline of making recommendations regarding policy to international organisations, local government bodies and others.
+
+H
+The field of health geography is often overlooked, but it constitutes a huge area of need in the fields of geography and healthcare. If we can understand how geography affects our health no matter where in the world we are located, we can better treat disease, prevent illness, and keep people safe and well.`,
+      instructions: `Questions 14–19: Reading Passage 2 has eight sections, A–H.
 Which paragraph contains the following information?
-Write the correct letter, A–G.
+Write the correct letter, A–H, in boxes 14–19 on your answer sheet.
+NB You may use any letter more than once.
 
-Questions 18–22: Do the following statements agree with the information given in Reading Passage 2?
-Write TRUE, FALSE, or NOT GIVEN.
-
-Questions 23–26: Complete the sentences below.
+Questions 20–26: Complete the sentences below.
 Choose ONE WORD ONLY from the passage for each answer.`,
       questions: [
-        // ── Q14–17: Which paragraph ───────────────────────────────
+        // ── Q14–19: Which paragraph (A–H) ────────────────────────
         {
           id: "cam12-ra-t3-s2-q14",
           number: 14,
-          groupLabel: "Questions 14–17: Which paragraph contains the following information?\nWrite the correct letter, A–G.",
+          groupLabel: "Questions 14–19: Reading Passage 2 has eight sections, A–H.\nWhich paragraph contains the following information?\nNB You may use any letter more than once.",
           type: "matching",
-          question: "14. An account of how predators can change an ecosystem in ways that go beyond biology",
+          question: "14. An acceptance that not all diseases can be totally eliminated",
           options: [
             { label: "A", value: "A" }, { label: "B", value: "B" }, { label: "C", value: "C" },
             { label: "D", value: "D" }, { label: "E", value: "E" }, { label: "F", value: "F" },
-            { label: "G", value: "G" },
+            { label: "G", value: "G" }, { label: "H", value: "H" },
           ],
-          correctAnswer: "B",
+          correctAnswer: "D",
           points: 1,
         },
         {
           id: "cam12-ra-t3-s2-q15",
           number: 15,
           type: "matching",
-          question: "15. A reference to non-economic concerns about large predator reintroduction",
+          question: "15. Examples of physical conditions caused by human behaviour",
           options: [
             { label: "A", value: "A" }, { label: "B", value: "B" }, { label: "C", value: "C" },
             { label: "D", value: "D" }, { label: "E", value: "E" }, { label: "F", value: "F" },
-            { label: "G", value: "G" },
+            { label: "G", value: "G" }, { label: "H", value: "H" },
           ],
-          correctAnswer: "E",
+          correctAnswer: "C",
           points: 1,
         },
         {
           id: "cam12-ra-t3-s2-q16",
           number: 16,
           type: "matching",
-          question: "16. A mention of evidence that the positive effects of reintroduction are not instant",
+          question: "16. A reference to classifying diseases on the basis of how far they extend geographically",
           options: [
             { label: "A", value: "A" }, { label: "B", value: "B" }, { label: "C", value: "C" },
             { label: "D", value: "D" }, { label: "E", value: "E" }, { label: "F", value: "F" },
-            { label: "G", value: "G" },
+            { label: "G", value: "G" }, { label: "H", value: "H" },
           ],
-          correctAnswer: "D",
+          correctAnswer: "F",
           points: 1,
         },
         {
           id: "cam12-ra-t3-s2-q17",
           number: 17,
           type: "matching",
-          question: "17. Examples of reintroduction projects that have already taken place in Britain",
+          question: "17. Reasons why the level of access to healthcare can vary within a country",
           options: [
             { label: "A", value: "A" }, { label: "B", value: "B" }, { label: "C", value: "C" },
             { label: "D", value: "D" }, { label: "E", value: "E" }, { label: "F", value: "F" },
-            { label: "G", value: "G" },
+            { label: "G", value: "G" }, { label: "H", value: "H" },
           ],
           correctAnswer: "G",
           points: 1,
         },
-        // ── Q18–22: TRUE / FALSE / NOT GIVEN ─────────────────────
         {
           id: "cam12-ra-t3-s2-q18",
           number: 18,
-          groupLabel: "Questions 18–22: Do the following statements agree with the information given in Reading Passage 2?\nWrite TRUE, FALSE, or NOT GIVEN.",
-          type: "true_false_ng",
-          question: "18. Bears survived in Britain until the early medieval period.",
+          type: "matching",
+          question: "18. A description of health geography as a mixture of different academic fields",
           options: [
-            { label: "TRUE", value: "TRUE" },
-            { label: "FALSE", value: "FALSE" },
-            { label: "NOT GIVEN", value: "NOT GIVEN" },
+            { label: "A", value: "A" }, { label: "B", value: "B" }, { label: "C", value: "C" },
+            { label: "D", value: "D" }, { label: "E", value: "E" }, { label: "F", value: "F" },
+            { label: "G", value: "G" }, { label: "H", value: "H" },
           ],
-          correctAnswer: "TRUE",
+          correctAnswer: "D",
           points: 1,
         },
         {
           id: "cam12-ra-t3-s2-q19",
           number: 19,
-          type: "true_false_ng",
-          question: "19. The wolves reintroduced to Yellowstone came from the same area of North America where they had previously lived.",
+          type: "matching",
+          question: "19. A description of the type of area where a particular illness is rare",
           options: [
-            { label: "TRUE", value: "TRUE" },
-            { label: "FALSE", value: "FALSE" },
-            { label: "NOT GIVEN", value: "NOT GIVEN" },
+            { label: "A", value: "A" }, { label: "B", value: "B" }, { label: "C", value: "C" },
+            { label: "D", value: "D" }, { label: "E", value: "E" }, { label: "F", value: "F" },
+            { label: "G", value: "G" }, { label: "H", value: "H" },
           ],
-          correctAnswer: "NOT GIVEN",
+          correctAnswer: "B",
           points: 1,
         },
+        // ── Q20–26: Sentence completion ───────────────────────────
         {
           id: "cam12-ra-t3-s2-q20",
           number: 20,
-          type: "true_false_ng",
-          question: "20. Lynx feed mainly on deer and smaller mammals.",
-          options: [
-            { label: "TRUE", value: "TRUE" },
-            { label: "FALSE", value: "FALSE" },
-            { label: "NOT GIVEN", value: "NOT GIVEN" },
-          ],
-          correctAnswer: "TRUE",
+          groupLabel: "Questions 20–26: Complete the sentences below.\nChoose ONE WORD ONLY from the passage for each answer.",
+          type: "sentence_completion",
+          question: "20. Certain diseases have disappeared, thanks to better _______ and healthcare.",
+          correctAnswer: "vaccinations",
           points: 1,
         },
         {
           id: "cam12-ra-t3-s2-q21",
           number: 21,
-          type: "true_false_ng",
-          question: "21. All British farmers oppose the reintroduction of lynx.",
-          options: [
-            { label: "TRUE", value: "TRUE" },
-            { label: "FALSE", value: "FALSE" },
-            { label: "NOT GIVEN", value: "NOT GIVEN" },
-          ],
-          correctAnswer: "NOT GIVEN",
+          type: "sentence_completion",
+          question: "21. Because there is more contact between people, _______ are losing their usefulness.",
+          correctAnswer: "antibiotics",
           points: 1,
         },
         {
           id: "cam12-ra-t3-s2-q22",
           number: 22,
-          type: "true_false_ng",
-          question: "22. The beaver reintroduction programme in Britain has had a positive impact on flood management.",
-          options: [
-            { label: "TRUE", value: "TRUE" },
-            { label: "FALSE", value: "FALSE" },
-            { label: "NOT GIVEN", value: "NOT GIVEN" },
-          ],
-          correctAnswer: "TRUE",
+          type: "sentence_completion",
+          question: "22. Disease-causing _______ are most likely to be found in hot, damp regions.",
+          correctAnswer: "mosquitos",
           points: 1,
         },
-        // ── Q23–26: Sentence completion ───────────────────────────
         {
           id: "cam12-ra-t3-s2-q23",
           number: 23,
-          groupLabel: "Questions 23–26: Complete the sentences below.\nChoose ONE WORD ONLY from the passage for each answer.",
           type: "sentence_completion",
-          question: "23. In Yellowstone, wolves caused elk to change their _______, leading to vegetation recovery.",
-          correctAnswer: "behaviour",
+          question: "23. One cause of pollution is _______ that burn a particular fuel.",
+          correctAnswer: "factories",
           points: 1,
         },
         {
           id: "cam12-ra-t3-s2-q24",
           number: 24,
           type: "sentence_completion",
-          question: "24. In Britain, high deer numbers are partly because deer have no natural _______ in the country.",
-          correctAnswer: "predators",
+          question: "24. The growth of cities often has an impact on nearby _______.",
+          correctAnswer: "forests",
           points: 1,
         },
         {
           id: "cam12-ra-t3-s2-q25",
           number: 25,
           type: "sentence_completion",
-          question: "25. Farming groups argue that the extent of _______ predation by lynx has been exaggerated.",
-          correctAnswer: "livestock",
+          question: "25. _______ is one disease that is growing after having been eradicated.",
+          correctAnswer: "polio",
           points: 1,
         },
         {
           id: "cam12-ra-t3-s2-q26",
           number: 26,
           type: "sentence_completion",
-          question: "26. Some scientists question whether lessons learned from Yellowstone's _______ ecosystem can be applied to Britain.",
-          correctAnswer: "fragmented",
+          question: "26. A physical barrier such as a _______ can prevent people from reaching a hospital.",
+          correctAnswer: "mountain",
           points: 1,
         },
       ],
@@ -1672,207 +1708,205 @@ Choose ONE WORD ONLY from the passage for each answer.`,
       id: "cam12-ra-t3-s3",
       sectionNumber: 3,
       title: "Reading Passage 3",
-      passageTitle: "University Spin-offs: Growing a Business from Research",
-      passageText: `The relationship between universities and industry has changed dramatically over recent decades. Where once academic research was seen as an activity separate from the commercial world, it is now commonly expected to generate economic value – through the creation of spin-off companies that take discoveries and inventions from the laboratory to the market. University spin-offs, also known as spin-outs, are companies founded by academic staff, postgraduate students or recent graduates to exploit intellectual property developed at the university. The phenomenon has grown rapidly: in the UK alone, universities reported creating over 1,000 spin-off companies in a single recent year.
+      passageTitle: "Music and the Emotions",
+      passageText: `Neuroscientist Jonah Lehrer considers the emotional power of music
 
-The growth of university spin-offs has been driven by several factors. Changes in intellectual property law in the United States in the 1980s – specifically the Bayh-Dole Act of 1980 – allowed universities to retain ownership of inventions made with federal funding, rather than the results defaulting to the government. This single change transformed the incentive structure for US universities, who suddenly had both the right and the financial motive to commercialise their research. Other countries followed suit, and similar legislation was enacted in Europe and elsewhere. Universities that had previously left commercialisation to industry now had every reason to engage directly.
+Why does music make us feel? On the one hand, music is a purely abstract art form, devoid of language or explicit ideas. And yet, even though music says little, it still manages to touch us deeply. When listening to our favourite songs, our body betrays all the symptoms of emotional arousal. The pupils in our eyes dilate, our pulse and blood pressure rise, the electrical conductance of our skin is lowered, and the cerebellum, a brain region associated with bodily movement, becomes strangely active. Blood is even re-directed to the muscles in our legs. In other words, sound stirs us at our biological roots.
 
-At the same time, the availability of venture capital funding for early-stage technology companies grew substantially, particularly in the 1990s and 2000s. Silicon Valley's model – in which university research (much of it from Stanford and Berkeley) fed directly into a thriving start-up ecosystem – became a template that policymakers and universities around the world sought to replicate. Science parks sprang up near universities in the UK, Europe and Asia, providing space and facilities for spin-offs to develop.
+A recent paper in Nature Neuroscience by a research team in Montreal, Canada, marks an important step in revealing the precise underpinnings of the potent pleasurable stimulus that is music. Although the study involves plenty of fancy technology, including functional magnetic resonance imaging (fMRI) and ligand-based positron emission tomography (PET) scanning, the experiment itself was rather straightforward. After screening 217 individuals who responded to advertisements requesting people who experience 'chills' to instrumental music, the scientists narrowed down the subject pool to ten. They then asked the subjects to bring in their playlist of favourite songs – virtually every genre was represented, from techno to tango – and played them the music while their brain activity was monitored. Because the scientists were combining methodologies (PET and fMRI), they were able to obtain an impressively exact and detailed portrait of music in the brain. The first thing they discovered is that music triggers the production of dopamine – a chemical with a key role in setting people's moods – by the neurons (nerve cells) in both the dorsal and ventral regions of the brain. As these two regions have long been linked with the experience of pleasure, this finding isn't particularly surprising.
 
-But the realities of running a spin-off are often more complicated than the optimistic rhetoric suggests. Academic researchers are trained to produce knowledge, not to manage companies. The skills required to identify a viable market, raise investment, build a team, and scale a business are very different from those required to run a laboratory. Many spin-offs fail not because of technical problems with the underlying technology, but because of management and business strategy mistakes. A common pattern is for a founding team of academics to be joined – sometimes reluctantly – by professional managers once the company has grown beyond a certain point. This transition can be uncomfortable, and founders who are used to directing their own research can find it difficult to accept direction from a business-focused chief executive.
+What is rather more significant is the finding that the dopamine neurons in the caudate – a region of the brain involved in learning stimulus-response associations, and in anticipating food and other 'reward' stimuli – were at their most active around 15 seconds before the participants' favourite moments in the music. The researchers call this the 'anticipatory phase' and argue that the purpose of this activity is to help us predict the arrival of our favourite part. The question, of course, is what all these dopamine neurons are up to. Why are they so active in the period preceding the acoustic climax? After all, we typically associate surges of dopamine with pleasure, with the processing of actual rewards. And yet, this cluster of cells is most active when the 'chills' have yet to arrive, when the melodic pattern is still unresolved.
 
-The question of what makes a successful university spin-off has attracted considerable research attention. Studies suggest that the nature of the technology matters: spin-offs based on biotechnology and pharmaceuticals face a very different and typically longer journey to market than those based on software or digital technology, which can be developed and deployed relatively quickly. The sector also matters: companies operating in fields where intellectual property protection (through patents) is strong tend to have better survival rates, since patents give them a competitive advantage that pure execution cannot replicate.
+One way to answer the question is to look at the music and not the neurons. While music can often seem (at least to the outsider) like a labyrinth of intricate patterns, it turns out that the most important part of every song or symphony is when the patterns break down, when the sound becomes unpredictable. If the music is too obvious, it is annoyingly boring, like an alarm clock. Numerous studies, after all, have demonstrated that dopamine neurons quickly adapt to predictable rewards. If we know what's going to happen next, then we don't get excited. This is why composers often introduce a key note in the beginning of a song, spend most of the rest of the piece in the studious avoidance of the pattern, and then finally repeat it only at the end. The longer we are denied the pattern we expect, the greater the emotional release when the pattern returns, safe and sound.
 
-The support provided by the parent university also plays an important role. The best universities actively manage their relationships with spin-offs, providing not just office space but access to laboratory facilities, legal and business advice, introductions to investors, and credibility in the marketplace. The university's reputation serves as an informal endorsement of the quality of the spin-off's technology. Some universities have invested in dedicated technology transfer offices, whose job is to identify promising research, protect it through patents, and find appropriate commercial partners. Where these offices are well-resourced and well-connected, spin-offs tend to perform better.
+To demonstrate this psychological principle, the musicologist Leonard Meyer, in his classic book Emotion and Meaning in Music (1956), analysed the 5th movement of Beethoven's String Quartet in C-sharp minor, Op. 131. Meyer wanted to show how music is defined by its flirtation with – but not submission to – our expectations of order. Meyer dissected 50 measures (bars) of the masterpiece, showing how Beethoven begins with the clear statement of a rhythmic and harmonic pattern and then, in an ingenious tonal dance, carefully holds off repeating it. What Beethoven does instead is suggest variations of the pattern. He wants to preserve an element of uncertainty in his music, making our brains beg for the one chord he refuses to give us. Beethoven saves that chord for the end.
 
-Governments have been keen to encourage spin-offs as a mechanism for translating public investment in research into economic growth. Various policy tools have been deployed: tax incentives for investment in early-stage companies, grants to support the commercialisation of research, and changes to immigration rules to make it easier for international students to start companies in the country where they studied. Some countries, notably Israel and the United States, have been particularly successful at building ecosystems in which universities, industry and finance interact productively. Others have found it harder to replicate this model, partly because of cultural differences – in some academic traditions, working closely with industry is still viewed with suspicion.
+According to Meyer, it is the suspenseful tension of music, arising out of our unfulfilled expectations, that is the source of the music's feeling. While earlier theories of music focused on the way a sound can refer to the real world of images and experiences – its 'connotative' meaning – Meyer argued that the emotions we find in music come from the unfolding events of the music itself. This 'embodied meaning' arises from the patterns the symphony invokes and then ignores. It is this uncertainty that triggers the surge of dopamine in the caudate, as we struggle to figure out what will happen next. We can predict some of the notes, but we can't predict them all, and that is what keeps us listening, waiting expectantly for our reward, for the pattern to be completed.`,
+      instructions: `Questions 27–31: Complete the summary below.
+Choose NO MORE THAN TWO WORDS from the passage for each answer.
 
-Not everyone is convinced that the pressure to commercialise university research is entirely positive. Critics argue that the relentless focus on economic impact risks distorting academic priorities, pushing researchers towards applied work with clear commercial potential and away from the kind of blue-sky fundamental research that has historically produced the biggest breakthroughs. The discoveries that made modern computing possible, for example, were not made by researchers trying to build products; they were made by people exploring basic questions about the nature of logic and information. If universities become too focused on generating spin-offs and licence revenues, they may undermine the intellectual culture that makes great research possible in the first place.`,
-      instructions: `Questions 27–32: Choose the correct letter, A, B, C or D.
+Questions 32–36: Choose the correct letter, A, B, C or D.
 
-Questions 33–37: Do the following statements agree with the claims of the writer in Reading Passage 3?
-Write YES, NO, or NOT GIVEN.
-
-Questions 38–40: Complete the summary below.
-Choose ONE WORD ONLY from the passage for each answer.`,
+Questions 37–40: Complete each sentence with the correct ending, A–F, below.`,
       questions: [
-        // ── Q27–32: Multiple choice ───────────────────────────────
+        // ── Q27–31: Summary completion ────────────────────────────
         {
           id: "cam12-ra-t3-s3-q27",
           number: 27,
-          groupLabel: "Questions 27–32: Choose the correct letter, A, B, C or D.",
-          type: "multiple_choice",
-          question: "27. According to the first paragraph, university spin-off companies",
-          options: [
-            { label: "A. are only created by academic staff", value: "A" },
-            { label: "B. must be based on intellectual property from the university", value: "B" },
-            { label: "C. have become less common in recent years", value: "C" },
-            { label: "D. are a recent invention with little track record", value: "D" },
-          ],
-          correctAnswer: "B",
+          groupLabel: "Questions 27–31: Complete the summary below.\nChoose NO MORE THAN TWO WORDS from the passage for each answer.\n\nThe Montreal Study\nParticipants, who were recruited for the study through advertisements, had their brain activity monitored while listening to their favourite music. It was noted that the music stimulated the brain's neurons to release a substance called 27……………………… in two of the parts of the brain which are associated with feeling 28………………………\nResearchers also observed that the neurons in the area of the brain called the 29……………………… were particularly active just before the participants' favourite moments in the music – the period known as the 30………………………. Activity in this part of the brain is associated with the expectation of 'reward' stimuli such as 31……………………….",
+          type: "summary_completion",
+          question: "27. Music stimulated the brain's neurons to release a substance called _______",
+          correctAnswer: "dopamine",
           points: 1,
         },
         {
           id: "cam12-ra-t3-s3-q28",
           number: 28,
-          type: "multiple_choice",
-          question: "28. The Bayh-Dole Act of 1980 was significant because it",
-          options: [
-            { label: "A. increased government funding for university research", value: "A" },
-            { label: "B. forced universities to share their research with industry", value: "B" },
-            { label: "C. gave universities the right to profit from their research", value: "C" },
-            { label: "D. created the first science parks near universities", value: "D" },
-          ],
-          correctAnswer: "C",
+          type: "summary_completion",
+          question: "28. Two parts of the brain associated with feeling _______",
+          correctAnswer: "pleasure",
           points: 1,
         },
         {
           id: "cam12-ra-t3-s3-q29",
           number: 29,
-          type: "multiple_choice",
-          question: "29. According to the writer, what is the most common cause of failure in university spin-offs?",
-          options: [
-            { label: "A. technical problems with the product", value: "A" },
-            { label: "B. poor business management decisions", value: "B" },
-            { label: "C. insufficient venture capital funding", value: "C" },
-            { label: "D. conflict between founders and the university", value: "D" },
-          ],
-          correctAnswer: "B",
+          type: "summary_completion",
+          question: "29. Neurons in the area of the brain called the _______ were particularly active just before favourite moments",
+          correctAnswer: "caudate",
           points: 1,
         },
         {
           id: "cam12-ra-t3-s3-q30",
           number: 30,
-          type: "multiple_choice",
-          question: "30. Spin-offs in biotechnology and pharmaceuticals typically take longer to reach the market because",
-          options: [
-            { label: "A. there is more competition in those sectors", value: "A" },
-            { label: "B. the nature of that type of technology means it takes more time", value: "B" },
-            { label: "C. patents are harder to obtain in those sectors", value: "C" },
-            { label: "D. universities provide less support to those spin-offs", value: "D" },
-          ],
-          correctAnswer: "B",
+          type: "summary_completion",
+          question: "30. The period just before participants' favourite moments is known as the _______",
+          correctAnswer: "anticipatory phase",
           points: 1,
         },
         {
           id: "cam12-ra-t3-s3-q31",
           number: 31,
+          type: "summary_completion",
+          question: "31. Activity in this brain region is associated with the expectation of 'reward' stimuli such as _______",
+          correctAnswer: "food",
+          points: 1,
+        },
+        // ── Q32–36: Multiple choice ───────────────────────────────
+        {
+          id: "cam12-ra-t3-s3-q32",
+          number: 32,
+          groupLabel: "Questions 32–36: Choose the correct letter, A, B, C or D.",
           type: "multiple_choice",
-          question: "31. What does the writer suggest about Israel and the United States?",
+          question: "32. What point does the writer emphasise in the first paragraph?",
           options: [
-            { label: "A. They have the highest number of university spin-offs in the world", value: "A" },
-            { label: "B. They have been more successful than other countries at linking universities with industry", value: "B" },
-            { label: "C. Their success is due mainly to generous government funding", value: "C" },
-            { label: "D. Their universities have the most supportive technology transfer offices", value: "D" },
+            { label: "A – how dramatically our reactions to music can vary", value: "A" },
+            { label: "B – how intense our physical responses to music can be", value: "B" },
+            { label: "C – how little we know about the way that music affects us", value: "C" },
+            { label: "D – how much music can tell us about how our brains operate", value: "D" },
           ],
           correctAnswer: "B",
           points: 1,
         },
         {
-          id: "cam12-ra-t3-s3-q32",
-          number: 32,
-          type: "multiple_choice",
-          question: "32. In the final paragraph, the writer expresses concern that focusing on spin-offs might",
-          options: [
-            { label: "A. make it harder for universities to attract funding", value: "A" },
-            { label: "B. damage the quality of business management in spin-offs", value: "B" },
-            { label: "C. reduce the amount of fundamental research being done", value: "C" },
-            { label: "D. give industry too much control over universities", value: "D" },
-          ],
-          correctAnswer: "C",
-          points: 1,
-        },
-        // ── Q33–37: YES / NO / NOT GIVEN ─────────────────────────
-        {
           id: "cam12-ra-t3-s3-q33",
           number: 33,
-          groupLabel: "Questions 33–37: Do the following statements agree with the claims of the writer?\nWrite YES, NO, or NOT GIVEN.",
-          type: "true_false_ng",
-          question: "33. University spin-offs create value for the wider economy.",
+          type: "multiple_choice",
+          question: "33. What view of the Montreal study does the writer express in the second paragraph?",
           options: [
-            { label: "YES", value: "YES" },
-            { label: "NO", value: "NO" },
-            { label: "NOT GIVEN", value: "NOT GIVEN" },
+            { label: "A – Its aims were innovative", value: "A" },
+            { label: "B – The approach was too simplistic", value: "B" },
+            { label: "C – It produced some remarkably precise data", value: "C" },
+            { label: "D – The technology used was unnecessarily complex", value: "D" },
           ],
-          correctAnswer: "YES",
+          correctAnswer: "C",
           points: 1,
         },
         {
           id: "cam12-ra-t3-s3-q34",
           number: 34,
-          type: "true_false_ng",
-          question: "34. Most academic researchers are well-prepared for the challenge of running a business.",
+          type: "multiple_choice",
+          question: "34. What does the writer find interesting about the results of the Montreal study?",
           options: [
-            { label: "YES", value: "YES" },
-            { label: "NO", value: "NO" },
-            { label: "NOT GIVEN", value: "NOT GIVEN" },
+            { label: "A – the timing of participants' neural responses to the music", value: "A" },
+            { label: "B – the impact of the music on participants' emotional state", value: "B" },
+            { label: "C – the section of participants' brains which was activated by the music", value: "C" },
+            { label: "D – the type of music which had the strongest effect on participants' brains", value: "D" },
           ],
-          correctAnswer: "NO",
+          correctAnswer: "A",
           points: 1,
         },
         {
           id: "cam12-ra-t3-s3-q35",
           number: 35,
-          type: "true_false_ng",
-          question: "35. Strong patent protection increases the chances of a spin-off surviving.",
+          type: "multiple_choice",
+          question: "35. Why does the writer refer to Meyer's work on music and emotion?",
           options: [
-            { label: "YES", value: "YES" },
-            { label: "NO", value: "NO" },
-            { label: "NOT GIVEN", value: "NOT GIVEN" },
+            { label: "A – to propose an original theory about the subject", value: "A" },
+            { label: "B – to offer support for the findings of the Montreal study", value: "B" },
+            { label: "C – to recommend the need for further research into the subject", value: "C" },
+            { label: "D – to present a view which opposes that of the Montreal researchers", value: "D" },
           ],
-          correctAnswer: "YES",
+          correctAnswer: "B",
           points: 1,
         },
         {
           id: "cam12-ra-t3-s3-q36",
           number: 36,
-          type: "true_false_ng",
-          question: "36. Technology transfer offices perform a more important function than the university's research departments.",
+          type: "multiple_choice",
+          question: "36. According to Leonard Meyer, what causes the listener's emotional response to music?",
           options: [
-            { label: "YES", value: "YES" },
-            { label: "NO", value: "NO" },
-            { label: "NOT GIVEN", value: "NOT GIVEN" },
+            { label: "A – the way that the music evokes poignant memories in the listener", value: "A" },
+            { label: "B – the association of certain musical chords with certain feelings", value: "B" },
+            { label: "C – the listener's sympathy with the composer's intentions", value: "C" },
+            { label: "D – the internal structure of the musical composition", value: "D" },
           ],
-          correctAnswer: "NOT GIVEN",
+          correctAnswer: "D",
           points: 1,
         },
+        // ── Q37–40: Sentence endings ──────────────────────────────
         {
           id: "cam12-ra-t3-s3-q37",
           number: 37,
-          type: "true_false_ng",
-          question: "37. The major computing discoveries that led to modern technology were made by researchers with commercial goals.",
+          groupLabel: "Questions 37–40: Complete each sentence with the correct ending, A–F, below.\n\nA  our response to music depends on our initial emotional state.\nB  neuron activity decreases if outcomes become predictable.\nC  emotive music can bring to mind actual pictures and events.\nD  experiences in our past can influence our emotional reaction to music.\nE  emotive music delays giving listeners what they expect to hear.\nF  neuron activity increases prior to key points in a musical piece.",
+          type: "matching",
+          question: "37. The Montreal researchers discovered that …",
           options: [
-            { label: "YES", value: "YES" },
-            { label: "NO", value: "NO" },
-            { label: "NOT GIVEN", value: "NOT GIVEN" },
+            { label: "A – our response to music depends on our initial emotional state", value: "A" },
+            { label: "B – neuron activity decreases if outcomes become predictable", value: "B" },
+            { label: "C – emotive music can bring to mind actual pictures and events", value: "C" },
+            { label: "D – experiences in our past can influence our emotional reaction to music", value: "D" },
+            { label: "E – emotive music delays giving listeners what they expect to hear", value: "E" },
+            { label: "F – neuron activity increases prior to key points in a musical piece", value: "F" },
           ],
-          correctAnswer: "NO",
+          correctAnswer: "F",
           points: 1,
         },
-        // ── Q38–40: Summary completion ────────────────────────────
         {
           id: "cam12-ra-t3-s3-q38",
           number: 38,
-          groupLabel: "Questions 38–40: Complete the summary below.\nChoose ONE WORD ONLY from the passage.\n\nThe role of universities in supporting spin-offs\n\nThe best universities help their spin-offs in practical ways. They provide not only space but also access to laboratory facilities, advice on legal and business matters, and introductions to potential _______.",
-          type: "sentence_completion",
-          question: "38. They provide introductions to potential _______.",
-          correctAnswer: "investors",
+          type: "matching",
+          question: "38. Many studies have demonstrated that …",
+          options: [
+            { label: "A – our response to music depends on our initial emotional state", value: "A" },
+            { label: "B – neuron activity decreases if outcomes become predictable", value: "B" },
+            { label: "C – emotive music can bring to mind actual pictures and events", value: "C" },
+            { label: "D – experiences in our past can influence our emotional reaction to music", value: "D" },
+            { label: "E – emotive music delays giving listeners what they expect to hear", value: "E" },
+            { label: "F – neuron activity increases prior to key points in a musical piece", value: "F" },
+          ],
+          correctAnswer: "B",
           points: 1,
         },
         {
           id: "cam12-ra-t3-s3-q39",
           number: 39,
-          type: "sentence_completion",
-          question: "39. The university's _______ acts as an informal guarantee of the quality of the technology.",
-          correctAnswer: "reputation",
+          type: "matching",
+          question: "39. Meyer's analysis of Beethoven's music shows that …",
+          options: [
+            { label: "A – our response to music depends on our initial emotional state", value: "A" },
+            { label: "B – neuron activity decreases if outcomes become predictable", value: "B" },
+            { label: "C – emotive music can bring to mind actual pictures and events", value: "C" },
+            { label: "D – experiences in our past can influence our emotional reaction to music", value: "D" },
+            { label: "E – emotive music delays giving listeners what they expect to hear", value: "E" },
+            { label: "F – neuron activity increases prior to key points in a musical piece", value: "F" },
+          ],
+          correctAnswer: "E",
           points: 1,
         },
         {
           id: "cam12-ra-t3-s3-q40",
           number: 40,
-          type: "sentence_completion",
-          question: "40. Dedicated technology transfer offices identify promising research and protect it through _______.",
-          correctAnswer: "patents",
+          type: "matching",
+          question: "40. Earlier theories of music suggested that …",
+          options: [
+            { label: "A – our response to music depends on our initial emotional state", value: "A" },
+            { label: "B – neuron activity decreases if outcomes become predictable", value: "B" },
+            { label: "C – emotive music can bring to mind actual pictures and events", value: "C" },
+            { label: "D – experiences in our past can influence our emotional reaction to music", value: "D" },
+            { label: "E – emotive music delays giving listeners what they expect to hear", value: "E" },
+            { label: "F – neuron activity increases prior to key points in a musical piece", value: "F" },
+          ],
+          correctAnswer: "C",
           points: 1,
         },
       ],
