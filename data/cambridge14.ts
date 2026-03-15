@@ -2059,4 +2059,581 @@ Questions 37–40: Complete the summary below. Choose ONE WORD ONLY from the pas
   ],
 };
 
-export const cambridge14Tests: IELTSTest[] = [cambridge14_reading_t1, cambridge14_reading_t2, cambridge14_reading_t3];
+// ============================================================
+// CAMBRIDGE IELTS 14 – TEST 4  (Academic Reading)
+// Passages: The secret of staying young /
+//           Why zoos are good /
+//           Marine debris (Chelsea Rochman)
+// ============================================================
+export const cambridge14_reading_t4: IELTSTest = {
+  id: "cam14-reading-academic-t4",
+  title: "Cambridge IELTS 14 – Test 4",
+  bookNumber: 14,
+  testNumber: 4,
+  type: "reading",
+  level: "academic",
+  durationMinutes: 60,
+  transferMinutes: 0,
+  sections: [
+    // ── PASSAGE 1 ─────────────────────────────────────────────
+    {
+      id: "cam14-ra-t4-s1",
+      sectionNumber: 1,
+      title: "Reading Passage 1",
+      passageTitle: "The secret of staying young",
+      passageText: `Pheidole dentata, a native ant of the south-eastern U.S., isn't immortal. But scientists have found that it doesn't seem to show any signs of aging. Old workers ants can do everything just as well as the youngsters, and their brains appear just as sharp. 'We get a picture that these ants really don't decline,' says Ysabel Giraldo, who studies the ants for her doctoral thesis at Boston University.
+
+Such age-defying feats are rare in the animal kingdom. Naked mole rats can live for almost 30 years and stay fit for nearly their entire lives. They can still reproduce even when old, and they never get cancer. But the vast majority of animals deteriorate with age just like people do. Like the naked mole rat, ants are social creatures that usually live in highly organised colonies. 'It's this social complexity that makes P. dentata useful for studying aging in people,' says Giraldo, now at the California Institute of Technology. Humans are also highly social, a trait that has been connected to healthier aging. By contrast, most animal studies of aging use mice, worms or fruit flies, which all lead much more isolated lives.
+
+In the lab, P. dentata worker ants typically live for around 140 days. Giraldo focused on ants at four age ranges: 20 to 22 days, 45 to 47 days, 95 to 97 days and 120 to 122 days. Unlike all previous studies, which only estimated how old the ants were, her work tracked the ants from the time the pupae became adults, so she knew their exact ages. Then she put them through a range of tests.
+
+Giraldo watched how well the ants took care of the young of the colony, recording how often each ant attended to, carried and fed them. She compared how well 20-day-old and 95-day-old ants followed the telltale scent that the insects usually leave to mark a trail to food. She tested how ants responded to light and also measured how active they were by counting how often ants in a small dish walked across a line. And she experimented with how ants react to live prey: a tethered fruit fly. Giraldo expected the older ants to perform poorly in all these tasks. But the elderly insects were all good caretakers and trail-followers – the 95-day-old ants could track the scent even longer than their younger counterparts. They all responded to light well, and the older ants were more active. And when it came to reacting to prey, the older ants attacked the poor fruit fly just as aggressively as the young ones did, flaring their mandibles or pulling at the fly's legs.
+
+Then Giraldo compared the brains of 20-day-old and 95-day-old ants, identifying any cells that were close to death. She saw no major differences with age, nor was there any difference in the location of the dying cells, showing that age didn't seem to affect specific brain functions. Ants and other insects have structures in their brains called mushroom bodies, which are important for processing information, learning and memory. She also wanted to see if aging affects the density of synaptic complexes within these structures – regions where neurons come together. Again, the answer was no. What was more, the old ants didn't experience any drop in the levels of either serotonin or dopamine – brain chemicals whose decline often coincides with aging. In humans, for example, a decrease in serotonin has been linked to Alzheimer's disease.
+
+'This is the first time anyone has looked at both behavioral and neural changes in these ants so thoroughly,' says Giraldo, who recently published the findings in the Proceedings of the Royal Society B. Scientists have looked at some similar aspects in bees, but the results of recent bee studies were mixed – some studies showed age-related declines, which biologists call senescence, and others didn't. 'For now, the study raises more questions than it answers,' Giraldo says, 'including how P. dentata stays in such good shape.'
+
+Also, if the ants don't deteriorate with age, why do they die at all? Out in the wild, the ants probably don't live for a full 140 days thanks to predators, disease and just being in an environment that's much harsher than the comforts of the lab. 'The lucky ants that do live into old age may suffer a steep decline just before dying,' Giraldo says, but she can't say for sure because her study wasn't designed to follow an ant's final moments.
+
+'It will be important to extend these findings to other species of social insects,' says Gene E. Robinson, an entomologist at the University of Illinois at Urbana-Champaign. This ant might be unique, or it might represent a broader pattern among other social bugs with possible clues to the science of aging in larger animals. Either way, it seems that for these ants, age really doesn't matter.`,
+      instructions: `Questions 1–8: Complete the notes below. Choose ONE WORD ONLY from the passage for each answer.
+
+Questions 9–13: Do the following statements agree with the information given in Reading Passage 1? Write TRUE, FALSE, or NOT GIVEN.`,
+      questions: [
+        // ── Q1–8: Note completion ─────────────────────────────
+        {
+          id: "cam14-ra-t4-s1-q1",
+          number: 1,
+          groupLabel: "Questions 1–8: Complete the notes below.\nChoose ONE WORD ONLY from the passage for each answer.\n\nYsabel Giraldo's research\nFocused on a total of 1………………………… different age groups of ants, analysing\n\nBehaviour:\n• how well ants looked after their 2…………………………\n• their ability to locate 3………………………… using a scent trail\n• the effect that 4………………………… had on them\n• how 5………………………… they attacked prey\n\nBrains:\n• comparison between age and the 6………………………… of dying cells in the brains of ants\n• condition of synaptic complexes (areas in which 7………………………… meet) in the brain's 'mushroom bodies'\n• level of two 8………………………… in the brain associated with ageing",
+          type: "fill_blank",
+          question: "1. Giraldo focused on a total of _______ different age groups of ants.",
+          correctAnswer: "four",
+          points: 1,
+        },
+        {
+          id: "cam14-ra-t4-s1-q2",
+          number: 2,
+          type: "fill_blank",
+          question: "2. How well ants looked after their _______.",
+          correctAnswer: "young",
+          points: 1,
+        },
+        {
+          id: "cam14-ra-t4-s1-q3",
+          number: 3,
+          type: "fill_blank",
+          question: "3. Their ability to locate _______ using a scent trail.",
+          correctAnswer: "food",
+          points: 1,
+        },
+        {
+          id: "cam14-ra-t4-s1-q4",
+          number: 4,
+          type: "fill_blank",
+          question: "4. The effect that _______ had on them.",
+          correctAnswer: "light",
+          points: 1,
+        },
+        {
+          id: "cam14-ra-t4-s1-q5",
+          number: 5,
+          type: "fill_blank",
+          question: "5. How _______ they attacked prey.",
+          correctAnswer: "aggressively",
+          points: 1,
+        },
+        {
+          id: "cam14-ra-t4-s1-q6",
+          number: 6,
+          type: "fill_blank",
+          question: "6. Comparison between age and the _______ of dying cells in the brains of ants.",
+          correctAnswer: "location",
+          points: 1,
+        },
+        {
+          id: "cam14-ra-t4-s1-q7",
+          number: 7,
+          type: "fill_blank",
+          question: "7. Condition of synaptic complexes (areas in which _______ meet) in the brain's 'mushroom bodies'.",
+          correctAnswer: "neurons",
+          points: 1,
+        },
+        {
+          id: "cam14-ra-t4-s1-q8",
+          number: 8,
+          type: "fill_blank",
+          question: "8. Level of two _______ in the brain associated with ageing.",
+          correctAnswer: "chemicals",
+          points: 1,
+        },
+        // ── Q9–13: TRUE / FALSE / NOT GIVEN ──────────────────
+        {
+          id: "cam14-ra-t4-s1-q9",
+          number: 9,
+          groupLabel: "Questions 9–13: Do the following statements agree with the information given in Reading Passage 1?\nWrite TRUE, FALSE, or NOT GIVEN.",
+          type: "true_false_ng",
+          question: "9. Pheidole dentata ants are the only known animals which remain active for almost their whole lives.",
+          options: [
+            { label: "TRUE", value: "TRUE" },
+            { label: "FALSE", value: "FALSE" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "FALSE",
+          points: 1,
+        },
+        {
+          id: "cam14-ra-t4-s1-q10",
+          number: 10,
+          type: "true_false_ng",
+          question: "10. Ysabel Giraldo was the first person to study Pheidole dentata ants using precise data about the insects' ages.",
+          options: [
+            { label: "TRUE", value: "TRUE" },
+            { label: "FALSE", value: "FALSE" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "TRUE",
+          points: 1,
+        },
+        {
+          id: "cam14-ra-t4-s1-q11",
+          number: 11,
+          type: "true_false_ng",
+          question: "11. The ants in Giraldo's experiments behaved as she had predicted that they would.",
+          options: [
+            { label: "TRUE", value: "TRUE" },
+            { label: "FALSE", value: "FALSE" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "FALSE",
+          points: 1,
+        },
+        {
+          id: "cam14-ra-t4-s1-q12",
+          number: 12,
+          type: "true_false_ng",
+          question: "12. The recent studies of bees used different methods of measuring age-related decline.",
+          options: [
+            { label: "TRUE", value: "TRUE" },
+            { label: "FALSE", value: "FALSE" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "NOT GIVEN",
+          points: 1,
+        },
+        {
+          id: "cam14-ra-t4-s1-q13",
+          number: 13,
+          type: "true_false_ng",
+          question: "13. Pheidole dentata ants kept in laboratory conditions tend to live longer lives.",
+          options: [
+            { label: "TRUE", value: "TRUE" },
+            { label: "FALSE", value: "FALSE" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "TRUE",
+          points: 1,
+        },
+      ],
+    },
+    // ── PASSAGE 2 ─────────────────────────────────────────────
+    {
+      id: "cam14-ra-t4-s2",
+      sectionNumber: 2,
+      title: "Reading Passage 2",
+      passageTitle: "Why zoos are good",
+      passageText: `A
+In my view, it is perfectly possible for many species of animals living in zoos or wildlife parks to have a quality of life as high as, or higher than, in the wild. Animals in good zoos get a varied and high-quality diet with all the supplements required, and any illnesses they might have will be treated. Their movement might be somewhat restricted, but they have a safe environment in which to live, and they are spared bullying and social ostracism by others of their kind. They do not suffer from the threat or stress of predators, or the irritation and pain of parasites or injuries. The average captive animal will have a greater life expectancy compared with its wild counterpart, and will not die of drought, of starvation or in the jaws of a predator. A lot of very nasty things happen to truly 'wild' animals that simply don't happen in good zoos, and to view a life that is 'free' as one that is automatically 'good' is, I think, an error. Furthermore, zoos serve several key purposes.
+
+B
+Firstly, zoos aid conservation. Colossal numbers of species are becoming extinct across the world, and many more are increasingly threatened and therefore risk extinction. Moreover, some of these collapses have been sudden, dramatic and unexpected, or were simply discovered very late in the day. A species protected in captivity can be bred up to provide a reservoir population against a population crash or extinction in the wild. A good number of species only exist in captivity, with many of these living in zoos. Still more only exist in the wild because they have been reintroduced from zoos, or have wild populations that have been boosted by captive bred animals. Without these efforts there would be fewer species alive today. Although reintroduction successes are few and far between, the numbers are increasing, and the very fact that species have been saved or reintroduced as a result of captive breeding proves the value of such initiatives.
+
+C
+Zoos also provide education. Many children and adults, especially those in cities, will never see a wild animal beyond a fox or pigeon. While it is true that television documentaries are becoming ever more detailed and impressive, and many natural history specimens are on display in museums, there really is nothing to compare with seeing a living creature in the flesh, hearing it, smelling it, watching what it does and having the time to absorb details. That alone will bring a greater understanding and perspective to many, and hopefully give them a greater appreciation for wildlife, conservation efforts and how they can contribute.
+
+D
+In addition to this, there is also the education that can take place in zoos through signs, talks and presentations which directly communicate information to visitors about the animals they are seeing and their place in the world. This was an area where zoos used to be lacking, but they are now increasingly sophisticated in their communication and outreach work. Many zoos also work directly to educate conservation workers in other countries, or send their animal keepers abroad to contribute their knowledge and skills to those working in zoos and reserves, thereby helping to improve conditions and reintroductions all over the world.
+
+E
+Zoos also play a key role in research. If we are to save wild species and restore and repair ecosystems we need to know about how key species live, act and react. Being able to undertake research on animals in zoos where there is less risk and fewer variables means real changes can be effected on wild populations. Finding out about, for example, the oestrus cycle of an animal or its breeding rate helps us manage wild populations. Procedures such as capturing and moving at-risk or dangerous individuals are bolstered by knowledge gained in zoos about doses for anaesthetics, and by experience in handling and transporting animals. This can make a real difference to conservation efforts and to the reduction of human-animal conflicts, and can provide a knowledge base for helping with the increasing threats of habitat destruction and other problems.
+
+F
+In conclusion, considering the many ongoing global threats to the environment, it is hard for me to see zoos as anything other than essential to the long-term survival of numerous species. They are vital not just in terms of protecting animals, but as a means of learning about them to aid those still in the wild, as well as educating and informing the general population about these animals and their world so that they can assist or at least accept the need to be more environmentally conscious. Without them, the world would be, and would increasingly become, a much poorer place.`,
+      instructions: `Questions 14–17: Reading Passage 2 has six paragraphs, A–F. Which paragraph contains the following information?
+
+Questions 18–22: Do the following statements agree with the information given in Reading Passage 2? Write TRUE, FALSE, or NOT GIVEN.
+
+Questions 23–24: Choose TWO letters, A–E. Which TWO of the following are stated about zoo staff in the text?
+
+Questions 25–26: Choose TWO letters, A–E. Which TWO of these beliefs about zoos does the writer mention in the text?`,
+      questions: [
+        // ── Q14–17: Paragraph matching ────────────────────────
+        {
+          id: "cam14-ra-t4-s2-q14",
+          number: 14,
+          groupLabel: "Questions 14–17: Reading Passage 2 has six paragraphs, A–F.\nWhich paragraph contains the following information?\nWrite the correct letter, A–F, in boxes 14–17 on your answer sheet.",
+          type: "matching",
+          question: "14. a reference to how quickly animal species can die out",
+          options: [
+            { label: "A", value: "A" },
+            { label: "B", value: "B" },
+            { label: "C", value: "C" },
+            { label: "D", value: "D" },
+            { label: "E", value: "E" },
+            { label: "F", value: "F" },
+          ],
+          correctAnswer: "B",
+          points: 1,
+        },
+        {
+          id: "cam14-ra-t4-s2-q15",
+          number: 15,
+          type: "matching",
+          question: "15. reasons why it is preferable to study animals in captivity rather than in the wild",
+          options: [
+            { label: "A", value: "A" },
+            { label: "B", value: "B" },
+            { label: "C", value: "C" },
+            { label: "D", value: "D" },
+            { label: "E", value: "E" },
+            { label: "F", value: "F" },
+          ],
+          correctAnswer: "E",
+          points: 1,
+        },
+        {
+          id: "cam14-ra-t4-s2-q16",
+          number: 16,
+          type: "matching",
+          question: "16. mention of two ways of learning about animals other than visiting them in zoos",
+          options: [
+            { label: "A", value: "A" },
+            { label: "B", value: "B" },
+            { label: "C", value: "C" },
+            { label: "D", value: "D" },
+            { label: "E", value: "E" },
+            { label: "F", value: "F" },
+          ],
+          correctAnswer: "C",
+          points: 1,
+        },
+        {
+          id: "cam14-ra-t4-s2-q17",
+          number: 17,
+          type: "matching",
+          question: "17. reasons why animals in zoos may be healthier than those in the wild",
+          options: [
+            { label: "A", value: "A" },
+            { label: "B", value: "B" },
+            { label: "C", value: "C" },
+            { label: "D", value: "D" },
+            { label: "E", value: "E" },
+            { label: "F", value: "F" },
+          ],
+          correctAnswer: "A",
+          points: 1,
+        },
+        // ── Q18–22: TRUE / FALSE / NOT GIVEN ──────────────────
+        {
+          id: "cam14-ra-t4-s2-q18",
+          number: 18,
+          groupLabel: "Questions 18–22: Do the following statements agree with the information given in Reading Passage 2?\nWrite TRUE, FALSE, or NOT GIVEN.",
+          type: "true_false_ng",
+          question: "18. An animal is likely to live longer in a zoo than in the wild.",
+          options: [
+            { label: "TRUE", value: "TRUE" },
+            { label: "FALSE", value: "FALSE" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "TRUE",
+          points: 1,
+        },
+        {
+          id: "cam14-ra-t4-s2-q19",
+          number: 19,
+          type: "true_false_ng",
+          question: "19. There are some species in zoos which can no longer be found in the wild.",
+          options: [
+            { label: "TRUE", value: "TRUE" },
+            { label: "FALSE", value: "FALSE" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "TRUE",
+          points: 1,
+        },
+        {
+          id: "cam14-ra-t4-s2-q20",
+          number: 20,
+          type: "true_false_ng",
+          question: "20. Improvements in the quality of TV wildlife documentaries have resulted in increased numbers of zoo visitors.",
+          options: [
+            { label: "TRUE", value: "TRUE" },
+            { label: "FALSE", value: "FALSE" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "NOT GIVEN",
+          points: 1,
+        },
+        {
+          id: "cam14-ra-t4-s2-q21",
+          number: 21,
+          type: "true_false_ng",
+          question: "21. Zoos have always excelled at transmitting information about animals to the public.",
+          options: [
+            { label: "TRUE", value: "TRUE" },
+            { label: "FALSE", value: "FALSE" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "FALSE",
+          points: 1,
+        },
+        {
+          id: "cam14-ra-t4-s2-q22",
+          number: 22,
+          type: "true_false_ng",
+          question: "22. Studying animals in zoos is less stressful for the animals than studying them in the wild.",
+          options: [
+            { label: "TRUE", value: "TRUE" },
+            { label: "FALSE", value: "FALSE" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "NOT GIVEN",
+          points: 1,
+        },
+        // ── Q23–24: Multiple choice (choose TWO) ──────────────
+        {
+          id: "cam14-ra-t4-s2-q23",
+          number: 23,
+          groupLabel: "Questions 23–24: Choose TWO letters, A–E.\nWhich TWO of the following are stated about zoo staff in the text?\n\nA  Some take part in television documentaries about animals\nB  Some travel to overseas locations to join teams in zoos\nC  Some get experience with species in the wild before taking up zoo jobs\nD  Some teach people who are involved with conservation projects\nE  Some specialise in caring for species which are under threat",
+          type: "multiple_choice",
+          question: "23–24. Which TWO of the following are stated about zoo staff in the text? (Select two)",
+          options: [
+            { label: "A  Some take part in television documentaries about animals", value: "A" },
+            { label: "B  Some travel to overseas locations to join teams in zoos", value: "B" },
+            { label: "C  Some get experience with species in the wild before taking up zoo jobs", value: "C" },
+            { label: "D  Some teach people who are involved with conservation projects", value: "D" },
+            { label: "E  Some specialise in caring for species which are under threat", value: "E" },
+          ],
+          correctAnswer: "B,D",
+          points: 2,
+        },
+        // ── Q25–26: Multiple choice (choose TWO) ──────────────
+        {
+          id: "cam14-ra-t4-s2-q25",
+          number: 25,
+          groupLabel: "Questions 25–26: Choose TWO letters, A–E.\nWhich TWO of these beliefs about zoos does the writer mention in the text?\n\nA  They can help children overcome their fears of wild animals\nB  They can increase public awareness of environmental issues\nC  They can provide employment for a range of professional people\nD  They can generate income to support wildlife conservation projects\nE  They can raise animals which can later be released into the wild",
+          type: "multiple_choice",
+          question: "25–26. Which TWO of these beliefs about zoos does the writer mention in the text? (Select two)",
+          options: [
+            { label: "A  They can help children overcome their fears of wild animals", value: "A" },
+            { label: "B  They can increase public awareness of environmental issues", value: "B" },
+            { label: "C  They can provide employment for a range of professional people", value: "C" },
+            { label: "D  They can generate income to support wildlife conservation projects", value: "D" },
+            { label: "E  They can raise animals which can later be released into the wild", value: "E" },
+          ],
+          correctAnswer: "B,E",
+          points: 2,
+        },
+      ],
+    },
+    // ── PASSAGE 3 ─────────────────────────────────────────────
+    {
+      id: "cam14-ra-t4-s3",
+      sectionNumber: 3,
+      title: "Reading Passage 3",
+      passageTitle: "The risks of ocean trash",
+      passageText: `Chelsea Rochman, an ecologist at the University of California, Davis, has been trying to answer a dismal question: Is everything terrible, or are things just very, very bad?
+
+Rochman is a member of the National Center for Ecological Analysis and Synthesis's marine-debris working group, a collection of scientists who study, among other things, the growing problem of marine debris, also known as ocean trash. Plenty of studies have sounded alarm bells about the state of marine debris; in a recent paper published in the journal Ecology, Rochman and her colleagues set out to determine how many of those perceived risks are real.
+
+Often, Rochman says, scientists will end a paper by speculating about the broader impacts of what they've found. For example, a study could show that certain seabirds eat plastic bags, and go on to warn that whole bird populations are at risk of dying out. 'But the truth was that nobody had yet tested those perceived threats,' Rochman says. 'There wasn't a lot of information.'
+
+Rochman and her colleagues examined more than a hundred papers on the impacts of marine debris that were published through 2013. Within each paper, they asked what threats scientists had studied – 366 perceived threats in all – and what they'd actually found.
+
+In 83 percent of cases, the perceived dangers of ocean trash were proven true. In the remaining cases, the working group found the studies had weaknesses in design and content which affected the validity of their conclusions – they lacked a control group, for example, or used faulty statistics.
+
+Strikingly, Rochman says, only one well-designed study failed to find the effect it was looking for, an investigation of mussels ingesting microscopic bits. The plastic moved from the mussels' stomachs to their bloodstreams, scientists found, and stayed there for weeks – but didn't seem to stress out the shellfish.
+
+While mussels may be fine eating trash, though, the analysis also gave a clearer picture of the many ways that ocean debris is bothersome.
+
+Within the studies they looked at, most of the proven threats came from plastic debris, rather than other materials like metal or wood. Most of the dangers also involved large pieces of debris – animals getting entangled in trash, for example, or eating it and severely injuring themselves.
+
+But a lot of ocean debris is 'microplastic', or pieces smaller than five millimeters. These may be ingredients used in cosmetics and toiletries, fibers shed by synthetic clothing in the wash, or eroded remnants of larger debris. Compared to the number of studies investigating large-scale debris, Rochman's group found little research on the effects of these tiny bits. 'There are a lot of open questions still for microplastic,' Rochman says, though she notes that more papers on the subject have been published since 2013, the cutoff point for the group's analysis.
+
+There are also, she adds, a lot of open questions about the ways that ocean debris can lead to sea-creature death. Many studies have looked at how plastic affects an individual animal, or that animal's tissues or cells, rather than whole populations. And in the lab, scientists often use higher concentrations of plastic than what's really in the ocean. None of that tells us how many birds or fish or sea turtles could die from plastic pollution – or how deaths in one species could affect that animal's predators, or the rest of the ecosystem.
+
+'We need to be asking more ecologically relevant questions,' Rochman says. Usually, scientists don't know exactly how disasters such as a tanker accidentally spilling its whole cargo of oil and polluting huge areas of the ocean will affect the environment until after they've happened. 'We don't ask the right questions early enough,' she says. But if ecologists can understand how the slow-moving effect of ocean trash is damaging ecosystems, they might be able to prevent things from getting worse.
+
+Asking the right questions can help policy makers, and the public, figure out where to focus their attention. The problems that look or sound most dramatic may not be the best places to start. For example, the name of the 'Great Pacific Garbage Patch' – a collection of marine debris in the northern Pacific Ocean – might conjure up a vast, floating trash island. In reality though, much of the debris is tiny or below the surface; a person could sail through the area without seeing any trash at all. A Dutch group called 'The Ocean Cleanup' is currently working on plans to put mechanical devices in the Pacific Garbage Patch and similar areas to suck up plastic. But a recent paper used simulations to show that strategically positioning the cleanup devices closer to shore would more effectively reduce pollution over the long term.
+
+'I think clearing up some of these misperceptions is really important,' Rochman says. Among scientists as well as in the media, she says, 'A lot of the images about strandings and entanglement and all of that cause the perception that plastic debris is killing everything in the ocean.' Interrogating the existing scientific literature can help ecologists figure out which problems really need addressing, and which ones they'd be better off – like the mussels – absorbing and ignoring.`,
+      instructions: `Questions 27–33: Do the following statements agree with the information given in Reading Passage 3? Write TRUE, FALSE, or NOT GIVEN.
+
+Questions 34–39: Complete the notes below. Choose ONE WORD ONLY from the passage for each answer.
+
+Question 40: Choose the correct letter, A, B, C or D.`,
+      questions: [
+        // ── Q27–33: TRUE / FALSE / NOT GIVEN ──────────────────
+        {
+          id: "cam14-ra-t4-s3-q27",
+          number: 27,
+          groupLabel: "Questions 27–33: Do the following statements agree with the information given in Reading Passage 3?\nWrite TRUE, FALSE, or NOT GIVEN.",
+          type: "true_false_ng",
+          question: "27. Rochman and her colleagues were the first people to research the problem of marine debris.",
+          options: [
+            { label: "TRUE", value: "TRUE" },
+            { label: "FALSE", value: "FALSE" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "FALSE",
+          points: 1,
+        },
+        {
+          id: "cam14-ra-t4-s3-q28",
+          number: 28,
+          type: "true_false_ng",
+          question: "28. The creatures most in danger from ocean trash are certain seabirds.",
+          options: [
+            { label: "TRUE", value: "TRUE" },
+            { label: "FALSE", value: "FALSE" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "NOT GIVEN",
+          points: 1,
+        },
+        {
+          id: "cam14-ra-t4-s3-q29",
+          number: 29,
+          type: "true_false_ng",
+          question: "29. The studies Rochman has reviewed have already proved that populations of some birds will soon become extinct.",
+          options: [
+            { label: "TRUE", value: "TRUE" },
+            { label: "FALSE", value: "FALSE" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "FALSE",
+          points: 1,
+        },
+        {
+          id: "cam14-ra-t4-s3-q30",
+          number: 30,
+          type: "true_false_ng",
+          question: "30. Rochman analysed papers on the different kinds of danger caused by ocean trash.",
+          options: [
+            { label: "TRUE", value: "TRUE" },
+            { label: "FALSE", value: "FALSE" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "TRUE",
+          points: 1,
+        },
+        {
+          id: "cam14-ra-t4-s3-q31",
+          number: 31,
+          type: "true_false_ng",
+          question: "31. Most of the research analysed by Rochman and her colleagues was badly designed.",
+          options: [
+            { label: "TRUE", value: "TRUE" },
+            { label: "FALSE", value: "FALSE" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "FALSE",
+          points: 1,
+        },
+        {
+          id: "cam14-ra-t4-s3-q32",
+          number: 32,
+          type: "true_false_ng",
+          question: "32. One study examined by Rochman was expecting to find that mussels were harmed by eating plastic.",
+          options: [
+            { label: "TRUE", value: "TRUE" },
+            { label: "FALSE", value: "FALSE" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "TRUE",
+          points: 1,
+        },
+        {
+          id: "cam14-ra-t4-s3-q33",
+          number: 33,
+          type: "true_false_ng",
+          question: "33. Some mussels choose to eat plastic in preference to their natural diet.",
+          options: [
+            { label: "TRUE", value: "TRUE" },
+            { label: "FALSE", value: "FALSE" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "NOT GIVEN",
+          points: 1,
+        },
+        // ── Q34–39: Note completion ────────────────────────────
+        {
+          id: "cam14-ra-t4-s3-q34",
+          number: 34,
+          groupLabel: "Questions 34–39: Complete the notes below.\nChoose ONE WORD ONLY from the passage for each answer.\n\nFindings related to marine debris\nStudies of marine debris found the biggest threats were\n• plastic (not metal or wood)\n• bits of debris that were 34………………………… (harmful to animals)\n\nThere was little research into 35………………………… e.g. from synthetic fibres.\n\nDrawbacks of the studies examined\n• most of them focused on individual animals, not entire 36…………………………\n• the 37………………………… of plastic used in the lab did not always reflect those in the ocean\n• there was insufficient information on\n  – numbers of animals which could be affected\n  – the impact of a reduction in numbers on the 38………………………… of that species\n  – the impact on the ecosystem\n\nRochman says more information is needed on the possible impact of future 39………………………… (e.g. involving oil).",
+          type: "fill_blank",
+          question: "34. Bits of debris that were _______ (harmful to animals).",
+          correctAnswer: "large",
+          points: 1,
+        },
+        {
+          id: "cam14-ra-t4-s3-q35",
+          number: 35,
+          type: "fill_blank",
+          question: "35. There was little research into _______ e.g. from synthetic fibres.",
+          correctAnswer: "microplastic",
+          points: 1,
+        },
+        {
+          id: "cam14-ra-t4-s3-q36",
+          number: 36,
+          type: "fill_blank",
+          question: "36. Most studies focused on individual animals, not entire _______.",
+          correctAnswer: "populations",
+          points: 1,
+        },
+        {
+          id: "cam14-ra-t4-s3-q37",
+          number: 37,
+          type: "fill_blank",
+          question: "37. The _______ of plastic used in the lab did not always reflect those in the ocean.",
+          correctAnswer: "concentrations",
+          points: 1,
+        },
+        {
+          id: "cam14-ra-t4-s3-q38",
+          number: 38,
+          type: "fill_blank",
+          question: "38. Insufficient information on the impact of a reduction in numbers on the _______ of that species.",
+          correctAnswer: "predators",
+          points: 1,
+        },
+        {
+          id: "cam14-ra-t4-s3-q39",
+          number: 39,
+          type: "fill_blank",
+          question: "39. Rochman says more information is needed on the possible impact of future _______ (e.g. involving oil).",
+          correctAnswer: "disasters",
+          points: 1,
+        },
+        // ── Q40: Single multiple choice ────────────────────────
+        {
+          id: "cam14-ra-t4-s3-q40",
+          number: 40,
+          groupLabel: "Question 40: Choose the correct letter, A, B, C or D.",
+          type: "multiple_choice",
+          question: "40. What would be the best title for this passage?",
+          options: [
+            { label: "A  Assessing the threat of marine debris", value: "A" },
+            { label: "B  Marine debris: who is to blame?", value: "B" },
+            { label: "C  A new solution to the problem of marine debris", value: "C" },
+            { label: "D  Marine debris: the need for international action", value: "D" },
+          ],
+          correctAnswer: "A",
+          points: 1,
+        },
+      ],
+    },
+  ],
+};
+
+export const cambridge14Tests: IELTSTest[] = [cambridge14_reading_t1, cambridge14_reading_t2, cambridge14_reading_t3, cambridge14_reading_t4];
