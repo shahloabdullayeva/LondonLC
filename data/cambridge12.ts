@@ -1916,6 +1916,8 @@ Questions 37–40: Complete each sentence with the correct ending, A–F, below.
 
 // ============================================================
 // CAMBRIDGE IELTS 12 – TEST 4  (Academic Reading)
+// Passages: The History of Glass / Bring Back the Big Cats /
+//           UK Companies Need More Effective Boards of Directors
 // ============================================================
 export const cambridge12_reading_t4: IELTSTest = {
   id: "cam12-reading-academic-t4",
@@ -1932,71 +1934,99 @@ export const cambridge12_reading_t4: IELTSTest = {
       id: "cam12-ra-t4-s1",
       sectionNumber: 1,
       title: "Reading Passage 1",
-      passageTitle: "The Robots Are Coming",
-      passageText: `For most of human history, work has meant physical labour – growing food, making things, moving goods from one place to another. The industrial revolution transformed this pattern, replacing human and animal muscle power with machines in many areas of production. Now a new technological revolution appears to be under way – one that is replacing human cognitive labour as well as physical labour with machines, and specifically with computer systems capable of learning from experience and adapting their behaviour accordingly.
+      passageTitle: "The History of Glass",
+      passageText: `From our earliest origins, man has been making use of glass. Historians have discovered that a type of natural glass – obsidian – formed in places such as the mouth of a volcano as a result of the intense heat of an eruption melting sand – was first used as tips for spears. Archaeologists have even found evidence of man-made glass which dates back to 4000 BC; this took the form of glazes used for coating stone beads. It was not until 1500 BC, however, that the first hollow glass container was made by covering a sand core with a layer of molten glass.
 
-The term 'artificial intelligence', or AI, covers a wide range of techniques and capabilities. At the simpler end of the spectrum are systems that follow fixed rules: if this condition is met, do this; if that condition is met, do that. These systems, though sometimes complex, do not 'learn' – they can only do what they have been explicitly programmed to do. More sophisticated are machine learning systems, which improve their performance by analysing data. The most advanced systems use a technique called deep learning, in which networks of simulated neurons process vast quantities of information to identify patterns that would be beyond the capacity of a human analyst to detect.
+Glass blowing became the most common way to make glass containers from the first century BC. The glass made during this time was highly coloured due to the impurities of the raw material. In the first century AD, methods of creating colourless glass were developed, which was then tinted by the addition of colouring materials. The secret of glass making was taken across Europe by the Romans during this century. However, they guarded the skills and technology required to make glass very closely, and it was not until their empire collapsed in 476 AD that glass-making knowledge became widespread throughout Europe and the Middle East. From the 10th century onwards, the Venetians gained a reputation for technical skill and artistic ability in the making of glass bottles, and many of the city's craftsmen left Italy to set up glassworks throughout Europe.
 
-The economic implications of AI and robotics are a matter of intense debate. On one side are those who argue that, as in previous technological revolutions, the jobs displaced by automation will be replaced by new ones that we cannot yet predict. When textile mills replaced hand-weavers in the 19th century, for example, the resulting surge in productivity eventually generated enough additional economic activity to create jobs for more people than had previously worked in the textile industry. Optimists argue that AI will follow a similar pattern: by making workers more productive and lowering the cost of many goods and services, it will free up resources that can be deployed to meet new needs and generate new categories of employment.
+A major milestone in the history of glass occurred with the invention of lead crystal glass by the English glass manufacturer George Ravenscroft (1632-1683). He attempted to counter the effect of clouding that sometimes occurred in blown glass by introducing lead to the raw materials used in the process. The new glass he created was softer and easier to decorate, and had a higher refractive index, adding to its brilliance and beauty, and it proved invaluable to the optical industry. It is thanks to Ravenscroft's invention that optical lenses, astronomical telescopes, microscopes and the like became possible.
 
-The pessimists are unconvinced. They argue that the current technological transition is different in kind from previous ones, because it is not restricted to a single sector or type of activity. Previous waves of automation targeted physical, repetitive tasks. Machines could replace a weaver or a factory worker, but they could not write, argue, make aesthetic judgements, or form relationships. AI threatens to change this. Systems already exist that can write competent news reports, pass medical diagnostic tests with accuracy matching or exceeding specialist doctors, drive vehicles without human input, and translate between languages in real time. The scope of the potential displacement is therefore far wider than in any previous technological revolution.
+In Britain, the modern glass industry only really started to develop after the repeal of the Excise Act in 1845. Before that time, heavy taxes had been placed on the amount of glass melted in a glasshouse, and were levied continuously from 1745 to 1845. Joseph Paxton's Crystal Palace at London's Great Exhibition of 1851 marked the beginning of glass as a material used in the building industry. This revolutionary new building encouraged the use of glass in public, domestic and horticultural architecture. Glass manufacturing techniques also improved with the advancement of science and the development of better technology.
 
-A related concern is the distributional effects of automation – that is, who gains and who loses. Some economists argue that automation tends to benefit capital owners (since it reduces the need for labour) at the expense of workers. And within the workforce, it tends to benefit highly skilled workers, whose capabilities are complementary to those of machines, at the expense of middle-skill workers who perform the kinds of routine cognitive tasks that machines are increasingly good at. This has already been observed in labour markets across the developed world, where middle-skill employment has been 'hollowed out' in recent decades. Wages have grown strongly for those at the top of the skill distribution and those performing personal service jobs that machines cannot yet do, but have stagnated for the large group in between.
+From 1887 onwards, glass making developed from traditional mouth-blowing to a semi-automatic process, after factory-owner HM Ashley introduced a machine capable of producing 200 bottles per hour in Castleford, Yorkshire, England – more than three times quicker than any previous production method. Then in 1907, the first fully automated machine was developed in the USA by Michael Owens – founder of the Owens Bottle Machine Company (later the major manufacturers Owens-Illinois) – and installed in its factory. Owens' invention could produce an impressive 2,500 bottles per hour. Other developments followed rapidly, but it was not until the First World War, when Britain became cut off from essential glass suppliers, that glass became part of the scientific sector. Previous to this, glass had been seen as a craft rather than a precise science.
 
-Not everyone accepts this prognosis, however. A growing school of thought argues that the labour market effects of AI will be more modest than the pessimists suggest, partly because many of the predictions of massive job displacement have not yet materialised. There is also the question of human preferences: many people actively prefer to deal with other people rather than machines, even when the machine is as capable or more capable. The role of trust, empathy and personal connection in many service occupations may be hard for machines to replicate, even if their technical performance is superior.
+Today, glass making is big business. It has become a modern, hi-tech industry operating in a fiercely competitive global market where quality, design and service levels are critical to maintaining market share. Modern glass plants are capable of making millions of glass containers a day in many different colours, with green, brown and clear remaining the most popular. Few of us can imagine modern life without glass. It features in almost every aspect of our lives – in our homes, our cars and whenever we sit down to eat or drink. Glass packaging is used for many products, many beverages are sold in glass, as are numerous foodstuffs, as well as medicines and cosmetics.
 
-One thing that most observers agree on is that the transition, whatever its ultimate scale, will be uneven. Some sectors and some categories of workers will be affected much sooner and more severely than others. And some countries will be better placed than others to manage the transition, depending on their educational systems, social safety nets, labour market structures, and industrial policies. The countries that navigate this transition most successfully are likely to be those that invest heavily in equipping their workforces with skills that complement rather than compete with AI systems.`,
-      instructions: `Questions 1–6: Do the following statements agree with the information given in Reading Passage 1?
-Write TRUE, FALSE, or NOT GIVEN.
+Glass is an ideal material for recycling, and with growing consumer concern for green issues, glass bottles and jars are becoming ever more popular. Glass recycling is good news for the environment. It saves used glass containers being sent to landfill. As less energy is needed to melt recycled glass than to melt down raw materials, this also saves fuel and production costs. Recycling also reduces the need for raw materials to be quarried, thus saving precious resources.`,
+      instructions: `Questions 1–8: Complete the notes below.
+Choose ONE WORD ONLY from the passage for each answer.
 
-Questions 7–13: Complete the summary below.
-Choose ONE WORD ONLY from the passage for each answer.`,
+Questions 9–13: Do the following statements agree with the information given in Reading Passage 1?
+Write TRUE, FALSE, or NOT GIVEN.`,
       questions: [
-        // ── Q1–6: TRUE / FALSE / NOT GIVEN ───────────────────────
+        // ── Q1–8: Notes completion ────────────────────────────────
         {
           id: "cam12-ra-t4-s1-q1",
           number: 1,
-          type: "true_false_ng",
-          question: "1. Simple AI systems cannot learn from experience.",
-          options: [
-            { label: "TRUE", value: "TRUE" },
-            { label: "FALSE", value: "FALSE" },
-            { label: "NOT GIVEN", value: "NOT GIVEN" },
-          ],
-          correctAnswer: "TRUE",
+          groupLabel: "Questions 1–8: Complete the notes below.\nChoose ONE WORD ONLY from the passage for each answer.\n\nThe History of Glass\n• Early humans used a material called 1………………………… to make the sharp points of their 2…………………………\n• 4000 BC: 3………………………… made of stone were covered in a coating of man-made glass.\n• First century BC: glass was coloured because of the 4………………………… in the material.\n• Until 476 AD: Only the 5………………………… knew how to make glass.\n• From 10th century: Venetians became famous for making bottles out of glass.\n• 17th century: George Ravenscroft developed a process using 6………………………… to avoid the occurrence of 7………………………… in blown glass.\n• Mid-19th century: British glass production developed after changes to laws concerning 8…………………………",
+          type: "note_completion",
+          question: "1. Early humans used a material called _______",
+          correctAnswer: "obsidian",
           points: 1,
         },
         {
           id: "cam12-ra-t4-s1-q2",
           number: 2,
-          type: "true_false_ng",
-          question: "2. Deep learning systems use simulated neurons to identify patterns in data.",
-          options: [
-            { label: "TRUE", value: "TRUE" },
-            { label: "FALSE", value: "FALSE" },
-            { label: "NOT GIVEN", value: "NOT GIVEN" },
-          ],
-          correctAnswer: "TRUE",
+          type: "note_completion",
+          question: "2. Used to make the sharp points of their _______",
+          correctAnswer: "spears",
           points: 1,
         },
         {
           id: "cam12-ra-t4-s1-q3",
           number: 3,
-          type: "true_false_ng",
-          question: "3. The industrial revolution ultimately created more jobs than it destroyed in the textile industry.",
-          options: [
-            { label: "TRUE", value: "TRUE" },
-            { label: "FALSE", value: "FALSE" },
-            { label: "NOT GIVEN", value: "NOT GIVEN" },
-          ],
-          correctAnswer: "TRUE",
+          type: "note_completion",
+          question: "3. 4000 BC: _______ made of stone were covered in a coating of man-made glass",
+          correctAnswer: "beads",
           points: 1,
         },
         {
           id: "cam12-ra-t4-s1-q4",
           number: 4,
+          type: "note_completion",
+          question: "4. First century BC: glass was coloured because of the _______ in the material",
+          correctAnswer: "impurities",
+          points: 1,
+        },
+        {
+          id: "cam12-ra-t4-s1-q5",
+          number: 5,
+          type: "note_completion",
+          question: "5. Until 476 AD: Only the _______ knew how to make glass",
+          correctAnswer: "Romans",
+          points: 1,
+        },
+        {
+          id: "cam12-ra-t4-s1-q6",
+          number: 6,
+          type: "note_completion",
+          question: "6. George Ravenscroft developed a process using _______ to avoid the occurrence of clouding in blown glass",
+          correctAnswer: "lead",
+          points: 1,
+        },
+        {
+          id: "cam12-ra-t4-s1-q7",
+          number: 7,
+          type: "note_completion",
+          question: "7. Ravenscroft used lead to avoid the occurrence of _______ in blown glass",
+          correctAnswer: "clouding",
+          points: 1,
+        },
+        {
+          id: "cam12-ra-t4-s1-q8",
+          number: 8,
+          type: "note_completion",
+          question: "8. Mid-19th century: British glass production developed after changes to laws concerning _______",
+          correctAnswer: "taxes",
+          points: 1,
+        },
+        // ── Q9–13: TRUE / FALSE / NOT GIVEN ──────────────────────
+        {
+          id: "cam12-ra-t4-s1-q9",
+          number: 9,
+          groupLabel: "Questions 9–13: Do the following statements agree with the information given in Reading Passage 1?\nWrite TRUE, FALSE, or NOT GIVEN.",
           type: "true_false_ng",
-          question: "4. AI can already perform some tasks as well as specialist doctors.",
+          question: "9. In 1887, HM Ashley had the fastest bottle-producing machine that existed at the time.",
           options: [
             { label: "TRUE", value: "TRUE" },
             { label: "FALSE", value: "FALSE" },
@@ -2006,10 +2036,23 @@ Choose ONE WORD ONLY from the passage for each answer.`,
           points: 1,
         },
         {
-          id: "cam12-ra-t4-s1-q5",
-          number: 5,
+          id: "cam12-ra-t4-s1-q10",
+          number: 10,
           type: "true_false_ng",
-          question: "5. All economists agree that automation benefits capital owners at the expense of workers.",
+          question: "10. Michael Owens was hired by a large US company to design a fully-automated bottle manufacturing machine for them.",
+          options: [
+            { label: "TRUE", value: "TRUE" },
+            { label: "FALSE", value: "FALSE" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "FALSE",
+          points: 1,
+        },
+        {
+          id: "cam12-ra-t4-s1-q11",
+          number: 11,
+          type: "true_false_ng",
+          question: "11. Nowadays, most glass is produced by large international manufacturers.",
           options: [
             { label: "TRUE", value: "TRUE" },
             { label: "FALSE", value: "FALSE" },
@@ -2019,10 +2062,10 @@ Choose ONE WORD ONLY from the passage for each answer.`,
           points: 1,
         },
         {
-          id: "cam12-ra-t4-s1-q6",
-          number: 6,
+          id: "cam12-ra-t4-s1-q12",
+          number: 12,
           type: "true_false_ng",
-          question: "6. There is evidence that the wages of highly-skilled workers have risen in recent decades.",
+          question: "12. Concern for the environment is leading to an increased demand for glass containers.",
           options: [
             { label: "TRUE", value: "TRUE" },
             { label: "FALSE", value: "FALSE" },
@@ -2031,62 +2074,17 @@ Choose ONE WORD ONLY from the passage for each answer.`,
           correctAnswer: "TRUE",
           points: 1,
         },
-        // ── Q7–13: Summary completion ─────────────────────────────
-        {
-          id: "cam12-ra-t4-s1-q7",
-          number: 7,
-          groupLabel: "Questions 7–13: Complete the summary below.\nChoose ONE WORD ONLY from the passage.\n\nArguments about AI and employment\n\nOptimists believe that AI will increase _______  and reduce costs, generating new jobs in the process.",
-          type: "sentence_completion",
-          question: "7. Optimists believe AI will increase _______ and reduce costs.",
-          correctAnswer: "productivity",
-          points: 1,
-        },
-        {
-          id: "cam12-ra-t4-s1-q8",
-          number: 8,
-          type: "sentence_completion",
-          question: "8. Pessimists argue the current wave of automation is different because it is not limited to one _______ or type of work.",
-          correctAnswer: "sector",
-          points: 1,
-        },
-        {
-          id: "cam12-ra-t4-s1-q9",
-          number: 9,
-          type: "sentence_completion",
-          question: "9. Middle-skill workers perform _______ cognitive tasks that machines are now increasingly capable of.",
-          correctAnswer: "routine",
-          points: 1,
-        },
-        {
-          id: "cam12-ra-t4-s1-q10",
-          number: 10,
-          type: "sentence_completion",
-          question: "10. In recent years middle-skill employment in developed countries has been _______ out.",
-          correctAnswer: "hollowed",
-          points: 1,
-        },
-        {
-          id: "cam12-ra-t4-s1-q11",
-          number: 11,
-          type: "sentence_completion",
-          question: "11. Some argue that predictions of massive job _______ have not yet come true.",
-          correctAnswer: "displacement",
-          points: 1,
-        },
-        {
-          id: "cam12-ra-t4-s1-q12",
-          number: 12,
-          type: "sentence_completion",
-          question: "12. Human qualities like _______ and personal connection may be hard for machines to replicate.",
-          correctAnswer: "empathy",
-          points: 1,
-        },
         {
           id: "cam12-ra-t4-s1-q13",
           number: 13,
-          type: "sentence_completion",
-          question: "13. Countries with strong _______ systems will be better placed to manage the transition to an AI economy.",
-          correctAnswer: "educational",
+          type: "true_false_ng",
+          question: "13. It is more expensive to produce recycled glass than to manufacture new glass.",
+          options: [
+            { label: "TRUE", value: "TRUE" },
+            { label: "FALSE", value: "FALSE" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "FALSE",
           points: 1,
         },
       ],
@@ -2097,167 +2095,223 @@ Choose ONE WORD ONLY from the passage for each answer.`,
       id: "cam12-ra-t4-s2",
       sectionNumber: 2,
       title: "Reading Passage 2",
-      passageTitle: "The Power of Play",
-      passageText: `In the animal kingdom, play is not exclusively a human activity. Young mammals of many species – from lion cubs to wolf pups to juvenile chimpanzees – spend a substantial portion of their waking hours in activities that appear purposeless: wrestling, chasing, pouncing on inanimate objects. Ethologists – scientists who study animal behaviour – have documented play in hundreds of species. Yet despite decades of research, the function of play remains surprisingly contentious. Why should animals expend valuable energy on behaviour that does not directly produce food, shelter or offspring?
+      passageTitle: "Bring Back the Big Cats",
+      passageText: `It's time to start returning vanished native animals to Britain, says John Vesty
 
-One influential theory holds that play is primarily a mechanism for developing physical skills. Young animals that play are practising the movements and sequences they will need as adults: the lion cub that stalks and pounces on its siblings is rehearsing the hunting behaviour it will need to survive. Evidence for this view comes from studies showing that animals deprived of play opportunities in early life have impaired motor development. In one classic experiment, kittens raised without opportunities for play showed delays in the development of hunting behaviour when compared with kittens who had played normally.
+There is a poem, written around 598 AD, which describes hunting a mystery animal called a llewyn. But what was it? Nothing seemed to fit, until 2006, when an animal bone, dating from around the same period, was found in the Kinsey Cave in northern England. Until this discovery, the lynx – a large spotted cat with tasselled ears – was presumed to have died out in Britain at least 6,000 years ago, before the inhabitants of these islands took up farming. But the 2006 find, together with three others in Yorkshire and Scotland, is compelling evidence that the lynx and the mysterious llewyn were in fact one and the same animal. If this is so, it would bring forward the tassel-eared cat's estimated extinction date by roughly 5,000 years.
 
-A second theory emphasises the social function of play. Many forms of animal play are interactive – they involve establishing and negotiating relationships with other individuals, learning the rules of social interaction, and building bonds that may be useful in adult life. Play fighting, for example, typically involves elements of self-handicapping, in which larger or stronger individuals moderate their behaviour to keep the game going – a behaviour that requires sophisticated social awareness. Young animals that miss out on this kind of play may struggle to read social cues and manage relationships as adults.
+However, this is not quite the last glimpse of the animal in British culture. A 9th-century stone cross from the Isle of Eigg shows, alongside the deer, boar and aurochs pursued by a mounted hunter, a speckled cat with tasselled ears. Were it not for the animal's backside having worn away with time, we could have been certain, as the lynx's stubby tail is unmistakable. But even without this key feature, it's hard to see what else the creature could have been. The lynx is now becoming the totemic animal of a movement that is transforming British environmentalism: rewilding.
 
-A third theory, developed more recently, focuses on the role of play in cognitive development. Studies of play in rats, for example, have found that play experience is associated with the development of specific areas of the brain involved in executive function – the ability to plan, focus attention, and switch between tasks. Similar findings have emerged from studies of primate play. The cognitive benefits of play may be particularly important in species that face complex and unpredictable environments, where flexibility and problem-solving ability are at a premium.
+Rewilding means the mass restoration of damaged ecosystems. It involves letting trees return to places that have been denuded, allowing parts of the seabed to recover from trawling and dredging, permitting rivers to flow freely again. Above all, it means bringing back missing species. One of the most striking findings of modern ecology is that ecosystems without large predators behave in completely different ways from those that retain them. Some of them drive dynamic processes that resonate through the whole food chain, creating niches for hundreds of species that might otherwise struggle to survive. The killers turn out to be bringers of life.
 
-In humans, research on the benefits of play has expanded rapidly, driven partly by concerns about declining opportunities for free play in modern childhood. Children in many developed countries today spend less time in unstructured outdoor play than in previous generations, and more time in structured activities and sedentary screen-based entertainment. Researchers have documented a range of potential consequences: higher rates of anxiety and depression, lower scores on measures of creativity and executive function, and reduced social competence.
+Such findings present a big challenge to British conservation, which has often selected arbitrary assemblages of plants and animals and sought, at great effort and expense, to prevent them from changing. It has tried to preserve the living world as if it were a jar of pickles, letting nothing in and nothing out, keeping nature in a state of arrested development. But ecosystems are not merely collections of species; they are also the dynamic and ever-shifting relationships between them. And this dynamism often depends on large predators.
 
-Stuart Brown, an American psychiatrist who has studied play for over 30 years, argues that play is not a luxury but a biological necessity. In his research, Brown found that a history of rich play experiences in childhood was associated with better adult social and emotional adjustment. More strikingly, he found that a history of play deprivation was a common feature in the backgrounds of violent criminals and individuals with severe personality disorders. Brown's work suggests that play does not merely produce desirable outcomes; it may be essential to normal psychological development.
+At sea the potential is even greater: by protecting large areas from commercial fishing, we could once more see what 18th-century literature describes: vast shoals of fish being chased by fin and sperm whales, within sight of the English shore. This policy would also greatly boost catches in the surrounding seas; the fishing industry's insistence on scouring every inch of seabed, leaving no breeding reserves, could not be more damaging to its own interests.
 
-The educational implications of this research are a source of ongoing debate. In many countries, pressure to improve academic performance has led to reductions in free play time in schools, including cuts to recess in the United States and similar trends in the UK and elsewhere. Advocates of play argue that this is counterproductive: that children learn better when they have adequate time for play and that the cognitive skills developed through play – including creativity, social competence and self-regulation – are precisely those required for success in learning. Some educational systems, notably in Scandinavia, have maintained or increased time for play and show no evidence of poorer academic outcomes as a result. But changing the culture of schools in countries where academic pressure is intense is proving difficult.`,
-      instructions: `Questions 14–20: Do the following statements agree with the information given in Reading Passage 2?
-Write TRUE, FALSE, or NOT GIVEN.
+Rewilding is a rare example of an environmental movement in which campaigners articulate what they are for rather than only what they are against. One of the reasons why the enthusiasm for rewilding is spreading so quickly in Britain is that it helps to create a more inspiring vision than the green movement's usual promise of 'Follow us and the world will be slightly less awful than it would otherwise have been.'
 
-Questions 21–26: Complete the sentences below.
-Choose ONE WORD ONLY from the passage for each answer.`,
+The lynx presents no threat to human beings: there is no known instance of one preying on people. It is a specialist predator of roe deer, a species that has exploded in Britain in recent decades, holding back, by intensive browsing, attempts to re-establish forests. It will also winkle out sika deer: an exotic species that is almost impossible for human beings to control, as it hides in impenetrable plantations of young trees. The attempt to reintroduce this predator marries well with the aim of bringing forests back to parts of our bare and barren uplands. The lynx requires deep cover, and as such presents little risk to sheep and other livestock, which are supposed, as a condition of farm subsidies, to be kept out of the woods.
+
+On a recent trip to the Cairngorm Mountains, I heard several conservationists suggest that the lynx could be reintroduced there within 20 years. If trees return to the bare hills elsewhere in Britain, the big cats could soon follow. There is nothing extraordinary about these proposals, seen from the perspective of anywhere else in Europe. The lynx has now been reintroduced to the Jura Mountains, the Alps, the Vosges in eastern France and the Harz mountains in Germany, and has re-established itself in many more places. The European population has tripled since 1970 to roughly 10,000. As with wolves, bears, beavers, boar, bison, moose and many other species, the lynx has been able to spread as farming has left the hills and people discover that it is more lucrative to protect charismatic wildlife than to hunt it, as tourists will pay for the chance to see it. Large-scale rewilding is happening almost everywhere – except Britain.
+
+Here, attitudes are just beginning to change. Conservationists are starting to accept that the old preservation-jar model is failing, even on its own terms. Already, projects such as Trees for Life in the Highlands provide a hint of what might be coming. An organisation is being set up that will seek to catalyse the rewilding of land and sea across Britain, its aim being to reintroduce that rarest of species to British ecosystems: hope.`,
+      instructions: `Questions 14–18: Choose the correct letter, A, B, C or D.
+
+Questions 19–22: Complete the summary using the list of words and phrases A–F below.
+
+Questions 23–26: Do the following statements agree with the claims of the writer in Reading Passage 2?
+Write YES, NO, or NOT GIVEN.`,
       questions: [
-        // ── Q14–20: TRUE / FALSE / NOT GIVEN ─────────────────────
+        // ── Q14–18: Multiple choice ───────────────────────────────
         {
           id: "cam12-ra-t4-s2-q14",
           number: 14,
-          groupLabel: "Questions 14–20: Do the following statements agree with the information given in Reading Passage 2?\nWrite TRUE, FALSE, or NOT GIVEN.",
-          type: "true_false_ng",
-          question: "14. Play has been observed in hundreds of animal species.",
+          groupLabel: "Questions 14–18: Choose the correct letter, A, B, C or D.",
+          type: "multiple_choice",
+          question: "14. What did the 2006 discovery of the animal bone reveal about the lynx?",
           options: [
-            { label: "TRUE", value: "TRUE" },
-            { label: "FALSE", value: "FALSE" },
-            { label: "NOT GIVEN", value: "NOT GIVEN" },
+            { label: "A – Its physical appearance was very distinctive", value: "A" },
+            { label: "B – Its extinction was linked to the spread of farming", value: "B" },
+            { label: "C – It vanished from Britain several thousand years ago", value: "C" },
+            { label: "D – It survived in Britain longer than was previously thought", value: "D" },
           ],
-          correctAnswer: "TRUE",
+          correctAnswer: "D",
           points: 1,
         },
         {
           id: "cam12-ra-t4-s2-q15",
           number: 15,
-          type: "true_false_ng",
-          question: "15. Kittens deprived of play developed hunting behaviour at the same rate as kittens who played normally.",
+          type: "multiple_choice",
+          question: "15. What point does the writer make about large predators in the third paragraph?",
           options: [
-            { label: "TRUE", value: "TRUE" },
-            { label: "FALSE", value: "FALSE" },
-            { label: "NOT GIVEN", value: "NOT GIVEN" },
+            { label: "A – Their presence can increase biodiversity", value: "A" },
+            { label: "B – They may cause damage to local ecosystems", value: "B" },
+            { label: "C – Their behaviour can alter according to the environment", value: "C" },
+            { label: "D – They should be reintroduced only to areas where they were native", value: "D" },
           ],
-          correctAnswer: "FALSE",
+          correctAnswer: "A",
           points: 1,
         },
         {
           id: "cam12-ra-t4-s2-q16",
           number: 16,
-          type: "true_false_ng",
-          question: "16. Self-handicapping in play fighting shows that animals have a degree of social awareness.",
+          type: "multiple_choice",
+          question: "16. What does the writer suggest about British conservation in the fourth paragraph?",
           options: [
-            { label: "TRUE", value: "TRUE" },
-            { label: "FALSE", value: "FALSE" },
-            { label: "NOT GIVEN", value: "NOT GIVEN" },
+            { label: "A – It has failed to achieve its aims", value: "A" },
+            { label: "B – It is beginning to change direction", value: "B" },
+            { label: "C – It has taken a misguided approach", value: "C" },
+            { label: "D – It has focused on the most widespread species", value: "D" },
           ],
-          correctAnswer: "TRUE",
+          correctAnswer: "C",
           points: 1,
         },
         {
           id: "cam12-ra-t4-s2-q17",
           number: 17,
-          type: "true_false_ng",
-          question: "17. Studies on rat play have found links between play and the development of brain areas related to executive function.",
+          type: "multiple_choice",
+          question: "17. Protecting large areas of the sea from commercial fishing would result in",
           options: [
-            { label: "TRUE", value: "TRUE" },
-            { label: "FALSE", value: "FALSE" },
-            { label: "NOT GIVEN", value: "NOT GIVEN" },
+            { label: "A – practical benefits for the fishing industry", value: "A" },
+            { label: "B – some short-term losses to the fishing industry", value: "B" },
+            { label: "C – widespread opposition from the fishing industry", value: "C" },
+            { label: "D – certain changes to techniques within the fishing industry", value: "D" },
           ],
-          correctAnswer: "TRUE",
+          correctAnswer: "A",
           points: 1,
         },
         {
           id: "cam12-ra-t4-s2-q18",
           number: 18,
-          type: "true_false_ng",
-          question: "18. Children in developed countries today spend more time in free outdoor play than they did in previous generations.",
+          type: "multiple_choice",
+          question: "18. According to the author, what distinguishes rewilding from other environmental campaigns?",
           options: [
-            { label: "TRUE", value: "TRUE" },
-            { label: "FALSE", value: "FALSE" },
-            { label: "NOT GIVEN", value: "NOT GIVEN" },
+            { label: "A – Its objective is more achievable", value: "A" },
+            { label: "B – Its supporters are more articulate", value: "B" },
+            { label: "C – Its positive message is more appealing", value: "C" },
+            { label: "D – It is based on sounder scientific principles", value: "D" },
           ],
-          correctAnswer: "FALSE",
+          correctAnswer: "C",
           points: 1,
         },
+        // ── Q19–22: Summary completion (A–F) ─────────────────────
         {
           id: "cam12-ra-t4-s2-q19",
           number: 19,
-          type: "true_false_ng",
-          question: "19. Stuart Brown found a lack of play in childhood was frequently found in the histories of severely troubled adults.",
+          groupLabel: "Questions 19–22: Complete the summary using the list of words and phrases A–F below.\n\nReintroducing the lynx to Britain\nThere would be many advantages to reintroducing the lynx to Britain. While there is no evidence that the lynx has ever put 19……………… in danger, it would reduce the numbers of certain 20……………… whose populations have increased enormously in recent decades. It would present only a minimal threat to 21………………, provided these were kept away from lynx habitats. Furthermore, the reintroduction programme would also link efficiently with initiatives to return native 22……………… to certain areas of the country.\n\nA  trees\nB  endangered species\nC  hillsides\nD  wild animals\nE  humans\nF  farm animals",
+          type: "matching",
+          question: "19. While there is no evidence that the lynx has ever put _______ in danger",
           options: [
-            { label: "TRUE", value: "TRUE" },
-            { label: "FALSE", value: "FALSE" },
-            { label: "NOT GIVEN", value: "NOT GIVEN" },
+            { label: "A – trees", value: "A" },
+            { label: "B – endangered species", value: "B" },
+            { label: "C – hillsides", value: "C" },
+            { label: "D – wild animals", value: "D" },
+            { label: "E – humans", value: "E" },
+            { label: "F – farm animals", value: "F" },
           ],
-          correctAnswer: "TRUE",
+          correctAnswer: "E",
           points: 1,
         },
         {
           id: "cam12-ra-t4-s2-q20",
           number: 20,
-          type: "true_false_ng",
-          question: "20. Scandinavian schools have shown worse academic results because they give children more time to play.",
+          type: "matching",
+          question: "20. It would reduce the numbers of certain _______ whose populations have increased enormously",
           options: [
-            { label: "TRUE", value: "TRUE" },
-            { label: "FALSE", value: "FALSE" },
-            { label: "NOT GIVEN", value: "NOT GIVEN" },
+            { label: "A – trees", value: "A" },
+            { label: "B – endangered species", value: "B" },
+            { label: "C – hillsides", value: "C" },
+            { label: "D – wild animals", value: "D" },
+            { label: "E – humans", value: "E" },
+            { label: "F – farm animals", value: "F" },
           ],
-          correctAnswer: "FALSE",
+          correctAnswer: "D",
           points: 1,
         },
-        // ── Q21–26: Sentence completion ───────────────────────────
         {
           id: "cam12-ra-t4-s2-q21",
           number: 21,
-          groupLabel: "Questions 21–26: Complete the sentences below.\nChoose ONE WORD ONLY from the passage for each answer.",
-          type: "sentence_completion",
-          question: "21. The function of play remains _______ despite decades of scientific research.",
-          correctAnswer: "contentious",
+          type: "matching",
+          question: "21. It would present only a minimal threat to _______, provided these were kept away from lynx habitats",
+          options: [
+            { label: "A – trees", value: "A" },
+            { label: "B – endangered species", value: "B" },
+            { label: "C – hillsides", value: "C" },
+            { label: "D – wild animals", value: "D" },
+            { label: "E – humans", value: "E" },
+            { label: "F – farm animals", value: "F" },
+          ],
+          correctAnswer: "F",
           points: 1,
         },
         {
           id: "cam12-ra-t4-s2-q22",
           number: 22,
-          type: "sentence_completion",
-          question: "22. Young animals deprived of play show _______ in their motor development.",
-          correctAnswer: "delays",
+          type: "matching",
+          question: "22. The reintroduction programme would link with initiatives to return native _______ to certain areas",
+          options: [
+            { label: "A – trees", value: "A" },
+            { label: "B – endangered species", value: "B" },
+            { label: "C – hillsides", value: "C" },
+            { label: "D – wild animals", value: "D" },
+            { label: "E – humans", value: "E" },
+            { label: "F – farm animals", value: "F" },
+          ],
+          correctAnswer: "A",
           points: 1,
         },
+        // ── Q23–26: YES / NO / NOT GIVEN ─────────────────────────
         {
           id: "cam12-ra-t4-s2-q23",
           number: 23,
-          type: "sentence_completion",
-          question: "23. In play fighting, stronger animals _______ their behaviour so that weaker ones can keep up.",
-          correctAnswer: "moderate",
+          groupLabel: "Questions 23–26: Do the following statements agree with the claims of the writer in Reading Passage 2?\nWrite YES, NO, or NOT GIVEN.",
+          type: "true_false_ng",
+          question: "23. Britain could become the first European country to reintroduce the lynx.",
+          options: [
+            { label: "YES", value: "YES" },
+            { label: "NO", value: "NO" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "NO",
           points: 1,
         },
         {
           id: "cam12-ra-t4-s2-q24",
           number: 24,
-          type: "sentence_completion",
-          question: "24. The cognitive benefits of play are especially important for animals facing _______ and unpredictable environments.",
-          correctAnswer: "complex",
+          type: "true_false_ng",
+          question: "24. The large growth in the European lynx population since 1970 has exceeded conservationists' expectations.",
+          options: [
+            { label: "YES", value: "YES" },
+            { label: "NO", value: "NO" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "NOT GIVEN",
           points: 1,
         },
         {
           id: "cam12-ra-t4-s2-q25",
           number: 25,
-          type: "sentence_completion",
-          question: "25. Stuart Brown argues that play is a biological _______, not simply an optional extra.",
-          correctAnswer: "necessity",
+          type: "true_false_ng",
+          question: "25. Changes in agricultural practices have extended the habitat of the lynx in Europe.",
+          options: [
+            { label: "YES", value: "YES" },
+            { label: "NO", value: "NO" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "YES",
           points: 1,
         },
         {
           id: "cam12-ra-t4-s2-q26",
           number: 26,
-          type: "sentence_completion",
-          question: "26. Advocates of play argue that reducing play time in schools is _______, as children learn better with adequate play.",
-          correctAnswer: "counterproductive",
+          type: "true_false_ng",
+          question: "26. It has become apparent that species reintroduction has commercial advantages.",
+          options: [
+            { label: "YES", value: "YES" },
+            { label: "NO", value: "NO" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "YES",
           points: 1,
         },
       ],
@@ -2268,180 +2322,253 @@ Choose ONE WORD ONLY from the passage for each answer.`,
       id: "cam12-ra-t4-s3",
       sectionNumber: 3,
       title: "Reading Passage 3",
-      passageTitle: "Educating Psyche: Emotions and Learning",
-      passageText: `For most of the 20th century, mainstream education was conducted on the assumption that learning is a rational process. Students absorb information, practise skills, and acquire knowledge through a process of cognitive engagement. Emotions, on this model, were irrelevant at best and distracting at worst. A student who was anxious, excited, bored or happy was experiencing something real, no doubt – but these states were not considered to have any systematic bearing on the quality of learning. Good teachers knew intuitively that emotional states mattered, but this knowledge was largely excluded from the formal theories of learning that guided educational research and practice.
+      passageTitle: "UK Companies Need More Effective Boards of Directors",
+      passageText: `A
+After a number of serious failures of governance (that is, how they are managed at the highest level), companies in Britain, as well as elsewhere, should consider radical changes to their directors' roles. It is clear that the role of a board director today is not an easy one. Following the 2008 financial meltdown, which resulted in a deeper and more prolonged period of economic downturn than anyone expected, the search for explanations in the many post-mortems of the crisis has meant blame has been spread far and wide. Governments, regulators, central banks and auditors have all been in the frame. The role of bank directors and management and their widely publicised failures have been extensively picked over and examined in reports, inquiries and commentaries.
 
-In the last three decades, this picture has been radically revised. Neuroscience, cognitive psychology and educational research have converged on a new understanding in which emotion and cognition are deeply intertwined. Far from being irrelevant to learning, emotional states shape attention, motivation, memory formation and the capacity for creative thought. A student who is curious is in a fundamentally different cognitive state from one who is bored; a student who is anxious about failure processes information differently from one who feels safe enough to take risks. The implications for educational practice are profound, though turning research findings into practical guidance for teachers remains challenging.
+B
+The knock-on effect of this scrutiny has been to make the governance of companies in general an issue of intense public debate and has significantly increased the pressures on, and the responsibilities of, directors. At the simplest and most practical level, the time involved in fulfilling the demands of a board directorship has increased significantly, calling into question the effectiveness of the classic model of corporate governance by part-time, independent non-executive directors. Where once a board schedule may have consisted of between eight and ten meetings a year, in many companies the number of events requiring board input and decisions has dramatically risen. Furthermore, the amount of reading and preparation required for each meeting is increasing. Agendas can become overloaded and this can mean the time for constructive debate must necessarily be restricted in favour of getting through the business.
 
-One of the most influential concepts in this field is the idea of 'emotional regulation' – the capacity to manage and modulate one's emotional states in service of goals. Emotional regulation is not the same as emotional suppression: it does not mean eliminating emotion from learning, but rather harnessing it productively. Students who can recognise when they are feeling overwhelmed and take steps to manage their anxiety, or who can maintain motivation in the face of setbacks, are likely to be more effective learners than those who cannot. Teaching emotional regulation skills has become a major focus of social and emotional learning (SEL) programmes in schools in many countries.
+C
+Often, board business is devolved to committees in order to cope with the workload, which may be more efficient but can mean that the board as a whole is less involved in fully addressing some of the most important issues. It is not uncommon for the audit committee meeting to last longer than the main board meeting itself. Process may take the place of discussion and be at the expense of real collaboration, so that boxes are ticked rather than issues tackled.
 
-The concept of 'mindset', developed by psychologist Carol Dweck, has had a particularly wide influence in education. Dweck's research distinguished between two fundamental orientations towards ability and intelligence: a 'fixed mindset', in which ability is seen as an innate quality that one either has or lacks, and a 'growth mindset', in which ability is seen as something that can be developed through effort and learning. Students with a growth mindset, her research suggested, are more resilient in the face of failure, more willing to take on challenging tasks, and ultimately achieve more than those with a fixed mindset. Importantly, Dweck found that mindset is not fixed: students can be taught to adopt a growth mindset, and interventions designed to cultivate this orientation have been shown to have positive effects on achievement in some studies.
+D
+A radical solution, which may work for some very large companies whose businesses are extensive and complex, is the professional board, whose members would work up to three or four days a week, supported by their own dedicated staff and advisers. There are obvious risks to this and it would be important to establish clear guidelines for such a board to ensure that it did not step on the toes of management by becoming too engaged in the day-to-day running of the company. Problems of recruitment, remuneration and independence could also arise and this structure would not be appropriate for all companies. However, more professional and better-informed boards would have been particularly appropriate for banks where the executives had access to information that part-time non-executive directors lacked, leaving the latter unable to comprehend or anticipate the 2008 crash.
 
-The role of social and cultural context in shaping emotional responses to learning has also received increasing research attention. Students do not enter classrooms as blank slates: they bring with them a complex web of prior experiences, expectations, identity commitments and social relationships that profoundly shape their engagement with learning. Students who belong to groups that are stereotyped as less academically capable, for example, may experience 'stereotype threat' – a fear of confirming negative expectations – that impairs their performance even when they are fully capable of the task. The research of Claude Steele and others has shown that stereotype threat can be triggered by relatively subtle cues and can have significant effects on test performance.
+E
+One of the main criticisms of boards and their directors is that they do not focus sufficiently on longer-term matters of strategy, sustainability and governance, but instead concentrate too much on short-term financial metrics. Regulatory requirements and the structure of the market encourage this behaviour. The tyranny of quarterly reporting can distort board decision-making, as directors have to 'make the numbers' every four months to meet the insatiable appetite of the market for more data. This serves to encourage the trading methodology of a certain kind of investor who moves in and out of a stock without engaging in constructive dialogue with the company about strategy or performance, and is simply seeking a short-term financial gain. This effect has been made worse by the changing profile of investors due to the globalisation of capital and the increasing use of automated trading systems. Corporate culture adapts and management teams are largely incentivised to meet financial goals.
 
-Interventions designed to address stereotype threat have produced mixed results. Some studies have found that brief exercises aimed at affirming students' sense of identity and values can neutralise the effects of stereotype threat and improve performance. Others have found smaller effects or have struggled to replicate positive findings. This variability suggests that the relationship between emotion, identity and academic performance is complex and context-dependent. There are no simple universal solutions, and what works in one setting may not work in another.
+F
+Compensation for chief executives has become a combat zone where pitched battles between investors, management and board members are fought, often behind closed doors but increasingly frequently in the full glare of press attention. Many would argue that this is in the interest of transparency and good governance as shareholders use their muscle in the area of pay to pressure boards to remove underperforming chief executives. Their powers to vote down executive remuneration policies increased when binding votes came into force. The chair of the remuneration committee can be an exposed and lonely role, as Alison Carnwath, chair of Barclays Bank's remuneration committee, found when she had to resign, having been roundly criticised for trying to defend the enormous bonus to be paid to the chief executive; the irony being that she was widely understood to have spoken out against it in the privacy of the committee.
 
-Perhaps the most fundamental insight from this body of research is the importance of the relationship between teacher and student. Students who feel respected, understood and cared for by their teachers are more likely to engage productively with learning than those who do not. This is not simply a matter of creating a pleasant atmosphere; it reflects the biological reality that humans learn best when they feel safe and connected. The teacher's role, on this understanding, extends beyond the transmission of knowledge to include the creation of an emotional environment in which learning can flourish. This expanded understanding of what it means to teach well is both demanding and, to many educators, profoundly motivating.`,
-      instructions: `Questions 27–32: Choose the correct letter, A, B, C or D.
+G
+The financial crisis stimulated a debate about the role and purpose of the company and a heightened awareness of corporate ethics. Trust in the corporation has been eroded and academics such as Michael Sandel, in his thoughtful and bestselling book What Money Can't Buy, are questioning the morality of capitalism and the market economy. Boards of companies in all sectors will need to widen their perspective to encompass these issues and this may involve a realignment of corporate goals. We live in challenging times.`,
+      instructions: `Questions 27–33: Reading Passage 3 has seven paragraphs, A–G.
+Choose the correct heading for each paragraph from the list of headings below.
+Write the correct number, i–viii, in boxes 27–33 on your answer sheet.
 
-Questions 33–38: Complete the summary below.
-Choose ONE WORD ONLY from the passage for each answer.
+List of Headings
+i    Disputes over financial arrangements regarding senior managers
+ii   The impact on companies of being subjected to close examination
+iii  The possible need for fundamental change in every area of business
+iv   Many external bodies being held responsible for problems
+v    The falling number of board members with broad enough experience
+vi   A risk that not all directors take part in solving major problems
+vii  Boards not looking far enough ahead
+viii A proposal to change the way the board operates
 
-Questions 39–40: Answer the questions below.
+Questions 34–37: Do the following statements agree with the claims of the writer in Reading Passage 3?
+Write YES, NO, or NOT GIVEN.
+
+Questions 38–40: Complete the sentences below.
 Choose ONE WORD ONLY from the passage for each answer.`,
       questions: [
-        // ── Q27–32: Multiple choice ───────────────────────────────
+        // ── Q27–33: List of headings ──────────────────────────────
         {
           id: "cam12-ra-t4-s3-q27",
           number: 27,
-          groupLabel: "Questions 27–32: Choose the correct letter, A, B, C or D.",
-          type: "multiple_choice",
-          question: "27. According to the first paragraph, which of the following best describes the traditional view of emotion in education?",
+          groupLabel: "Questions 27–33: Choose the correct heading for each paragraph from the list of headings below.\n\ni  Disputes over financial arrangements regarding senior managers\nii  The impact on companies of being subjected to close examination\niii  The possible need for fundamental change in every area of business\niv  Many external bodies being held responsible for problems\nv  The falling number of board members with broad enough experience\nvi  A risk that not all directors take part in solving major problems\nvii  Boards not looking far enough ahead\nviii  A proposal to change the way the board operates",
+          type: "matching",
+          question: "27. Paragraph A",
           options: [
-            { label: "A. Emotions were seen as helpful to the learning process", value: "A" },
-            { label: "B. Emotions were considered unrelated to learning outcomes", value: "B" },
-            { label: "C. Teachers were trained to manage students' emotions", value: "C" },
-            { label: "D. Emotions were thought to be the main barrier to learning", value: "D" },
+            { label: "i – Disputes over financial arrangements regarding senior managers", value: "i" },
+            { label: "ii – The impact on companies of being subjected to close examination", value: "ii" },
+            { label: "iii – The possible need for fundamental change in every area of business", value: "iii" },
+            { label: "iv – Many external bodies being held responsible for problems", value: "iv" },
+            { label: "v – The falling number of board members with broad enough experience", value: "v" },
+            { label: "vi – A risk that not all directors take part in solving major problems", value: "vi" },
+            { label: "vii – Boards not looking far enough ahead", value: "vii" },
+            { label: "viii – A proposal to change the way the board operates", value: "viii" },
           ],
-          correctAnswer: "B",
+          correctAnswer: "iv",
           points: 1,
         },
         {
           id: "cam12-ra-t4-s3-q28",
           number: 28,
-          type: "multiple_choice",
-          question: "28. The writer says that current research shows that",
+          type: "matching",
+          question: "28. Paragraph B",
           options: [
-            { label: "A. emotion and reason are fundamentally opposed", value: "A" },
-            { label: "B. turning research into practical teaching guidance is straightforward", value: "B" },
-            { label: "C. emotion plays an important role in how students process and retain information", value: "C" },
-            { label: "D. only neuroscience has contributed to the new understanding of learning", value: "D" },
+            { label: "i – Disputes over financial arrangements regarding senior managers", value: "i" },
+            { label: "ii – The impact on companies of being subjected to close examination", value: "ii" },
+            { label: "iii – The possible need for fundamental change in every area of business", value: "iii" },
+            { label: "iv – Many external bodies being held responsible for problems", value: "iv" },
+            { label: "v – The falling number of board members with broad enough experience", value: "v" },
+            { label: "vi – A risk that not all directors take part in solving major problems", value: "vi" },
+            { label: "vii – Boards not looking far enough ahead", value: "vii" },
+            { label: "viii – A proposal to change the way the board operates", value: "viii" },
           ],
-          correctAnswer: "C",
+          correctAnswer: "ii",
           points: 1,
         },
         {
           id: "cam12-ra-t4-s3-q29",
           number: 29,
-          type: "multiple_choice",
-          question: "29. According to the passage, emotional regulation involves",
+          type: "matching",
+          question: "29. Paragraph C",
           options: [
-            { label: "A. removing emotion from the learning process", value: "A" },
-            { label: "B. ensuring students are always in a calm emotional state", value: "B" },
-            { label: "C. using emotional states effectively to support learning", value: "C" },
-            { label: "D. preventing students from feeling anxious in class", value: "D" },
+            { label: "i – Disputes over financial arrangements regarding senior managers", value: "i" },
+            { label: "ii – The impact on companies of being subjected to close examination", value: "ii" },
+            { label: "iii – The possible need for fundamental change in every area of business", value: "iii" },
+            { label: "iv – Many external bodies being held responsible for problems", value: "iv" },
+            { label: "v – The falling number of board members with broad enough experience", value: "v" },
+            { label: "vi – A risk that not all directors take part in solving major problems", value: "vi" },
+            { label: "vii – Boards not looking far enough ahead", value: "vii" },
+            { label: "viii – A proposal to change the way the board operates", value: "viii" },
           ],
-          correctAnswer: "C",
+          correctAnswer: "vi",
           points: 1,
         },
         {
           id: "cam12-ra-t4-s3-q30",
           number: 30,
-          type: "multiple_choice",
-          question: "30. Carol Dweck's research on mindset suggests that",
+          type: "matching",
+          question: "30. Paragraph D",
           options: [
-            { label: "A. intelligence is a fixed quality that cannot be changed", value: "A" },
-            { label: "B. students can be helped to change their orientation towards learning", value: "B" },
-            { label: "C. all students naturally adopt a growth mindset over time", value: "C" },
-            { label: "D. a fixed mindset is more helpful in facing challenging tasks", value: "D" },
+            { label: "i – Disputes over financial arrangements regarding senior managers", value: "i" },
+            { label: "ii – The impact on companies of being subjected to close examination", value: "ii" },
+            { label: "iii – The possible need for fundamental change in every area of business", value: "iii" },
+            { label: "iv – Many external bodies being held responsible for problems", value: "iv" },
+            { label: "v – The falling number of board members with broad enough experience", value: "v" },
+            { label: "vi – A risk that not all directors take part in solving major problems", value: "vi" },
+            { label: "vii – Boards not looking far enough ahead", value: "vii" },
+            { label: "viii – A proposal to change the way the board operates", value: "viii" },
           ],
-          correctAnswer: "B",
+          correctAnswer: "viii",
           points: 1,
         },
         {
           id: "cam12-ra-t4-s3-q31",
           number: 31,
-          type: "multiple_choice",
-          question: "31. According to the passage, stereotype threat",
+          type: "matching",
+          question: "31. Paragraph E",
           options: [
-            { label: "A. only affects students from disadvantaged backgrounds", value: "A" },
-            { label: "B. requires obvious prejudice from teachers to take effect", value: "B" },
-            { label: "C. can reduce academic performance even in capable students", value: "C" },
-            { label: "D. has been consistently eliminated through identity-affirmation exercises", value: "D" },
+            { label: "i – Disputes over financial arrangements regarding senior managers", value: "i" },
+            { label: "ii – The impact on companies of being subjected to close examination", value: "ii" },
+            { label: "iii – The possible need for fundamental change in every area of business", value: "iii" },
+            { label: "iv – Many external bodies being held responsible for problems", value: "iv" },
+            { label: "v – The falling number of board members with broad enough experience", value: "v" },
+            { label: "vi – A risk that not all directors take part in solving major problems", value: "vi" },
+            { label: "vii – Boards not looking far enough ahead", value: "vii" },
+            { label: "viii – A proposal to change the way the board operates", value: "viii" },
           ],
-          correctAnswer: "C",
+          correctAnswer: "vii",
           points: 1,
         },
         {
           id: "cam12-ra-t4-s3-q32",
           number: 32,
-          type: "multiple_choice",
-          question: "32. In the final paragraph, the writer argues that the relationship between teacher and student is important because",
+          type: "matching",
+          question: "32. Paragraph F",
           options: [
-            { label: "A. it helps teachers to monitor students' emotional states", value: "A" },
-            { label: "B. feeling safe and connected enhances human learning", value: "B" },
-            { label: "C. it compensates for weaknesses in the academic content", value: "C" },
-            { label: "D. students perform better when they like their teachers", value: "D" },
+            { label: "i – Disputes over financial arrangements regarding senior managers", value: "i" },
+            { label: "ii – The impact on companies of being subjected to close examination", value: "ii" },
+            { label: "iii – The possible need for fundamental change in every area of business", value: "iii" },
+            { label: "iv – Many external bodies being held responsible for problems", value: "iv" },
+            { label: "v – The falling number of board members with broad enough experience", value: "v" },
+            { label: "vi – A risk that not all directors take part in solving major problems", value: "vi" },
+            { label: "vii – Boards not looking far enough ahead", value: "vii" },
+            { label: "viii – A proposal to change the way the board operates", value: "viii" },
           ],
-          correctAnswer: "B",
+          correctAnswer: "i",
           points: 1,
         },
-        // ── Q33–38: Summary completion ────────────────────────────
         {
           id: "cam12-ra-t4-s3-q33",
           number: 33,
-          groupLabel: "Questions 33–38: Complete the summary below.\nChoose ONE WORD ONLY from the passage.\n\nThe role of emotions in learning\n\nFor much of the 20th century, learning was considered a purely _______ process.",
-          type: "sentence_completion",
-          question: "33. For much of the 20th century, learning was considered a purely _______ process.",
-          correctAnswer: "rational",
+          type: "matching",
+          question: "33. Paragraph G",
+          options: [
+            { label: "i – Disputes over financial arrangements regarding senior managers", value: "i" },
+            { label: "ii – The impact on companies of being subjected to close examination", value: "ii" },
+            { label: "iii – The possible need for fundamental change in every area of business", value: "iii" },
+            { label: "iv – Many external bodies being held responsible for problems", value: "iv" },
+            { label: "v – The falling number of board members with broad enough experience", value: "v" },
+            { label: "vi – A risk that not all directors take part in solving major problems", value: "vi" },
+            { label: "vii – Boards not looking far enough ahead", value: "vii" },
+            { label: "viii – A proposal to change the way the board operates", value: "viii" },
+          ],
+          correctAnswer: "iii",
           points: 1,
         },
+        // ── Q34–37: YES / NO / NOT GIVEN ─────────────────────────
         {
           id: "cam12-ra-t4-s3-q34",
           number: 34,
-          type: "sentence_completion",
-          question: "34. Research now shows that emotion and _______ are closely linked.",
-          correctAnswer: "cognition",
+          groupLabel: "Questions 34–37: Do the following statements agree with the claims of the writer in Reading Passage 3?\nWrite YES, NO, or NOT GIVEN.",
+          type: "true_false_ng",
+          question: "34. Close scrutiny of the behaviour of boards has increased since the economic downturn.",
+          options: [
+            { label: "YES", value: "YES" },
+            { label: "NO", value: "NO" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "YES",
           points: 1,
         },
         {
           id: "cam12-ra-t4-s3-q35",
           number: 35,
-          type: "sentence_completion",
-          question: "35. _______ regulation – managing emotional states to support goals – is now taught in many schools.",
-          correctAnswer: "emotional",
+          type: "true_false_ng",
+          question: "35. Banks have been mismanaged to a greater extent than other businesses.",
+          options: [
+            { label: "YES", value: "YES" },
+            { label: "NO", value: "NO" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "NOT GIVEN",
           points: 1,
         },
         {
           id: "cam12-ra-t4-s3-q36",
           number: 36,
-          type: "sentence_completion",
-          question: "36. Students with a growth _______ are more willing to take on challenges and more resilient when they fail.",
-          correctAnswer: "mindset",
+          type: "true_false_ng",
+          question: "36. Board meetings normally continue for as long as necessary to debate matters in full.",
+          options: [
+            { label: "YES", value: "YES" },
+            { label: "NO", value: "NO" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "NO",
           points: 1,
         },
         {
           id: "cam12-ra-t4-s3-q37",
           number: 37,
-          type: "sentence_completion",
-          question: "37. Students who belong to groups that are _______ as less capable may experience 'stereotype threat'.",
-          correctAnswer: "stereotyped",
+          type: "true_false_ng",
+          question: "37. Using a committee structure would ensure that board members are fully informed about significant issues.",
+          options: [
+            { label: "YES", value: "YES" },
+            { label: "NO", value: "NO" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "NO",
           points: 1,
         },
+        // ── Q38–40: Sentence completion ───────────────────────────
         {
           id: "cam12-ra-t4-s3-q38",
           number: 38,
+          groupLabel: "Questions 38–40: Complete the sentences below.\nChoose ONE WORD ONLY from the passage for each answer.",
           type: "sentence_completion",
-          question: "38. Research on interventions to reduce stereotype threat has produced _______ results – some studies work, others do not.",
-          correctAnswer: "mixed",
+          question: "38. Before 2008, non-executive directors were at a disadvantage because of their lack of _______",
+          correctAnswer: "information",
           points: 1,
         },
-        // ── Q39–40: Short answer ──────────────────────────────────
         {
           id: "cam12-ra-t4-s3-q39",
           number: 39,
-          groupLabel: "Questions 39–40: Answer the questions below.\nChoose ONE WORD ONLY from the passage.",
-          type: "short_answer",
-          question: "39. According to Carol Dweck, what can students be taught to adopt that improves their academic resilience?",
-          correctAnswer: "mindset",
+          type: "sentence_completion",
+          question: "39. Boards tend to place too much emphasis on _______ considerations that are only of short-term relevance.",
+          correctAnswer: "financial",
           points: 1,
         },
         {
           id: "cam12-ra-t4-s3-q40",
           number: 40,
-          type: "short_answer",
-          question: "40. What does the writer say a teacher creates in addition to transmitting knowledge?",
-          correctAnswer: "environment",
+          type: "sentence_completion",
+          question: "40. On certain matters, such as pay, the board may have to accept the views of _______",
+          correctAnswer: "shareholders",
           points: 1,
         },
       ],
