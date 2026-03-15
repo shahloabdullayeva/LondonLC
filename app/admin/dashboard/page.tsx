@@ -327,7 +327,7 @@ export default function AdminDashboard() {
           ))}
         </div>
 
-      <main style={{ flex: 1, overflowY: "auto", padding: "32px 36px" }}>
+      <main style={{ flex: 1, overflowY: activeTab === "students" ? "hidden" : "auto", padding: "32px 36px", display: "flex", flexDirection: "column" }}>
 
         {/* ══════════════════ RESULTS TAB ══════════════════ */}
         {activeTab === "results" && <>
@@ -726,7 +726,7 @@ export default function AdminDashboard() {
 
         {/* ══════════════════ STUDENTS TAB ══════════════════ */}
         {activeTab === "students" && (
-          <div style={{ maxWidth: 760 }}>
+          <div style={{ display: "flex", flexDirection: "column", height: "100%", minHeight: 0 }}>
             <h1 style={{ fontSize: 22, fontWeight: 800, color: C.text, marginBottom: 4 }}>Student Accounts</h1>
             <p style={{ fontSize: 13, color: C.muted, marginBottom: 24 }}>Create and manage student login credentials.</p>
 
@@ -772,7 +772,7 @@ export default function AdminDashboard() {
             </div>
 
             {/* Students list */}
-            <div style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 14, overflow: "hidden" }}>
+            <div style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 14, overflow: "hidden", flex: 1, display: "flex", flexDirection: "column", minHeight: 0 }}>
               <div style={{ padding: "10px 16px", background: C.card2, borderBottom: `1px solid ${C.border}`, display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                 <span style={{ fontSize: 11, fontWeight: 700, color: C.muted, textTransform: "uppercase", letterSpacing: "0.08em" }}>
                   Accounts ({students.filter(s => !studentSearch || `${s.name} ${s.surname} ${s.username} ${s.group_name}`.toLowerCase().includes(studentSearch.toLowerCase())).length})
@@ -781,7 +781,7 @@ export default function AdminDashboard() {
               {students.filter(s => !studentSearch || `${s.name} ${s.surname} ${s.username} ${s.group_name}`.toLowerCase().includes(studentSearch.toLowerCase())).length === 0 ? (
                 <div style={{ padding: "32px", textAlign: "center", color: C.muted, fontSize: 14 }}>No students yet. Use the form above to add students.</div>
               ) : (
-                <div style={{ overflowX: "auto" }}>
+                <div style={{ overflowX: "auto", overflowY: "auto", flex: 1 }}>
                   <table style={{ width: "100%", borderCollapse: "collapse" }}>
                     <thead>
                       <tr style={{ background: C.card2 }}>
