@@ -28,31 +28,14 @@ const HIGHLIGHT_COLORS = [
 // (BR, IMG) never cause Range.toString() to collapse to zero.
 function getRangeCharCount(container: HTMLElement, rangeNode: Node, rangeOffset: number): number {
   if (rangeNode !== container && !container.contains(rangeNode)) return -1;
-
-  let count = 0;
-  const walker = document.createTreeWalker(container, NodeFilter.SHOW_TEXT);
-  let textNode: Node | null = walker.nextNode();
-
-  while (textNode) {
-    if (rangeNode.nodeType === Node.TEXT_NODE) {
-      // Text node endpoint: count chars up to the offset within this node
-      if (textNode === rangeNode) return count + rangeOffset;
-      count += (textNode as Text).length;
-    } else {
-      // Element endpoint: rangeOffset is child index.
-      // child[rangeOffset] is the first node AT OR AFTER the cursor position.
-      const refChild = rangeNode.childNodes[rangeOffset];
-      if (refChild) {
-        // Stop when textNode is at or after refChild in document order
-        const cmp = textNode.compareDocumentPosition(refChild);
-        if (!(cmp & Node.DOCUMENT_POSITION_FOLLOWING)) return count;
-      }
-      count += (textNode as Text).length;
-    }
-    textNode = walker.nextNode();
+  try {
+    const r = document.createRange();
+    r.setStart(container, 0);
+    r.setEnd(rangeNode, rangeOffset);
+    return r.cloneContents().textContent?.length ?? -1;
+  } catch {
+    return -1;
   }
-
-  return count;
 }
 
 // Map visible-char DOM offset → raw text offset (raw text has ** markers and \n chars that don't appear in DOM)
@@ -201,24 +184,8 @@ export default function TestPage() {
         const passageText = test?.sections[currentSection]?.passageText || "";
         const endDom = getRangeCharCount(container, range.endContainer, range.endOffset);
         if (endDom < 0) return;
-        // Only use the fallback calculation when startContainer is the container
-        // element itself (drag started in padding) — that's the root cause of the
-        // "selects everything above" bug. For normal text-node starts, use exact position.
-        let startDom: number;
-        const startIsContainerBoundary =
-          range.startContainer === container ||
-          (range.startContainer.nodeType !== Node.TEXT_NODE &&
-           range.startContainer === container.firstChild);
-        if (startIsContainerBoundary) {
-          const selLen = sel.toString().replace(/\n/g, "").length;
-          startDom = Math.max(0, endDom - selLen);
-        } else {
-          startDom = getRangeCharCount(container, range.startContainer, range.startOffset);
-          if (startDom < 0) {
-            const selLen = sel.toString().replace(/\n/g, "").length;
-            startDom = Math.max(0, endDom - selLen);
-          }
-        }
+        const startDom = getRangeCharCount(container, range.startContainer, range.startOffset);
+        if (startDom < 0) return;
         rawStart = domOffsetToRawOffset(passageText, startDom, true);
         rawEnd = domOffsetToRawOffset(passageText, endDom, false);
         rawEnd = Math.min(Math.max(rawEnd, rawStart + 1), passageText.length);
