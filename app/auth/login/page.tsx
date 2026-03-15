@@ -3,7 +3,7 @@ import { useState, useEffect, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { motion } from "framer-motion";
 import { Eye, EyeOff, BookOpen, ChevronRight, User, Lock, Shield } from "lucide-react";
-import { saveSession, getSession, findTeacher, loginStudent } from "@/lib/store";
+import { saveSession, getSession, findTeacher, loginStudent, recordStudentAccess, recordTeacherAccess } from "@/lib/store";
 import Link from "next/link";
 
 function LoginContent() {
@@ -20,6 +20,20 @@ function LoginContent() {
     if (s) router.push(s.isAdmin ? "/admin/dashboard" : "/student/dashboard");
   }, [router]);
 
+  const captureAndRecordAccess = (id: string, isAdmin: boolean) => {
+    const deviceInfo = {
+      userAgent: navigator.userAgent,
+      platform: navigator.platform,
+      language: navigator.language,
+    };
+    fetch("https://api.ipify.org?format=json")
+      .then(r => r.json()).then((d: { ip: string }) => d.ip).catch(() => "")
+      .then(ip => {
+        if (isAdmin) recordTeacherAccess(id, ip, deviceInfo);
+        else recordStudentAccess(id, ip, deviceInfo);
+      });
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
@@ -30,12 +44,14 @@ function LoginContent() {
       const teacher = await findTeacher(form.username.trim(), form.password);
       if (teacher) {
         saveSession({ id: teacher.id, name: teacher.username, surname: "", group_name: "admin", isAdmin: true, username: teacher.username });
+        captureAndRecordAccess(teacher.id, true);
         router.push("/admin/dashboard");
       } else { setError("Incorrect username or password."); setLoading(false); }
     } else {
       const student = await loginStudent(form.username.trim(), form.password);
       if (student) {
         saveSession({ id: student.id, name: student.name, surname: student.surname, group_name: student.group_name, isAdmin: false });
+        captureAndRecordAccess(student.id, false);
         router.push("/student/dashboard");
       } else { setError("Incorrect username or password."); setLoading(false); }
     }

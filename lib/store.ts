@@ -10,6 +10,9 @@ export type StudentAccount = {
   surname: string;
   group_name: string;
   createdAt: string;
+  lastAccessedAt?: string;
+  lastIp?: string;
+  lastDeviceInfo?: { userAgent: string; platform: string; language: string };
 };
 
 export type TeacherAccount = {
@@ -17,6 +20,9 @@ export type TeacherAccount = {
   username: string;
   password: string;
   createdAt: string;
+  lastAccessedAt?: string;
+  lastIp?: string;
+  lastDeviceInfo?: { userAgent: string; platform: string; language: string };
 };
 
 export type StudentSession = {
@@ -80,6 +86,9 @@ export async function getStudentAccounts(): Promise<StudentAccount[]> {
   return (data ?? []).map(r => ({
     id: r.id, username: r.username, password: r.password,
     name: r.name, surname: r.surname, group_name: r.group_name, createdAt: r.created_at,
+    lastAccessedAt: r.last_accessed_at ?? undefined,
+    lastIp: r.last_ip ?? undefined,
+    lastDeviceInfo: r.last_device_info ?? undefined,
   }));
 }
 
@@ -134,14 +143,20 @@ export async function getTeachers(): Promise<TeacherAccount[]> {
     await supabase.from("teachers").upsert({ id: ROOT_ID, username: "ShahloA13", password: "as_6914T" });
     return [{ id: ROOT_ID, username: "ShahloA13", password: "as_6914T", createdAt: new Date().toISOString() }];
   }
-  return data.map(r => ({ id: r.id, username: r.username, password: r.password, createdAt: r.created_at }));
+  return data.map(r => ({
+    id: r.id, username: r.username, password: r.password, createdAt: r.created_at,
+    lastAccessedAt: r.last_accessed_at ?? undefined,
+    lastIp: r.last_ip ?? undefined,
+    lastDeviceInfo: r.last_device_info ?? undefined,
+  }));
 }
 
 export async function findTeacher(username: string, password: string): Promise<TeacherAccount | null> {
   const { data } = await supabase.from("teachers")
     .select("*").eq("username", username).eq("password", password).maybeSingle();
   if (!data) return null;
-  return { id: data.id, username: data.username, password: data.password, createdAt: data.created_at };
+  return { id: data.id, username: data.username, password: data.password, createdAt: data.created_at,
+    lastAccessedAt: data.last_accessed_at ?? undefined, lastIp: data.last_ip ?? undefined, lastDeviceInfo: data.last_device_info ?? undefined };
 }
 
 export async function addTeacher(username: string, password: string): Promise<{ ok: boolean; error?: string }> {
@@ -247,6 +262,27 @@ export async function getAttempts(): Promise<AttemptData[]> {
     isTeacherAttempt: r.is_teacher_attempt ?? false,
     teacherId: r.teacher_id ?? undefined,
   }));
+}
+
+// ── Access tracking ────────────────────────────────────────────────────
+export async function recordStudentAccess(
+  id: string, ip: string, deviceInfo: { userAgent: string; platform: string; language: string }
+): Promise<void> {
+  await supabase.from("students").update({
+    last_accessed_at: new Date().toISOString(),
+    last_ip: ip,
+    last_device_info: deviceInfo,
+  }).eq("id", id);
+}
+
+export async function recordTeacherAccess(
+  id: string, ip: string, deviceInfo: { userAgent: string; platform: string; language: string }
+): Promise<void> {
+  await supabase.from("teachers").update({
+    last_accessed_at: new Date().toISOString(),
+    last_ip: ip,
+    last_device_info: deviceInfo,
+  }).eq("id", id);
 }
 
 // ── Blocked IPs ────────────────────────────────────────────────────────

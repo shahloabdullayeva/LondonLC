@@ -86,6 +86,7 @@ export default function AdminDashboard() {
   const [editStudentForm, setEditStudentForm] = useState({ name: "", surname: "", group_name: "", username: "", password: "" });
   const [showStudentPasswordFor, setShowStudentPasswordFor] = useState<string | null>(null);
   const [studentEditError, setStudentEditError] = useState("");
+  const [expandedAccessInfoFor, setExpandedAccessInfoFor] = useState<string | null>(null);
 
   const refreshData = async (teacherId?: string) => {
     const [all, teacherList, studentList, ips] = await Promise.all([
@@ -164,6 +165,18 @@ export default function AdminDashboard() {
   };
 
   const handleLogout = () => { clearSession(); router.push("/"); };
+
+  const fmtLastSeen = (iso?: string) => {
+    if (!iso) return "Never";
+    const d = new Date(iso);
+    const now = new Date();
+    const diff = Math.floor((now.getTime() - d.getTime()) / 1000);
+    if (diff < 60) return "Just now";
+    if (diff < 3600) return `${Math.floor(diff / 60)}m ago`;
+    if (diff < 86400) return `${Math.floor(diff / 3600)}h ago`;
+    if (diff < 604800) return `${Math.floor(diff / 86400)}d ago`;
+    return d.toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" });
+  };
 
   const groups = ["all", ...Array.from(new Set(attempts.map((a) => a.groupName)))];
 
@@ -772,7 +785,7 @@ export default function AdminDashboard() {
                   <table style={{ width: "100%", borderCollapse: "collapse" }}>
                     <thead>
                       <tr style={{ background: C.card2 }}>
-                        {["Name", "Username", "Password", "Group", "Created", ""].map(h => (
+                        {["Name", "Username", "Password", "Group", "Created", "Last Seen", ""].map(h => (
                           <th key={h} style={{ padding: "10px 14px", textAlign: "left", fontSize: 11, fontWeight: 700, color: C.muted, textTransform: "uppercase", letterSpacing: "0.05em", borderBottom: `1px solid ${C.border}` }}>{h}</th>
                         ))}
                       </tr>
@@ -799,6 +812,17 @@ export default function AdminDashboard() {
                           <td style={{ padding: "12px 14px", fontSize: 13, color: C.muted }}>{s.group_name}</td>
                           <td style={{ padding: "12px 14px", fontSize: 12, color: C.muted }}>{new Date(s.createdAt).toLocaleDateString()}</td>
                           <td style={{ padding: "12px 14px" }}>
+                            <div style={{ fontSize: 12, color: s.lastAccessedAt ? C.sub : C.muted, fontWeight: s.lastAccessedAt ? 500 : 400 }}>
+                              {fmtLastSeen(s.lastAccessedAt)}
+                            </div>
+                            {isRootAdmin && s.lastAccessedAt && (
+                              <button onClick={() => setExpandedAccessInfoFor(expandedAccessInfoFor === s.id ? null : s.id)}
+                                style={{ fontSize: 10, color: C.muted, background: "none", border: "none", cursor: "pointer", padding: 0, marginTop: 2, display: "flex", alignItems: "center", gap: 3 }}>
+                                <Monitor size={10} /> {expandedAccessInfoFor === s.id ? "hide" : "details"}
+                              </button>
+                            )}
+                          </td>
+                          <td style={{ padding: "12px 14px" }}>
                             <div style={{ display: "flex", gap: 6 }}>
                               <button onClick={() => editingStudentId === s.id ? setEditingStudentId(null) : startEditStudent(s)}
                                 style={{ display: "flex", alignItems: "center", gap: 5, padding: "7px 14px",
@@ -814,9 +838,34 @@ export default function AdminDashboard() {
                             </div>
                           </td>
                         </tr>
+                        {isRootAdmin && expandedAccessInfoFor === s.id && (
+                          <tr key={`${s.id}-access`} style={{ borderBottom: `1px solid ${C.border}`, background: "rgba(124,58,237,0.05)" }}>
+                            <td colSpan={7} style={{ padding: "14px 18px" }}>
+                              <div style={{ fontSize: 11, fontWeight: 700, color: C.muted, textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 10 }}>Last Access Details</div>
+                              <div style={{ display: "flex", flexWrap: "wrap", gap: 10 }}>
+                                {[
+                                  { label: "IP Address", val: s.lastIp ?? "—" },
+                                  { label: "Platform", val: s.lastDeviceInfo?.platform ?? "—" },
+                                  { label: "Language", val: s.lastDeviceInfo?.language ?? "—" },
+                                ].map(item => (
+                                  <div key={item.label} style={{ padding: "8px 14px", background: C.card2, borderRadius: 8, border: `1px solid ${C.border}` }}>
+                                    <div style={{ fontSize: 10, color: C.muted, marginBottom: 3, textTransform: "uppercase", fontWeight: 700 }}>{item.label}</div>
+                                    <div style={{ fontSize: 13, color: C.sub, fontFamily: "monospace" }}>{item.val}</div>
+                                  </div>
+                                ))}
+                                {s.lastDeviceInfo?.userAgent && (
+                                  <div style={{ padding: "8px 14px", background: C.card2, borderRadius: 8, border: `1px solid ${C.border}`, flex: 1, minWidth: 200 }}>
+                                    <div style={{ fontSize: 10, color: C.muted, marginBottom: 3, textTransform: "uppercase", fontWeight: 700 }}>User Agent</div>
+                                    <div style={{ fontSize: 11, color: C.muted, wordBreak: "break-all", lineHeight: 1.5 }}>{s.lastDeviceInfo.userAgent}</div>
+                                  </div>
+                                )}
+                              </div>
+                            </td>
+                          </tr>
+                        )}
                         {editingStudentId === s.id && (
                           <tr key={`${s.id}-edit`} style={{ borderBottom: `2px solid ${C.accent}`, background: "rgba(124,58,237,0.08)" }}>
-                            <td colSpan={6} style={{ padding: "20px 18px" }}>
+                            <td colSpan={7} style={{ padding: "20px 18px" }}>
                               <div style={{ fontSize: 13, fontWeight: 700, color: C.accent, marginBottom: 12 }}>✏️ Editing: {s.name} {s.surname}</div>
                               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 10, marginBottom: 10 }}>
                                 <div>
@@ -1068,6 +1117,8 @@ export default function AdminDashboard() {
                         <div style={{ fontWeight: 600, fontSize: 14, color: C.text }}>{t.username}</div>
                         {t.id === ROOT_ADMIN_ID && <div style={{ fontSize: 11, color: C.accent }}>Super Admin</div>}
                         {t.username === ADMIN_USERNAME && t.id !== ROOT_ADMIN_ID && <div style={{ fontSize: 11, color: "#f59e0b" }}>Admin</div>}
+                        <div style={{ fontSize: 11, color: C.muted, marginTop: 2 }}>Last seen: {fmtLastSeen(t.lastAccessedAt)}</div>
+                        {isRootAdmin && t.lastIp && <div style={{ fontSize: 11, color: C.muted, fontFamily: "monospace" }}>IP: {t.lastIp}</div>}
                         {showPasswordFor === t.id && !isProtected && (
                           <div style={{ fontSize: 12, color: C.sub, marginTop: 2, fontFamily: "monospace" }}>{t.password}</div>
                         )}

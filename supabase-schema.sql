@@ -57,6 +57,14 @@ create table if not exists blocked_ips (
   blocked_at timestamptz default now()
 );
 
+-- ── Last access tracking (run these if upgrading an existing DB) ──────
+-- alter table students add column if not exists last_accessed_at timestamptz;
+-- alter table students add column if not exists last_ip text;
+-- alter table students add column if not exists last_device_info jsonb;
+-- alter table teachers add column if not exists last_accessed_at timestamptz;
+-- alter table teachers add column if not exists last_ip text;
+-- alter table teachers add column if not exists last_device_info jsonb;
+
 -- ── Disable RLS (we use our own auth system) ──────────────────────────
 alter table teachers disable row level security;
 alter table students disable row level security;
