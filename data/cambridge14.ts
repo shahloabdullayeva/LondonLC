@@ -1786,7 +1786,7 @@ Questions 23–26: Complete the summary below. Choose ONE WORD ONLY from the pas
           number: 21,
           groupLabel: "Questions 21–22: Choose TWO letters, A–E.\nWhich TWO of the following make insects interesting for drug research?\n\nA  the huge number of individual insects in the world\nB  the variety of substances insects have developed to protect themselves\nC  the potential to extract and make use of insects' genetic codes\nD  the similarities between different species of insect\nE  the manageable size of most insects",
           type: "multiple_choice",
-          question: "21–22. Which TWO of the following make insects interesting for drug research? (Select two)",
+          question: "21. Which TWO of the following make insects interesting for drug research? (Choose TWO — this is the first answer)",
           options: [
             { label: "A  the huge number of individual insects in the world", value: "A" },
             { label: "B  the variety of substances insects have developed to protect themselves", value: "B" },
@@ -1794,8 +1794,23 @@ Questions 23–26: Complete the summary below. Choose ONE WORD ONLY from the pas
             { label: "D  the similarities between different species of insect", value: "D" },
             { label: "E  the manageable size of most insects", value: "E" },
           ],
-          correctAnswer: "B,C",
-          points: 2,
+          correctAnswer: "B",
+          points: 1,
+        },
+        {
+          id: "cam14-ra-t3-s2-q22",
+          number: 22,
+          type: "multiple_choice",
+          question: "22. Which TWO of the following make insects interesting for drug research? (Choose TWO — this is the second answer)",
+          options: [
+            { label: "A  the huge number of individual insects in the world", value: "A" },
+            { label: "B  the variety of substances insects have developed to protect themselves", value: "B" },
+            { label: "C  the potential to extract and make use of insects' genetic codes", value: "C" },
+            { label: "D  the similarities between different species of insect", value: "D" },
+            { label: "E  the manageable size of most insects", value: "E" },
+          ],
+          correctAnswer: "C",
+          points: 1,
         },
         // ── Q23–26: Summary completion ─────────────────────────
         {
