@@ -1864,4 +1864,617 @@ Choose NO MORE THAN TWO WORDS from the passage for each answer.`,
   ],
 };
 
-export const cambridge16Tests: IELTSTest[] = [cambridge16_reading_t1, cambridge16_reading_t2, cambridge16_reading_t3];
+// ============================================================
+// CAMBRIDGE IELTS 16 – TEST 4  (Academic Reading)
+// Passages: Roman tunnels /
+//           Changes in reading habits /
+//           Attitudes towards Artificial Intelligence
+// ============================================================
+export const cambridge16_reading_t4: IELTSTest = {
+  id: "cam16-reading-academic-t4",
+  title: "Cambridge IELTS 16 – Test 4",
+  bookNumber: 16,
+  testNumber: 4,
+  type: "reading",
+  level: "academic",
+  durationMinutes: 60,
+  transferMinutes: 0,
+  sections: [
+    // ── PASSAGE 1 ─────────────────────────────────────────────
+    {
+      id: "cam16-ra-t4-s1",
+      sectionNumber: 1,
+      title: "Reading Passage 1",
+      passageTitle: "Roman tunnels",
+      passageText: `The Romans, who once controlled areas of Europe, North Africa and Asia Minor, adopted the construction techniques of other civilizations to build tunnels in their territories.
+
+The Persians, who lived in present-day Iran, were one of the first civilizations to build tunnels that provided a reliable supply of water to human settlements in dry areas. In the early first millennium BCE, they introduced the qanat method of tunnel construction, which consisted of placing posts over a hill in a straight line, to ensure that the tunnel kept to its route, and then digging vertical shafts down into the ground at regular intervals. Underground, workers removed the earth from between the ends of the shafts, creating a tunnel. The excavated soil was taken up to the surface using the shafts, which also provided ventilation during the work. Once the tunnel was completed, it allowed water to flow from the top of a hillside down towards a canal, which supplied water for human use. Remarkably, some qanats built by the Persians 2,700 years ago are still in use today.
+
+They later passed on their knowledge to the Romans, who also used the qanat method to construct water-supply tunnels for agriculture. Roman qanat tunnels were constructed with vertical shafts dug at intervals of between 30 and 60 meters. The shafts were equipped with handholds and footholds to help those climbing in and out of them and were covered with a wooden or stone lid. To ensure that the shafts were vertical, Romans hung a plumb line from a rod placed across the top of each shaft and made sure that the weight at the end of it hung in the center of the shaft. Plumb lines were also used to measure the depth of the shaft and to determine the slope of the tunnel. The 5.6-kilometer-long Claudius tunnel, built in 41 CE to drain the Fucine Lake in central Italy, had shafts that were up to 122 meters deep, took 11 years to build and involved approximately 30,000 workers.
+
+By the 6th century BCE, a second method of tunnel construction appeared called the counter-excavation method, in which the tunnel was constructed from both ends. It was used to cut through high mountains when the qanat method was not a practical alternative. This method required greater planning and advanced knowledge of surveying, mathematics and geometry as both ends of a tunnel had to meet correctly at the center of the mountain. Adjustments to the direction of the tunnel also had to be made whenever builders encountered geological problems or when it deviated from its set path. They constantly checked the tunnel's advancing direction, for example, by looking back at the light that penetrated through the tunnel mouth, and made corrections whenever necessary. Large deviations could happen, and they could result in one end of the tunnel not being usable. An inscription written on the side of a 428-meter tunnel, built by the Romans as part of the Saldae aqueduct system in modern-day Algeria, describes how the two teams of builders missed each other in the mountain and how the later construction of a lateral link between both corridors corrected the initial error.
+
+The Romans dug tunnels for their roads using the counter-excavation method, whenever they encountered obstacles such as hills or mountains that were too high for roads to pass over. An example is the 37-meter-long, 6-meter-high, Furlo Pass Tunnel built in Italy in 69–79 CE. Remarkably, a modern road still uses this tunnel today. Tunnels were also built for mineral extraction. Miners would locate a mineral vein and then pursue it with shafts and tunnels underground. Traces of such tunnels used to mine gold can still be found at the Dolaucothi mines in Wales. When the sole purpose of a tunnel was mineral extraction, construction required less planning, as the tunnel route was determined by the mineral vein.
+
+Roman tunnel projects were carefully planned and carried out. The length of time it took to construct a tunnel depended on the method being used and the type of rock being excavated. The qanat construction method was usually faster than the counter-excavation method as it was more straightforward. This was because the mountain could be excavated not only from the tunnel mouths but also from shafts. The type of rock could also influence construction times. When the rock was hard, the Romans employed a technique called fire quenching which consisted of heating the rock with fire, and then suddenly cooling it with cold water so that it would crack. Progress through hard rock could be very slow, and it was not uncommon for tunnels to take years, if not decades, to be built. Construction marks left on a Roman tunnel in Bologna show that the rate of advance through solid rock was 30 centimetres per day. In contrast, the rate of advance of the Claudius tunnel can be calculated at 1.4 metres per day. Most tunnels had inscriptions showing the names of patrons who ordered construction and sometimes the name of the architect. For example, the 1.4-kilometre Çevlik tunnel in Turkey, built to divert the floodwater threatening the harbour of the ancient city of Seleuceia Pieria, had inscriptions on the entrance, still visible today, that also indicate that the tunnel was started in 69 CE and was completed in 81 CE.`,
+      instructions: `Questions 1–6: Label the diagrams below.
+Choose ONE WORD ONLY from the passage for each answer.
+
+Questions 7–10: Do the following statements agree with the information given in Reading Passage 1?
+Write TRUE, FALSE, or NOT GIVEN.
+
+Questions 11–13: Answer the questions below.
+Choose NO MORE THAN TWO WORDS from the passage for each answer.`,
+      diagramUrl: "/LondonLC/roman-qanat.png",
+      questions: [
+        // ── Q1–6: Diagram labelling ────────────────────────────
+        {
+          id: "cam16-ra-t4-s1-q1",
+          number: 1,
+          groupLabel: "Questions 1–6: Label the diagrams below.\nChoose ONE WORD ONLY from the passage for each answer.\n\nThe Persian Qanat Method\n1 ……………………… to direct the tunnelling\nwater runs into a 2 ……………………… used by local people\nvertical shafts to remove earth and for 3 ………………………\n\nCross-section of a Roman Qanat Shaft\n4 ……………………… made of wood or stone\n5 ……………………… attached to the plumb line\nhandholds and footholds used for 6 ………………………",
+          type: "diagram_labelling",
+          question: "1. _______ to direct the tunnelling",
+          correctAnswer: "posts",
+          points: 1,
+        },
+        {
+          id: "cam16-ra-t4-s1-q2",
+          number: 2,
+          type: "diagram_labelling",
+          question: "2. water runs into a _______ used by local people",
+          correctAnswer: "canal",
+          points: 1,
+        },
+        {
+          id: "cam16-ra-t4-s1-q3",
+          number: 3,
+          type: "diagram_labelling",
+          question: "3. vertical shafts to remove earth and for _______",
+          correctAnswer: "ventilation",
+          points: 1,
+        },
+        {
+          id: "cam16-ra-t4-s1-q4",
+          number: 4,
+          type: "diagram_labelling",
+          question: "4. _______ made of wood or stone",
+          correctAnswer: "lid",
+          points: 1,
+        },
+        {
+          id: "cam16-ra-t4-s1-q5",
+          number: 5,
+          type: "diagram_labelling",
+          question: "5. _______ attached to the plumb line",
+          correctAnswer: "weight",
+          points: 1,
+        },
+        {
+          id: "cam16-ra-t4-s1-q6",
+          number: 6,
+          type: "diagram_labelling",
+          question: "6. handholds and footholds used for _______",
+          correctAnswer: "climbing",
+          points: 1,
+        },
+        // ── Q7–10: True/False/Not Given ───────────────────────
+        {
+          id: "cam16-ra-t4-s1-q7",
+          number: 7,
+          groupLabel: "Questions 7–10: Do the following statements agree with the information given in Reading Passage 1?\nWrite TRUE, FALSE, or NOT GIVEN.\n\n7  The counter-excavation method completely replaced the qanat method in the 6th century BCE.\n8  Only experienced builders were employed to construct a tunnel using the counter-excavation method.\n9  The information about a problem that occurred during the construction of the Saldae aqueduct system was found in an ancient book.\n10  The mistake made by the builders of the Saldae aqueduct system was that the two parts of the tunnel failed to meet.",
+          type: "true_false_ng",
+          question: "7. The counter-excavation method completely replaced the qanat method in the 6th century BCE.",
+          correctAnswer: "FALSE",
+          points: 1,
+        },
+        {
+          id: "cam16-ra-t4-s1-q8",
+          number: 8,
+          type: "true_false_ng",
+          question: "8. Only experienced builders were employed to construct a tunnel using the counter-excavation method.",
+          correctAnswer: "NOT GIVEN",
+          points: 1,
+        },
+        {
+          id: "cam16-ra-t4-s1-q9",
+          number: 9,
+          type: "true_false_ng",
+          question: "9. The information about a problem that occurred during the construction of the Saldae aqueduct system was found in an ancient book.",
+          correctAnswer: "FALSE",
+          points: 1,
+        },
+        {
+          id: "cam16-ra-t4-s1-q10",
+          number: 10,
+          type: "true_false_ng",
+          question: "10. The mistake made by the builders of the Saldae aqueduct system was that the two parts of the tunnel failed to meet.",
+          correctAnswer: "TRUE",
+          points: 1,
+        },
+        // ── Q11–13: Short answer ───────────────────────────────
+        {
+          id: "cam16-ra-t4-s1-q11",
+          number: 11,
+          groupLabel: "Questions 11–13: Answer the questions below.\nChoose NO MORE THAN TWO WORDS from the passage for each answer.\n\n11  What type of mineral were the Dolaucothi mines in Wales built to extract?\n12  In addition to the patron, whose name might be carved onto a tunnel?\n13  What part of Seleuceia Pieria was the Çevlik tunnel built to protect?",
+          type: "short_answer",
+          question: "11. What type of mineral were the Dolaucothi mines in Wales built to extract?",
+          correctAnswer: "gold",
+          points: 1,
+        },
+        {
+          id: "cam16-ra-t4-s1-q12",
+          number: 12,
+          type: "short_answer",
+          question: "12. In addition to the patron, whose name might be carved onto a tunnel?",
+          correctAnswer: "architect",
+          points: 1,
+        },
+        {
+          id: "cam16-ra-t4-s1-q13",
+          number: 13,
+          type: "short_answer",
+          question: "13. What part of Seleuceia Pieria was the Çevlik tunnel built to protect?",
+          correctAnswer: "harbour",
+          points: 1,
+        },
+      ],
+    },
+    // ── PASSAGE 2 ─────────────────────────────────────────────
+    {
+      id: "cam16-ra-t4-s2",
+      sectionNumber: 2,
+      title: "Reading Passage 2",
+      passageTitle: "Changes in reading habits",
+      passageText: `What are the implications of the way we read today?
+
+Look around on your next plane trip. The iPad is the new pacifier for babies and toddlers. Younger school-aged children read stories on smartphones; older kids don't read at all, but hunch over video games. Parents and other passengers read on tablets or skim a flotilla of email and news feeds. Unbeknown to most of us, an invisible, game-changing transformation links everyone in this picture: the neuronal circuit that underlies the brain's ability to read is subtly, rapidly changing and this has implications for everyone from the pre-reading toddler to the expert adult.
+
+As work in neurosciences indicates, the acquisition of literacy necessitated a new circuit in our species' brain more than 6,000 years ago. That circuit evolved from a very simple mechanism for decoding basic information, like the number of goats in one's herd, to the present, highly elaborated reading brain. My research depicts how the present reading brain enables the development of some of our most important intellectual and affective processes: internalized knowledge, analogical reasoning, and inference; perspective-taking and empathy; critical analysis and the generation of insight. Research surfacing in many parts of the world now cautions that each of these essential 'deep reading' processes may be under threat as we move into digital-based modes of reading.
+
+This is not a simple, binary issue of print versus digital reading and technological innovations. As MIT scholar Sherry Turkle has written, we do not err as a society when we innovate but when we ignore what we disrupt or diminish while innovating. In this hinge moment between print and digital cultures, society needs to confront what is diminishing in the expert reading circuit, what our children and older students are not developing, and what we can do about it.
+
+We know from research that the reading circuit is not given to human beings through a genetic blueprint like vision or language; it needs an environment to develop. Further, it will adapt to that environment's requirements – from different writing systems to the characteristics of whatever medium is used. If the dominant medium advantages processes that are fast, multi-task oriented and well-suited for large volumes of information, like the current digital medium, so will the reading circuit. As UCLA psychologist Patricia Greenfield writes, the result is that less attention and time will be allocated to slower, time-demanding deep reading processes.
+
+Increasing reports from educators and from researchers in psychology and the humanities bear this out. English literature scholar and teacher Mark Edmundson describes how many college students actively avoid the classic literature of the 19th and 20th centuries in favour of something simpler as they no longer have the patience to read longer, denser, more difficult texts. We should be less concerned with students' 'cognitive impatience', however, than by what may underlie it: the potential inability of large numbers of students to read with a level of critical analysis sufficient to comprehend the complexity of thought and argument found in more demanding texts.
+
+Multiple studies show that digital screen use may be causing a variety of troubling downstream effects on reading comprehension in older high school and college students. In Stavanger, Norway, psychologist Anne Mangen and colleagues studied how high school students comprehend the same material in different mediums. Mangen's group asked subjects questions about a short story whose plot had universal student appeal; half of the students read the story on a tablet, the other half in paperback. Results indicated that students who read on print were superior in their comprehension to screen-reading peers, particularly in their ability to sequence detail and reconstruct the plot in chronological order.
+
+Ziming Liu from San Jose State University has conducted a series of studies which indicate that the 'new norm' in reading is skimming, involving word-spotting and browsing through the text. Many readers now use a pattern when reading in which they sample the first line and then word-spot through the rest of the text. When the reading brain skims like this, it reduces time allocated to deep reading processes. In other words, we don't have time to grasp complexity, to understand another's feelings, to perceive beauty, and to create thoughts of the reader's own.
+
+The possibility that critical analysis, empathy and other deep reading processes could become the unintended 'collateral damage' of our digital culture is not a straightforward binary issue about print versus digital reading. It is about how we all have begun to read on various mediums and how that changes not only what we read, but also the purposes for which we read. Nor is it only about the young. The subtle atrophy of critical analysis and empathy affects us all equally. It affects our ability to navigate a constant bombardment of information. It incentivizes a retreat to the most familiar stores of unchecked information, which require and receive no analysis, leaving us susceptible to false information and irrational ideas.
+
+There's an old rule in neuroscience that does not alter with age: use it or lose it. It is a very hopeful principle when applied to critical thought in the reading brain because it implies choice. The story of the changing reading brain is hardly finished. We possess both the science and the technology to identify and redress the changes in how we read before they become entrenched. If we work to understand exactly what we will lose, alongside the extraordinary new capacities that the digital world has brought us, there is as much reason for excitement as caution.`,
+      instructions: `Questions 14–17: Choose the correct letter, A, B, C or D.
+
+Questions 18–22: Complete the summary using the list of words, A–H, below.
+Write the correct letter, A–H, in boxes 18–22 on your answer sheet.
+
+Questions 23–26: Do the following statements agree with the views of the writer in Reading Passage 2?
+Write YES, NO, or NOT GIVEN.`,
+      questions: [
+        // ── Q14–17: Multiple choice ────────────────────────────
+        {
+          id: "cam16-ra-t4-s2-q14",
+          number: 14,
+          groupLabel: "Questions 14–17: Choose the correct letter, A, B, C or D.\n\n14  What is the writer's main point in the first paragraph?\nA  Our use of technology is having a hidden effect on us.\nB  Technology can be used to help youngsters to read.\nC  Travellers should be encouraged to use technology on planes.\nD  Playing games is a more popular use of technology than reading.\n\n15  What main point does Sherry Turkle make about innovation?\nA  Technological innovation has led to a reduction in print reading.\nB  We should pay attention to what might be lost when innovation occurs.\nC  We should encourage more young people to become involved in innovation.\nD  There is a difference between developing products and developing ideas.\n\n16  What point is the writer making in the fourth paragraph?\nA  Humans have an inborn ability to read and write.\nB  Reading can be done using many different mediums.\nC  Writing systems make unexpected demands on the brain.\nD  Some brain circuits adjust to whatever is required of them.\n\n17  According to Mark Edmundson, the attitude of college students\nA  has changed the way he teaches.\nB  has influenced what they select to read.\nC  does not worry him as much as it does others.\nD  does not match the views of the general public.",
+          type: "multiple_choice",
+          question: "14. What is the writer's main point in the first paragraph?",
+          options: [
+            { label: "A  Our use of technology is having a hidden effect on us.", value: "A" },
+            { label: "B  Technology can be used to help youngsters to read.", value: "B" },
+            { label: "C  Travellers should be encouraged to use technology on planes.", value: "C" },
+            { label: "D  Playing games is a more popular use of technology than reading.", value: "D" },
+          ],
+          correctAnswer: "A",
+          points: 1,
+        },
+        {
+          id: "cam16-ra-t4-s2-q15",
+          number: 15,
+          type: "multiple_choice",
+          question: "15. What main point does Sherry Turkle make about innovation?",
+          options: [
+            { label: "A  Technological innovation has led to a reduction in print reading.", value: "A" },
+            { label: "B  We should pay attention to what might be lost when innovation occurs.", value: "B" },
+            { label: "C  We should encourage more young people to become involved in innovation.", value: "C" },
+            { label: "D  There is a difference between developing products and developing ideas.", value: "D" },
+          ],
+          correctAnswer: "B",
+          points: 1,
+        },
+        {
+          id: "cam16-ra-t4-s2-q16",
+          number: 16,
+          type: "multiple_choice",
+          question: "16. What point is the writer making in the fourth paragraph?",
+          options: [
+            { label: "A  Humans have an inborn ability to read and write.", value: "A" },
+            { label: "B  Reading can be done using many different mediums.", value: "B" },
+            { label: "C  Writing systems make unexpected demands on the brain.", value: "C" },
+            { label: "D  Some brain circuits adjust to whatever is required of them.", value: "D" },
+          ],
+          correctAnswer: "D",
+          points: 1,
+        },
+        {
+          id: "cam16-ra-t4-s2-q17",
+          number: 17,
+          type: "multiple_choice",
+          question: "17. According to Mark Edmundson, the attitude of college students",
+          options: [
+            { label: "A  has changed the way he teaches.", value: "A" },
+            { label: "B  has influenced what they select to read.", value: "B" },
+            { label: "C  does not worry him as much as it does others.", value: "C" },
+            { label: "D  does not match the views of the general public.", value: "D" },
+          ],
+          correctAnswer: "B",
+          points: 1,
+        },
+        // ── Q18–22: Summary completion (word list A–H) ────────
+        {
+          id: "cam16-ra-t4-s2-q18",
+          number: 18,
+          groupLabel: "Questions 18–22: Complete the summary using the list of words, A–H, below.\nWrite the correct letter, A–H, in boxes 18–22 on your answer sheet.\n\nStudies on digital screen use\n\nThere have been many studies on digital screen use, showing some 18 ………………… trends. Psychologist Anne Mangen gave high-school students a short story to read, half using digital and half using print mediums. Her team then used a question-and-answer technique to find out how 19 ………………… each group's understanding of the plot was. The findings showed a clear pattern in the responses, with those who read screens finding the order of information 20 ………………… to recall.\n\nStudies by Ziming Liu show that students are tending to read 21 ………………… words and phrases in a text to save time. This approach, she says, gives the reader a superficial understanding of the 22 ………………… content of material, leaving no time for thought.\n\nA  fast    B  isolated    C  emotional    D  worrying\nE  many    F  hard        G  combined     H  thorough",
+          type: "matching",
+          question: "18. showing some _______ trends",
+          options: [
+            { label: "A  fast", value: "A" },
+            { label: "B  isolated", value: "B" },
+            { label: "C  emotional", value: "C" },
+            { label: "D  worrying", value: "D" },
+            { label: "E  many", value: "E" },
+            { label: "F  hard", value: "F" },
+            { label: "G  combined", value: "G" },
+            { label: "H  thorough", value: "H" },
+          ],
+          correctAnswer: "D",
+          points: 1,
+        },
+        {
+          id: "cam16-ra-t4-s2-q19",
+          number: 19,
+          type: "matching",
+          question: "19. how _______ each group's understanding of the plot was",
+          options: [
+            { label: "A  fast", value: "A" },
+            { label: "B  isolated", value: "B" },
+            { label: "C  emotional", value: "C" },
+            { label: "D  worrying", value: "D" },
+            { label: "E  many", value: "E" },
+            { label: "F  hard", value: "F" },
+            { label: "G  combined", value: "G" },
+            { label: "H  thorough", value: "H" },
+          ],
+          correctAnswer: "H",
+          points: 1,
+        },
+        {
+          id: "cam16-ra-t4-s2-q20",
+          number: 20,
+          type: "matching",
+          question: "20. finding the order of information _______ to recall",
+          options: [
+            { label: "A  fast", value: "A" },
+            { label: "B  isolated", value: "B" },
+            { label: "C  emotional", value: "C" },
+            { label: "D  worrying", value: "D" },
+            { label: "E  many", value: "E" },
+            { label: "F  hard", value: "F" },
+            { label: "G  combined", value: "G" },
+            { label: "H  thorough", value: "H" },
+          ],
+          correctAnswer: "F",
+          points: 1,
+        },
+        {
+          id: "cam16-ra-t4-s2-q21",
+          number: 21,
+          type: "matching",
+          question: "21. students are tending to read _______ words and phrases",
+          options: [
+            { label: "A  fast", value: "A" },
+            { label: "B  isolated", value: "B" },
+            { label: "C  emotional", value: "C" },
+            { label: "D  worrying", value: "D" },
+            { label: "E  many", value: "E" },
+            { label: "F  hard", value: "F" },
+            { label: "G  combined", value: "G" },
+            { label: "H  thorough", value: "H" },
+          ],
+          correctAnswer: "B",
+          points: 1,
+        },
+        {
+          id: "cam16-ra-t4-s2-q22",
+          number: 22,
+          type: "matching",
+          question: "22. a superficial understanding of the _______ content of material",
+          options: [
+            { label: "A  fast", value: "A" },
+            { label: "B  isolated", value: "B" },
+            { label: "C  emotional", value: "C" },
+            { label: "D  worrying", value: "D" },
+            { label: "E  many", value: "E" },
+            { label: "F  hard", value: "F" },
+            { label: "G  combined", value: "G" },
+            { label: "H  thorough", value: "H" },
+          ],
+          correctAnswer: "C",
+          points: 1,
+        },
+        // ── Q23–26: Yes/No/Not Given ───────────────────────────
+        {
+          id: "cam16-ra-t4-s2-q23",
+          number: 23,
+          groupLabel: "Questions 23–26: Do the following statements agree with the views of the writer in Reading Passage 2?\nWrite YES, NO, or NOT GIVEN.\n\n23  The medium we use to read can affect our choice of reading content.\n24  Some age groups are more likely to lose their complex reading skills than others.\n25  False information has become more widespread in today's digital era.\n26  We still have opportunities to rectify the problems that technology is presenting.",
+          type: "true_false_ng",
+          question: "23. The medium we use to read can affect our choice of reading content.",
+          correctAnswer: "YES",
+          points: 1,
+        },
+        {
+          id: "cam16-ra-t4-s2-q24",
+          number: 24,
+          type: "true_false_ng",
+          question: "24. Some age groups are more likely to lose their complex reading skills than others.",
+          correctAnswer: "NO",
+          points: 1,
+        },
+        {
+          id: "cam16-ra-t4-s2-q25",
+          number: 25,
+          type: "true_false_ng",
+          question: "25. False information has become more widespread in today's digital era.",
+          correctAnswer: "NOT GIVEN",
+          points: 1,
+        },
+        {
+          id: "cam16-ra-t4-s2-q26",
+          number: 26,
+          type: "true_false_ng",
+          question: "26. We still have opportunities to rectify the problems that technology is presenting.",
+          correctAnswer: "YES",
+          points: 1,
+        },
+      ],
+    },
+    // ── PASSAGE 3 ─────────────────────────────────────────────
+    {
+      id: "cam16-ra-t4-s3",
+      sectionNumber: 3,
+      title: "Reading Passage 3",
+      passageTitle: "Attitudes towards Artificial Intelligence",
+      passageText: `A
+Artificial intelligence (AI) can already predict the future. Police forces are using it to map when and where crime is likely to occur. Doctors can use it to predict when a patient is most likely to have a heart attack or stroke. Researchers are even trying to give AI imagination so it can plan for unexpected consequences.
+Many decisions in our lives require a good forecast, and AI is almost always better at forecasting than we are. Yet for all these technological advances, we still seem to deeply lack confidence in AI predictions. Recent cases show that people don't like relying on AI and prefer to trust human experts, even if these experts are wrong.
+If we want AI to really benefit people, we need to find a way to get people to trust it. To do that, we need to understand why people are so reluctant to trust AI in the first place.
+
+B
+Take the case of Watson for Oncology, one of technology giant IBM's supercomputer programs. Their attempt to promote this program to cancer doctors was a PR disaster. The AI promised to deliver top-quality recommendations on the treatment of 12 cancers that accounted for 80% of the world's cases. But when doctors first interacted with Watson, they found themselves in a rather difficult situation. On the one hand, if Watson provided guidance about a treatment that coincided with their own opinions, physicians did not see much point in Watson's recommendations. The supercomputer was simply telling them what they already knew, and these recommendations did not change the actual treatment.
+On the other hand, if Watson generated a recommendation that contradicted the experts' opinion, doctors would typically conclude that Watson wasn't competent. And the machine wouldn't be able to explain why its treatment was plausible because its machine-learning algorithms were simply too complex to be fully understood by humans. Consequently, this has caused even more suspicion and disbelief, leading many doctors to ignore the seemingly outlandish AI recommendations and stick to their own expertise.
+
+C
+This is just one example of people's lack of confidence in AI and their reluctance to accept what AI has to offer. Trust in other people is often based on our understanding of how others think and having experience of their reliability. This helps create a psychological feeling of safety. AI, on the other hand, is still fairly new and unfamiliar to most people. Even if it can be technically explained (and that's not always the case), AI's decision-making process is usually too difficult for most people to comprehend. And interacting with something we don't understand can cause anxiety and give us a sense that we're losing control.
+Many people are also simply not familiar with many instances of AI actually working, because it often happens in the background. Instead, they are acutely aware of instances where AI goes wrong. Embarrassing AI failures receive a disproportionate amount of media attention, emphasising the message that we cannot rely on technology. Machine learning is not foolproof, in part because the humans who design it aren't.
+
+D
+Feelings about AI run deep. In a recent experiment, people from a range of backgrounds were given various sci-fi films about AI to watch and then asked questions about automation in everyday life. It was found that, regardless of whether the film they watched depicted AI in a positive or negative light, simply watching a cinematic vision of our technological future polarised the participants' attitudes. Optimists became more extreme in their enthusiasm for AI and sceptics became even more guarded.
+This suggests people use relevant evidence about AI in a biased manner to support their existing attitudes, a deep-rooted human tendency known as "confirmation bias". As AI is represented more and more in media and entertainment, it could lead to a society split between those who benefit from AI and those who reject it. More pertinently, refusing to accept the advantages offered by AI could place a large group of people at a serious disadvantage.
+
+E
+Fortunately, we already have some ideas about how to improve trust in AI. Simply having previous experience with AI can significantly improve people's opinions about the technology, as was found in the study mentioned above. Evidence also suggests the more you use other technologies such as the internet, the more you trust them.
+Another solution may be to reveal more about the algorithms which AI uses and the purposes they serve. Several high-profile social media companies and online marketplaces already release transparency reports about government requests and surveillance disclosures. A similar practice for AI could help people have a better understanding of the way algorithmic decisions are made.
+
+F
+Research suggests that allowing people some control over AI decision-making could also improve trust and enable AI to learn from human experience. For example, one study showed that when people were allowed the freedom to slightly modify an algorithm, they felt more satisfied with its decisions, more likely to believe it was superior and more likely to use it in the future.
+We don't need to understand the intricate inner workings of AI systems, but if people are given a degree of responsibility for how they are implemented, they will be more willing to accept AI into their lives.`,
+      instructions: `Questions 27–32: Reading Passage 3 has six sections, A–F.
+Choose the correct heading for each section from the list of headings below.
+
+Questions 33–35: Choose the correct letter, A, B, C or D.
+
+Questions 36–40: Do the following statements agree with the claims of the writer in Reading Passage 3?
+Write YES, NO, or NOT GIVEN.`,
+      questions: [
+        // ── Q27–32: Heading matching ───────────────────────────
+        {
+          id: "cam16-ra-t4-s3-q27",
+          number: 27,
+          groupLabel: "Questions 27–32: Reading Passage 3 has six sections, A–F.\nChoose the correct heading for each section from the list of headings below.\nWrite the correct number, i–viii, in boxes 27–32 on your answer sheet.\n\nList of Headings\ni    An increasing divergence of attitudes towards AI\nii   Reasons why we have more faith in human judgement than in AI\niii  The superiority of AI projections over those made by humans\niv   The process by which AI can help us make good decisions\nv    The advantages of involving users in AI processes\nvi   Widespread distrust of an AI innovation\nvii  Encouraging openness about how AI functions\nviii A surprisingly successful AI application\n\n27  Section A\n28  Section B\n29  Section C\n30  Section D\n31  Section E\n32  Section F",
+          type: "matching",
+          question: "27. Section A",
+          options: [
+            { label: "i", value: "i" },
+            { label: "ii", value: "ii" },
+            { label: "iii", value: "iii" },
+            { label: "iv", value: "iv" },
+            { label: "v", value: "v" },
+            { label: "vi", value: "vi" },
+            { label: "vii", value: "vii" },
+            { label: "viii", value: "viii" },
+          ],
+          correctAnswer: "iii",
+          points: 1,
+        },
+        {
+          id: "cam16-ra-t4-s3-q28",
+          number: 28,
+          type: "matching",
+          question: "28. Section B",
+          options: [
+            { label: "i", value: "i" },
+            { label: "ii", value: "ii" },
+            { label: "iii", value: "iii" },
+            { label: "iv", value: "iv" },
+            { label: "v", value: "v" },
+            { label: "vi", value: "vi" },
+            { label: "vii", value: "vii" },
+            { label: "viii", value: "viii" },
+          ],
+          correctAnswer: "vi",
+          points: 1,
+        },
+        {
+          id: "cam16-ra-t4-s3-q29",
+          number: 29,
+          type: "matching",
+          question: "29. Section C",
+          options: [
+            { label: "i", value: "i" },
+            { label: "ii", value: "ii" },
+            { label: "iii", value: "iii" },
+            { label: "iv", value: "iv" },
+            { label: "v", value: "v" },
+            { label: "vi", value: "vi" },
+            { label: "vii", value: "vii" },
+            { label: "viii", value: "viii" },
+          ],
+          correctAnswer: "ii",
+          points: 1,
+        },
+        {
+          id: "cam16-ra-t4-s3-q30",
+          number: 30,
+          type: "matching",
+          question: "30. Section D",
+          options: [
+            { label: "i", value: "i" },
+            { label: "ii", value: "ii" },
+            { label: "iii", value: "iii" },
+            { label: "iv", value: "iv" },
+            { label: "v", value: "v" },
+            { label: "vi", value: "vi" },
+            { label: "vii", value: "vii" },
+            { label: "viii", value: "viii" },
+          ],
+          correctAnswer: "i",
+          points: 1,
+        },
+        {
+          id: "cam16-ra-t4-s3-q31",
+          number: 31,
+          type: "matching",
+          question: "31. Section E",
+          options: [
+            { label: "i", value: "i" },
+            { label: "ii", value: "ii" },
+            { label: "iii", value: "iii" },
+            { label: "iv", value: "iv" },
+            { label: "v", value: "v" },
+            { label: "vi", value: "vi" },
+            { label: "vii", value: "vii" },
+            { label: "viii", value: "viii" },
+          ],
+          correctAnswer: "vii",
+          points: 1,
+        },
+        {
+          id: "cam16-ra-t4-s3-q32",
+          number: 32,
+          type: "matching",
+          question: "32. Section F",
+          options: [
+            { label: "i", value: "i" },
+            { label: "ii", value: "ii" },
+            { label: "iii", value: "iii" },
+            { label: "iv", value: "iv" },
+            { label: "v", value: "v" },
+            { label: "vi", value: "vi" },
+            { label: "vii", value: "vii" },
+            { label: "viii", value: "viii" },
+          ],
+          correctAnswer: "v",
+          points: 1,
+        },
+        // ── Q33–35: Multiple choice ────────────────────────────
+        {
+          id: "cam16-ra-t4-s3-q33",
+          number: 33,
+          groupLabel: "Questions 33–35: Choose the correct letter, A, B, C or D.\n\n33  What is the writer doing in Section A?\nA  providing a solution to a concern\nB  justifying an opinion about an issue\nC  highlighting the existence of a problem\nD  explaining the reasons for a phenomenon\n\n34  According to Section C, why might some people be reluctant to accept AI?\nA  They are afraid it will replace humans in decision-making jobs.\nB  Its complexity makes them feel that they are at a disadvantage.\nC  They would rather wait for the technology to be tested over a period of time.\nD  Misunderstandings about how it works make it seem more challenging than it is.\n\n35  What does the writer say about the media in Section C of the text?\nA  It leads the public to be mistrustful of AI.\nB  It devotes an excessive amount of attention to AI.\nC  Its reports of incidents involving AI are often inaccurate.\nD  It gives the impression that AI failures are due to designer error.",
+          type: "multiple_choice",
+          question: "33. What is the writer doing in Section A?",
+          options: [
+            { label: "A  providing a solution to a concern", value: "A" },
+            { label: "B  justifying an opinion about an issue", value: "B" },
+            { label: "C  highlighting the existence of a problem", value: "C" },
+            { label: "D  explaining the reasons for a phenomenon", value: "D" },
+          ],
+          correctAnswer: "C",
+          points: 1,
+        },
+        {
+          id: "cam16-ra-t4-s3-q34",
+          number: 34,
+          type: "multiple_choice",
+          question: "34. According to Section C, why might some people be reluctant to accept AI?",
+          options: [
+            { label: "A  They are afraid it will replace humans in decision-making jobs.", value: "A" },
+            { label: "B  Its complexity makes them feel that they are at a disadvantage.", value: "B" },
+            { label: "C  They would rather wait for the technology to be tested over a period of time.", value: "C" },
+            { label: "D  Misunderstandings about how it works make it seem more challenging than it is.", value: "D" },
+          ],
+          correctAnswer: "B",
+          points: 1,
+        },
+        {
+          id: "cam16-ra-t4-s3-q35",
+          number: 35,
+          type: "multiple_choice",
+          question: "35. What does the writer say about the media in Section C of the text?",
+          options: [
+            { label: "A  It leads the public to be mistrustful of AI.", value: "A" },
+            { label: "B  It devotes an excessive amount of attention to AI.", value: "B" },
+            { label: "C  Its reports of incidents involving AI are often inaccurate.", value: "C" },
+            { label: "D  It gives the impression that AI failures are due to designer error.", value: "D" },
+          ],
+          correctAnswer: "A",
+          points: 1,
+        },
+        // ── Q36–40: Yes/No/Not Given ───────────────────────────
+        {
+          id: "cam16-ra-t4-s3-q36",
+          number: 36,
+          groupLabel: "Questions 36–40: Do the following statements agree with the claims of the writer in Reading Passage 3?\nWrite YES, NO, or NOT GIVEN.\n\n36  Subjective depictions of AI in sci-fi films make people change their opinions about automation.\n37  Portrayals of AI in media and entertainment are likely to become more positive.\n38  Rejection of the possibilities of AI may have a negative effect on many people's lives.\n39  Familiarity with AI has very little impact on people's attitudes to the technology.\n40  AI applications which users are able to modify are more likely to gain consumer approval.",
+          type: "true_false_ng",
+          question: "36. Subjective depictions of AI in sci-fi films make people change their opinions about automation.",
+          correctAnswer: "NO",
+          points: 1,
+        },
+        {
+          id: "cam16-ra-t4-s3-q37",
+          number: 37,
+          type: "true_false_ng",
+          question: "37. Portrayals of AI in media and entertainment are likely to become more positive.",
+          correctAnswer: "NOT GIVEN",
+          points: 1,
+        },
+        {
+          id: "cam16-ra-t4-s3-q38",
+          number: 38,
+          type: "true_false_ng",
+          question: "38. Rejection of the possibilities of AI may have a negative effect on many people's lives.",
+          correctAnswer: "YES",
+          points: 1,
+        },
+        {
+          id: "cam16-ra-t4-s3-q39",
+          number: 39,
+          type: "true_false_ng",
+          question: "39. Familiarity with AI has very little impact on people's attitudes to the technology.",
+          correctAnswer: "NO",
+          points: 1,
+        },
+        {
+          id: "cam16-ra-t4-s3-q40",
+          number: 40,
+          type: "true_false_ng",
+          question: "40. AI applications which users are able to modify are more likely to gain consumer approval.",
+          correctAnswer: "YES",
+          points: 1,
+        },
+      ],
+    },
+  ],
+};
+
+export const cambridge16Tests: IELTSTest[] = [cambridge16_reading_t1, cambridge16_reading_t2, cambridge16_reading_t3, cambridge16_reading_t4];
