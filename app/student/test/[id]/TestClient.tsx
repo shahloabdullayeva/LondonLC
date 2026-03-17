@@ -121,6 +121,8 @@ export default function TestPage() {
   const [pageMode, setPageMode] = useState<"dark" | "sepia" | "white">("dark");
   const [fontSize, setFontSize] = useState(15);
   const [showDetails, setShowDetails] = useState(false);
+  const sectionRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const questionsScrollRef = useRef<HTMLDivElement>(null);
 
   // Detect theme on mount and when it changes
   useEffect(() => {
@@ -458,6 +460,27 @@ export default function TestPage() {
     }
   }, [phase, audioCurrentSection, test, startAudio]);
 
+  // ── IntersectionObserver: sync passage panel with question scroll ────
+  useEffect(() => {
+    if (!test || test.type !== "reading") return;
+    const refs = sectionRefs.current;
+    const scrollContainer = questionsScrollRef.current;
+    if (!scrollContainer) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const idx = Number((entry.target as HTMLElement).dataset.sectionIdx);
+            if (!isNaN(idx)) setCurrentSection(idx);
+          }
+        });
+      },
+      { root: scrollContainer, threshold: 0, rootMargin: "-30% 0px -60% 0px" }
+    );
+    refs.forEach((el) => { if (el) observer.observe(el); });
+    return () => observer.disconnect();
+  }, [test, phase]);
+
   // ── Cancel test ─────────────────────────────────────────────────────
   const cancelTest = useCallback((reason: string) => {
     if (cancelledRef.current || !session || !test) return;
@@ -632,6 +655,13 @@ export default function TestPage() {
 
   const section = test.sections[currentSection];
 
+  const readingProgressPct = (() => {
+    if (test.type !== "reading") return ((currentSection + 1) / test.sections.length) * 100;
+    const allQ = test.sections.flatMap(s => s.questions);
+    const answered = allQ.filter(q => (answers[q.id] || "").trim()).length;
+    return (answered / Math.max(allQ.length, 1)) * 100;
+  })();
+
   // ============================================================
   // PHASE: Test (reading or listening questions) + audio_playing
   // ============================================================
@@ -658,7 +688,13 @@ export default function TestPage() {
         <div style={{ display: "flex", alignItems: "center", gap: 4 }}>
           {test.sections.map((s, i) => (
             <button key={s.id}
-              onClick={() => test.type === "reading" && setCurrentSection(i)}
+              onClick={() => {
+                if (test.type === "reading") {
+                  const el = sectionRefs.current[i];
+                  if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+                  setMobileView("questions");
+                }
+              }}
               title={s.title}
               style={{ padding: "6px 14px", borderRadius: 8, border: "none", cursor: test.type === "reading" ? "pointer" : "default", fontWeight: 600, fontSize: 13, transition: "all 0.15s",
                 background: currentSection === i ? T.accent : "transparent",
@@ -702,7 +738,7 @@ export default function TestPage() {
 
       {/* Progress bar */}
       <div style={{ height: 3, background: T.border, borderRadius: 0 }}>
-        <div style={{ height: "100%", background: "linear-gradient(90deg,#7c3aed,#b87fff)", borderRadius: 0, transition: "width 0.3s ease", width: `${((currentSection + 1) / test.sections.length) * 100}%` }} />
+        <div style={{ height: "100%", background: "linear-gradient(90deg,#7c3aed,#b87fff)", borderRadius: 0, transition: "width 0.3s ease", width: `${readingProgressPct}%` }} />
       </div>
 
       {/* Audio banner (listening – audio playing) */}
@@ -823,95 +859,156 @@ export default function TestPage() {
         {/* Right: Questions */}
         <div className={`questions-panel ${test.type === "reading" && mobileView === "passage" ? "panel-hidden" : "panel-visible"}`}
           style={{ flex: 1, minWidth: 0, minHeight: 0, display: "flex", flexDirection: "column", overflow: "hidden", background: T.bg }}>
-        <div style={{ flex: 1, overflowY: "auto", padding: "24px 28px", minHeight: 0 }}
+        <div ref={questionsScrollRef} style={{ flex: 1, overflowY: "auto", padding: "24px 28px", minHeight: 0 }}
           onMouseUp={(e) => handleTextMouseUp(e, "questions")}>
 
-          {/* Listening: passage text */}
-          {test.type === "listening" && section.passageText && (
-            <div style={{ marginBottom: 20, padding: 16, borderRadius: 12, background: T.nav, border: `1px solid ${T.border}` }}>
-              <pre style={{ whiteSpace: "pre-wrap", fontSize: 14, color: T.text, fontFamily: "Inter, system-ui, sans-serif", lineHeight: 1.7 }}>
-                {section.passageText}
-              </pre>
-            </div>
-          )}
-
-          <div style={{ fontSize: 13, marginBottom: 20, padding: "11px 14px", borderRadius: 10, background: T.accentDim, color: T.accent, border: `1px solid ${T.accentBorder}`, fontWeight: 500, lineHeight: 1.5 }}>
-            {section.instructions}
-          </div>
-
-          <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
-            {section.questions.map((q) => (
-              <React.Fragment key={q.id}>
-                {q.groupLabel && (
-                  <div style={{ fontSize: 13, padding: "10px 14px", borderRadius: 10, background: T.accentDim, color: T.accent, border: `1px solid ${T.accentBorder}`, fontWeight: 500, lineHeight: 1.6, whiteSpace: "pre-line" }}>
-                    {q.groupLabel}
+          {test.type === "reading" ? (
+            // ── Reading: all sections stacked for infinite scroll ──
+            <>
+              {test.sections.map((sec, sIdx) => (
+                <div
+                  key={sec.id}
+                  ref={(el) => { sectionRefs.current[sIdx] = el; }}
+                  data-section-idx={sIdx}
+                  style={{ marginBottom: sIdx < test.sections.length - 1 ? 60 : 0 }}
+                >
+                  <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 16, paddingBottom: 12, borderBottom: `2px solid ${T.accentBorder}` }}>
+                    <span style={{ padding: "3px 10px", borderRadius: 20, background: T.accent, color: "#fff", fontSize: 11, fontWeight: 700 }}>
+                      Passage {sIdx + 1}
+                    </span>
+                    <span style={{ fontSize: 13, fontWeight: 600, color: T.textMuted }}>{sec.passageTitle}</span>
                   </div>
-                )}
-                {section.diagramUrl && q.type === "diagram_labelling" &&
-                  section.questions.findIndex(x => x.type === "diagram_labelling") === section.questions.indexOf(q) && (
-                  <div style={{ textAlign: "center", margin: "8px 0 4px" }}>
-                    <img src={section.diagramUrl} alt="Diagram" style={{ maxWidth: "100%", borderRadius: 10, border: `1px solid ${T.border}` }} />
-                  </div>
-                )}
-                <QuestionItem question={q}
-                  answer={answers[q.id] || ""}
-                  onAnswer={(val) => setAnswer(q.id, val)}
-                  T={T} fontSize={fontSize}
-                  questionHighlights={highlights.filter(h => h.sectionIdx === currentSection && h.side === "questions")}
-                  onRemoveHighlight={removeHighlight}
-                />
-              </React.Fragment>
-            ))}
-          </div>
 
-          {/* Section navigation (reading) */}
-          {test.type === "reading" && (
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: 32, paddingTop: 24, borderTop: `1px solid ${T.border}` }}>
-              <button onClick={() => setCurrentSection((n) => Math.max(0, n - 1))} disabled={currentSection === 0}
-                style={{ display: "inline-flex", alignItems: "center", gap: 6, padding: "9px 18px", background: T.accentDim, color: T.accent, border: `1px solid ${T.accentBorder}`, borderRadius: 10, cursor: currentSection === 0 ? "not-allowed" : "pointer", fontWeight: 600, fontSize: 13, opacity: currentSection === 0 ? 0.4 : 1 }}>
-                <ChevronLeft size={14} /> Previous
-              </button>
-              <span style={{ fontSize: 13, color: T.textMuted }}>{currentSection + 1} / {test.sections.length}</span>
-              {currentSection < test.sections.length - 1 ? (
-                <button onClick={() => { setCurrentSection((n) => Math.min(test.sections.length - 1, n + 1)); setMobileView("passage"); }}
-                  style={{ display: "inline-flex", alignItems: "center", gap: 6, padding: "9px 18px", background: T.accentDim, color: T.accent, border: `1px solid ${T.accentBorder}`, borderRadius: 10, cursor: "pointer", fontWeight: 600, fontSize: 13 }}>
-                  Next <ChevronRight size={14} />
-                </button>
-              ) : (
+                  <div style={{ fontSize: 13, marginBottom: 20, padding: "11px 14px", borderRadius: 10, background: T.accentDim, color: T.accent, border: `1px solid ${T.accentBorder}`, fontWeight: 500, lineHeight: 1.5, whiteSpace: "pre-line" }}>
+                    {sec.instructions}
+                  </div>
+
+                  <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
+                    {sec.questions.map((q) => (
+                      <React.Fragment key={q.id}>
+                        {q.groupLabel && (
+                          <div style={{ fontSize: 13, padding: "10px 14px", borderRadius: 10, background: T.accentDim, color: T.accent, border: `1px solid ${T.accentBorder}`, fontWeight: 500, lineHeight: 1.6, whiteSpace: "pre-line" }}>
+                            {q.groupLabel}
+                          </div>
+                        )}
+                        {sec.diagramUrl && q.type === "diagram_labelling" &&
+                          sec.questions.findIndex(x => x.type === "diagram_labelling") === sec.questions.indexOf(q) && (
+                          <div style={{ textAlign: "center", margin: "8px 0 4px" }}>
+                            <img src={sec.diagramUrl} alt="Diagram" style={{ maxWidth: "100%", borderRadius: 10, border: `1px solid ${T.border}` }} />
+                          </div>
+                        )}
+                        <QuestionItem question={q}
+                          answer={answers[q.id] || ""}
+                          onAnswer={(val) => setAnswer(q.id, val)}
+                          T={T} fontSize={fontSize}
+                          questionHighlights={highlights.filter(h => h.sectionIdx === sIdx && h.side === "questions")}
+                          onRemoveHighlight={removeHighlight}
+                        />
+                      </React.Fragment>
+                    ))}
+                  </div>
+                </div>
+              ))}
+
+              {/* Submit button at the end of all questions */}
+              <div style={{ display: "flex", justifyContent: "flex-end", marginTop: 40, paddingTop: 24, borderTop: `1px solid ${T.border}` }}>
                 <button onClick={() => { if (confirm("Submit the test now?")) submitTest(); }}
-                  style={{ display: "inline-flex", alignItems: "center", gap: 6, padding: "9px 18px", background: T.accentBtn, color: "#fff", border: "none", borderRadius: 10, cursor: "pointer", fontWeight: 700, fontSize: 13 }}>
+                  style={{ display: "inline-flex", alignItems: "center", gap: 6, padding: "10px 24px", background: T.accentBtn, color: "#fff", border: "none", borderRadius: 10, cursor: "pointer", fontWeight: 700, fontSize: 13 }}>
                   Submit <CheckCircle size={14} />
                 </button>
+              </div>
+            </>
+          ) : (
+            // ── Listening: single section (unchanged) ─────────────
+            <>
+              {section.passageText && (
+                <div style={{ marginBottom: 20, padding: 16, borderRadius: 12, background: T.nav, border: `1px solid ${T.border}` }}>
+                  <pre style={{ whiteSpace: "pre-wrap", fontSize: 14, color: T.text, fontFamily: "Inter, system-ui, sans-serif", lineHeight: 1.7 }}>
+                    {section.passageText}
+                  </pre>
+                </div>
               )}
-            </div>
+              <div style={{ fontSize: 13, marginBottom: 20, padding: "11px 14px", borderRadius: 10, background: T.accentDim, color: T.accent, border: `1px solid ${T.accentBorder}`, fontWeight: 500, lineHeight: 1.5 }}>
+                {section.instructions}
+              </div>
+              <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
+                {section.questions.map((q) => (
+                  <React.Fragment key={q.id}>
+                    {q.groupLabel && (
+                      <div style={{ fontSize: 13, padding: "10px 14px", borderRadius: 10, background: T.accentDim, color: T.accent, border: `1px solid ${T.accentBorder}`, fontWeight: 500, lineHeight: 1.6, whiteSpace: "pre-line" }}>
+                        {q.groupLabel}
+                      </div>
+                    )}
+                    <QuestionItem question={q}
+                      answer={answers[q.id] || ""}
+                      onAnswer={(val) => setAnswer(q.id, val)}
+                      T={T} fontSize={fontSize}
+                      questionHighlights={highlights.filter(h => h.sectionIdx === currentSection && h.side === "questions")}
+                      onRemoveHighlight={removeHighlight}
+                    />
+                  </React.Fragment>
+                ))}
+              </div>
+            </>
           )}
         </div>{/* end scroll area */}
 
         {/* Question progress tracker */}
         {(() => {
-          const totalQ = section.questions.length;
-          const answeredQ = section.questions.filter(q => (answers[q.id] || "").trim()).length;
+          const allQuestions = test.type === "reading"
+            ? test.sections.flatMap(s => s.questions)
+            : section.questions;
+          const totalQ = allQuestions.length;
+          const answeredQ = allQuestions.filter(q => (answers[q.id] || "").trim()).length;
           const leftQ = totalQ - answeredQ;
           return (
             <div style={{ flexShrink: 0, borderTop: `1px solid ${T.border}`, background: T.nav, padding: "10px 16px" }}>
               <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 8 }}>
-                <span style={{ fontSize: 12, fontWeight: 700, color: T.text }}>Part {currentSection + 1}</span>
+                {test.type === "reading" ? (
+                  <div style={{ display: "flex", gap: 6 }}>
+                    {test.sections.map((s, i) => (
+                      <span key={s.id} style={{ fontSize: 11, fontWeight: 700, color: currentSection === i ? T.accent : T.textMuted }}>
+                        P{i + 1}
+                      </span>
+                    ))}
+                  </div>
+                ) : (
+                  <span style={{ fontSize: 12, fontWeight: 700, color: T.text }}>Part {currentSection + 1}</span>
+                )}
                 <div style={{ display: "flex", gap: 12 }}>
                   <span style={{ fontSize: 12, fontWeight: 700, color: "#10b981" }}>{answeredQ} answered</span>
                   <span style={{ fontSize: 12, fontWeight: 700, color: leftQ > 0 ? "#ef4444" : T.textMuted }}>{leftQ} left</span>
                 </div>
               </div>
               <div style={{ display: "flex", flexWrap: "wrap", gap: 5 }}>
-                {section.questions.map((q) => {
-                  const done = !!(answers[q.id] || "").trim();
-                  return (
-                    <button key={q.id}
-                      onClick={() => document.getElementById(`question-${q.id}`)?.scrollIntoView({ behavior: "smooth", block: "center" })}
-                      style={{ width: 30, height: 30, borderRadius: 7, border: done ? "none" : `1px solid ${T.border}`, background: done ? "#10b981" : T.accentDim, color: done ? "#fff" : T.textMuted, fontSize: 11, fontWeight: 700, cursor: "pointer", transition: "all 0.15s" }}>
-                      {q.number}
-                    </button>
-                  );
-                })}
+                {test.type === "reading" ? (
+                  test.sections.map((s, sIdx) => (
+                    <React.Fragment key={s.id}>
+                      {sIdx > 0 && <div style={{ width: "100%", height: 0 }} />}
+                      {s.questions.map((q) => {
+                        const done = !!(answers[q.id] || "").trim();
+                        return (
+                          <button key={q.id}
+                            onClick={() => document.getElementById(`question-${q.id}`)?.scrollIntoView({ behavior: "smooth", block: "center" })}
+                            style={{ width: 30, height: 30, borderRadius: 7, border: done ? "none" : `1px solid ${T.border}`, background: done ? "#10b981" : T.accentDim, color: done ? "#fff" : T.textMuted, fontSize: 11, fontWeight: 700, cursor: "pointer", transition: "all 0.15s" }}>
+                            {q.number}
+                          </button>
+                        );
+                      })}
+                    </React.Fragment>
+                  ))
+                ) : (
+                  section.questions.map((q) => {
+                    const done = !!(answers[q.id] || "").trim();
+                    return (
+                      <button key={q.id}
+                        onClick={() => document.getElementById(`question-${q.id}`)?.scrollIntoView({ behavior: "smooth", block: "center" })}
+                        style={{ width: 30, height: 30, borderRadius: 7, border: done ? "none" : `1px solid ${T.border}`, background: done ? "#10b981" : T.accentDim, color: done ? "#fff" : T.textMuted, fontSize: 11, fontWeight: 700, cursor: "pointer", transition: "all 0.15s" }}>
+                        {q.number}
+                      </button>
+                    );
+                  })
+                )}
               </div>
             </div>
           );
