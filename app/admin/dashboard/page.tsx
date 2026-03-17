@@ -145,16 +145,23 @@ export default function AdminDashboard() {
 
   const startEditStudent = (s: StudentAccount) => {
     setEditingStudentId(s.id);
-    setEditStudentForm({ name: s.name, surname: s.surname, group_name: s.group_name, username: s.username, password: s.password });
+    setEditStudentForm({ name: s.name, surname: s.surname, group_name: s.group_name, username: s.username, password: "" });
     setStudentEditError("");
   };
 
   const handleSaveStudent = async () => {
     if (!editingStudentId) return;
-    if (!editStudentForm.name.trim() || !editStudentForm.surname.trim() || !editStudentForm.group_name.trim() || !editStudentForm.username.trim() || !editStudentForm.password.trim()) {
-      setStudentEditError("All fields are required."); return;
+    if (!editStudentForm.name.trim() || !editStudentForm.surname.trim() || !editStudentForm.group_name.trim() || !editStudentForm.username.trim()) {
+      setStudentEditError("Name, surname, group and username are required."); return;
     }
-    const result = await updateStudent(editingStudentId, editStudentForm);
+    const fields: Parameters<typeof updateStudent>[1] = {
+      name: editStudentForm.name,
+      surname: editStudentForm.surname,
+      group_name: editStudentForm.group_name,
+      username: editStudentForm.username,
+    };
+    if (editStudentForm.password.trim()) fields.password = editStudentForm.password;
+    const result = await updateStudent(editingStudentId, fields);
     if (result.ok) {
       setStudents(await getStudentAccounts());
       setEditingStudentId(null);
@@ -799,15 +806,7 @@ export default function AdminDashboard() {
                           </td>
                           <td style={{ padding: "12px 14px", fontFamily: "monospace", fontSize: 13, color: C.sub }}>{s.username}</td>
                           <td style={{ padding: "12px 14px" }}>
-                            <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
-                              <span style={{ fontFamily: "monospace", fontSize: 13, color: C.sub }}>
-                                {showStudentPasswordFor === s.id ? s.password : "••••••••"}
-                              </span>
-                              <button onClick={() => setShowStudentPasswordFor(showStudentPasswordFor === s.id ? null : s.id)}
-                                style={{ background: "none", border: "none", cursor: "pointer", color: C.muted, padding: 0, display: "flex" }}>
-                                {showStudentPasswordFor === s.id ? <EyeOff size={13} /> : <Eye size={13} />}
-                              </button>
-                            </div>
+                            <span style={{ fontFamily: "monospace", fontSize: 13, color: C.muted }}>••••••••</span>
                           </td>
                           <td style={{ padding: "12px 14px", fontSize: 13, color: C.muted }}>{s.group_name}</td>
                           <td style={{ padding: "12px 14px", fontSize: 12, color: C.muted }}>{new Date(s.createdAt).toLocaleDateString()}</td>
@@ -889,8 +888,9 @@ export default function AdminDashboard() {
                                     style={{ ...sel, padding: "8px 12px" }} autoComplete="off" />
                                 </div>
                                 <div>
-                                  <div style={{ fontSize: 10, color: C.muted, marginBottom: 4, textTransform: "uppercase", fontWeight: 700 }}>Password</div>
+                                  <div style={{ fontSize: 10, color: C.muted, marginBottom: 4, textTransform: "uppercase", fontWeight: 700 }}>New Password <span style={{ fontWeight: 400, textTransform: "none" }}>(leave blank to keep current)</span></div>
                                   <input value={editStudentForm.password} onChange={e => setEditStudentForm(f => ({ ...f, password: e.target.value }))}
+                                    placeholder="Enter new password to change..."
                                     style={{ ...sel, padding: "8px 12px" }} autoComplete="new-password" />
                                 </div>
                               </div>
@@ -1120,7 +1120,7 @@ export default function AdminDashboard() {
                         <div style={{ fontSize: 11, color: C.muted, marginTop: 2 }}>Last seen: {fmtLastSeen(t.lastAccessedAt)}</div>
                         {isRootAdmin && t.lastIp && <div style={{ fontSize: 11, color: C.muted, fontFamily: "monospace" }}>IP: {t.lastIp}</div>}
                         {showPasswordFor === t.id && !isProtected && (
-                          <div style={{ fontSize: 12, color: C.sub, marginTop: 2, fontFamily: "monospace" }}>{t.password}</div>
+                          <div style={{ fontSize: 12, color: C.muted, marginTop: 2, fontFamily: "monospace" }}>••••••••</div>
                         )}
                       </div>
                     </div>

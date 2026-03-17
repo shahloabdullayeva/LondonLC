@@ -1,5 +1,21 @@
 "use client";
 import { supabase } from "@/lib/supabase";
+import bcrypt from "bcryptjs";
+
+const BCRYPT_ROUNDS = 10;
+
+// Hash a password. If already hashed (bcrypt hash starts with $2), return as-is.
+async function hashPassword(plain: string): Promise<string> {
+  if (plain.startsWith("$2")) return plain;
+  return bcrypt.hash(plain, BCRYPT_ROUNDS);
+}
+
+// Compare a plain password against a stored value (supports legacy plaintext + bcrypt).
+async function verifyPassword(plain: string, stored: string): Promise<boolean> {
+  if (stored.startsWith("$2")) return bcrypt.compare(plain, stored);
+  // Legacy plaintext — accept if match, then caller should upgrade the hash
+  return plain === stored;
+}
 
 // ── Types ──────────────────────────────────────────────────────────────
 export type StudentAccount = {
@@ -98,17 +114,27 @@ export async function registerStudent(
   const username = generateUsername(name, surname);
   const password = generatePassword();
   const id = `student-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
+  const hashed = await hashPassword(password);
   await supabase.from("students").insert({
-    id, username, password,
+    id, username, password: hashed,
     name: name.trim(), surname: surname.trim(), group_name: group.trim(),
   });
+  // Return the plain password so the admin can share it with the student.
+  // It is never stored in plain text — only the hash is saved.
   return { username, password, id };
 }
 
 export async function loginStudent(username: string, password: string): Promise<StudentAccount | null> {
   const { data } = await supabase.from("students")
-    .select("*").eq("username", username).eq("password", password).maybeSingle();
+    .select("*").eq("username", username).maybeSingle();
   if (!data) return null;
+  const valid = await verifyPassword(password, data.password);
+  if (!valid) return null;
+  // Auto-upgrade legacy plaintext passwords to bcrypt on first login.
+  if (!data.password.startsWith("$2")) {
+    const hashed = await hashPassword(password);
+    await supabase.from("students").update({ password: hashed }).eq("id", data.id);
+  }
   return { id: data.id, username: data.username, password: data.password, name: data.name, surname: data.surname, group_name: data.group_name, createdAt: data.created_at };
 }
 
@@ -125,7 +151,7 @@ export async function updateStudent(
   if (fields.surname !== undefined) update.surname = fields.surname.trim();
   if (fields.group_name !== undefined) update.group_name = fields.group_name.trim();
   if (fields.username !== undefined) update.username = fields.username.trim();
-  if (fields.password !== undefined) update.password = fields.password.trim();
+  if (fields.password !== undefined) update.password = await hashPassword(fields.password.trim());
   const { error } = await supabase.from("students").update(update).eq("id", id);
   if (error) {
     if (error.code === "23505") return { ok: false, error: "Username already exists" };
@@ -153,14 +179,22 @@ export async function getTeachers(): Promise<TeacherAccount[]> {
 
 export async function findTeacher(username: string, password: string): Promise<TeacherAccount | null> {
   const { data } = await supabase.from("teachers")
-    .select("*").eq("username", username).eq("password", password).maybeSingle();
+    .select("*").eq("username", username).maybeSingle();
   if (!data) return null;
+  const valid = await verifyPassword(password, data.password);
+  if (!valid) return null;
+  // Auto-upgrade legacy plaintext passwords to bcrypt on first login.
+  if (!data.password.startsWith("$2")) {
+    const hashed = await hashPassword(password);
+    await supabase.from("teachers").update({ password: hashed }).eq("id", data.id);
+  }
   return { id: data.id, username: data.username, password: data.password, createdAt: data.created_at,
     lastAccessedAt: data.last_accessed_at ?? undefined, lastIp: data.last_ip ?? undefined, lastDeviceInfo: data.last_device_info ?? undefined };
 }
 
 export async function addTeacher(username: string, password: string): Promise<{ ok: boolean; error?: string }> {
-  const { error } = await supabase.from("teachers").insert({ id: `teacher-${Date.now()}`, username, password });
+  const hashed = await hashPassword(password);
+  const { error } = await supabase.from("teachers").insert({ id: `teacher-${Date.now()}`, username, password: hashed });
   if (error) {
     if (error.code === "23505") return { ok: false, error: "Username already exists" };
     return { ok: false, error: error.message };
@@ -174,7 +208,8 @@ export async function deleteTeacher(id: string): Promise<void> {
 }
 
 export async function updateTeacherPassword(id: string, newPassword: string): Promise<void> {
-  await supabase.from("teachers").update({ password: newPassword }).eq("id", id);
+  const hashed = await hashPassword(newPassword);
+  await supabase.from("teachers").update({ password: hashed }).eq("id", id);
 }
 
 // ── Session (localStorage — intentionally per-device) ──────────────────
