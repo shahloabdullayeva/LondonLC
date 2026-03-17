@@ -94,7 +94,7 @@ export default function StudentDashboard() {
           {/* Welcome */}
           <div style={{ marginBottom: 28 }}>
             <h1 style={{ fontSize: 26, fontWeight: 800, color: "#fff", marginBottom: 4 }}>
-              Welcome Back, {session.name}! 👋
+              Welcome Back, {session.name}!
             </h1>
             <p style={{ color: "rgba(255,255,255,0.4)", fontSize: 14 }}>Ready to boost your IELTS score? Let&apos;s practice!</p>
           </div>

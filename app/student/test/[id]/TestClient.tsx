@@ -4,7 +4,8 @@ import { useRouter, useParams, useSearchParams } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Clock, AlertTriangle, CheckCircle, X, ChevronLeft, ChevronRight,
-  Headphones, BookOpen, Volume2, Sun, Moon, Minus, Plus, List
+  Headphones, BookOpen, Volume2, Sun, Moon, Minus, Plus, List,
+  Ban, Clipboard, Timer, PhoneOff
 } from "lucide-react";
 import { getSession, saveAttempt, isIPBlocked } from "@/lib/store";
 import { getTestById, type IELTSTest, type IELTSSection } from "@/data/ielts-tests";
@@ -686,7 +687,7 @@ export default function TestPage() {
             onClick={() => setPageMode(m => m === "dark" ? "sepia" : m === "sepia" ? "white" : "dark")}
             title={pageMode === "dark" ? "Switch to sepia" : pageMode === "sepia" ? "Switch to white" : "Switch to dark"}
             style={{ padding: "5px 10px", background: T.accentDim, border: `1px solid ${T.accentBorder}`, borderRadius: 8, cursor: "pointer", color: T.accent, display: "flex", alignItems: "center", gap: 4, fontSize: 13, fontWeight: 600 }}>
-            {pageMode === "dark" ? <><Sun size={14} />📜</> : pageMode === "sepia" ? <><Sun size={14} /></> : <Moon size={14} />}
+            {pageMode === "dark" ? <Sun size={14} /> : pageMode === "sepia" ? <Sun size={14} /> : <Moon size={14} />}
           </button>
           <div style={{ display: "flex", alignItems: "center", gap: 6, padding: "6px 12px", borderRadius: 10, background: T.nav, border: `1px solid ${T.border}`, fontSize: 14, fontWeight: 700, color: timeLeft < 300 ? "#ef4444" : T.accent, fontFamily: "monospace" }}>
             <Clock size={14} />
@@ -738,7 +739,7 @@ export default function TestPage() {
               style={{ flex: 1, padding: "8px", borderRadius: 8, border: "none", cursor: "pointer", fontWeight: 600, fontSize: 13, transition: "all 0.15s",
                 background: mobileView === v ? T.accent : "transparent",
                 color: mobileView === v ? "#fff" : T.textMuted }}>
-              {v === "passage" ? "📖 Passage" : "✏️ Questions"}
+              {v === "passage" ? "Passage" : "Questions"}
             </button>
           ))}
         </div>
@@ -1070,16 +1071,16 @@ function WarningScreen({ test, onAccept }: { test: IELTSTest; onAccept: () => vo
   const [agreed, setAgreed] = useState(false);
 
   const rules = [
-    { icon: "🚫", text: "Do NOT switch tabs or open other windows. Your test will be immediately cancelled if you leave this screen." },
-    { icon: "📋", text: "Copy and paste are disabled. All answers must be typed manually." },
-    { icon: "⏱️", text: test.type === "reading"
+    { icon: <Ban size={15} />, text: "Do NOT switch tabs or open other windows. Your test will be immediately cancelled if you leave this screen." },
+    { icon: <Clipboard size={15} />, text: "Copy and paste are disabled. All answers must be typed manually." },
+    { icon: <Timer size={15} />, text: test.type === "reading"
       ? `You have exactly ${test.durationMinutes} minutes. The timer cannot be paused.`
       : `The audio lasts approximately ${test.durationMinutes} minutes and CANNOT be paused or rewound. You will then have ${test.transferMinutes} minutes to transfer your answers.` },
-    { icon: "📵", text: "Put your phone face-down and away from view." },
+    { icon: <PhoneOff size={15} />, text: "Put your phone face-down and away from view." },
     test.type === "listening"
-      ? { icon: "🎧", text: "Use headphones if possible. Ensure your volume is set to a comfortable level before starting." }
-      : { icon: "📖", text: "Read all three passages carefully before answering. You may refer back to the passages at any time." },
-    { icon: "✅", text: "Once you submit, you cannot change your answers." },
+      ? { icon: <Headphones size={15} />, text: "Use headphones if possible. Ensure your volume is set to a comfortable level before starting." }
+      : { icon: <BookOpen size={15} />, text: "Read all three passages carefully before answering. You may refer back to the passages at any time." },
+    { icon: <CheckCircle size={15} />, text: "Once you submit, you cannot change your answers." },
   ];
 
   return (
@@ -1099,7 +1100,7 @@ function WarningScreen({ test, onAccept }: { test: IELTSTest; onAccept: () => vo
         <div style={{ display: "flex", flexDirection: "column", gap: 10, marginBottom: 24 }}>
           {rules.map((item, i) => (
             <div key={i} style={{ display: "flex", gap: 12, padding: "12px 14px", background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 12, fontSize: 13 }}>
-              <span style={{ flexShrink: 0, fontSize: 16, lineHeight: 1.4 }}>{item.icon}</span>
+              <span style={{ flexShrink: 0, display: "flex", alignItems: "center", paddingTop: 2, color: "rgba(255,255,255,0.5)" }}>{item.icon}</span>
               <span style={{ color: "rgba(255,255,255,0.7)", lineHeight: 1.55 }}>{item.text}</span>
             </div>
           ))}

@@ -266,7 +266,7 @@ export default function AdminDashboard() {
             color: "#fff",
             boxShadow: isRootAdmin ? "0 2px 8px rgba(217,119,6,0.4)" : isAdminUser ? "0 2px 8px rgba(37,99,235,0.4)" : "0 2px 8px rgba(124,58,237,0.3)",
           }}>
-            {isRootAdmin ? "👑 Super Admin" : isAdminUser ? "🛡 Admin" : "🎓 Teacher"}
+            {isRootAdmin ? "Super Admin" : isAdminUser ? "Admin" : "Teacher"}
           </span>
           {/* Logged-in username */}
           <div style={{ marginTop: 8, display: "flex", alignItems: "center", gap: 6 }}>
@@ -866,7 +866,7 @@ export default function AdminDashboard() {
                         {editingStudentId === s.id && (
                           <tr key={`${s.id}-edit`} style={{ borderBottom: `2px solid ${C.accent}`, background: "rgba(124,58,237,0.08)" }}>
                             <td colSpan={7} style={{ padding: "20px 18px" }}>
-                              <div style={{ fontSize: 13, fontWeight: 700, color: C.accent, marginBottom: 12 }}>✏️ Editing: {s.name} {s.surname}</div>
+                              <div style={{ fontSize: 13, fontWeight: 700, color: C.accent, marginBottom: 12 }}>Editing: {s.name} {s.surname}</div>
                               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 10, marginBottom: 10 }}>
                                 <div>
                                   <div style={{ fontSize: 10, color: C.muted, marginBottom: 4, textTransform: "uppercase", fontWeight: 700 }}>First Name</div>
