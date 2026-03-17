@@ -339,9 +339,9 @@ export default function TestPage() {
     setTransferTimeLeft(t.transferMinutes * 60);
   }, [testId, router, isPracticeMode]);
 
-  // ── Anti-cheat: tab visibility ──────────────────────────────────────
+  // ── Anti-cheat: tab visibility + window focus ───────────────────────
   useEffect(() => {
-    if (isPracticeMode) return; // no anti-cheat for teacher practice
+    if (isPracticeMode) return;
     if (phase !== "test" && phase !== "audio_playing" && phase !== "transfer") return;
 
     anticheatActiveRef.current = false;
@@ -351,16 +351,22 @@ export default function TestPage() {
 
     const handleVisibility = () => {
       if (document.hidden && anticheatActiveRef.current) {
-        violationRef.current += 1;
-        setViolationCount(violationRef.current);
+        cancelTestRef.current("You left the exam screen. Your test has been cancelled.");
+      }
+    };
+
+    const handleBlur = () => {
+      if (anticheatActiveRef.current) {
         cancelTestRef.current("You left the exam screen. Your test has been cancelled.");
       }
     };
 
     document.addEventListener("visibilitychange", handleVisibility);
+    window.addEventListener("blur", handleBlur);
     return () => {
       clearTimeout(activateTimer);
       document.removeEventListener("visibilitychange", handleVisibility);
+      window.removeEventListener("blur", handleBlur);
     };
   }, [phase, isPracticeMode]);
 
