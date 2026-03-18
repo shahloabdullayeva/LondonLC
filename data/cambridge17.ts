@@ -1773,4 +1773,528 @@ Questions 36–40: Complete the summary using the list of phrases, A–J, below.
   ],
 };
 
-export const cambridge17Tests: IELTSTest[] = [cambridge17_reading_t1, cambridge17_reading_t2, cambridge17_reading_t3];
+// ============================================================
+// CAMBRIDGE IELTS 17 – TEST 4  (Academic Reading)
+// Passages: Bats to the rescue /
+//           Does education fuel economic growth? /
+//           Timur Gareyev – blindfold chess champion
+// ============================================================
+export const cambridge17_reading_t4: IELTSTest = {
+  id: "cam17-reading-academic-t4",
+  title: "Cambridge IELTS 17 – Test 4",
+  bookNumber: 17,
+  testNumber: 4,
+  type: "reading",
+  level: "academic",
+  durationMinutes: 60,
+  transferMinutes: 0,
+  sections: [
+    // ── PASSAGE 1 ─────────────────────────────────────────────
+    {
+      id: "cam17-ra-t4-s1",
+      sectionNumber: 1,
+      title: "Reading Passage 1",
+      passageTitle: "Bats to the rescue",
+      passageText: `There are few places in the world where relations between agriculture and conservation are more strained. Madagascar's forests are being converted to agricultural land at a rate of one percent every year. Much of this destruction is fuelled by the cultivation of the country's main staple crop: rice. And a key reason for this destruction is that insect pests are destroying vast quantities of what is grown by local subsistence farmers, leading them to clear forest to create new paddy fields. The result is devastating habitat and biodiversity loss on the island, but not all species are suffering. In fact, some of the island's insectivorous bats are currently thriving and this has important implications for farmers and conservationists alike.
+
+Enter University of Cambridge zoologist Ricardo Rocha. He's passionate about conservation, and bats. More specifically, he's interested in how bats are responding to human activity and deforestation in particular. Rocha's new study shows that several species of bats are giving Madagascar's rice farmers a vital pest control service by feasting on plagues of insects. And this, he believes, can ease the financial pressure on farmers to turn forest into fields.
+
+Bats comprise roughly one-fifth of all mammal species in Madagascar and thirty-six recorded bat species are native to the island, making it one of the most important regions for conservation of this animal group anywhere in the world.
+
+Co-leading an international team of scientists, Rocha found that several species of indigenous bats are taking advantage of habitat modification to hunt insects swarming above the country's rice fields. They include the Malagasy mouse-eared bat, Major's long-fingered bat, the Malagasy white-bellied free-tailed bat and Peters' wrinkle-lipped bat.
+
+'These winner species are providing a valuable free service to Madagascar as biological pest suppressors,' says Rocha. 'We found that six species of bat are preying on rice pests, including the paddy swarming caterpillar and grass webworm. The damage which these insects cause puts the island's farmers under huge financial pressure and that encourages deforestation.'
+
+The study, now published in the journal Agriculture, Ecosystems and Environment, set out to investigate the feeding activity of insectivorous bats in the farmland bordering the Ranomafana National Park in the southeast of the country.
+
+Rocha and his team used state-of-the-art ultrasonic recorders to record over a thousand bat 'feeding buzzes' (echolocation sequences used by bats to target their prey) at 54 sites, in order to identify the favourite feeding spots of the bats. They next used DNA barcoding techniques to analyse droppings collected from bats at the different sites.
+
+The recordings revealed that bat activity over rice fields was much higher than it was in continuous forest – seven times higher over rice fields which were on flat ground, and sixteen times higher over fields on the sides of hills – leaving no doubt that the animals are preferentially foraging in these man-made ecosystems. The researchers suggest that the bats favour these fields because lack of water and nutrient run-off make these crops more susceptible to insect pest infestations. DNA analysis showed that all six species of bat had fed on economically important insect pests. While the findings indicated that rice farming benefits most from the bats, the scientists also found indications that the bats were consuming pests of other crops, including the black twig borer (which infests coffee plants), the sugarcane cicada, the macadamia nut-borer, and the sober tabby (a pest of citrus fruits).
+
+'The effectiveness of bats as pest controllers has already been proven in the USA and Catalonia,' said co-author James Kemp, from the University of Lisbon. 'But our study is the first to show this happening in Madagascar, where the stakes for both farmers and conservationists are so high.'
+
+Local people may have a further reason to be grateful to their bats. While the animal is often associated with spreading disease, Rocha and his team found evidence that Malagasy bats feed not just on crop pests but also on mosquitoes – carriers of malaria, Rift Valley fever virus and elephantiasis – as well as blackflies, which spread river blindness.
+
+Rocha points out that the relationship is complicated. When food is scarce, bats become a crucial source of protein for local people. Even the children will hunt them. And as well as roosting in trees, the bats sometimes roost in buildings, but are not welcomed there because they make them unclean. At the same time, however, they are associated with sacred caves and the ancestors, so they can be viewed as beings between worlds, which makes them very significant in the culture of the people. And one potential problem is that while these bats are benefiting from farming, at the same time deforestation is reducing the places where they can roost, which could have long-term effects on their numbers. Rocha says, 'With the right help, we hope that farmers can promote this mutually beneficial relationship by installing bat houses.'
+
+Rocha and his colleagues believe that maximising bat populations can help to boost crop yields and promote sustainable livelihoods. The team is now calling for further research to quantify this contribution. 'I'm very optimistic,' says Rocha. 'If we give nature a hand, we can speed up the process of regeneration.'`,
+      instructions: `Questions 1–6: Do the following statements agree with the information given in Reading Passage 1?
+Write TRUE, FALSE, or NOT GIVEN.
+
+Questions 7–13: Complete the table below.
+Choose ONE WORD ONLY from the passage for each answer.`,
+      questions: [
+        // ── Q1–6: True/False/Not Given ────────────────────────
+        {
+          id: "cam17-ra-t4-s1-q1",
+          number: 1,
+          groupLabel: "Questions 1–6: Do the following statements agree with the information given in Reading Passage 1?\nWrite TRUE, FALSE, or NOT GIVEN.\n\n1   Many Madagascan forests are being destroyed by attacks from insects.\n2   Loss of habitat has badly affected insectivorous bats in Madagascar.\n3   Ricardo Rocha has carried out studies of bats in different parts of the world.\n4   Habitat modification has resulted in indigenous bats in Madagascar becoming useful to farmers.\n5   The Malagasy mouse-eared bat is more common than other indigenous bat species in Madagascar.\n6   Bats may feed on paddy swarming caterpillars and grass webworms.",
+          type: "true_false_ng",
+          question: "1. Many Madagascan forests are being destroyed by attacks from insects.",
+          correctAnswer: "FALSE",
+          points: 1,
+        },
+        {
+          id: "cam17-ra-t4-s1-q2",
+          number: 2,
+          type: "true_false_ng",
+          question: "2. Loss of habitat has badly affected insectivorous bats in Madagascar.",
+          correctAnswer: "FALSE",
+          points: 1,
+        },
+        {
+          id: "cam17-ra-t4-s1-q3",
+          number: 3,
+          type: "true_false_ng",
+          question: "3. Ricardo Rocha has carried out studies of bats in different parts of the world.",
+          correctAnswer: "NOT GIVEN",
+          points: 1,
+        },
+        {
+          id: "cam17-ra-t4-s1-q4",
+          number: 4,
+          type: "true_false_ng",
+          question: "4. Habitat modification has resulted in indigenous bats in Madagascar becoming useful to farmers.",
+          correctAnswer: "TRUE",
+          points: 1,
+        },
+        {
+          id: "cam17-ra-t4-s1-q5",
+          number: 5,
+          type: "true_false_ng",
+          question: "5. The Malagasy mouse-eared bat is more common than other indigenous bat species in Madagascar.",
+          correctAnswer: "NOT GIVEN",
+          points: 1,
+        },
+        {
+          id: "cam17-ra-t4-s1-q6",
+          number: 6,
+          type: "true_false_ng",
+          question: "6. Bats may feed on paddy swarming caterpillars and grass webworms.",
+          correctAnswer: "TRUE",
+          points: 1,
+        },
+        // ── Q7–13: Table completion ───────────────────────────
+        {
+          id: "cam17-ra-t4-s1-q7",
+          number: 7,
+          groupLabel: "Questions 7–13: Complete the table below.\nChoose ONE WORD ONLY from the passage for each answer.\n\nThe study carried out by Rocha's team\n\nAim\n●   to investigate the feeding habits of bats in farmland near the Ranomafana National Park\n\nMethod\n●   ultrasonic recording to identify favourite feeding spots\n●   DNA analysis of bat 7 _______\n\nFindings\n●   the bats\n    – were most active in rice fields located on hills\n    – ate pests of rice, 8 _______, sugarcane, nuts and fruit\n    – prevent the spread of disease by eating 9 _______ and blackflies\n●   local attitudes to bats are mixed:\n    – they provide food rich in 10 _______\n    – the buildings where they roost become 11 _______\n    – they play an important role in local 12 _______\n\nRecommendation\n●   farmers should provide special 13 _______ to support the bat population",
+          type: "note_completion",
+          question: "7. DNA analysis of bat _______",
+          correctAnswer: "droppings",
+          points: 1,
+        },
+        {
+          id: "cam17-ra-t4-s1-q8",
+          number: 8,
+          type: "note_completion",
+          question: "8. ate pests of rice, _______, sugarcane, nuts and fruit",
+          correctAnswer: "coffee",
+          points: 1,
+        },
+        {
+          id: "cam17-ra-t4-s1-q9",
+          number: 9,
+          type: "note_completion",
+          question: "9. prevent the spread of disease by eating _______ and blackflies",
+          correctAnswer: "mosquitoes",
+          points: 1,
+        },
+        {
+          id: "cam17-ra-t4-s1-q10",
+          number: 10,
+          type: "note_completion",
+          question: "10. they provide food rich in _______",
+          correctAnswer: "protein",
+          points: 1,
+        },
+        {
+          id: "cam17-ra-t4-s1-q11",
+          number: 11,
+          type: "note_completion",
+          question: "11. the buildings where they roost become _______",
+          correctAnswer: "unclean",
+          points: 1,
+        },
+        {
+          id: "cam17-ra-t4-s1-q12",
+          number: 12,
+          type: "note_completion",
+          question: "12. they play an important role in local _______",
+          correctAnswer: "culture",
+          points: 1,
+        },
+        {
+          id: "cam17-ra-t4-s1-q13",
+          number: 13,
+          type: "note_completion",
+          question: "13. farmers should provide special _______ to support the bat population",
+          correctAnswer: "houses",
+          points: 1,
+        },
+      ],
+    },
+    // ── PASSAGE 2 ─────────────────────────────────────────────
+    {
+      id: "cam17-ra-t4-s2",
+      sectionNumber: 2,
+      title: "Reading Passage 2",
+      passageTitle: "Does education fuel economic growth?",
+      passageText: `A
+Over the last decade, a huge database about the lives of southwest German villagers between 1600 and 1900 has been compiled by a team led by Professor Sheilagh Ogilvie at Cambridge University's Faculty of Economics. It includes court records, guild ledgers, parish registers, village censuses, tax lists and – the most recent addition – 9,000 handwritten inventories listing over a million personal possessions belonging to ordinary women and men across three centuries. Ogilvie, who discovered the inventories in the archives of two German communities 30 years ago, believes they may hold the answer to a conundrum that has long puzzled economists: the lack of evidence for a causal link between education and a country's economic growth.
+
+B
+As Ogilvie explains, 'Education helps us to work more productively, invent better technology, and earn more … surely it must be critical for economic growth? But, if you look back through history, there's no evidence that having a high literacy rate made a country industrialise earlier.' Between 1600 and 1900, England had only mediocre literacy rates by European standards, yet its economy grew fast and it was the first country to industrialise. During this period, Germany and Scandinavia had excellent literacy rates, but their economies grew slowly and they industrialised late. 'Modern cross-country analyses have also struggled to find evidence that education causes economic growth, even though there is plenty of evidence that growth increases education,' she adds.
+
+C
+In the handwritten inventories that Ogilvie is analysing are the belongings of women and men at marriage, remarriage and death. From badger skins to Bibles, sewing machines to scarlet bodices – the villagers' entire worldly goods are included. Inventories of agricultural equipment and craft tools reveal economic activities; ownership of books and education-related objects like pens and slates suggests how people learned. In addition, the tax lists included in the database record the value of farms, workshops, assets and debts; signatures and people's estimates of their age indicate literacy and numeracy levels; and court records reveal obstacles (such as the activities of the guilds) that stifled industry.
+
+Previous studies usually had just one way of linking education with economic growth – the presence of schools and printing presses, perhaps, or school enrolment, or the ability to sign names. According to Ogilvie, the database provides multiple indicators for the same individuals, making it possible to analyse links between literacy, numeracy, wealth, and industriousness, for individual women and men over the long term.
+
+D
+Ogilvie and her team have been building the vast database of material possessions on top of their full demographic reconstruction of the people who lived in these two German communities. 'We can follow the same people – and their descendants – across 300 years of educational and economic change,' she says. Individual lives have unfolded before their eyes. Stories like that of the 24-year-olds Ana Regina and Magdalena Riethmüllerin, who were chastised in 1707 for reading books in church instead of listening to the sermon. 'This tells us they were continuing to develop their reading skills at least a decade after leaving school,' explains Ogilvie. The database also reveals the case of Juliana Schweickherdt, a 50-year-old spinster living in the small Black Forest community of Wildberg, who was reprimanded in 1752 by the local weavers' guild for 'weaving cloth and combing wool, counter to the guild ordinance'. When Juliana continued taking jobs reserved for male guild members, she was summoned before the guild court and told to pay a fine equivalent to one third of a servant's annual wage. It was a small act of defiance by today's standards, but it reflects a time when laws in Germany and elsewhere regulated people's access to labour markets. The dominance of guilds not only prevented people from using their skills, but also held back even the simplest industrial innovation.
+
+E
+The data-gathering phase of the project has been completed and now, according to Ogilvie, it is time 'to ask the big questions'. One way to look at whether education causes economic growth is to 'hold wealth constant'. This involves following the lives of different people with the same level of wealth over a period of time. If wealth is constant, it is possible to discover whether education was, for example, linked to the cultivation of new crops, or to the adoption of industrial innovations like sewing machines. The team will also ask what aspect of education helped people engage more with productive and innovative activities. Was it, for instance, literacy, numeracy, book ownership, years of schooling? Was there a threshold level – a tipping point – that needed to be reached to affect economic performance?
+
+F
+Ogilvie hopes to start finding answers to these questions over the next few years. One thing is already clear, she says: the relationship between education and economic growth is far from straightforward. 'German-speaking central Europe is an excellent laboratory for testing theories of economic growth,' she explains. Between 1600 and 1900, literacy rates and book ownership were high and yet the region remained poor. It was also the case that local guilds and merchant associations were extremely powerful and legislated against anything that undermined their monopolies. In villages throughout the region, guilds blocked labour migration and resisted changes that might reduce their influence.
+
+'Early findings suggest that the potential benefits of education for the economy can be held back by other barriers, and this has implications for today,' says Ogilvie. 'Huge amounts are spent improving education in developing countries, but this spending can fail to deliver economic growth if restrictions block people – especially women and the poor – from using their education in economically productive ways. If economic institutions are poorly set up, for instance, education can't lead to growth.'`,
+      instructions: `Questions 14–18: Reading Passage 2 has six paragraphs, A–F.
+Which section contains the following information?
+
+Questions 19–22: Complete the summary below.
+Choose ONE WORD from the passage for each answer.
+
+Questions 23–24: Choose TWO letters, A–E.
+Which TWO statements does the writer make about literacy rates in Section B?
+
+Questions 25–26: Choose TWO letters, A–E.
+Which TWO statements does the writer make in Section F about guilds?`,
+      questions: [
+        // ── Q14–18: Paragraph matching ────────────────────────
+        {
+          id: "cam17-ra-t4-s2-q14",
+          number: 14,
+          groupLabel: "Questions 14–18: Reading Passage 2 has six paragraphs, A–F.\nWhich section contains the following information?\n\n14  an explanation of the need for research to focus on individuals with a fairly consistent income\n15  examples of the sources the database has been compiled from\n16  an account of one individual's refusal to obey an order\n17  a reference to a region being particularly suited to research into the link between education and economic growth\n18  examples of the items included in a list of personal possessions",
+          type: "matching",
+          question: "14. an explanation of the need for research to focus on individuals with a fairly consistent income",
+          options: [
+            { label: "A", value: "A" }, { label: "B", value: "B" }, { label: "C", value: "C" },
+            { label: "D", value: "D" }, { label: "E", value: "E" }, { label: "F", value: "F" },
+          ],
+          correctAnswer: "E",
+          points: 1,
+        },
+        {
+          id: "cam17-ra-t4-s2-q15",
+          number: 15,
+          type: "matching",
+          question: "15. examples of the sources the database has been compiled from",
+          options: [
+            { label: "A", value: "A" }, { label: "B", value: "B" }, { label: "C", value: "C" },
+            { label: "D", value: "D" }, { label: "E", value: "E" }, { label: "F", value: "F" },
+          ],
+          correctAnswer: "A",
+          points: 1,
+        },
+        {
+          id: "cam17-ra-t4-s2-q16",
+          number: 16,
+          type: "matching",
+          question: "16. an account of one individual's refusal to obey an order",
+          options: [
+            { label: "A", value: "A" }, { label: "B", value: "B" }, { label: "C", value: "C" },
+            { label: "D", value: "D" }, { label: "E", value: "E" }, { label: "F", value: "F" },
+          ],
+          correctAnswer: "D",
+          points: 1,
+        },
+        {
+          id: "cam17-ra-t4-s2-q17",
+          number: 17,
+          type: "matching",
+          question: "17. a reference to a region being particularly suited to research into the link between education and economic growth",
+          options: [
+            { label: "A", value: "A" }, { label: "B", value: "B" }, { label: "C", value: "C" },
+            { label: "D", value: "D" }, { label: "E", value: "E" }, { label: "F", value: "F" },
+          ],
+          correctAnswer: "F",
+          points: 1,
+        },
+        {
+          id: "cam17-ra-t4-s2-q18",
+          number: 18,
+          type: "matching",
+          question: "18. examples of the items included in a list of personal possessions",
+          options: [
+            { label: "A", value: "A" }, { label: "B", value: "B" }, { label: "C", value: "C" },
+            { label: "D", value: "D" }, { label: "E", value: "E" }, { label: "F", value: "F" },
+          ],
+          correctAnswer: "C",
+          points: 1,
+        },
+        // ── Q19–22: Summary completion ─────────────────────────
+        {
+          id: "cam17-ra-t4-s2-q19",
+          number: 19,
+          groupLabel: "Questions 19–22: Complete the summary below.\nChoose ONE WORD from the passage for each answer.\n\nDemographic reconstruction of two German communities\nThe database that Ogilvie and her team has compiled sheds light on the lives of a range of individuals, as well as those of their 19 _______, over a 300-year period. For example, Ana Regina and Magdalena Riethmüllerin were reprimanded for reading while they should have been paying attention to a 20 _______.\nThere was also Juliana Schweickherdt, who came to the notice of the weavers' guild in the year 1752 for breaking guild rules. As a punishment, she was later given a 21 _______. Cases like this illustrate how the guilds could prevent 22 _______ and stop skilled people from working.",
+          type: "note_completion",
+          question: "19. as well as those of their _______, over a 300-year period",
+          correctAnswer: "descendants",
+          points: 1,
+        },
+        {
+          id: "cam17-ra-t4-s2-q20",
+          number: 20,
+          type: "note_completion",
+          question: "20. they should have been paying attention to a _______",
+          correctAnswer: "sermon",
+          points: 1,
+        },
+        {
+          id: "cam17-ra-t4-s2-q21",
+          number: 21,
+          type: "note_completion",
+          question: "21. As a punishment, she was later given a _______",
+          correctAnswer: "fine",
+          points: 1,
+        },
+        {
+          id: "cam17-ra-t4-s2-q22",
+          number: 22,
+          type: "note_completion",
+          question: "22. how the guilds could prevent _______ and stop skilled people from working",
+          correctAnswer: "innovation",
+          points: 1,
+        },
+        // ── Q23–24: Two-answer multiple choice ────────────────
+        {
+          id: "cam17-ra-t4-s2-q23",
+          number: 23,
+          groupLabel: "Questions 23–24: Choose TWO letters, A–E.\nWhich TWO of the following statements does the writer make about literacy rates in Section B?\n\nA   Very little research has been done into the link between high literacy rates and improved earnings.\nB   Literacy rates in Germany between 1600 and 1900 were very good.\nC   There is strong evidence that high literacy rates in the modern world result in economic growth.\nD   England is a good example of how high literacy rates helped a country industrialise.\nE   Economic growth can help to improve literacy rates.",
+          type: "multiple_choice",
+          question: "23 & 24. Which TWO statements does the writer make about literacy rates in Section B? (Select both answers)",
+          options: [
+            { label: "A – Very little research has been done into the link between literacy rates and earnings", value: "A" },
+            { label: "B – Literacy rates in Germany between 1600 and 1900 were very good", value: "B" },
+            { label: "C – There is strong evidence that high literacy rates in the modern world result in economic growth", value: "C" },
+            { label: "D – England is a good example of how high literacy rates helped a country industrialise", value: "D" },
+            { label: "E – Economic growth can help to improve literacy rates", value: "E" },
+          ],
+          correctAnswer: "B,E",
+          points: 2,
+        },
+        // ── Q25–26: Two-answer multiple choice ────────────────
+        {
+          id: "cam17-ra-t4-s2-q25",
+          number: 25,
+          groupLabel: "Questions 25–26: Choose TWO letters, A–E.\nWhich TWO of the following statements does the writer make in Section F about guilds in German-speaking Central Europe between 1600 and 1900?\n\nA   They helped young people to learn a skill.\nB   They were opposed to people moving to an area for work.\nC   They kept better records than guilds in other parts of the world.\nD   They opposed practices that threatened their control over a trade.\nE   They predominantly consisted of wealthy merchants.",
+          type: "multiple_choice",
+          question: "25 & 26. Which TWO statements does the writer make in Section F about guilds? (Select both answers)",
+          options: [
+            { label: "A – They helped young people to learn a skill", value: "A" },
+            { label: "B – They were opposed to people moving to an area for work", value: "B" },
+            { label: "C – They kept better records than guilds in other parts of the world", value: "C" },
+            { label: "D – They opposed practices that threatened their control over a trade", value: "D" },
+            { label: "E – They predominantly consisted of wealthy merchants", value: "E" },
+          ],
+          correctAnswer: "B,D",
+          points: 2,
+        },
+      ],
+    },
+    // ── PASSAGE 3 ─────────────────────────────────────────────
+    {
+      id: "cam17-ra-t4-s3",
+      sectionNumber: 3,
+      title: "Reading Passage 3",
+      passageTitle: "Timur Gareyev – blindfold chess champion",
+      passageText: `A
+Next month, a chess player named Timur Gareyev will take on nearly 50 opponents at once. But that is not the hard part. While his challengers will play the games as normal, Gareyev himself will be blindfolded. Even by world record standards, it sets a high bar for human performance. The 28-year-old already stands out in the rarefied world of blindfold chess. He has a fondness for bright clothes and unusual hairstyles, and he gets his kicks from the adventure sport of BASE jumping. He has already proved himself a strong chess player, too. In a 10-hour chess marathon in 2013, Gareyev played 33 games in his head simultaneously. He won 29 and lost none. The skill has become his brand: he calls himself the Blindfold King.
+
+B
+But Gareyev's prowess has drawn interest from beyond the chess-playing community. In the hope of understanding how he and others like him can perform such mental feats, researchers at the University of California in Los Angeles (UCLA) called him in for tests. They now have their first results. 'The ability to play a game of chess with your eyes closed is not a far reach for most accomplished player,' said Jesse Rissman, who runs a memory lab at UCLA. 'But the thing that's so remarkable about Timur and a few other individuals is the number of games they can keep active at once. To me it is simply astonishing.'
+
+C
+Gareyev learned to play chess in his native Uzbekistan when he was six years old. Tutored by his grandfather, he entered his first tournament aged eight and soon became obsessed with competitions. At 16, he was crowned Asia's youngest ever chess grandmaster. He moved to the US soon after, and as a student helped his university win its first national chess championship. In 2013, Gareyev was ranked the third best chess player in the US.
+
+D
+To the uninitiated, blindfold chess seems to call for superhuman skill. But displays of the feat go back centuries. The first recorded game in Europe was played in 13th-century Florence. In 1947, the Argentinian grandmaster Miguel Najdorf played 45 simultaneous games in his mind, winning 39 in the 24-hour session.
+
+E
+Accomplished players can develop the skill of playing blind even without realising it. The nature of the game is to run through possible moves in the mind to see how they play out. From this, regular players develop a memory for the patterns the pieces make, the defences and attacks. 'You recreate it in your mind,' said Gareyev. 'A lot of players are capable of doing what I'm doing.' The real mental challenge comes from playing multiple games at once in the head. Not only must the positions of each piece on every board be memorised, they must be recalled faithfully when needed, updated with each player's moves, and then reliably stored again, so the brain can move on to the next board. First moves can be tough to remember because they are fairly uninteresting. But the ends of games are taxing too, as exhaustion sets in. When Gareyev is tired, his recall can get patchy. He sometimes makes moves based on only a fragmented memory of the pieces' positions.
+
+F
+The scientists first had Gareyev perform some standard memory tests. These assessed his ability to hold numbers, pictures and words in mind. One classic test measures how many numbers a person can repeat, both forwards and backwards, soon after hearing them. Most people manage about seven. 'He was not exceptional on any of these standard tests,' said Rissman. 'We didn't find anything other than playing chess that he seems to be supremely gifted at.' But next came the brain scans. With Gareyev lying down in the machine, Rissman looked at how well connected the various regions of the chess player's brain were. Though the results are tentative and as yet unpublished, the scans found much greater than average communication between parts of Gareyev's brain that make up what is called the frontoparietal control network. Of 63 people scanned alongside the chess player, only one or two scored more highly on the measure. 'You use this network in almost any complex task. It helps you to allocate attention, keep rules in mind, and work out whether you should be responding or not,' said Rissman.
+
+G
+It was not the only hint of something special in Gareyev's brain. The scans also suggest that Gareyev's visual network is more highly connected to other brain parts than usual. Initial results suggest that the areas of his brain that process visual images – such as chess boards – may have stronger links to other brain regions, and so be more powerful than normal. While the analyses are not finalised yet, they may hold the first clues to Gareyev's extraordinary ability.
+
+H
+For the world record attempt, Gareyev hopes to play 47 blindfold games at once in about 16 hours. He will need to win 80% to claim the title. 'I don't worry too much about the winning percentage, that's never been an issue for me,' he said. 'The most important part of blindfold chess for me is that I have found the one thing that I can fully dedicate myself to. I miss having an obsession.'`,
+      instructions: `Questions 27–32: Reading Passage 3 has eight paragraphs, A–H.
+Which paragraph contains the following information?
+NB You may use any letter more than once.
+
+Questions 33–36: Do the following statements agree with the information given in Reading Passage 3?
+Write TRUE, FALSE, or NOT GIVEN.
+
+Questions 37–40: Complete the summary below.
+Choose ONE WORD ONLY from the passage for each answer.`,
+      questions: [
+        // ── Q27–32: Paragraph matching ────────────────────────
+        {
+          id: "cam17-ra-t4-s3-q27",
+          number: 27,
+          groupLabel: "Questions 27–32: Reading Passage 3 has eight paragraphs, A–H.\nWhich paragraph contains the following information?\nNB You may use any letter more than once.\n\n27  a reference to earlier examples of blindfold chess\n28  an outline of what blindfold chess involves\n29  a claim that Gareyev's skill is limited to chess\n30  why Gareyev's skill is of interest to scientists\n31  an outline of Gareyev's priorities\n32  a reason why the last part of a game may be difficult",
+          type: "matching",
+          question: "27. a reference to earlier examples of blindfold chess",
+          options: [
+            { label: "A", value: "A" }, { label: "B", value: "B" }, { label: "C", value: "C" },
+            { label: "D", value: "D" }, { label: "E", value: "E" }, { label: "F", value: "F" },
+            { label: "G", value: "G" }, { label: "H", value: "H" },
+          ],
+          correctAnswer: "D",
+          points: 1,
+        },
+        {
+          id: "cam17-ra-t4-s3-q28",
+          number: 28,
+          type: "matching",
+          question: "28. an outline of what blindfold chess involves",
+          options: [
+            { label: "A", value: "A" }, { label: "B", value: "B" }, { label: "C", value: "C" },
+            { label: "D", value: "D" }, { label: "E", value: "E" }, { label: "F", value: "F" },
+            { label: "G", value: "G" }, { label: "H", value: "H" },
+          ],
+          correctAnswer: "E",
+          points: 1,
+        },
+        {
+          id: "cam17-ra-t4-s3-q29",
+          number: 29,
+          type: "matching",
+          question: "29. a claim that Gareyev's skill is limited to chess",
+          options: [
+            { label: "A", value: "A" }, { label: "B", value: "B" }, { label: "C", value: "C" },
+            { label: "D", value: "D" }, { label: "E", value: "E" }, { label: "F", value: "F" },
+            { label: "G", value: "G" }, { label: "H", value: "H" },
+          ],
+          correctAnswer: "F",
+          points: 1,
+        },
+        {
+          id: "cam17-ra-t4-s3-q30",
+          number: 30,
+          type: "matching",
+          question: "30. why Gareyev's skill is of interest to scientists",
+          options: [
+            { label: "A", value: "A" }, { label: "B", value: "B" }, { label: "C", value: "C" },
+            { label: "D", value: "D" }, { label: "E", value: "E" }, { label: "F", value: "F" },
+            { label: "G", value: "G" }, { label: "H", value: "H" },
+          ],
+          correctAnswer: "B",
+          points: 1,
+        },
+        {
+          id: "cam17-ra-t4-s3-q31",
+          number: 31,
+          type: "matching",
+          question: "31. an outline of Gareyev's priorities",
+          options: [
+            { label: "A", value: "A" }, { label: "B", value: "B" }, { label: "C", value: "C" },
+            { label: "D", value: "D" }, { label: "E", value: "E" }, { label: "F", value: "F" },
+            { label: "G", value: "G" }, { label: "H", value: "H" },
+          ],
+          correctAnswer: "H",
+          points: 1,
+        },
+        {
+          id: "cam17-ra-t4-s3-q32",
+          number: 32,
+          type: "matching",
+          question: "32. a reason why the last part of a game may be difficult",
+          options: [
+            { label: "A", value: "A" }, { label: "B", value: "B" }, { label: "C", value: "C" },
+            { label: "D", value: "D" }, { label: "E", value: "E" }, { label: "F", value: "F" },
+            { label: "G", value: "G" }, { label: "H", value: "H" },
+          ],
+          correctAnswer: "E",
+          points: 1,
+        },
+        // ── Q33–36: True/False/Not Given ─────────────────────
+        {
+          id: "cam17-ra-t4-s3-q33",
+          number: 33,
+          groupLabel: "Questions 33–36: Do the following statements agree with the information given in Reading Passage 3?\nWrite TRUE, FALSE, or NOT GIVEN.\n\n33  In the forthcoming games, all the participants will be blindfolded.\n34  Gareyev has won competitions in BASE jumping.\n35  UCLA is the first university to carry out research into blindfold chess players.\n36  Good chess players are likely to be able to play blindfold chess.",
+          type: "true_false_ng",
+          question: "33. In the forthcoming games, all the participants will be blindfolded.",
+          correctAnswer: "FALSE",
+          points: 1,
+        },
+        {
+          id: "cam17-ra-t4-s3-q34",
+          number: 34,
+          type: "true_false_ng",
+          question: "34. Gareyev has won competitions in BASE jumping.",
+          correctAnswer: "NOT GIVEN",
+          points: 1,
+        },
+        {
+          id: "cam17-ra-t4-s3-q35",
+          number: 35,
+          type: "true_false_ng",
+          question: "35. UCLA is the first university to carry out research into blindfold chess players.",
+          correctAnswer: "NOT GIVEN",
+          points: 1,
+        },
+        {
+          id: "cam17-ra-t4-s3-q36",
+          number: 36,
+          type: "true_false_ng",
+          question: "36. Good chess players are likely to be able to play blindfold chess.",
+          correctAnswer: "TRUE",
+          points: 1,
+        },
+        // ── Q37–40: Summary completion ─────────────────────────
+        {
+          id: "cam17-ra-t4-s3-q37",
+          number: 37,
+          groupLabel: "Questions 37–40: Complete the summary below.\nChoose ONE WORD ONLY from the passage for each answer.\n\nHow the research was carried out\nThe researchers started by testing Gareyev's 37 _______; for example, he was required to recall a string of 38 _______ in order and also in reverse order. Although his performance was normal, scans showed an unusual amount of 39 _______ within the areas of Gareyev's brain that are concerned with directing attention. In addition, the scans raised the possibility of unusual strength in the parts of his brain that deal with 40 _______ input.",
+          type: "note_completion",
+          question: "37. testing Gareyev's _______",
+          correctAnswer: "memory",
+          points: 1,
+        },
+        {
+          id: "cam17-ra-t4-s3-q38",
+          number: 38,
+          type: "note_completion",
+          question: "38. recall a string of _______ in order and also in reverse order",
+          correctAnswer: "numbers",
+          points: 1,
+        },
+        {
+          id: "cam17-ra-t4-s3-q39",
+          number: 39,
+          type: "note_completion",
+          question: "39. an unusual amount of _______ within the areas of Gareyev's brain",
+          correctAnswer: "communication",
+          points: 1,
+        },
+        {
+          id: "cam17-ra-t4-s3-q40",
+          number: 40,
+          type: "note_completion",
+          question: "40. parts of his brain that deal with _______ input",
+          correctAnswer: "visual",
+          points: 1,
+        },
+      ],
+    },
+  ],
+};
+
+export const cambridge17Tests: IELTSTest[] = [cambridge17_reading_t1, cambridge17_reading_t2, cambridge17_reading_t3, cambridge17_reading_t4];
