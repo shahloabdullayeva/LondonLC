@@ -920,7 +920,7 @@ export default function AdminDashboard() {
 
         {/* ══════════════════ TESTS TAB ══════════════════ */}
         {activeTab === "tests" && (() => {
-          const AVAILABLE_BOOKS = [10, 11, 12, 13, 14, 15, 16, 17];
+          const AVAILABLE_BOOKS = [10, 11, 12, 13, 14, 15, 16, 17, 18];
           const answerKeyTest = testsAnswerKeyId ? allTests.find(t => t.id === testsAnswerKeyId) : null;
           if (answerKeyTest) {
             return (
