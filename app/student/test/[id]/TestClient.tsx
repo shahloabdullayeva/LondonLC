@@ -339,7 +339,7 @@ export default function TestPage() {
     setTransferTimeLeft(t.transferMinutes * 60);
   }, [testId, router, isPracticeMode]);
 
-  // ── Anti-cheat: tab visibility + window focus ───────────────────────
+  // ── Anti-cheat: tab visibility + window focus + fullscreen ──────────
   useEffect(() => {
     if (isPracticeMode) return;
     if (phase !== "test" && phase !== "audio_playing" && phase !== "transfer") return;
@@ -349,24 +349,31 @@ export default function TestPage() {
       anticheatActiveRef.current = true;
     }, 3000);
 
+    const cancel = (reason: string) => cancelTestRef.current(reason);
+    const REASON = "You left the exam screen. Your test has been cancelled.";
+    const FS_REASON = "You exited fullscreen. Your test has been cancelled.";
+
     const handleVisibility = () => {
-      if (document.hidden && anticheatActiveRef.current) {
-        cancelTestRef.current("You left the exam screen. Your test has been cancelled.");
-      }
+      if (document.hidden && anticheatActiveRef.current) cancel(REASON);
     };
 
     const handleBlur = () => {
-      if (anticheatActiveRef.current) {
-        cancelTestRef.current("You left the exam screen. Your test has been cancelled.");
-      }
+      if (anticheatActiveRef.current) cancel(REASON);
+    };
+
+    const handleFullscreenChange = () => {
+      if (!document.fullscreenElement && anticheatActiveRef.current) cancel(FS_REASON);
     };
 
     document.addEventListener("visibilitychange", handleVisibility);
     window.addEventListener("blur", handleBlur);
+    document.addEventListener("fullscreenchange", handleFullscreenChange);
+
     return () => {
       clearTimeout(activateTimer);
       document.removeEventListener("visibilitychange", handleVisibility);
       window.removeEventListener("blur", handleBlur);
+      document.removeEventListener("fullscreenchange", handleFullscreenChange);
     };
   }, [phase, isPracticeMode]);
 
@@ -518,6 +525,7 @@ export default function TestPage() {
       teacherId: isPracticeMode ? session.id : undefined,
     };
     saveAttempt(attempt); // fire-and-forget async save
+    if (document.fullscreenElement) document.exitFullscreen().catch(() => {});
     setCancelMessage(reason);
     setPhase("cancelled");
   }, [session, test, answers, startTime, isPracticeMode]);
@@ -572,6 +580,7 @@ export default function TestPage() {
       teacherId: isPracticeMode ? session.id : undefined,
     };
     saveAttempt(attempt); // fire-and-forget async save
+    if (document.fullscreenElement) document.exitFullscreen().catch(() => {});
     setPhase("submitted");
   }, [submitted, session, test, answers, startTime, isPracticeMode]);
 
@@ -586,6 +595,8 @@ export default function TestPage() {
   // ============================================================
   if (phase === "warning") {
     return <WarningScreen test={test} onAccept={() => {
+      // Request fullscreen before starting — hides browser tabs and prevents easy alt-tabbing
+      document.documentElement.requestFullscreen().catch(() => {/* user denied or not supported */});
       if (test.type === "listening") {
         setPhase("test"); // For listening, show questions first then trigger audio
       } else {
