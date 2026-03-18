@@ -552,4 +552,526 @@ NB You may use any letter more than once.`,
   ],
 };
 
-export const cambridge18Tests: IELTSTest[] = [cambridge18_reading_t1];
+// ============================================================
+// CAMBRIDGE IELTS 18 – TEST 2  (Academic Reading)
+// Passages: Stonehenge /
+//           Living with artificial intelligence /
+//           An ideal city
+// ============================================================
+export const cambridge18_reading_t2: IELTSTest = {
+  id: "cam18-reading-academic-t2",
+  title: "Cambridge IELTS 18 – Test 2",
+  bookNumber: 18,
+  testNumber: 2,
+  type: "reading",
+  level: "academic",
+  durationMinutes: 60,
+  transferMinutes: 0,
+  sections: [
+    // ── PASSAGE 1 ─────────────────────────────────────────────
+    {
+      id: "cam18-ra-t2-s1",
+      sectionNumber: 1,
+      title: "Reading Passage 1",
+      passageTitle: "Stonehenge",
+      passageText: `For centuries, historians and archaeologists have puzzled over the many mysteries of Stonehenge, a prehistoric monument that took an estimated 1,500 years to erect. Located on Salisbury Plain in southern England, it is comprised of roughly 100 massive upright stones placed in a circular layout.
+
+Archaeologists believe England's most iconic prehistoric ruin was built in several stages with the earliest constructed 5,000 or more years ago. First, Neolithic* Britons used primitive tools, which may have been fashioned out of deer antlers, to dig a massive circular ditch and bank, or henge. Deep pits dating back to that era and located within the circle may have once held a ring of timber posts, according to some scholars.
+
+Several hundred years later, it is thought, Stonehenge's builders hoisted an estimated 80 bluestones, 43 of which remain today, into standing positions and placed them in either a horseshoe or circular formation. These stones have been traced all the way to the Preseli Hills in Wales, some 300 kilometres from Stonehenge. How, then, did prehistoric builders without sophisticated tools or engineering haul these boulders, which weigh up to four tons, over such a great distance?
+
+According to one long-standing theory among archaeologists, Stonehenge's builders fashioned sledges and rollers out of tree trunks to lug the bluestones from the Preseli Hills. They then transferred the boulders onto rafts and floated them first along the Welsh coast and then up the River Avon toward Salisbury Plain; alternatively, they may have towed each stone with a fleet of vessels. More recent archaeological hypotheses have them transporting the bluestones with supersized wicker baskets on a combination of ball bearings and long grooved planks, hauled by oxen.
+
+As early as the 1970s, geologists have been adding their voices to the debate over how Stonehenge came into being. Challenging the classic image of industrious builders pushing, carting, rolling or hauling giant stones from faraway Wales, some scientists have suggested that it was glaciers, not humans, that carried the bluestones to Salisbury Plain. Most archaeologists have remained sceptical about this theory, however, wondering how the forces of nature could possibly have delivered the exact number of stones needed to complete the circle.
+
+The third phase of construction took place around 2000 BCE. At this point, sandstone slabs – known as 'sarsens' – were arranged into an outer crescent or ring; some were assembled into the iconic three-pieced structures called trilithons that stand tall in the centre of Stonehenge. Some 50 of these stones are now visible on the site, which may once have contained many more. Radiocarbon dating has revealed that work continued at Stonehenge until roughly 1600 BCE, with the bluestones in particular being repositioned multiple times.
+
+But who were the builders of Stonehenge? In the 17th century, archaeologist John Aubrey made the claim that Stonehenge was the work of druids, who had important religious, judicial and political roles in Celtic** society. This theory was widely popularized by the antiquarian William Stukeley, who had unearthed primitive graves at the site. Even today, people who identify as modern druids continue to gather at Stonehenge for the summer solstice. However, in the mid-20th century, radiocarbon dating demonstrated that Stonehenge stood more than 1,000 years before the Celts inhabited the region.
+
+Many modern historians and archaeologists now agree that several distinct tribes of people contributed to Stonehenge, each undertaking a different phase of its construction. Bones, tools and other artefacts found on the site seem to support this hypothesis. The first stage was achieved by Neolithic agrarians who were likely to have been indigenous to the British Isles. Later, it is believed, groups with advanced tools and a more communal way of life left their mark on the site. Some believe that they were immigrants from the European continent, while others maintain that they were probably native Britons, descended from the original builders.
+
+If the facts surrounding the architects and construction of Stonehenge remain shadowy at best, the purpose of the striking monument is even more of a mystery. While there is consensus among the majority of modern scholars that Stonehenge once served the function of burial ground, they have yet to determine what other purposes it had.
+
+In the 1960s, the astronomer Gerald Hawkins suggested that the cluster of megalithic stones operated as a form of calendar, with different points corresponding to astrological phenomena such as solstices, equinoxes and eclipses occurring at different times of the year. While his theory has received a considerable amount of attention over the decades, critics maintain that Stonehenge's builders probably lacked the knowledge necessary to predict such events or that England's dense cloud cover would have obscured their view of the skies.
+
+More recently, signs of illness and injury in the human remains unearthed at Stonehenge led a group of British archaeologists to speculate that it was considered a place of healing, perhaps because bluestones were thought to have curative powers.
+
+* Neolithic – The era, also known as the New Stone Age, which began around 12,000 years ago and ended around 3500 BCE
+** Celtic – The Celts were people who lived in Britain and northwest Europe during the Iron Age from 600 BCE to 43 CE`,
+      instructions: `Questions 1–8: Complete the notes below.
+Choose NO MORE THAN TWO WORDS from the passage for each answer.
+
+Questions 9–13: Do the following statements agree with the information given in Reading Passage 1?
+Write TRUE, FALSE, or NOT GIVEN.`,
+      questions: [
+        // ── Q1–8: Note completion ──────────────────────────────
+        {
+          id: "cam18-ra-t2-s1-q1",
+          number: 1,
+          groupLabel: "Questions 1–8: Complete the notes below.\nChoose NO MORE THAN TWO WORDS from the passage for each answer.\n\nStonehenge\n\nConstruction\nStage 1:\n●   the ditch and henge were dug, possibly using tools made from 1 _______\n●   2 _______ may have been arranged in deep pits inside the circle\n\nStage 2:\n●   bluestones from the Preseli Hills were placed in standing position\n●   theories about the transportation of the bluestones:\n        –   archaeological:\n               o   builders used 3 _______ to make sledges and rollers\n               o   4 _______ pulled them on giant baskets\n        –   geological:\n               o   they were brought from Wales by 5 _______\n\nStage 3:\n●   sandstone slabs were arranged into an outer crescent or ring\n\nBuilders\n●   a theory arose in the 17th century that its builders were Celtic 6 _______\n\nPurpose\n●   many experts agree it has been used as a 7 _______ site\n●   in the 1960s, it was suggested that it worked as a kind of 8 _______",
+          type: "note_completion",
+          question: "1. the ditch and henge were dug, possibly using tools made from _______",
+          correctAnswer: "deer antlers",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t2-s1-q2",
+          number: 2,
+          type: "note_completion",
+          question: "2. _______ may have been arranged in deep pits inside the circle",
+          correctAnswer: "timber posts",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t2-s1-q3",
+          number: 3,
+          type: "note_completion",
+          question: "3. builders used _______ to make sledges and rollers",
+          correctAnswer: "tree trunks",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t2-s1-q4",
+          number: 4,
+          type: "note_completion",
+          question: "4. _______ pulled them on giant baskets",
+          correctAnswer: "oxen",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t2-s1-q5",
+          number: 5,
+          type: "note_completion",
+          question: "5. they were brought from Wales by _______",
+          correctAnswer: "glaciers",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t2-s1-q6",
+          number: 6,
+          type: "note_completion",
+          question: "6. a theory arose in the 17th century that its builders were Celtic _______",
+          correctAnswer: "druids",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t2-s1-q7",
+          number: 7,
+          type: "note_completion",
+          question: "7. many experts agree it has been used as a _______ site",
+          correctAnswer: "burial",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t2-s1-q8",
+          number: 8,
+          type: "note_completion",
+          question: "8. in the 1960s, it was suggested that it worked as a kind of _______",
+          correctAnswer: "calendar",
+          points: 1,
+        },
+        // ── Q9–13: True/False/Not Given ───────────────────────
+        {
+          id: "cam18-ra-t2-s1-q9",
+          number: 9,
+          groupLabel: "Questions 9–13: Do the following statements agree with the information given in Reading Passage 1?\nWrite TRUE, FALSE, or NOT GIVEN.\n\n9   During the third phase of construction, sandstone slabs were placed in both the outer areas and the middle of the Stonehenge site.\n10  There is scientific proof that the bluestones stood in the same spot until approximately 1600 BCE.\n11  John Aubrey's claim about Stonehenge was supported by 20th-century findings.\n12  Objects discovered at Stonehenge seem to indicate that it was constructed by a number of different groups of people.\n13  Criticism of Gerald Hawkins' theory about Stonehenge has come mainly from other astronomers.",
+          type: "true_false_ng",
+          question: "9. During the third phase of construction, sandstone slabs were placed in both the outer areas and the middle of the Stonehenge site.",
+          correctAnswer: "TRUE",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t2-s1-q10",
+          number: 10,
+          type: "true_false_ng",
+          question: "10. There is scientific proof that the bluestones stood in the same spot until approximately 1600 BCE.",
+          correctAnswer: "FALSE",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t2-s1-q11",
+          number: 11,
+          type: "true_false_ng",
+          question: "11. John Aubrey's claim about Stonehenge was supported by 20th-century findings.",
+          correctAnswer: "FALSE",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t2-s1-q12",
+          number: 12,
+          type: "true_false_ng",
+          question: "12. Objects discovered at Stonehenge seem to indicate that it was constructed by a number of different groups of people.",
+          correctAnswer: "TRUE",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t2-s1-q13",
+          number: 13,
+          type: "true_false_ng",
+          question: "13. Criticism of Gerald Hawkins' theory about Stonehenge has come mainly from other astronomers.",
+          correctAnswer: "NOT GIVEN",
+          points: 1,
+        },
+      ],
+    },
+    // ── PASSAGE 2 ─────────────────────────────────────────────
+    {
+      id: "cam18-ra-t2-s2",
+      sectionNumber: 2,
+      title: "Reading Passage 2",
+      passageTitle: "Living with artificial intelligence",
+      passageText: `Powerful artificial intelligence (AI) needs to be reliably aligned with human values, but does this mean AI will eventually have to police those values?
+
+This has been the decade of AI, with one astonishing feat after another. A chess-playing AI that can defeat not only all human chess players, but also all previous human-programmed chess machines, after learning the game in just four hours? That's yesterday's news, what's next? True, these prodigious accomplishments are all in so-called narrow AI, where machines perform highly specialised tasks. But many experts believe this restriction is very temporary. By mid-century, we may have artificial general intelligence (AGI) – machines that can achieve human-level performance on the full range of tasks that we ourselves can tackle.
+
+If so, there's little reason to think it will stop there. Machines will be free of many of the physical constraints on human intelligence. Our brains run at slow biochemical processing speeds on the power of a light bulb, and their size is restricted by the dimensions of the human birth canal. It is remarkable what they accomplish, given these handicaps. But they may be as far from the physical limits of thought as our eyes are from the incredibly powerful Webb Space Telescope.
+
+Once machines are better than us at designing even smarter machines, progress towards these limits could accelerate. What would this mean for us? Could we ensure a safe and worthwhile coexistence with such machines? On the plus side, AI is already useful and profitable for many things, and super AI might be expected to be super useful and super profitable. But the more powerful AI becomes, the more important it will be to specify its goals with great care. Folklore is full of tales of people who ask for the wrong thing, with disastrous consequences – King Midas, for example, might have wished that everything he touched turned to gold, but didn't really intend this to apply to his breakfast.
+
+So we need to create powerful AI machines that are 'human-friendly' – that have goals reliably aligned with our own values. One thing that makes this task difficult is that we are far from reliably human-friendly ourselves. We do many terrible things to each other and to many other creatures with whom we share the planet. If superintendent machines don't do a lot better than us, we'll be in deep trouble. We'll have powerful new intelligence amplifying the dark sides of our own fallible natures.
+
+For safety's sake, then, we want the machines to be ethically as well as cognitively superhuman. We want them to aim for the moral high ground, not for the troughs in which many of us spend some of our time. Luckily they'll be smart enough for the job. If there are routes to the moral high ground, they'll be better than us at finding them, and steering us in the right direction.
+
+However, there are two big problems with this utopian vision. One is how we get the machines started on the journey, the other is what it would mean to reach this destination. The 'getting started' problem is that we need to tell the machines what they're looking for with sufficient clarity that we can be confident they will find it – whatever 'it' actually turns out to be. This won't be easy, given that we are tribal creatures and conflicted about the ideals ourselves. We often ignore the suffering of strangers, and even contribute to it, at least indirectly. How then, do we point machines in the direction of something better?
+
+As for the 'destination' problem, we might, by putting ourselves in the hands of these moral guides and gatekeepers, be sacrificing our own autonomy – an important part of what makes us human. Machines who are better than us at sticking to the moral high ground may be expected to discourage some of the lapses we presently take for granted. We might lose our freedom to discriminate in favour of our own communities, for example.
+
+Loss of freedom to behave badly isn't always a bad thing, of course: denying ourselves the freedom to put children to work in factories, or to smoke in restaurants are signs of progress. But are we ready for ethical silicon police limiting our options? They might be so good at doing it that we won't notice them; but few of us are likely to welcome such a future.
+
+These issues might seem far-fetched, but they are to some extent already here. AI already has some input into how resources are used in our National Health Service (NHS) here in the UK, for example. If it was given a greater role, it might do so much more efficiently than humans can manage, and act in the interests of taxpayers and those who use the health system. However, we'd be depriving some humans (e.g. senior doctors) of the control they presently enjoy. Since we'd want to ensure that people are treated equally and that policies are fair, the goals of AI would need to be specified correctly.
+
+We have a new powerful technology to deal with – itself, literally, a new way of thinking. For our own safety, we need to point these new thinkers in the right direction, and get them to act well for us. It is not yet clear whether this is possible, but if it is, it will require a cooperative spirit, and a willingness to set aside self-interest.
+
+Both general intelligence and moral reasoning are often thought to be uniquely human capacities. But safety seems to require that we think of them as a package: if we are to give general intelligence to machines, we'll need to give them moral authority, too. And where exactly would that leave human beings? All the more reason to think about the destination now, and to be careful about what we wish for.`,
+      instructions: `Questions 14–19: Choose the correct letter, A, B, C or D.
+
+Questions 20–23: Do the following statements agree with the claims of the writer?
+Write YES, NO, or NOT GIVEN.
+
+Questions 24–26: Complete the summary using the list of phrases, A–F.`,
+      questions: [
+        // ── Q14–19: Multiple choice ────────────────────────────
+        {
+          id: "cam18-ra-t2-s2-q14",
+          number: 14,
+          groupLabel: "Questions 14–19: Choose the correct letter, A, B, C or D.\n\n14  What point does the writer make about AI in the first paragraph?\nA   It is difficult to predict how quickly AI will progress.\nB   Much can be learned about the use of AI in chess machines.\nC   The future is unlikely to see limitations on the capabilities of AI.\nD   Experts disagree on which specialised tasks AI will be able to perform.\n\n15  What is the writer doing in the second paragraph?\nA   explaining why machines will be able to outperform humans\nB   describing the characteristics that humans and machines share\nC   giving information about the development of machine intelligence\nD   indicating which aspects of humans are the most advanced\n\n16  Why does the writer mention the story of King Midas?\nA   to compare different visions of progress\nB   to illustrate that poorly defined objectives can go wrong\nC   to emphasise the need for cooperation\nD   to point out the financial advantages of a course of action\n\n17  What challenge does the writer refer to in the fourth paragraph?\nA   encouraging humans to behave in a more principled way\nB   deciding which values we want AI to share with us\nC   creating a better world for all creatures on the planet\nD   ensuring AI is more human-friendly than we are ourselves\n\n18  What does the writer suggest about the future of AI in the fifth paragraph?\nA   The safety of machines will become a key issue.\nB   It is hard to know what impact machines will have on the world.\nC   Machines will be superior to humans in certain respects.\nD   Many humans will oppose machines having a wider role.\n\n19  Which of the following best summarises the writer's argument in the sixth paragraph?\nA   More intelligent machines will result in greater abuses of power.\nB   Machine learning will share very few features with human learning.\nC   There are a limited number of people with the knowledge to program machines.\nD   Human shortcomings will make creating the machines we need more difficult.",
+          type: "multiple_choice",
+          question: "14. What point does the writer make about AI in the first paragraph?",
+          options: [
+            { label: "A  It is difficult to predict how quickly AI will progress.", value: "A" },
+            { label: "B  Much can be learned about the use of AI in chess machines.", value: "B" },
+            { label: "C  The future is unlikely to see limitations on the capabilities of AI.", value: "C" },
+            { label: "D  Experts disagree on which specialised tasks AI will be able to perform.", value: "D" },
+          ],
+          correctAnswer: "C",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t2-s2-q15",
+          number: 15,
+          type: "multiple_choice",
+          question: "15. What is the writer doing in the second paragraph?",
+          options: [
+            { label: "A  explaining why machines will be able to outperform humans", value: "A" },
+            { label: "B  describing the characteristics that humans and machines share", value: "B" },
+            { label: "C  giving information about the development of machine intelligence", value: "C" },
+            { label: "D  indicating which aspects of humans are the most advanced", value: "D" },
+          ],
+          correctAnswer: "A",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t2-s2-q16",
+          number: 16,
+          type: "multiple_choice",
+          question: "16. Why does the writer mention the story of King Midas?",
+          options: [
+            { label: "A  to compare different visions of progress", value: "A" },
+            { label: "B  to illustrate that poorly defined objectives can go wrong", value: "B" },
+            { label: "C  to emphasise the need for cooperation", value: "C" },
+            { label: "D  to point out the financial advantages of a course of action", value: "D" },
+          ],
+          correctAnswer: "B",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t2-s2-q17",
+          number: 17,
+          type: "multiple_choice",
+          question: "17. What challenge does the writer refer to in the fourth paragraph?",
+          options: [
+            { label: "A  encouraging humans to behave in a more principled way", value: "A" },
+            { label: "B  deciding which values we want AI to share with us", value: "B" },
+            { label: "C  creating a better world for all creatures on the planet", value: "C" },
+            { label: "D  ensuring AI is more human-friendly than we are ourselves", value: "D" },
+          ],
+          correctAnswer: "D",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t2-s2-q18",
+          number: 18,
+          type: "multiple_choice",
+          question: "18. What does the writer suggest about the future of AI in the fifth paragraph?",
+          options: [
+            { label: "A  The safety of machines will become a key issue.", value: "A" },
+            { label: "B  It is hard to know what impact machines will have on the world.", value: "B" },
+            { label: "C  Machines will be superior to humans in certain respects.", value: "C" },
+            { label: "D  Many humans will oppose machines having a wider role.", value: "D" },
+          ],
+          correctAnswer: "C",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t2-s2-q19",
+          number: 19,
+          type: "multiple_choice",
+          question: "19. Which of the following best summarises the writer's argument in the sixth paragraph?",
+          options: [
+            { label: "A  More intelligent machines will result in greater abuses of power.", value: "A" },
+            { label: "B  Machine learning will share very few features with human learning.", value: "B" },
+            { label: "C  There are a limited number of people with the knowledge to program machines.", value: "C" },
+            { label: "D  Human shortcomings will make creating the machines we need more difficult.", value: "D" },
+          ],
+          correctAnswer: "D",
+          points: 1,
+        },
+        // ── Q20–23: Yes/No/Not Given ───────────────────────────
+        {
+          id: "cam18-ra-t2-s2-q20",
+          number: 20,
+          groupLabel: "Questions 20–23: Do the following statements agree with the claims of the writer in Reading Passage 2?\nWrite YES, NO, or NOT GIVEN.\n\n20  Machines with the ability to make moral decisions may prevent us from promoting the interests of our communities.\n21  Silicon police would need to exist in large numbers in order to be effective.\n22  Many people are comfortable with the prospect of their independence being restricted by machines.\n23  If we want to ensure that machines act in our best interests, we all need to work together.",
+          type: "true_false_ng",
+          question: "20. Machines with the ability to make moral decisions may prevent us from promoting the interests of our communities.",
+          correctAnswer: "YES",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t2-s2-q21",
+          number: 21,
+          type: "true_false_ng",
+          question: "21. Silicon police would need to exist in large numbers in order to be effective.",
+          correctAnswer: "NOT GIVEN",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t2-s2-q22",
+          number: 22,
+          type: "true_false_ng",
+          question: "22. Many people are comfortable with the prospect of their independence being restricted by machines.",
+          correctAnswer: "NO",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t2-s2-q23",
+          number: 23,
+          type: "true_false_ng",
+          question: "23. If we want to ensure that machines act in our best interests, we all need to work together.",
+          correctAnswer: "YES",
+          points: 1,
+        },
+        // ── Q24–26: Summary completion (list) ─────────────────
+        {
+          id: "cam18-ra-t2-s2-q24",
+          number: 24,
+          groupLabel: "Questions 24–26: Complete the summary using the list of phrases, A–F, below.\n\nUsing AI in the UK health system\nAI currently has a limited role in the way 24 _______ are allocated in the health service. The positive aspect of AI having a bigger role is that it would be more efficient and lead to patient benefits. However, such a change would result, for example, in certain 25 _______ not having their current level of 26 _______. It is therefore important that AI goals are appropriate so that discriminatory practices could be avoided.\n\nA   medical practitioners\nB   specialised tasks\nC   available resources\nD   reduced illness\nE   professional authority\nF   technology experts",
+          type: "matching",
+          question: "24. AI currently has a limited role in the way _______ are allocated in the health service.",
+          options: [
+            { label: "A – medical practitioners", value: "A" },
+            { label: "B – specialised tasks", value: "B" },
+            { label: "C – available resources", value: "C" },
+            { label: "D – reduced illness", value: "D" },
+            { label: "E – professional authority", value: "E" },
+            { label: "F – technology experts", value: "F" },
+          ],
+          correctAnswer: "C",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t2-s2-q25",
+          number: 25,
+          type: "matching",
+          question: "25. such a change would result in certain _______ not having their current level of authority.",
+          options: [
+            { label: "A – medical practitioners", value: "A" },
+            { label: "B – specialised tasks", value: "B" },
+            { label: "C – available resources", value: "C" },
+            { label: "D – reduced illness", value: "D" },
+            { label: "E – professional authority", value: "E" },
+            { label: "F – technology experts", value: "F" },
+          ],
+          correctAnswer: "A",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t2-s2-q26",
+          number: 26,
+          type: "matching",
+          question: "26. certain medical practitioners not having their current level of _______.",
+          options: [
+            { label: "A – medical practitioners", value: "A" },
+            { label: "B – specialised tasks", value: "B" },
+            { label: "C – available resources", value: "C" },
+            { label: "D – reduced illness", value: "D" },
+            { label: "E – professional authority", value: "E" },
+            { label: "F – technology experts", value: "F" },
+          ],
+          correctAnswer: "E",
+          points: 1,
+        },
+      ],
+    },
+    // ── PASSAGE 3 ─────────────────────────────────────────────
+    {
+      id: "cam18-ra-t2-s3",
+      sectionNumber: 3,
+      title: "Reading Passage 3",
+      passageTitle: "An ideal city",
+      passageText: `Leonardo da Vinci's ideal city was centuries ahead of its time
+
+The word 'genius' is universally associated with the name of Leonardo da Vinci. A true Renaissance man, he embodied scientific spirit, artistic talent and humanist sensibilities. Five hundred years have passed since Leonardo died in his home at Chateau du Clos Luce, outside Tours, France. Yet far from fading into insignificance, his thinking has carried down the centuries and still surprises today.
+
+The Renaissance marked the transition from the 15th century to modernity and took place after the spread of the plague in the 14th century, which caused a global crisis resulting in some 200 million deaths across Europe and Asia. Today, the world is on the cusp of a climate crisis, which is predicted to cause widespread displacement, extinctions and death, if left unaddressed. Then, as now, radical solutions were called for to revolutionise the way people lived and safeguard humanity against catastrophe.
+
+Around 1486 – after a pestilence that killed half the population in Milan, Italy – Leonardo turned his thoughts to urban planning problems. Following a typical Renaissance trend, he began to work on an 'ideal city' project, which – due to its excessive costs – would remain unfulfilled. Yet given that unsustainable urban models are a key cause of global climate change today, it's only natural to wonder how Leonardo might have changed the shape of modern cities.
+
+Although the Renaissance is renowned as an era of incredible progress in art and architecture, it is rarely noted that the 15th century also marked the birth of urbanism as a true academic discipline. The rigour and method behind the conscious conception of a city had been largely missing in Western thought until the moment when prominent Renaissance men pushed forward large-scale urban projects in Italy, such as the reconfiguration of the town of Pienza and the expansion of the city of Ferrara. These works surely inspired Leonardo's decision to rethink the design of medieval cities, with their winding and overcrowded streets and with houses piled against one another.
+
+It is not easy to identify a coordinated vision of Leonardo's ideal city because of his disordered way of working with notes and sketches. But from the largest collection of Leonardo's papers ever assembled, a series of innovative thoughts can be reconstructed regarding the foundation of a new city along the Ticino River, which runs from Switzerland into Italy and is 248 kilometres long. He designed the city for the easy transport of goods and clean urban spaces, and he wanted a comfortable and spacious city, with well-ordered streets and architecture. He recommended 'high, strong walls', with 'towers and battlements of all necessary and pleasant beauty'.
+
+His plans for a modern and 'rational' city were consistent with Renaissance ideals. But, in keeping with his personality, Leonardo included several innovations in his urban design. Leonardo wanted the city to be built on several levels, linked with vertical outdoor staircases. This design can be seen in some of today's high-rise buildings but was unconventional at the time. Indeed, this idea of taking full advantage of the interior spaces wasn't implemented until the 1920s and 1930s, with the birth of the Modernist movement.
+
+While in the upper layers of the city, people could walk undisturbed between elegant palaces and streets, the lower layer was the place for services, trade, transport and industry. But the true originality of Leonardo's vision was its fusion of architecture and engineering. Leonardo designed extensive hydraulic plants to create artificial canals throughout the city. The canals, regulated by clocks and basins, were supposed to make it easier for boats to navigate inland. Leonardo also thought that the width of the streets ought to match the average height of the adjacent houses: a rule still followed in many contemporary cities across Italy, to allow access to sun and reduce the risk of damage from earthquakes.
+
+Although some of these features existed in Roman cities, before Leonardo's drawings there had never been a multi-level, compact modern city which was thoroughly technically conceived. Indeed, it wasn't until the 19th century that some of his ideas were applied. For example, the subdivision of the city by function – with services and infrastructures located in the lower levels and wide and well-ventilated boulevards and walkways above for residents – is an idea that can be found in Georges-Eugene Haussmann's renovation of Paris under Emperor Napoleon III between 1853 and 1870.
+
+Today, Leonardo's ideas are not simply valid, they actually suggest a way forward for urban planning. Many scholars think that the compact city, built upwards instead of outwards, integrated with nature (especially water systems), with efficient transport infrastructure, could help modern cities become more efficient and sustainable. This is yet another reason why Leonardo was aligned so closely with modern urban planning and centuries ahead of his time.`,
+      instructions: `Questions 27–33: Do the following statements agree with the information given in Reading Passage 3?
+Write TRUE, FALSE, or NOT GIVEN.
+
+Questions 34–40: Complete the summary below.
+Choose ONE WORD ONLY from the passage for each answer.`,
+      questions: [
+        // ── Q27–33: True/False/Not Given ──────────────────────
+        {
+          id: "cam18-ra-t2-s3-q27",
+          number: 27,
+          groupLabel: "Questions 27–33: Do the following statements agree with the information given in Reading Passage 3?\nWrite TRUE, FALSE, or NOT GIVEN.\n\n27  People first referred to Leonardo da Vinci as a genius 500 years ago.\n28  The current climate crisis is predicted to cause more deaths than the plague.\n29  Some of the challenges we face today can be compared to those of earlier times.\n30  Leonardo da Vinci's 'ideal city' was constructed in the 15th century.\n31  Poor town planning is a major contributor to climate change.\n32  In Renaissance times, local people fought against the changes to Pienza and Ferrara.\n33  Leonardo da Vinci kept a neat, organised record of his designs.",
+          type: "true_false_ng",
+          question: "27. People first referred to Leonardo da Vinci as a genius 500 years ago.",
+          correctAnswer: "NOT GIVEN",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t2-s3-q28",
+          number: 28,
+          type: "true_false_ng",
+          question: "28. The current climate crisis is predicted to cause more deaths than the plague.",
+          correctAnswer: "NOT GIVEN",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t2-s3-q29",
+          number: 29,
+          type: "true_false_ng",
+          question: "29. Some of the challenges we face today can be compared to those of earlier times.",
+          correctAnswer: "TRUE",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t2-s3-q30",
+          number: 30,
+          type: "true_false_ng",
+          question: "30. Leonardo da Vinci's 'ideal city' was constructed in the 15th century.",
+          correctAnswer: "FALSE",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t2-s3-q31",
+          number: 31,
+          type: "true_false_ng",
+          question: "31. Poor town planning is a major contributor to climate change.",
+          correctAnswer: "TRUE",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t2-s3-q32",
+          number: 32,
+          type: "true_false_ng",
+          question: "32. In Renaissance times, local people fought against the changes to Pienza and Ferrara.",
+          correctAnswer: "NOT GIVEN",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t2-s3-q33",
+          number: 33,
+          type: "true_false_ng",
+          question: "33. Leonardo da Vinci kept a neat, organised record of his designs.",
+          correctAnswer: "FALSE",
+          points: 1,
+        },
+        // ── Q34–40: Summary completion (one word only) ─────────
+        {
+          id: "cam18-ra-t2-s3-q34",
+          number: 34,
+          groupLabel: "Questions 34–40: Complete the summary below.\nChoose ONE WORD ONLY from the passage for each answer.\n\nLeonardo da Vinci's ideal city\n\nA collection of Leonardo da Vinci's paperwork reveals his design of a new city beside the Ticino River. This was to provide better 34 _______ for trade and a less polluted environment. Although Leonardo da Vinci's city shared many of the ideals of his time, some of his innovations were considered unconventional in their design. They included features that can be seen in some tower blocks today, such as 35 _______ on the exterior of a building.\n\nLeonardo da Vinci wasn't only an architect. His expertise in 36 _______ was evident in his plans for artificial canals within his ideal city. He also believed that the height of houses should relate to the width of streets in case earthquakes occurred. The design of many cities in Italy today follows this 37 _______.\n\nWhile some cities from 38 _______ times have aspects that can also be found in Leonardo's designs, his ideas weren't put into practice until long after his death. 39 _______ is one example of a city that was redesigned in the 19th century in the way that Leonardo had envisaged. His ideas are also relevant to today's world, where building 40 _______ no longer seems to be the best approach.",
+          type: "note_completion",
+          question: "34. This was to provide better _______ for trade and a less polluted environment.",
+          correctAnswer: "transport",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t2-s3-q35",
+          number: 35,
+          type: "note_completion",
+          question: "35. They included features such as _______ on the exterior of a building.",
+          correctAnswer: "staircases",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t2-s3-q36",
+          number: 36,
+          type: "note_completion",
+          question: "36. His expertise in _______ was evident in his plans for artificial canals.",
+          correctAnswer: "engineering",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t2-s3-q37",
+          number: 37,
+          type: "note_completion",
+          question: "37. The design of many cities in Italy today follows this _______.",
+          correctAnswer: "rule",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t2-s3-q38",
+          number: 38,
+          type: "note_completion",
+          question: "38. While some cities from _______ times have aspects found in Leonardo's designs...",
+          correctAnswer: "Roman",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t2-s3-q39",
+          number: 39,
+          type: "note_completion",
+          question: "39. _______ is one example of a city redesigned in the 19th century in the way Leonardo envisaged.",
+          correctAnswer: "Paris",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t2-s3-q40",
+          number: 40,
+          type: "note_completion",
+          question: "40. His ideas are relevant today, where building _______ no longer seems to be the best approach.",
+          correctAnswer: "outwards",
+          points: 1,
+        },
+      ],
+    },
+  ],
+};
+
+export const cambridge18Tests: IELTSTest[] = [cambridge18_reading_t1, cambridge18_reading_t2];
