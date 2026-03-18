@@ -894,7 +894,7 @@ export default function TestPage() {
                       <React.Fragment key={q.id}>
                         {q.groupLabel && (
                           <div style={{ fontSize: 13, padding: "10px 14px", borderRadius: 10, background: T.accentDim, color: T.accent, border: `1px solid ${T.accentBorder}`, fontWeight: 500, lineHeight: 1.6, whiteSpace: "pre-line" }}>
-                            {q.groupLabel}
+                            {q.groupLabel.split(/\n(?=\d+[\s\.])/)[0].trim()}
                           </div>
                         )}
                         {sec.diagramUrl && q.type === "diagram_labelling" &&
@@ -942,7 +942,7 @@ export default function TestPage() {
                   <React.Fragment key={q.id}>
                     {q.groupLabel && (
                       <div style={{ fontSize: 13, padding: "10px 14px", borderRadius: 10, background: T.accentDim, color: T.accent, border: `1px solid ${T.accentBorder}`, fontWeight: 500, lineHeight: 1.6, whiteSpace: "pre-line" }}>
-                        {q.groupLabel}
+                        {q.groupLabel.split(/\n(?=\d+[\s\.])/)[0].trim()}
                       </div>
                     )}
                     <QuestionItem question={q}
@@ -1098,71 +1098,102 @@ function QuestionItem({
     if (el.tagName === "MARK" && el.dataset.hid) onRemoveHighlight(el.dataset.hid);
   };
 
+  const isGapFill = ["fill_blank", "short_answer", "summary_completion", "sentence_completion",
+    "table_completion", "note_completion", "diagram_labelling"].includes(question.type);
+
+  // Strip leading "N. " or "N) " from question text since number badge already shows it
+  const cleanQuestionText = question.question.replace(/^\d+[\.\)]\s*/, "");
+  const hasInlineBlank = isGapFill && cleanQuestionText.includes("_______");
+
   return (
     <div id={`question-${question.id}`} style={{ paddingBottom: 24, borderBottom: `1px solid ${T.border}` }}>
-      <div style={{ display: "flex", gap: 12, marginBottom: 12 }}>
+      <div style={{ display: "flex", gap: 12, marginBottom: hasInlineBlank ? 0 : 12, alignItems: hasInlineBlank ? "center" : "flex-start", flexWrap: "wrap" }}>
         <span style={{ flexShrink: 0, width: 26, height: 26, borderRadius: "50%", background: T.accent, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 11, fontWeight: 700, color: "#fff" }}>
           {question.number}
         </span>
-        <div onClick={handleQuestionClick}
-          data-question-id={question.id}
-          style={{ fontSize: fontSize - 1, color: T.text, lineHeight: 1.6, userSelect: "text" }}
-          dangerouslySetInnerHTML={{ __html: buildQuestionHtml(question.question, questionHighlights, question.id, T.bg.startsWith("#0") ? "#c4b5fd" : "#7c3aed") }}
-        />
-      </div>
 
-      <div style={{ marginLeft: 38 }}>
-        {/* Multiple choice */}
-        {question.type === "multiple_choice" && question.options && (
-          <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-            {question.options.map((opt) => (
-              <label key={opt.value} style={{ display: "flex", alignItems: "center", gap: 10, cursor: "pointer" }}>
-                <div style={{ width: 18, height: 18, borderRadius: "50%", border: `2px solid ${answer === opt.value ? T.accent : T.border}`, background: answer === opt.value ? T.accent : "transparent", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}
-                  onClick={() => onAnswer(opt.value)}>
-                  {answer === opt.value && <div style={{ width: 7, height: 7, borderRadius: "50%", background: "#fff" }} />}
-                </div>
-                <input type="radio" name={`q-${question.id}`} value={opt.value} checked={answer === opt.value} onChange={() => onAnswer(opt.value)} style={{ display: "none" }} />
-                <span style={{ fontSize: 14, color: T.text }}>{opt.label}</span>
-              </label>
+        {hasInlineBlank ? (
+          // Inline gap fill: render text with input box inline
+          <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: 4, fontSize: fontSize - 1, color: T.text, lineHeight: 2, flex: 1 }}>
+            {cleanQuestionText.split("_______").map((part, i, arr) => (
+              <React.Fragment key={i}>
+                <span>{part}</span>
+                {i < arr.length - 1 && (
+                  <input
+                    type="text"
+                    value={answer}
+                    onChange={(e) => onAnswer(e.target.value)}
+                    placeholder="..."
+                    style={{ padding: "3px 10px", borderRadius: 6, fontSize: fontSize - 1, background: T.inputBg, border: `1.5px solid ${T.border}`, color: T.text, outline: "none", minWidth: 120, maxWidth: 180, fontFamily: "Inter, system-ui, sans-serif", userSelect: "text", WebkitUserSelect: "text" } as React.CSSProperties}
+                    onFocus={e => e.currentTarget.style.borderColor = T.accent}
+                    onBlur={e => e.currentTarget.style.borderColor = T.border}
+                  />
+                )}
+              </React.Fragment>
             ))}
           </div>
-        )}
-
-        {/* True/False/NG */}
-        {question.type === "true_false_ng" && question.options && (
-          <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
-            {question.options.map((opt) => (
-              <button key={opt.value} onClick={() => onAnswer(opt.value)}
-                style={{ ...btnBase, background: answer === opt.value ? T.accent : T.nav, color: answer === opt.value ? "#fff" : T.textSub, borderColor: answer === opt.value ? T.accent : T.border }}>
-                {opt.label}
-              </button>
-            ))}
-          </div>
-        )}
-
-        {/* Matching */}
-        {question.type === "matching" && question.options && (
-          <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
-            {question.options.map((opt) => (
-              <button key={opt.value} onClick={() => onAnswer(opt.value)}
-                style={{ ...btnBase, background: answer === opt.value ? T.accent : T.nav, color: answer === opt.value ? "#fff" : T.textSub, borderColor: answer === opt.value ? T.accent : T.border }}>
-                {opt.label}
-              </button>
-            ))}
-          </div>
-        )}
-
-        {/* Fill blank / short answer / etc. */}
-        {["fill_blank", "short_answer", "summary_completion", "sentence_completion",
-          "table_completion", "note_completion", "diagram_labelling"].includes(question.type) && (
-          <input type="text" value={answer} onChange={(e) => onAnswer(e.target.value)}
-            placeholder="Write your answer here..."
-            style={{ padding: "9px 14px", borderRadius: 8, fontSize: 14, background: T.inputBg, border: `1.5px solid ${T.border}`, color: T.text, outline: "none", minWidth: 200, fontFamily: "Inter, system-ui, sans-serif", userSelect: "text", WebkitUserSelect: "text" } as React.CSSProperties}
-            onFocus={e => e.currentTarget.style.borderColor = T.accent}
-            onBlur={e => e.currentTarget.style.borderColor = T.border}
+        ) : (
+          <div onClick={handleQuestionClick}
+            data-question-id={question.id}
+            style={{ fontSize: fontSize - 1, color: T.text, lineHeight: 1.6, userSelect: "text", flex: 1 }}
+            dangerouslySetInnerHTML={{ __html: buildQuestionHtml(cleanQuestionText, questionHighlights, question.id, T.bg.startsWith("#0") ? "#c4b5fd" : "#7c3aed") }}
           />
         )}
       </div>
+
+      {!hasInlineBlank && (
+        <div style={{ marginLeft: 38 }}>
+          {/* Multiple choice */}
+          {question.type === "multiple_choice" && question.options && (
+            <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+              {question.options.map((opt) => (
+                <label key={opt.value} style={{ display: "flex", alignItems: "center", gap: 10, cursor: "pointer" }}>
+                  <div style={{ width: 18, height: 18, borderRadius: "50%", border: `2px solid ${answer === opt.value ? T.accent : T.border}`, background: answer === opt.value ? T.accent : "transparent", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}
+                    onClick={() => onAnswer(opt.value)}>
+                    {answer === opt.value && <div style={{ width: 7, height: 7, borderRadius: "50%", background: "#fff" }} />}
+                  </div>
+                  <input type="radio" name={`q-${question.id}`} value={opt.value} checked={answer === opt.value} onChange={() => onAnswer(opt.value)} style={{ display: "none" }} />
+                  <span style={{ fontSize: 14, color: T.text }}>{opt.label}</span>
+                </label>
+              ))}
+            </div>
+          )}
+
+          {/* True/False/NG */}
+          {question.type === "true_false_ng" && question.options && (
+            <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+              {question.options.map((opt) => (
+                <button key={opt.value} onClick={() => onAnswer(opt.value)}
+                  style={{ ...btnBase, background: answer === opt.value ? T.accent : T.nav, color: answer === opt.value ? "#fff" : T.textSub, borderColor: answer === opt.value ? T.accent : T.border }}>
+                  {opt.label}
+                </button>
+              ))}
+            </div>
+          )}
+
+          {/* Matching */}
+          {question.type === "matching" && question.options && (
+            <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+              {question.options.map((opt) => (
+                <button key={opt.value} onClick={() => onAnswer(opt.value)}
+                  style={{ ...btnBase, background: answer === opt.value ? T.accent : T.nav, color: answer === opt.value ? "#fff" : T.textSub, borderColor: answer === opt.value ? T.accent : T.border }}>
+                  {opt.label}
+                </button>
+              ))}
+            </div>
+          )}
+
+          {/* Fill blank / short answer fallback (no inline blank marker) */}
+          {isGapFill && (
+            <input type="text" value={answer} onChange={(e) => onAnswer(e.target.value)}
+              placeholder="Write your answer here..."
+              style={{ padding: "9px 14px", borderRadius: 8, fontSize: 14, background: T.inputBg, border: `1.5px solid ${T.border}`, color: T.text, outline: "none", minWidth: 200, fontFamily: "Inter, system-ui, sans-serif", userSelect: "text", WebkitUserSelect: "text" } as React.CSSProperties}
+              onFocus={e => e.currentTarget.style.borderColor = T.accent}
+              onBlur={e => e.currentTarget.style.borderColor = T.border}
+            />
+          )}
+        </div>
+      )}
     </div>
   );
 }
