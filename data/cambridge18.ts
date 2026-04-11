@@ -1744,4 +1744,689 @@ Questions 36–40: Do the statements agree with the views of the writer? Write Y
   ],
 };
 
-export const cambridge18Tests: IELTSTest[] = [cambridge18_reading_t1, cambridge18_reading_t2, cambridge18_reading_t3];
+// ============================================================
+// CAMBRIDGE IELTS 18 – TEST 4  (Academic Reading)
+// Passages: Green roofs /
+//           The growth mindset /
+//           Alfred Wegener: science, exploration and the
+//           theory of continental drift
+// ============================================================
+export const cambridge18_reading_t4: IELTSTest = {
+  id: "cam18-reading-academic-t4",
+  title: "Cambridge IELTS 18 – Test 4",
+  bookNumber: 18,
+  testNumber: 4,
+  type: "reading",
+  level: "academic",
+  durationMinutes: 60,
+  transferMinutes: 0,
+  sections: [
+    // ── PASSAGE 1 ─────────────────────────────────────────────
+    {
+      id: "cam18-ra-t4-s1",
+      sectionNumber: 1,
+      title: "Reading Passage 1",
+      passageTitle: "Green roofs",
+      passageText: `A
+Rooftops covered with grass, vegetable gardens and lush foliage are now a common sight in many cities around the world. More and more private companies and city authorities are investing in green roofs, drawn to their wide-ranging benefits. Among the benefits are saving on energy costs, mitigating the risk of floods, making habitats for urban wildlife, tackling air pollution and even growing food. These increasingly radical urban designs can help cities adapt to the monumental problems they face, such as access to resources and a lack of green space due to development. But the involvement of city authorities, businesses and other institutions is crucial to ensuring their success – as is research investigating different options to suit the variety of rooftop spaces found in cities. The UK is relatively new to developing green roofs, and local governments and institutions are playing a major role in spreading the practice. London is home to much of the UK's green roof market, mainly due to forward-thinking policies such as the London Plan, which has paved the way to more than doubling the area of green roofs in the capital.
+
+B
+Ongoing research is showcasing how green roofs in cities can integrate with 'living walls': environmentally friendly walls which are partially or completely covered with greenery, including a growing medium, such as soil or water. Research also indicates that green roofs can be integrated with drainage systems on the ground, such as street trees, so that the water is managed better and the built environment is made more sustainable. There is also evidence to demonstrate the social value of green roofs. Doctors are increasingly prescribing time spent gardening outdoors for patients dealing with anxiety and depression. And research has found that access to even the most basic green spaces can provide a better quality of life for dementia sufferers and help people avoid obesity.
+
+C
+In North America, green roofs have become mainstream, with a wide array of expansive, accessible and food-producing roofs installed in buildings. Again, city leaders and authorities have helped push the movement forward – only recently, San Francisco, USA, created a policy requiring new buildings to have green roofs. Toronto, Canada, has policies dating from the 1990s, encouraging the development of urban farms on rooftops. These countries also benefit from having newer buildings than in many parts of the world, which makes it easier to install green roofs. Being able to keep enough water at roof height and distribute it right across the rooftop is crucial to maintaining the plants on any green roof – especially on 'edible roofs' where fruit and vegetables are farmed. And it's much easier to do this in newer buildings, which can typically hold greater weight, than to retro-fit old ones. Having a stronger roof also makes it easier to grow a greater variety of plants, since the soil can be deeper.
+
+D
+For green roofs to become the norm for new developments, there needs to be support from public authorities and private investors. Those responsible for maintaining buildings may have to acquire new skills, such as landscaping, and in some cases, volunteers may be needed to help out. Other considerations include installing drainage paths, meeting health and safety requirements and perhaps allowing access for the public, as well as planning restrictions and disruption from regular activities in and around the buildings during installation. To convince investors and developers that installing green roofs is worthwhile, economic arguments are still the most important. The term 'natural capital' has been developed to explain the economic value of nature; for example, measuring the money saved by installing natural solutions to protect against flood damage, adapt to climate change or help people lead healthier and happier lives.
+
+E
+As the expertise about green roofs grows, official standards have been developed to ensure that they are designed, constructed and maintained properly, and function well. Improvements in the science and technology underpinning green roof development have also led to new variations in the concept. For example, 'blue roofs' enable buildings to hold water over longer periods of time, rather than draining it away quickly – crucial in times of heavier rainfall. There are also combinations of green roofs with solar panels, and 'brown roofs' which are wilder in nature and maximise biodiversity. If the trend continues, it could create new jobs and a more vibrant and sustainable local food economy – alongside many other benefits. There are still barriers to overcome, but the evidence so far indicates that green roofs have the potential to transform cities and help them function sustainably long into the future. The success stories need to be studied and replicated elsewhere, to make green, blue, brown and food-producing roofs the norm in cities around the world.`,
+      instructions: `Questions 1–5: Matching information — which paragraph A–E contains each piece of information? NB You may use any letter more than once.
+Questions 6–9: Summary completion — ONE WORD ONLY from the passage.
+Questions 10–11: Choose TWO letters, A–E (advantages of using newer buildings, Paragraph C).
+Questions 12–13: Choose TWO letters, A–E (aims of new variations on green roofs, Paragraph E).`,
+      questions: [
+        {
+          id: "cam18-ra-t4-s1-q1",
+          number: 1,
+          groupLabel: `Questions 1–5: Reading Passage 1 has five paragraphs, A–E. Which paragraph contains the following information?\nNB You may use any letter more than once.\n\n1   mention of several challenges to be overcome before a green roof can be installed\n2   reference to a city where green roofs have been promoted for many years\n3   a belief that existing green roofs should be used as a model for new ones\n4   examples of how green roofs can work in combination with other green urban initiatives\n5   the need to make a persuasive argument for the financial benefits of green roofs`,
+          type: "matching",
+          question: "1. mention of several challenges to be overcome before a green roof can be installed",
+          options: [
+            { label: "A", value: "A" }, { label: "B", value: "B" }, { label: "C", value: "C" },
+            { label: "D", value: "D" }, { label: "E", value: "E" },
+          ],
+          correctAnswer: "D",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t4-s1-q2",
+          number: 2,
+          type: "matching",
+          question: "2. reference to a city where green roofs have been promoted for many years",
+          options: [
+            { label: "A", value: "A" }, { label: "B", value: "B" }, { label: "C", value: "C" },
+            { label: "D", value: "D" }, { label: "E", value: "E" },
+          ],
+          correctAnswer: "C",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t4-s1-q3",
+          number: 3,
+          type: "matching",
+          question: "3. a belief that existing green roofs should be used as a model for new ones",
+          options: [
+            { label: "A", value: "A" }, { label: "B", value: "B" }, { label: "C", value: "C" },
+            { label: "D", value: "D" }, { label: "E", value: "E" },
+          ],
+          correctAnswer: "E",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t4-s1-q4",
+          number: 4,
+          type: "matching",
+          question: "4. examples of how green roofs can work in combination with other green urban initiatives",
+          options: [
+            { label: "A", value: "A" }, { label: "B", value: "B" }, { label: "C", value: "C" },
+            { label: "D", value: "D" }, { label: "E", value: "E" },
+          ],
+          correctAnswer: "B",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t4-s1-q5",
+          number: 5,
+          type: "matching",
+          question: "5. the need to make a persuasive argument for the financial benefits of green roofs",
+          options: [
+            { label: "A", value: "A" }, { label: "B", value: "B" }, { label: "C", value: "C" },
+            { label: "D", value: "D" }, { label: "E", value: "E" },
+          ],
+          correctAnswer: "D",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t4-s1-q6",
+          number: 6,
+          groupLabel: `Questions 6–9: Complete the summary below. Choose ONE WORD ONLY from the passage for each answer.\n\nAdvantages of green roofs\nCity rooftops covered with greenery have many advantages. These include lessening the likelihood that floods will occur, reducing how much money is spent on 6 _______ and creating environments that are suitable for wildlife. In many cases, they can also be used for producing 7 _______.\n\nThere are also social benefits of green roofs. For example, the medical profession recommends 8 _______ as an activity to help people cope with mental health issues. Studies have also shown that the availability of green spaces can prevent physical problems such as 9 _______.`,
+          type: "summary_completion",
+          question: "6. reducing how much money is spent on _______",
+          correctAnswer: "energy",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t4-s1-q7",
+          number: 7,
+          type: "summary_completion",
+          question: "7. they can also be used for producing _______",
+          correctAnswer: "food",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t4-s1-q8",
+          number: 8,
+          type: "summary_completion",
+          question: "8. the medical profession recommends _______ as an activity to help people cope with mental health issues",
+          correctAnswer: "gardening",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t4-s1-q9",
+          number: 9,
+          type: "summary_completion",
+          question: "9. green spaces can prevent physical problems such as _______",
+          correctAnswer: "obesity",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t4-s1-q10",
+          number: 10,
+          groupLabel: `Questions 10 and 11: Choose TWO letters, A–E.\n\nWhich TWO advantages of using newer buildings for green roofs are mentioned in Paragraph C of the passage?\n\nA  a longer growing season for edible produce\nB  more economical use of water\nC  greater water-storage capacity\nD  ability to cultivate more plant types\nE  a large surface area for growing plants`,
+          type: "multiple_choice",
+          question: "10. Choose TWO (first answer)",
+          options: [
+            { label: "A  a longer growing season for edible produce", value: "A" },
+            { label: "B  more economical use of water", value: "B" },
+            { label: "C  greater water-storage capacity", value: "C" },
+            { label: "D  ability to cultivate more plant types", value: "D" },
+            { label: "E  a large surface area for growing plants", value: "E" },
+          ],
+          correctAnswer: "C",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t4-s1-q11",
+          number: 11,
+          type: "multiple_choice",
+          question: "11. Choose TWO (second answer)",
+          options: [
+            { label: "A  a longer growing season for edible produce", value: "A" },
+            { label: "B  more economical use of water", value: "B" },
+            { label: "C  greater water-storage capacity", value: "C" },
+            { label: "D  ability to cultivate more plant types", value: "D" },
+            { label: "E  a large surface area for growing plants", value: "E" },
+          ],
+          correctAnswer: "D",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t4-s1-q12",
+          number: 12,
+          groupLabel: `Questions 12 and 13: Choose TWO letters, A–E.\n\nWhich TWO aims of new variations on the concept of green roofs are mentioned in Paragraph E of the passage?\n\nA  to provide habitats for a wide range of species\nB  to grow plants successfully even in the wettest climates\nC  to regulate the temperature of the immediate environment\nD  to generate power from a sustainable source\nE  to collect water to supply other buildings`,
+          type: "multiple_choice",
+          question: "12. Choose TWO (first answer)",
+          options: [
+            { label: "A  to provide habitats for a wide range of species", value: "A" },
+            { label: "B  to grow plants successfully even in the wettest climates", value: "B" },
+            { label: "C  to regulate the temperature of the immediate environment", value: "C" },
+            { label: "D  to generate power from a sustainable source", value: "D" },
+            { label: "E  to collect water to supply other buildings", value: "E" },
+          ],
+          correctAnswer: "A",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t4-s1-q13",
+          number: 13,
+          type: "multiple_choice",
+          question: "13. Choose TWO (second answer)",
+          options: [
+            { label: "A  to provide habitats for a wide range of species", value: "A" },
+            { label: "B  to grow plants successfully even in the wettest climates", value: "B" },
+            { label: "C  to regulate the temperature of the immediate environment", value: "C" },
+            { label: "D  to generate power from a sustainable source", value: "D" },
+            { label: "E  to collect water to supply other buildings", value: "E" },
+          ],
+          correctAnswer: "D",
+          points: 1,
+        },
+      ],
+    },
+    // ── PASSAGE 2 ─────────────────────────────────────────────
+    {
+      id: "cam18-ra-t4-s2",
+      sectionNumber: 2,
+      title: "Reading Passage 2",
+      passageTitle: "The growth mindset",
+      passageText: `Over the past century, a powerful idea has taken root in the educational landscape. The concept of intelligence as something innate has been supplanted by the idea that intelligence is not fixed, and that, with the right training, we can be the authors of our own cognitive capabilities. Psychologist Alfred Binet, the developer of the first intelligence tests, was one of many 19th-century scientists who held that earlier view and sought to quantify cognitive ability. Then, in the early 20th century, progressive thinkers revolted against the notion that inherent ability is destiny. Instead, educators such as John Dewey argued that every child's intelligence could be developed, given the right environment.
+
+'Growth mindset theory' is a relatively new – and extremely popular – version of this idea. In many schools today you will see hallways covered in motivational posters and hear speeches on the mindset of great sporting heroes who simply believed their way to the top. A major focus of the growth mindset in schools is coaxing students away from seeing failure as an indication of their ability, and towards seeing it as a chance to improve that ability. As educationalist Jeff Howard noted several decades ago: 'Smart is not something that you just are, smart is something that you can get.'
+
+The idea of the growth mindset is based on the work of psychologist Carol Dweck in California in the 1990s. In one key experiment, Dweck divided a group of 10- to 12-year-olds into two groups. All were told that they had achieved a high score on a test but the first group were praised for their intelligence in achieving this, while the others were praised for their effort. The second group – those who had been instilled with a 'growth mindset' – were subsequently far more likely to put effort into future tasks. Meanwhile, the former took on only those tasks that would not risk their sense of worth. This group had inferred that success or failure is due to innate ability, and this 'fixed mindset' had led them to fear of failure and lack of effort. Praising ability actually made the students perform worse, while praising effort emphasised that change was possible.
+
+One of the greatest impediments to successfully implementing a growth mindset, however, is the education system itself: in many parts of the world, the school climate is obsessed with performance in the form of constant testing, analysing and ranking of students – a key characteristic of the fixed mindset. Nor is it unusual for schools to create a certain cognitive dissonance, when they applaud the benefits of a growth mindset but then hand out fixed target grades in lessons based on performance.
+
+Aside from the implementation problem, the original growth mindset research has also received harsh criticism. The statistician Andrew Gelman claims that 'their research designs have enough degrees of freedom that they could take their data to support just about any theory at all'. Professor of Psychology Timothy Bates, who has been trying to replicate Dweck's work, is finding that the results are repeatedly null. He notes that: 'People with a growth mindset don't cope any better with failure … Kids with the growth mindset aren't getting better grades, either before or after our intervention study.'
+
+Much of this criticism is not lost on Dweck, and she deserves great credit for responding to it and adapting her work accordingly. In fact, she argues that her work has been misunderstood and misapplied in a range of ways. She has also expressed concerns that her theories are being misappropriated in schools by being conflated with the self-esteem movement: 'For me the growth mindset is a tool for learning and improvement. It's not just a vehicle for making children feel good.'
+
+But there is another factor at work here. The failure to translate the growth mindset into the classroom might reflect a misunderstanding of the nature of teaching and learning itself. Growth mindset supporters David Yeager and Gregory Walton claim that interventions should be delivered in a subtle way to maximise their effectiveness. They say that if adolescents perceive a teacher's intervention as conveying that they are in need of help, this could undo its intended effects.
+
+A lot of what drives students is their innate beliefs and how they perceive themselves. There is a strong correlation between self-perception and achievement, but there is evidence to suggest that the actual effect of achievement on self-perception is stronger than the other way round. To stand up in a classroom and successfully deliver a good speech is a genuine achievement, and that is likely to be more powerfully motivating than vague notions of 'motivation' itself.
+
+Recent evidence would suggest that growth mindset interventions are not the elixir of student learning that its proponents claim it to be. The growth mindset appears to be a viable construct in the lab, which, when administered in the classroom via targeted interventions, doesn't seem to work. It is hard to dispute that having faith in the capacity to change is a good attribute for students. Paradoxically, however, that aspiration is not well served by direct interventions that try to instil it.
+
+Motivational posters and talks are often a waste of time, and might well give students a deluded notion of what success actually means. Teaching concrete skills such as how to write an effective introduction to an essay then praising students' effort in getting there is probably a far better way of improving confidence than telling them how unique they are, or indeed how capable they are of changing their own brains. Perhaps growth mindset works best as a philosophy and not an intervention.`,
+      instructions: `Questions 14–16: Multiple choice — choose the correct letter A–D.
+Questions 17–22: Matching statements with people A–E. NB You may use any letter more than once.
+Questions 23–26: Do the statements agree with the views of the writer? Write YES, NO, or NOT GIVEN.`,
+      questions: [
+        {
+          id: "cam18-ra-t4-s2-q14",
+          number: 14,
+          groupLabel: `Questions 14–16: Choose the correct letter, A, B, C or D.`,
+          type: "multiple_choice",
+          question: "14. What can we learn from the first paragraph?",
+          options: [
+            { label: "A  where the notion of innate intelligence first began", value: "A" },
+            { label: "B  when ideas about the nature of intelligence began to shift", value: "B" },
+            { label: "C  how scientists have responded to changing views of intelligence", value: "C" },
+            { label: "D  why thinkers turned away from the idea of intelligence being fixed", value: "D" },
+          ],
+          correctAnswer: "B",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t4-s2-q15",
+          number: 15,
+          type: "multiple_choice",
+          question: "15. The second paragraph describes how schools encourage students to",
+          options: [
+            { label: "A  identify their personal ambitions.", value: "A" },
+            { label: "B  help each other to realise their goals.", value: "B" },
+            { label: "C  have confidence in their potential to succeed.", value: "C" },
+            { label: "D  concentrate on where their particular strengths lie.", value: "D" },
+          ],
+          correctAnswer: "C",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t4-s2-q16",
+          number: 16,
+          type: "multiple_choice",
+          question: "16. In the third paragraph, the writer suggests that students with a fixed mindset",
+          options: [
+            { label: "A  tend to be less competitive.", value: "A" },
+            { label: "B  generally have a low sense of self-esteem.", value: "B" },
+            { label: "C  will only work hard if they are given constant encouragement.", value: "C" },
+            { label: "D  are afraid to push themselves beyond what they see as their limitations.", value: "D" },
+          ],
+          correctAnswer: "D",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t4-s2-q17",
+          number: 17,
+          groupLabel: `Questions 17–22: Match each statement with the correct person or people, A–E.\nNB You may use any letter more than once.\n\nList of People\nA  Alfred Binet\nB  Carol Dweck\nC  Andrew Gelman\nD  Timothy Bates\nE  David Yeager and Gregory Walton`,
+          type: "matching",
+          question: "17. The methodology behind the growth mindset studies was not strict enough.",
+          options: [
+            { label: "A  Alfred Binet", value: "A" },
+            { label: "B  Carol Dweck", value: "B" },
+            { label: "C  Andrew Gelman", value: "C" },
+            { label: "D  Timothy Bates", value: "D" },
+            { label: "E  David Yeager and Gregory Walton", value: "E" },
+          ],
+          correctAnswer: "C",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t4-s2-q18",
+          number: 18,
+          type: "matching",
+          question: "18. The idea of the growth mindset has been incorrectly interpreted.",
+          options: [
+            { label: "A  Alfred Binet", value: "A" },
+            { label: "B  Carol Dweck", value: "B" },
+            { label: "C  Andrew Gelman", value: "C" },
+            { label: "D  Timothy Bates", value: "D" },
+            { label: "E  David Yeager and Gregory Walton", value: "E" },
+          ],
+          correctAnswer: "B",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t4-s2-q19",
+          number: 19,
+          type: "matching",
+          question: "19. Intellectual ability is an unchangeable feature of each individual.",
+          options: [
+            { label: "A  Alfred Binet", value: "A" },
+            { label: "B  Carol Dweck", value: "B" },
+            { label: "C  Andrew Gelman", value: "C" },
+            { label: "D  Timothy Bates", value: "D" },
+            { label: "E  David Yeager and Gregory Walton", value: "E" },
+          ],
+          correctAnswer: "A",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t4-s2-q20",
+          number: 20,
+          type: "matching",
+          question: "20. The growth mindset should be promoted without students being aware of it.",
+          options: [
+            { label: "A  Alfred Binet", value: "A" },
+            { label: "B  Carol Dweck", value: "B" },
+            { label: "C  Andrew Gelman", value: "C" },
+            { label: "D  Timothy Bates", value: "D" },
+            { label: "E  David Yeager and Gregory Walton", value: "E" },
+          ],
+          correctAnswer: "E",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t4-s2-q21",
+          number: 21,
+          type: "matching",
+          question: "21. The growth mindset is not simply about boosting students' morale.",
+          options: [
+            { label: "A  Alfred Binet", value: "A" },
+            { label: "B  Carol Dweck", value: "B" },
+            { label: "C  Andrew Gelman", value: "C" },
+            { label: "D  Timothy Bates", value: "D" },
+            { label: "E  David Yeager and Gregory Walton", value: "E" },
+          ],
+          correctAnswer: "B",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t4-s2-q22",
+          number: 22,
+          type: "matching",
+          question: "22. Research shows that the growth mindset has no effect on academic achievement.",
+          options: [
+            { label: "A  Alfred Binet", value: "A" },
+            { label: "B  Carol Dweck", value: "B" },
+            { label: "C  Andrew Gelman", value: "C" },
+            { label: "D  Timothy Bates", value: "D" },
+            { label: "E  David Yeager and Gregory Walton", value: "E" },
+          ],
+          correctAnswer: "D",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t4-s2-q23",
+          number: 23,
+          groupLabel: `Questions 23–26: Do the following statements agree with the views of the writer in Reading Passage 2?\nWrite YES if the statement agrees with the views of the writer.\nWrite NO if the statement contradicts the views of the writer.\nWrite NOT GIVEN if it is impossible to say what the writer thinks about this.`,
+          type: "true_false_ng",
+          question: "23. Dweck has handled criticisms of her work in an admirable way.",
+          options: [
+            { label: "YES", value: "YES" },
+            { label: "NO", value: "NO" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "YES",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t4-s2-q24",
+          number: 24,
+          type: "true_false_ng",
+          question: "24. Students' self-perception is a more effective driver of self-confidence than actual achievement is.",
+          options: [
+            { label: "YES", value: "YES" },
+            { label: "NO", value: "NO" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "NO",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t4-s2-q25",
+          number: 25,
+          type: "true_false_ng",
+          question: "25. Recent evidence about growth mindset interventions has attracted unfair coverage in the media.",
+          options: [
+            { label: "YES", value: "YES" },
+            { label: "NO", value: "NO" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "NOT GIVEN",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t4-s2-q26",
+          number: 26,
+          type: "true_false_ng",
+          question: "26. Deliberate attempts to encourage students to strive for high achievement may have a negative effect.",
+          options: [
+            { label: "YES", value: "YES" },
+            { label: "NO", value: "NO" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "YES",
+          points: 1,
+        },
+      ],
+    },
+    // ── PASSAGE 3 ─────────────────────────────────────────────
+    {
+      id: "cam18-ra-t4-s3",
+      sectionNumber: 3,
+      title: "Reading Passage 3",
+      passageTitle: "Alfred Wegener: science, exploration and the theory of continental drift",
+      passageText: `by Mott T Greene
+
+Introduction
+
+This is a book about the life and scientific work of Alfred Wegener, whose reputation today rests with his theory of continental displacements, better known as 'continental drift'. Wegener proposed this theory in 1912 and developed it extensively for nearly 20 years. His book on the subject, The Origin of Continents and Oceans, went through four editions and was the focus of an international controversy in his lifetime and for some years after his death.
+
+Wegener's basic idea was that many mysteries about the Earth's history could be solved if one supposed that the continents moved laterally, rather than supposing that they remained fixed in place. Wegener showed in great detail how such continental movements were plausible and how they worked, using evidence from a large number of sciences including geology, geophysics, paleontology, and climatology. Wegener's idea – that the continents move – is at the heart of the theory that guides Earth sciences today: namely plate tectonics. Plate tectonics is in many respects quite different from Wegener's proposal, in the same way that modern evolutionary theory is very different from the ideas Charles Darwin proposed in the 1850s about biological evolution. Yet plate tectonics is a descendant of Alfred Wegener's theory of continental drift, in quite the same way that modern evolutionary theory is a descendant of Darwin's theory of natural selection.
+
+When I started writing about Wegener's life and work, one of the most intriguing things about him for me was that, although he came up with a theory on continental drift, he was not a geologist. He trained as an astronomer and pursued a career in atmospheric physics. When he proposed the theory of continental displacements in 1912, he was a lecturer in physics and astronomy at the University of Marburg, in southern Germany. However, he was not an 'unknown'. In 1906 he had set a world record (with his brother Kurt) for time aloft in a hot-air balloon: 52 hours. Between 1906 and 1908 he had taken part in a highly publicized and extremely dangerous expedition to the coast of northeast Greenland. He had also made a name for himself amongst a small circle of meteorologists and atmospheric physicists in Germany as the author of a textbook, Thermodynamics of the Atmosphere (1911), and of a number of interesting scientific papers.
+
+As important as Wegener's work on continental drift has turned out to be, it was largely a sideline to his interest in atmospheric physics, geophysics, and paleoclimatology*, and thus I have been at great pains to put Wegener's work on continental drift in the larger context of his other scientific work, and in the even larger context of atmospheric sciences in his lifetime. This is a 'continental drift book' only to the extent that Wegener was interested in that topic and later became famous for it. My treatment of his other scientific work is no less detailed, though I certainly have devoted more attention to the reception of his ideas on continental displacement, as they were much more controversial than his other work.
+
+Readers interested in the specific detail of Wegener's career will see that he often stopped pursuing a given line of investigation (sometimes for years on end), only to pick it up later. I have tried to provide guideposts to his rapidly shifting interests by characterizing different phases of his life as careers in different sciences, which is reflected in the titles of the chapters. Thus, the index should be a sufficient guide for those interested in a particular aspect of Wegener's life but perhaps not all of it. My own feeling, however, is that the parts do not make as much sense on their own as do all of his activities taken together. In this respect I urge readers to try to experience Wegener's life as he lived it, with all the interruptions, changes of mind, and renewed efforts this entailed.
+
+Wegener left behind a few published works but, as was standard practice, these reported the results of his work – not the journey he took to reach that point. Only a few hundred of the many thousands of letters he wrote and received in his lifetime have survived and he didn't keep notebooks or diaries that recorded his life and activities. He was not active (with a few exceptions) in scientific societies, and did not seek to find influence or advance his ideas through professional contacts and politics, spending most of his time at home in his study reading and writing, or in the field collecting observations.
+
+Some famous scientists, such as Newton, Darwin, and Einstein, left mountains of written material behind, hundreds of notebooks and letters numbering in the tens of thousands. Others, like Michael Faraday, left extensive journals of their thoughts and speculations, parallel to their scientific notebooks. The more such material a scientist leaves behind, the better chance a biographer has of forming an accurate picture of how a scientist's ideas took shape and evolved.
+
+I am firmly of the opinion that most of us, Wegener included, are not in any real sense the authors of our own lives. We plan, think, and act, often with apparent freedom, but most of the time our lives 'happen to us', and we only retrospectively turn this happenstance into a coherent narrative of fulfilled intentions. This book, therefore, is a story both of the life and scientific work that Alfred Wegener planned and intended and of the life and scientific work that actually 'happened to him'. These are, as I think you will soon see, not always the same thing.
+
+* Paleoclimatology – The study of past climates`,
+      instructions: `Questions 27–30: Do the statements agree with the claims of the writer? Write YES, NO, or NOT GIVEN.
+Questions 31–36: Complete the summary using the list of phrases A–J.
+Questions 37–40: Multiple choice — choose the correct letter A–D.`,
+      questions: [
+        {
+          id: "cam18-ra-t4-s3-q27",
+          number: 27,
+          groupLabel: `Questions 27–30: Do the following statements agree with the claims of the writer in Reading Passage 3?\nWrite YES if the statement agrees with the claims of the writer.\nWrite NO if the statement contradicts the claims of the writer.\nWrite NOT GIVEN if it is impossible to say what the writer thinks about this.`,
+          type: "true_false_ng",
+          question: "27. Wegener's ideas about continental drift were widely disputed while he was alive.",
+          options: [
+            { label: "YES", value: "YES" },
+            { label: "NO", value: "NO" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "YES",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t4-s3-q28",
+          number: 28,
+          type: "true_false_ng",
+          question: "28. The idea that the continents remained fixed in place was defended in a number of respected scientific publications.",
+          options: [
+            { label: "YES", value: "YES" },
+            { label: "NO", value: "NO" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "NOT GIVEN",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t4-s3-q29",
+          number: 29,
+          type: "true_false_ng",
+          question: "29. Wegener relied on a limited range of scientific fields to support his theory of continental drift.",
+          options: [
+            { label: "YES", value: "YES" },
+            { label: "NO", value: "NO" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "NO",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t4-s3-q30",
+          number: 30,
+          type: "true_false_ng",
+          question: "30. The similarities between Wegener's theory of continental drift and modern-day plate tectonics are enormous.",
+          options: [
+            { label: "YES", value: "YES" },
+            { label: "NO", value: "NO" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "NO",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t4-s3-q31",
+          number: 31,
+          groupLabel: `Questions 31–36: Complete the summary using the list of phrases, A–J, below.\n\nWegener's life and work\nOne of the remarkable things about Wegener from a 31 _______ is that although he proposed a theory of continental drift, he was not a geologist. His 32 _______ were limited to atmospheric physics. However, at the time he proposed his theory of continental drift in 1912, he was already a person of 33 _______. Six years previously, there had been his 34 _______ of 52 hours in a hot-air balloon, followed by his well-publicised but 35 _______ of Greenland's coast. With the publication of his textbook on thermodynamics, he had also come to the attention of a 36 _______ of German scientists.\n\nA  modest fame\nB  vast range\nC  record-breaking achievement\nD  research methods\nE  select group\nF  professional interests\nG  scientific debate\nH  hazardous exploration\nI  biographer's perspective\nJ  narrow investigation`,
+          type: "matching",
+          question: "31. One of the remarkable things about Wegener from a _______",
+          options: [
+            { label: "A  modest fame", value: "A" },
+            { label: "B  vast range", value: "B" },
+            { label: "C  record-breaking achievement", value: "C" },
+            { label: "D  research methods", value: "D" },
+            { label: "E  select group", value: "E" },
+            { label: "F  professional interests", value: "F" },
+            { label: "G  scientific debate", value: "G" },
+            { label: "H  hazardous exploration", value: "H" },
+            { label: "I  biographer's perspective", value: "I" },
+            { label: "J  narrow investigation", value: "J" },
+          ],
+          correctAnswer: "I",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t4-s3-q32",
+          number: 32,
+          type: "matching",
+          question: "32. His _______ were limited to atmospheric physics.",
+          options: [
+            { label: "A  modest fame", value: "A" },
+            { label: "B  vast range", value: "B" },
+            { label: "C  record-breaking achievement", value: "C" },
+            { label: "D  research methods", value: "D" },
+            { label: "E  select group", value: "E" },
+            { label: "F  professional interests", value: "F" },
+            { label: "G  scientific debate", value: "G" },
+            { label: "H  hazardous exploration", value: "H" },
+            { label: "I  biographer's perspective", value: "I" },
+            { label: "J  narrow investigation", value: "J" },
+          ],
+          correctAnswer: "F",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t4-s3-q33",
+          number: 33,
+          type: "matching",
+          question: "33. he was already a person of _______",
+          options: [
+            { label: "A  modest fame", value: "A" },
+            { label: "B  vast range", value: "B" },
+            { label: "C  record-breaking achievement", value: "C" },
+            { label: "D  research methods", value: "D" },
+            { label: "E  select group", value: "E" },
+            { label: "F  professional interests", value: "F" },
+            { label: "G  scientific debate", value: "G" },
+            { label: "H  hazardous exploration", value: "H" },
+            { label: "I  biographer's perspective", value: "I" },
+            { label: "J  narrow investigation", value: "J" },
+          ],
+          correctAnswer: "A",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t4-s3-q34",
+          number: 34,
+          type: "matching",
+          question: "34. there had been his _______ of 52 hours in a hot-air balloon",
+          options: [
+            { label: "A  modest fame", value: "A" },
+            { label: "B  vast range", value: "B" },
+            { label: "C  record-breaking achievement", value: "C" },
+            { label: "D  research methods", value: "D" },
+            { label: "E  select group", value: "E" },
+            { label: "F  professional interests", value: "F" },
+            { label: "G  scientific debate", value: "G" },
+            { label: "H  hazardous exploration", value: "H" },
+            { label: "I  biographer's perspective", value: "I" },
+            { label: "J  narrow investigation", value: "J" },
+          ],
+          correctAnswer: "C",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t4-s3-q35",
+          number: 35,
+          type: "matching",
+          question: "35. followed by his well-publicised but _______ of Greenland's coast",
+          options: [
+            { label: "A  modest fame", value: "A" },
+            { label: "B  vast range", value: "B" },
+            { label: "C  record-breaking achievement", value: "C" },
+            { label: "D  research methods", value: "D" },
+            { label: "E  select group", value: "E" },
+            { label: "F  professional interests", value: "F" },
+            { label: "G  scientific debate", value: "G" },
+            { label: "H  hazardous exploration", value: "H" },
+            { label: "I  biographer's perspective", value: "I" },
+            { label: "J  narrow investigation", value: "J" },
+          ],
+          correctAnswer: "H",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t4-s3-q36",
+          number: 36,
+          type: "matching",
+          question: "36. he had also come to the attention of a _______ of German scientists",
+          options: [
+            { label: "A  modest fame", value: "A" },
+            { label: "B  vast range", value: "B" },
+            { label: "C  record-breaking achievement", value: "C" },
+            { label: "D  research methods", value: "D" },
+            { label: "E  select group", value: "E" },
+            { label: "F  professional interests", value: "F" },
+            { label: "G  scientific debate", value: "G" },
+            { label: "H  hazardous exploration", value: "H" },
+            { label: "I  biographer's perspective", value: "I" },
+            { label: "J  narrow investigation", value: "J" },
+          ],
+          correctAnswer: "E",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t4-s3-q37",
+          number: 37,
+          groupLabel: `Questions 37–40: Choose the correct letter, A, B, C or D.`,
+          type: "multiple_choice",
+          question: "37. What is Mott T Greene doing in the fifth paragraph?",
+          options: [
+            { label: "A  describing what motivated him to write the book", value: "A" },
+            { label: "B  explaining why it is desirable to read the whole book", value: "B" },
+            { label: "C  suggesting why Wegener pursued so many different careers", value: "C" },
+            { label: "D  indicating what aspects of Wegener's life interested him most", value: "D" },
+          ],
+          correctAnswer: "B",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t4-s3-q38",
+          number: 38,
+          type: "multiple_choice",
+          question: "38. What is said about Wegener in the sixth paragraph?",
+          options: [
+            { label: "A  He was not a particularly ambitious person.", value: "A" },
+            { label: "B  He kept a record of all his scientific observations.", value: "B" },
+            { label: "C  He did not adopt many of the scientific practices of the time.", value: "C" },
+            { label: "D  He enjoyed discussing new discoveries with other scientists.", value: "D" },
+          ],
+          correctAnswer: "A",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t4-s3-q39",
+          number: 39,
+          type: "multiple_choice",
+          question: "39. What does Greene say about some other famous scientists?",
+          options: [
+            { label: "A  Their published works had a greater impact than Wegener's did.", value: "A" },
+            { label: "B  They had fewer doubts about their scientific ideas than Wegener did.", value: "B" },
+            { label: "C  Their scientific ideas were more controversial than Wegener's.", value: "C" },
+            { label: "D  They are easier subjects to write about than Wegener.", value: "D" },
+          ],
+          correctAnswer: "D",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t4-s3-q40",
+          number: 40,
+          type: "multiple_choice",
+          question: "40. What is Greene's main point in the final paragraph?",
+          options: [
+            { label: "A  It is not enough in life to have good intentions.", value: "A" },
+            { label: "B  People need to plan carefully if they want to succeed.", value: "B" },
+            { label: "C  People have little control over many aspects of their lives.", value: "C" },
+            { label: "D  It is important that people ensure they have the freedom to act.", value: "D" },
+          ],
+          correctAnswer: "C",
+          points: 1,
+        },
+      ],
+    },
+  ],
+};
+
+export const cambridge18Tests: IELTSTest[] = [cambridge18_reading_t1, cambridge18_reading_t2, cambridge18_reading_t3, cambridge18_reading_t4];
