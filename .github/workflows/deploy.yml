@@ -5,6 +5,7 @@ on:
     branches:
       - main
       - claude/general-session-xgznl
+      - claude/general-session-xgznl-5PF7d
   workflow_dispatch:
 
 permissions:
@@ -33,11 +34,13 @@ jobs:
         run: npm ci
 
       - name: Build
+        # Supabase URL and anon key come from repository secrets. Add them under
+        # Settings → Secrets and variables → Actions → New repository secret.
         run: npm run build
         env:
           NEXT_PUBLIC_BASE_PATH: /LondonLC
-          NEXT_PUBLIC_SUPABASE_URL: https://jiccyfcnbrhxciomwcmp.supabase.co
-          NEXT_PUBLIC_SUPABASE_ANON_KEY: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImppY2N5ZmNuYnJoeGNpb213Y21wIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM0Mjg0ODQsImV4cCI6MjA4OTAwNDQ4NH0.FRNJm6sWMwYRu_p7ycL8gOq6A6uaL72CFQEDcqKskkk
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

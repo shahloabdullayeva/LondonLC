@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { getSession } from "@/lib/store";
 import { motion } from "framer-motion";
-import { ChevronRight, BookOpen, Headphones, Clock, Award, CheckCircle, Shield } from "lucide-react";
+import { ChevronRight, BookOpen, Clock, Award, CheckCircle, Shield } from "lucide-react";
 import Link from "next/link";
 export default function HomePage() {
   const router = useRouter();
@@ -56,8 +56,8 @@ export default function HomePage() {
           </h1>
 
           <p style={{ fontSize: 18, color: "rgba(255,255,255,0.6)", lineHeight: 1.7, maxWidth: 540, margin: "0 auto 40px" }}>
-            Authentic IELTS Reading and Listening tests from Cambridge Books 1–19.
-            Timed, monitored, and scored instantly. Academic & General Training.
+            Authentic IELTS Academic Reading tests from Cambridge Books 10–18.
+            Timed, monitored, and scored instantly using the official band conversion.
           </p>
 
           <div style={{ display: "flex", gap: 14, justifyContent: "center", flexWrap: "wrap", marginBottom: 36 }}>
@@ -68,7 +68,7 @@ export default function HomePage() {
 
           {/* Trust badges */}
           <div style={{ display: "flex", gap: 28, justifyContent: "center", flexWrap: "wrap" }}>
-            {["Cambridge IELTS Books 1–19", "Official Band Scoring", "Track Your Progress"].map(t => (
+            {["Cambridge IELTS Books 10–18", "Official Band Scoring", "Track Your Progress"].map(t => (
               <div key={t} style={{ display: "flex", alignItems: "center", gap: 7, fontSize: 13, color: "rgba(255,255,255,0.55)" }}>
                 <CheckCircle size={14} color="#34d399" />
                 {t}
@@ -127,17 +127,16 @@ export default function HomePage() {
 }
 
 const features = [
-  { icon: BookOpen, title: "Reading Tests", desc: "Academic and General Training passages with True/False/NG, multiple choice, fill in the blank, and matching questions." },
-  { icon: Headphones, title: "Listening Tests", desc: "Four sections with audio simulation. No pause, no rewind. 10-minute answer transfer time just like the real exam." },
-  { icon: Clock, title: "Timed & Monitored", desc: "Auto timer, tab-switch detection (test cancels after 2 violations), and copy-paste blocking for real exam conditions." },
-  { icon: Award, title: "Instant Band Score", desc: "Your IELTS band score calculated immediately using the official Cambridge conversion table." },
-  { icon: Shield, title: "Teacher Dashboard", desc: "Admins can see all results, filter by group, view individual student performance, and export to CSV." },
-  { icon: BookOpen, title: "Books 1–19", desc: "Tests from all Cambridge IELTS books — both Academic and General Training versions." },
+  { icon: BookOpen, title: "Reading Tests", desc: "Authentic Academic Reading passages with True/False/NG, multiple choice, fill in the blank, matching, and summary completion questions." },
+  { icon: Clock, title: "Timed & Monitored", desc: "Auto timer, fullscreen enforcement, tab-switch detection, and copy-paste blocking — built for real exam conditions." },
+  { icon: Award, title: "Instant Band Score", desc: "Your IELTS band score is calculated immediately using the official Cambridge conversion table." },
+  { icon: Shield, title: "Teacher Dashboard", desc: "Teachers can see every result, filter by group or test, and manage student accounts from one place." },
+  { icon: BookOpen, title: "Cambridge 10–18", desc: "Academic Reading tests from nine Cambridge IELTS books, with more on the way." },
 ];
 
 const stats = [
-  { value: "19", label: "Cambridge Books" },
-  { value: "76+", label: "Full Tests" },
-  { value: "3,000+", label: "Questions" },
+  { value: "9", label: "Cambridge Books" },
+  { value: "34", label: "Full Tests" },
+  { value: "1,300+", label: "Questions" },
   { value: "9.0", label: "Max Band Score" },
 ];

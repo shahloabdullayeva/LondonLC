@@ -165,11 +165,7 @@ const ROOT_ID = "admin-root";
 
 export async function getTeachers(): Promise<TeacherAccount[]> {
   const { data } = await supabase.from("teachers").select("*").order("created_at", { ascending: true });
-  if (!data || data.length === 0) {
-    await supabase.from("teachers").upsert({ id: ROOT_ID, username: "ShahloA13", password: "as_6914T" });
-    return [{ id: ROOT_ID, username: "ShahloA13", password: "as_6914T", createdAt: new Date().toISOString() }];
-  }
-  return data.map(r => ({
+  return (data ?? []).map(r => ({
     id: r.id, username: r.username, password: r.password, createdAt: r.created_at,
     lastAccessedAt: r.last_accessed_at ?? undefined,
     lastIp: r.last_ip ?? undefined,
