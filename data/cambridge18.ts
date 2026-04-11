@@ -1074,4 +1074,631 @@ Choose ONE WORD ONLY from the passage for each answer.`,
   ],
 };
 
-export const cambridge18Tests: IELTSTest[] = [cambridge18_reading_t1, cambridge18_reading_t2];
+// ============================================================
+// CAMBRIDGE IELTS 18 – TEST 3  (Academic Reading)
+// Passages: Materials to take us beyond concrete /
+//           The steam car /
+//           The case for mixed-ability classes
+// ============================================================
+// NOTE: Passage text and question wording are placeholders. Paste the
+// real text from your copy of Cambridge IELTS 18 into each marked spot
+// before using this test in production. Answer keys, question numbers,
+// question types, and grouping are all final.
+export const cambridge18_reading_t3: IELTSTest = {
+  id: "cam18-reading-academic-t3",
+  title: "Cambridge IELTS 18 – Test 3",
+  bookNumber: 18,
+  testNumber: 3,
+  type: "reading",
+  level: "academic",
+  durationMinutes: 60,
+  transferMinutes: 0,
+  sections: [
+    // ── PASSAGE 1 ─────────────────────────────────────────────
+    {
+      id: "cam18-ra-t3-s1",
+      sectionNumber: 1,
+      title: "Reading Passage 1",
+      passageTitle: "Materials to take us beyond concrete",
+      passageText: `[PASTE PASSAGE 1 HERE — Cambridge 18 Test 3 "Materials to take us beyond concrete". The passage is divided into eight labelled paragraphs A–H. Keep the paragraph letters at the start of each paragraph so matching questions still work, e.g.:
+
+A
+
+<paragraph A text>
+
+B
+
+<paragraph B text>
+
+… and so on through H.]`,
+      instructions: `Questions 1–4: Matching information — which section A–H contains each piece of information?
+Questions 5–8: Summary completion — ONE WORD ONLY from the passage.
+Questions 9–13: Matching — match each statement to the correct person A–D.`,
+      questions: [
+        // ── Q1–4: Matching information (sections A–H) ─────────
+        {
+          id: "cam18-ra-t3-s1-q1",
+          number: 1,
+          groupLabel: `Questions 1–4: Reading Passage 1 has eight sections, A–H. Which section contains the following information? Write the correct letter, A–H.\n\n[PASTE Q1–Q4 STATEMENTS HERE FROM THE BOOK — one short sentence each.]`,
+          type: "matching",
+          question: "1. [Paste Q1 statement here]",
+          options: [
+            { label: "A", value: "A" }, { label: "B", value: "B" }, { label: "C", value: "C" },
+            { label: "D", value: "D" }, { label: "E", value: "E" }, { label: "F", value: "F" },
+            { label: "G", value: "G" }, { label: "H", value: "H" },
+          ],
+          correctAnswer: "G",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t3-s1-q2",
+          number: 2,
+          type: "matching",
+          question: "2. [Paste Q2 statement here]",
+          options: [
+            { label: "A", value: "A" }, { label: "B", value: "B" }, { label: "C", value: "C" },
+            { label: "D", value: "D" }, { label: "E", value: "E" }, { label: "F", value: "F" },
+            { label: "G", value: "G" }, { label: "H", value: "H" },
+          ],
+          correctAnswer: "D",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t3-s1-q3",
+          number: 3,
+          type: "matching",
+          question: "3. [Paste Q3 statement here]",
+          options: [
+            { label: "A", value: "A" }, { label: "B", value: "B" }, { label: "C", value: "C" },
+            { label: "D", value: "D" }, { label: "E", value: "E" }, { label: "F", value: "F" },
+            { label: "G", value: "G" }, { label: "H", value: "H" },
+          ],
+          correctAnswer: "C",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t3-s1-q4",
+          number: 4,
+          type: "matching",
+          question: "4. [Paste Q4 statement here]",
+          options: [
+            { label: "A", value: "A" }, { label: "B", value: "B" }, { label: "C", value: "C" },
+            { label: "D", value: "D" }, { label: "E", value: "E" }, { label: "F", value: "F" },
+            { label: "G", value: "G" }, { label: "H", value: "H" },
+          ],
+          correctAnswer: "F",
+          points: 1,
+        },
+        // ── Q5–8: Summary completion (ONE WORD) ───────────────
+        {
+          id: "cam18-ra-t3-s1-q5",
+          number: 5,
+          groupLabel: `Questions 5–8: Complete the summary below. Choose ONE WORD ONLY from the passage for each answer.\n\n[PASTE THE SUMMARY PARAGRAPH HERE — it contains gaps numbered 5, 6, 7, 8.]`,
+          type: "summary_completion",
+          question: "5. [first gap in the summary]",
+          correctAnswer: "architects",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t3-s1-q6",
+          number: 6,
+          type: "summary_completion",
+          question: "6. [second gap in the summary]",
+          correctAnswer: "moisture",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t3-s1-q7",
+          number: 7,
+          type: "summary_completion",
+          question: "7. [third gap in the summary]",
+          correctAnswer: "layers",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t3-s1-q8",
+          number: 8,
+          type: "summary_completion",
+          question: "8. [fourth gap in the summary]",
+          correctAnswer: "speed",
+          points: 1,
+        },
+        // ── Q9–13: Matching statements to people (A–D) ────────
+        {
+          id: "cam18-ra-t3-s1-q9",
+          number: 9,
+          groupLabel: `Questions 9–13: Match each statement with the correct person, A–D. NB: You may use any letter more than once.\n\nA  Chris Cheeseman\nB  Markus Mannstrom\nC  Anna Surgenor\nD  Felix Preston and Johanna Lehne\n\n[PASTE Q9–Q13 STATEMENTS HERE.]`,
+          type: "matching",
+          question: "9. [Paste Q9 statement here]",
+          options: [
+            { label: "A  Chris Cheeseman", value: "A" },
+            { label: "B  Markus Mannstrom", value: "B" },
+            { label: "C  Anna Surgenor", value: "C" },
+            { label: "D  Felix Preston and Johanna Lehne", value: "D" },
+          ],
+          correctAnswer: "C",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t3-s1-q10",
+          number: 10,
+          type: "matching",
+          question: "10. [Paste Q10 statement here]",
+          options: [
+            { label: "A  Chris Cheeseman", value: "A" },
+            { label: "B  Markus Mannstrom", value: "B" },
+            { label: "C  Anna Surgenor", value: "C" },
+            { label: "D  Felix Preston and Johanna Lehne", value: "D" },
+          ],
+          correctAnswer: "A",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t3-s1-q11",
+          number: 11,
+          type: "matching",
+          question: "11. [Paste Q11 statement here]",
+          options: [
+            { label: "A  Chris Cheeseman", value: "A" },
+            { label: "B  Markus Mannstrom", value: "B" },
+            { label: "C  Anna Surgenor", value: "C" },
+            { label: "D  Felix Preston and Johanna Lehne", value: "D" },
+          ],
+          correctAnswer: "B",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t3-s1-q12",
+          number: 12,
+          type: "matching",
+          question: "12. [Paste Q12 statement here]",
+          options: [
+            { label: "A  Chris Cheeseman", value: "A" },
+            { label: "B  Markus Mannstrom", value: "B" },
+            { label: "C  Anna Surgenor", value: "C" },
+            { label: "D  Felix Preston and Johanna Lehne", value: "D" },
+          ],
+          correctAnswer: "D",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t3-s1-q13",
+          number: 13,
+          type: "matching",
+          question: "13. [Paste Q13 statement here]",
+          options: [
+            { label: "A  Chris Cheeseman", value: "A" },
+            { label: "B  Markus Mannstrom", value: "B" },
+            { label: "C  Anna Surgenor", value: "C" },
+            { label: "D  Felix Preston and Johanna Lehne", value: "D" },
+          ],
+          correctAnswer: "A",
+          points: 1,
+        },
+      ],
+    },
+    // ── PASSAGE 2 ─────────────────────────────────────────────
+    {
+      id: "cam18-ra-t3-s2",
+      sectionNumber: 2,
+      title: "Reading Passage 2",
+      passageTitle: "The steam car",
+      passageText: `[PASTE PASSAGE 2 HERE — Cambridge 18 Test 3 "The steam car". Keep the paragraph labels A–G at the start of each paragraph:
+
+A
+
+<paragraph A text>
+
+B
+
+<paragraph B text>
+
+… through G.]`,
+      instructions: `Questions 14–20: Matching headings — choose the correct heading (i–viii) for each paragraph.
+Questions 21–23: Multiple choice — choose the correct letter A–D.
+Questions 24–26: Summary completion — ONE WORD AND/OR A NUMBER from the passage.`,
+      questions: [
+        // ── Q14–20: Matching headings ─────────────────────────
+        {
+          id: "cam18-ra-t3-s2-q14",
+          number: 14,
+          groupLabel: `Questions 14–20: Reading Passage 2 has seven paragraphs, A–G. Choose the correct heading for each paragraph from the list below.\n\ni   A period in cold conditions before the technology is assessed\nii  Marketing issues lead to failure\niii Good and bad aspects of steam technology are passed on\niv  A possible solution to the issues of today\nv   Further improvements lead to commercial orders\nvi  Positive publicity at last for this quiet, clean, fast vehicle\nvii A disappointing outcome for customers\nviii A better option than the steam car arises`,
+          type: "matching",
+          question: "14. Paragraph A",
+          options: [
+            { label: "i", value: "i" }, { label: "ii", value: "ii" }, { label: "iii", value: "iii" },
+            { label: "iv", value: "iv" }, { label: "v", value: "v" }, { label: "vi", value: "vi" },
+            { label: "vii", value: "vii" }, { label: "viii", value: "viii" },
+          ],
+          correctAnswer: "iii",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t3-s2-q15",
+          number: 15,
+          type: "matching",
+          question: "15. Paragraph B",
+          options: [
+            { label: "i", value: "i" }, { label: "ii", value: "ii" }, { label: "iii", value: "iii" },
+            { label: "iv", value: "iv" }, { label: "v", value: "v" }, { label: "vi", value: "vi" },
+            { label: "vii", value: "vii" }, { label: "viii", value: "viii" },
+          ],
+          correctAnswer: "viii",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t3-s2-q16",
+          number: 16,
+          type: "matching",
+          question: "16. Paragraph C",
+          options: [
+            { label: "i", value: "i" }, { label: "ii", value: "ii" }, { label: "iii", value: "iii" },
+            { label: "iv", value: "iv" }, { label: "v", value: "v" }, { label: "vi", value: "vi" },
+            { label: "vii", value: "vii" }, { label: "viii", value: "viii" },
+          ],
+          correctAnswer: "vi",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t3-s2-q17",
+          number: 17,
+          type: "matching",
+          question: "17. Paragraph D",
+          options: [
+            { label: "i", value: "i" }, { label: "ii", value: "ii" }, { label: "iii", value: "iii" },
+            { label: "iv", value: "iv" }, { label: "v", value: "v" }, { label: "vi", value: "vi" },
+            { label: "vii", value: "vii" }, { label: "viii", value: "viii" },
+          ],
+          correctAnswer: "v",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t3-s2-q18",
+          number: 18,
+          type: "matching",
+          question: "18. Paragraph E",
+          options: [
+            { label: "i", value: "i" }, { label: "ii", value: "ii" }, { label: "iii", value: "iii" },
+            { label: "iv", value: "iv" }, { label: "v", value: "v" }, { label: "vi", value: "vi" },
+            { label: "vii", value: "vii" }, { label: "viii", value: "viii" },
+          ],
+          correctAnswer: "vii",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t3-s2-q19",
+          number: 19,
+          type: "matching",
+          question: "19. Paragraph F",
+          options: [
+            { label: "i", value: "i" }, { label: "ii", value: "ii" }, { label: "iii", value: "iii" },
+            { label: "iv", value: "iv" }, { label: "v", value: "v" }, { label: "vi", value: "vi" },
+            { label: "vii", value: "vii" }, { label: "viii", value: "viii" },
+          ],
+          correctAnswer: "i",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t3-s2-q20",
+          number: 20,
+          type: "matching",
+          question: "20. Paragraph G",
+          options: [
+            { label: "i", value: "i" }, { label: "ii", value: "ii" }, { label: "iii", value: "iii" },
+            { label: "iv", value: "iv" }, { label: "v", value: "v" }, { label: "vi", value: "vi" },
+            { label: "vii", value: "vii" }, { label: "viii", value: "viii" },
+          ],
+          correctAnswer: "iv",
+          points: 1,
+        },
+        // ── Q21–23: Multiple choice ───────────────────────────
+        {
+          id: "cam18-ra-t3-s2-q21",
+          number: 21,
+          groupLabel: `Questions 21–23: Choose the correct letter, A, B, C or D.`,
+          type: "multiple_choice",
+          question: "21. [Paste Q21 stem here — the question about Paragraph B]",
+          options: [
+            { label: "A  [paste option A]", value: "A" },
+            { label: "B  [paste option B]", value: "B" },
+            { label: "C  [paste option C]", value: "C" },
+            { label: "D  [paste option D]", value: "D" },
+          ],
+          correctAnswer: "A",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t3-s2-q22",
+          number: 22,
+          type: "multiple_choice",
+          question: "22. [Paste Q22 stem here — about the Doble brothers' first steam car]",
+          options: [
+            { label: "A  [paste option A]", value: "A" },
+            { label: "B  [paste option B]", value: "B" },
+            { label: "C  [paste option C]", value: "C" },
+            { label: "D  [paste option D]", value: "D" },
+          ],
+          correctAnswer: "C",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t3-s2-q23",
+          number: 23,
+          type: "multiple_choice",
+          question: "23. [Paste Q23 stem here — about producing the Model C]",
+          options: [
+            { label: "A  [paste option A]", value: "A" },
+            { label: "B  [paste option B]", value: "B" },
+            { label: "C  [paste option C]", value: "C" },
+            { label: "D  [paste option D]", value: "D" },
+          ],
+          correctAnswer: "B",
+          points: 1,
+        },
+        // ── Q24–26: Summary completion (ONE WORD AND/OR A NUMBER) ─
+        {
+          id: "cam18-ra-t3-s2-q24",
+          number: 24,
+          groupLabel: `Questions 24–26: Complete the summary below. Choose ONE WORD AND/OR A NUMBER from the passage for each answer.\n\n[PASTE THE MODEL E SUMMARY PARAGRAPH HERE — it contains gaps numbered 24, 25, 26.]`,
+          type: "summary_completion",
+          question: "24. [first gap — about a later version of the Model E]",
+          correctAnswer: "speed",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t3-s2-q25",
+          number: 25,
+          type: "summary_completion",
+          question: "25. [second gap — number of cars produced before the company folded]",
+          correctAnswer: "fifty/50",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t3-s2-q26",
+          number: 26,
+          type: "summary_completion",
+          question: "26. [third gap — describing California's emissions laws]",
+          correctAnswer: "strict",
+          points: 1,
+        },
+      ],
+    },
+    // ── PASSAGE 3 ─────────────────────────────────────────────
+    {
+      id: "cam18-ra-t3-s3",
+      sectionNumber: 3,
+      title: "Reading Passage 3",
+      passageTitle: "The case for mixed-ability classes",
+      passageText: `[PASTE PASSAGE 3 HERE — Cambridge 18 Test 3 "The case for mixed-ability classes". This passage does NOT have labelled paragraphs A–H; it reads as continuous prose. Just paste it as-is.]`,
+      instructions: `Questions 27–30: Multiple choice — choose the correct letter A–D.
+Questions 31–35: Summary completion — choose the correct phrase A–I.
+Questions 36–40: Do the statements agree with the views of the writer? Write YES, NO, or NOT GIVEN.`,
+      questions: [
+        // ── Q27–30: Multiple choice ───────────────────────────
+        {
+          id: "cam18-ra-t3-s3-q27",
+          number: 27,
+          groupLabel: `Questions 27–30: Choose the correct letter, A, B, C or D.`,
+          type: "multiple_choice",
+          question: "27. [Paste Q27 stem — about the Romeo and Juliet lesson]",
+          options: [
+            { label: "A  [paste option A]", value: "A" },
+            { label: "B  [paste option B]", value: "B" },
+            { label: "C  [paste option C]", value: "C" },
+            { label: "D  [paste option D]", value: "D" },
+          ],
+          correctAnswer: "B",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t3-s3-q28",
+          number: 28,
+          type: "multiple_choice",
+          question: "28. [Paste Q28 stem — what the writer says about streaming in the third paragraph]",
+          options: [
+            { label: "A  [paste option A]", value: "A" },
+            { label: "B  [paste option B]", value: "B" },
+            { label: "C  [paste option C]", value: "C" },
+            { label: "D  [paste option D]", value: "D" },
+          ],
+          correctAnswer: "A",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t3-s3-q29",
+          number: 29,
+          type: "multiple_choice",
+          question: "29. [Paste Q29 stem — the reference to Mount Qomolangma]",
+          options: [
+            { label: "A  [paste option A]", value: "A" },
+            { label: "B  [paste option B]", value: "B" },
+            { label: "C  [paste option C]", value: "C" },
+            { label: "D  [paste option D]", value: "D" },
+          ],
+          correctAnswer: "C",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t3-s3-q30",
+          number: 30,
+          type: "multiple_choice",
+          question: "30. [Paste Q30 stem — what the word 'scaffolding' refers to]",
+          options: [
+            { label: "A  [paste option A]", value: "A" },
+            { label: "B  [paste option B]", value: "B" },
+            { label: "C  [paste option C]", value: "C" },
+            { label: "D  [paste option D]", value: "D" },
+          ],
+          correctAnswer: "C",
+          points: 1,
+        },
+        // ── Q31–35: Summary with list of phrases A–I ──────────
+        {
+          id: "cam18-ra-t3-s3-q31",
+          number: 31,
+          groupLabel: `Questions 31–35: Complete the summary using the list of phrases, A–I, below.\n\nA  wrong classes\nB  lower expectations\nC  average learners\nD  bottom sets\nE  brightest pupils\nF  disadvantaged backgrounds\nG  weaker students\nH  higher achievements\nI  positive impressions\n\n[PASTE THE "Is streaming effective?" SUMMARY PARAGRAPH HERE — with gaps 31, 32, 33, 34, 35.]`,
+          type: "matching",
+          question: "31. [first gap in the streaming summary]",
+          options: [
+            { label: "A  wrong classes", value: "A" },
+            { label: "B  lower expectations", value: "B" },
+            { label: "C  average learners", value: "C" },
+            { label: "D  bottom sets", value: "D" },
+            { label: "E  brightest pupils", value: "E" },
+            { label: "F  disadvantaged backgrounds", value: "F" },
+            { label: "G  weaker students", value: "G" },
+            { label: "H  higher achievements", value: "H" },
+            { label: "I  positive impressions", value: "I" },
+          ],
+          correctAnswer: "H",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t3-s3-q32",
+          number: 32,
+          type: "matching",
+          question: "32. [second gap]",
+          options: [
+            { label: "A  wrong classes", value: "A" },
+            { label: "B  lower expectations", value: "B" },
+            { label: "C  average learners", value: "C" },
+            { label: "D  bottom sets", value: "D" },
+            { label: "E  brightest pupils", value: "E" },
+            { label: "F  disadvantaged backgrounds", value: "F" },
+            { label: "G  weaker students", value: "G" },
+            { label: "H  higher achievements", value: "H" },
+            { label: "I  positive impressions", value: "I" },
+          ],
+          correctAnswer: "D",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t3-s3-q33",
+          number: 33,
+          type: "matching",
+          question: "33. [third gap]",
+          options: [
+            { label: "A  wrong classes", value: "A" },
+            { label: "B  lower expectations", value: "B" },
+            { label: "C  average learners", value: "C" },
+            { label: "D  bottom sets", value: "D" },
+            { label: "E  brightest pupils", value: "E" },
+            { label: "F  disadvantaged backgrounds", value: "F" },
+            { label: "G  weaker students", value: "G" },
+            { label: "H  higher achievements", value: "H" },
+            { label: "I  positive impressions", value: "I" },
+          ],
+          correctAnswer: "F",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t3-s3-q34",
+          number: 34,
+          type: "matching",
+          question: "34. [fourth gap]",
+          options: [
+            { label: "A  wrong classes", value: "A" },
+            { label: "B  lower expectations", value: "B" },
+            { label: "C  average learners", value: "C" },
+            { label: "D  bottom sets", value: "D" },
+            { label: "E  brightest pupils", value: "E" },
+            { label: "F  disadvantaged backgrounds", value: "F" },
+            { label: "G  weaker students", value: "G" },
+            { label: "H  higher achievements", value: "H" },
+            { label: "I  positive impressions", value: "I" },
+          ],
+          correctAnswer: "E",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t3-s3-q35",
+          number: 35,
+          type: "matching",
+          question: "35. [fifth gap]",
+          options: [
+            { label: "A  wrong classes", value: "A" },
+            { label: "B  lower expectations", value: "B" },
+            { label: "C  average learners", value: "C" },
+            { label: "D  bottom sets", value: "D" },
+            { label: "E  brightest pupils", value: "E" },
+            { label: "F  disadvantaged backgrounds", value: "F" },
+            { label: "G  weaker students", value: "G" },
+            { label: "H  higher achievements", value: "H" },
+            { label: "I  positive impressions", value: "I" },
+          ],
+          correctAnswer: "B",
+          points: 1,
+        },
+        // ── Q36–40: Yes/No/Not Given ──────────────────────────
+        {
+          id: "cam18-ra-t3-s3-q36",
+          number: 36,
+          groupLabel: `Questions 36–40: Do the following statements agree with the views of the writer in Reading Passage 3?\nWrite YES if the statement agrees with the views of the writer.\nWrite NO if the statement contradicts the views of the writer.\nWrite NOT GIVEN if it is impossible to say what the writer thinks about this.`,
+          type: "true_false_ng",
+          question: "36. [Paste Q36 statement — about Vygotsky model and mixed-ability classes]",
+          options: [
+            { label: "YES", value: "YES" },
+            { label: "NO", value: "NO" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "NO",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t3-s3-q37",
+          number: 37,
+          type: "true_false_ng",
+          question: "37. [Paste Q37 statement — about teachers allowing students to take on MKO roles]",
+          options: [
+            { label: "YES", value: "YES" },
+            { label: "NO", value: "NO" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "NOT GIVEN",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t3-s3-q38",
+          number: 38,
+          type: "true_false_ng",
+          question: "38. [Paste Q38 statement — about teaching recently acquired knowledge]",
+          options: [
+            { label: "YES", value: "YES" },
+            { label: "NO", value: "NO" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "YES",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t3-s3-q39",
+          number: 39,
+          type: "true_false_ng",
+          question: "39. [Paste Q39 statement — about the priority for highest-achieving students]",
+          options: [
+            { label: "YES", value: "YES" },
+            { label: "NO", value: "NO" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "NO",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t3-s3-q40",
+          number: 40,
+          type: "true_false_ng",
+          question: "40. [Paste Q40 statement — about collaborative outdoor activities]",
+          options: [
+            { label: "YES", value: "YES" },
+            { label: "NO", value: "NO" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "NOT GIVEN",
+          points: 1,
+        },
+      ],
+    },
+  ],
+};
+
+export const cambridge18Tests: IELTSTest[] = [cambridge18_reading_t1, cambridge18_reading_t2, cambridge18_reading_t3];
