@@ -211,7 +211,7 @@ export default function StudentDashboard() {
               <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 20 }}>
                 <div>
                   <h2 style={{ fontSize: 16, fontWeight: 700, color: "#fff", marginBottom: 3 }}>Cambridge IELTS Books</h2>
-                  <p style={{ fontSize: 13, color: "rgba(255,255,255,0.35)" }}>Cambridge 1 – 19 · Click an available book to practice</p>
+                  <p style={{ fontSize: 13, color: "rgba(255,255,255,0.35)" }}>Cambridge 1 – 20 · Click an available book to practice</p>
                 </div>
                 <span style={{ fontSize: 12, padding: "4px 12px", background: "rgba(124,58,237,0.15)", border: "1px solid rgba(124,58,237,0.25)", borderRadius: 20, color: "#a78bfa", fontWeight: 600 }}>
                   {AVAILABLE_BOOKS.length} / 20 available
@@ -220,7 +220,7 @@ export default function StudentDashboard() {
 
               {/* Books as a 2-column list */}
               <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(320px, 1fr))", gap: 8 }}>
-                {Array.from({ length: 19 }, (_, i) => i + 1).map(n => {
+                {Array.from({ length: 20 }, (_, i) => i + 1).map(n => {
                   const available = AVAILABLE_BOOKS.includes(n);
                   const bookTests = allTests.filter(t => t.bookNumber === n && t.type === typeFilter);
                   return (

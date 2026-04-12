@@ -985,7 +985,7 @@ export default function AdminDashboard() {
               </div>
               {testsSelectedBook === null ? (
                 <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: 10, marginBottom: 32 }}>
-                  {Array.from({ length: 19 }, (_, i) => i + 1).map(n => {
+                  {Array.from({ length: 20 }, (_, i) => i + 1).map(n => {
                     const available = AVAILABLE_BOOKS.includes(n);
                     const bookTests = allTests.filter(t => t.bookNumber === n && t.type === testsTypeFilter);
                     return (
