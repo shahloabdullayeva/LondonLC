@@ -10,7 +10,7 @@ type TestType = "reading" | "listening";
 type SidebarView = "reading" | "listening" | "history";
 
 // Books that have real test content available
-const AVAILABLE_BOOKS = [10, 11, 12, 13, 14, 15, 16, 17, 18];
+const AVAILABLE_BOOKS = [10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
 
 const S = {
   page: { minHeight: "100vh", background: "#0a051f", fontFamily: "Inter, system-ui, sans-serif", display: "flex", flexDirection: "column" as const },
@@ -214,7 +214,7 @@ export default function StudentDashboard() {
                   <p style={{ fontSize: 13, color: "rgba(255,255,255,0.35)" }}>Cambridge 1 – 19 · Click an available book to practice</p>
                 </div>
                 <span style={{ fontSize: 12, padding: "4px 12px", background: "rgba(124,58,237,0.15)", border: "1px solid rgba(124,58,237,0.25)", borderRadius: 20, color: "#a78bfa", fontWeight: 600 }}>
-                  {AVAILABLE_BOOKS.length} / 19 available
+                  {AVAILABLE_BOOKS.length} / 20 available
                 </span>
               </div>
 
