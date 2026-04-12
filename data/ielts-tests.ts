@@ -7,6 +7,7 @@ import { cambridge15Tests } from "./cambridge15";
 import { cambridge16Tests } from "./cambridge16";
 import { cambridge17Tests } from "./cambridge17";
 import { cambridge18Tests } from "./cambridge18";
+import { cambridge19Tests } from "./cambridge19";
 
 export type IELTSTest = {
   id: string;
@@ -1261,6 +1262,7 @@ export const allTests: IELTSTest[] = [
   ...cambridge16Tests,
   ...cambridge17Tests,
   ...cambridge18Tests,
+  ...cambridge19Tests,
 ];
 
 export function getTestById(id: string): IELTSTest | undefined {
