@@ -1170,17 +1170,33 @@ function QuestionItem({
             </div>
           )}
 
-          {/* True/False/NG */}
-          {question.type === "true_false_ng" && question.options && (
-            <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
-              {question.options.map((opt) => (
-                <button key={opt.value} onClick={() => onAnswer(opt.value)}
-                  style={{ ...btnBase, background: answer === opt.value ? T.accent : T.nav, color: answer === opt.value ? "#fff" : T.textSub, borderColor: answer === opt.value ? T.accent : T.border }}>
-                  {opt.label}
-                </button>
-              ))}
-            </div>
-          )}
+          {/* True/False/NG (or Yes/No/NG) — falls back to default buttons if options missing */}
+          {question.type === "true_false_ng" && (() => {
+            const defaultTFNG = [
+              { label: "TRUE", value: "TRUE" },
+              { label: "FALSE", value: "FALSE" },
+              { label: "NOT GIVEN", value: "NOT GIVEN" },
+            ];
+            const defaultYNG = [
+              { label: "YES", value: "YES" },
+              { label: "NO", value: "NO" },
+              { label: "NOT GIVEN", value: "NOT GIVEN" },
+            ];
+            const isYNG = question.correctAnswer === "YES" || question.correctAnswer === "NO";
+            const opts = question.options && question.options.length > 0
+              ? question.options
+              : (isYNG ? defaultYNG : defaultTFNG);
+            return (
+              <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+                {opts.map((opt) => (
+                  <button key={opt.value} onClick={() => onAnswer(opt.value)}
+                    style={{ ...btnBase, background: answer === opt.value ? T.accent : T.nav, color: answer === opt.value ? "#fff" : T.textSub, borderColor: answer === opt.value ? T.accent : T.border }}>
+                    {opt.label}
+                  </button>
+                ))}
+              </div>
+            );
+          })()}
 
           {/* Matching */}
           {question.type === "matching" && question.options && (
