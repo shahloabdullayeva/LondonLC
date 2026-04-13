@@ -305,6 +305,7 @@ export default function TestPage() {
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const transferTimerRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const audioTimerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const audioElRef = useRef<HTMLAudioElement | null>(null);
   const violationRef = useRef(0);
   const cancelledRef = useRef(false);
   const anticheatActiveRef = useRef(false);
@@ -437,28 +438,79 @@ export default function TestPage() {
     return () => { if (transferTimerRef.current) clearInterval(transferTimerRef.current); };
   }, [phase]);
 
-  // ── Audio simulation (for listening tests) ─────────────────────────
+  // ── Audio playback (for listening tests) ───────────────────────────
+  // Prefers a real HTMLAudioElement when the section provides an `audioUrl`
+  // (mp3 hosted on Supabase). Falls back to a timer simulation for any
+  // sections that don't yet have an audio file attached.
   const startAudio = useCallback(() => {
     if (!test) return;
     if (audioTimerRef.current) clearInterval(audioTimerRef.current);
+    if (audioElRef.current) {
+      try { audioElRef.current.pause(); } catch {}
+      audioElRef.current = null;
+    }
     const sec = test.sections[audioCurrentSection];
-    const dur = sec.audioDurationSeconds || 300;
-    setAudioTotal(dur);
+    const fallbackDur = sec.audioDurationSeconds || 300;
+    setAudioTotal(fallbackDur);
     setAudioProgress(0);
     setPhase("audio_playing");
 
+    const advance = () => {
+      if (audioCurrentSection < test.sections.length - 1) {
+        setAudioCurrentSection((n) => n + 1);
+        setCurrentSection((n) => n + 1);
+        setPhase("test");
+      } else {
+        setPhase("transfer");
+      }
+    };
+
+    const url = (sec as { audioUrl?: string }).audioUrl;
+    if (url) {
+      // Real audio playback via HTMLAudioElement.
+      const audio = new Audio(url);
+      audio.preload = "auto";
+      audioElRef.current = audio;
+      audio.addEventListener("loadedmetadata", () => {
+        if (!isNaN(audio.duration) && isFinite(audio.duration)) {
+          setAudioTotal(Math.floor(audio.duration));
+        }
+      });
+      audio.addEventListener("timeupdate", () => {
+        setAudioProgress(Math.floor(audio.currentTime));
+      });
+      audio.addEventListener("ended", () => {
+        advance();
+      });
+      audio.addEventListener("error", () => {
+        // If the MP3 fails to load, fall back to the timed simulation so
+        // the student's test isn't blocked.
+        console.warn("Audio failed to load for", sec.id, "— falling back to timed simulation");
+        audioElRef.current = null;
+        audioTimerRef.current = setInterval(() => {
+          setAudioProgress((p) => {
+            if (p >= fallbackDur - 1) {
+              clearInterval(audioTimerRef.current!);
+              advance();
+              return fallbackDur;
+            }
+            return p + 1;
+          });
+        }, 1000);
+      });
+      audio.play().catch((err) => {
+        console.warn("Audio autoplay blocked:", err);
+      });
+      return;
+    }
+
+    // No audioUrl on this section — keep the original timed simulation.
     audioTimerRef.current = setInterval(() => {
       setAudioProgress((p) => {
-        if (p >= dur - 1) {
+        if (p >= fallbackDur - 1) {
           clearInterval(audioTimerRef.current!);
-          if (audioCurrentSection < test.sections.length - 1) {
-            setAudioCurrentSection((n) => n + 1);
-            setCurrentSection((n) => n + 1);
-            setPhase("test");
-          } else {
-            setPhase("transfer");
-          }
-          return dur;
+          advance();
+          return fallbackDur;
         }
         return p + 1;
       });
@@ -501,6 +553,10 @@ export default function TestPage() {
     [timerRef, transferTimerRef, audioTimerRef].forEach((r) => {
       if (r.current) clearInterval(r.current);
     });
+    if (audioElRef.current) {
+      try { audioElRef.current.pause(); } catch {}
+      audioElRef.current = null;
+    }
     const attempt = {
       id: `${session.id}-${test.id}-${Date.now()}`,
       studentId: session.id,
@@ -538,6 +594,10 @@ export default function TestPage() {
     [timerRef, transferTimerRef, audioTimerRef].forEach((r) => {
       if (r.current) clearInterval(r.current);
     });
+    if (audioElRef.current) {
+      try { audioElRef.current.pause(); } catch {}
+      audioElRef.current = null;
+    }
 
     let score = 0;
     let max = 0;
