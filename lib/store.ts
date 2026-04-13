@@ -219,6 +219,17 @@ export async function updateTeacherPassword(id: string, newPassword: string): Pr
   await supabase.from("teachers").update({ password: hashed, plain_password: newPassword }).eq("id", id);
 }
 
+// Save ONLY the plaintext (for admin Show). Does NOT touch the bcrypt hash, so
+// the user's login is unaffected — useful when the admin already knows the
+// existing password and just wants to make it visible via Show going forward.
+export async function setTeacherPlainPassword(id: string, plain: string): Promise<void> {
+  await supabase.from("teachers").update({ plain_password: plain }).eq("id", id);
+}
+
+export async function setStudentPlainPassword(id: string, plain: string): Promise<void> {
+  await supabase.from("students").update({ plain_password: plain }).eq("id", id);
+}
+
 // ── Session (localStorage — intentionally per-device) ──────────────────
 const SESSION_KEY = "llc_session";
 const STUDENT_CACHE_KEY = "llc_student_cache";

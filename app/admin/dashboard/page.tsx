@@ -9,7 +9,7 @@ import {
 
 const ROOT_ADMIN_ID = "admin-root";
 const ADMIN_USERNAME = "SarvarxonP";
-import { getSession, clearSession, getAttempts, getTeachers, addTeacher, deleteTeacher, updateTeacherPassword, registerStudent, getStudentAccounts, deleteStudent, updateStudent, getBlockedIPs, blockIP, unblockIP, type AttemptData, type TeacherAccount, type StudentAccount } from "@/lib/store";
+import { getSession, clearSession, getAttempts, getTeachers, addTeacher, deleteTeacher, updateTeacherPassword, setTeacherPlainPassword, setStudentPlainPassword, registerStudent, getStudentAccounts, deleteStudent, updateStudent, getBlockedIPs, blockIP, unblockIP, type AttemptData, type TeacherAccount, type StudentAccount } from "@/lib/store";
 import { getTestById } from "@/data/ielts-tests";
 import { allTests } from "@/data/ielts-tests";
 
@@ -83,7 +83,7 @@ export default function AdminDashboard() {
   const [editingPasswordFor, setEditingPasswordFor] = useState<string | null>(null);
   const [editPasswordValue, setEditPasswordValue] = useState("");
   const [editingStudentId, setEditingStudentId] = useState<string | null>(null);
-  const [editStudentForm, setEditStudentForm] = useState({ name: "", surname: "", group_name: "", username: "", password: "" });
+  const [editStudentForm, setEditStudentForm] = useState({ name: "", surname: "", group_name: "", username: "", password: "", passwordIsExisting: false });
   const [showStudentPasswordFor, setShowStudentPasswordFor] = useState<string | null>(null);
   const [studentEditError, setStudentEditError] = useState("");
   const [expandedAccessInfoFor, setExpandedAccessInfoFor] = useState<string | null>(null);
@@ -145,7 +145,7 @@ export default function AdminDashboard() {
 
   const startEditStudent = (s: StudentAccount) => {
     setEditingStudentId(s.id);
-    setEditStudentForm({ name: s.name, surname: s.surname, group_name: s.group_name, username: s.username, password: "" });
+    setEditStudentForm({ name: s.name, surname: s.surname, group_name: s.group_name, username: s.username, password: "", passwordIsExisting: false });
     setStudentEditError("");
   };
 
@@ -160,7 +160,13 @@ export default function AdminDashboard() {
       group_name: editStudentForm.group_name,
       username: editStudentForm.username,
     };
-    if (editStudentForm.password.trim()) fields.password = editStudentForm.password;
+    // If "existing password" toggle is on, only update the plaintext column
+    // (for Show) — leave the bcrypt hash alone so login is unchanged.
+    if (editStudentForm.password.trim() && editStudentForm.passwordIsExisting) {
+      await setStudentPlainPassword(editingStudentId, editStudentForm.password.trim());
+    } else if (editStudentForm.password.trim()) {
+      fields.password = editStudentForm.password;
+    }
     const result = await updateStudent(editingStudentId, fields);
     if (result.ok) {
       setStudents(await getStudentAccounts());
@@ -231,6 +237,18 @@ export default function AdminDashboard() {
     setEditingPasswordFor(null);
     setEditPasswordValue("");
     setTeacherSuccess("Password updated.");
+  };
+
+  // Save only the plaintext for Show/recovery — leaves the login hash alone.
+  // Used when the admin already knows the user's existing password and just
+  // wants it to become visible via the Show button going forward.
+  const handleSaveExistingPassword = async (id: string) => {
+    if (!editPasswordValue.trim()) return;
+    await setTeacherPlainPassword(id, editPasswordValue.trim());
+    setTeachers(await getTeachers());
+    setEditingPasswordFor(null);
+    setEditPasswordValue("");
+    setTeacherSuccess("Existing password saved (login unchanged).");
   };
 
   const handleBlockIP = async (ip: string) => {
@@ -899,10 +917,15 @@ export default function AdminDashboard() {
                                     style={{ ...sel, padding: "8px 12px" }} autoComplete="off" />
                                 </div>
                                 <div>
-                                  <div style={{ fontSize: 10, color: C.muted, marginBottom: 4, textTransform: "uppercase", fontWeight: 700 }}>New Password <span style={{ fontWeight: 400, textTransform: "none" }}>(leave blank to keep current)</span></div>
+                                  <div style={{ fontSize: 10, color: C.muted, marginBottom: 4, textTransform: "uppercase", fontWeight: 700 }}>Password <span style={{ fontWeight: 400, textTransform: "none" }}>(leave blank to keep current)</span></div>
                                   <input value={editStudentForm.password} onChange={e => setEditStudentForm(f => ({ ...f, password: e.target.value }))}
-                                    placeholder="Enter new password to change..."
+                                    placeholder="Enter password..."
                                     style={{ ...sel, padding: "8px 12px" }} autoComplete="new-password" />
+                                  <label style={{ display: "flex", alignItems: "center", gap: 6, marginTop: 6, fontSize: 11, color: C.muted, cursor: "pointer" }}>
+                                    <input type="checkbox" checked={editStudentForm.passwordIsExisting}
+                                      onChange={e => setEditStudentForm(f => ({ ...f, passwordIsExisting: e.target.checked }))} />
+                                    This is the <strong style={{ color: C.sub }}>existing</strong> password (don&apos;t reset login — just make it visible in Show)
+                                  </label>
                                 </div>
                               </div>
                               {studentEditError && <p style={{ fontSize: 13, color: C.danger, marginBottom: 8 }}>{studentEditError}</p>}
@@ -1160,18 +1183,26 @@ export default function AdminDashboard() {
                     </div>
                   </div>
                   {editingPasswordFor === t.id && (
-                    <div style={{ display: "flex", gap: 8, padding: "0 16px 14px", alignItems: "center" }}>
-                      <input type="text" placeholder="New password" value={editPasswordValue}
+                    <div style={{ display: "flex", flexDirection: "column", gap: 8, padding: "0 16px 14px" }}>
+                      <input type="text" placeholder="Password" value={editPasswordValue}
                         onChange={e => setEditPasswordValue(e.target.value)}
-                        style={{ flex: 1, padding: "7px 12px", background: C.card2, border: `1px solid ${C.border}`, borderRadius: 8, color: C.text, fontSize: 13, outline: "none", fontFamily: "inherit" }} />
-                      <button onClick={() => handleChangePassword(t.id)}
-                        style={{ padding: "7px 14px", background: "linear-gradient(135deg,#6d28d9,#7c3aed)", border: "none", borderRadius: 8, color: "#fff", fontSize: 13, fontWeight: 600, cursor: "pointer" }}>
-                        Save
-                      </button>
-                      <button onClick={() => setEditingPasswordFor(null)}
-                        style={{ padding: "7px 12px", background: "transparent", border: `1px solid ${C.border}`, borderRadius: 8, color: C.muted, fontSize: 13, cursor: "pointer" }}>
-                        Cancel
-                      </button>
+                        style={{ width: "100%", padding: "7px 12px", background: C.card2, border: `1px solid ${C.border}`, borderRadius: 8, color: C.text, fontSize: 13, outline: "none", fontFamily: "inherit" }} />
+                      <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+                        <button onClick={() => handleChangePassword(t.id)}
+                          title="Reset the login password to this value and store it for Show"
+                          style={{ padding: "7px 14px", background: "linear-gradient(135deg,#6d28d9,#7c3aed)", border: "none", borderRadius: 8, color: "#fff", fontSize: 13, fontWeight: 600, cursor: "pointer" }}>
+                          Set as new password
+                        </button>
+                        <button onClick={() => handleSaveExistingPassword(t.id)}
+                          title="Save this as the existing password — login is unchanged, just made visible via Show"
+                          style={{ padding: "7px 14px", background: "transparent", border: `1px solid ${C.accent}`, borderRadius: 8, color: C.accent, fontSize: 13, fontWeight: 600, cursor: "pointer" }}>
+                          Save existing (login unchanged)
+                        </button>
+                        <button onClick={() => setEditingPasswordFor(null)}
+                          style={{ padding: "7px 12px", background: "transparent", border: `1px solid ${C.border}`, borderRadius: 8, color: C.muted, fontSize: 13, cursor: "pointer" }}>
+                          Cancel
+                        </button>
+                      </div>
                     </div>
                   )}
                 </div>
