@@ -6,6 +6,11 @@ import type { IELTSTest } from "./ielts-tests";
 const audioUrl = (name: string) =>
   `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/audio/${name}`;
 
+// Build the public Supabase Storage URL for an image (diagram / map) that
+// lives in the `images` bucket — e.g. `Bidcaster-Archaeological-Dig.png`.
+const imageUrl = (name: string) =>
+  `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/images/${name}`;
+
 // ============================================================
 // CAMBRIDGE IELTS 20 – LISTENING TEST 1
 // Parts: 1) Restaurant recommendations (note completion)
@@ -944,6 +949,7 @@ Larch Furniture
       id: "cam20-l-t3-s2",
       sectionNumber: 2,
       title: "Part 2",
+      diagramUrl: imageUrl("Bidcaster-Archaeological-Dig.png"),
       instructions: `Questions 11–16: Choose the correct letter, A, B or C.
 Questions 17–20: Label the map. Choose the correct letter, A–G, next to each item.`,
       passageText: `Bidcaster Archaeological Dig

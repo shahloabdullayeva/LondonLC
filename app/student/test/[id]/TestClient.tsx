@@ -1074,6 +1074,12 @@ export default function TestPage() {
               <div style={{ fontSize: 13, marginBottom: 20, padding: "11px 14px", borderRadius: 10, background: T.accentDim, color: T.accent, border: `1px solid ${T.accentBorder}`, fontWeight: 500, lineHeight: 1.5 }}>
                 {section.instructions}
               </div>
+              {section.diagramUrl && (
+                <div style={{ textAlign: "center", marginBottom: 20 }}>
+                  <img src={section.diagramUrl} alt="Diagram"
+                    style={{ maxWidth: "100%", borderRadius: 10, border: `1px solid ${T.border}`, background: "#fff" }} />
+                </div>
+              )}
               <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
                 {(() => {
                   // Merge adjacent "Choose TWO" pairs into a single checkbox UI.
