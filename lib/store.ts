@@ -22,6 +22,9 @@ export type StudentAccount = {
   id: string;
   username: string;
   password: string;
+  // Plaintext password for admin recovery. Null for legacy rows created
+  // before plain-text storage was enabled.
+  plainPassword?: string | null;
   name: string;
   surname: string;
   group_name: string;
@@ -35,6 +38,7 @@ export type TeacherAccount = {
   id: string;
   username: string;
   password: string;
+  plainPassword?: string | null;
   createdAt: string;
   lastAccessedAt?: string;
   lastIp?: string;
@@ -101,6 +105,7 @@ export async function getStudentAccounts(): Promise<StudentAccount[]> {
   const { data } = await supabase.from("students").select("*").order("created_at", { ascending: false });
   return (data ?? []).map(r => ({
     id: r.id, username: r.username, password: r.password,
+    plainPassword: r.plain_password ?? null,
     name: r.name, surname: r.surname, group_name: r.group_name, createdAt: r.created_at,
     lastAccessedAt: r.last_accessed_at ?? undefined,
     lastIp: r.last_ip ?? undefined,
@@ -116,7 +121,7 @@ export async function registerStudent(
   const id = `student-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
   const hashed = await hashPassword(password);
   await supabase.from("students").insert({
-    id, username, password: hashed,
+    id, username, password: hashed, plain_password: password,
     name: name.trim(), surname: surname.trim(), group_name: group.trim(),
   });
   // Return the plain password so the admin can share it with the student.
@@ -151,7 +156,11 @@ export async function updateStudent(
   if (fields.surname !== undefined) update.surname = fields.surname.trim();
   if (fields.group_name !== undefined) update.group_name = fields.group_name.trim();
   if (fields.username !== undefined) update.username = fields.username.trim();
-  if (fields.password !== undefined) update.password = await hashPassword(fields.password.trim());
+  if (fields.password !== undefined) {
+    const trimmed = fields.password.trim();
+    update.password = await hashPassword(trimmed);
+    update.plain_password = trimmed;
+  }
   const { error } = await supabase.from("students").update(update).eq("id", id);
   if (error) {
     if (error.code === "23505") return { ok: false, error: "Username already exists" };
@@ -166,7 +175,9 @@ const ROOT_ID = "admin-root";
 export async function getTeachers(): Promise<TeacherAccount[]> {
   const { data } = await supabase.from("teachers").select("*").order("created_at", { ascending: true });
   return (data ?? []).map(r => ({
-    id: r.id, username: r.username, password: r.password, createdAt: r.created_at,
+    id: r.id, username: r.username, password: r.password,
+    plainPassword: r.plain_password ?? null,
+    createdAt: r.created_at,
     lastAccessedAt: r.last_accessed_at ?? undefined,
     lastIp: r.last_ip ?? undefined,
     lastDeviceInfo: r.last_device_info ?? undefined,
@@ -190,7 +201,7 @@ export async function findTeacher(username: string, password: string): Promise<T
 
 export async function addTeacher(username: string, password: string): Promise<{ ok: boolean; error?: string }> {
   const hashed = await hashPassword(password);
-  const { error } = await supabase.from("teachers").insert({ id: `teacher-${Date.now()}`, username, password: hashed });
+  const { error } = await supabase.from("teachers").insert({ id: `teacher-${Date.now()}`, username, password: hashed, plain_password: password });
   if (error) {
     if (error.code === "23505") return { ok: false, error: "Username already exists" };
     return { ok: false, error: error.message };
@@ -205,7 +216,7 @@ export async function deleteTeacher(id: string): Promise<void> {
 
 export async function updateTeacherPassword(id: string, newPassword: string): Promise<void> {
   const hashed = await hashPassword(newPassword);
-  await supabase.from("teachers").update({ password: hashed }).eq("id", id);
+  await supabase.from("teachers").update({ password: hashed, plain_password: newPassword }).eq("id", id);
 }
 
 // ── Session (localStorage — intentionally per-device) ──────────────────

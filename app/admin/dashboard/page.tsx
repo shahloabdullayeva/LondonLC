@@ -806,7 +806,18 @@ export default function AdminDashboard() {
                           </td>
                           <td style={{ padding: "12px 14px", fontFamily: "monospace", fontSize: 13, color: C.sub }}>{s.username}</td>
                           <td style={{ padding: "12px 14px" }}>
-                            <span style={{ fontFamily: "monospace", fontSize: 13, color: C.muted }}>••••••••</span>
+                            <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                              <span style={{ fontFamily: "monospace", fontSize: 13, color: showPasswordFor === s.id ? C.text : C.muted }}>
+                                {showPasswordFor === s.id
+                                  ? (s.plainPassword || "— not stored")
+                                  : "••••••••"}
+                              </span>
+                              <button onClick={() => setShowPasswordFor(showPasswordFor === s.id ? null : s.id)}
+                                title={showPasswordFor === s.id ? "Hide password" : "Show password"}
+                                style={{ display: "flex", alignItems: "center", padding: "4px 6px", background: "transparent", border: `1px solid ${C.border}`, borderRadius: 6, color: C.muted, cursor: "pointer" }}>
+                                {showPasswordFor === s.id ? <EyeOff size={12} /> : <Eye size={12} />}
+                              </button>
+                            </div>
                           </td>
                           <td style={{ padding: "12px 14px", fontSize: 13, color: C.muted }}>{s.group_name}</td>
                           <td style={{ padding: "12px 14px", fontSize: 12, color: C.muted }}>{new Date(s.createdAt).toLocaleDateString()}</td>
@@ -1120,7 +1131,11 @@ export default function AdminDashboard() {
                         <div style={{ fontSize: 11, color: C.muted, marginTop: 2 }}>Last seen: {fmtLastSeen(t.lastAccessedAt)}</div>
                         {isRootAdmin && t.lastIp && <div style={{ fontSize: 11, color: C.muted, fontFamily: "monospace" }}>IP: {t.lastIp}</div>}
                         {showPasswordFor === t.id && !isProtected && (
-                          <div style={{ fontSize: 12, color: C.muted, marginTop: 2, fontFamily: "monospace" }}>••••••••</div>
+                          <div style={{ fontSize: 12, marginTop: 2, fontFamily: "monospace", color: t.plainPassword ? C.text : C.muted }}>
+                            {t.plainPassword
+                              ? `🔑 ${t.plainPassword}`
+                              : "— not available (created before password recovery was enabled — click Change PW to set a new one)"}
+                          </div>
                         )}
                       </div>
                     </div>

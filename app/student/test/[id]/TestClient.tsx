@@ -1043,22 +1043,113 @@ export default function TestPage() {
                 {section.instructions}
               </div>
               <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
-                {section.questions.map((q) => (
-                  <React.Fragment key={q.id}>
-                    {q.groupLabel && (
-                      <div style={{ fontSize: 13, padding: "10px 14px", borderRadius: 10, background: T.accentDim, color: T.accent, border: `1px solid ${T.accentBorder}`, fontWeight: 500, lineHeight: 1.6, whiteSpace: "pre-line" }}>
-                        {q.groupLabel.split(/\n(?=\d+[\s\.])/)[0].trim()}
-                      </div>
-                    )}
-                    <QuestionItem question={q}
-                      answer={answers[q.id] || ""}
-                      onAnswer={(val) => setAnswer(q.id, val)}
-                      T={T} fontSize={fontSize}
-                      questionHighlights={highlights.filter(h => h.sectionIdx === currentSection && h.side === "questions")}
-                      onRemoveHighlight={removeHighlight}
-                    />
-                  </React.Fragment>
-                ))}
+                {(() => {
+                  // Merge adjacent "Choose TWO" pairs into a single checkbox UI.
+                  // Detection: two consecutive multiple_choice questions share the
+                  // same correctAnswer string containing "/" and have equal option lists.
+                  const qs = section.questions;
+                  type Item = { kind: "single"; q: typeof qs[0] } | { kind: "pair"; q1: typeof qs[0]; q2: typeof qs[0] };
+                  const items: Item[] = [];
+                  for (let i = 0; i < qs.length; i++) {
+                    const q = qs[i];
+                    const nxt = qs[i + 1];
+                    const isPair = !!nxt
+                      && q.type === "multiple_choice"
+                      && nxt.type === "multiple_choice"
+                      && typeof q.correctAnswer === "string"
+                      && q.correctAnswer.includes("/")
+                      && nxt.correctAnswer === q.correctAnswer
+                      && !!q.options && !!nxt.options
+                      && q.options.length === nxt.options.length;
+                    if (isPair) {
+                      items.push({ kind: "pair", q1: q, q2: nxt });
+                      i++;
+                    } else {
+                      items.push({ kind: "single", q });
+                    }
+                  }
+                  return items.map((item) => {
+                    if (item.kind === "pair") {
+                      const { q1, q2 } = item;
+                      const a1 = answers[q1.id] || "";
+                      const a2 = answers[q2.id] || "";
+                      const selected: string[] = [];
+                      if (a1) selected.push(a1);
+                      if (a2 && a2 !== a1) selected.push(a2);
+                      const selectedSet = new Set(selected);
+                      const toggle = (value: string) => {
+                        let next: string[];
+                        if (selectedSet.has(value)) {
+                          next = selected.filter((v) => v !== value);
+                        } else {
+                          if (selected.length >= 2) return;
+                          next = [...selected, value];
+                        }
+                        setAnswer(q1.id, next[0] || "");
+                        setAnswer(q2.id, next[1] || "");
+                      };
+                      return (
+                        <React.Fragment key={`pair-${q1.id}-${q2.id}`}>
+                          {q1.groupLabel && (
+                            <div style={{ fontSize: 13, padding: "10px 14px", borderRadius: 10, background: T.accentDim, color: T.accent, border: `1px solid ${T.accentBorder}`, fontWeight: 500, lineHeight: 1.6, whiteSpace: "pre-line" }}>
+                              {q1.groupLabel.split(/\n(?=\d+[\s\.])/)[0].trim()}
+                            </div>
+                          )}
+                          <div id={`question-${q1.id}`} style={{ paddingBottom: 24, borderBottom: `1px solid ${T.border}` }}>
+                            <div style={{ display: "flex", gap: 12, marginBottom: 12, alignItems: "center", flexWrap: "wrap" }}>
+                              <span style={{ flexShrink: 0, minWidth: 48, height: 26, padding: "0 10px", borderRadius: 13, background: T.accent, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 11, fontWeight: 700, color: "#fff" }}>
+                                {q1.number} &amp; {q2.number}
+                              </span>
+                              <span style={{ fontSize: fontSize - 1, color: T.text, fontWeight: 600 }}>
+                                Choose TWO answers ({selected.length}/2 selected)
+                              </span>
+                            </div>
+                            <div id={`question-${q2.id}`} style={{ marginLeft: 38, display: "flex", flexDirection: "column", gap: 8 }}>
+                              {q1.options!.map((opt) => {
+                                const isChecked = selectedSet.has(opt.value);
+                                const isDisabled = !isChecked && selected.length >= 2;
+                                return (
+                                  <label key={opt.value}
+                                    style={{ display: "flex", alignItems: "center", gap: 10, cursor: isDisabled ? "not-allowed" : "pointer", opacity: isDisabled ? 0.45 : 1 }}>
+                                    <div
+                                      onClick={() => !isDisabled && toggle(opt.value)}
+                                      style={{ width: 18, height: 18, borderRadius: 4, border: `2px solid ${isChecked ? T.accent : T.border}`, background: isChecked ? T.accent : "transparent", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                                      {isChecked && (
+                                        <svg width="10" height="10" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                          <path d="M2 6.5L4.5 9L10 3" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                                        </svg>
+                                      )}
+                                    </div>
+                                    <input type="checkbox" checked={isChecked} disabled={isDisabled}
+                                      onChange={() => toggle(opt.value)} style={{ display: "none" }} />
+                                    <span style={{ fontSize: 14, color: T.text }}>{opt.label}</span>
+                                  </label>
+                                );
+                              })}
+                            </div>
+                          </div>
+                        </React.Fragment>
+                      );
+                    }
+                    const q = item.q;
+                    return (
+                      <React.Fragment key={q.id}>
+                        {q.groupLabel && (
+                          <div style={{ fontSize: 13, padding: "10px 14px", borderRadius: 10, background: T.accentDim, color: T.accent, border: `1px solid ${T.accentBorder}`, fontWeight: 500, lineHeight: 1.6, whiteSpace: "pre-line" }}>
+                            {q.groupLabel.split(/\n(?=\d+[\s\.])/)[0].trim()}
+                          </div>
+                        )}
+                        <QuestionItem question={q}
+                          answer={answers[q.id] || ""}
+                          onAnswer={(val) => setAnswer(q.id, val)}
+                          T={T} fontSize={fontSize}
+                          questionHighlights={highlights.filter(h => h.sectionIdx === currentSection && h.side === "questions")}
+                          onRemoveHighlight={removeHighlight}
+                        />
+                      </React.Fragment>
+                    );
+                  });
+                })()}
               </div>
             </>
           )}
