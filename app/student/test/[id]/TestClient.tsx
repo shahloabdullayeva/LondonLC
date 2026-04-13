@@ -525,6 +525,36 @@ export default function TestPage() {
     }
   }, [phase, audioCurrentSection, test, startAudio]);
 
+  // ── Stop audio on unmount (student navigates away / closes tab) ─────
+  useEffect(() => {
+    return () => {
+      if (audioElRef.current) {
+        try { audioElRef.current.pause(); } catch {}
+        audioElRef.current = null;
+      }
+      if (audioTimerRef.current) {
+        clearInterval(audioTimerRef.current);
+        audioTimerRef.current = null;
+      }
+    };
+  }, []);
+
+  // ── Stop audio when phase leaves a listening state ──────────────────
+  // Covers back-button / dashboard nav / anywhere `phase` changes away
+  // from an active listening phase without going through cancel/submit.
+  useEffect(() => {
+    if (phase !== "audio_playing" && phase !== "test") {
+      if (audioElRef.current) {
+        try { audioElRef.current.pause(); } catch {}
+        audioElRef.current = null;
+      }
+      if (audioTimerRef.current) {
+        clearInterval(audioTimerRef.current);
+        audioTimerRef.current = null;
+      }
+    }
+  }, [phase]);
+
   // ── IntersectionObserver: sync passage panel with question scroll ────
   useEffect(() => {
     if (!test || test.type !== "reading") return;
@@ -844,15 +874,15 @@ export default function TestPage() {
         </div>
       )}
 
-      {/* Mobile toggle (reading only) */}
-      {test.type === "reading" && (
+      {/* Mobile toggle (when a passage/notes pane exists) */}
+      {section.passageText && (
         <div style={{ display: "flex", background: T.nav, borderBottom: `1px solid ${T.border}`, padding: "8px 16px", gap: 8 }} className="mobile-toggle-bar">
           {(["passage", "questions"] as const).map(v => (
             <button key={v} onClick={() => setMobileView(v)}
               style={{ flex: 1, padding: "8px", borderRadius: 8, border: "none", cursor: "pointer", fontWeight: 600, fontSize: 13, transition: "all 0.15s",
                 background: mobileView === v ? T.accent : "transparent",
                 color: mobileView === v ? "#fff" : T.textMuted }}>
-              {v === "passage" ? "Passage" : "Questions"}
+              {v === "passage" ? (test.type === "reading" ? "Passage" : "Notes") : "Questions"}
             </button>
           ))}
         </div>
@@ -861,8 +891,8 @@ export default function TestPage() {
       {/* Content */}
       <div ref={contentAreaRef} style={{ flex: 1, display: "flex", flexDirection: "row", overflow: "hidden", minHeight: 0 }}>
 
-        {/* Left: Passage (reading) */}
-        {test.type === "reading" && section.passageText && (
+        {/* Left: Passage (reading) or Notes (listening) */}
+        {section.passageText && (
           <div className={`passage-panel ${mobileView === "passage" ? "panel-visible" : "panel-hidden"}`}
             style={{ width: `${passageWidthPct}%`, minWidth: 0, overflow: "hidden", transition: isResizingRef.current ? "none" : "width 0.22s ease", background: T.passage, position: "relative", display: "flex", flexDirection: "column", flexShrink: 0 }}>
             {/* Passage header with highlight controls */}
@@ -919,8 +949,8 @@ export default function TestPage() {
           </div>
         )}
 
-        {/* Resizable divider (reading only, desktop) */}
-        {test.type === "reading" && (
+        {/* Resizable divider (desktop, whenever there's a passage/notes pane) */}
+        {section.passageText && (
           <div className="divider-toggle"
             style={{ position: "relative", width: 10, display: "flex", alignItems: "center", justifyContent: "center", zIndex: 10, flexShrink: 0, cursor: "col-resize" }}
             onMouseDown={handleDividerMouseDown}>
@@ -934,7 +964,7 @@ export default function TestPage() {
         )}
 
         {/* Right: Questions */}
-        <div className={`questions-panel ${test.type === "reading" && mobileView === "passage" ? "panel-hidden" : "panel-visible"}`}
+        <div className={`questions-panel ${section.passageText && mobileView === "passage" ? "panel-hidden" : "panel-visible"}`}
           style={{ flex: 1, minWidth: 0, minHeight: 0, display: "flex", flexDirection: "column", overflow: "hidden", background: T.bg }}>
         <div ref={questionsScrollRef} style={{ flex: 1, overflowY: "auto", padding: "24px 28px", minHeight: 0 }}
           onMouseUp={(e) => handleTextMouseUp(e, "questions")}>
@@ -996,15 +1026,8 @@ export default function TestPage() {
               </div>
             </>
           ) : (
-            // ── Listening: single section (unchanged) ─────────────
+            // ── Listening: single section (notes rendered in left pane) ─
             <>
-              {section.passageText && (
-                <div style={{ marginBottom: 20, padding: 16, borderRadius: 12, background: T.nav, border: `1px solid ${T.border}` }}>
-                  <pre style={{ whiteSpace: "pre-wrap", fontSize: 14, color: T.text, fontFamily: "Inter, system-ui, sans-serif", lineHeight: 1.7 }}>
-                    {section.passageText}
-                  </pre>
-                </div>
-              )}
               <div style={{ fontSize: 13, marginBottom: 20, padding: "11px 14px", borderRadius: 10, background: T.accentDim, color: T.accent, border: `1px solid ${T.accentBorder}`, fontWeight: 500, lineHeight: 1.5 }}>
                 {section.instructions}
               </div>
