@@ -880,4 +880,391 @@ Ethical concerns
   ],
 };
 
-export const cambridge20ListeningTests: IELTSTest[] = [cambridge20_listening_t1, cambridge20_listening_t2];
+// ============================================================
+// CAMBRIDGE IELTS 20 – LISTENING TEST 3
+// Parts: 1) Furniture rental companies (table completion)
+//        2) Archaeology community project (MCQ + map labelling)
+//        3) Theatre programmes (MCQ + matching)
+//        4) Inclusive design (note completion)
+// ============================================================
+export const cambridge20_listening_t3: IELTSTest = {
+  id: "cam20-listening-t3",
+  title: "Cambridge IELTS 20 – Listening Test 3",
+  bookNumber: 20,
+  testNumber: 3,
+  type: "listening",
+  level: "academic",
+  durationMinutes: 30,
+  transferMinutes: 10,
+  audioUrl: audioUrl("cam20-listening-t3.mp3"),
+  audioDurationSeconds: 1800,
+  sections: [
+    // ── PART 1 ─────────────────────────────────────────────
+    {
+      id: "cam20-l-t3-s1",
+      sectionNumber: 1,
+      title: "Part 1",
+      instructions: `Questions 1–10: Complete the table below. Write ONE WORD AND/OR A NUMBER for each answer.`,
+      passageText: `Furniture Rental Companies
+
+Peak Rentals
+●  Prices range from $105 to $ 1 _______ per room per month.
+●  The furniture is very 2 _______
+●  Delivers in 1–2 days
+●  Special offer: free 3 _______ with every living room set
+
+4 _______ and Oliver
+●  Mid-range prices
+●  12% monthly free for 5 _______
+●  Also offers a cleaning service
+
+Larch Furniture
+●  Offers cheapest prices for renting furniture and 6 _______ items
+●  Must have own 7 _______
+●  Minimum contract length: six months
+
+8 _______ Rentals
+●  See the 9 _______ for the most up-to-date prices
+●  10 _______ are allowed within 7 days of delivery`,
+      questions: [
+        { id: "cam20-l-t3-s1-q1", number: 1, type: "note_completion", question: "1. Prices range from $105 to $ _______ per room per month", correctAnswer: "239/two hundred thirty-nine/two hundred and thirty-nine", points: 1 },
+        { id: "cam20-l-t3-s1-q2", number: 2, type: "note_completion", question: "2. The furniture is very _______", correctAnswer: "modern", points: 1 },
+        { id: "cam20-l-t3-s1-q3", number: 3, type: "note_completion", question: "3. free _______ with every living room set", correctAnswer: "lamp", points: 1 },
+        { id: "cam20-l-t3-s1-q4", number: 4, type: "note_completion", question: "4. _______ and Oliver (company name)", correctAnswer: "Aaron", points: 1 },
+        { id: "cam20-l-t3-s1-q5", number: 5, type: "note_completion", question: "5. 12% monthly free for _______", correctAnswer: "damage", points: 1 },
+        { id: "cam20-l-t3-s1-q6", number: 6, type: "note_completion", question: "6. cheapest prices for renting furniture and _______ items", correctAnswer: "electronic", points: 1 },
+        { id: "cam20-l-t3-s1-q7", number: 7, type: "note_completion", question: "7. Must have own _______", correctAnswer: "insurance", points: 1 },
+        { id: "cam20-l-t3-s1-q8", number: 8, type: "note_completion", question: "8. _______ Rentals (company name)", correctAnswer: "space", points: 1 },
+        { id: "cam20-l-t3-s1-q9", number: 9, type: "note_completion", question: "9. See the _______ for the most up-to-date prices", correctAnswer: "app", points: 1 },
+        { id: "cam20-l-t3-s1-q10", number: 10, type: "note_completion", question: "10. _______ are allowed within 7 days of delivery", correctAnswer: "exchanges", points: 1 },
+      ],
+    },
+    // ── PART 2 ─────────────────────────────────────────────
+    {
+      id: "cam20-l-t3-s2",
+      sectionNumber: 2,
+      title: "Part 2",
+      instructions: `Questions 11–16: Choose the correct letter, A, B or C.
+Questions 17–20: Label the map. Choose the correct letter, A–G, next to each item.`,
+      passageText: `Bidcaster Archaeological Dig
+
+Questions 11–16 are about the community dig at Bidcaster Castle.
+Questions 17–20 ask you to label the map of the archaeological site with letters A–G.
+
+17  bridge foundations  _______
+18  rubbish pit  _______
+19  meeting hall  _______
+20  fish pond  _______`,
+      questions: [
+        {
+          id: "cam20-l-t3-s2-q11", number: 11,
+          groupLabel: `Questions 11–16: Choose the correct letter, A, B or C.`,
+          type: "multiple_choice",
+          question: "11. Who was responsible for starting the community project?",
+          options: [
+            { label: "A  the castle owners", value: "A" },
+            { label: "B  a national charity", value: "B" },
+            { label: "C  the local council", value: "C" },
+          ],
+          correctAnswer: "B", points: 1,
+        },
+        {
+          id: "cam20-l-t3-s2-q12", number: 12,
+          type: "multiple_choice",
+          question: "12. How was the gold coin found?",
+          options: [
+            { label: "A  Heavy rain had removed some of the soil.", value: "A" },
+            { label: "B  The ground was dug up by wild rabbits.", value: "B" },
+            { label: "C  A person with a metal detector searched the area.", value: "C" },
+          ],
+          correctAnswer: "A", points: 1,
+        },
+        {
+          id: "cam20-l-t3-s2-q13", number: 13,
+          type: "multiple_choice",
+          question: "13. What led the archaeologists to believe there was an ancient village on this site?",
+          options: [
+            { label: "A  the lucky discovery of old records", value: "A" },
+            { label: "B  the bases of several structures visible in the grass", value: "B" },
+            { label: "C  the unusual stones found near the castle", value: "C" },
+          ],
+          correctAnswer: "A", points: 1,
+        },
+        {
+          id: "cam20-l-t3-s2-q14", number: 14,
+          type: "multiple_choice",
+          question: "14. What are the team still hoping to find?",
+          options: [
+            { label: "A  everyday pottery", value: "A" },
+            { label: "B  animal bones", value: "B" },
+            { label: "C  pieces of jewellery", value: "C" },
+          ],
+          correctAnswer: "C", points: 1,
+        },
+        {
+          id: "cam20-l-t3-s2-q15", number: 15,
+          type: "multiple_choice",
+          question: "15. What was found on the other side of the river to the castle?",
+          options: [
+            { label: "A  the remains of a large palace", value: "A" },
+            { label: "B  the outline of fields", value: "B" },
+            { label: "C  a number of small huts", value: "C" },
+          ],
+          correctAnswer: "B", points: 1,
+        },
+        {
+          id: "cam20-l-t3-s2-q16", number: 16,
+          type: "multiple_choice",
+          question: "16. What do the team plan to do after work ends this summer?",
+          options: [
+            { label: "A  prepare a display for a museum", value: "A" },
+            { label: "B  take part in a television programme", value: "B" },
+            { label: "C  start to organise school visits", value: "C" },
+          ],
+          correctAnswer: "C", points: 1,
+        },
+        {
+          id: "cam20-l-t3-s2-q17", number: 17,
+          groupLabel: `Questions 17–20: Label the map below. Choose the correct letter, A–G, next to each item.\n\nBidcaster Archaeological Dig — pick the map location (A–G) for each feature.`,
+          type: "multiple_choice",
+          question: "17. bridge foundations",
+          options: [
+            { label: "A", value: "A" }, { label: "B", value: "B" }, { label: "C", value: "C" },
+            { label: "D", value: "D" }, { label: "E", value: "E" }, { label: "F", value: "F" },
+            { label: "G", value: "G" },
+          ],
+          correctAnswer: "B", points: 1,
+        },
+        {
+          id: "cam20-l-t3-s2-q18", number: 18,
+          type: "multiple_choice",
+          question: "18. rubbish pit",
+          options: [
+            { label: "A", value: "A" }, { label: "B", value: "B" }, { label: "C", value: "C" },
+            { label: "D", value: "D" }, { label: "E", value: "E" }, { label: "F", value: "F" },
+            { label: "G", value: "G" },
+          ],
+          correctAnswer: "A", points: 1,
+        },
+        {
+          id: "cam20-l-t3-s2-q19", number: 19,
+          type: "multiple_choice",
+          question: "19. meeting hall",
+          options: [
+            { label: "A", value: "A" }, { label: "B", value: "B" }, { label: "C", value: "C" },
+            { label: "D", value: "D" }, { label: "E", value: "E" }, { label: "F", value: "F" },
+            { label: "G", value: "G" },
+          ],
+          correctAnswer: "G", points: 1,
+        },
+        {
+          id: "cam20-l-t3-s2-q20", number: 20,
+          type: "multiple_choice",
+          question: "20. fish pond",
+          options: [
+            { label: "A", value: "A" }, { label: "B", value: "B" }, { label: "C", value: "C" },
+            { label: "D", value: "D" }, { label: "E", value: "E" }, { label: "F", value: "F" },
+            { label: "G", value: "G" },
+          ],
+          correctAnswer: "E", points: 1,
+        },
+      ],
+    },
+    // ── PART 3 ─────────────────────────────────────────────
+    {
+      id: "cam20-l-t3-s3",
+      sectionNumber: 3,
+      title: "Part 3",
+      instructions: `Questions 21–26: Choose the correct letter, A, B or C.
+Questions 27–30: Match each show to a comment about its programme. Choose FOUR answers from the box (A–F).`,
+      passageText: `Finn and Maya discuss their project on theatre programmes.
+
+Comments about programmes (for Q27–30):
+A  Its origin is somewhat controversial.
+B  It is historically significant for a country.
+C  It was effective at attracting audiences.
+D  It is included in a recent project.
+E  It contains insights into the show.
+F  It resembles an artwork.
+
+Shows (27–30):
+27  Ruy Blas
+28  Man of La Mancha
+29  The Tragedy of Jane Shore
+30  The Sailors' Festival`,
+      questions: [
+        {
+          id: "cam20-l-t3-s3-q21", number: 21,
+          groupLabel: `Questions 21–26: Choose the correct letter, A, B or C.`,
+          type: "multiple_choice",
+          question: "21. Finn was pleased to discover that their topic",
+          options: [
+            { label: "A  was not familiar to their module leader.", value: "A" },
+            { label: "B  had not been chosen by other students.", value: "B" },
+            { label: "C  did not prove to be difficult to research.", value: "C" },
+          ],
+          correctAnswer: "B", points: 1,
+        },
+        {
+          id: "cam20-l-t3-s3-q22", number: 22,
+          type: "multiple_choice",
+          question: "22. Maya says a mistaken belief about theatre programmes is that",
+          options: [
+            { label: "A  theatres pay companies to produce them.", value: "A" },
+            { label: "B  few theatre-goers buy them nowadays.", value: "B" },
+            { label: "C  they contain far more adverts than previously.", value: "C" },
+          ],
+          correctAnswer: "A", points: 1,
+        },
+        {
+          id: "cam20-l-t3-s3-q23", number: 23,
+          type: "multiple_choice",
+          question: "23. Finn was surprised that, in early British theatre, programmes",
+          options: [
+            { label: "A  were difficult for audiences to obtain.", value: "A" },
+            { label: "B  were given out free of charge.", value: "B" },
+            { label: "C  were seen as a kind of contract.", value: "C" },
+          ],
+          correctAnswer: "C", points: 1,
+        },
+        {
+          id: "cam20-l-t3-s3-q24", number: 24,
+          type: "multiple_choice",
+          question: "24. Maya feels their project should include an explanation of why companies of actors",
+          options: [
+            { label: "A  promoted their own plays.", value: "A" },
+            { label: "B  performed plays outdoors.", value: "B" },
+            { label: "C  had to tour with their plays.", value: "C" },
+          ],
+          correctAnswer: "A", points: 1,
+        },
+        {
+          id: "cam20-l-t3-s3-q25", number: 25,
+          type: "multiple_choice",
+          question: "25. Finn and Maya both think that, compared to nineteenth-century programmes, those from the eighteenth century",
+          options: [
+            { label: "A  were more original.", value: "A" },
+            { label: "B  were more colourful.", value: "B" },
+            { label: "C  were more informative.", value: "C" },
+          ],
+          correctAnswer: "C", points: 1,
+        },
+        {
+          id: "cam20-l-t3-s3-q26", number: 26,
+          type: "multiple_choice",
+          question: "26. Maya doesn't fully understand why, in the twentieth century,",
+          options: [
+            { label: "A  very few theatre programmes were printed in the USA.", value: "A" },
+            { label: "B  British theatre programmes failed to develop for so long.", value: "B" },
+            { label: "C  theatre programmes in Britain copied fashions from the USA.", value: "C" },
+          ],
+          correctAnswer: "B", points: 1,
+        },
+        {
+          id: "cam20-l-t3-s3-q27", number: 27,
+          groupLabel: `Questions 27–30: What comment is made about the programme for each of the following shows? Choose FOUR answers from the box (A–F) and write the correct letter next to each show.\n\nA  Its origin is somewhat controversial.\nB  It is historically significant for a country.\nC  It was effective at attracting audiences.\nD  It is included in a recent project.\nE  It contains insights into the show.\nF  It resembles an artwork.`,
+          type: "multiple_choice",
+          question: "27. Ruy Blas",
+          options: [
+            { label: "A  Its origin is somewhat controversial.", value: "A" },
+            { label: "B  It is historically significant for a country.", value: "B" },
+            { label: "C  It was effective at attracting audiences.", value: "C" },
+            { label: "D  It is included in a recent project.", value: "D" },
+            { label: "E  It contains insights into the show.", value: "E" },
+            { label: "F  It resembles an artwork.", value: "F" },
+          ],
+          correctAnswer: "F", points: 1,
+        },
+        {
+          id: "cam20-l-t3-s3-q28", number: 28,
+          type: "multiple_choice",
+          question: "28. Man of La Mancha",
+          options: [
+            { label: "A  Its origin is somewhat controversial.", value: "A" },
+            { label: "B  It is historically significant for a country.", value: "B" },
+            { label: "C  It was effective at attracting audiences.", value: "C" },
+            { label: "D  It is included in a recent project.", value: "D" },
+            { label: "E  It contains insights into the show.", value: "E" },
+            { label: "F  It resembles an artwork.", value: "F" },
+          ],
+          correctAnswer: "E", points: 1,
+        },
+        {
+          id: "cam20-l-t3-s3-q29", number: 29,
+          type: "multiple_choice",
+          question: "29. The Tragedy of Jane Shore",
+          options: [
+            { label: "A  Its origin is somewhat controversial.", value: "A" },
+            { label: "B  It is historically significant for a country.", value: "B" },
+            { label: "C  It was effective at attracting audiences.", value: "C" },
+            { label: "D  It is included in a recent project.", value: "D" },
+            { label: "E  It contains insights into the show.", value: "E" },
+            { label: "F  It resembles an artwork.", value: "F" },
+          ],
+          correctAnswer: "B", points: 1,
+        },
+        {
+          id: "cam20-l-t3-s3-q30", number: 30,
+          type: "multiple_choice",
+          question: "30. The Sailors' Festival",
+          options: [
+            { label: "A  Its origin is somewhat controversial.", value: "A" },
+            { label: "B  It is historically significant for a country.", value: "B" },
+            { label: "C  It was effective at attracting audiences.", value: "C" },
+            { label: "D  It is included in a recent project.", value: "D" },
+            { label: "E  It contains insights into the show.", value: "E" },
+            { label: "F  It resembles an artwork.", value: "F" },
+          ],
+          correctAnswer: "D", points: 1,
+        },
+      ],
+    },
+    // ── PART 4 ─────────────────────────────────────────────
+    {
+      id: "cam20-l-t3-s4",
+      sectionNumber: 4,
+      title: "Part 4",
+      instructions: `Questions 31–40: Complete the notes below. Write ONE WORD ONLY for each answer.`,
+      passageText: `Inclusive design
+
+Definition
+●  Designing products that can be accessed by a diverse range of people without the need for any 31 _______
+●  Not the same as universal design: that is design for everyone, including catering for people with 32 _______ problems.
+
+Examples of inclusive design
+●  33 _______ which are adjustable, avoiding back or neck problems
+●  34 _______ in public toilets which are easier to use
+●  To assist the elderly:
+   ○  designers avoid using 35 _______ in interfaces
+   ○  people can make commands using a mouse, keyboard or their 36 _______
+
+Impact of non-inclusive designs
+●  Access
+   ○  Loss of independence for disabled people.
+●  Safety
+   ○  Seatbelts are especially problematic for 37 _______ women.
+   ○  PPE jackets are often unsuitable because of the size of women's 38 _______
+   ○  PPE for female 39 _______ officers dealing with emergencies is the worst.
+●  Comfort in the workplace
+   ○  The 40 _______ in offices is often too low for women.`,
+      questions: [
+        { id: "cam20-l-t3-s4-q31", number: 31, type: "note_completion", question: "31. without the need for any _______", correctAnswer: "adaptation", points: 1 },
+        { id: "cam20-l-t3-s4-q32", number: 32, type: "note_completion", question: "32. catering for people with _______ problems", correctAnswer: "cognitive", points: 1 },
+        { id: "cam20-l-t3-s4-q33", number: 33, type: "note_completion", question: "33. _______ which are adjustable, avoiding back or neck problems", correctAnswer: "desks", points: 1 },
+        { id: "cam20-l-t3-s4-q34", number: 34, type: "note_completion", question: "34. _______ in public toilets which are easier to use", correctAnswer: "taps", points: 1 },
+        { id: "cam20-l-t3-s4-q35", number: 35, type: "note_completion", question: "35. designers avoid using _______ in interfaces", correctAnswer: "blue", points: 1 },
+        { id: "cam20-l-t3-s4-q36", number: 36, type: "note_completion", question: "36. people can make commands using a mouse, keyboard or their _______", correctAnswer: "voice", points: 1 },
+        { id: "cam20-l-t3-s4-q37", number: 37, type: "note_completion", question: "37. Seatbelts are especially problematic for _______ women", correctAnswer: "pregnant", points: 1 },
+        { id: "cam20-l-t3-s4-q38", number: 38, type: "note_completion", question: "38. PPE jackets are often unsuitable because of the size of women's _______", correctAnswer: "shoulders", points: 1 },
+        { id: "cam20-l-t3-s4-q39", number: 39, type: "note_completion", question: "39. PPE for female _______ officers dealing with emergencies is the worst", correctAnswer: "police", points: 1 },
+        { id: "cam20-l-t3-s4-q40", number: 40, type: "note_completion", question: "40. The _______ in offices is often too low for women", correctAnswer: "temperature", points: 1 },
+      ],
+    },
+  ],
+};
+
+export const cambridge20ListeningTests: IELTSTest[] = [
+  cambridge20_listening_t1,
+  cambridge20_listening_t2,
+  cambridge20_listening_t3,
+];
