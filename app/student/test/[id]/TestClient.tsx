@@ -439,23 +439,40 @@ export default function TestPage() {
   }, [phase]);
 
   // ── Audio playback (for listening tests) ───────────────────────────
-  // Prefers a real HTMLAudioElement when the section provides an `audioUrl`
-  // (mp3 hosted on Supabase). Falls back to a timer simulation for any
-  // sections that don't yet have an audio file attached.
+  // Two modes:
+  //   1) Whole-test audio: test.audioUrl points to a single ~30 min MP3
+  //      that plays continuously across all 4 parts (matches real IELTS).
+  //      startAudio is called ONCE when entering the test phase.
+  //   2) Per-section audio (legacy): each section has its own audioUrl and
+  //      the test auto-advances to the next section's audio when one ends.
+  //   3) No audioUrl at all: timed simulation fallback.
   const startAudio = useCallback(() => {
     if (!test) return;
+    // Whole-test audio: if already playing, don't restart it — just keep it.
+    const hasWholeTestAudio = !!(test as { audioUrl?: string }).audioUrl;
+    if (hasWholeTestAudio && audioElRef.current && !audioElRef.current.paused) {
+      setPhase("audio_playing");
+      return;
+    }
     if (audioTimerRef.current) clearInterval(audioTimerRef.current);
     if (audioElRef.current) {
       try { audioElRef.current.pause(); } catch {}
       audioElRef.current = null;
     }
     const sec = test.sections[audioCurrentSection];
-    const fallbackDur = sec.audioDurationSeconds || 300;
+    const fallbackDur = hasWholeTestAudio
+      ? ((test as { audioDurationSeconds?: number }).audioDurationSeconds || 1800)
+      : (sec.audioDurationSeconds || 300);
     setAudioTotal(fallbackDur);
     setAudioProgress(0);
     setPhase("audio_playing");
 
     const advance = () => {
+      if (hasWholeTestAudio) {
+        // Whole-test audio ended → straight to transfer phase.
+        setPhase("transfer");
+        return;
+      }
       if (audioCurrentSection < test.sections.length - 1) {
         setAudioCurrentSection((n) => n + 1);
         // Only follow the audio with the visible-questions pane if the
@@ -470,7 +487,9 @@ export default function TestPage() {
       }
     };
 
-    const url = (sec as { audioUrl?: string }).audioUrl;
+    const url = hasWholeTestAudio
+      ? (test as { audioUrl?: string }).audioUrl
+      : (sec as { audioUrl?: string }).audioUrl;
     if (url) {
       // Real audio playback via HTMLAudioElement.
       const audio = new Audio(url);
@@ -524,7 +543,20 @@ export default function TestPage() {
 
   // ── Auto-start audio for listening tests ────────────────────────────
   useEffect(() => {
-    if (phase === "test" && test?.type === "listening" && audioCurrentSection !== audioAutoStartedRef.current) {
+    if (phase !== "test" || test?.type !== "listening") return;
+    const hasWholeTestAudio = !!(test as { audioUrl?: string }).audioUrl;
+    if (hasWholeTestAudio) {
+      // Whole-test audio: start it ONCE (on first entry to test phase).
+      // Don't re-invoke on section changes — the MP3 keeps playing across
+      // P1/P2/P3/P4 and only advance() moves us to transfer when it ends.
+      if (audioAutoStartedRef.current === -1) {
+        audioAutoStartedRef.current = 0;
+        startAudio();
+      }
+      return;
+    }
+    // Per-section audio: start each section's audio when it becomes current.
+    if (audioCurrentSection !== audioAutoStartedRef.current) {
       audioAutoStartedRef.current = audioCurrentSection;
       startAudio();
     }

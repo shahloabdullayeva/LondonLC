@@ -22,14 +22,17 @@ export const cambridge20_listening_t1: IELTSTest = {
   level: "academic",
   durationMinutes: 30,
   transferMinutes: 10,
+  // One whole-test MP3 (~30 min) containing all 4 parts. The narrator
+  // announces part transitions inside the recording — no per-section
+  // files, no auto-advance, just one continuous stream.
+  audioUrl: audioUrl("cam20-listening-t1.mp3"),
+  audioDurationSeconds: 1800,
   sections: [
     // ── PART 1 ─────────────────────────────────────────────
     {
       id: "cam20-l-t1-s1",
       sectionNumber: 1,
       title: "Part 1",
-      audioUrl: audioUrl("cam20-listening-t1-s1.mp3"),
-      audioDurationSeconds: 446,
       instructions: `Questions 1–10: Complete the notes below. Write ONE WORD AND/OR A NUMBER for each answer.`,
       passageText: `Restaurant recommendations
 
@@ -71,8 +74,6 @@ The 5 _______
       id: "cam20-l-t1-s2",
       sectionNumber: 2,
       title: "Part 2",
-      audioUrl: audioUrl("cam20-listening-t1-s2.mp3"),
-      audioDurationSeconds: 360,
       instructions: `Questions 11–16: Choose the correct letter, A, B or C.
 Questions 17–18: Choose TWO letters, A–E (things Heather explains about kilns).
 Questions 19–20: Choose TWO letters, A–E (points about a potter's tools).`,
@@ -230,8 +231,6 @@ Questions 19–20: Choose TWO letters, A–E. Which TWO points does Heather make
       id: "cam20-l-t1-s3",
       sectionNumber: 3,
       title: "Part 3",
-      audioUrl: audioUrl("cam20-listening-t1-s3.mp3"),
-      audioDurationSeconds: 360,
       instructions: `Questions 21–26: Choose TWO letters, A–E (various topics on loneliness).
 Questions 27–30: Choose the correct letter, A, B or C.`,
       passageText: `Two students discussing their presentation on loneliness.
@@ -394,8 +393,6 @@ Questions 27–30: Loneliness and mental health — choose A, B or C.`,
       id: "cam20-l-t1-s4",
       sectionNumber: 4,
       title: "Part 4",
-      audioUrl: audioUrl("cam20-listening-t1-s4.mp3"),
-      audioDurationSeconds: 360,
       instructions: `Questions 31–40: Complete the notes below. Write ONE WORD ONLY for each answer.`,
       passageText: `Reclaiming urban rivers
 

@@ -20,6 +20,12 @@ export type IELTSTest = {
   level: "academic" | "general";
   durationMinutes: number;
   transferMinutes: number;
+  // Whole-test audio: one MP3 that plays continuously across all 4 parts,
+  // matching real IELTS where a single ~30 min recording contains every
+  // part and the narrator says "now look at Part 2" internally. If set,
+  // this takes precedence over per-section `audioUrl`.
+  audioUrl?: string;
+  audioDurationSeconds?: number;
   sections: IELTSSection[];
 };
 
