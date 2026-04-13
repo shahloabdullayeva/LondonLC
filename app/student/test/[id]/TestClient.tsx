@@ -458,7 +458,12 @@ export default function TestPage() {
     const advance = () => {
       if (audioCurrentSection < test.sections.length - 1) {
         setAudioCurrentSection((n) => n + 1);
-        setCurrentSection((n) => n + 1);
+        // Only follow the audio with the visible-questions pane if the
+        // student hasn't manually navigated elsewhere. That way clicking
+        // P2/P3/P4 to look ahead is never yanked back.
+        setCurrentSection((cur) =>
+          cur === audioCurrentSection ? cur + 1 : cur
+        );
         setPhase("test");
       } else {
         setPhase("transfer");
@@ -800,10 +805,16 @@ export default function TestPage() {
                   const el = sectionRefs.current[i];
                   if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
                   setMobileView("questions");
+                } else {
+                  // Listening: just change which section's questions are shown.
+                  // Audio keeps playing whatever it was playing — students can
+                  // look ahead/back without disturbing playback.
+                  setCurrentSection(i);
+                  setMobileView("questions");
                 }
               }}
               title={s.title}
-              style={{ padding: "6px 14px", borderRadius: 8, border: "none", cursor: test.type === "reading" ? "pointer" : "default", fontWeight: 600, fontSize: 13, transition: "all 0.15s",
+              style={{ padding: "6px 14px", borderRadius: 8, border: "none", cursor: "pointer", fontWeight: 600, fontSize: 13, transition: "all 0.15s",
                 background: currentSection === i ? T.accent : "transparent",
                 color: currentSection === i ? "#fff" : T.textMuted }}>
               P{i + 1}
