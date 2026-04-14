@@ -351,8 +351,8 @@ export default function TestPage() {
     }, 3000);
 
     const cancel = (reason: string) => cancelTestRef.current(reason);
-    const REASON = "You left the exam screen. Your test has been cancelled.";
-    const FS_REASON = "You exited fullscreen. Your test has been cancelled.";
+    const REASON = "Your test was cancelled because the exam screen lost focus — this can happen if you switch apps, open another tab, take a screenshot, or use your phone's screen-capture gesture. Please try again and keep the exam window active.";
+    const FS_REASON = "Your test was cancelled because you exited fullscreen mode. Please try again and keep the exam in fullscreen.";
 
     const handleVisibility = () => {
       if (document.hidden && anticheatActiveRef.current) cancel(REASON);
@@ -1486,14 +1486,31 @@ function QuestionItem({
   const cleanQuestionText = question.question.replace(/^\d+[\.\)]\s*/, "");
   const hasInlineBlank = isGapFill && cleanQuestionText.includes("_______");
 
+  // For summary_completion and note_completion the full sentence already lives
+  // in the passage/notes block above — rendering it again on the right is
+  // noisy duplication. Show just "N [input]" for these types.
+  const isPassageCovered = question.type === "summary_completion" || question.type === "note_completion";
+
   return (
-    <div id={`question-${question.id}`} style={{ paddingBottom: 24, borderBottom: `1px solid ${T.border}` }}>
-      <div style={{ display: "flex", gap: 12, marginBottom: hasInlineBlank ? 0 : 12, alignItems: hasInlineBlank ? "center" : "flex-start", flexWrap: "wrap" }}>
+    <div id={`question-${question.id}`} style={{ paddingBottom: isPassageCovered ? 12 : 24, borderBottom: `1px solid ${T.border}` }}>
+      <div style={{ display: "flex", gap: 12, marginBottom: (hasInlineBlank || isPassageCovered) ? 0 : 12, alignItems: (hasInlineBlank || isPassageCovered) ? "center" : "flex-start", flexWrap: "wrap" }}>
         <span style={{ flexShrink: 0, fontSize: 15, fontWeight: 800, color: T.text, fontFamily: "'IBM Plex Mono', 'Courier New', monospace", minWidth: 26, textAlign: "right" }}>
           {question.number}
         </span>
 
-        {hasInlineBlank ? (
+        {isPassageCovered ? (
+          // Compact: just the input. The numbered blank in the passage above
+          // provides all the context. No duplicate sentence on this side.
+          <input
+            type="text"
+            value={answer}
+            onChange={(e) => onAnswer(e.target.value)}
+            placeholder="..."
+            style={{ flex: 1, maxWidth: 260, padding: "6px 12px", borderRadius: 6, fontSize: fontSize - 1, background: T.inputBg, border: `1.5px solid ${T.border}`, color: T.text, outline: "none", fontFamily: "Inter, system-ui, sans-serif" }}
+            onFocus={e => e.currentTarget.style.borderColor = T.accent}
+            onBlur={e => e.currentTarget.style.borderColor = T.border}
+          />
+        ) : hasInlineBlank ? (
           // Inline gap fill: render text with input box inline
           <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: 4, fontSize: fontSize - 1, color: T.text, lineHeight: 2, flex: 1 }}>
             {cleanQuestionText.split("_______").map((part, i, arr) => (
@@ -1522,7 +1539,7 @@ function QuestionItem({
         )}
       </div>
 
-      {!hasInlineBlank && (
+      {!hasInlineBlank && !isPassageCovered && (
         <div style={{ marginLeft: 38 }}>
           {/* Multiple choice */}
           {question.type === "multiple_choice" && question.options && (
