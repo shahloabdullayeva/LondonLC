@@ -280,19 +280,21 @@ export default function AdminDashboard() {
         <div style={{ padding: "22px 20px 18px" }}>
           <Brand size={20} />
           {/* Role badge — colour-coded by role */}
-          <span style={{
-            display: "inline-flex", alignItems: "center", gap: 5, marginTop: 8,
-            padding: "4px 12px", borderRadius: 20, fontSize: 11, fontWeight: 800,
-            background: isRootAdmin
-              ? "linear-gradient(135deg,#d97706,#b45309)"
-              : isAdminUser
+          {/* Role badge — shown for Admin/Teacher only. Super admins
+              asked not to display a label. */}
+          {!isRootAdmin && (
+            <span style={{
+              display: "inline-flex", alignItems: "center", gap: 5, marginTop: 8,
+              padding: "4px 12px", borderRadius: 20, fontSize: 11, fontWeight: 800,
+              background: isAdminUser
                 ? "linear-gradient(135deg,#2563eb,#1d4ed8)"
                 : "#2a2a2a",
-            color: "#fff",
-            boxShadow: isRootAdmin ? "0 2px 8px rgba(217,119,6,0.4)" : isAdminUser ? "0 2px 8px rgba(37,99,235,0.4)" : "0 2px 8px rgba(255,255,255,0.2)",
-          }}>
-            {isRootAdmin ? "Super Admin" : isAdminUser ? "Admin" : "Teacher"}
-          </span>
+              color: "#fff",
+              boxShadow: isAdminUser ? "0 2px 8px rgba(37,99,235,0.4)" : "0 2px 8px rgba(255,255,255,0.2)",
+            }}>
+              {isAdminUser ? "Admin" : "Teacher"}
+            </span>
+          )}
           {/* Logged-in username */}
           <div style={{ marginTop: 8, display: "flex", alignItems: "center", gap: 6 }}>
             <div style={{ width: 28, height: 28, borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 800, fontSize: 12, color: "#fff",
@@ -381,7 +383,7 @@ export default function AdminDashboard() {
           <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 16, marginBottom: 24, flexWrap: "wrap" }}>
             <div>
               <h1 style={{ fontSize: 22, fontWeight: 800, color: C.text, marginBottom: 2 }}>
-              {isRootAdmin ? "Super Admin Dashboard" : isAdminUser ? "Admin Dashboard" : "Teacher Dashboard"}
+              {isRootAdmin ? "Dashboard" : isAdminUser ? "Admin Dashboard" : "Teacher Dashboard"}
             </h1>
               <p style={{ fontSize: 13, color: C.muted }}>Signed in as <strong style={{ color: isRootAdmin ? "#fbbf24" : isAdminUser ? "#60a5fa" : C.accent }}>{currentUsername}</strong> · View and analyse all student results</p>
             </div>
@@ -1176,7 +1178,6 @@ export default function AdminDashboard() {
                       </div>
                       <div>
                         <div style={{ fontWeight: 600, fontSize: 14, color: C.text }}>{t.username}</div>
-                        {t.id === ROOT_ADMIN_ID && <div style={{ fontSize: 11, color: C.accent }}>Super Admin</div>}
                         {t.username === ADMIN_USERNAME && t.id !== ROOT_ADMIN_ID && <div style={{ fontSize: 11, color: "#f59e0b" }}>Admin</div>}
                         <div style={{ fontSize: 11, color: C.muted, marginTop: 2 }}>Last seen: {fmtLastSeen(t.lastAccessedAt)}</div>
                         {isRootAdmin && t.lastIp && <div style={{ fontSize: 11, color: C.muted, fontFamily: "monospace" }}>IP: {t.lastIp}</div>}
