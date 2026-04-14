@@ -1170,6 +1170,49 @@ export default function TestPage() {
                       );
                     }
                     const q = item.q;
+                    // Matching question: 5+ options and a single-letter
+                    // correctAnswer. Instead of repeating a giant radio list
+                    // for every item, render one compact "Q# activity [letter]"
+                    // line — the options box is already shown once above via
+                    // the groupLabel on the first matching question.
+                    const isMatching = q.type === "multiple_choice"
+                      && !!q.options
+                      && q.options.length >= 5
+                      && typeof q.correctAnswer === "string"
+                      && /^[A-Za-z]$/.test(q.correctAnswer.trim());
+                    if (isMatching) {
+                      const currentAnswer = answers[q.id] || "";
+                      const validLetters = q.options!.map((o) => o.value.toUpperCase());
+                      return (
+                        <React.Fragment key={q.id}>
+                          {q.groupLabel && (
+                            <div style={{ fontSize: 13, padding: "10px 14px", borderRadius: 10, background: T.accentDim, color: T.accent, border: `1px solid ${T.accentBorder}`, fontWeight: 500, lineHeight: 1.6, whiteSpace: "pre-line" }}>
+                              {q.groupLabel.trim()}
+                            </div>
+                          )}
+                          <div id={`question-${q.id}`} style={{ paddingBottom: 14, borderBottom: `1px solid ${T.border}` }}>
+                            <div style={{ display: "flex", gap: 12, alignItems: "center", flexWrap: "wrap" }}>
+                              <span style={{ flexShrink: 0, width: 26, height: 26, borderRadius: "50%", background: T.accent, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 11, fontWeight: 700, color: "#fff" }}>
+                                {q.number}
+                              </span>
+                              <span style={{ fontSize: fontSize - 1, color: T.text, flex: 1, minWidth: 200 }}>
+                                {q.question.replace(/^\d+[\.\)]\s*/, "")}
+                              </span>
+                              <input type="text" value={currentAnswer} maxLength={1}
+                                onChange={(e) => {
+                                  const raw = e.target.value.toUpperCase().slice(-1);
+                                  if (raw === "" || validLetters.includes(raw)) setAnswer(q.id, raw);
+                                }}
+                                placeholder={`${validLetters[0]}–${validLetters[validLetters.length - 1]}`}
+                                style={{ width: 60, padding: "6px 10px", borderRadius: 6, background: T.inputBg, border: `1.5px solid ${T.border}`, color: T.text, outline: "none", fontSize: 16, fontWeight: 700, textAlign: "center", fontFamily: "inherit", textTransform: "uppercase" }}
+                                onFocus={e => e.currentTarget.style.borderColor = T.accent}
+                                onBlur={e => e.currentTarget.style.borderColor = T.border}
+                              />
+                            </div>
+                          </div>
+                        </React.Fragment>
+                      );
+                    }
                     return (
                       <React.Fragment key={q.id}>
                         {q.groupLabel && (
