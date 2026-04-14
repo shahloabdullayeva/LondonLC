@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { BookOpen, Headphones, LogOut, User, Clock, Award, ChevronRight, BarChart3, Star, ChevronLeft, Lock, History, ChevronDown, ChevronUp, PenLine, FileText, Mic, Music, UserCircle2, Eye, EyeOff } from "lucide-react";
+import { BookOpen, Headphones, LogOut, User, Clock, Award, ChevronRight, BarChart3, Star, ChevronLeft, Lock, History, ChevronDown, ChevronUp, PenLine, FileText, Mic, Music, UserCircle2, Eye, EyeOff, Flame } from "lucide-react";
 import { getSession, clearSession, getAttempts, changeStudentOwnPassword, type AttemptData } from "@/lib/store";
 import { allTests, getTestById } from "@/data/ielts-tests";
 import { quotes, type Quote } from "@/lib/quotes";
@@ -133,24 +133,26 @@ export default function StudentDashboard() {
             </figure>
           )}
 
-          {/* Stats */}
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", gap: 14, marginBottom: 36 }}>
-            {[
-              { label: "Total Tests", value: typeAttempts.length, icon: BarChart3, sub: typeFilter === "reading" ? "Reading tests" : "Listening tests", color: "#8b5cf6" },
-              { label: "Average Score", value: avgBand, icon: Award, sub: typeFilter === "reading" ? "Reading average" : "Listening average", color: "#10b981" },
-              { label: "Best Score", value: bestBand, icon: Star, sub: typeFilter === "reading" ? "Reading best" : "Listening best", color: "#f59e0b" },
-              { label: "All Completed", value: completed.length, icon: Clock, sub: "All test types", color: "#8b5cf6" },
-            ].map(s => (
-              <div key={s.label} style={{ background: "#140b35", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 16, padding: "20px 20px 16px" }}>
-                <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 12 }}>
-                  <s.icon size={15} color={s.color} />
-                  <span style={{ fontSize: 12, color: "rgba(255,255,255,0.4)", fontWeight: 600 }}>{s.label}</span>
+          {/* Stats (hidden on profile view — profile has its own stats) */}
+          {sidebarView !== "profile" && (
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", gap: 14, marginBottom: 36 }}>
+              {[
+                { label: "Total Tests", value: typeAttempts.length, icon: BarChart3, sub: typeFilter === "reading" ? "Reading tests" : "Listening tests", color: "#8b5cf6" },
+                { label: "Average Score", value: avgBand, icon: Award, sub: typeFilter === "reading" ? "Reading average" : "Listening average", color: "#10b981" },
+                { label: "Best Score", value: bestBand, icon: Star, sub: typeFilter === "reading" ? "Reading best" : "Listening best", color: "#f59e0b" },
+                { label: "All Completed", value: completed.length, icon: Clock, sub: "All test types", color: "#8b5cf6" },
+              ].map(s => (
+                <div key={s.label} style={{ background: "#140b35", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 16, padding: "20px 20px 16px" }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 12 }}>
+                    <s.icon size={15} color={s.color} />
+                    <span style={{ fontSize: 12, color: "rgba(255,255,255,0.4)", fontWeight: 600 }}>{s.label}</span>
+                  </div>
+                  <div style={{ fontSize: 28, fontWeight: 900, color: "#fff", lineHeight: 1, marginBottom: 4 }}>{s.value}</div>
+                  <div style={{ fontSize: 11, color: "rgba(255,255,255,0.3)" }}>{s.sub}</div>
                 </div>
-                <div style={{ fontSize: 28, fontWeight: 900, color: "#fff", lineHeight: 1, marginBottom: 4 }}>{s.value}</div>
-                <div style={{ fontSize: 11, color: "rgba(255,255,255,0.3)" }}>{s.sub}</div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          )}
 
           {/* Profile view: account info + stats + password + history */}
           {sidebarView === "profile" ? (
@@ -419,6 +421,33 @@ function ProfilePanel({
   const avg = (arr: AttemptData[]) => arr.length ? (arr.reduce((s, a) => s + a.bandScore, 0) / arr.length).toFixed(1) : "—";
   const best = (arr: AttemptData[]) => arr.length ? Math.max(...arr.map(a => a.bandScore)).toFixed(1) : "—";
 
+  // Daily streak: consecutive days ending today (or yesterday if nothing
+  // finished yet today) on which at least one test was submitted. The
+  // flame lights up ("active") when the streak extends through today.
+  const { streak, active: streakActive } = (() => {
+    if (completed.length === 0) return { streak: 0, active: false };
+    const days = new Set(
+      completed.map(a => {
+        const d = new Date(a.submittedAt);
+        return `${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`;
+      })
+    );
+    const key = (d: Date) => `${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`;
+    const today = new Date();
+    const yesterday = new Date(today); yesterday.setDate(today.getDate() - 1);
+    const hasToday = days.has(key(today));
+    // If they haven't trained today yet, count from yesterday so a
+    // streak isn't broken just because today hasn't ended.
+    if (!hasToday && !days.has(key(yesterday))) return { streak: 0, active: false };
+    let n = 0;
+    const cursor = new Date(hasToday ? today : yesterday);
+    while (days.has(key(cursor))) {
+      n++;
+      cursor.setDate(cursor.getDate() - 1);
+    }
+    return { streak: n, active: hasToday };
+  })();
+
   const submitPw = async (e: React.FormEvent) => {
     e.preventDefault();
     setPwMsg(null);
@@ -470,6 +499,52 @@ function ProfilePanel({
           <div style={{ fontSize: 11, fontWeight: 700, color: "rgba(255,255,255,0.4)", letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: 8 }}>Total completed</div>
           <div style={{ fontSize: 30, fontWeight: 900, color: "#fff", lineHeight: 1 }}>{completed.length}</div>
           <div style={{ fontSize: 12, color: "rgba(255,255,255,0.35)", marginTop: 6 }}>tests finished so far</div>
+        </div>
+
+        {/* Streak — flame lights up when today is part of the streak */}
+        <div style={{
+          padding: "16px 18px",
+          background: streakActive
+            ? "linear-gradient(135deg, rgba(251,146,60,0.15), rgba(239,68,68,0.1))"
+            : "#140b35",
+          border: `1px solid ${streakActive ? "rgba(251,146,60,0.4)" : "rgba(255,255,255,0.08)"}`,
+          borderRadius: 14,
+          boxShadow: streakActive ? "0 0 24px rgba(251,146,60,0.15)" : "none",
+          transition: "all 0.3s",
+          position: "relative", overflow: "hidden",
+        }}>
+          <div style={{ fontSize: 11, fontWeight: 700, color: "rgba(255,255,255,0.4)", letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: 8 }}>
+            Streak
+          </div>
+          <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+            <div className={streakActive ? "streak-flame-active" : ""} style={{
+              width: 46, height: 46, borderRadius: "50%",
+              display: "flex", alignItems: "center", justifyContent: "center",
+              background: streakActive ? "linear-gradient(135deg,#fb923c,#ef4444)" : "rgba(255,255,255,0.05)",
+              boxShadow: streakActive ? "0 0 16px rgba(251,146,60,0.7)" : "none",
+              transition: "all 0.3s",
+            }}>
+              <Flame size={22} color={streakActive ? "#fff" : "rgba(255,255,255,0.25)"}
+                fill={streakActive ? "#fff" : "none"} />
+            </div>
+            <div>
+              <div style={{ fontSize: 30, fontWeight: 900, color: streakActive ? "#fff" : "rgba(255,255,255,0.4)", lineHeight: 1 }}>
+                {streak}
+              </div>
+              <div style={{ fontSize: 12, color: streakActive ? "rgba(255,255,255,0.75)" : "rgba(255,255,255,0.35)", marginTop: 6 }}>
+                {streak === 0 ? "start a streak today" : streak === 1 ? "day" : "days in a row"}
+              </div>
+            </div>
+          </div>
+          {streakActive && (
+            <style>{`
+              @keyframes streakPulse {
+                0%, 100% { transform: scale(1); box-shadow: 0 0 16px rgba(251,146,60,0.7); }
+                50% { transform: scale(1.06); box-shadow: 0 0 28px rgba(251,146,60,0.95); }
+              }
+              .streak-flame-active { animation: streakPulse 2s ease-in-out infinite; }
+            `}</style>
+          )}
         </div>
       </div>
 
