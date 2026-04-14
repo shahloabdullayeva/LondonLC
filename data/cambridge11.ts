@@ -199,7 +199,7 @@ The remaining 11 metres of lift needed to reach the Union Canal is achieved by m
       instructions: `Questions 14–19: Do the following statements agree with the information given in the passage? Write TRUE, FALSE, or NOT GIVEN.
 
 Questions 20–26: Label the diagram below. Choose ONE WORD from the passage for each answer.`,
-      diagramUrl: "/falkirkwheel.png",
+      diagramUrl: "/LondonLC/falkirkwheel.png",
       questions: [
         {
           id: "cam11-ra-t1-s2-q14",
@@ -585,7 +585,7 @@ Questions 5–8: Match each statement with the correct date, A–G.
 A 1836  B 1840  C 1965  D 1967  E 1971  F 1979  G 1982
 
 Questions 9–13: Label the diagram below. Choose NO MORE THAN TWO WORDS from the passage for each answer.`,
-      diagramUrl: "/maryrose.png",
+      diagramUrl: "/LondonLC/maryrose.png",
       questions: [
         // ── Q1–4: TRUE / FALSE / NOT GIVEN ───────────────────────
         {
