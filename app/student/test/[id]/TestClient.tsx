@@ -135,24 +135,24 @@ export default function TestPage() {
   // White/sepia = light; dark = always dark
   const effectiveTheme = pageMode === "dark" ? "dark" : "light";
 
-  // Theme-aware colours
+  // Theme-aware colours. Dark theme is pure black/grey (no purple tint).
   const T = effectiveTheme === "dark" ? {
-    bg: "#0a051f", nav: "#0e0828", card: "#140b35", passage: "#1a0e42",
-    text: "#f0eaff", textSub: "rgba(255,255,255,0.5)", textMuted: "rgba(255,255,255,0.35)",
+    bg: "#0a0a0a", nav: "#0d0d0d", card: "#151515", passage: "#111111",
+    text: "#f0f0f0", textSub: "rgba(255,255,255,0.5)", textMuted: "rgba(255,255,255,0.35)",
     border: "rgba(255,255,255,0.08)", accent: "#ffffff", accentBtn: "#2a2a2a",
-    accentDim: "rgba(255,255,255,0.07)", accentBorder: "rgba(255,255,255,0.1)",
-    inputBg: "#0a051f", shadow: "rgba(0,0,0,0.6)",
+    accentDim: "rgba(255,255,255,0.07)", accentBorder: "rgba(255,255,255,0.15)",
+    inputBg: "#151515", shadow: "rgba(0,0,0,0.6)",
   } : pageMode === "sepia" ? {
     bg: "#f4e8d0", nav: "#ecdfc4", card: "#f4e8d0", passage: "#efe2ca",
     text: "#3b2a14", textSub: "rgba(59,42,20,0.6)", textMuted: "rgba(59,42,20,0.45)",
-    border: "rgba(59,42,20,0.14)", accent: "#92400e", accentBtn: "linear-gradient(135deg,#92400e,#b45309)",
-    accentDim: "rgba(146,64,14,0.1)", accentBorder: "rgba(146,64,14,0.25)",
+    border: "rgba(59,42,20,0.14)", accent: "#3b2a14", accentBtn: "#3b2a14",
+    accentDim: "rgba(59,42,20,0.08)", accentBorder: "rgba(59,42,20,0.2)",
     inputBg: "#f4e8d0", shadow: "rgba(59,42,20,0.1)",
   } : {
     bg: "#faf8f4", nav: "#f0ede6", card: "#faf8f4", passage: "#f5f2ec",
     text: "#2c2416", textSub: "rgba(44,36,22,0.6)", textMuted: "rgba(44,36,22,0.45)",
-    border: "rgba(44,36,22,0.12)", accent: "#e0e0e0", accentBtn: "#2a2a2a",
-    accentDim: "rgba(109,40,217,0.08)", accentBorder: "rgba(109,40,217,0.2)",
+    border: "rgba(44,36,22,0.12)", accent: "#2c2416", accentBtn: "#2c2416",
+    accentDim: "rgba(44,36,22,0.06)", accentBorder: "rgba(44,36,22,0.18)",
     inputBg: "#faf8f4", shadow: "rgba(44,36,22,0.08)",
   };
 
@@ -855,7 +855,7 @@ export default function TestPage() {
               title={s.title}
               style={{ padding: "6px 14px", borderRadius: 8, border: "none", cursor: "pointer", fontWeight: 600, fontSize: 13, transition: "all 0.15s",
                 background: currentSection === i ? T.accent : "transparent",
-                color: currentSection === i ? "#fff" : T.textMuted }}>
+                color: currentSection === i ? (T.accent === "#ffffff" ? "#0a0a0a" : "#fff") : T.textMuted }}>
               P{i + 1}
             </button>
           ))}
@@ -1149,8 +1149,8 @@ export default function TestPage() {
                           )}
                           <div id={`question-${q1.id}`} style={{ paddingBottom: 24, borderBottom: `1px solid ${T.border}` }}>
                             <div style={{ display: "flex", gap: 12, marginBottom: 12, alignItems: "center", flexWrap: "wrap" }}>
-                              <span style={{ flexShrink: 0, minWidth: 48, height: 26, padding: "0 10px", borderRadius: 13, background: T.accent, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 11, fontWeight: 700, color: "#fff" }}>
-                                {q1.number} &amp; {q2.number}
+                              <span style={{ flexShrink: 0, fontSize: 15, fontWeight: 800, color: T.text, fontFamily: "'IBM Plex Mono', 'Courier New', monospace", minWidth: 38 }}>
+                                {q1.number}&amp;{q2.number}
                               </span>
                               <span style={{ fontSize: fontSize - 1, color: T.text, fontWeight: 600 }}>
                                 Choose TWO answers ({selected.length}/2 selected)
@@ -1204,7 +1204,7 @@ export default function TestPage() {
                           )}
                           <div id={`question-${q.id}`} style={{ paddingBottom: 14, borderBottom: `1px solid ${T.border}` }}>
                             <div style={{ display: "flex", gap: 12, alignItems: "center", flexWrap: "wrap" }}>
-                              <span style={{ flexShrink: 0, width: 26, height: 26, borderRadius: "50%", background: T.accent, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 11, fontWeight: 700, color: "#fff" }}>
+                              <span style={{ flexShrink: 0, fontSize: 15, fontWeight: 800, color: T.text, fontFamily: "'IBM Plex Mono', 'Courier New', monospace", minWidth: 26, textAlign: "right" }}>
                                 {q.number}
                               </span>
                               <span style={{ fontSize: fontSize - 1, color: T.text, flex: 1, minWidth: 200 }}>
@@ -1404,7 +1404,7 @@ function QuestionItem({
   return (
     <div id={`question-${question.id}`} style={{ paddingBottom: 24, borderBottom: `1px solid ${T.border}` }}>
       <div style={{ display: "flex", gap: 12, marginBottom: hasInlineBlank ? 0 : 12, alignItems: hasInlineBlank ? "center" : "flex-start", flexWrap: "wrap" }}>
-        <span style={{ flexShrink: 0, width: 26, height: 26, borderRadius: "50%", background: T.accent, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 11, fontWeight: 700, color: "#fff" }}>
+        <span style={{ flexShrink: 0, fontSize: 15, fontWeight: 800, color: T.text, fontFamily: "'IBM Plex Mono', 'Courier New', monospace", minWidth: 26, textAlign: "right" }}>
           {question.number}
         </span>
 
