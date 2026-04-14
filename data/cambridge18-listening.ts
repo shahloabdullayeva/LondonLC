@@ -738,7 +738,381 @@ Pockets in women's clothes
   ],
 };
 
+// ============================================================
+// CAMBRIDGE IELTS 18 – LISTENING TEST 3
+// Parts: 1) Wayside Camera Club membership (form + table)
+//        2) Picking wild mushrooms (Choose-TWO x2 + MCQ)
+//        3) Luddites / future of work (Choose-TWO x2 + matching)
+//        4) Space Traffic Management (notes)
+// ============================================================
+export const cambridge18_listening_t3: IELTSTest = {
+  id: "cam18-listening-t3",
+  title: "Cambridge IELTS 18 – Listening Test 3",
+  bookNumber: 18,
+  testNumber: 3,
+  type: "listening",
+  level: "academic",
+  durationMinutes: 30,
+  transferMinutes: 10,
+  audioUrl: audioUrl("cam18-listening-t3.mp3"),
+  audioDurationSeconds: 1800,
+  sections: [
+    // ── PART 1 ─────────────────────────────────────────────
+    {
+      id: "cam18-l-t3-s1",
+      sectionNumber: 1,
+      title: "Part 1",
+      instructions: `Questions 1–4: Complete the form below. Write ONE WORD AND/OR A NUMBER for each answer.
+Questions 5–10: Complete the table below. Write NO MORE THAN TWO WORDS for each answer.`,
+      passageText: `Wayside Camera Club — membership form
+
+Name: Dan Green
+Email address: dan1068@market.com
+Home address: 52 1 _______ Street, Peacetown
+Heard about us: from a 2 _______
+Reasons for joining: to enter competitions to 3 _______
+Type of membership: 4 _______ membership (£30)
+
+Photography competitions
+
+Title: 5 '_______'
+  Instructions: A scene in the home
+  Feedback: The picture's composition was not good.
+
+Title: 'Beautiful Sunsets'
+  Instructions: Scene must show some 6 _______
+  Feedback: The 7 _______ was wrong.
+
+Title: 8 '_______'
+  Instructions: Scene must show 9 _______
+  Feedback: The photograph was too 10 _______.`,
+      questions: [
+        { id: "cam18-l-t3-s1-q1", number: 1, type: "note_completion", question: "1. 52 _______ Street, Peacetown", correctAnswer: "Marrowfield", points: 1 },
+        { id: "cam18-l-t3-s1-q2", number: 2, type: "note_completion", question: "2. Heard about us: from a _______", correctAnswer: "relative", points: 1 },
+        { id: "cam18-l-t3-s1-q3", number: 3, type: "note_completion", question: "3. to enter competitions to _______", correctAnswer: "socialise/socialize", points: 1 },
+        { id: "cam18-l-t3-s1-q4", number: 4, type: "note_completion", question: "4. _______ membership (£30)", correctAnswer: "full", points: 1 },
+        { id: "cam18-l-t3-s1-q5", number: 5, type: "note_completion", question: "5. Title: '_______'", correctAnswer: "Domestic Life", points: 1 },
+        { id: "cam18-l-t3-s1-q6", number: 6, type: "note_completion", question: "6. Scene must show some _______", correctAnswer: "clouds", points: 1 },
+        { id: "cam18-l-t3-s1-q7", number: 7, type: "note_completion", question: "7. The _______ was wrong", correctAnswer: "timing", points: 1 },
+        { id: "cam18-l-t3-s1-q8", number: 8, type: "note_completion", question: "8. Title: '_______'", correctAnswer: "Animal Magic", points: 1 },
+        { id: "cam18-l-t3-s1-q9", number: 9, type: "note_completion", question: "9. Scene must show _______", correctAnswer: "animal movement/movement", points: 1 },
+        { id: "cam18-l-t3-s1-q10", number: 10, type: "note_completion", question: "10. The photograph was too _______", correctAnswer: "dark", points: 1 },
+      ],
+    },
+    // ── PART 2 ─────────────────────────────────────────────
+    {
+      id: "cam18-l-t3-s2",
+      sectionNumber: 2,
+      title: "Part 2",
+      instructions: `Questions 11 & 12: Choose TWO letters, A–E.
+Questions 13 & 14: Choose TWO letters, A–E.
+Questions 15–20: Choose the correct letter, A, B or C.`,
+      passageTitle: "Picking wild mushrooms",
+      questions: [
+        {
+          id: "cam18-l-t3-s2-q11", number: 11,
+          groupLabel: `Questions 11 and 12: Choose TWO letters, A–E.\n\nWhich TWO warnings does Dan give about picking mushrooms?\n\nA  Don't pick more than one variety of mushroom at a time.\nB  Don't pick mushrooms near busy roads.\nC  Don't eat mushrooms given to you.\nD  Don't eat mushrooms while picking them.\nE  Don't pick old mushrooms.\n\n(Answers are accepted in either order.)`,
+          type: "multiple_choice", question: "11. Choose TWO (first answer)",
+          options: [
+            { label: "A  Don't pick more than one variety of mushroom at a time.", value: "A" },
+            { label: "B  Don't pick mushrooms near busy roads.", value: "B" },
+            { label: "C  Don't eat mushrooms given to you.", value: "C" },
+            { label: "D  Don't eat mushrooms while picking them.", value: "D" },
+            { label: "E  Don't pick old mushrooms.", value: "E" },
+          ],
+          correctAnswer: "B/C", points: 1,
+        },
+        {
+          id: "cam18-l-t3-s2-q12", number: 12, type: "multiple_choice", question: "12. Choose TWO (second answer)",
+          options: [
+            { label: "A  Don't pick more than one variety of mushroom at a time.", value: "A" },
+            { label: "B  Don't pick mushrooms near busy roads.", value: "B" },
+            { label: "C  Don't eat mushrooms given to you.", value: "C" },
+            { label: "D  Don't eat mushrooms while picking them.", value: "D" },
+            { label: "E  Don't pick old mushrooms.", value: "E" },
+          ],
+          correctAnswer: "B/C", points: 1,
+        },
+        {
+          id: "cam18-l-t3-s2-q13", number: 13,
+          groupLabel: `Questions 13 and 14: Choose TWO letters, A–E.\n\nWhich TWO ideas about wild mushrooms does Dan say are correct?\n\nA  Mushrooms should always be peeled before eating.\nB  Mushrooms eaten by animals may be unsafe.\nC  Cooking destroys toxins in mushrooms.\nD  Brightly coloured mushrooms can be edible.\nE  All poisonous mushrooms have a bad smell.\n\n(Answers are accepted in either order.)`,
+          type: "multiple_choice", question: "13. Choose TWO (first answer)",
+          options: [
+            { label: "A  Mushrooms should always be peeled before eating.", value: "A" },
+            { label: "B  Mushrooms eaten by animals may be unsafe.", value: "B" },
+            { label: "C  Cooking destroys toxins in mushrooms.", value: "C" },
+            { label: "D  Brightly coloured mushrooms can be edible.", value: "D" },
+            { label: "E  All poisonous mushrooms have a bad smell.", value: "E" },
+          ],
+          correctAnswer: "B/D", points: 1,
+        },
+        {
+          id: "cam18-l-t3-s2-q14", number: 14, type: "multiple_choice", question: "14. Choose TWO (second answer)",
+          options: [
+            { label: "A  Mushrooms should always be peeled before eating.", value: "A" },
+            { label: "B  Mushrooms eaten by animals may be unsafe.", value: "B" },
+            { label: "C  Cooking destroys toxins in mushrooms.", value: "C" },
+            { label: "D  Brightly coloured mushrooms can be edible.", value: "D" },
+            { label: "E  All poisonous mushrooms have a bad smell.", value: "E" },
+          ],
+          correctAnswer: "B/D", points: 1,
+        },
+        {
+          id: "cam18-l-t3-s2-q15", number: 15,
+          groupLabel: `Questions 15–20: Choose the correct letter, A, B or C.`,
+          type: "multiple_choice", question: "15. What advice does Dan give about picking mushrooms in parks?",
+          options: [
+            { label: "A  Choose wooded areas.", value: "A" },
+            { label: "B  Don't disturb wildlife.", value: "B" },
+            { label: "C  Get there early.", value: "C" },
+          ],
+          correctAnswer: "C", points: 1,
+        },
+        {
+          id: "cam18-l-t3-s2-q16", number: 16, type: "multiple_choice",
+          question: "16. Dan says it is a good idea for beginners to",
+          options: [
+            { label: "A  use a mushroom app.", value: "A" },
+            { label: "B  join a group.", value: "B" },
+            { label: "C  take a reference book.", value: "C" },
+          ],
+          correctAnswer: "B", points: 1,
+        },
+        {
+          id: "cam18-l-t3-s2-q17", number: 17, type: "multiple_choice",
+          question: "17. What does Dan say is important for conservation?",
+          options: [
+            { label: "A  selecting only fully grown mushrooms", value: "A" },
+            { label: "B  picking a limited amount of mushrooms", value: "B" },
+            { label: "C  avoiding areas where rare mushroom species grow", value: "C" },
+          ],
+          correctAnswer: "B", points: 1,
+        },
+        {
+          id: "cam18-l-t3-s2-q18", number: 18, type: "multiple_choice",
+          question: "18. According to Dan, some varieties of wild mushrooms are in decline because there is",
+          options: [
+            { label: "A  a huge demand for them from restaurants.", value: "A" },
+            { label: "B  a lack of rain in this part of the country.", value: "B" },
+            { label: "C  a rise in building developments locally.", value: "C" },
+          ],
+          correctAnswer: "C", points: 1,
+        },
+        {
+          id: "cam18-l-t3-s2-q19", number: 19, type: "multiple_choice",
+          question: "19. Dan says that when storing mushrooms, people should",
+          options: [
+            { label: "A  keep them in the fridge for no more than two days.", value: "A" },
+            { label: "B  keep them in a brown bag in a dark room.", value: "B" },
+            { label: "C  leave them for a period after washing them.", value: "C" },
+          ],
+          correctAnswer: "A", points: 1,
+        },
+        {
+          id: "cam18-l-t3-s2-q20", number: 20, type: "multiple_choice",
+          question: "20. What does Dan say about trying new varieties of mushrooms?",
+          options: [
+            { label: "A  Experiment with different recipes.", value: "A" },
+            { label: "B  Expect some to have a strong taste.", value: "B" },
+            { label: "C  Cook them for a long time.", value: "C" },
+          ],
+          correctAnswer: "A", points: 1,
+        },
+      ],
+    },
+    // ── PART 3 ─────────────────────────────────────────────
+    {
+      id: "cam18-l-t3-s3",
+      sectionNumber: 3,
+      title: "Part 3",
+      instructions: `Questions 21 & 22: Choose TWO letters, A–E.
+Questions 23 & 24: Choose TWO letters, A–E.
+Questions 25–30: Match each job to a comment. Choose from A–G.`,
+      passageText: `Two students discussing the Luddites and the future of work.
+
+Comments (for Q25–30):
+A  These jobs are likely to be at risk.
+B  Their role has become more interesting in recent years.
+C  The number of people working in this sector has fallen dramatically.
+D  This job will require more qualifications.
+E  Higher disposable income has led to a huge increase in jobs.
+F  There is likely to be a significant rise in demand for this service.
+G  Both employment and productivity have risen.`,
+      questions: [
+        {
+          id: "cam18-l-t3-s3-q21", number: 21,
+          groupLabel: `Questions 21 and 22: Choose TWO letters, A–E.\n\nWhich TWO opinions about the Luddites do the students express?\n\nA  Their actions were ineffective.\nB  They are still influential today.\nC  They have received unfair criticism.\nD  They were proved right.\nE  Their attitude is understandable.\n\n(Answers are accepted in either order.)`,
+          type: "multiple_choice", question: "21. Choose TWO (first answer)",
+          options: [
+            { label: "A  Their actions were ineffective.", value: "A" },
+            { label: "B  They are still influential today.", value: "B" },
+            { label: "C  They have received unfair criticism.", value: "C" },
+            { label: "D  They were proved right.", value: "D" },
+            { label: "E  Their attitude is understandable.", value: "E" },
+          ],
+          correctAnswer: "A/E", points: 1,
+        },
+        {
+          id: "cam18-l-t3-s3-q22", number: 22, type: "multiple_choice", question: "22. Choose TWO (second answer)",
+          options: [
+            { label: "A  Their actions were ineffective.", value: "A" },
+            { label: "B  They are still influential today.", value: "B" },
+            { label: "C  They have received unfair criticism.", value: "C" },
+            { label: "D  They were proved right.", value: "D" },
+            { label: "E  Their attitude is understandable.", value: "E" },
+          ],
+          correctAnswer: "A/E", points: 1,
+        },
+        {
+          id: "cam18-l-t3-s3-q23", number: 23,
+          groupLabel: `Questions 23 and 24: Choose TWO letters, A–E.\n\nWhich TWO predictions about the future of work are the students doubtful about?\n\nA  Work will be more rewarding.\nB  Unemployment will fall.\nC  People will want to delay retiring.\nD  Working hours will be shorter.\nE  People will change jobs more frequently.\n\n(Answers are accepted in either order.)`,
+          type: "multiple_choice", question: "23. Choose TWO (first answer)",
+          options: [
+            { label: "A  Work will be more rewarding.", value: "A" },
+            { label: "B  Unemployment will fall.", value: "B" },
+            { label: "C  People will want to delay retiring.", value: "C" },
+            { label: "D  Working hours will be shorter.", value: "D" },
+            { label: "E  People will change jobs more frequently.", value: "E" },
+          ],
+          correctAnswer: "B/D", points: 1,
+        },
+        {
+          id: "cam18-l-t3-s3-q24", number: 24, type: "multiple_choice", question: "24. Choose TWO (second answer)",
+          options: [
+            { label: "A  Work will be more rewarding.", value: "A" },
+            { label: "B  Unemployment will fall.", value: "B" },
+            { label: "C  People will want to delay retiring.", value: "C" },
+            { label: "D  Working hours will be shorter.", value: "D" },
+            { label: "E  People will change jobs more frequently.", value: "E" },
+          ],
+          correctAnswer: "B/D", points: 1,
+        },
+        {
+          id: "cam18-l-t3-s3-q25", number: 25,
+          groupLabel: `Questions 25–30: What comment do the students make about each of the following jobs? Choose SIX answers from the box (A–G) and write the correct letter next to each job.\n\nA  These jobs are likely to be at risk.\nB  Their role has become more interesting in recent years.\nC  The number of people working in this sector has fallen dramatically.\nD  This job will require more qualifications.\nE  Higher disposable income has led to a huge increase in jobs.\nF  There is likely to be a significant rise in demand for this service.\nG  Both employment and productivity have risen.`,
+          type: "multiple_choice", question: "25. Accountants",
+          options: [
+            { label: "A  These jobs are likely to be at risk.", value: "A" },
+            { label: "B  Their role has become more interesting in recent years.", value: "B" },
+            { label: "C  The number of people working in this sector has fallen dramatically.", value: "C" },
+            { label: "D  This job will require more qualifications.", value: "D" },
+            { label: "E  Higher disposable income has led to a huge increase in jobs.", value: "E" },
+            { label: "F  There is likely to be a significant rise in demand for this service.", value: "F" },
+            { label: "G  Both employment and productivity have risen.", value: "G" },
+          ],
+          correctAnswer: "G", points: 1,
+        },
+        {
+          id: "cam18-l-t3-s3-q26", number: 26, type: "multiple_choice", question: "26. Hairdressers",
+          options: [
+            { label: "A  These jobs are likely to be at risk.", value: "A" },
+            { label: "B  Their role has become more interesting in recent years.", value: "B" },
+            { label: "C  The number of people working in this sector has fallen dramatically.", value: "C" },
+            { label: "D  This job will require more qualifications.", value: "D" },
+            { label: "E  Higher disposable income has led to a huge increase in jobs.", value: "E" },
+            { label: "F  There is likely to be a significant rise in demand for this service.", value: "F" },
+            { label: "G  Both employment and productivity have risen.", value: "G" },
+          ],
+          correctAnswer: "E", points: 1,
+        },
+        {
+          id: "cam18-l-t3-s3-q27", number: 27, type: "multiple_choice", question: "27. Administrative staff",
+          options: [
+            { label: "A  These jobs are likely to be at risk.", value: "A" },
+            { label: "B  Their role has become more interesting in recent years.", value: "B" },
+            { label: "C  The number of people working in this sector has fallen dramatically.", value: "C" },
+            { label: "D  This job will require more qualifications.", value: "D" },
+            { label: "E  Higher disposable income has led to a huge increase in jobs.", value: "E" },
+            { label: "F  There is likely to be a significant rise in demand for this service.", value: "F" },
+            { label: "G  Both employment and productivity have risen.", value: "G" },
+          ],
+          correctAnswer: "B", points: 1,
+        },
+        {
+          id: "cam18-l-t3-s3-q28", number: 28, type: "multiple_choice", question: "28. Agricultural workers",
+          options: [
+            { label: "A  These jobs are likely to be at risk.", value: "A" },
+            { label: "B  Their role has become more interesting in recent years.", value: "B" },
+            { label: "C  The number of people working in this sector has fallen dramatically.", value: "C" },
+            { label: "D  This job will require more qualifications.", value: "D" },
+            { label: "E  Higher disposable income has led to a huge increase in jobs.", value: "E" },
+            { label: "F  There is likely to be a significant rise in demand for this service.", value: "F" },
+            { label: "G  Both employment and productivity have risen.", value: "G" },
+          ],
+          correctAnswer: "C", points: 1,
+        },
+        {
+          id: "cam18-l-t3-s3-q29", number: 29, type: "multiple_choice", question: "29. Care workers",
+          options: [
+            { label: "A  These jobs are likely to be at risk.", value: "A" },
+            { label: "B  Their role has become more interesting in recent years.", value: "B" },
+            { label: "C  The number of people working in this sector has fallen dramatically.", value: "C" },
+            { label: "D  This job will require more qualifications.", value: "D" },
+            { label: "E  Higher disposable income has led to a huge increase in jobs.", value: "E" },
+            { label: "F  There is likely to be a significant rise in demand for this service.", value: "F" },
+            { label: "G  Both employment and productivity have risen.", value: "G" },
+          ],
+          correctAnswer: "F", points: 1,
+        },
+        {
+          id: "cam18-l-t3-s3-q30", number: 30, type: "multiple_choice", question: "30. Bank clerks",
+          options: [
+            { label: "A  These jobs are likely to be at risk.", value: "A" },
+            { label: "B  Their role has become more interesting in recent years.", value: "B" },
+            { label: "C  The number of people working in this sector has fallen dramatically.", value: "C" },
+            { label: "D  This job will require more qualifications.", value: "D" },
+            { label: "E  Higher disposable income has led to a huge increase in jobs.", value: "E" },
+            { label: "F  There is likely to be a significant rise in demand for this service.", value: "F" },
+            { label: "G  Both employment and productivity have risen.", value: "G" },
+          ],
+          correctAnswer: "A", points: 1,
+        },
+      ],
+    },
+    // ── PART 4 ─────────────────────────────────────────────
+    {
+      id: "cam18-l-t3-s4",
+      sectionNumber: 4,
+      title: "Part 4",
+      instructions: `Questions 31–40: Complete the notes below. Write ONE WORD ONLY for each answer.`,
+      passageText: `Space Traffic Management
+
+A Space Traffic Management system
+●  is a concept similar to Air Traffic Control, but for satellites rather than planes.
+●  would aim to set up legal and 31 _______ ways of improving safety.
+●  does not actually exist at present.
+
+Problems in developing effective Space Traffic Management
+●  Satellites are now quite 32 _______ and therefore more widespread (e.g. there are constellations made up of 33 _______ of satellites).
+●  At present, satellites are not required to transmit information to help with their 34 _______.
+●  There are few systems for 35 _______ satellites.
+●  Small pieces of debris may be difficult to identify.
+●  Operators may be unwilling to share details of satellites used for 36 _______ or commercial reasons.
+●  It may be hard to collect details of the object's 37 _______ at a given time.
+●  Scientists can only make a 38 _______ about where the satellite will go.
+
+Solutions
+●  Common standards should be agreed on for the presentation of information.
+●  The information should be combined in one 39 _______.
+●  A coordinated system must be designed to create 40 _______ in its users.`,
+      questions: [
+        { id: "cam18-l-t3-s4-q31", number: 31, type: "note_completion", question: "31. legal and _______ ways of improving safety", correctAnswer: "technical", points: 1 },
+        { id: "cam18-l-t3-s4-q32", number: 32, type: "note_completion", question: "32. Satellites are now quite _______", correctAnswer: "cheap", points: 1 },
+        { id: "cam18-l-t3-s4-q33", number: 33, type: "note_completion", question: "33. constellations made up of _______ of satellites", correctAnswer: "thousands", points: 1 },
+        { id: "cam18-l-t3-s4-q34", number: 34, type: "note_completion", question: "34. help with their _______", correctAnswer: "identification", points: 1 },
+        { id: "cam18-l-t3-s4-q35", number: 35, type: "note_completion", question: "35. few systems for _______ satellites", correctAnswer: "tracking", points: 1 },
+        { id: "cam18-l-t3-s4-q36", number: 36, type: "note_completion", question: "36. used for _______ or commercial reasons", correctAnswer: "military", points: 1 },
+        { id: "cam18-l-t3-s4-q37", number: 37, type: "note_completion", question: "37. details of the object's _______ at a given time", correctAnswer: "location", points: 1 },
+        { id: "cam18-l-t3-s4-q38", number: 38, type: "note_completion", question: "38. Scientists can only make a _______", correctAnswer: "prediction", points: 1 },
+        { id: "cam18-l-t3-s4-q39", number: 39, type: "note_completion", question: "39. combined in one _______", correctAnswer: "database", points: 1 },
+        { id: "cam18-l-t3-s4-q40", number: 40, type: "note_completion", question: "40. designed to create _______ in its users", correctAnswer: "trust", points: 1 },
+      ],
+    },
+  ],
+};
+
 export const cambridge18ListeningTests: IELTSTest[] = [
   cambridge18_listening_t1,
   cambridge18_listening_t2,
+  cambridge18_listening_t3,
 ];
