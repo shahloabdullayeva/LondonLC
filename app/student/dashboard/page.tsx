@@ -177,7 +177,10 @@ export default function StudentDashboard() {
                         <div onClick={() => setExpandedAttempt(isExpanded ? null : a.id)}
                           style={{ display: "flex", alignItems: "center", gap: 14, padding: "14px 18px", cursor: "pointer", flexWrap: "wrap" }}>
                           <div style={{ flex: 1, minWidth: 0 }}>
-                            <div style={{ fontWeight: 700, fontSize: 14, color: "#e8eeff", marginBottom: 2 }}>{a.testTitle}</div>
+                            <div style={{ fontWeight: 700, fontSize: 14, color: "#e8eeff", marginBottom: 2 }}>
+                              {a.testTitle}
+                              {a.testType === "reading" && !/reading/i.test(a.testTitle) && " – Reading"}
+                            </div>
                             <div style={{ display: "flex", gap: 10, flexWrap: "wrap", fontSize: 12, color: "rgba(255,255,255,0.4)" }}>
                               <span>{a.testType}</span>
                               <span>·</span>
@@ -383,7 +386,10 @@ export default function StudentDashboard() {
                   <tbody>
                     {[...attempts].reverse().slice(0, 8).map((a, i) => (
                       <tr key={a.id} style={{ borderBottom: i < attempts.length - 1 ? "1px solid rgba(255,255,255,0.05)" : "none" }}>
-                        <td style={{ padding: "13px 16px", fontSize: 13, fontWeight: 600, color: "#e8eeff" }}>{a.testTitle}</td>
+                        <td style={{ padding: "13px 16px", fontSize: 13, fontWeight: 600, color: "#e8eeff" }}>
+                          {a.testTitle}
+                          {a.testType === "reading" && !/reading/i.test(a.testTitle) && " – Reading"}
+                        </td>
                         <td style={{ padding: "13px 16px" }}>
                           <span style={{ fontSize: 11, padding: "3px 9px", borderRadius: 10, fontWeight: 600, background: a.testType === "listening" ? "rgba(255,255,255,0.1)" : "rgba(255,255,255,0.1)", color: a.testType === "listening" ? "#ffffff" : "#ffffff" }}>{a.testType}</span>
                         </td>

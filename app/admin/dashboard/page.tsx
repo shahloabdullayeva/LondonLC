@@ -471,7 +471,10 @@ export default function AdminDashboard() {
                           <td style={{ padding: "12px 14px" }}>
                             <span style={{ padding: "3px 9px", borderRadius: 20, fontSize: 11, fontWeight: 600, background: C.accentLight, color: C.accent }}>{a.groupName}</span>
                           </td>
-                          <td style={{ padding: "12px 14px", color: C.sub, maxWidth: 160, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{a.testTitle}</td>
+                          <td style={{ padding: "12px 14px", color: C.sub, maxWidth: 160, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                            {a.testTitle}
+                            {a.testType === "reading" && !/reading/i.test(a.testTitle) && " – Reading"}
+                          </td>
                           <td style={{ padding: "12px 14px" }}>
                             <span style={{ padding: "3px 9px", borderRadius: 20, fontSize: 11, fontWeight: 600,
                               background: a.testType === "listening" ? "rgba(255,255,255,0.1)" : "rgba(245,158,11,0.15)",
@@ -690,6 +693,7 @@ export default function AdminDashboard() {
                                             {isAExpanded ? <ChevronUp size={11} /> : <ChevronDown size={11} />}
                                           </button>
                                           {a.testTitle}
+                                          {a.testType === "reading" && !/reading/i.test(a.testTitle) && " – Reading"}
                                         </td>
                                         <td style={{ padding: "11px 14px" }}>
                                           <span style={{ padding: "2px 8px", borderRadius: 20, fontSize: 11, fontWeight: 600,
@@ -1106,7 +1110,10 @@ export default function AdminDashboard() {
                     <tbody>
                       {[...myPracticeAttempts].reverse().map((a, i) => (
                         <tr key={a.id} style={{ borderBottom: `1px solid ${C.border}`, background: i % 2 === 0 ? C.card : "rgba(6,12,31,0.5)" }}>
-                          <td style={{ padding: "11px 14px", fontWeight: 600, color: C.text }}>{a.testTitle}</td>
+                          <td style={{ padding: "11px 14px", fontWeight: 600, color: C.text }}>
+                            {a.testTitle}
+                            {a.testType === "reading" && !/reading/i.test(a.testTitle) && " – Reading"}
+                          </td>
                           <td style={{ padding: "11px 14px" }}><span style={{ fontSize: 11, padding: "2px 8px", borderRadius: 20, fontWeight: 600, background: a.testType === "listening" ? "rgba(255,255,255,0.1)" : "rgba(245,158,11,0.15)", color: a.testType === "listening" ? "#ffffff" : "#fcd34d" }}>{a.testType}</span></td>
                           <td style={{ padding: "11px 14px", color: C.sub }}>{a.score}/{a.maxScore}</td>
                           <td style={{ padding: "11px 14px", fontWeight: 700, color: C.accent }}>{a.bandScore}</td>
