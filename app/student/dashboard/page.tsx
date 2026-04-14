@@ -198,8 +198,16 @@ export default function StudentDashboard() {
                             {isExpanded ? <ChevronUp size={14} color="rgba(255,255,255,0.35)" /> : <ChevronDown size={14} color="rgba(255,255,255,0.35)" />}
                           </div>
                         </div>
-                        {isExpanded && testData && a.status === "completed" && (
+                        {/* Answer details — shown for both completed AND cancelled tests.
+                            For cancelled tests the student can still see which answers
+                            they'd filled in before leaving the exam + the correct keys. */}
+                        {isExpanded && testData && (
                           <div style={{ borderTop: "1px solid rgba(255,255,255,0.06)", padding: "16px 18px" }}>
+                            {a.status === "cancelled" && (
+                              <div style={{ marginBottom: 14, fontSize: 12, color: "#fca5a5" }}>
+                                This test was cancelled before submission. Answers filled in so far are shown below.
+                              </div>
+                            )}
                             {testData.sections.map(sec => (
                               <div key={sec.id} style={{ marginBottom: 20 }}>
                                 <div style={{ fontSize: 12, fontWeight: 700, color: "rgba(255,255,255,0.4)", marginBottom: 10, textTransform: "uppercase", letterSpacing: "0.06em" }}>{sec.title}</div>
@@ -207,7 +215,7 @@ export default function StudentDashboard() {
                                   {sec.questions.map(q => {
                                     const userAns = (a.answers[q.id] || "").trim();
                                     const correctOpts = q.correctAnswer.toLowerCase().split("/").map(s => s.trim());
-                                    const isCorrect = correctOpts.some(c => userAns.toLowerCase() === c || userAns.toLowerCase().includes(c));
+                                    const isCorrect = !!userAns && correctOpts.some(c => userAns.toLowerCase() === c || userAns.toLowerCase().includes(c));
                                     return (
                                       <div key={q.id} style={{ display: "flex", alignItems: "flex-start", gap: 10, padding: "8px 12px", borderRadius: 9, background: !userAns ? "rgba(255,255,255,0.03)" : isCorrect ? "rgba(16,185,129,0.07)" : "rgba(239,68,68,0.07)", border: `1px solid ${!userAns ? "rgba(255,255,255,0.06)" : isCorrect ? "rgba(16,185,129,0.2)" : "rgba(239,68,68,0.2)"}` }}>
                                         <span style={{ width: 22, height: 22, borderRadius: "50%", flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 700, fontSize: 10, background: !userAns ? "rgba(255,255,255,0.07)" : isCorrect ? "rgba(16,185,129,0.25)" : "rgba(239,68,68,0.25)", color: !userAns ? "rgba(255,255,255,0.3)" : isCorrect ? "#34d399" : "#f87171" }}>
@@ -219,7 +227,7 @@ export default function StudentDashboard() {
                                             <span style={{ fontSize: 11, padding: "2px 8px", borderRadius: 5, fontWeight: 600, background: !userAns ? "rgba(255,255,255,0.05)" : isCorrect ? "rgba(16,185,129,0.15)" : "rgba(239,68,68,0.15)", color: !userAns ? "rgba(255,255,255,0.3)" : isCorrect ? "#34d399" : "#f87171" }}>
                                               Your answer: {userAns || "(no answer)"}
                                             </span>
-                                            {!isCorrect && userAns && (
+                                            {!isCorrect && (
                                               <span style={{ fontSize: 11, padding: "2px 8px", borderRadius: 5, background: "rgba(124,58,237,0.15)", color: "#c4b5fd", fontWeight: 600 }}>
                                                 Correct: {q.correctAnswer}
                                               </span>

@@ -719,8 +719,15 @@ export default function TestPage() {
 
   // ============================================================
   // PHASE: Warning screen
+  // Skipped for teachers in practice mode — anti-cheat is off for
+  // them, so the "don't leave the exam screen" lecture is just noise.
+  // Their test starts the moment the component mounts.
   // ============================================================
   if (phase === "warning") {
+    if (isPracticeMode) {
+      setPhase("test");
+      return null;
+    }
     return <WarningScreen test={test} onAccept={() => {
       // Request fullscreen before starting — hides browser tabs and prevents easy alt-tabbing
       document.documentElement.requestFullscreen().catch(() => {/* user denied or not supported */});
