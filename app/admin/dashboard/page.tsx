@@ -427,34 +427,6 @@ export default function AdminDashboard() {
 
       <main style={{ flex: 1, overflowY: activeTab === "students" ? "hidden" : "auto", padding: "32px 36px", display: "flex", flexDirection: "column" }}>
 
-        {/* Quote strip shown at the top of every tab EXCEPT Results
-            (Results has its own inline quote in the title row). Same
-            italic + left-bar treatment, then a divider to split it from
-            the page content below. */}
-        {quote && activeTab !== "results" && (
-          <div style={{ marginBottom: 24, paddingBottom: 18, borderBottom: `1px solid ${C.border}` }}>
-            <figure style={{
-              margin: 0, padding: "8px 16px",
-              borderLeft: "2px solid rgba(255,255,255,0.25)",
-            }}>
-              <blockquote style={{
-                margin: 0, fontSize: 13, color: C.sub,
-                lineHeight: 1.55, fontStyle: "italic", fontWeight: 300,
-              }}>
-                &ldquo;{quote.text}&rdquo;
-              </blockquote>
-              {quote.author && (
-                <figcaption style={{
-                  marginTop: 4, fontSize: 10, letterSpacing: "0.18em",
-                  textTransform: "uppercase", color: C.muted, fontWeight: 600,
-                }}>
-                  — {quote.author}
-                </figcaption>
-              )}
-            </figure>
-          </div>
-        )}
-
         {/* ══════════════════ RESULTS TAB ══════════════════ */}
         {activeTab === "results" && <>
 
@@ -882,8 +854,7 @@ export default function AdminDashboard() {
         {/* ══════════════════ STUDENTS TAB ══════════════════ */}
         {activeTab === "students" && (
           <div style={{ display: "flex", flexDirection: "column", height: "100%", minHeight: 0 }}>
-            <h1 style={{ fontSize: 22, fontWeight: 800, color: C.text, marginBottom: 4 }}>Student Accounts</h1>
-            <p style={{ fontSize: 13, color: C.muted, marginBottom: 24 }}>Create and manage student login credentials.</p>
+            <TabHeader title="Student Accounts" subtitle="Create and manage student login credentials." C={C} quote={quote} />
 
             {/* Add student form */}
             <div style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 14, padding: "22px", marginBottom: 24 }}>
@@ -1145,10 +1116,7 @@ export default function AdminDashboard() {
           }
           return (
             <div>
-              <div style={{ marginBottom: 24 }}>
-                <h1 style={{ fontSize: 22, fontWeight: 800, color: C.text, marginBottom: 2 }}>Tests</h1>
-                <p style={{ fontSize: 13, color: C.muted }}>Browse available tests, view answer keys, or take them in practice mode.</p>
-              </div>
+              <TabHeader title="Tests" subtitle="Browse available tests, view answer keys, or take them in practice mode." C={C} quote={quote} />
               <div style={{ display: "flex", gap: 8, marginBottom: 24 }}>
                 {[{ t: "reading" as const, Icon: BookOpen, label: "Reading" }, { t: "listening" as const, Icon: Headphones, label: "Listening" }].map(({ t, Icon, label }) => (
                   <button key={t} onClick={() => { setTestsTypeFilter(t); setTestsSelectedBook(null); }}
@@ -1271,8 +1239,7 @@ export default function AdminDashboard() {
           };
           return (
             <div style={{ maxWidth: 640 }}>
-              <h1 style={{ fontSize: 22, fontWeight: 800, color: C.text, marginBottom: 4 }}>My Profile</h1>
-              <p style={{ color: C.muted, fontSize: 13, marginBottom: 20 }}>Your account and settings.</p>
+              <TabHeader title="My Profile" subtitle="Your account and settings." C={C} quote={quote} />
 
               {/* Identity */}
               <div style={{ padding: "18px 20px", background: C.card, border: `1px solid ${C.border}`, borderRadius: 14, marginBottom: 16, display: "flex", alignItems: "center", gap: 16 }}>
@@ -1359,8 +1326,7 @@ export default function AdminDashboard() {
         {/* ══════════════════ TEACHERS TAB ══════════════════ */}
         {activeTab === "teachers" && canManageTeachers && (
           <div style={{ maxWidth: 900 }}>
-            <h1 style={{ fontSize: 22, fontWeight: 800, color: C.text, marginBottom: 4 }}>Manage Teachers</h1>
-            <p style={{ fontSize: 13, color: C.muted, marginBottom: 24 }}>Add or remove teacher login accounts.</p>
+            <TabHeader title="Manage Teachers" subtitle="Add or remove teacher login accounts." C={C} quote={quote} />
 
             {/* Add form */}
             <div style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 14, padding: "22px", marginBottom: 24 }}>
@@ -1477,6 +1443,52 @@ export default function AdminDashboard() {
       `}</style>
       </main>
       </div>
+    </div>
+  );
+}
+
+
+// Reusable tab header: title + subtitle on the left, rotating quote in
+// the middle, thin divider under the row. Matches the Results tab
+// header so every admin page feels visually consistent.
+function TabHeader({ title, subtitle, C, quote }: {
+  title: string;
+  subtitle: string;
+  C: { text: string; muted: string; sub: string; border: string; [k: string]: string };
+  quote: { text: string; author?: string } | null;
+}) {
+  return (
+    <div style={{
+      display: "flex", alignItems: "center", justifyContent: "space-between",
+      gap: 20, marginBottom: 24, paddingBottom: 18,
+      borderBottom: `1px solid ${C.border}`, flexWrap: "wrap",
+    }}>
+      <div style={{ flexShrink: 0 }}>
+        <h1 style={{ fontSize: 22, fontWeight: 800, color: C.text, marginBottom: 2 }}>{title}</h1>
+        <p style={{ fontSize: 13, color: C.muted }}>{subtitle}</p>
+      </div>
+      {quote && (
+        <figure style={{
+          margin: 0, flex: 1, minWidth: 260, maxWidth: 620,
+          padding: "8px 18px",
+          borderLeft: "2px solid rgba(255,255,255,0.25)",
+        }}>
+          <blockquote style={{
+            margin: 0, fontSize: 13, color: C.sub,
+            lineHeight: 1.5, fontStyle: "italic", fontWeight: 300,
+          }}>
+            &ldquo;{quote.text}&rdquo;
+          </blockquote>
+          {quote.author && (
+            <figcaption style={{
+              marginTop: 4, fontSize: 10, letterSpacing: "0.18em",
+              textTransform: "uppercase", color: C.muted, fontWeight: 600,
+            }}>
+              — {quote.author}
+            </figcaption>
+          )}
+        </figure>
+      )}
     </div>
   );
 }
