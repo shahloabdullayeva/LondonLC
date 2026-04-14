@@ -1155,7 +1155,13 @@ export default function TestPage() {
                     <span style={{ padding: "3px 10px", borderRadius: 20, background: T.accent, color: T.accent === "#ffffff" ? "#0a0a0a" : "#fff", fontSize: 11, fontWeight: 700 }}>
                       Part {sIdx + 1}
                     </span>
-                    <span style={{ fontSize: 13, fontWeight: 600, color: T.textMuted }}>{sec.passageTitle || sec.title}</span>
+                    {/* Skip the secondary title if it's just "Part N" —
+                        the pill already says "Part N", no need to duplicate. */}
+                    {(() => {
+                      const subtitle = sec.passageTitle || sec.title;
+                      if (!subtitle || /^Part\s*\d+$/i.test(subtitle.trim())) return null;
+                      return <span style={{ fontSize: 13, fontWeight: 600, color: T.textMuted }}>{subtitle}</span>;
+                    })()}
                   </div>
 
                   {/* Diagram / map shown inline above instructions */}

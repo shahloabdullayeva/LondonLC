@@ -865,9 +865,8 @@ Bakery
       instructions: `Questions 11–16: Match each festival workshop to the information about it. Choose from the box (A–H).
 Questions 17 & 18: Choose TWO letters, A–E.
 Questions 19 & 20: Choose TWO letters, A–E.`,
-      passageText: `Festival workshops
+      passageText: `Festival workshops — information options
 
-Information (for Q11–16):
 A  involves painting and drawing
 B  will be led by a prize-winning author
 C  is aimed at children with a disability
@@ -875,15 +874,7 @@ D  involves a drama activity
 E  focuses on new relationships
 F  is aimed at a specific age group
 G  explores an unhappy feeling
-H  raises awareness of a particular culture
-
-Workshops (11–16):
-11  Superheroes
-12  Just do it
-13  Count on me
-14  Speak up
-15  Jump for joy
-16  Sticks and stones`,
+H  raises awareness of a particular culture`,
       questions: [
         {
           id: "cam19-l-t3-s2-q11", number: 11,
