@@ -11,15 +11,15 @@ export default function SignupPage() {
       </div>
       <div style={{ flex: 1, display: "flex", alignItems: "center", justifyContent: "center", padding: 24 }}>
         <div style={{ maxWidth: 420, width: "100%", background: "#151515", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 20, padding: "40px 32px", textAlign: "center", boxShadow: "0 24px 64px rgba(0,0,0,0.6)" }}>
-          <div style={{ width: 56, height: 56, borderRadius: "50%", background: "rgba(124,58,237,0.15)", border: "2px solid rgba(124,58,237,0.3)", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 20px" }}>
-            <Lock size={24} color="#a78bfa" />
+          <div style={{ width: 56, height: 56, borderRadius: "50%", background: "rgba(255,255,255,0.05)", border: "2px solid rgba(255,255,255,0.15)", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 20px" }}>
+            <Lock size={24} color="#ffffff" />
           </div>
           <h1 style={{ color: "#fff", fontWeight: 800, fontSize: 22, marginBottom: 10 }}>Account Access Restricted</h1>
           <p style={{ color: "rgba(255,255,255,0.5)", fontSize: 14, lineHeight: 1.7, marginBottom: 28 }}>
             Student accounts are created by teachers and administrators only.<br />
             Please contact your teacher to receive your login credentials.
           </p>
-          <Link href="/auth/login" style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "12px 28px", background: "linear-gradient(135deg,#7c3aed,#6d28d9)", color: "#fff", fontWeight: 700, fontSize: 14, borderRadius: 12, textDecoration: "none" }}>
+          <Link href="/auth/login" style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "12px 28px", background: "#ffffff", color: "#0a0a0a", fontWeight: 700, fontSize: 14, borderRadius: 12, textDecoration: "none" }}>
             <BookOpen size={15} /> Go to Login
           </Link>
         </div>

@@ -30,7 +30,7 @@ export default function HomePage() {
       {/* Subtle glow */}
       <div style={{
         position: "fixed", inset: 0, pointerEvents: "none", zIndex: 0,
-        background: "radial-gradient(ellipse at 50% -10%, rgba(167,139,250,0.08) 0%, transparent 60%), radial-gradient(ellipse at 80% 110%, rgba(100,140,200,0.05) 0%, transparent 55%)",
+        background: "radial-gradient(ellipse at 50% -10%, rgba(255,255,255,0.05) 0%, transparent 60%), radial-gradient(ellipse at 80% 110%, rgba(255,255,255,0.03) 0%, transparent 55%)",
       }} />
 
       <nav style={{

@@ -57,11 +57,11 @@ export default function StudentDashboard() {
         {/* Profile pill — click to jump into My Profile (where Sign Out lives). */}
         <button onClick={() => { setSidebarView("profile"); setSelectedBook(null); }}
           style={{ display: "flex", alignItems: "center", gap: 8, padding: "6px 14px", background: "rgba(255,255,255,0.05)", borderRadius: 20, border: "1px solid rgba(255,255,255,0.08)", cursor: "pointer", fontFamily: "inherit" }}>
-          <div style={{ width: 26, height: 26, borderRadius: "50%", background: "linear-gradient(135deg,#7c3aed,#a78bfa)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+          <div style={{ width: 26, height: 26, borderRadius: "50%", background: "#2a2a2a", display: "flex", alignItems: "center", justifyContent: "center" }}>
             <User size={12} color="white" />
           </div>
           <span style={{ fontSize: 13, fontWeight: 600, color: "#e8eeff" }}>{session.name} {session.surname}</span>
-          <span style={{ fontSize: 11, padding: "2px 8px", background: "rgba(124,58,237,0.25)", borderRadius: 10, color: "#c4b5fd", fontWeight: 600 }}>{session.group_name}</span>
+          <span style={{ fontSize: 11, padding: "2px 8px", background: "rgba(255,255,255,0.1)", borderRadius: 10, color: "#ffffff", fontWeight: 600 }}>{session.group_name}</span>
         </button>
       </nav>
 
@@ -111,7 +111,7 @@ export default function StudentDashboard() {
               margin: "0 0 28px", padding: "18px 22px",
               background: "rgba(255,255,255,0.025)",
               border: "1px solid rgba(255,255,255,0.06)",
-              borderLeft: "2px solid rgba(167,139,250,0.6)",
+              borderLeft: "2px solid rgba(255,255,255,0.3)",
               borderRadius: 10,
             }}>
               <blockquote style={{
@@ -135,10 +135,10 @@ export default function StudentDashboard() {
           {sidebarView !== "profile" && (
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", gap: 14, marginBottom: 36 }}>
               {[
-                { label: "Total Tests", value: typeAttempts.length, icon: BarChart3, sub: typeFilter === "reading" ? "Reading tests" : "Listening tests", color: "#8b5cf6" },
+                { label: "Total Tests", value: typeAttempts.length, icon: BarChart3, sub: typeFilter === "reading" ? "Reading tests" : "Listening tests", color: "#ffffff" },
                 { label: "Average Score", value: avgBand, icon: Award, sub: typeFilter === "reading" ? "Reading average" : "Listening average", color: "#10b981" },
                 { label: "Best Score", value: bestBand, icon: Star, sub: typeFilter === "reading" ? "Reading best" : "Listening best", color: "#f59e0b" },
-                { label: "All Completed", value: completed.length, icon: Clock, sub: "All test types", color: "#8b5cf6" },
+                { label: "All Completed", value: completed.length, icon: Clock, sub: "All test types", color: "#ffffff" },
               ].map(s => (
                 <div key={s.label} style={{ background: "#151515", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 16, padding: "20px 20px 16px" }}>
                   <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 12 }}>
@@ -190,7 +190,7 @@ export default function StudentDashboard() {
                             {a.status === "completed" ? (
                               <>
                                 <span style={{ fontSize: 12, color: "rgba(255,255,255,0.5)" }}>{a.score}/{a.maxScore}</span>
-                                <span style={{ fontSize: 18, fontWeight: 900, color: "#a78bfa" }}>{a.bandScore}</span>
+                                <span style={{ fontSize: 18, fontWeight: 900, color: "#ffffff" }}>{a.bandScore}</span>
                               </>
                             ) : (
                               <span style={{ fontSize: 12, padding: "3px 9px", borderRadius: 10, background: "rgba(239,68,68,0.15)", color: "#f87171", fontWeight: 600 }}>Cancelled</span>
@@ -228,7 +228,7 @@ export default function StudentDashboard() {
                                               Your answer: {userAns || "(no answer)"}
                                             </span>
                                             {!isCorrect && (
-                                              <span style={{ fontSize: 11, padding: "2px 8px", borderRadius: 5, background: "rgba(124,58,237,0.15)", color: "#c4b5fd", fontWeight: 600 }}>
+                                              <span style={{ fontSize: 11, padding: "2px 8px", borderRadius: 5, background: "rgba(255,255,255,0.07)", color: "#ffffff", fontWeight: 600 }}>
                                                 Correct: {q.correctAnswer}
                                               </span>
                                             )}
@@ -274,10 +274,10 @@ export default function StudentDashboard() {
                     <div key={n}
                       onClick={() => available && setSelectedBook(n)}
                       style={{ display: "flex", alignItems: "center", gap: 14, padding: "14px 16px", background: available ? "#151515" : "rgba(255,255,255,0.02)", border: `1px solid ${available ? "rgba(255,255,255,0.08)" : "rgba(255,255,255,0.05)"}`, borderRadius: 12, cursor: available ? "pointer" : "default", transition: "all 0.15s" }}
-                      onMouseEnter={e => available && ((e.currentTarget as HTMLElement).style.background = "#1c1c1c", (e.currentTarget as HTMLElement).style.borderColor = "rgba(167,139,250,0.35)")}
+                      onMouseEnter={e => available && ((e.currentTarget as HTMLElement).style.background = "#1c1c1c", (e.currentTarget as HTMLElement).style.borderColor = "rgba(255,255,255,0.2)")}
                       onMouseLeave={e => available && ((e.currentTarget as HTMLElement).style.background = "#151515", (e.currentTarget as HTMLElement).style.borderColor = "rgba(255,255,255,0.08)")}>
                       {/* Number badge */}
-                      <div style={{ width: 38, height: 38, borderRadius: 10, flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 900, fontSize: 15, background: available ? "linear-gradient(135deg,#7c3aed,#6d28d9)" : "rgba(255,255,255,0.05)", color: available ? "#fff" : "rgba(255,255,255,0.2)" }}>
+                      <div style={{ width: 38, height: 38, borderRadius: 10, flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 900, fontSize: 15, background: available ? "#2a2a2a" : "rgba(255,255,255,0.05)", color: available ? "#fff" : "rgba(255,255,255,0.2)" }}>
                         {n}
                       </div>
                       {/* Title */}
@@ -291,7 +291,7 @@ export default function StudentDashboard() {
                       </div>
                       {/* Status / action */}
                       {available ? (
-                        <div style={{ display: "flex", alignItems: "center", gap: 5, fontSize: 12, fontWeight: 700, color: "#a78bfa", flexShrink: 0 }}>
+                        <div style={{ display: "flex", alignItems: "center", gap: 5, fontSize: 12, fontWeight: 700, color: "#ffffff", flexShrink: 0 }}>
                           Open <ChevronRight size={14} />
                         </div>
                       ) : (
@@ -310,9 +310,9 @@ export default function StudentDashboard() {
                   style={{ display: "flex", alignItems: "center", gap: 6, padding: "7px 14px", background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.1)", borderRadius: 9, color: "rgba(255,255,255,0.6)", fontSize: 13, cursor: "pointer", fontWeight: 600 }}>
                   <ChevronLeft size={14} /> All Books
                 </button>
-                <div style={{ display: "flex", alignItems: "center", gap: 8, padding: "7px 16px", background: "rgba(124,58,237,0.15)", border: "1px solid rgba(124,58,237,0.3)", borderRadius: 10 }}>
-                  <BookOpen size={14} color="#a78bfa" />
-                  <span style={{ fontSize: 14, fontWeight: 700, color: "#c4b5fd" }}>Cambridge IELTS {selectedBook}</span>
+                <div style={{ display: "flex", alignItems: "center", gap: 8, padding: "7px 16px", background: "rgba(255,255,255,0.07)", border: "1px solid rgba(255,255,255,0.15)", borderRadius: 10 }}>
+                  <BookOpen size={14} color="#ffffff" />
+                  <span style={{ fontSize: 14, fontWeight: 700, color: "#ffffff" }}>Cambridge IELTS {selectedBook}</span>
                 </div>
               </div>
 
@@ -332,12 +332,12 @@ export default function StudentDashboard() {
                       return (
                         <div key={test.id}
                           style={{ background: "#151515", border: "1px solid rgba(255,255,255,0.09)", borderRadius: 16, padding: 20, cursor: "pointer", transition: "all 0.2s" }}
-                          onMouseEnter={e => { (e.currentTarget as HTMLElement).style.borderColor = "rgba(124,58,237,0.5)"; (e.currentTarget as HTMLElement).style.transform = "translateY(-2px)"; }}
+                          onMouseEnter={e => { (e.currentTarget as HTMLElement).style.borderColor = "rgba(255,255,255,0.3)"; (e.currentTarget as HTMLElement).style.transform = "translateY(-2px)"; }}
                           onMouseLeave={e => { (e.currentTarget as HTMLElement).style.borderColor = "rgba(255,255,255,0.09)"; (e.currentTarget as HTMLElement).style.transform = "none"; }}
                           onClick={() => router.push(`/student/test/${test.id}`)}>
                           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 12 }}>
                             <div>
-                              <div style={{ fontSize: 11, fontWeight: 600, color: "#7c3aed", marginBottom: 4, textTransform: "uppercase", letterSpacing: "0.05em" }}>
+                              <div style={{ fontSize: 11, fontWeight: 600, color: "#ffffff", marginBottom: 4, textTransform: "uppercase", letterSpacing: "0.05em" }}>
                                 Test {test.testNumber}
                               </div>
                               <h3 style={{ fontSize: 14, fontWeight: 800, color: "#fff", marginBottom: 3 }}>{test.title}</h3>
@@ -355,7 +355,7 @@ export default function StudentDashboard() {
                             <span style={{ display: "flex", alignItems: "center", gap: 5 }}><Clock size={12} /> {test.durationMinutes} min{test.transferMinutes > 0 ? ` + ${test.transferMinutes} transfer` : ""}</span>
                             <span style={{ display: "flex", alignItems: "center", gap: 5 }}><BarChart3 size={12} /> {totalQ} questions</span>
                           </div>
-                          <button style={{ width: "100%", padding: "10px", background: "linear-gradient(135deg,#7c3aed,#6d28d9)", color: "#fff", fontWeight: 700, fontSize: 13, border: "none", borderRadius: 10, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", gap: 6 }}>
+                          <button style={{ width: "100%", padding: "10px", background: "#2a2a2a", color: "#fff", fontWeight: 700, fontSize: 13, border: "none", borderRadius: 10, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", gap: 6 }}>
                             Start practice <ChevronRight size={14} />
                           </button>
                         </div>
@@ -385,10 +385,10 @@ export default function StudentDashboard() {
                       <tr key={a.id} style={{ borderBottom: i < attempts.length - 1 ? "1px solid rgba(255,255,255,0.05)" : "none" }}>
                         <td style={{ padding: "13px 16px", fontSize: 13, fontWeight: 600, color: "#e8eeff" }}>{a.testTitle}</td>
                         <td style={{ padding: "13px 16px" }}>
-                          <span style={{ fontSize: 11, padding: "3px 9px", borderRadius: 10, fontWeight: 600, background: a.testType === "listening" ? "rgba(139,92,246,0.2)" : "rgba(124,58,237,0.2)", color: a.testType === "listening" ? "#c4b5fd" : "#c4b5fd" }}>{a.testType}</span>
+                          <span style={{ fontSize: 11, padding: "3px 9px", borderRadius: 10, fontWeight: 600, background: a.testType === "listening" ? "rgba(255,255,255,0.1)" : "rgba(255,255,255,0.1)", color: a.testType === "listening" ? "#ffffff" : "#ffffff" }}>{a.testType}</span>
                         </td>
                         <td style={{ padding: "13px 16px", fontSize: 13, color: "rgba(255,255,255,0.55)" }}>{a.score}/{a.maxScore}</td>
-                        <td style={{ padding: "13px 16px", fontSize: 13, fontWeight: 700, color: "#a78bfa" }}>{a.bandScore}</td>
+                        <td style={{ padding: "13px 16px", fontSize: 13, fontWeight: 700, color: "#ffffff" }}>{a.bandScore}</td>
                         <td style={{ padding: "13px 16px" }}>
                           <span style={{ fontSize: 11, padding: "3px 9px", borderRadius: 10, fontWeight: 600, background: a.status === "completed" ? "rgba(16,185,129,0.15)" : "rgba(239,68,68,0.15)", color: a.status === "completed" ? "#34d399" : "#f87171" }}>{a.status}</span>
                         </td>
@@ -487,21 +487,21 @@ function ProfilePanel({
 
       {/* Identity card */}
       <div style={{ padding: "18px 20px", background: "#151515", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 14, marginBottom: 16, display: "flex", alignItems: "center", gap: 16 }}>
-        <div style={{ width: 52, height: 52, borderRadius: "50%", background: "linear-gradient(135deg,#7c3aed,#a78bfa)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+        <div style={{ width: 52, height: 52, borderRadius: "50%", background: "#2a2a2a", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
           <User size={22} color="#fff" />
         </div>
         <div style={{ flex: 1, minWidth: 0 }}>
           <div style={{ fontSize: 16, fontWeight: 700, color: "#fff" }}>{session.name} {session.surname}</div>
           <div style={{ fontSize: 12, color: "rgba(255,255,255,0.4)", marginTop: 2 }}>
             {session.username && <span>@{session.username} · </span>}
-            Group <span style={{ color: "#c4b5fd", fontWeight: 600 }}>{session.group_name}</span>
+            Group <span style={{ color: "#ffffff", fontWeight: 600 }}>{session.group_name}</span>
           </div>
         </div>
       </div>
 
       {/* Stats grid */}
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: 12, marginBottom: 24 }}>
-        <StatCard label="Reading" tests={reading.length} avg={avg(reading)} best={best(reading)} accent="#8b5cf6" />
+        <StatCard label="Reading" tests={reading.length} avg={avg(reading)} best={best(reading)} accent="#ffffff" />
         <StatCard label="Listening" tests={listening.length} avg={avg(listening)} best={best(listening)} accent="#10b981" />
         <div style={{ padding: "16px 18px", background: "#151515", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 14 }}>
           <div style={{ fontSize: 11, fontWeight: 700, color: "rgba(255,255,255,0.4)", letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: 8 }}>Total completed</div>
@@ -559,7 +559,7 @@ function ProfilePanel({
       {/* Change password */}
       <div style={{ padding: "18px 20px", background: "#151515", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 14, marginBottom: 24 }}>
         <h3 style={{ fontSize: 14, fontWeight: 700, color: "#fff", marginBottom: 14, display: "flex", alignItems: "center", gap: 8 }}>
-          <Lock size={14} color="#a78bfa" /> Change password
+          <Lock size={14} color="#ffffff" /> Change password
         </h3>
         <form onSubmit={submitPw} style={{ display: "grid", gap: 10 }}>
           <div style={{ position: "relative" }}>
@@ -570,7 +570,7 @@ function ProfilePanel({
               value={curr}
               onChange={(e) => setCurr(e.target.value)}
               style={fieldStyle}
-              onFocus={(e) => (e.currentTarget.style.borderColor = "#7c3aed")}
+              onFocus={(e) => (e.currentTarget.style.borderColor = "#ffffff")}
               onBlur={(e) => (e.currentTarget.style.borderColor = "rgba(255,255,255,0.1)")}
             />
             <button type="button" onClick={() => setShowCurr(v => !v)}
@@ -586,7 +586,7 @@ function ProfilePanel({
               value={next}
               onChange={(e) => setNext(e.target.value)}
               style={fieldStyle}
-              onFocus={(e) => (e.currentTarget.style.borderColor = "#7c3aed")}
+              onFocus={(e) => (e.currentTarget.style.borderColor = "#ffffff")}
               onBlur={(e) => (e.currentTarget.style.borderColor = "rgba(255,255,255,0.1)")}
             />
             <button type="button" onClick={() => setShowNew(v => !v)}
@@ -606,7 +606,7 @@ function ProfilePanel({
             style={{
               justifySelf: "start",
               padding: "10px 22px",
-              background: saving || !curr || !next ? "rgba(124,58,237,0.4)" : "linear-gradient(135deg,#7c3aed,#6d28d9)",
+              background: saving || !curr || !next ? "rgba(255,255,255,0.2)" : "#2a2a2a",
               color: "#fff", fontWeight: 700, fontSize: 13, letterSpacing: "0.05em",
               border: "none", borderRadius: 9,
               cursor: saving || !curr || !next ? "not-allowed" : "pointer",
@@ -678,9 +678,9 @@ function SidebarLink({
         display: "flex", alignItems: "center", gap: 10,
         padding: "11px 14px", borderRadius: 11, border: "none", cursor: "pointer",
         fontWeight: 600, fontSize: 14, textAlign: "left",
-        background: active ? "rgba(124,58,237,0.18)" : "transparent",
-        color: active ? "#c4b5fd" : "rgba(255,255,255,0.5)",
-        borderLeft: active ? "2px solid #7c3aed" : "2px solid transparent",
+        background: active ? "rgba(255,255,255,0.08)" : "transparent",
+        color: active ? "#ffffff" : "rgba(255,255,255,0.5)",
+        borderLeft: active ? "2px solid #ffffff" : "2px solid transparent",
         transition: "background 0.18s, color 0.18s",
       }}
       onMouseEnter={(e) => { if (!active) e.currentTarget.style.background = "rgba(255,255,255,0.04)"; }}
