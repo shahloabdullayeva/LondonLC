@@ -1165,20 +1165,20 @@ export default function TestPage() {
                     </div>
                   )}
 
-                  {/* Notes text (for Parts 1 & 4) — shown above the question list
-                      to give students context while they answer. Numbered
-                      blanks like "1 _______" are replaced with actual input
-                      fields bound to the matching question. */}
+                  {/* Instructions banner — always first, like the real IELTS
+                      question paper: rubric above, content below. */}
+                  <div style={{ fontSize: 13, marginBottom: 20, padding: "11px 14px", borderRadius: 10, background: T.accentDim, color: T.accent, border: `1px solid ${T.accentBorder}`, fontWeight: 500, lineHeight: 1.5, whiteSpace: "pre-line" }}>
+                    {sec.instructions}
+                  </div>
+
+                  {/* Notes text (for Parts 1 & 4) — numbered blanks like
+                      "1 _______" are replaced with actual input fields bound
+                      to the matching question. */}
                   {sec.passageText && (
                     <div style={{ marginBottom: 20, padding: "16px 20px", background: T.passage, border: `1px solid ${T.border}`, borderRadius: 12, color: T.text, lineHeight: 2.2, fontSize: fontSize - 1, whiteSpace: "pre-line" }}>
                       {renderPassageWithInputs(sec.passageText, sec.questions, answers, setAnswer, T)}
                     </div>
                   )}
-
-                  {/* Instructions banner */}
-                  <div style={{ fontSize: 13, marginBottom: 20, padding: "11px 14px", borderRadius: 10, background: T.accentDim, color: T.accent, border: `1px solid ${T.accentBorder}`, fontWeight: 500, lineHeight: 1.5 }}>
-                    {sec.instructions}
-                  </div>
 
                   {/* Questions — same merge (Choose TWO pairs) + matching + single logic as before */}
                   <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
