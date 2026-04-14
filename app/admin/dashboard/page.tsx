@@ -31,6 +31,32 @@ const C = {
   danger: "#ef4444",
 };
 
+// Compute a student's current daily streak from the attempts store.
+// A streak counts consecutive days ending today (or yesterday if nothing
+// has finished yet today) on which the student submitted at least one
+// completed attempt. Active = true when today is part of the streak.
+function computeStreakForStudent(allAttempts: AttemptData[], studentId: string): { streak: number; active: boolean } {
+  const completed = allAttempts.filter(a => a.studentId === studentId && a.status === "completed");
+  if (completed.length === 0) return { streak: 0, active: false };
+  const dayKey = (d: Date) => `${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`;
+  const days = new Set<string>();
+  for (const a of completed) {
+    const d = new Date(a.submittedAt);
+    days.add(dayKey(d));
+  }
+  const today = new Date();
+  const yesterday = new Date(today); yesterday.setDate(today.getDate() - 1);
+  const hasToday = days.has(dayKey(today));
+  if (!hasToday && !days.has(dayKey(yesterday))) return { streak: 0, active: false };
+  let n = 0;
+  const cursor = new Date(hasToday ? today : yesterday);
+  while (days.has(dayKey(cursor))) {
+    n++;
+    cursor.setDate(cursor.getDate() - 1);
+  }
+  return { streak: n, active: hasToday };
+}
+
 const sel: React.CSSProperties = {
   padding: "9px 12px",
   background: C.card2,
@@ -888,7 +914,7 @@ export default function AdminDashboard() {
                   <table style={{ width: "100%", borderCollapse: "collapse" }}>
                     <thead>
                       <tr style={{ background: C.card2 }}>
-                        {["Name", "Username", "Password", "Group", "Created", "Last Seen", ""].map(h => (
+                        {["Name", "Username", "Password", "Group", "Streak", "Created", "Last Seen", ""].map(h => (
                           <th key={h} style={{ padding: "10px 14px", textAlign: "left", fontSize: 11, fontWeight: 700, color: C.muted, textTransform: "uppercase", letterSpacing: "0.05em", borderBottom: `1px solid ${C.border}` }}>{h}</th>
                         ))}
                       </tr>
@@ -916,6 +942,17 @@ export default function AdminDashboard() {
                             </div>
                           </td>
                           <td style={{ padding: "12px 14px", fontSize: 13, color: C.muted }}>{s.group_name}</td>
+                          <td style={{ padding: "12px 14px" }}>
+                            {(() => {
+                              const { streak, active } = computeStreakForStudent(attempts, s.id);
+                              if (streak === 0) return <span style={{ fontSize: 12, color: C.muted }}>—</span>;
+                              return (
+                                <span style={{ display: "inline-flex", alignItems: "center", gap: 5, fontSize: 13, fontWeight: 700, color: active ? "#fb923c" : C.muted }}>
+                                  {active ? "🔥" : "💤"} {streak}
+                                </span>
+                              );
+                            })()}
+                          </td>
                           <td style={{ padding: "12px 14px", fontSize: 12, color: C.muted }}>{new Date(s.createdAt).toLocaleDateString()}</td>
                           <td style={{ padding: "12px 14px" }}>
                             <div style={{ fontSize: 12, color: s.lastAccessedAt ? C.sub : C.muted, fontWeight: s.lastAccessedAt ? 500 : 400 }}>
@@ -946,7 +983,7 @@ export default function AdminDashboard() {
                         </tr>
                         {isRootAdmin && expandedAccessInfoFor === s.id && (
                           <tr key={`${s.id}-access`} style={{ borderBottom: `1px solid ${C.border}`, background: "rgba(255,255,255,0.03)" }}>
-                            <td colSpan={7} style={{ padding: "14px 18px" }}>
+                            <td colSpan={8} style={{ padding: "14px 18px" }}>
                               <div style={{ fontSize: 11, fontWeight: 700, color: C.muted, textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 10 }}>Last Access Details</div>
                               <div style={{ display: "flex", flexWrap: "wrap", gap: 10 }}>
                                 {[
@@ -971,7 +1008,7 @@ export default function AdminDashboard() {
                         )}
                         {editingStudentId === s.id && (
                           <tr key={`${s.id}-edit`} style={{ borderBottom: `2px solid ${C.accent}`, background: "rgba(255,255,255,0.05)" }}>
-                            <td colSpan={7} style={{ padding: "20px 18px" }}>
+                            <td colSpan={8} style={{ padding: "20px 18px" }}>
                               <div style={{ fontSize: 13, fontWeight: 700, color: C.accent, marginBottom: 12 }}>Editing: {s.name} {s.surname}</div>
                               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 10, marginBottom: 10 }}>
                                 <div>
