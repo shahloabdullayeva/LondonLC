@@ -1153,10 +1153,10 @@ export default function TestPage() {
                                 const isChecked = selectedSet.has(opt.value);
                                 const isDisabled = !isChecked && selected.length >= 2;
                                 return (
-                                  <label key={opt.value}
-                                    style={{ display: "flex", alignItems: "center", gap: 10, cursor: isDisabled ? "not-allowed" : "pointer", opacity: isDisabled ? 0.45 : 1 }}>
+                                  <div key={opt.value}
+                                    onClick={() => { if (!isDisabled) toggle(opt.value); }}
+                                    style={{ display: "flex", alignItems: "center", gap: 10, cursor: isDisabled ? "not-allowed" : "pointer", opacity: isDisabled ? 0.45 : 1, userSelect: "none", padding: "4px 0" }}>
                                     <div
-                                      onClick={() => !isDisabled && toggle(opt.value)}
                                       style={{ width: 18, height: 18, borderRadius: 4, border: `2px solid ${isChecked ? T.accent : T.border}`, background: isChecked ? T.accent : "transparent", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
                                       {isChecked && (
                                         <svg width="10" height="10" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -1164,10 +1164,8 @@ export default function TestPage() {
                                         </svg>
                                       )}
                                     </div>
-                                    <input type="checkbox" checked={isChecked} disabled={isDisabled}
-                                      onChange={() => toggle(opt.value)} style={{ display: "none" }} />
                                     <span style={{ fontSize: 14, color: T.text }}>{opt.label}</span>
-                                  </label>
+                                  </div>
                                 );
                               })}
                             </div>
