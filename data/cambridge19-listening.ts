@@ -788,7 +788,430 @@ Conservation status
   ],
 };
 
+// ============================================================
+// CAMBRIDGE IELTS 19 – LISTENING TEST 3
+// Parts: 1) Local food shops (notes + table completion)
+//        2) Festival workshops (matching + two Choose-TWO)
+//        3) Year 12 science experiment (MCQ + flow-chart matching)
+//        4) Microplastics (note completion)
+// ============================================================
+export const cambridge19_listening_t3: IELTSTest = {
+  id: "cam19-listening-t3",
+  title: "Cambridge IELTS 19 – Listening Test 3",
+  bookNumber: 19,
+  testNumber: 3,
+  type: "listening",
+  level: "academic",
+  durationMinutes: 30,
+  transferMinutes: 10,
+  audioUrl: audioUrl("cam19-listening-t3.mp3"),
+  audioDurationSeconds: 1800,
+  sections: [
+    // ── PART 1 ─────────────────────────────────────────────
+    {
+      id: "cam19-l-t3-s1",
+      sectionNumber: 1,
+      title: "Part 1",
+      instructions: `Questions 1–6: Complete the notes below. Write ONE WORD AND/OR A NUMBER for each answer.
+Questions 7–10: Complete the table below. Write ONE WORD ONLY for each answer.`,
+      passageText: `Local food shops
+
+Where to go
+●  Kite Place – near the 1 _______
+
+Fish market
+●  cross the 2 _______ and turn right
+●  best to go before 3 _______ pm, earlier than closing time
+
+Organic shop
+●  called 4 '_______'
+●  below a restaurant in the large, grey building
+●  look for the large 5 _______ outside
+
+Supermarket
+●  take a 6 _______ minibus, number 289
+
+Shopping
+
+Fish market
+  To buy: a dozen prawns
+  Other ideas: a handful of 7 _______ (type of seaweed)
+
+Organic shop
+  To buy: beans and a 8 _______ for dessert
+  Other ideas: spices and 9 _______
+
+Bakery
+  To buy: a brown loaf
+  Other ideas: a 10 _______ tart`,
+      questions: [
+        { id: "cam19-l-t3-s1-q1", number: 1, type: "note_completion", question: "1. Kite Place – near the _______", correctAnswer: "harbour/harbor", points: 1 },
+        { id: "cam19-l-t3-s1-q2", number: 2, type: "note_completion", question: "2. cross the _______ and turn right", correctAnswer: "bridge", points: 1 },
+        { id: "cam19-l-t3-s1-q3", number: 3, type: "note_completion", question: "3. best to go before _______ pm", correctAnswer: "3.30/three thirty/half three/half 3", points: 1 },
+        { id: "cam19-l-t3-s1-q4", number: 4, type: "note_completion", question: "4. called '_______'", correctAnswer: "Rose", points: 1 },
+        { id: "cam19-l-t3-s1-q5", number: 5, type: "note_completion", question: "5. look for the large _______ outside", correctAnswer: "sign", points: 1 },
+        { id: "cam19-l-t3-s1-q6", number: 6, type: "note_completion", question: "6. take a _______ minibus, number 289", correctAnswer: "purple", points: 1 },
+        { id: "cam19-l-t3-s1-q7", number: 7, type: "note_completion", question: "7. a handful of _______ (type of seaweed)", correctAnswer: "samphire", points: 1 },
+        { id: "cam19-l-t3-s1-q8", number: 8, type: "note_completion", question: "8. beans and a _______ for dessert", correctAnswer: "melon", points: 1 },
+        { id: "cam19-l-t3-s1-q9", number: 9, type: "note_completion", question: "9. spices and _______", correctAnswer: "coconut", points: 1 },
+        { id: "cam19-l-t3-s1-q10", number: 10, type: "note_completion", question: "10. a _______ tart", correctAnswer: "strawberry", points: 1 },
+      ],
+    },
+    // ── PART 2 ─────────────────────────────────────────────
+    {
+      id: "cam19-l-t3-s2",
+      sectionNumber: 2,
+      title: "Part 2",
+      instructions: `Questions 11–16: Match each festival workshop to the information about it. Choose from the box (A–H).
+Questions 17 & 18: Choose TWO letters, A–E.
+Questions 19 & 20: Choose TWO letters, A–E.`,
+      passageText: `Festival workshops
+
+Information (for Q11–16):
+A  involves painting and drawing
+B  will be led by a prize-winning author
+C  is aimed at children with a disability
+D  involves a drama activity
+E  focuses on new relationships
+F  is aimed at a specific age group
+G  explores an unhappy feeling
+H  raises awareness of a particular culture
+
+Workshops (11–16):
+11  Superheroes
+12  Just do it
+13  Count on me
+14  Speak up
+15  Jump for joy
+16  Sticks and stones`,
+      questions: [
+        {
+          id: "cam19-l-t3-s2-q11", number: 11,
+          groupLabel: `Questions 11–16: What information is given about each of the following festival workshops? Choose SIX answers from the box (A–H) and write the correct letter next to each workshop.\n\nA  involves painting and drawing\nB  will be led by a prize-winning author\nC  is aimed at children with a disability\nD  involves a drama activity\nE  focuses on new relationships\nF  is aimed at a specific age group\nG  explores an unhappy feeling\nH  raises awareness of a particular culture`,
+          type: "multiple_choice",
+          question: "11. Superheroes",
+          options: [
+            { label: "A  involves painting and drawing", value: "A" },
+            { label: "B  will be led by a prize-winning author", value: "B" },
+            { label: "C  is aimed at children with a disability", value: "C" },
+            { label: "D  involves a drama activity", value: "D" },
+            { label: "E  focuses on new relationships", value: "E" },
+            { label: "F  is aimed at a specific age group", value: "F" },
+            { label: "G  explores an unhappy feeling", value: "G" },
+            { label: "H  raises awareness of a particular culture", value: "H" },
+          ],
+          correctAnswer: "C", points: 1,
+        },
+        {
+          id: "cam19-l-t3-s2-q12", number: 12, type: "multiple_choice",
+          question: "12. Just do it",
+          options: [
+            { label: "A  involves painting and drawing", value: "A" },
+            { label: "B  will be led by a prize-winning author", value: "B" },
+            { label: "C  is aimed at children with a disability", value: "C" },
+            { label: "D  involves a drama activity", value: "D" },
+            { label: "E  focuses on new relationships", value: "E" },
+            { label: "F  is aimed at a specific age group", value: "F" },
+            { label: "G  explores an unhappy feeling", value: "G" },
+            { label: "H  raises awareness of a particular culture", value: "H" },
+          ],
+          correctAnswer: "D", points: 1,
+        },
+        {
+          id: "cam19-l-t3-s2-q13", number: 13, type: "multiple_choice",
+          question: "13. Count on me",
+          options: [
+            { label: "A  involves painting and drawing", value: "A" },
+            { label: "B  will be led by a prize-winning author", value: "B" },
+            { label: "C  is aimed at children with a disability", value: "C" },
+            { label: "D  involves a drama activity", value: "D" },
+            { label: "E  focuses on new relationships", value: "E" },
+            { label: "F  is aimed at a specific age group", value: "F" },
+            { label: "G  explores an unhappy feeling", value: "G" },
+            { label: "H  raises awareness of a particular culture", value: "H" },
+          ],
+          correctAnswer: "F", points: 1,
+        },
+        {
+          id: "cam19-l-t3-s2-q14", number: 14, type: "multiple_choice",
+          question: "14. Speak up",
+          options: [
+            { label: "A  involves painting and drawing", value: "A" },
+            { label: "B  will be led by a prize-winning author", value: "B" },
+            { label: "C  is aimed at children with a disability", value: "C" },
+            { label: "D  involves a drama activity", value: "D" },
+            { label: "E  focuses on new relationships", value: "E" },
+            { label: "F  is aimed at a specific age group", value: "F" },
+            { label: "G  explores an unhappy feeling", value: "G" },
+            { label: "H  raises awareness of a particular culture", value: "H" },
+          ],
+          correctAnswer: "G", points: 1,
+        },
+        {
+          id: "cam19-l-t3-s2-q15", number: 15, type: "multiple_choice",
+          question: "15. Jump for joy",
+          options: [
+            { label: "A  involves painting and drawing", value: "A" },
+            { label: "B  will be led by a prize-winning author", value: "B" },
+            { label: "C  is aimed at children with a disability", value: "C" },
+            { label: "D  involves a drama activity", value: "D" },
+            { label: "E  focuses on new relationships", value: "E" },
+            { label: "F  is aimed at a specific age group", value: "F" },
+            { label: "G  explores an unhappy feeling", value: "G" },
+            { label: "H  raises awareness of a particular culture", value: "H" },
+          ],
+          correctAnswer: "B", points: 1,
+        },
+        {
+          id: "cam19-l-t3-s2-q16", number: 16, type: "multiple_choice",
+          question: "16. Sticks and stones",
+          options: [
+            { label: "A  involves painting and drawing", value: "A" },
+            { label: "B  will be led by a prize-winning author", value: "B" },
+            { label: "C  is aimed at children with a disability", value: "C" },
+            { label: "D  involves a drama activity", value: "D" },
+            { label: "E  focuses on new relationships", value: "E" },
+            { label: "F  is aimed at a specific age group", value: "F" },
+            { label: "G  explores an unhappy feeling", value: "G" },
+            { label: "H  raises awareness of a particular culture", value: "H" },
+          ],
+          correctAnswer: "H", points: 1,
+        },
+        {
+          id: "cam19-l-t3-s2-q17", number: 17,
+          groupLabel: `Questions 17 and 18: Choose TWO letters, A–E.\n\nWhich TWO reasons does the speaker give for recommending Alive and Kicking?\n\nA  It will appeal to both boys and girls.\nB  The author is well known.\nC  It has colourful illustrations.\nD  It is funny.\nE  It deals with an important topic.\n\n(Answers are accepted in either order.)`,
+          type: "multiple_choice",
+          question: "17. Choose TWO (first answer)",
+          options: [
+            { label: "A  It will appeal to both boys and girls.", value: "A" },
+            { label: "B  The author is well known.", value: "B" },
+            { label: "C  It has colourful illustrations.", value: "C" },
+            { label: "D  It is funny.", value: "D" },
+            { label: "E  It deals with an important topic.", value: "E" },
+          ],
+          correctAnswer: "D/E", points: 1,
+        },
+        {
+          id: "cam19-l-t3-s2-q18", number: 18, type: "multiple_choice",
+          question: "18. Choose TWO (second answer)",
+          options: [
+            { label: "A  It will appeal to both boys and girls.", value: "A" },
+            { label: "B  The author is well known.", value: "B" },
+            { label: "C  It has colourful illustrations.", value: "C" },
+            { label: "D  It is funny.", value: "D" },
+            { label: "E  It deals with an important topic.", value: "E" },
+          ],
+          correctAnswer: "D/E", points: 1,
+        },
+        {
+          id: "cam19-l-t3-s2-q19", number: 19,
+          groupLabel: `Questions 19 and 20: Choose TWO letters, A–E.\n\nWhich TWO pieces of advice does the speaker give to parents about reading?\n\nA  Encourage children to write down new vocabulary.\nB  Allow children to listen to audio books.\nC  Get recommendations from librarians.\nD  Give children a choice about what they read.\nE  Only read aloud to children until they can read independently.\n\n(Answers are accepted in either order.)`,
+          type: "multiple_choice",
+          question: "19. Choose TWO (first answer)",
+          options: [
+            { label: "A  Encourage children to write down new vocabulary.", value: "A" },
+            { label: "B  Allow children to listen to audio books.", value: "B" },
+            { label: "C  Get recommendations from librarians.", value: "C" },
+            { label: "D  Give children a choice about what they read.", value: "D" },
+            { label: "E  Only read aloud to children until they can read independently.", value: "E" },
+          ],
+          correctAnswer: "B/C", points: 1,
+        },
+        {
+          id: "cam19-l-t3-s2-q20", number: 20, type: "multiple_choice",
+          question: "20. Choose TWO (second answer)",
+          options: [
+            { label: "A  Encourage children to write down new vocabulary.", value: "A" },
+            { label: "B  Allow children to listen to audio books.", value: "B" },
+            { label: "C  Get recommendations from librarians.", value: "C" },
+            { label: "D  Give children a choice about what they read.", value: "D" },
+            { label: "E  Only read aloud to children until they can read independently.", value: "E" },
+          ],
+          correctAnswer: "B/C", points: 1,
+        },
+      ],
+    },
+    // ── PART 3 ─────────────────────────────────────────────
+    {
+      id: "cam19-l-t3-s3",
+      sectionNumber: 3,
+      title: "Part 3",
+      instructions: `Questions 21–25: Choose the correct letter, A, B or C.
+Questions 26–30: Flow-chart completion. Choose FIVE answers from the box (A–H).`,
+      passageText: `Science experiment for Year 12 students — Clare and Jake discussing.
+
+Flow-chart options (for Q26–30):
+A  size
+B  escape
+C  age
+D  water
+E  cereal
+F  calculations
+G  changes
+H  colour
+
+Choose mice which are all the same 26 _______.
+  ↓
+Divide the mice into two groups, each with a different 27 _______.
+  ↓
+Put each group in a separate cage.
+Feed group A commercial mouse food.
+Feed group B the same, but also sugar contained in 28 _______.
+  ↓
+Take measurements using an electronic scale.
+Place them in a weighing chamber to prevent 29 _______.
+  ↓
+Do all necessary 30 _______.`,
+      questions: [
+        {
+          id: "cam19-l-t3-s3-q21", number: 21,
+          groupLabel: `Questions 21–25: Choose the correct letter, A, B or C.`,
+          type: "multiple_choice",
+          question: "21. How does Clare feel about the students in her Year 12 science class?",
+          options: [
+            { label: "A  worried that they are not making progress", value: "A" },
+            { label: "B  challenged by their poor behaviour in class", value: "B" },
+            { label: "C  frustrated at their lack of interest in the subject", value: "C" },
+          ],
+          correctAnswer: "C", points: 1,
+        },
+        {
+          id: "cam19-l-t3-s3-q22", number: 22, type: "multiple_choice",
+          question: "22. How does Jake react to Clare's suggestion about an experiment based on children's diet?",
+          options: [
+            { label: "A  He is concerned that the results might not be meaningful.", value: "A" },
+            { label: "B  He feels some of the data might be difficult to obtain.", value: "B" },
+            { label: "C  He suspects that the conclusions might be upsetting.", value: "C" },
+          ],
+          correctAnswer: "B", points: 1,
+        },
+        {
+          id: "cam19-l-t3-s3-q23", number: 23, type: "multiple_choice",
+          question: "23. What problem do they agree may be involved in an experiment involving animals?",
+          options: [
+            { label: "A  Any results may not apply to humans.", value: "A" },
+            { label: "B  It may be complicated to get permission.", value: "B" },
+            { label: "C  Students may not be happy about animal experiments.", value: "C" },
+          ],
+          correctAnswer: "A", points: 1,
+        },
+        {
+          id: "cam19-l-t3-s3-q24", number: 24, type: "multiple_choice",
+          question: "24. What question do they decide the experiment should address?",
+          options: [
+            { label: "A  Are mice capable of controlling their food intake?", value: "A" },
+            { label: "B  Does an increase in sugar lead to health problems?", value: "B" },
+            { label: "C  How much do supplements of different kinds affect health?", value: "C" },
+          ],
+          correctAnswer: "A", points: 1,
+        },
+        {
+          id: "cam19-l-t3-s3-q25", number: 25, type: "multiple_choice",
+          question: "25. Clare might also consider doing another experiment involving",
+          options: [
+            { label: "A  other types of food supplement.", value: "A" },
+            { label: "B  different genetic strains of mice.", value: "B" },
+            { label: "C  varying amounts of exercise.", value: "C" },
+          ],
+          correctAnswer: "C", points: 1,
+        },
+        {
+          id: "cam19-l-t3-s3-q26", number: 26,
+          groupLabel: `Questions 26–30: Complete the flowchart below. Choose FIVE answers from the box (A–H) and write the correct letter next to each step.\n\nA  size\nB  escape\nC  age\nD  water\nE  cereal\nF  calculations\nG  changes\nH  colour`,
+          type: "multiple_choice",
+          question: "26. Choose mice which are all the same _______",
+          options: [
+            { label: "A  size", value: "A" }, { label: "B  escape", value: "B" }, { label: "C  age", value: "C" }, { label: "D  water", value: "D" },
+            { label: "E  cereal", value: "E" }, { label: "F  calculations", value: "F" }, { label: "G  changes", value: "G" }, { label: "H  colour", value: "H" },
+          ],
+          correctAnswer: "C", points: 1,
+        },
+        {
+          id: "cam19-l-t3-s3-q27", number: 27, type: "multiple_choice",
+          question: "27. Divide the mice into two groups, each with a different _______",
+          options: [
+            { label: "A  size", value: "A" }, { label: "B  escape", value: "B" }, { label: "C  age", value: "C" }, { label: "D  water", value: "D" },
+            { label: "E  cereal", value: "E" }, { label: "F  calculations", value: "F" }, { label: "G  changes", value: "G" }, { label: "H  colour", value: "H" },
+          ],
+          correctAnswer: "H", points: 1,
+        },
+        {
+          id: "cam19-l-t3-s3-q28", number: 28, type: "multiple_choice",
+          question: "28. Feed group B the same, but also sugar contained in _______",
+          options: [
+            { label: "A  size", value: "A" }, { label: "B  escape", value: "B" }, { label: "C  age", value: "C" }, { label: "D  water", value: "D" },
+            { label: "E  cereal", value: "E" }, { label: "F  calculations", value: "F" }, { label: "G  changes", value: "G" }, { label: "H  colour", value: "H" },
+          ],
+          correctAnswer: "E", points: 1,
+        },
+        {
+          id: "cam19-l-t3-s3-q29", number: 29, type: "multiple_choice",
+          question: "29. Place them in a weighing chamber to prevent _______",
+          options: [
+            { label: "A  size", value: "A" }, { label: "B  escape", value: "B" }, { label: "C  age", value: "C" }, { label: "D  water", value: "D" },
+            { label: "E  cereal", value: "E" }, { label: "F  calculations", value: "F" }, { label: "G  changes", value: "G" }, { label: "H  colour", value: "H" },
+          ],
+          correctAnswer: "B", points: 1,
+        },
+        {
+          id: "cam19-l-t3-s3-q30", number: 30, type: "multiple_choice",
+          question: "30. Do all necessary _______",
+          options: [
+            { label: "A  size", value: "A" }, { label: "B  escape", value: "B" }, { label: "C  age", value: "C" }, { label: "D  water", value: "D" },
+            { label: "E  cereal", value: "E" }, { label: "F  calculations", value: "F" }, { label: "G  changes", value: "G" }, { label: "H  colour", value: "H" },
+          ],
+          correctAnswer: "F", points: 1,
+        },
+      ],
+    },
+    // ── PART 4 ─────────────────────────────────────────────
+    {
+      id: "cam19-l-t3-s4",
+      sectionNumber: 4,
+      title: "Part 4",
+      instructions: `Questions 31–40: Complete the notes below. Write ONE WORD ONLY for each answer.`,
+      passageText: `Microplastics
+
+Where microplastics come from
+●  fibres from some 31 _______ during washing
+●  the breakdown of large pieces of plastic
+●  waste from industry
+●  the action of vehicle tyres on roads
+
+Effects of microplastics
+●  They cause injuries to the 32 _______ of wildlife and affect their digestive systems.
+●  They enter the food chain, e.g., in bottled and tap water, 33 _______ and seafood.
+●  They may not affect human health, but they are already banned in skin cleaning products and 34 _______ in some countries.
+●  Microplastics enter the soil through the air, rain and 35 _______.
+
+Microplastics in the soil – a study by Anglia Ruskin University
+●  Earthworms are important because they add 36 _______ to the soil.
+●  The study aimed to find whether microplastics in earthworms affect the 37 _______ of plants.
+●  The study found that microplastics caused:
+   –  38 _______ loss in earthworms
+   –  fewer seeds to germinate
+   –  a rise in the level of 39 _______ in the soil.
+●  The study concluded:
+   –  soil should be seen as an important natural process.
+   –  changes to soil damage both ecosystems and 40 _______.`,
+      questions: [
+        { id: "cam19-l-t3-s4-q31", number: 31, type: "note_completion", question: "31. fibres from some _______ during washing", correctAnswer: "clothing", points: 1 },
+        { id: "cam19-l-t3-s4-q32", number: 32, type: "note_completion", question: "32. injuries to the _______ of wildlife", correctAnswer: "mouths", points: 1 },
+        { id: "cam19-l-t3-s4-q33", number: 33, type: "note_completion", question: "33. in bottled and tap water, _______ and seafood", correctAnswer: "salt", points: 1 },
+        { id: "cam19-l-t3-s4-q34", number: 34, type: "note_completion", question: "34. banned in skin cleaning products and _______ in some countries", correctAnswer: "toothpaste", points: 1 },
+        { id: "cam19-l-t3-s4-q35", number: 35, type: "note_completion", question: "35. Microplastics enter the soil through the air, rain and _______", correctAnswer: "fertilisers/fertilizers", points: 1 },
+        { id: "cam19-l-t3-s4-q36", number: 36, type: "note_completion", question: "36. Earthworms add _______ to the soil", correctAnswer: "nutrients", points: 1 },
+        { id: "cam19-l-t3-s4-q37", number: 37, type: "note_completion", question: "37. affect the _______ of plants", correctAnswer: "growth", points: 1 },
+        { id: "cam19-l-t3-s4-q38", number: 38, type: "note_completion", question: "38. _______ loss in earthworms", correctAnswer: "weight", points: 1 },
+        { id: "cam19-l-t3-s4-q39", number: 39, type: "note_completion", question: "39. a rise in the level of _______ in the soil", correctAnswer: "acid", points: 1 },
+        { id: "cam19-l-t3-s4-q40", number: 40, type: "note_completion", question: "40. changes to soil damage both ecosystems and _______", correctAnswer: "society", points: 1 },
+      ],
+    },
+  ],
+};
+
 export const cambridge19ListeningTests: IELTSTest[] = [
   cambridge19_listening_t1,
   cambridge19_listening_t2,
+  cambridge19_listening_t3,
 ];
