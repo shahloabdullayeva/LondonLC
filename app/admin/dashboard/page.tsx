@@ -1156,7 +1156,7 @@ export default function AdminDashboard() {
 
         {/* ══════════════════ TEACHERS TAB ══════════════════ */}
         {activeTab === "teachers" && canManageTeachers && (
-          <div style={{ maxWidth: 560 }}>
+          <div style={{ maxWidth: 900 }}>
             <h1 style={{ fontSize: 22, fontWeight: 800, color: C.text, marginBottom: 4 }}>Manage Teachers</h1>
             <p style={{ fontSize: 13, color: C.muted, marginBottom: 24 }}>Add or remove teacher login accounts.</p>
 
