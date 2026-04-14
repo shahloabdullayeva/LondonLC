@@ -1381,7 +1381,8 @@ export default function TestPage() {
                 {/* Same list for both test types now: every question in every part */}
                 {test.sections.map((s, sIdx) => (
                   <React.Fragment key={s.id}>
-                    {sIdx > 0 && <div style={{ width: "100%", height: 0 }} />}
+                    {/* No forced break between parts — the buttons flow in
+                        one row on wide screens, wrap naturally on narrow ones. */}
                     {s.questions.map((q) => {
                       const done = !!(answers[q.id] || "").trim();
                       return (
