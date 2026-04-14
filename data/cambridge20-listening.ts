@@ -952,15 +952,7 @@ Larch Furniture
       diagramUrl: imageUrl("Bidcaster-Archaeological-Dig.png"),
       instructions: `Questions 11–16: Choose the correct letter, A, B or C.
 Questions 17–20: Label the map. Choose the correct letter, A–G, next to each item.`,
-      passageText: `Bidcaster Archaeological Dig
-
-Questions 11–16 are about the community dig at Bidcaster Castle.
-Questions 17–20 ask you to label the map of the archaeological site with letters A–G.
-
-17  bridge foundations  _______
-18  rubbish pit  _______
-19  meeting hall  _______
-20  fish pond  _______`,
+      passageTitle: "Bidcaster Archaeological Dig",
       questions: [
         {
           id: "cam20-l-t3-s2-q11", number: 11,

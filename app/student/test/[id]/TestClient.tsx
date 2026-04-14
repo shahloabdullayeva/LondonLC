@@ -917,15 +917,15 @@ export default function TestPage() {
         </div>
       )}
 
-      {/* Mobile toggle (when a passage/notes pane exists) */}
-      {section.passageText && (
+      {/* Mobile toggle (when a passage/notes/diagram pane exists) */}
+      {(section.passageText || section.diagramUrl) && (
         <div style={{ display: "flex", background: T.nav, borderBottom: `1px solid ${T.border}`, padding: "8px 16px", gap: 8 }} className="mobile-toggle-bar">
           {(["passage", "questions"] as const).map(v => (
             <button key={v} onClick={() => setMobileView(v)}
               style={{ flex: 1, padding: "8px", borderRadius: 8, border: "none", cursor: "pointer", fontWeight: 600, fontSize: 13, transition: "all 0.15s",
                 background: mobileView === v ? T.accent : "transparent",
                 color: mobileView === v ? "#fff" : T.textMuted }}>
-              {v === "passage" ? (test.type === "reading" ? "Passage" : "Notes") : "Questions"}
+              {v === "passage" ? (test.type === "reading" ? "Passage" : section.diagramUrl ? "Map" : "Notes") : "Questions"}
             </button>
           ))}
         </div>
@@ -934,33 +934,45 @@ export default function TestPage() {
       {/* Content */}
       <div ref={contentAreaRef} style={{ flex: 1, display: "flex", flexDirection: "row", overflow: "hidden", minHeight: 0 }}>
 
-        {/* Left: Passage (reading) or Notes (listening) */}
-        {section.passageText && (
+        {/* Left: Passage (reading) / Notes or Map (listening) */}
+        {(section.passageText || section.diagramUrl) && (
           <div className={`passage-panel ${mobileView === "passage" ? "panel-visible" : "panel-hidden"}`}
             style={{ width: `${passageWidthPct}%`, minWidth: 0, overflow: "hidden", transition: isResizingRef.current ? "none" : "width 0.22s ease", background: T.passage, position: "relative", display: "flex", flexDirection: "column", flexShrink: 0 }}>
-            {/* Passage header with highlight controls */}
-            <div style={{ padding: "10px 20px 0", display: "flex", alignItems: "center", justifyContent: "space-between", flexShrink: 0 }}>
-              <span style={{ fontSize: 11, color: T.textMuted, fontWeight: 600 }}>Select text to highlight · Click highlight to remove</span>
-              <div style={{ display: "flex", alignItems: "center", gap: 5 }}>
-                {HIGHLIGHT_COLORS.map(c => (
-                  <div key={c.bg} style={{ width: 14, height: 14, borderRadius: "50%", background: c.bg, border: "1.5px solid rgba(0,0,0,0.15)" }} title={c.label} />
-                ))}
-                {highlights.filter(h => h.sectionIdx === currentSection).length > 0 && (
-                  <button onClick={() => setHighlights(prev => prev.filter(h => h.sectionIdx !== currentSection))}
-                    style={{ marginLeft: 4, fontSize: 10, padding: "2px 7px", borderRadius: 6, border: `1px solid ${T.border}`, background: "transparent", color: T.textMuted, cursor: "pointer", fontWeight: 600 }}>
-                    Clear
-                  </button>
-                )}
+            {/* Passage header with highlight controls — shown only when there's selectable text */}
+            {section.passageText && (
+              <div style={{ padding: "10px 20px 0", display: "flex", alignItems: "center", justifyContent: "space-between", flexShrink: 0 }}>
+                <span style={{ fontSize: 11, color: T.textMuted, fontWeight: 600 }}>Select text to highlight · Click highlight to remove</span>
+                <div style={{ display: "flex", alignItems: "center", gap: 5 }}>
+                  {HIGHLIGHT_COLORS.map(c => (
+                    <div key={c.bg} style={{ width: 14, height: 14, borderRadius: "50%", background: c.bg, border: "1.5px solid rgba(0,0,0,0.15)" }} title={c.label} />
+                  ))}
+                  {highlights.filter(h => h.sectionIdx === currentSection).length > 0 && (
+                    <button onClick={() => setHighlights(prev => prev.filter(h => h.sectionIdx !== currentSection))}
+                      style={{ marginLeft: 4, fontSize: 10, padding: "2px 7px", borderRadius: 6, border: `1px solid ${T.border}`, background: "transparent", color: T.textMuted, cursor: "pointer", fontWeight: 600 }}>
+                      Clear
+                    </button>
+                  )}
+                </div>
               </div>
-            </div>
+            )}
             <div style={{ flex: 1, overflowY: "auto", padding: "16px 32px 28px", minHeight: 0 }}>
-              <h2 style={{ fontSize: 17, fontWeight: 800, color: T.text, marginBottom: 20 }}>{section.passageTitle}</h2>
-              <div
-                onMouseUp={(e) => handleTextMouseUp(e, "passage")}
-                onClick={handlePassageClick}
-                style={{ color: T.text, lineHeight: 1.9, fontSize: fontSize, userSelect: "text" }}
-                dangerouslySetInnerHTML={{ __html: buildAnnotatedHtml(section.passageText, currentSection, "passage") }}
-              />
+              {section.passageTitle && (
+                <h2 style={{ fontSize: 17, fontWeight: 800, color: T.text, marginBottom: 20 }}>{section.passageTitle}</h2>
+              )}
+              {section.passageText && (
+                <div
+                  onMouseUp={(e) => handleTextMouseUp(e, "passage")}
+                  onClick={handlePassageClick}
+                  style={{ color: T.text, lineHeight: 1.9, fontSize: fontSize, userSelect: "text" }}
+                  dangerouslySetInnerHTML={{ __html: buildAnnotatedHtml(section.passageText, currentSection, "passage") }}
+                />
+              )}
+              {section.diagramUrl && (
+                <div style={{ textAlign: "center", marginTop: section.passageText ? 20 : 0 }}>
+                  <img src={section.diagramUrl} alt="Diagram"
+                    style={{ maxWidth: "100%", borderRadius: 10, border: `1px solid ${T.border}`, background: "#fff" }} />
+                </div>
+              )}
             </div>
           </div>
         )}
@@ -992,8 +1004,8 @@ export default function TestPage() {
           </div>
         )}
 
-        {/* Resizable divider (desktop, whenever there's a passage/notes pane) */}
-        {section.passageText && (
+        {/* Resizable divider (desktop, whenever there's a passage/notes/diagram pane) */}
+        {(section.passageText || section.diagramUrl) && (
           <div className="divider-toggle"
             style={{ position: "relative", width: 10, display: "flex", alignItems: "center", justifyContent: "center", zIndex: 10, flexShrink: 0, cursor: "col-resize" }}
             onMouseDown={handleDividerMouseDown}>
@@ -1007,7 +1019,7 @@ export default function TestPage() {
         )}
 
         {/* Right: Questions */}
-        <div className={`questions-panel ${section.passageText && mobileView === "passage" ? "panel-hidden" : "panel-visible"}`}
+        <div className={`questions-panel ${(section.passageText || section.diagramUrl) && mobileView === "passage" ? "panel-hidden" : "panel-visible"}`}
           style={{ flex: 1, minWidth: 0, minHeight: 0, display: "flex", flexDirection: "column", overflow: "hidden", background: T.bg }}>
         <div ref={questionsScrollRef} style={{ flex: 1, overflowY: "auto", padding: "24px 28px", minHeight: 0 }}
           onMouseUp={(e) => handleTextMouseUp(e, "questions")}>
@@ -1074,12 +1086,6 @@ export default function TestPage() {
               <div style={{ fontSize: 13, marginBottom: 20, padding: "11px 14px", borderRadius: 10, background: T.accentDim, color: T.accent, border: `1px solid ${T.accentBorder}`, fontWeight: 500, lineHeight: 1.5 }}>
                 {section.instructions}
               </div>
-              {section.diagramUrl && (
-                <div style={{ textAlign: "center", marginBottom: 20 }}>
-                  <img src={section.diagramUrl} alt="Diagram"
-                    style={{ maxWidth: "100%", borderRadius: 10, border: `1px solid ${T.border}`, background: "#fff" }} />
-                </div>
-              )}
               <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
                 {(() => {
                   // Merge adjacent "Choose TWO" pairs into a single checkbox UI.
