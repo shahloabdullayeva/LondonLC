@@ -1,142 +1,229 @@
 "use client";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { getSession } from "@/lib/store";
-import { motion } from "framer-motion";
-import { ChevronRight, BookOpen, Clock, Award, CheckCircle, Shield } from "lucide-react";
+import { quotes, type Quote } from "@/lib/quotes";
 import Link from "next/link";
+
+// A minimalist dark landing page. Typographic, no noisy gradients, one
+// featured quote per visit, clean navigation into each section.
 export default function HomePage() {
   const router = useRouter();
+  const [quote, setQuote] = useState<Quote | null>(null);
+
+  // If already signed in, skip the landing page.
   useEffect(() => {
     const s = getSession();
     if (s) router.push(s.isAdmin ? "/admin/dashboard" : "/student/dashboard");
   }, [router]);
 
-  return (
-    <div style={{ minHeight: "100vh", background: "#0a051f", color: "#f0eaff", overflowX: "hidden", fontFamily: "Inter, system-ui, sans-serif" }}>
+  // Pick a quote on the client so each visit shows a different one. Doing
+  // it in useEffect avoids a server/client mismatch warning.
+  useEffect(() => {
+    if (quotes.length > 0) setQuote(quotes[Math.floor(Math.random() * quotes.length)]);
+  }, []);
 
-      {/* Nav */}
-      <nav style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 32px", height: 64, borderBottom: "1px solid rgba(255,255,255,0.07)", position: "sticky", top: 0, zIndex: 40, background: "rgba(10,5,31,0.92)", backdropFilter: "blur(12px)" }}>
-        <Link href="/" style={{ textDecoration: "none" }}>
-          <span style={{ fontWeight: 900, fontSize: 19, color: "#fff", letterSpacing: "-0.3px", fontFamily: "Inter, system-ui, sans-serif" }}>London <span style={{ color: "#a78bfa" }}>LC</span></span>
+  return (
+    <div style={{
+      minHeight: "100vh",
+      background: "#0a0a0a",
+      color: "#e5e5e5",
+      fontFamily: "Inter, system-ui, sans-serif",
+      display: "flex",
+      flexDirection: "column",
+    }}>
+      {/* Subtle starfield glow — not flashy, just adds depth */}
+      <div style={{
+        position: "fixed", inset: 0, pointerEvents: "none", zIndex: 0,
+        background: "radial-gradient(ellipse at 50% -10%, rgba(120,100,180,0.08) 0%, transparent 60%), radial-gradient(ellipse at 80% 110%, rgba(100,140,200,0.05) 0%, transparent 55%)",
+      }} />
+
+      {/* ── Nav ────────────────────────────────────────────── */}
+      <nav style={{
+        position: "relative", zIndex: 10,
+        display: "flex", alignItems: "center", justifyContent: "space-between",
+        padding: "22px 40px",
+        borderBottom: "1px solid rgba(255,255,255,0.06)",
+      }}>
+        <Link href="/" style={{ textDecoration: "none", color: "#fff", fontWeight: 700, fontSize: 18, letterSpacing: "0.02em" }}>
+          London<span style={{ opacity: 0.5, margin: "0 4px" }}>·</span>LC
         </Link>
-        <div className="home-nav-right" style={{ display: "flex", alignItems: "center", gap: 32 }}>
-          <nav className="home-nav-links" style={{ display: "flex", gap: 28 }}>
-            {["Features", "Tests", "FAQ", "Contact"].map(n => (
-              <span key={n} style={{ fontSize: 14, color: "rgba(255,255,255,0.6)", cursor: "pointer", transition: "color 0.2s" }}
-                onMouseEnter={e => (e.currentTarget.style.color = "#fff")}
-                onMouseLeave={e => (e.currentTarget.style.color = "rgba(255,255,255,0.6)")}
-              >{n}</span>
-            ))}
-          </nav>
-          <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-            <Link href="/auth/login" className="home-nav-signin" style={{ fontSize: 14, color: "rgba(255,255,255,0.7)", textDecoration: "none", padding: "8px 16px", border: "1px solid rgba(255,255,255,0.2)", borderRadius: 8 }}>
-              Sign In
-            </Link>
-          </div>
+        <div className="home-top-nav" style={{ display: "flex", gap: 28, alignItems: "center" }}>
+          <NavLink href="/auth/login">Listening</NavLink>
+          <NavLink href="/auth/login">Reading</NavLink>
+          <NavLink href="/writing" soon>Writing</NavLink>
+          <NavLink href="/articles">Articles</NavLink>
+          <NavLink href="/podcasts">Podcasts</NavLink>
+          <NavLink href="/music">Music</NavLink>
+          <Link href="/auth/login" style={{
+            marginLeft: 12, padding: "8px 18px",
+            border: "1px solid rgba(255,255,255,0.25)",
+            borderRadius: 999, color: "#fff", fontSize: 13, fontWeight: 600,
+            textDecoration: "none", transition: "all 0.2s",
+          }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = "#fff";
+              e.currentTarget.style.color = "#0a0a0a";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = "transparent";
+              e.currentTarget.style.color = "#fff";
+            }}
+          >
+            Sign in
+          </Link>
         </div>
       </nav>
 
-      {/* Hero */}
-      <section style={{ textAlign: "center", padding: "96px 24px 80px", position: "relative" }}>
-        {/* Background glow */}
-        <div style={{ position: "absolute", top: 0, left: "50%", transform: "translateX(-50%)", width: 800, height: 500, background: "radial-gradient(ellipse at center, rgba(124,58,237,0.18) 0%, transparent 65%)", pointerEvents: "none" }} />
+      {/* ── Hero / Quote ───────────────────────────────────── */}
+      <main style={{
+        position: "relative", zIndex: 5,
+        flex: 1, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center",
+        padding: "80px 32px", textAlign: "center",
+      }}>
+        <div style={{
+          fontSize: 11, letterSpacing: "0.3em", textTransform: "uppercase",
+          color: "rgba(255,255,255,0.3)", marginBottom: 40, fontWeight: 600,
+        }}>
+          London Language Centre
+        </div>
 
-        <motion.div initial={{ opacity: 0, y: 28 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.65 }} style={{ position: "relative", maxWidth: 720, margin: "0 auto" }}>
-          {/* Brand */}
-          <div style={{ marginBottom: 24 }}>
-            <span style={{ fontWeight: 900, fontSize: 34, color: "#fff", letterSpacing: "-1px", fontFamily: "Inter, system-ui, sans-serif" }}>London <span style={{ color: "#a78bfa" }}>LC</span></span>
-          </div>
+        <h1 style={{
+          fontSize: "clamp(2.6rem, 6.5vw, 5rem)",
+          fontWeight: 200, letterSpacing: "-0.02em",
+          color: "#fff", lineHeight: 1.05, marginBottom: 28,
+          maxWidth: 900,
+        }}>
+          Elevate your English, <br />
+          <em style={{ fontStyle: "italic", fontWeight: 300, color: "rgba(255,255,255,0.75)" }}>one test at a time.</em>
+        </h1>
 
-          <h1 style={{ fontSize: "clamp(2.4rem, 5.5vw, 3.8rem)", fontWeight: 900, lineHeight: 1.08, letterSpacing: "-1.5px", color: "#fff", marginBottom: 20 }}>
-            Master IELTS with{" "}
-            <span style={{ background: "linear-gradient(90deg, #a78bfa, #c4b5fd)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
-              Cambridge Practice
-            </span>
-          </h1>
+        <p style={{
+          fontSize: 15, color: "rgba(255,255,255,0.45)",
+          maxWidth: 520, lineHeight: 1.7, marginBottom: 72,
+        }}>
+          Authentic Cambridge IELTS practice — Listening, Reading, and more.
+          Exam-grade timing, real audio, instant band scoring.
+        </p>
 
-          <p style={{ fontSize: 18, color: "rgba(255,255,255,0.6)", lineHeight: 1.7, maxWidth: 540, margin: "0 auto 40px" }}>
-            Authentic IELTS Academic Reading tests from Cambridge Books 10–18.
-            Timed, monitored, and scored instantly using the official band conversion.
-          </p>
+        {/* Rotating quote */}
+        {quote && (
+          <figure style={{
+            margin: 0, maxWidth: 620, padding: "32px 40px",
+            borderTop: "1px solid rgba(255,255,255,0.08)",
+            borderBottom: "1px solid rgba(255,255,255,0.08)",
+          }}>
+            <blockquote style={{
+              margin: 0, fontSize: "clamp(1rem, 1.5vw, 1.15rem)",
+              color: "rgba(255,255,255,0.78)", lineHeight: 1.7,
+              fontStyle: "italic", fontWeight: 300, letterSpacing: "0.005em",
+            }}>
+              &ldquo;{quote.text}&rdquo;
+            </blockquote>
+            {quote.author && (
+              <figcaption style={{
+                marginTop: 14, fontSize: 12, letterSpacing: "0.2em",
+                textTransform: "uppercase", color: "rgba(255,255,255,0.35)", fontWeight: 600,
+              }}>
+                — {quote.author}
+              </figcaption>
+            )}
+          </figure>
+        )}
+      </main>
 
-          <div style={{ display: "flex", gap: 14, justifyContent: "center", flexWrap: "wrap", marginBottom: 36 }}>
-            <Link href="/auth/login" style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "14px 36px", background: "linear-gradient(135deg, #7c3aed, #6d28d9)", color: "#fff", fontWeight: 700, fontSize: 16, borderRadius: 50, textDecoration: "none", boxShadow: "0 6px 20px rgba(124,58,237,0.5)" }}>
-              Sign In <ChevronRight size={18} />
-            </Link>
-          </div>
-
-          {/* Trust badges */}
-          <div style={{ display: "flex", gap: 28, justifyContent: "center", flexWrap: "wrap" }}>
-            {["Cambridge IELTS Books 10–18", "Official Band Scoring", "Track Your Progress"].map(t => (
-              <div key={t} style={{ display: "flex", alignItems: "center", gap: 7, fontSize: 13, color: "rgba(255,255,255,0.55)" }}>
-                <CheckCircle size={14} color="#34d399" />
-                {t}
-              </div>
-            ))}
-          </div>
-        </motion.div>
-      </section>
-
-      {/* Features */}
-      <section id="features" style={{ padding: "80px 24px", background: "rgba(255,255,255,0.02)", borderTop: "1px solid rgba(255,255,255,0.06)" }}>
-        <div style={{ maxWidth: 1040, margin: "0 auto" }}>
-          <h2 style={{ textAlign: "center", fontSize: 30, fontWeight: 800, color: "#fff", marginBottom: 10 }}>Everything you need to score higher</h2>
-          <p style={{ textAlign: "center", color: "rgba(255,255,255,0.5)", marginBottom: 52, fontSize: 15 }}>Built for serious IELTS preparation</p>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: 18 }}>
-            {features.map((f, i) => (
-              <motion.div key={f.title} initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.08 }}
-                style={{ padding: "24px 22px", borderRadius: 16, background: "rgba(124,58,237,0.08)", border: "1px solid rgba(124,58,237,0.18)" }}>
-                <div style={{ width: 44, height: 44, borderRadius: 12, background: "rgba(124,58,237,0.2)", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 14 }}>
-                  <f.icon size={20} color="#a78bfa" />
-                </div>
-                <h3 style={{ fontWeight: 700, fontSize: 15, color: "#fff", marginBottom: 7 }}>{f.title}</h3>
-                <p style={{ fontSize: 13.5, lineHeight: 1.65, color: "rgba(255,255,255,0.5)" }}>{f.desc}</p>
-              </motion.div>
-            ))}
-          </div>
+      {/* ── Section cards ──────────────────────────────────── */}
+      <section style={{
+        position: "relative", zIndex: 5, padding: "60px 40px 40px",
+        borderTop: "1px solid rgba(255,255,255,0.06)",
+      }}>
+        <div style={{
+          maxWidth: 1160, margin: "0 auto",
+          display: "grid", gap: 1,
+          gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
+          background: "rgba(255,255,255,0.04)",
+          border: "1px solid rgba(255,255,255,0.06)",
+        }}>
+          <SectionCard label="IELTS" title="Listening" href="/auth/login" available />
+          <SectionCard label="IELTS" title="Reading" href="/auth/login" available />
+          <SectionCard label="IELTS" title="Writing" href="/writing" />
+          <SectionCard label="Read" title="Articles" href="/articles" available />
+          <SectionCard label="Listen" title="Podcasts" href="/podcasts" available />
+          <SectionCard label="Listen" title="Music" href="/music" available />
         </div>
       </section>
 
-      {/* Stats */}
-      <section style={{ padding: "72px 24px" }}>
-        <div style={{ maxWidth: 800, margin: "0 auto", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", gap: 32, textAlign: "center" }}>
-          {stats.map(s => (
-            <div key={s.label}>
-              <div style={{ fontSize: 42, fontWeight: 900, background: "linear-gradient(90deg, #a78bfa, #c4b5fd)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text", lineHeight: 1, marginBottom: 6 }}>{s.value}</div>
-              <div style={{ fontSize: 13, color: "rgba(255,255,255,0.4)", fontWeight: 500 }}>{s.label}</div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* CTA */}
-      <section style={{ padding: "72px 24px", textAlign: "center", borderTop: "1px solid rgba(255,255,255,0.06)" }}>
-        <h2 style={{ fontSize: 30, fontWeight: 800, color: "#fff", marginBottom: 12 }}>Ready to start?</h2>
-        <p style={{ color: "rgba(255,255,255,0.5)", marginBottom: 32, fontSize: 15 }}>Sign in with your name and group code provided by your teacher.</p>
-        <Link href="/auth/login" style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "14px 44px", background: "linear-gradient(135deg, #7c3aed, #6d28d9)", color: "#fff", fontWeight: 700, fontSize: 16, borderRadius: 50, textDecoration: "none", boxShadow: "0 6px 20px rgba(124,58,237,0.5)" }}>
-          Get Started <ChevronRight size={18} />
-        </Link>
-      </section>
-
-      <footer style={{ padding: "24px", textAlign: "center", fontSize: 13, color: "rgba(255,255,255,0.25)", borderTop: "1px solid rgba(255,255,255,0.06)" }}>
-        © 2025 London Language Centre · IELTS Practice Platform
+      <footer style={{
+        position: "relative", zIndex: 5,
+        padding: "32px 40px", textAlign: "center",
+        fontSize: 12, letterSpacing: "0.1em", color: "rgba(255,255,255,0.3)",
+        borderTop: "1px solid rgba(255,255,255,0.06)", marginTop: 40,
+      }}>
+        © {new Date().getFullYear()} London Language Centre
       </footer>
+
+      <style>{`
+        @media (max-width: 860px) {
+          .home-top-nav { display: none !important; }
+        }
+      `}</style>
     </div>
   );
 }
 
-const features = [
-  { icon: BookOpen, title: "Reading Tests", desc: "Authentic Academic Reading passages with True/False/NG, multiple choice, fill in the blank, matching, and summary completion questions." },
-  { icon: Clock, title: "Timed & Monitored", desc: "Auto timer, fullscreen enforcement, tab-switch detection, and copy-paste blocking — built for real exam conditions." },
-  { icon: Award, title: "Instant Band Score", desc: "Your IELTS band score is calculated immediately using the official Cambridge conversion table." },
-  { icon: Shield, title: "Teacher Dashboard", desc: "Teachers can see every result, filter by group or test, and manage student accounts from one place." },
-  { icon: BookOpen, title: "Cambridge 10–18", desc: "Academic Reading tests from nine Cambridge IELTS books, with more on the way." },
-];
+function NavLink({ href, children, soon = false }: { href: string; children: React.ReactNode; soon?: boolean }) {
+  return (
+    <Link href={href} style={{
+      fontSize: 13, color: "rgba(255,255,255,0.6)", textDecoration: "none",
+      fontWeight: 500, transition: "color 0.2s",
+      display: "inline-flex", alignItems: "center", gap: 6,
+    }}
+      onMouseEnter={(e) => (e.currentTarget.style.color = "#fff")}
+      onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(255,255,255,0.6)")}
+    >
+      {children}
+      {soon && (
+        <span style={{
+          fontSize: 9, padding: "2px 6px", borderRadius: 999,
+          border: "1px solid rgba(255,255,255,0.15)",
+          color: "rgba(255,255,255,0.4)", letterSpacing: "0.08em",
+        }}>SOON</span>
+      )}
+    </Link>
+  );
+}
 
-const stats = [
-  { value: "9", label: "Cambridge Books" },
-  { value: "34", label: "Full Tests" },
-  { value: "1,300+", label: "Questions" },
-  { value: "9.0", label: "Max Band Score" },
-];
+function SectionCard({
+  label, title, href, available = false,
+}: {
+  label: string; title: string; href: string; available?: boolean;
+}) {
+  return (
+    <Link href={href} style={{
+      display: "block", padding: "40px 28px",
+      background: "#0a0a0a",
+      textDecoration: "none", color: "inherit",
+      transition: "background 0.2s",
+      position: "relative",
+    }}
+      onMouseEnter={(e) => (e.currentTarget.style.background = "#151515")}
+      onMouseLeave={(e) => (e.currentTarget.style.background = "#0a0a0a")}
+    >
+      <div style={{
+        fontSize: 10, letterSpacing: "0.25em", textTransform: "uppercase",
+        color: "rgba(255,255,255,0.3)", fontWeight: 600, marginBottom: 10,
+      }}>
+        {label}
+      </div>
+      <div style={{
+        fontSize: 24, fontWeight: 300, letterSpacing: "-0.01em",
+        color: "#fff", marginBottom: 4,
+      }}>
+        {title}
+      </div>
+      <div style={{ fontSize: 12, color: "rgba(255,255,255,0.4)" }}>
+        {available ? "Enter →" : "Coming soon"}
+      </div>
+    </Link>
+  );
+}

@@ -1019,8 +1019,8 @@ export default function AdminDashboard() {
               </div>
               {testsSelectedBook === null ? (
                 <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: 10, marginBottom: 32 }}>
-                  {Array.from({ length: 20 }, (_, i) => i + 1).map(n => {
-                    const available = AVAILABLE_BOOKS.includes(n);
+                  {AVAILABLE_BOOKS.map(n => {
+                    const available = true;
                     const bookTests = allTests.filter(t => t.bookNumber === n && t.type === testsTypeFilter);
                     return (
                       <div key={n} onClick={() => available && setTestsSelectedBook(n)}
