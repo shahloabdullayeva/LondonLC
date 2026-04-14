@@ -1261,8 +1261,432 @@ Impact of non-inclusive designs
   ],
 };
 
+// ============================================================
+// CAMBRIDGE IELTS 20 – LISTENING TEST 4
+// Parts: 1) Family visit advice (note completion)
+//        2) Football stadium tour + history (choose 2 + matching)
+//        3) Teaching handwriting (choose 2 + MCQ)
+//        4) Chembe Bird Sanctuary research (note completion)
+// ============================================================
+export const cambridge20_listening_t4: IELTSTest = {
+  id: "cam20-listening-t4",
+  title: "Cambridge IELTS 20 – Listening Test 4",
+  bookNumber: 20,
+  testNumber: 4,
+  type: "listening",
+  level: "academic",
+  durationMinutes: 30,
+  transferMinutes: 10,
+  audioUrl: audioUrl("cam20-listening-t4.mp3"),
+  audioDurationSeconds: 1800,
+  sections: [
+    // ── PART 1 ─────────────────────────────────────────────
+    {
+      id: "cam20-l-t4-s1",
+      sectionNumber: 1,
+      title: "Part 1",
+      instructions: `Questions 1–10: Complete the notes below. Write ONE WORD AND/OR A NUMBER for each answer.`,
+      passageText: `Advice on family visit
+
+Accommodation
+●  1 _______ Hotel on George Street
+●  cost of family room per night: £ 2 _______ (approx.)
+
+Recommended trips
+●  a 3 _______ tour of the city centre (starts in Carlton Square)
+●  a trip by 4 _______ to the old fort
+
+Science Museum
+●  best day to visit: 5 _______
+●  see the exhibition about 6 _______ which opens soon
+
+Food
+●  Clacton Market:
+   ○  good for 7 _______ food
+   ○  need to have lunch before 8 _______ p.m.
+
+Theatre tickets
+●  save up to 9 _______ % on ticket prices at bargaintickets.com
+
+Free activities
+●  Blakewell Gardens
+●  Roots Music Festival
+●  climb Telegraph Hill to see a view of the 10 _______`,
+      questions: [
+        { id: "cam20-l-t4-s1-q1", number: 1, type: "note_completion", question: "1. _______ Hotel on George Street", correctAnswer: "Kings/King's", points: 1 },
+        { id: "cam20-l-t4-s1-q2", number: 2, type: "note_completion", question: "2. cost of family room per night: £ _______ (approx.)", correctAnswer: "125/one hundred twenty-five/one hundred and twenty-five", points: 1 },
+        { id: "cam20-l-t4-s1-q3", number: 3, type: "note_completion", question: "3. a _______ tour of the city centre (starts in Carlton Square)", correctAnswer: "walking", points: 1 },
+        { id: "cam20-l-t4-s1-q4", number: 4, type: "note_completion", question: "4. a trip by _______ to the old fort", correctAnswer: "boat", points: 1 },
+        { id: "cam20-l-t4-s1-q5", number: 5, type: "note_completion", question: "5. best day to visit: _______", correctAnswer: "Tuesday", points: 1 },
+        { id: "cam20-l-t4-s1-q6", number: 6, type: "note_completion", question: "6. see the exhibition about _______ which opens soon", correctAnswer: "space", points: 1 },
+        { id: "cam20-l-t4-s1-q7", number: 7, type: "note_completion", question: "7. good for _______ food", correctAnswer: "vegetarian", points: 1 },
+        { id: "cam20-l-t4-s1-q8", number: 8, type: "note_completion", question: "8. need to have lunch before _______ p.m.", correctAnswer: "2.30/two thirty", points: 1 },
+        { id: "cam20-l-t4-s1-q9", number: 9, type: "note_completion", question: "9. save up to _______ % on ticket prices", correctAnswer: "75/seventy-five", points: 1 },
+        { id: "cam20-l-t4-s1-q10", number: 10, type: "note_completion", question: "10. climb Telegraph Hill to see a view of the _______", correctAnswer: "port", points: 1 },
+      ],
+    },
+    // ── PART 2 ─────────────────────────────────────────────
+    {
+      id: "cam20-l-t4-s2",
+      sectionNumber: 2,
+      title: "Part 2",
+      instructions: `Questions 11–14: Choose TWO letters, A–E.
+Questions 15–20: Match each year to an event in the history of football. Choose from the box (A–H).`,
+      passageText: `Football stadium tour and history
+
+Events in the history of football (for Q15–20):
+A  the introduction of pay for the players
+B  a change to the design of the goal
+C  the first use of lights for matches
+D  the introduction of goalkeepers
+E  the first international match
+F  two changes to the rules of the game
+G  the introduction of fee for spectators
+H  an agreement on the length of a game
+
+Years (15–20):
+15  1870
+16  1874
+17  1875
+18  1877
+19  1878
+20  1880`,
+      questions: [
+        {
+          id: "cam20-l-t4-s2-q11", number: 11,
+          groupLabel: `Questions 11 and 12: Choose TWO letters, A–E.\n\nWhich TWO things does the speaker say about visiting the football stadium with children?\n\nA  Children can get their photo taken with a football player.\nB  There is a competition for children today.\nC  Parents must stay with their children at all times.\nD  Children will need sunhats and drinks.\nE  The café has a special offer on meals for children.\n\n(Answers are accepted in either order.)`,
+          type: "multiple_choice",
+          question: "11. Choose TWO (first answer)",
+          options: [
+            { label: "A  Children can get their photo taken with a football player.", value: "A" },
+            { label: "B  There is a competition for children today.", value: "B" },
+            { label: "C  Parents must stay with their children at all times.", value: "C" },
+            { label: "D  Children will need sunhats and drinks.", value: "D" },
+            { label: "E  The café has a special offer on meals for children.", value: "E" },
+          ],
+          correctAnswer: "B/C", points: 1,
+        },
+        {
+          id: "cam20-l-t4-s2-q12", number: 12,
+          type: "multiple_choice",
+          question: "12. Choose TWO (second answer)",
+          options: [
+            { label: "A  Children can get their photo taken with a football player.", value: "A" },
+            { label: "B  There is a competition for children today.", value: "B" },
+            { label: "C  Parents must stay with their children at all times.", value: "C" },
+            { label: "D  Children will need sunhats and drinks.", value: "D" },
+            { label: "E  The café has a special offer on meals for children.", value: "E" },
+          ],
+          correctAnswer: "B/C", points: 1,
+        },
+        {
+          id: "cam20-l-t4-s2-q13", number: 13,
+          groupLabel: `Questions 13 and 14: Choose TWO letters, A–E.\n\nWhich TWO features of the stadium tour are new this year?\n\nA  VIP tour\nB  360 cinema experience\nC  audio guide\nD  dressing room tour\nE  tours in other languages\n\n(Answers are accepted in either order.)`,
+          type: "multiple_choice",
+          question: "13. Choose TWO (first answer)",
+          options: [
+            { label: "A  VIP tour", value: "A" },
+            { label: "B  360 cinema experience", value: "B" },
+            { label: "C  audio guide", value: "C" },
+            { label: "D  dressing room tour", value: "D" },
+            { label: "E  tours in other languages", value: "E" },
+          ],
+          correctAnswer: "A/C", points: 1,
+        },
+        {
+          id: "cam20-l-t4-s2-q14", number: 14,
+          type: "multiple_choice",
+          question: "14. Choose TWO (second answer)",
+          options: [
+            { label: "A  VIP tour", value: "A" },
+            { label: "B  360 cinema experience", value: "B" },
+            { label: "C  audio guide", value: "C" },
+            { label: "D  dressing room tour", value: "D" },
+            { label: "E  tours in other languages", value: "E" },
+          ],
+          correctAnswer: "A/C", points: 1,
+        },
+        {
+          id: "cam20-l-t4-s2-q15", number: 15,
+          groupLabel: `Questions 15–20: Which event in the history of football in the UK took place in each of the following years? Choose SIX answers from the box (A–H) and write the correct letter next to each year.\n\nA  the introduction of pay for the players\nB  a change to the design of the goal\nC  the first use of lights for matches\nD  the introduction of goalkeepers\nE  the first international match\nF  two changes to the rules of the game\nG  the introduction of fee for spectators\nH  an agreement on the length of a game`,
+          type: "multiple_choice",
+          question: "15. 1870",
+          options: [
+            { label: "A  the introduction of pay for the players", value: "A" },
+            { label: "B  a change to the design of the goal", value: "B" },
+            { label: "C  the first use of lights for matches", value: "C" },
+            { label: "D  the introduction of goalkeepers", value: "D" },
+            { label: "E  the first international match", value: "E" },
+            { label: "F  two changes to the rules of the game", value: "F" },
+            { label: "G  the introduction of fee for spectators", value: "G" },
+            { label: "H  an agreement on the length of a game", value: "H" },
+          ],
+          correctAnswer: "D", points: 1,
+        },
+        {
+          id: "cam20-l-t4-s2-q16", number: 16,
+          type: "multiple_choice",
+          question: "16. 1874",
+          options: [
+            { label: "A  the introduction of pay for the players", value: "A" },
+            { label: "B  a change to the design of the goal", value: "B" },
+            { label: "C  the first use of lights for matches", value: "C" },
+            { label: "D  the introduction of goalkeepers", value: "D" },
+            { label: "E  the first international match", value: "E" },
+            { label: "F  two changes to the rules of the game", value: "F" },
+            { label: "G  the introduction of fee for spectators", value: "G" },
+            { label: "H  an agreement on the length of a game", value: "H" },
+          ],
+          correctAnswer: "F", points: 1,
+        },
+        {
+          id: "cam20-l-t4-s2-q17", number: 17,
+          type: "multiple_choice",
+          question: "17. 1875",
+          options: [
+            { label: "A  the introduction of pay for the players", value: "A" },
+            { label: "B  a change to the design of the goal", value: "B" },
+            { label: "C  the first use of lights for matches", value: "C" },
+            { label: "D  the introduction of goalkeepers", value: "D" },
+            { label: "E  the first international match", value: "E" },
+            { label: "F  two changes to the rules of the game", value: "F" },
+            { label: "G  the introduction of fee for spectators", value: "G" },
+            { label: "H  an agreement on the length of a game", value: "H" },
+          ],
+          correctAnswer: "B", points: 1,
+        },
+        {
+          id: "cam20-l-t4-s2-q18", number: 18,
+          type: "multiple_choice",
+          question: "18. 1877",
+          options: [
+            { label: "A  the introduction of pay for the players", value: "A" },
+            { label: "B  a change to the design of the goal", value: "B" },
+            { label: "C  the first use of lights for matches", value: "C" },
+            { label: "D  the introduction of goalkeepers", value: "D" },
+            { label: "E  the first international match", value: "E" },
+            { label: "F  two changes to the rules of the game", value: "F" },
+            { label: "G  the introduction of fee for spectators", value: "G" },
+            { label: "H  an agreement on the length of a game", value: "H" },
+          ],
+          correctAnswer: "H", points: 1,
+        },
+        {
+          id: "cam20-l-t4-s2-q19", number: 19,
+          type: "multiple_choice",
+          question: "19. 1878",
+          options: [
+            { label: "A  the introduction of pay for the players", value: "A" },
+            { label: "B  a change to the design of the goal", value: "B" },
+            { label: "C  the first use of lights for matches", value: "C" },
+            { label: "D  the introduction of goalkeepers", value: "D" },
+            { label: "E  the first international match", value: "E" },
+            { label: "F  two changes to the rules of the game", value: "F" },
+            { label: "G  the introduction of fee for spectators", value: "G" },
+            { label: "H  an agreement on the length of a game", value: "H" },
+          ],
+          correctAnswer: "C", points: 1,
+        },
+        {
+          id: "cam20-l-t4-s2-q20", number: 20,
+          type: "multiple_choice",
+          question: "20. 1880",
+          options: [
+            { label: "A  the introduction of pay for the players", value: "A" },
+            { label: "B  a change to the design of the goal", value: "B" },
+            { label: "C  the first use of lights for matches", value: "C" },
+            { label: "D  the introduction of goalkeepers", value: "D" },
+            { label: "E  the first international match", value: "E" },
+            { label: "F  two changes to the rules of the game", value: "F" },
+            { label: "G  the introduction of fee for spectators", value: "G" },
+            { label: "H  an agreement on the length of a game", value: "H" },
+          ],
+          correctAnswer: "G", points: 1,
+        },
+      ],
+    },
+    // ── PART 3 ─────────────────────────────────────────────
+    {
+      id: "cam20-l-t4-s3",
+      sectionNumber: 3,
+      title: "Part 3",
+      instructions: `Questions 21–24: Choose TWO letters, A–E.
+Questions 25–30: Choose the correct letter, A, B or C.`,
+      passageText: `Two students discussing teaching handwriting.
+
+Questions 21–22: Which TWO benefits of handwriting do the students mention?
+Questions 23–24: For children with dyspraxia, which TWO problems with handwriting do the students think are easiest to correct?
+Questions 25–30: Teaching handwriting — choose A, B or C.`,
+      questions: [
+        {
+          id: "cam20-l-t4-s3-q21", number: 21,
+          groupLabel: `Questions 21 and 22: Choose TWO letters, A–E.\n\nWhich TWO benefits of handwriting do the students mention?\n\nA  improved fine motor skills\nB  improved memory\nC  improved concentration\nD  improved imagination\nE  improved spatial awareness\n\n(Answers are accepted in either order.)`,
+          type: "multiple_choice",
+          question: "21. Choose TWO (first answer)",
+          options: [
+            { label: "A  improved fine motor skills", value: "A" },
+            { label: "B  improved memory", value: "B" },
+            { label: "C  improved concentration", value: "C" },
+            { label: "D  improved imagination", value: "D" },
+            { label: "E  improved spatial awareness", value: "E" },
+          ],
+          correctAnswer: "C/E", points: 1,
+        },
+        {
+          id: "cam20-l-t4-s3-q22", number: 22,
+          type: "multiple_choice",
+          question: "22. Choose TWO (second answer)",
+          options: [
+            { label: "A  improved fine motor skills", value: "A" },
+            { label: "B  improved memory", value: "B" },
+            { label: "C  improved concentration", value: "C" },
+            { label: "D  improved imagination", value: "D" },
+            { label: "E  improved spatial awareness", value: "E" },
+          ],
+          correctAnswer: "C/E", points: 1,
+        },
+        {
+          id: "cam20-l-t4-s3-q23", number: 23,
+          groupLabel: `Questions 23 and 24: Choose TWO letters, A–E.\n\nFor children with dyspraxia, which TWO problems with handwriting do the students think are easiest to correct?\n\nA  not spacing letters correctly\nB  not writing in a straight line\nC  applying too much pressure when writing\nD  confusing letter shapes\nE  writing very slowly\n\n(Answers are accepted in either order.)`,
+          type: "multiple_choice",
+          question: "23. Choose TWO (first answer)",
+          options: [
+            { label: "A  not spacing letters correctly", value: "A" },
+            { label: "B  not writing in a straight line", value: "B" },
+            { label: "C  applying too much pressure when writing", value: "C" },
+            { label: "D  confusing letter shapes", value: "D" },
+            { label: "E  writing very slowly", value: "E" },
+          ],
+          correctAnswer: "A/C", points: 1,
+        },
+        {
+          id: "cam20-l-t4-s3-q24", number: 24,
+          type: "multiple_choice",
+          question: "24. Choose TWO (second answer)",
+          options: [
+            { label: "A  not spacing letters correctly", value: "A" },
+            { label: "B  not writing in a straight line", value: "B" },
+            { label: "C  applying too much pressure when writing", value: "C" },
+            { label: "D  confusing letter shapes", value: "D" },
+            { label: "E  writing very slowly", value: "E" },
+          ],
+          correctAnswer: "A/C", points: 1,
+        },
+        {
+          id: "cam20-l-t4-s3-q25", number: 25,
+          groupLabel: `Questions 25–30: Choose the correct letter, A, B or C.\n\nTeaching handwriting`,
+          type: "multiple_choice",
+          question: "25. What does the woman say about using laptops to teach writing to children with dyslexia?",
+          options: [
+            { label: "A  Children often lack motivation to learn that way.", value: "A" },
+            { label: "B  Children become fluent relatively quickly.", value: "B" },
+            { label: "C  Children react more positively if they make a mistake.", value: "C" },
+          ],
+          correctAnswer: "C", points: 1,
+        },
+        {
+          id: "cam20-l-t4-s3-q26", number: 26,
+          type: "multiple_choice",
+          question: "26. When discussing whether to teach cursive or print writing, the woman thinks that",
+          options: [
+            { label: "A  cursive writing disadvantages a certain group of children.", value: "A" },
+            { label: "B  print writing is associated with lower academic performance.", value: "B" },
+            { label: "C  most teachers in the UK prefer a traditional approach to handwriting.", value: "C" },
+          ],
+          correctAnswer: "A", points: 1,
+        },
+        {
+          id: "cam20-l-t4-s3-q27", number: 27,
+          type: "multiple_choice",
+          question: "27. According to the students, what impact does poor handwriting have on exam performance?",
+          options: [
+            { label: "A  There is evidence to suggest grades are affected by poor handwriting.", value: "A" },
+            { label: "B  Neat handwriting is less important now than it used to be.", value: "B" },
+            { label: "C  Candidates write more slowly and produce shorter answers.", value: "C" },
+          ],
+          correctAnswer: "A", points: 1,
+        },
+        {
+          id: "cam20-l-t4-s3-q28", number: 28,
+          type: "multiple_choice",
+          question: "28. What prediction does the man make about the future of handwriting?",
+          options: [
+            { label: "A  Touch typing will be taught before writing by hand.", value: "A" },
+            { label: "B  Children will continue to learn to write by hand.", value: "B" },
+            { label: "C  People will dislike handwriting on digital devices.", value: "C" },
+          ],
+          correctAnswer: "B", points: 1,
+        },
+        {
+          id: "cam20-l-t4-s3-q29", number: 29,
+          type: "multiple_choice",
+          question: "29. The woman is concerned that relying on digital devices has made it difficult for her to",
+          options: [
+            { label: "A  take detailed notes.", value: "A" },
+            { label: "B  spell and punctuate.", value: "B" },
+            { label: "C  read old documents.", value: "C" },
+          ],
+          correctAnswer: "B", points: 1,
+        },
+        {
+          id: "cam20-l-t4-s3-q30", number: 30,
+          type: "multiple_choice",
+          question: "30. How do the students feel about their own handwriting?",
+          options: [
+            { label: "A  concerned they are unable to write quickly", value: "A" },
+            { label: "B  embarrassed by comments made about it", value: "B" },
+            { label: "C  regretful that they have lost the habit", value: "C" },
+          ],
+          correctAnswer: "C", points: 1,
+        },
+      ],
+    },
+    // ── PART 4 ─────────────────────────────────────────────
+    {
+      id: "cam20-l-t4-s4",
+      sectionNumber: 4,
+      title: "Part 4",
+      instructions: `Questions 31–40: Complete the notes below. Write ONE WORD ONLY for each answer.`,
+      passageText: `Research in the area around the Chembe Bird Sanctuary
+
+The importance of birds of prey to the local communities
+●  They destroy 31 _______ and other rodents.
+●  They help to prevent farmers from being bitten by 32 _______
+●  They have been an important part of the local culture for many years.
+●  They now support the economy by encouraging 33 _______ in the area.
+
+Falling numbers of birds of prey
+●  The birds may be accidentally killed
+   ○  by 34 _______ when they are hunting or sleeping
+   ○  by electrocution from contact with power lines, especially at times when there is a lot of 35 _______
+●  Local farmers may illegally shoot them or 36 _______ them.
+
+Ways of protecting chickens from birds of prey
+●  clearing away vegetation from the area (unhelpful)
+●  providing a 37 _______ for chickens (expensive)
+●  frightening birds of prey by
+   ○  keeping a 38 _______
+   ○  making a 39 _______ — e.g. with metal objects
+●  A 40 _______ of methods is usually most effective.`,
+      questions: [
+        { id: "cam20-l-t4-s4-q31", number: 31, type: "note_completion", question: "31. They destroy _______ and other rodents", correctAnswer: "rats", points: 1 },
+        { id: "cam20-l-t4-s4-q32", number: 32, type: "note_completion", question: "32. help to prevent farmers from being bitten by _______", correctAnswer: "snakes", points: 1 },
+        { id: "cam20-l-t4-s4-q33", number: 33, type: "note_completion", question: "33. support the economy by encouraging _______ in the area", correctAnswer: "tourism", points: 1 },
+        { id: "cam20-l-t4-s4-q34", number: 34, type: "note_completion", question: "34. by _______ when they are hunting or sleeping", correctAnswer: "traffic", points: 1 },
+        { id: "cam20-l-t4-s4-q35", number: 35, type: "note_completion", question: "35. power lines, especially at times when there is a lot of _______", correctAnswer: "rain", points: 1 },
+        { id: "cam20-l-t4-s4-q36", number: 36, type: "note_completion", question: "36. Local farmers may illegally shoot them or _______ them", correctAnswer: "poison", points: 1 },
+        { id: "cam20-l-t4-s4-q37", number: 37, type: "note_completion", question: "37. providing a _______ for chickens (expensive)", correctAnswer: "building", points: 1 },
+        { id: "cam20-l-t4-s4-q38", number: 38, type: "note_completion", question: "38. keeping a _______", correctAnswer: "dog", points: 1 },
+        { id: "cam20-l-t4-s4-q39", number: 39, type: "note_completion", question: "39. making a _______ — e.g. with metal objects", correctAnswer: "noise", points: 1 },
+        { id: "cam20-l-t4-s4-q40", number: 40, type: "note_completion", question: "40. A _______ of methods is usually most effective", correctAnswer: "combination", points: 1 },
+      ],
+    },
+  ],
+};
+
 export const cambridge20ListeningTests: IELTSTest[] = [
   cambridge20_listening_t1,
   cambridge20_listening_t2,
   cambridge20_listening_t3,
+  cambridge20_listening_t4,
 ];
