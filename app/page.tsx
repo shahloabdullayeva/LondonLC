@@ -69,8 +69,7 @@ export default function HomePage() {
           fontWeight: 200, letterSpacing: "-0.02em",
           color: "#fff", lineHeight: 1.05, marginBottom: 28, maxWidth: 900,
         }}>
-          Elevate your English, <br />
-          <em style={{ fontStyle: "italic", fontWeight: 300, color: "rgba(255,255,255,0.75)" }}>one test at a time.</em>
+          You deserve <em style={{ fontStyle: "italic", fontWeight: 300, color: "rgba(255,255,255,0.75)" }}>more.</em>
         </h1>
 
         <p style={{
