@@ -1143,13 +1143,13 @@ export default function TestPage() {
               </div>
             </>
           ) : (
-            // ── Listening: all 4 parts stacked in one scrolling column ──
-            // The original two-pane layout is dropped for listening — notes,
-            // maps, and answer inputs all live in the same single column now.
+            // ── Listening: ONE PART AT A TIME (single column, no passage/
+            // questions split). Student navigates between parts via the
+            // P1/P2/P3/P4 tabs above OR the Next Part button at the bottom
+            // of each page. Audio keeps playing whatever it was playing.
             <>
-              {test.sections.map((sec, sIdx) => (
-                <div key={sec.id} ref={(el) => { sectionRefs.current[sIdx] = el; }} data-section-idx={sIdx}
-                  style={{ marginBottom: sIdx < test.sections.length - 1 ? 56 : 0 }}>
+              {[test.sections[currentSection]].filter(Boolean).map((sec) => { const sIdx = currentSection; return (
+                <div key={sec.id} ref={(el) => { sectionRefs.current[sIdx] = el; }} data-section-idx={sIdx}>
                   {/* Part header */}
                   <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 16, paddingBottom: 12, borderBottom: `2px solid ${T.accentBorder}` }}>
                     <span style={{ padding: "3px 10px", borderRadius: 20, background: T.accent, color: T.accent === "#ffffff" ? "#0a0a0a" : "#fff", fontSize: 11, fontWeight: 700 }}>
@@ -1342,14 +1342,28 @@ export default function TestPage() {
                     })()}
                   </div>
                 </div>
-              ))}
+              ); })}
 
-              {/* Submit button at the end of the listening sheet */}
-              <div style={{ display: "flex", justifyContent: "flex-end", marginTop: 40, paddingTop: 24, borderTop: `1px solid ${T.border}` }}>
-                <button onClick={() => { if (confirm("Submit the test now?")) submitTest(); }}
-                  style={{ display: "inline-flex", alignItems: "center", gap: 6, padding: "10px 24px", background: T.accentBtn, color: "#fff", border: "none", borderRadius: 10, cursor: "pointer", fontWeight: 700, fontSize: 13 }}>
-                  Submit <CheckCircle size={14} />
+              {/* Navigation between parts + final Submit */}
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 12, marginTop: 36, paddingTop: 24, borderTop: `1px solid ${T.border}`, flexWrap: "wrap" }}>
+                <button
+                  disabled={currentSection === 0}
+                  onClick={() => currentSection > 0 && setCurrentSection((n) => n - 1)}
+                  style={{ display: "inline-flex", alignItems: "center", gap: 6, padding: "10px 18px", background: "transparent", color: currentSection === 0 ? T.textMuted : T.text, border: `1px solid ${T.border}`, borderRadius: 10, cursor: currentSection === 0 ? "not-allowed" : "pointer", fontWeight: 600, fontSize: 13, opacity: currentSection === 0 ? 0.4 : 1 }}>
+                  ← Previous Part
                 </button>
+                {currentSection < test.sections.length - 1 ? (
+                  <button
+                    onClick={() => setCurrentSection((n) => Math.min(test.sections.length - 1, n + 1))}
+                    style={{ display: "inline-flex", alignItems: "center", gap: 6, padding: "10px 22px", background: T.accent, color: T.accent === "#ffffff" ? "#0a0a0a" : "#fff", border: "none", borderRadius: 10, cursor: "pointer", fontWeight: 700, fontSize: 13 }}>
+                    Next Part →
+                  </button>
+                ) : (
+                  <button onClick={() => { if (confirm("Submit the test now?")) submitTest(); }}
+                    style={{ display: "inline-flex", alignItems: "center", gap: 6, padding: "10px 24px", background: T.accentBtn, color: "#fff", border: "none", borderRadius: 10, cursor: "pointer", fontWeight: 700, fontSize: 13 }}>
+                    Submit <CheckCircle size={14} />
+                  </button>
+                )}
               </div>
             </>
           )}
