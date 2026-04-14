@@ -9,7 +9,7 @@ import Brand from "@/components/Brand";
 import type { StudentSession } from "@/lib/store";
 
 type TestType = "reading" | "listening";
-type SidebarView = "reading" | "listening" | "profile";
+type SidebarView = "reading" | "listening" | "profile" | "writing" | "articles" | "podcasts" | "music";
 
 // Books that have real test content available
 const AVAILABLE_BOOKS = [10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
@@ -79,13 +79,17 @@ export default function StudentDashboard() {
             active={sidebarView === "reading"}
             onClick={() => { setSidebarView("reading"); setTypeFilter("reading"); setSelectedBook(null); }} />
           <SidebarLink icon={PenLine} label="Writing" soon
-            onClick={() => router.push("/writing")} />
+            active={sidebarView === "writing"}
+            onClick={() => { setSidebarView("writing"); setSelectedBook(null); }} />
           <SidebarLink icon={FileText} label="Articles"
-            onClick={() => router.push("/articles")} />
+            active={sidebarView === "articles"}
+            onClick={() => { setSidebarView("articles"); setSelectedBook(null); }} />
           <SidebarLink icon={Mic} label="Podcasts"
-            onClick={() => router.push("/podcasts")} />
+            active={sidebarView === "podcasts"}
+            onClick={() => { setSidebarView("podcasts"); setSelectedBook(null); }} />
           <SidebarLink icon={Music} label="Music"
-            onClick={() => router.push("/music")} />
+            active={sidebarView === "music"}
+            onClick={() => { setSidebarView("music"); setSelectedBook(null); }} />
 
           <div style={{ height: 1, background: "rgba(255,255,255,0.07)", margin: "14px 0" }} />
 
@@ -131,8 +135,30 @@ export default function StudentDashboard() {
             </figure>
           )}
 
+          {/* Coming-soon sections (Writing / Articles / Podcasts / Music)
+              — render inside the dashboard so the sidebar stays visible. */}
+          {(sidebarView === "writing" || sidebarView === "articles" || sidebarView === "podcasts" || sidebarView === "music") && (
+            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "60px 32px", textAlign: "center", minHeight: 480 }}>
+              <div style={{ fontSize: 11, letterSpacing: "0.3em", textTransform: "uppercase", color: "rgba(255,255,255,0.4)", marginBottom: 24, fontWeight: 600 }}>
+                {sidebarView === "writing" ? "IELTS" : sidebarView === "articles" ? "Read" : "Listen"}
+              </div>
+              <h1 style={{ fontFamily: `"Fraunces", "Iowan Old Style", Georgia, serif`, fontSize: "clamp(3rem, 7vw, 5rem)", fontWeight: 300, letterSpacing: "-0.02em", color: "#fff", lineHeight: 1, marginBottom: 28, textTransform: "capitalize" }}>
+                {sidebarView}
+              </h1>
+              <p style={{ fontSize: 15, color: "rgba(255,255,255,0.5)", maxWidth: 480, lineHeight: 1.7, marginBottom: 40 }}>
+                {sidebarView === "writing" && "Task 1 and Task 2 practice with model answers and feedback. Coming soon."}
+                {sidebarView === "articles" && "Hand-picked essays, exam tips and long reads to level up your English. Coming soon."}
+                {sidebarView === "podcasts" && "Curated podcast episodes and transcripts for every level. Coming soon."}
+                {sidebarView === "music" && "Songs with lyrics to help you train your ear. Coming soon."}
+              </p>
+              <div style={{ fontSize: 11, letterSpacing: "0.25em", textTransform: "uppercase", color: "rgba(255,255,255,0.5)", fontWeight: 600, border: "1px solid rgba(255,255,255,0.15)", borderRadius: 999, padding: "8px 20px" }}>
+                In development
+              </div>
+            </div>
+          )}
+
           {/* Stats (hidden on profile view — profile has its own stats) */}
-          {sidebarView !== "profile" && (
+          {sidebarView !== "profile" && sidebarView !== "writing" && sidebarView !== "articles" && sidebarView !== "podcasts" && sidebarView !== "music" && (
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", gap: 14, marginBottom: 36 }}>
               {[
                 { label: "Total Tests", value: typeAttempts.length, icon: BarChart3, sub: typeFilter === "reading" ? "Reading tests" : "Listening tests", color: "#ffffff" },

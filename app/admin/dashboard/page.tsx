@@ -47,7 +47,7 @@ const sel: React.CSSProperties = {
 export default function AdminDashboard() {
   const router = useRouter();
   const [attempts, setAttempts] = useState<AttemptData[]>([]);
-  const [activeTab, setActiveTab] = useState<"results" | "students" | "teachers" | "practice" | "tests">("results");
+  const [activeTab, setActiveTab] = useState<"results" | "students" | "teachers" | "practice" | "tests" | "writing" | "articles" | "podcasts" | "music">("results");
   const [expandedGroup, setExpandedGroup] = useState<string | null>(null);
   const [expandedStudent, setExpandedStudent] = useState<string | null>(null);
   const [expandedAttempt, setExpandedAttempt] = useState<string | null>(null);
@@ -323,16 +323,17 @@ export default function AdminDashboard() {
             </button>
           ))}
 
-          {/* Same sections as the student dashboard so teachers can preview. */}
+          {/* Same sections as the student dashboard. Rendered as in-page
+              tabs (not external routes) so the sidebar stays visible. */}
           <p style={{ fontSize: 10, fontWeight: 700, color: C.muted, letterSpacing: "0.2em", textTransform: "uppercase", margin: "18px 10px 8px", opacity: 0.6 }}>Sections</p>
-          {[
-            { href: "/writing",  Icon: PenLine,  label: "Writing",  soon: true  },
-            { href: "/articles", Icon: FileText, label: "Articles", soon: false },
-            { href: "/podcasts", Icon: Mic,      label: "Podcasts", soon: false },
-            { href: "/music",    Icon: Music,    label: "Music",    soon: false },
-          ].map(({ href, Icon, label, soon }) => (
-            <button key={href} onClick={() => router.push(href)}
-              style={{ display: "flex", alignItems: "center", gap: 10, width: "100%", padding: "10px 12px", borderRadius: 10, background: "transparent", border: "none", cursor: "pointer", fontWeight: 600, fontSize: 13, textAlign: "left", marginBottom: 2, color: C.muted }}>
+          {([
+            { id: "writing"  as const, Icon: PenLine,  label: "Writing",  soon: true  },
+            { id: "articles" as const, Icon: FileText, label: "Articles", soon: false },
+            { id: "podcasts" as const, Icon: Mic,      label: "Podcasts", soon: false },
+            { id: "music"    as const, Icon: Music,    label: "Music",    soon: false },
+          ]).map(({ id, Icon, label, soon }) => (
+            <button key={id} onClick={() => setActiveTab(id)}
+              style={{ display: "flex", alignItems: "center", gap: 10, width: "100%", padding: "10px 12px", borderRadius: 10, background: activeTab === id ? C.accentLight : "transparent", border: "none", cursor: "pointer", fontWeight: 600, fontSize: 13, textAlign: "left", marginBottom: 2, color: activeTab === id ? C.accent : C.muted }}>
               <Icon size={15} />
               <span style={{ flex: 1 }}>{label}</span>
               {soon && (
@@ -1038,7 +1039,7 @@ export default function AdminDashboard() {
                 {[{ t: "reading" as const, Icon: BookOpen, label: "Reading" }, { t: "listening" as const, Icon: Headphones, label: "Listening" }].map(({ t, Icon, label }) => (
                   <button key={t} onClick={() => { setTestsTypeFilter(t); setTestsSelectedBook(null); }}
                     style={{ display: "flex", alignItems: "center", gap: 7, padding: "9px 18px", borderRadius: 10, border: "none", cursor: "pointer", fontWeight: 600, fontSize: 13,
-                      background: testsTypeFilter === t ? C.accent : C.card, color: testsTypeFilter === t ? "#fff" : C.muted }}>
+                      background: testsTypeFilter === t ? C.accent : C.card, color: testsTypeFilter === t ? "#0a0a0a" : C.muted }}>
                     <Icon size={14} /> {label}
                   </button>
                 ))}
@@ -1131,6 +1132,27 @@ export default function AdminDashboard() {
           );
         })()}
 
+
+        {/* ══════════════════ COMING-SOON SECTIONS ══════════════════ */}
+        {(activeTab === "writing" || activeTab === "articles" || activeTab === "podcasts" || activeTab === "music") && (
+          <div style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "60px 32px", textAlign: "center", minHeight: 480 }}>
+            <div style={{ fontSize: 11, letterSpacing: "0.3em", textTransform: "uppercase", color: C.muted, marginBottom: 24, fontWeight: 600 }}>
+              {activeTab === "writing" ? "IELTS" : activeTab === "articles" ? "Read" : "Listen"}
+            </div>
+            <h1 style={{ fontFamily: `"Fraunces", "Iowan Old Style", Georgia, serif`, fontSize: "clamp(3rem, 7vw, 5rem)", fontWeight: 300, letterSpacing: "-0.02em", color: "#fff", lineHeight: 1, marginBottom: 28, textTransform: "capitalize" }}>
+              {activeTab}
+            </h1>
+            <p style={{ fontSize: 15, color: C.muted, maxWidth: 480, lineHeight: 1.7, marginBottom: 40 }}>
+              {activeTab === "writing" && "Task 1 and Task 2 practice with model answers and feedback. Coming soon."}
+              {activeTab === "articles" && "Hand-picked essays, exam tips and long reads to level up your English. Coming soon."}
+              {activeTab === "podcasts" && "Curated podcast episodes and transcripts for every level. Coming soon."}
+              {activeTab === "music" && "Songs with lyrics to help you train your ear. Coming soon."}
+            </p>
+            <div style={{ fontSize: 11, letterSpacing: "0.25em", textTransform: "uppercase", color: C.muted, fontWeight: 600, border: `1px solid ${C.border}`, borderRadius: 999, padding: "8px 20px" }}>
+              In development
+            </div>
+          </div>
+        )}
 
         {/* ══════════════════ TEACHERS TAB ══════════════════ */}
         {activeTab === "teachers" && canManageTeachers && (
