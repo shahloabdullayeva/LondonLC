@@ -1083,13 +1083,7 @@ B  It is historically significant for a country.
 C  It was effective at attracting audiences.
 D  It is included in a recent project.
 E  It contains insights into the show.
-F  It resembles an artwork.
-
-Shows (27–30):
-27  Ruy Blas
-28  Man of La Mancha
-29  The Tragedy of Jane Shore
-30  The Sailors' Festival`,
+F  It resembles an artwork.`,
       questions: [
         {
           id: "cam20-l-t3-s3-q21", number: 21,
@@ -1342,15 +1336,7 @@ D  the introduction of goalkeepers
 E  the first international match
 F  two changes to the rules of the game
 G  the introduction of fee for spectators
-H  an agreement on the length of a game
-
-Years (15–20):
-15  1870
-16  1874
-17  1875
-18  1877
-19  1878
-20  1880`,
+H  an agreement on the length of a game`,
       questions: [
         {
           id: "cam20-l-t4-s2-q11", number: 11,

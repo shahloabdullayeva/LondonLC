@@ -611,13 +611,7 @@ B  the colour of one shoe had faded
 C  one shoe had a hole in it
 D  the shoes were brand new
 E  the shoes were too dirty
-F  the stitching on the shoes was broken
-
-Footwear (25–28):
-25  the high-heeled shoes
-26  the ankle boots
-27  the baby shoes
-28  the trainers`,
+F  the stitching on the shoes was broken`,
       questions: [
         {
           id: "cam19-l-t2-s3-q21", number: 21,
