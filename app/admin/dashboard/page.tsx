@@ -459,8 +459,10 @@ export default function AdminDashboard() {
         {activeTab === "results" && <>
 
           {/* Title row — dashboard title on the left, rotating quote in
-              the middle (fills the empty space), Export on the right. */}
-          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 20, marginBottom: 24, flexWrap: "wrap" }}>
+              the middle (fills the empty space), Export on the right.
+              A thin bottom border separates this row from the stats grid
+              below so the header reads as its own band. */}
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 20, marginBottom: 24, paddingBottom: 20, borderBottom: `1px solid ${C.border}`, flexWrap: "wrap" }}>
             <div style={{ flexShrink: 0 }}>
               <h1 style={{ fontSize: 22, fontWeight: 800, color: C.text, marginBottom: 2 }}>
                 {isRootAdmin ? "Dashboard" : isAdminUser ? "Admin Dashboard" : "Teacher Dashboard"}
