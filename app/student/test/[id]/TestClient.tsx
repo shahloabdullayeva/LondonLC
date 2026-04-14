@@ -1454,7 +1454,12 @@ export default function TestPage() {
 // bound to the matching question by number. Non-matching text is
 // rendered as-is (so the structure / bullets / line-breaks are kept).
 // ────────────────────────────────────────────────────────────
-const BLANK_PATTERN = /(\d+)\s+_{3,}/g;
+// Captures:
+//   group 1 — the question number
+//   group 2 — any intermediate chars between the number and the underscores
+//             (spaces, quotes, brackets, colon, dash etc. — e.g. "4 '_______")
+//             so we can render them back before the input field.
+const BLANK_PATTERN = /(\d+)(\s*['"‘’“”«»():–—-]*\s*)_{3,}/g;
 
 function passageBlankNumbers(passage: string): Set<number> {
   const set = new Set<number>();
@@ -1484,6 +1489,7 @@ function renderPassageWithInputs(
 
   while ((match = re.exec(passage)) !== null) {
     const num = parseInt(match[1], 10);
+    const between = match[2] || "";
     const q = byNumber.get(num);
     if (match.index > lastIndex) {
       nodes.push(passage.slice(lastIndex, match.index));
@@ -1494,6 +1500,7 @@ function renderPassageWithInputs(
           <strong style={{ fontFamily: "'IBM Plex Mono', 'Courier New', monospace", color: T.accent, fontWeight: 700, marginRight: 6 }}>
             {num}
           </strong>
+          {between && <span>{between}</span>}
           <input
             id={`question-${q.id}`}
             type="text"
