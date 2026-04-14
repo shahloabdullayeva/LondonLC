@@ -1166,10 +1166,12 @@ export default function TestPage() {
                   )}
 
                   {/* Notes text (for Parts 1 & 4) — shown above the question list
-                      to give students context while they answer. */}
+                      to give students context while they answer. Numbered
+                      blanks like "1 _______" are replaced with actual input
+                      fields bound to the matching question. */}
                   {sec.passageText && (
-                    <div style={{ marginBottom: 20, padding: "16px 20px", background: T.passage, border: `1px solid ${T.border}`, borderRadius: 12, color: T.text, lineHeight: 1.8, fontSize: fontSize - 1, whiteSpace: "pre-line" }}>
-                      {sec.passageText}
+                    <div style={{ marginBottom: 20, padding: "16px 20px", background: T.passage, border: `1px solid ${T.border}`, borderRadius: 12, color: T.text, lineHeight: 2.2, fontSize: fontSize - 1, whiteSpace: "pre-line" }}>
+                      {renderPassageWithInputs(sec.passageText, sec.questions, answers, setAnswer, T)}
                     </div>
                   )}
 
@@ -1184,7 +1186,10 @@ export default function TestPage() {
                       // Merge adjacent "Choose TWO" pairs into a single checkbox UI.
                       // Detection: two consecutive multiple_choice questions share the
                       // same correctAnswer string containing "/" and have equal option lists.
-                      const qs = sec.questions;
+                      // Also skip questions whose blank is already inline in the passage
+                      // (those get an inline input above — no need to repeat them below).
+                      const coveredInPassage = passageBlankNumbers(sec.passageText ?? "");
+                      const qs = sec.questions.filter((q) => !coveredInPassage.has(q.number));
                   type Item = { kind: "single"; q: typeof qs[0] } | { kind: "pair"; q1: typeof qs[0]; q2: typeof qs[0] };
                   const items: Item[] = [];
                   for (let i = 0; i < qs.length; i++) {
@@ -1426,6 +1431,88 @@ export default function TestPage() {
       `}</style>
     </div>
   );
+}
+
+// ────────────────────────────────────────────────────────────
+// Inline-input rendering for listening notes and reading summaries.
+// Replaces "N _______" style blanks in the passage with real inputs
+// bound to the matching question by number. Non-matching text is
+// rendered as-is (so the structure / bullets / line-breaks are kept).
+// ────────────────────────────────────────────────────────────
+const BLANK_PATTERN = /(\d+)\s+_{3,}/g;
+
+function passageBlankNumbers(passage: string): Set<number> {
+  const set = new Set<number>();
+  const re = new RegExp(BLANK_PATTERN.source, "g");
+  let m: RegExpExecArray | null;
+  while ((m = re.exec(passage)) !== null) {
+    const n = parseInt(m[1], 10);
+    if (!isNaN(n)) set.add(n);
+  }
+  return set;
+}
+
+function renderPassageWithInputs(
+  passage: string,
+  questions: IELTSSection["questions"],
+  answers: Record<string, string>,
+  setAnswer: (id: string, v: string) => void,
+  T: { text: string; accent: string; border: string; inputBg: string; [k: string]: string },
+): React.ReactNode {
+  const byNumber = new Map<number, IELTSSection["questions"][0]>();
+  for (const q of questions) byNumber.set(q.number, q);
+
+  const nodes: React.ReactNode[] = [];
+  let lastIndex = 0;
+  let match: RegExpExecArray | null;
+  const re = new RegExp(BLANK_PATTERN.source, "g");
+
+  while ((match = re.exec(passage)) !== null) {
+    const num = parseInt(match[1], 10);
+    const q = byNumber.get(num);
+    if (match.index > lastIndex) {
+      nodes.push(passage.slice(lastIndex, match.index));
+    }
+    if (q) {
+      nodes.push(
+        <React.Fragment key={`blank-${num}-${match.index}`}>
+          <strong style={{ fontFamily: "'IBM Plex Mono', 'Courier New', monospace", color: T.accent, fontWeight: 700, marginRight: 6 }}>
+            {num}
+          </strong>
+          <input
+            id={`question-${q.id}`}
+            type="text"
+            value={answers[q.id] || ""}
+            onChange={(e) => setAnswer(q.id, e.target.value)}
+            placeholder="…"
+            style={{
+              display: "inline-block",
+              padding: "2px 10px",
+              borderRadius: 5,
+              fontSize: "inherit",
+              background: T.inputBg,
+              border: `1.5px solid ${T.border}`,
+              color: T.text,
+              outline: "none",
+              minWidth: 110,
+              maxWidth: 200,
+              fontFamily: "inherit",
+              verticalAlign: "baseline",
+            } as React.CSSProperties}
+            onFocus={(e) => (e.currentTarget.style.borderColor = T.accent)}
+            onBlur={(e) => (e.currentTarget.style.borderColor = T.border)}
+          />
+        </React.Fragment>
+      );
+    } else {
+      nodes.push(match[0]);
+    }
+    lastIndex = match.index + match[0].length;
+  }
+  if (lastIndex < passage.length) {
+    nodes.push(passage.slice(lastIndex));
+  }
+  return nodes;
 }
 
 // ============================================================
