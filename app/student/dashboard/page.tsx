@@ -81,13 +81,13 @@ export default function StudentDashboard() {
           <SidebarLink icon={PenLine} label="Writing" soon
             active={sidebarView === "writing"}
             onClick={() => { setSidebarView("writing"); setSelectedBook(null); }} />
-          <SidebarLink icon={FileText} label="Articles"
+          <SidebarLink icon={FileText} label="Articles" soon
             active={sidebarView === "articles"}
             onClick={() => { setSidebarView("articles"); setSelectedBook(null); }} />
-          <SidebarLink icon={Mic} label="Podcasts"
+          <SidebarLink icon={Mic} label="Podcasts" soon
             active={sidebarView === "podcasts"}
             onClick={() => { setSidebarView("podcasts"); setSelectedBook(null); }} />
-          <SidebarLink icon={Music} label="Music"
+          <SidebarLink icon={Music} label="Music" soon
             active={sidebarView === "music"}
             onClick={() => { setSidebarView("music"); setSelectedBook(null); }} />
 

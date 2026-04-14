@@ -334,10 +334,10 @@ export default function AdminDashboard() {
               tabs (not external routes) so the sidebar stays visible. */}
           <p style={{ fontSize: 10, fontWeight: 700, color: C.muted, letterSpacing: "0.2em", textTransform: "uppercase", margin: "18px 10px 8px", opacity: 0.6 }}>Sections</p>
           {([
-            { id: "writing"  as const, Icon: PenLine,  label: "Writing",  soon: true  },
-            { id: "articles" as const, Icon: FileText, label: "Articles", soon: false },
-            { id: "podcasts" as const, Icon: Mic,      label: "Podcasts", soon: false },
-            { id: "music"    as const, Icon: Music,    label: "Music",    soon: false },
+            { id: "writing"  as const, Icon: PenLine,  label: "Writing",  soon: true },
+            { id: "articles" as const, Icon: FileText, label: "Articles", soon: true },
+            { id: "podcasts" as const, Icon: Mic,      label: "Podcasts", soon: true },
+            { id: "music"    as const, Icon: Music,    label: "Music",    soon: true },
           ]).map(({ id, Icon, label, soon }) => (
             <button key={id} onClick={() => setActiveTab(id)}
               style={{ display: "flex", alignItems: "center", gap: 10, width: "100%", padding: "10px 12px", borderRadius: 10, background: activeTab === id ? C.accentLight : "transparent", border: "none", cursor: "pointer", fontWeight: 600, fontSize: 13, textAlign: "left", marginBottom: 2, color: activeTab === id ? C.accent : C.muted }}>
