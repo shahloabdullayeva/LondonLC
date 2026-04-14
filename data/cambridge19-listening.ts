@@ -1195,8 +1195,369 @@ Microplastics in the soil – a study by Anglia Ruskin University
   ],
 };
 
+// ============================================================
+// CAMBRIDGE IELTS 19 – LISTENING TEST 4
+// Parts: 1) First day at work (form + table)
+//        2) Running club (Choose-TWO + matching + MCQ)
+//        3) Books with grandfather (MCQ + matching)
+//        4) Tree planting reforestation (notes)
+// ============================================================
+export const cambridge19_listening_t4: IELTSTest = {
+  id: "cam19-listening-t4",
+  title: "Cambridge IELTS 19 – Listening Test 4",
+  bookNumber: 19,
+  testNumber: 4,
+  type: "listening",
+  level: "academic",
+  durationMinutes: 30,
+  transferMinutes: 10,
+  audioUrl: audioUrl("cam19-listening-t4.mp3"),
+  audioDurationSeconds: 1800,
+  sections: [
+    // ── PART 1 ─────────────────────────────────────────────
+    {
+      id: "cam19-l-t4-s1",
+      sectionNumber: 1,
+      title: "Part 1",
+      instructions: `Questions 1–6: Complete the notes below. Write ONE WORD AND/OR A NUMBER for each answer.
+Questions 7–10: Complete the table below. Write ONE WORD ONLY for each answer.`,
+      passageText: `First day at work
+
+●  Name of supervisor: 1 _______
+●  Where to leave coat and bag: use 2 _______ in staffroom
+●  See Tiffany in HR:
+   –  to give 3 _______ number
+   –  to collect 4 _______
+●  Location of HR office: on 5 _______ floor
+●  Supervisor's mobile number: 6 _______
+
+Responsibilities
+
+Bakery section
+  Task 1: Check sell-by dates
+  Task 2: Change price labels
+  Notes: Use 7 _______ labels
+
+Sushi takeaway counter
+  Task 1: Re-stock with 8 _______ boxes if needed
+  Task 2: Wipe preparation area and clean the sink
+  Notes: Do not clean any knives
+
+Meat and fish counters
+  Task 1: Clean the serving area, including the weighing scales
+  Task 2: Collect 9 _______ for the fish from the cold-room
+  Notes: Must wear special 10 _______`,
+      questions: [
+        { id: "cam19-l-t4-s1-q1", number: 1, type: "note_completion", question: "1. Name of supervisor: _______", correctAnswer: "Kaeden", points: 1 },
+        { id: "cam19-l-t4-s1-q2", number: 2, type: "note_completion", question: "2. use _______ in staffroom", correctAnswer: "locker/lockers", points: 1 },
+        { id: "cam19-l-t4-s1-q3", number: 3, type: "note_completion", question: "3. to give _______ number", correctAnswer: "passport", points: 1 },
+        { id: "cam19-l-t4-s1-q4", number: 4, type: "note_completion", question: "4. to collect _______", correctAnswer: "uniform", points: 1 },
+        { id: "cam19-l-t4-s1-q5", number: 5, type: "note_completion", question: "5. on _______ floor", correctAnswer: "third/3rd", points: 1 },
+        { id: "cam19-l-t4-s1-q6", number: 6, type: "note_completion", question: "6. Supervisor's mobile number: _______", correctAnswer: "0412 665 903/0412665903", points: 1 },
+        { id: "cam19-l-t4-s1-q7", number: 7, type: "note_completion", question: "7. Use _______ labels", correctAnswer: "yellow", points: 1 },
+        { id: "cam19-l-t4-s1-q8", number: 8, type: "note_completion", question: "8. Re-stock with _______ boxes if needed", correctAnswer: "plastic", points: 1 },
+        { id: "cam19-l-t4-s1-q9", number: 9, type: "note_completion", question: "9. Collect _______ for the fish from the cold-room", correctAnswer: "ice", points: 1 },
+        { id: "cam19-l-t4-s1-q10", number: 10, type: "note_completion", question: "10. Must wear special _______", correctAnswer: "gloves", points: 1 },
+      ],
+    },
+    // ── PART 2 ─────────────────────────────────────────────
+    {
+      id: "cam19-l-t4-s2",
+      sectionNumber: 2,
+      title: "Part 2",
+      instructions: `Questions 11 & 12: Choose TWO letters, A–E.
+Questions 13 & 14: Choose TWO letters, A–E.
+Questions 15–18: Match each club member to a reason. Choose A, B or C.
+Questions 19 & 20: Choose the correct letter, A, B or C.`,
+      passageTitle: "Compton Park Runners Club",
+      passageText: `Reasons (for Q15–18):
+A  a lack of confidence
+B  a dislike of running
+C  a lack of time`,
+      questions: [
+        {
+          id: "cam19-l-t4-s2-q11", number: 11,
+          groupLabel: `Questions 11 and 12: Choose TWO letters, A–E.\n\nWhich TWO problems with some training programmes for new runners does Liz mention?\n\nA  There is a risk of serious injury.\nB  They are unsuitable for certain age groups.\nC  They are unsuitable for people with health issues.\nD  It is difficult to stay motivated.\nE  There is a lack of individual support.\n\n(Answers are accepted in either order.)`,
+          type: "multiple_choice", question: "11. Choose TWO (first answer)",
+          options: [
+            { label: "A  There is a risk of serious injury.", value: "A" },
+            { label: "B  They are unsuitable for certain age groups.", value: "B" },
+            { label: "C  They are unsuitable for people with health issues.", value: "C" },
+            { label: "D  It is difficult to stay motivated.", value: "D" },
+            { label: "E  There is a lack of individual support.", value: "E" },
+          ],
+          correctAnswer: "C/E", points: 1,
+        },
+        {
+          id: "cam19-l-t4-s2-q12", number: 12, type: "multiple_choice", question: "12. Choose TWO (second answer)",
+          options: [
+            { label: "A  There is a risk of serious injury.", value: "A" },
+            { label: "B  They are unsuitable for certain age groups.", value: "B" },
+            { label: "C  They are unsuitable for people with health issues.", value: "C" },
+            { label: "D  It is difficult to stay motivated.", value: "D" },
+            { label: "E  There is a lack of individual support.", value: "E" },
+          ],
+          correctAnswer: "C/E", points: 1,
+        },
+        {
+          id: "cam19-l-t4-s2-q13", number: 13,
+          groupLabel: `Questions 13 and 14: Choose TWO letters, A–E.\n\nWhich TWO tips does Liz recommend for new runners?\n\nA  doing two runs a week\nB  running in the evening\nC  going on runs with a friend\nD  listening to music during runs\nE  running very slowly\n\n(Answers are accepted in either order.)`,
+          type: "multiple_choice", question: "13. Choose TWO (first answer)",
+          options: [
+            { label: "A  doing two runs a week", value: "A" },
+            { label: "B  running in the evening", value: "B" },
+            { label: "C  going on runs with a friend", value: "C" },
+            { label: "D  listening to music during runs", value: "D" },
+            { label: "E  running very slowly", value: "E" },
+          ],
+          correctAnswer: "A/D", points: 1,
+        },
+        {
+          id: "cam19-l-t4-s2-q14", number: 14, type: "multiple_choice", question: "14. Choose TWO (second answer)",
+          options: [
+            { label: "A  doing two runs a week", value: "A" },
+            { label: "B  running in the evening", value: "B" },
+            { label: "C  going on runs with a friend", value: "C" },
+            { label: "D  listening to music during runs", value: "D" },
+            { label: "E  running very slowly", value: "E" },
+          ],
+          correctAnswer: "A/D", points: 1,
+        },
+        {
+          id: "cam19-l-t4-s2-q15", number: 15,
+          groupLabel: `Questions 15–18: What reason prevented each of the following members of the Compton Park Runners Club from joining until recently? Write the correct answer (A, B or C) next to each member.\n\nA  a lack of confidence\nB  a dislike of running\nC  a lack of time`,
+          type: "multiple_choice", question: "15. Ceri",
+          options: [
+            { label: "A  a lack of confidence", value: "A" },
+            { label: "B  a dislike of running", value: "B" },
+            { label: "C  a lack of time", value: "C" },
+          ],
+          correctAnswer: "A", points: 1,
+        },
+        {
+          id: "cam19-l-t4-s2-q16", number: 16, type: "multiple_choice", question: "16. James",
+          options: [
+            { label: "A  a lack of confidence", value: "A" },
+            { label: "B  a dislike of running", value: "B" },
+            { label: "C  a lack of time", value: "C" },
+          ],
+          correctAnswer: "B", points: 1,
+        },
+        {
+          id: "cam19-l-t4-s2-q17", number: 17, type: "multiple_choice", question: "17. Leo",
+          options: [
+            { label: "A  a lack of confidence", value: "A" },
+            { label: "B  a dislike of running", value: "B" },
+            { label: "C  a lack of time", value: "C" },
+          ],
+          correctAnswer: "C", points: 1,
+        },
+        {
+          id: "cam19-l-t4-s2-q18", number: 18, type: "multiple_choice", question: "18. Mark",
+          options: [
+            { label: "A  a lack of confidence", value: "A" },
+            { label: "B  a dislike of running", value: "B" },
+            { label: "C  a lack of time", value: "C" },
+          ],
+          correctAnswer: "A", points: 1,
+        },
+        {
+          id: "cam19-l-t4-s2-q19", number: 19,
+          groupLabel: `Questions 19 and 20: Choose the correct letter, A, B or C.`,
+          type: "multiple_choice", question: "19. What does Liz say about running her first marathon?",
+          options: [
+            { label: "A  It had always been her ambition.", value: "A" },
+            { label: "B  Her husband persuaded her to do it.", value: "B" },
+            { label: "C  She nearly gave up before the end.", value: "C" },
+          ],
+          correctAnswer: "C", points: 1,
+        },
+        {
+          id: "cam19-l-t4-s2-q20", number: 20, type: "multiple_choice",
+          question: "20. Liz says new runners should sign up for a race",
+          options: [
+            { label: "A  every six months.", value: "A" },
+            { label: "B  within a few weeks of taking up running.", value: "B" },
+            { label: "C  after completing several practice runs.", value: "C" },
+          ],
+          correctAnswer: "B", points: 1,
+        },
+      ],
+    },
+    // ── PART 3 ─────────────────────────────────────────────
+    {
+      id: "cam19-l-t4-s3",
+      sectionNumber: 3,
+      title: "Part 3",
+      instructions: `Questions 21–25: Choose the correct letter, A, B or C.
+Questions 26–30: Match each type of book to a location in Jane's grandfather's shop. Choose from A–G.`,
+      passageText: `Jane and Kieran discussing Jane's grandfather's bookshop.
+
+Location of books (for Q26–30):
+A  near the entrance
+B  in the attic
+C  at the back of the shop
+D  on a high shelf
+E  near the stairs
+F  in a specially designed space
+G  within the café`,
+      questions: [
+        {
+          id: "cam19-l-t4-s3-q21", number: 21,
+          groupLabel: `Questions 21–25: Choose the correct letter, A, B or C.`,
+          type: "multiple_choice",
+          question: "21. Kieran thinks the packing advice given by Jane's grandfather is",
+          options: [
+            { label: "A  common sense.", value: "A" },
+            { label: "B  hard to follow.", value: "B" },
+            { label: "C  over-protective.", value: "C" },
+          ],
+          correctAnswer: "A", points: 1,
+        },
+        {
+          id: "cam19-l-t4-s3-q22", number: 22, type: "multiple_choice",
+          question: "22. How does Jane feel about the books her grandfather has given her?",
+          options: [
+            { label: "A  They are not worth keeping.", value: "A" },
+            { label: "B  They should go to a collector.", value: "B" },
+            { label: "C  They have sentimental value for her.", value: "C" },
+          ],
+          correctAnswer: "C", points: 1,
+        },
+        {
+          id: "cam19-l-t4-s3-q23", number: 23, type: "multiple_choice",
+          question: "23. Jane and Kieran agree that hardback books should be",
+          options: [
+            { label: "A  put out on display.", value: "A" },
+            { label: "B  given as gifts to visitors.", value: "B" },
+            { label: "C  more attractively designed.", value: "C" },
+          ],
+          correctAnswer: "A", points: 1,
+        },
+        {
+          id: "cam19-l-t4-s3-q24", number: 24, type: "multiple_choice",
+          question: "24. While talking about taking a book from a shelf, Jane",
+          options: [
+            { label: "A  describes the mistakes other people make doing it.", value: "A" },
+            { label: "B  reflects on a significant childhood experience.", value: "B" },
+            { label: "C  explains why some books are easier to remove than others.", value: "C" },
+          ],
+          correctAnswer: "B", points: 1,
+        },
+        {
+          id: "cam19-l-t4-s3-q25", number: 25, type: "multiple_choice",
+          question: "25. What do Jane and Kieran suggest about new books?",
+          options: [
+            { label: "A  Their parents liked buying them as presents.", value: "A" },
+            { label: "B  They would like to buy more of them.", value: "B" },
+            { label: "C  Not everyone can afford them.", value: "C" },
+          ],
+          correctAnswer: "C", points: 1,
+        },
+        {
+          id: "cam19-l-t4-s3-q26", number: 26,
+          groupLabel: `Questions 26–30: Where does Jane's grandfather keep each of the following types of books in his shop? Choose FIVE answers from the box (A–G) and write the correct letter next to each type.\n\nA  near the entrance\nB  in the attic\nC  at the back of the shop\nD  on a high shelf\nE  near the stairs\nF  in a specially designed space\nG  within the café`,
+          type: "multiple_choice", question: "26. rare books",
+          options: [
+            { label: "A  near the entrance", value: "A" }, { label: "B  in the attic", value: "B" },
+            { label: "C  at the back of the shop", value: "C" }, { label: "D  on a high shelf", value: "D" },
+            { label: "E  near the stairs", value: "E" }, { label: "F  in a specially designed space", value: "F" },
+            { label: "G  within the café", value: "G" },
+          ],
+          correctAnswer: "D", points: 1,
+        },
+        {
+          id: "cam19-l-t4-s3-q27", number: 27, type: "multiple_choice", question: "27. children's books",
+          options: [
+            { label: "A  near the entrance", value: "A" }, { label: "B  in the attic", value: "B" },
+            { label: "C  at the back of the shop", value: "C" }, { label: "D  on a high shelf", value: "D" },
+            { label: "E  near the stairs", value: "E" }, { label: "F  in a specially designed space", value: "F" },
+            { label: "G  within the café", value: "G" },
+          ],
+          correctAnswer: "F", points: 1,
+        },
+        {
+          id: "cam19-l-t4-s3-q28", number: 28, type: "multiple_choice", question: "28. unwanted books",
+          options: [
+            { label: "A  near the entrance", value: "A" }, { label: "B  in the attic", value: "B" },
+            { label: "C  at the back of the shop", value: "C" }, { label: "D  on a high shelf", value: "D" },
+            { label: "E  near the stairs", value: "E" }, { label: "F  in a specially designed space", value: "F" },
+            { label: "G  within the café", value: "G" },
+          ],
+          correctAnswer: "A", points: 1,
+        },
+        {
+          id: "cam19-l-t4-s3-q29", number: 29, type: "multiple_choice", question: "29. requested books",
+          options: [
+            { label: "A  near the entrance", value: "A" }, { label: "B  in the attic", value: "B" },
+            { label: "C  at the back of the shop", value: "C" }, { label: "D  on a high shelf", value: "D" },
+            { label: "E  near the stairs", value: "E" }, { label: "F  in a specially designed space", value: "F" },
+            { label: "G  within the café", value: "G" },
+          ],
+          correctAnswer: "C", points: 1,
+        },
+        {
+          id: "cam19-l-t4-s3-q30", number: 30, type: "multiple_choice", question: "30. coursebooks",
+          options: [
+            { label: "A  near the entrance", value: "A" }, { label: "B  in the attic", value: "B" },
+            { label: "C  at the back of the shop", value: "C" }, { label: "D  on a high shelf", value: "D" },
+            { label: "E  near the stairs", value: "E" }, { label: "F  in a specially designed space", value: "F" },
+            { label: "G  within the café", value: "G" },
+          ],
+          correctAnswer: "G", points: 1,
+        },
+      ],
+    },
+    // ── PART 4 ─────────────────────────────────────────────
+    {
+      id: "cam19-l-t4-s4",
+      sectionNumber: 4,
+      title: "Part 4",
+      instructions: `Questions 31–40: Complete the notes below. Write ONE WORD ONLY for each answer.`,
+      passageText: `Tree planting
+
+Reforestation projects should:
+●  include a range of tree species
+●  not include invasive species because of possible 31 _______ with native species.
+●  aim to capture carbon, protect the environment and provide sustainable sources of 32 _______ for local people
+●  use tree seeds with a high genetic diversity to increase resistance to 33 _______ and climate change
+●  plant trees on previously forested land which is in a bad condition, not select land which is being used for 34 _______
+
+Large-scale reforestation projects
+●  Base planning decisions on information from accurate 35 _______.
+●  Drones are useful for identifying areas in Brazil which are endangered by keeping 36 _______ and illegal logging.
+
+Lampang Province, Northern Thailand
+●  A forest was restored in an area damaged by mining.
+●  A variety of native fig trees were planted, which are important for
+   –  supporting many wildlife species
+   –  increasing the 37 _______ of recovery by attracting animals and birds, e.g., 38 _______ were soon attracted to the area.
+
+Involving local communities
+●  Destruction of mangrove forests in Madagascar made it difficult for people to make a living from 39 _______.
+●  The mangrove reforestation project:
+   –  provided employment for local people
+   –  restored a healthy ecosystem
+   –  protects against the higher risk of 40 _______.`,
+      questions: [
+        { id: "cam19-l-t4-s4-q31", number: 31, type: "note_completion", question: "31. possible _______ with native species", correctAnswer: "competition", points: 1 },
+        { id: "cam19-l-t4-s4-q32", number: 32, type: "note_completion", question: "32. sustainable sources of _______ for local people", correctAnswer: "food", points: 1 },
+        { id: "cam19-l-t4-s4-q33", number: 33, type: "note_completion", question: "33. increase resistance to _______ and climate change", correctAnswer: "disease", points: 1 },
+        { id: "cam19-l-t4-s4-q34", number: 34, type: "note_completion", question: "34. not select land which is being used for _______", correctAnswer: "agriculture", points: 1 },
+        { id: "cam19-l-t4-s4-q35", number: 35, type: "note_completion", question: "35. information from accurate _______", correctAnswer: "maps", points: 1 },
+        { id: "cam19-l-t4-s4-q36", number: 36, type: "note_completion", question: "36. endangered by keeping _______ and illegal logging", correctAnswer: "cattle", points: 1 },
+        { id: "cam19-l-t4-s4-q37", number: 37, type: "note_completion", question: "37. increasing the _______ of recovery", correctAnswer: "speed", points: 1 },
+        { id: "cam19-l-t4-s4-q38", number: 38, type: "note_completion", question: "38. _______ were soon attracted to the area", correctAnswer: "monkeys", points: 1 },
+        { id: "cam19-l-t4-s4-q39", number: 39, type: "note_completion", question: "39. difficult for people to make a living from _______", correctAnswer: "fishing", points: 1 },
+        { id: "cam19-l-t4-s4-q40", number: 40, type: "note_completion", question: "40. higher risk of _______", correctAnswer: "flooding", points: 1 },
+      ],
+    },
+  ],
+};
+
 export const cambridge19ListeningTests: IELTSTest[] = [
   cambridge19_listening_t1,
   cambridge19_listening_t2,
   cambridge19_listening_t3,
+  cambridge19_listening_t4,
 ];
