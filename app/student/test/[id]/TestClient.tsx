@@ -978,8 +978,8 @@ export default function TestPage() {
         </div>
       )}
 
-      {/* Mobile toggle (when a passage/notes/diagram pane exists) */}
-      {(section.passageText || section.diagramUrl) && (
+      {/* Mobile toggle (reading only — listening is single column) */}
+      {test.type === "reading" && (section.passageText || section.diagramUrl) && (
         <div style={{ display: "flex", background: T.nav, borderBottom: `1px solid ${T.border}`, padding: "8px 16px", gap: 8 }} className="mobile-toggle-bar">
           {(["passage", "questions"] as const).map(v => (
             <button key={v} onClick={() => setMobileView(v)}
@@ -995,8 +995,9 @@ export default function TestPage() {
       {/* Content */}
       <div ref={contentAreaRef} style={{ flex: 1, display: "flex", flexDirection: "row", overflow: "hidden", minHeight: 0 }}>
 
-        {/* Left: Passage (reading) / Notes or Map (listening) */}
-        {(section.passageText || section.diagramUrl) && (
+        {/* Left: Passage (reading only) / Notes or Map (listening stacks
+            everything inline in a single column, so no left pane for it). */}
+        {test.type === "reading" && (section.passageText || section.diagramUrl) && (
           <div className={`passage-panel ${mobileView === "passage" ? "panel-visible" : "panel-hidden"}`}
             style={{ width: `${passageWidthPct}%`, minWidth: 0, overflow: "hidden", transition: isResizingRef.current ? "none" : "width 0.22s ease", background: T.passage, position: "relative", display: "flex", flexDirection: "column", flexShrink: 0 }}>
             {/* Passage header with highlight controls — shown only when there's selectable text */}
@@ -1065,8 +1066,8 @@ export default function TestPage() {
           </div>
         )}
 
-        {/* Resizable divider (desktop, whenever there's a passage/notes/diagram pane) */}
-        {(section.passageText || section.diagramUrl) && (
+        {/* Resizable divider (reading only — listening is single-column) */}
+        {test.type === "reading" && (section.passageText || section.diagramUrl) && (
           <div className="divider-toggle"
             style={{ position: "relative", width: 10, display: "flex", alignItems: "center", justifyContent: "center", zIndex: 10, flexShrink: 0, cursor: "col-resize" }}
             onMouseDown={handleDividerMouseDown}>
@@ -1080,7 +1081,7 @@ export default function TestPage() {
         )}
 
         {/* Right: Questions */}
-        <div className={`questions-panel ${(section.passageText || section.diagramUrl) && mobileView === "passage" ? "panel-hidden" : "panel-visible"}`}
+        <div className={`questions-panel ${test.type === "reading" && (section.passageText || section.diagramUrl) && mobileView === "passage" ? "panel-hidden" : "panel-visible"}`}
           style={{ flex: 1, minWidth: 0, minHeight: 0, display: "flex", flexDirection: "column", overflow: "hidden", background: T.bg }}>
         <div ref={questionsScrollRef} style={{ flex: 1, overflowY: "auto", padding: "24px 28px", minHeight: 0 }}
           onMouseUp={(e) => handleTextMouseUp(e, "questions")}>
@@ -1142,17 +1143,48 @@ export default function TestPage() {
               </div>
             </>
           ) : (
-            // ── Listening: single section (notes rendered in left pane) ─
+            // ── Listening: all 4 parts stacked in one scrolling column ──
+            // The original two-pane layout is dropped for listening — notes,
+            // maps, and answer inputs all live in the same single column now.
             <>
-              <div style={{ fontSize: 13, marginBottom: 20, padding: "11px 14px", borderRadius: 10, background: T.accentDim, color: T.accent, border: `1px solid ${T.accentBorder}`, fontWeight: 500, lineHeight: 1.5 }}>
-                {section.instructions}
-              </div>
-              <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
-                {(() => {
-                  // Merge adjacent "Choose TWO" pairs into a single checkbox UI.
-                  // Detection: two consecutive multiple_choice questions share the
-                  // same correctAnswer string containing "/" and have equal option lists.
-                  const qs = section.questions;
+              {test.sections.map((sec, sIdx) => (
+                <div key={sec.id} ref={(el) => { sectionRefs.current[sIdx] = el; }} data-section-idx={sIdx}
+                  style={{ marginBottom: sIdx < test.sections.length - 1 ? 56 : 0 }}>
+                  {/* Part header */}
+                  <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 16, paddingBottom: 12, borderBottom: `2px solid ${T.accentBorder}` }}>
+                    <span style={{ padding: "3px 10px", borderRadius: 20, background: T.accent, color: T.accent === "#ffffff" ? "#0a0a0a" : "#fff", fontSize: 11, fontWeight: 700 }}>
+                      Part {sIdx + 1}
+                    </span>
+                    <span style={{ fontSize: 13, fontWeight: 600, color: T.textMuted }}>{sec.passageTitle || sec.title}</span>
+                  </div>
+
+                  {/* Diagram / map shown inline above instructions */}
+                  {sec.diagramUrl && (
+                    <div style={{ textAlign: "center", marginBottom: 20 }}>
+                      <img src={sec.diagramUrl} alt="Diagram" style={{ maxWidth: "100%", borderRadius: 10, border: `1px solid ${T.border}`, background: "#fff" }} />
+                    </div>
+                  )}
+
+                  {/* Notes text (for Parts 1 & 4) — shown above the question list
+                      to give students context while they answer. */}
+                  {sec.passageText && (
+                    <div style={{ marginBottom: 20, padding: "16px 20px", background: T.passage, border: `1px solid ${T.border}`, borderRadius: 12, color: T.text, lineHeight: 1.8, fontSize: fontSize - 1, whiteSpace: "pre-line" }}>
+                      {sec.passageText}
+                    </div>
+                  )}
+
+                  {/* Instructions banner */}
+                  <div style={{ fontSize: 13, marginBottom: 20, padding: "11px 14px", borderRadius: 10, background: T.accentDim, color: T.accent, border: `1px solid ${T.accentBorder}`, fontWeight: 500, lineHeight: 1.5 }}>
+                    {sec.instructions}
+                  </div>
+
+                  {/* Questions — same merge (Choose TWO pairs) + matching + single logic as before */}
+                  <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
+                    {(() => {
+                      // Merge adjacent "Choose TWO" pairs into a single checkbox UI.
+                      // Detection: two consecutive multiple_choice questions share the
+                      // same correctAnswer string containing "/" and have equal option lists.
+                      const qs = sec.questions;
                   type Item = { kind: "single"; q: typeof qs[0] } | { kind: "pair"; q1: typeof qs[0]; q2: typeof qs[0] };
                   const items: Item[] = [];
                   for (let i = 0; i < qs.length; i++) {
@@ -1296,13 +1328,23 @@ export default function TestPage() {
                           answer={answers[q.id] || ""}
                           onAnswer={(val) => setAnswer(q.id, val)}
                           T={T} fontSize={fontSize}
-                          questionHighlights={highlights.filter(h => h.sectionIdx === currentSection && h.side === "questions")}
+                          questionHighlights={highlights.filter(h => h.sectionIdx === sIdx && h.side === "questions")}
                           onRemoveHighlight={removeHighlight}
                         />
                       </React.Fragment>
                     );
-                  });
-                })()}
+                      });
+                    })()}
+                  </div>
+                </div>
+              ))}
+
+              {/* Submit button at the end of the listening sheet */}
+              <div style={{ display: "flex", justifyContent: "flex-end", marginTop: 40, paddingTop: 24, borderTop: `1px solid ${T.border}` }}>
+                <button onClick={() => { if (confirm("Submit the test now?")) submitTest(); }}
+                  style={{ display: "inline-flex", alignItems: "center", gap: 6, padding: "10px 24px", background: T.accentBtn, color: "#fff", border: "none", borderRadius: 10, cursor: "pointer", fontWeight: 700, fontSize: 13 }}>
+                  Submit <CheckCircle size={14} />
+                </button>
               </div>
             </>
           )}
@@ -1310,60 +1352,43 @@ export default function TestPage() {
 
         {/* Question progress tracker */}
         {(() => {
-          const allQuestions = test.type === "reading"
-            ? test.sections.flatMap(s => s.questions)
-            : section.questions;
+          // Listening is now all-parts-stacked too, so both types flatMap.
+          const allQuestions = test.sections.flatMap(s => s.questions);
           const totalQ = allQuestions.length;
           const answeredQ = allQuestions.filter(q => (answers[q.id] || "").trim()).length;
           const leftQ = totalQ - answeredQ;
           return (
             <div style={{ flexShrink: 0, borderTop: `1px solid ${T.border}`, background: T.nav, padding: "10px 16px" }}>
               <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 8 }}>
-                {test.type === "reading" ? (
-                  <div style={{ display: "flex", gap: 6 }}>
-                    {test.sections.map((s, i) => (
-                      <span key={s.id} style={{ fontSize: 11, fontWeight: 700, color: currentSection === i ? T.accent : T.textMuted }}>
-                        P{i + 1}
-                      </span>
-                    ))}
-                  </div>
-                ) : (
-                  <span style={{ fontSize: 12, fontWeight: 700, color: T.text }}>Part {currentSection + 1}</span>
-                )}
+                <div style={{ display: "flex", gap: 6 }}>
+                  {test.sections.map((s, i) => (
+                    <span key={s.id} style={{ fontSize: 11, fontWeight: 700, color: currentSection === i ? T.accent : T.textMuted }}>
+                      P{i + 1}
+                    </span>
+                  ))}
+                </div>
                 <div style={{ display: "flex", gap: 12 }}>
                   <span style={{ fontSize: 12, fontWeight: 700, color: "#10b981" }}>{answeredQ} answered</span>
                   <span style={{ fontSize: 12, fontWeight: 700, color: leftQ > 0 ? "#ef4444" : T.textMuted }}>{leftQ} left</span>
                 </div>
               </div>
               <div style={{ display: "flex", flexWrap: "wrap", gap: 5 }}>
-                {test.type === "reading" ? (
-                  test.sections.map((s, sIdx) => (
-                    <React.Fragment key={s.id}>
-                      {sIdx > 0 && <div style={{ width: "100%", height: 0 }} />}
-                      {s.questions.map((q) => {
-                        const done = !!(answers[q.id] || "").trim();
-                        return (
-                          <button key={q.id}
-                            onClick={() => document.getElementById(`question-${q.id}`)?.scrollIntoView({ behavior: "smooth", block: "center" })}
-                            style={{ width: 30, height: 30, borderRadius: 7, border: done ? "none" : `1px solid ${T.border}`, background: done ? "#10b981" : T.accentDim, color: done ? "#fff" : T.textMuted, fontSize: 11, fontWeight: 700, cursor: "pointer", transition: "all 0.15s" }}>
-                            {q.number}
-                          </button>
-                        );
-                      })}
-                    </React.Fragment>
-                  ))
-                ) : (
-                  section.questions.map((q) => {
-                    const done = !!(answers[q.id] || "").trim();
-                    return (
-                      <button key={q.id}
-                        onClick={() => document.getElementById(`question-${q.id}`)?.scrollIntoView({ behavior: "smooth", block: "center" })}
-                        style={{ width: 30, height: 30, borderRadius: 7, border: done ? "none" : `1px solid ${T.border}`, background: done ? "#10b981" : T.accentDim, color: done ? "#fff" : T.textMuted, fontSize: 11, fontWeight: 700, cursor: "pointer", transition: "all 0.15s" }}>
-                        {q.number}
-                      </button>
-                    );
-                  })
-                )}
+                {/* Same list for both test types now: every question in every part */}
+                {test.sections.map((s, sIdx) => (
+                  <React.Fragment key={s.id}>
+                    {sIdx > 0 && <div style={{ width: "100%", height: 0 }} />}
+                    {s.questions.map((q) => {
+                      const done = !!(answers[q.id] || "").trim();
+                      return (
+                        <button key={q.id}
+                          onClick={() => document.getElementById(`question-${q.id}`)?.scrollIntoView({ behavior: "smooth", block: "center" })}
+                          style={{ width: 30, height: 30, borderRadius: 7, border: done ? "none" : `1px solid ${T.border}`, background: done ? "#10b981" : T.accentDim, color: done ? "#fff" : T.textMuted, fontSize: 11, fontWeight: 700, cursor: "pointer", transition: "all 0.15s" }}>
+                          {q.number}
+                        </button>
+                      );
+                    })}
+                  </React.Fragment>
+                ))}
               </div>
             </div>
           );
