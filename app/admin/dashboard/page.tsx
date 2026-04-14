@@ -464,8 +464,8 @@ export default function AdminDashboard() {
 
           {/* Table */}
           {filtered.length > 0 ? (
-            <div style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 14, overflow: "hidden", marginBottom: 28 }}>
-              <div style={{ overflowX: "auto" }}>
+            <div style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 14, overflow: "hidden", marginBottom: 28, maxHeight: 520, display: "flex", flexDirection: "column" }}>
+              <div style={{ overflow: "auto", flex: 1 }}>
                 <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 13, minWidth: 700 }}>
                   <thead>
                     <tr style={{ background: C.card2 }}>
