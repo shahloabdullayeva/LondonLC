@@ -458,16 +458,39 @@ export default function AdminDashboard() {
         {/* ══════════════════ RESULTS TAB ══════════════════ */}
         {activeTab === "results" && <>
 
-          {/* Title row */}
-          <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 16, marginBottom: 24, flexWrap: "wrap" }}>
-            <div>
+          {/* Title row — dashboard title on the left, rotating quote in
+              the middle (fills the empty space), Export on the right. */}
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 20, marginBottom: 24, flexWrap: "wrap" }}>
+            <div style={{ flexShrink: 0 }}>
               <h1 style={{ fontSize: 22, fontWeight: 800, color: C.text, marginBottom: 2 }}>
-              {isRootAdmin ? "Dashboard" : isAdminUser ? "Admin Dashboard" : "Teacher Dashboard"}
-            </h1>
+                {isRootAdmin ? "Dashboard" : isAdminUser ? "Admin Dashboard" : "Teacher Dashboard"}
+              </h1>
               <p style={{ fontSize: 13, color: C.muted }}>Signed in as <strong style={{ color: isRootAdmin ? "#fbbf24" : isAdminUser ? "#60a5fa" : C.accent }}>{currentUsername}</strong> · View and analyse all student results</p>
             </div>
+            {quote && (
+              <figure style={{
+                margin: 0, flex: 1, minWidth: 260, maxWidth: 620,
+                padding: "10px 18px",
+                borderLeft: "2px solid rgba(255,255,255,0.25)",
+              }}>
+                <blockquote style={{
+                  margin: 0, fontSize: 13, color: C.sub,
+                  lineHeight: 1.5, fontStyle: "italic", fontWeight: 300,
+                }}>
+                  &ldquo;{quote.text}&rdquo;
+                </blockquote>
+                {quote.author && (
+                  <figcaption style={{
+                    marginTop: 4, fontSize: 10, letterSpacing: "0.18em",
+                    textTransform: "uppercase", color: C.muted, fontWeight: 600,
+                  }}>
+                    — {quote.author}
+                  </figcaption>
+                )}
+              </figure>
+            )}
             <button onClick={exportExcel}
-              style={{ display: "flex", alignItems: "center", gap: 7, padding: "9px 18px", background: C.accentLight, border: `1px solid ${C.accent}`, borderRadius: 10, color: C.accent, fontSize: 13, fontWeight: 600, cursor: "pointer" }}>
+              style={{ display: "flex", alignItems: "center", gap: 7, padding: "9px 18px", background: C.accentLight, border: `1px solid ${C.accent}`, borderRadius: 10, color: C.accent, fontSize: 13, fontWeight: 600, cursor: "pointer", flexShrink: 0 }}>
               <Download size={14} /> Export Excel
             </button>
           </div>
