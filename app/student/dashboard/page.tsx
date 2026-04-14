@@ -1,9 +1,10 @@
 "use client";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { BookOpen, Headphones, LogOut, User, Clock, Award, ChevronRight, BarChart3, Star, ChevronLeft, Lock, History, ChevronDown, ChevronUp } from "lucide-react";
+import { BookOpen, Headphones, LogOut, User, Clock, Award, ChevronRight, BarChart3, Star, ChevronLeft, Lock, History, ChevronDown, ChevronUp, PenLine, FileText, Mic, Music } from "lucide-react";
 import { getSession, clearSession, getAttempts, type AttemptData } from "@/lib/store";
 import { allTests, getTestById } from "@/data/ielts-tests";
+import { quotes, type Quote } from "@/lib/quotes";
 import type { StudentSession } from "@/lib/store";
 
 type TestType = "reading" | "listening";
@@ -25,6 +26,7 @@ export default function StudentDashboard() {
   const [selectedBook, setSelectedBook] = useState<number | null>(null);
   const [expandedAttempt, setExpandedAttempt] = useState<string | null>(null);
   const [attempts, setAttempts] = useState<AttemptData[]>([]);
+  const [quote, setQuote] = useState<Quote | null>(null);
 
   useEffect(() => {
     const s = getSession();
@@ -32,6 +34,11 @@ export default function StudentDashboard() {
     setSession(s);
     getAttempts().then(all => setAttempts(all.filter(a => a.studentId === s.id)));
   }, [router]);
+
+  // Pick a random quote each visit. Client-side to avoid hydration mismatch.
+  useEffect(() => {
+    if (quotes.length > 0) setQuote(quotes[Math.floor(Math.random() * quotes.length)]);
+  }, []);
   const typeAttempts = attempts.filter(a => a.testType === typeFilter && a.status === "completed");
   const completed = attempts.filter(a => a.status === "completed");
   const avgBand = typeAttempts.length ? (typeAttempts.reduce((s, a) => s + a.bandScore, 0) / typeAttempts.length).toFixed(1) : "—";
@@ -61,43 +68,70 @@ export default function StudentDashboard() {
       </nav>
 
       <div className="student-layout" style={{ flex: 1, display: "flex", overflow: "hidden" }}>
-        {/* Sidebar */}
-        <aside className="student-sidebar" style={{ width: 220, background: "#0e0828", borderRight: "1px solid rgba(255,255,255,0.07)", padding: "28px 16px", display: "flex", flexDirection: "column", gap: 6, flexShrink: 0 }}>
-          <p style={{ fontSize: 11, fontWeight: 700, color: "rgba(255,255,255,0.3)", letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: 8, paddingLeft: 8 }}>Tests</p>
-          {[
-            { view: "reading" as SidebarView, type: "reading" as TestType, icon: BookOpen, label: "Reading" },
-            { view: "listening" as SidebarView, type: "listening" as TestType, icon: Headphones, label: "Listening" },
-          ].map(item => (
-            <button key={item.view} onClick={() => { setSidebarView(item.view); setTypeFilter(item.type); setSelectedBook(null); }}
-              style={{ display: "flex", alignItems: "center", gap: 10, padding: "11px 14px", borderRadius: 11, border: "none", cursor: "pointer", fontWeight: 600, fontSize: 14, transition: "all 0.18s", textAlign: "left",
-                background: sidebarView === item.view ? "rgba(124,58,237,0.18)" : "transparent",
-                color: sidebarView === item.view ? "#c4b5fd" : "rgba(255,255,255,0.45)",
-                borderLeft: sidebarView === item.view ? "2px solid #7c3aed" : "2px solid transparent",
-              }}>
-              <item.icon size={16} /> {item.label}
-            </button>
-          ))}
-          <div style={{ height: 1, background: "rgba(255,255,255,0.07)", margin: "10px 0" }} />
-          <button onClick={() => { setSidebarView("history"); setSelectedBook(null); }}
-            style={{ display: "flex", alignItems: "center", gap: 10, padding: "11px 14px", borderRadius: 11, border: "none", cursor: "pointer", fontWeight: 600, fontSize: 14, transition: "all 0.18s", textAlign: "left",
-              background: sidebarView === "history" ? "rgba(124,58,237,0.18)" : "transparent",
-              color: sidebarView === "history" ? "#c4b5fd" : "rgba(255,255,255,0.45)",
-              borderLeft: sidebarView === "history" ? "2px solid #7c3aed" : "2px solid transparent",
-            }}>
-            <History size={16} /> My History
-          </button>
+        {/* Sidebar — flat list of sections, each with an arrow. */}
+        <aside className="student-sidebar" style={{ width: 240, background: "#0e0828", borderRight: "1px solid rgba(255,255,255,0.07)", padding: "24px 14px", display: "flex", flexDirection: "column", gap: 2, flexShrink: 0, overflowY: "auto" }}>
+          <p style={{ fontSize: 10, fontWeight: 700, color: "rgba(255,255,255,0.3)", letterSpacing: "0.2em", textTransform: "uppercase", margin: "0 0 10px", paddingLeft: 10 }}>
+            Sections
+          </p>
+
+          <SidebarLink icon={Headphones} label="Listening"
+            active={sidebarView === "listening"}
+            onClick={() => { setSidebarView("listening"); setTypeFilter("listening"); setSelectedBook(null); }} />
+          <SidebarLink icon={BookOpen} label="Reading"
+            active={sidebarView === "reading"}
+            onClick={() => { setSidebarView("reading"); setTypeFilter("reading"); setSelectedBook(null); }} />
+          <SidebarLink icon={PenLine} label="Writing" soon
+            onClick={() => router.push("/writing")} />
+          <SidebarLink icon={FileText} label="Articles"
+            onClick={() => router.push("/articles")} />
+          <SidebarLink icon={Mic} label="Podcasts"
+            onClick={() => router.push("/podcasts")} />
+          <SidebarLink icon={Music} label="Music"
+            onClick={() => router.push("/music")} />
+
+          <div style={{ height: 1, background: "rgba(255,255,255,0.07)", margin: "14px 0" }} />
+
+          <SidebarLink icon={History} label="My History"
+            active={sidebarView === "history"}
+            onClick={() => { setSidebarView("history"); setSelectedBook(null); }} />
 
         </aside>
 
         {/* Main content */}
         <main className="student-main" style={{ flex: 1, overflowY: "auto", padding: "32px 36px" }}>
           {/* Welcome */}
-          <div style={{ marginBottom: 28 }}>
+          <div style={{ marginBottom: 20 }}>
             <h1 style={{ fontSize: 26, fontWeight: 800, color: "#fff", marginBottom: 4 }}>
               Welcome Back, {session.name}!
             </h1>
             <p style={{ color: "rgba(255,255,255,0.4)", fontSize: 14 }}>Ready to boost your IELTS score? Let&apos;s practice!</p>
           </div>
+
+          {/* Rotating quote — a new one every visit */}
+          {quote && (
+            <figure style={{
+              margin: "0 0 28px", padding: "18px 22px",
+              background: "rgba(255,255,255,0.025)",
+              border: "1px solid rgba(255,255,255,0.06)",
+              borderLeft: "2px solid rgba(167,139,250,0.6)",
+              borderRadius: 10,
+            }}>
+              <blockquote style={{
+                margin: 0, fontSize: 14, color: "rgba(255,255,255,0.78)",
+                lineHeight: 1.65, fontStyle: "italic", fontWeight: 300,
+              }}>
+                &ldquo;{quote.text}&rdquo;
+              </blockquote>
+              {quote.author && (
+                <figcaption style={{
+                  marginTop: 8, fontSize: 11, letterSpacing: "0.18em",
+                  textTransform: "uppercase", color: "rgba(255,255,255,0.35)", fontWeight: 600,
+                }}>
+                  — {quote.author}
+                </figcaption>
+              )}
+            </figure>
+          )}
 
           {/* Stats */}
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", gap: 14, marginBottom: 36 }}>
@@ -356,5 +390,49 @@ export default function StudentDashboard() {
         </main>
       </div>
     </div>
+  );
+}
+
+// Sidebar link with a right-arrow that nudges on hover. Active items get
+// a left accent bar and a muted violet background.
+function SidebarLink({
+  icon: Icon, label, active = false, soon = false, onClick,
+}: {
+  icon: React.ComponentType<{ size?: number; color?: string }>;
+  label: string;
+  active?: boolean;
+  soon?: boolean;
+  onClick: () => void;
+}) {
+  return (
+    <button onClick={onClick}
+      className="sidebar-link"
+      style={{
+        display: "flex", alignItems: "center", gap: 10,
+        padding: "11px 14px", borderRadius: 11, border: "none", cursor: "pointer",
+        fontWeight: 600, fontSize: 14, textAlign: "left",
+        background: active ? "rgba(124,58,237,0.18)" : "transparent",
+        color: active ? "#c4b5fd" : "rgba(255,255,255,0.5)",
+        borderLeft: active ? "2px solid #7c3aed" : "2px solid transparent",
+        transition: "background 0.18s, color 0.18s",
+      }}
+      onMouseEnter={(e) => { if (!active) e.currentTarget.style.background = "rgba(255,255,255,0.04)"; }}
+      onMouseLeave={(e) => { if (!active) e.currentTarget.style.background = "transparent"; }}
+    >
+      <Icon size={16} />
+      <span style={{ flex: 1 }}>{label}</span>
+      {soon && (
+        <span style={{
+          fontSize: 9, padding: "2px 6px", borderRadius: 999,
+          border: "1px solid rgba(255,255,255,0.15)",
+          color: "rgba(255,255,255,0.4)", letterSpacing: "0.08em",
+        }}>SOON</span>
+      )}
+      <ChevronRight size={14} color="rgba(255,255,255,0.35)" className="sidebar-link-arrow" />
+      <style>{`
+        .sidebar-link:hover .sidebar-link-arrow { transform: translateX(2px); transition: transform 0.18s; }
+        .sidebar-link .sidebar-link-arrow { transition: transform 0.18s; }
+      `}</style>
+    </button>
   );
 }
