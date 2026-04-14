@@ -97,43 +97,42 @@ export default function StudentDashboard() {
             active={sidebarView === "profile"}
             onClick={() => { setSidebarView("profile"); setSelectedBook(null); }} />
 
-          {/* Rotating quote pinned at the bottom of the sidebar. */}
-          {quote && (
-            <figure style={{
-              margin: "auto 4px 8px",
-              padding: "12px 14px",
-              background: "rgba(255,255,255,0.025)",
-              border: "1px solid rgba(255,255,255,0.06)",
-              borderLeft: "2px solid rgba(255,255,255,0.3)",
-              borderRadius: 8,
-            }}>
-              <blockquote style={{
-                margin: 0, fontSize: 11.5, color: "rgba(255,255,255,0.72)",
-                lineHeight: 1.55, fontStyle: "italic", fontWeight: 300,
-              }}>
-                &ldquo;{quote.text}&rdquo;
-              </blockquote>
-              {quote.author && (
-                <figcaption style={{
-                  marginTop: 6, fontSize: 9, letterSpacing: "0.18em",
-                  textTransform: "uppercase", color: "rgba(255,255,255,0.35)", fontWeight: 600,
-                }}>
-                  — {quote.author}
-                </figcaption>
-              )}
-            </figure>
-          )}
-
         </aside>
 
         {/* Main content */}
         <main className="student-main" style={{ flex: 1, overflowY: "auto", padding: "32px 36px" }}>
-          {/* Welcome */}
-          <div style={{ marginBottom: 20 }}>
-            <h1 style={{ fontSize: 26, fontWeight: 800, color: "#fff", marginBottom: 4 }}>
-              Welcome Back, {session.name}!
-            </h1>
-            <p style={{ color: "rgba(255,255,255,0.4)", fontSize: 14 }}>Ready to boost your IELTS score? Let&apos;s practice!</p>
+          {/* Welcome + quote in the same title row, separated by a thin
+              divider from the content below — same pattern as the admin
+              Results tab. */}
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 20, marginBottom: 24, paddingBottom: 18, borderBottom: "1px solid rgba(255,255,255,0.06)", flexWrap: "wrap" }}>
+            <div style={{ flexShrink: 0 }}>
+              <h1 style={{ fontSize: 26, fontWeight: 800, color: "#fff", marginBottom: 4 }}>
+                Welcome Back, {session.name}!
+              </h1>
+              <p style={{ color: "rgba(255,255,255,0.4)", fontSize: 14 }}>Ready to boost your IELTS score? Let&apos;s practice!</p>
+            </div>
+            {quote && (
+              <figure style={{
+                margin: 0, flex: 1, minWidth: 260, maxWidth: 620,
+                padding: "8px 18px",
+                borderLeft: "2px solid rgba(255,255,255,0.25)",
+              }}>
+                <blockquote style={{
+                  margin: 0, fontSize: 13, color: "rgba(255,255,255,0.72)",
+                  lineHeight: 1.5, fontStyle: "italic", fontWeight: 300,
+                }}>
+                  &ldquo;{quote.text}&rdquo;
+                </blockquote>
+                {quote.author && (
+                  <figcaption style={{
+                    marginTop: 4, fontSize: 10, letterSpacing: "0.18em",
+                    textTransform: "uppercase", color: "rgba(255,255,255,0.35)", fontWeight: 600,
+                  }}>
+                    — {quote.author}
+                  </figcaption>
+                )}
+              </figure>
+            )}
           </div>
 
           {/* Quote is now pinned at the bottom of the sidebar, not here. */}
