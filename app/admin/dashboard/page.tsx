@@ -5,12 +5,12 @@ import {
   BookOpen, LogOut, Users, Award, BarChart3, Search,
   Download, CheckCircle, X, Shield, Plus, Trash2, Eye, EyeOff,
   Monitor, Ban, Headphones, ChevronRight, ChevronDown, ChevronUp, Pencil, Save,
-  PenLine, FileText, Mic, Music,
+  PenLine, FileText, Mic, Music, UserCircle2, Lock,
 } from "lucide-react";
 
 const ROOT_ADMIN_ID = "admin-root";
 const ADMIN_USERNAME = "SarvarxonP";
-import { getSession, clearSession, getAttempts, getTeachers, addTeacher, deleteTeacher, updateTeacherPassword, setTeacherPlainPassword, setStudentPlainPassword, registerStudent, getStudentAccounts, deleteStudent, updateStudent, getBlockedIPs, blockIP, unblockIP, type AttemptData, type TeacherAccount, type StudentAccount } from "@/lib/store";
+import { getSession, clearSession, getAttempts, getTeachers, addTeacher, deleteTeacher, updateTeacherPassword, setTeacherPlainPassword, setStudentPlainPassword, changeTeacherOwnPassword, registerStudent, getStudentAccounts, deleteStudent, updateStudent, getBlockedIPs, blockIP, unblockIP, type AttemptData, type TeacherAccount, type StudentAccount } from "@/lib/store";
 import { getTestById } from "@/data/ielts-tests";
 import { allTests } from "@/data/ielts-tests";
 import Brand from "@/components/Brand";
@@ -47,7 +47,14 @@ const sel: React.CSSProperties = {
 export default function AdminDashboard() {
   const router = useRouter();
   const [attempts, setAttempts] = useState<AttemptData[]>([]);
-  const [activeTab, setActiveTab] = useState<"results" | "students" | "teachers" | "practice" | "tests" | "writing" | "articles" | "podcasts" | "music">("results");
+  const [activeTab, setActiveTab] = useState<"results" | "students" | "teachers" | "practice" | "tests" | "writing" | "articles" | "podcasts" | "music" | "profile">("results");
+  // Teacher self-service password change state (rendered in the Profile tab).
+  const [ownCurrPw, setOwnCurrPw] = useState("");
+  const [ownNewPw, setOwnNewPw] = useState("");
+  const [ownPwMsg, setOwnPwMsg] = useState<{ kind: "ok" | "err"; text: string } | null>(null);
+  const [ownPwSaving, setOwnPwSaving] = useState(false);
+  const [ownShowCurr, setOwnShowCurr] = useState(false);
+  const [ownShowNew, setOwnShowNew] = useState(false);
   const [expandedGroup, setExpandedGroup] = useState<string | null>(null);
   const [expandedStudent, setExpandedStudent] = useState<string | null>(null);
   const [expandedAttempt, setExpandedAttempt] = useState<string | null>(null);
@@ -342,6 +349,16 @@ export default function AdminDashboard() {
               <ChevronRight size={13} />
             </button>
           ))}
+
+          {/* My Profile — self-service account management for teachers */}
+          <div style={{ height: 1, background: C.border, margin: "14px 0" }} />
+          <button onClick={() => setActiveTab("profile")}
+            style={{ display: "flex", alignItems: "center", gap: 10, width: "100%", padding: "10px 12px", borderRadius: 10, border: "none", cursor: "pointer", fontWeight: 600, fontSize: 13, textAlign: "left", marginBottom: 2, transition: "all 0.15s",
+              background: activeTab === "profile" ? C.accentLight : "transparent",
+              color: activeTab === "profile" ? C.accent : C.muted }}>
+            <UserCircle2 size={15} />
+            My Profile
+          </button>
         </nav>
 
         {/* Sign out */}
@@ -1132,6 +1149,94 @@ export default function AdminDashboard() {
           );
         })()}
 
+
+        {/* ══════════════════ MY PROFILE (teachers) ══════════════════ */}
+        {activeTab === "profile" && (() => {
+          const submitOwnPw = async (e: React.FormEvent) => {
+            e.preventDefault();
+            setOwnPwMsg(null);
+            setOwnPwSaving(true);
+            const res = await changeTeacherOwnPassword(currentTeacherId, ownCurrPw, ownNewPw);
+            setOwnPwSaving(false);
+            if (res.ok) {
+              setOwnPwMsg({ kind: "ok", text: "Password updated." });
+              setOwnCurrPw(""); setOwnNewPw("");
+            } else {
+              setOwnPwMsg({ kind: "err", text: res.error ?? "Couldn't update password." });
+            }
+          };
+          const fieldStyle: React.CSSProperties = {
+            width: "100%", padding: "10px 40px 10px 14px",
+            background: "rgba(255,255,255,0.04)",
+            border: `1px solid ${C.border}`,
+            borderRadius: 10, color: C.text, fontSize: 14, outline: "none",
+            fontFamily: "inherit",
+          };
+          return (
+            <div style={{ maxWidth: 640 }}>
+              <h1 style={{ fontSize: 22, fontWeight: 800, color: C.text, marginBottom: 4 }}>My Profile</h1>
+              <p style={{ color: C.muted, fontSize: 13, marginBottom: 20 }}>Your account and settings.</p>
+
+              {/* Identity */}
+              <div style={{ padding: "18px 20px", background: C.card, border: `1px solid ${C.border}`, borderRadius: 14, marginBottom: 16, display: "flex", alignItems: "center", gap: 16 }}>
+                <div style={{ width: 52, height: 52, borderRadius: "50%", background: "#2a2a2a", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                  <UserCircle2 size={26} color="#fff" />
+                </div>
+                <div>
+                  <div style={{ fontSize: 16, fontWeight: 700, color: C.text }}>{currentUsername}</div>
+                  <div style={{ fontSize: 12, color: C.muted, marginTop: 2 }}>
+                    {isRootAdmin ? "Root account" : isAdminUser ? "Admin" : "Teacher"}
+                  </div>
+                </div>
+              </div>
+
+              {/* Change password */}
+              <div style={{ padding: "18px 20px", background: C.card, border: `1px solid ${C.border}`, borderRadius: 14 }}>
+                <h3 style={{ fontSize: 14, fontWeight: 700, color: C.text, marginBottom: 14, display: "flex", alignItems: "center", gap: 8 }}>
+                  <Lock size={14} /> Change password
+                </h3>
+                <form onSubmit={submitOwnPw} style={{ display: "grid", gap: 10 }}>
+                  <div style={{ position: "relative" }}>
+                    <input type={ownShowCurr ? "text" : "password"} autoComplete="current-password"
+                      placeholder="Current password" value={ownCurrPw}
+                      onChange={(e) => setOwnCurrPw(e.target.value)}
+                      style={fieldStyle}
+                      onFocus={(e) => (e.currentTarget.style.borderColor = C.accent)}
+                      onBlur={(e) => (e.currentTarget.style.borderColor = C.border)} />
+                    <button type="button" onClick={() => setOwnShowCurr(v => !v)}
+                      style={{ position: "absolute", right: 8, top: "50%", transform: "translateY(-50%)", background: "none", border: "none", cursor: "pointer", color: C.muted, padding: 6 }}>
+                      {ownShowCurr ? <EyeOff size={15} /> : <Eye size={15} />}
+                    </button>
+                  </div>
+                  <div style={{ position: "relative" }}>
+                    <input type={ownShowNew ? "text" : "password"} autoComplete="new-password"
+                      placeholder="New password (min 4 characters)" value={ownNewPw}
+                      onChange={(e) => setOwnNewPw(e.target.value)}
+                      style={fieldStyle}
+                      onFocus={(e) => (e.currentTarget.style.borderColor = C.accent)}
+                      onBlur={(e) => (e.currentTarget.style.borderColor = C.border)} />
+                    <button type="button" onClick={() => setOwnShowNew(v => !v)}
+                      style={{ position: "absolute", right: 8, top: "50%", transform: "translateY(-50%)", background: "none", border: "none", cursor: "pointer", color: C.muted, padding: 6 }}>
+                      {ownShowNew ? <EyeOff size={15} /> : <Eye size={15} />}
+                    </button>
+                  </div>
+                  {ownPwMsg && (
+                    <div style={{
+                      fontSize: 13, padding: "9px 12px", borderRadius: 9,
+                      background: ownPwMsg.kind === "ok" ? "rgba(16,185,129,0.1)" : "rgba(239,68,68,0.1)",
+                      border: `1px solid ${ownPwMsg.kind === "ok" ? "rgba(16,185,129,0.3)" : "rgba(239,68,68,0.3)"}`,
+                      color: ownPwMsg.kind === "ok" ? "#6ee7b7" : "#fca5a5",
+                    }}>{ownPwMsg.text}</div>
+                  )}
+                  <button type="submit" disabled={ownPwSaving || !ownCurrPw || !ownNewPw}
+                    style={{ justifySelf: "start", padding: "10px 22px", background: ownPwSaving || !ownCurrPw || !ownNewPw ? "rgba(255,255,255,0.1)" : "#2a2a2a", color: "#fff", fontWeight: 700, fontSize: 13, border: "none", borderRadius: 9, cursor: ownPwSaving || !ownCurrPw || !ownNewPw ? "not-allowed" : "pointer" }}>
+                    {ownPwSaving ? "Updating…" : "Update password"}
+                  </button>
+                </form>
+              </div>
+            </div>
+          );
+        })()}
 
         {/* ══════════════════ COMING-SOON SECTIONS ══════════════════ */}
         {(activeTab === "writing" || activeTab === "articles" || activeTab === "podcasts" || activeTab === "music") && (

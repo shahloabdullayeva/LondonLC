@@ -245,6 +245,20 @@ export async function changeStudentOwnPassword(
   return { ok: true };
 }
 
+// Teacher-initiated password change (same rules as student).
+export async function changeTeacherOwnPassword(
+  id: string, currentPassword: string, newPassword: string,
+): Promise<{ ok: boolean; error?: string }> {
+  const { data } = await supabase.from("teachers").select("password").eq("id", id).maybeSingle();
+  if (!data) return { ok: false, error: "Account not found." };
+  const ok = await verifyPassword(currentPassword, data.password);
+  if (!ok) return { ok: false, error: "Current password is incorrect." };
+  if (newPassword.trim().length < 4) return { ok: false, error: "New password must be at least 4 characters." };
+  const hashed = await hashPassword(newPassword.trim());
+  await supabase.from("teachers").update({ password: hashed, plain_password: newPassword.trim() }).eq("id", id);
+  return { ok: true };
+}
+
 // ── Session (localStorage — intentionally per-device) ──────────────────
 const SESSION_KEY = "llc_session";
 const STUDENT_CACHE_KEY = "llc_student_cache";
