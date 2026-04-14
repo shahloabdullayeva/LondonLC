@@ -1111,8 +1111,404 @@ Solutions
   ],
 };
 
+// ============================================================
+// CAMBRIDGE IELTS 18 – LISTENING TEST 4
+// Parts: 1) Receptionist job from agency (notes)
+//        2) Museum tour (MCQ + matching)
+//        3) Origami video + teaching (Choose-TWO + matching + MCQ)
+//        4) Victor Hugo (notes)
+// ============================================================
+export const cambridge18_listening_t4: IELTSTest = {
+  id: "cam18-listening-t4",
+  title: "Cambridge IELTS 18 – Listening Test 4",
+  bookNumber: 18,
+  testNumber: 4,
+  type: "listening",
+  level: "academic",
+  durationMinutes: 30,
+  transferMinutes: 10,
+  audioUrl: audioUrl("cam18-listening-t4.mp3"),
+  audioDurationSeconds: 1800,
+  sections: [
+    // ── PART 1 ─────────────────────────────────────────────
+    {
+      id: "cam18-l-t4-s1",
+      sectionNumber: 1,
+      title: "Part 1",
+      instructions: `Questions 1–10: Complete the notes below. Write ONE WORD AND/OR A NUMBER for each answer.`,
+      passageText: `Job details from employment agency
+
+Role: 1 _______
+Location: Fordham 2 _______ Centre, 3 _______ Road, Fordham
+
+Work involves
+●  dealing with enquiries
+●  making 4 _______ and reorganising them
+●  maintaining the internal 5 _______
+●  general administration
+
+Requirements
+●  6 _______ (essential)
+●  a calm and 7 _______ manner
+●  good IT skills
+
+Other information
+●  a 8 _______ job – further opportunities may be available
+●  hours: 7.45 a.m. to 9 _______ p.m. Monday to Friday
+●  10 _______ is available onsite`,
+      questions: [
+        { id: "cam18-l-t4-s1-q1", number: 1, type: "note_completion", question: "1. Role: _______", correctAnswer: "receptionist", points: 1 },
+        { id: "cam18-l-t4-s1-q2", number: 2, type: "note_completion", question: "2. Fordham _______ Centre", correctAnswer: "Medical", points: 1 },
+        { id: "cam18-l-t4-s1-q3", number: 3, type: "note_completion", question: "3. _______ Road, Fordham", correctAnswer: "Chastons", points: 1 },
+        { id: "cam18-l-t4-s1-q4", number: 4, type: "note_completion", question: "4. making _______ and reorganising them", correctAnswer: "appointments", points: 1 },
+        { id: "cam18-l-t4-s1-q5", number: 5, type: "note_completion", question: "5. maintaining the internal _______", correctAnswer: "database", points: 1 },
+        { id: "cam18-l-t4-s1-q6", number: 6, type: "note_completion", question: "6. _______ (essential)", correctAnswer: "experience", points: 1 },
+        { id: "cam18-l-t4-s1-q7", number: 7, type: "note_completion", question: "7. a calm and _______ manner", correctAnswer: "confident", points: 1 },
+        { id: "cam18-l-t4-s1-q8", number: 8, type: "note_completion", question: "8. a _______ job – further opportunities may be available", correctAnswer: "temporary", points: 1 },
+        { id: "cam18-l-t4-s1-q9", number: 9, type: "note_completion", question: "9. hours: 7.45 a.m. to _______ p.m.", correctAnswer: "1.15/one fifteen", points: 1 },
+        { id: "cam18-l-t4-s1-q10", number: 10, type: "note_completion", question: "10. _______ is available onsite", correctAnswer: "parking", points: 1 },
+      ],
+    },
+    // ── PART 2 ─────────────────────────────────────────────
+    {
+      id: "cam18-l-t4-s2",
+      sectionNumber: 2,
+      title: "Part 2",
+      instructions: `Questions 11–14: Choose the correct letter, A, B or C.
+Questions 15–20: Match each museum area to the information. Choose from A–H.`,
+      passageTitle: "Museum tour",
+      passageText: `Information (for Q15–20):
+A  Parents must supervise their children.
+B  There are new things to see.
+C  It is closed today.
+D  This is only for school groups.
+E  There is a quiz for visitors.
+F  It features something created by students.
+G  An expert is here today.
+H  There is a one-way system.`,
+      questions: [
+        {
+          id: "cam18-l-t4-s2-q11", number: 11,
+          groupLabel: `Questions 11–14: Choose the correct letter, A, B or C.`,
+          type: "multiple_choice", question: "11. The museum building was originally",
+          options: [
+            { label: "A  a factory.", value: "A" },
+            { label: "B  a private home.", value: "B" },
+            { label: "C  a hall of residence.", value: "C" },
+          ],
+          correctAnswer: "B", points: 1,
+        },
+        {
+          id: "cam18-l-t4-s2-q12", number: 12, type: "multiple_choice",
+          question: "12. The university uses part of the museum building as",
+          options: [
+            { label: "A  teaching rooms.", value: "A" },
+            { label: "B  a research library.", value: "B" },
+            { label: "C  administration offices.", value: "C" },
+          ],
+          correctAnswer: "A", points: 1,
+        },
+        {
+          id: "cam18-l-t4-s2-q13", number: 13, type: "multiple_choice",
+          question: "13. What does the guide say about the entrance fee?",
+          options: [
+            { label: "A  Visitors decide whether or not they wish to pay.", value: "A" },
+            { label: "B  Only children and students receive a discount.", value: "B" },
+            { label: "C  The museum charges extra for special exhibitions.", value: "C" },
+          ],
+          correctAnswer: "A", points: 1,
+        },
+        {
+          id: "cam18-l-t4-s2-q14", number: 14, type: "multiple_choice",
+          question: "14. What are visitors advised to leave in the cloakroom?",
+          options: [
+            { label: "A  cameras", value: "A" },
+            { label: "B  coats", value: "B" },
+            { label: "C  bags", value: "C" },
+          ],
+          correctAnswer: "C", points: 1,
+        },
+        {
+          id: "cam18-l-t4-s2-q15", number: 15,
+          groupLabel: `Questions 15–20: What information does the speaker give about each of the following areas of the museum? Choose SIX answers from the box (A–H) and write the correct letter next to each area.\n\nA  Parents must supervise their children.\nB  There are new things to see.\nC  It is closed today.\nD  This is only for school groups.\nE  There is a quiz for visitors.\nF  It features something created by students.\nG  An expert is here today.\nH  There is a one-way system.`,
+          type: "multiple_choice", question: "15. Four Seasons",
+          options: [
+            { label: "A  Parents must supervise their children.", value: "A" },
+            { label: "B  There are new things to see.", value: "B" },
+            { label: "C  It is closed today.", value: "C" },
+            { label: "D  This is only for school groups.", value: "D" },
+            { label: "E  There is a quiz for visitors.", value: "E" },
+            { label: "F  It features something created by students.", value: "F" },
+            { label: "G  An expert is here today.", value: "G" },
+            { label: "H  There is a one-way system.", value: "H" },
+          ],
+          correctAnswer: "F", points: 1,
+        },
+        {
+          id: "cam18-l-t4-s2-q16", number: 16, type: "multiple_choice", question: "16. Farmhouse Kitchen",
+          options: [
+            { label: "A  Parents must supervise their children.", value: "A" },
+            { label: "B  There are new things to see.", value: "B" },
+            { label: "C  It is closed today.", value: "C" },
+            { label: "D  This is only for school groups.", value: "D" },
+            { label: "E  There is a quiz for visitors.", value: "E" },
+            { label: "F  It features something created by students.", value: "F" },
+            { label: "G  An expert is here today.", value: "G" },
+            { label: "H  There is a one-way system.", value: "H" },
+          ],
+          correctAnswer: "G", points: 1,
+        },
+        {
+          id: "cam18-l-t4-s2-q17", number: 17, type: "multiple_choice", question: "17. A Year on the Farm",
+          options: [
+            { label: "A  Parents must supervise their children.", value: "A" },
+            { label: "B  There are new things to see.", value: "B" },
+            { label: "C  It is closed today.", value: "C" },
+            { label: "D  This is only for school groups.", value: "D" },
+            { label: "E  There is a quiz for visitors.", value: "E" },
+            { label: "F  It features something created by students.", value: "F" },
+            { label: "G  An expert is here today.", value: "G" },
+            { label: "H  There is a one-way system.", value: "H" },
+          ],
+          correctAnswer: "E", points: 1,
+        },
+        {
+          id: "cam18-l-t4-s2-q18", number: 18, type: "multiple_choice", question: "18. Wagon Walk",
+          options: [
+            { label: "A  Parents must supervise their children.", value: "A" },
+            { label: "B  There are new things to see.", value: "B" },
+            { label: "C  It is closed today.", value: "C" },
+            { label: "D  This is only for school groups.", value: "D" },
+            { label: "E  There is a quiz for visitors.", value: "E" },
+            { label: "F  It features something created by students.", value: "F" },
+            { label: "G  An expert is here today.", value: "G" },
+            { label: "H  There is a one-way system.", value: "H" },
+          ],
+          correctAnswer: "A", points: 1,
+        },
+        {
+          id: "cam18-l-t4-s2-q19", number: 19, type: "multiple_choice", question: "19. Bees are Magic",
+          options: [
+            { label: "A  Parents must supervise their children.", value: "A" },
+            { label: "B  There are new things to see.", value: "B" },
+            { label: "C  It is closed today.", value: "C" },
+            { label: "D  This is only for school groups.", value: "D" },
+            { label: "E  There is a quiz for visitors.", value: "E" },
+            { label: "F  It features something created by students.", value: "F" },
+            { label: "G  An expert is here today.", value: "G" },
+            { label: "H  There is a one-way system.", value: "H" },
+          ],
+          correctAnswer: "C", points: 1,
+        },
+        {
+          id: "cam18-l-t4-s2-q20", number: 20, type: "multiple_choice", question: "20. The Pond",
+          options: [
+            { label: "A  Parents must supervise their children.", value: "A" },
+            { label: "B  There are new things to see.", value: "B" },
+            { label: "C  It is closed today.", value: "C" },
+            { label: "D  This is only for school groups.", value: "D" },
+            { label: "E  There is a quiz for visitors.", value: "E" },
+            { label: "F  It features something created by students.", value: "F" },
+            { label: "G  An expert is here today.", value: "G" },
+            { label: "H  There is a one-way system.", value: "H" },
+          ],
+          correctAnswer: "B", points: 1,
+        },
+      ],
+    },
+    // ── PART 3 ─────────────────────────────────────────────
+    {
+      id: "cam18-l-t4-s3",
+      sectionNumber: 3,
+      title: "Part 3",
+      instructions: `Questions 21 & 22: Choose TWO letters, A–E.
+Questions 23–27: Match each child to a comment. Choose from A–G.
+Questions 28–30: Choose the correct letter, A, B or C.`,
+      passageText: `Students discussing an origami video and using origami in the classroom.
+
+Comments (for Q23–27):
+A  demonstrated independence
+B  asked for teacher support
+C  developed a competitive attitude
+D  seemed to find the activity calming
+E  seemed pleased with the results
+F  seemed confused
+G  seemed to find the activity easy`,
+      questions: [
+        {
+          id: "cam18-l-t4-s3-q21", number: 21,
+          groupLabel: `Questions 21 and 22: Choose TWO letters, A–E.\n\nWhich TWO educational skills were shown in the video of children doing origami?\n\nA  solving problems\nB  following instructions\nC  working cooperatively\nD  learning through play\nE  developing hand-eye coordination\n\n(Answers are accepted in either order.)`,
+          type: "multiple_choice", question: "21. Choose TWO (first answer)",
+          options: [
+            { label: "A  solving problems", value: "A" },
+            { label: "B  following instructions", value: "B" },
+            { label: "C  working cooperatively", value: "C" },
+            { label: "D  learning through play", value: "D" },
+            { label: "E  developing hand-eye coordination", value: "E" },
+          ],
+          correctAnswer: "B/D", points: 1,
+        },
+        {
+          id: "cam18-l-t4-s3-q22", number: 22, type: "multiple_choice", question: "22. Choose TWO (second answer)",
+          options: [
+            { label: "A  solving problems", value: "A" },
+            { label: "B  following instructions", value: "B" },
+            { label: "C  working cooperatively", value: "C" },
+            { label: "D  learning through play", value: "D" },
+            { label: "E  developing hand-eye coordination", value: "E" },
+          ],
+          correctAnswer: "B/D", points: 1,
+        },
+        {
+          id: "cam18-l-t4-s3-q23", number: 23,
+          groupLabel: `Questions 23–27: Which comment do the students make about each of the following children in the video? Choose FIVE answers from the box (A–G) and write the correct letter next to each child.\n\nA  demonstrated independence\nB  asked for teacher support\nC  developed a competitive attitude\nD  seemed to find the activity calming\nE  seemed pleased with the results\nF  seemed confused\nG  seemed to find the activity easy`,
+          type: "multiple_choice", question: "23. Sid",
+          options: [
+            { label: "A  demonstrated independence", value: "A" },
+            { label: "B  asked for teacher support", value: "B" },
+            { label: "C  developed a competitive attitude", value: "C" },
+            { label: "D  seemed to find the activity calming", value: "D" },
+            { label: "E  seemed pleased with the results", value: "E" },
+            { label: "F  seemed confused", value: "F" },
+            { label: "G  seemed to find the activity easy", value: "G" },
+          ],
+          correctAnswer: "D", points: 1,
+        },
+        {
+          id: "cam18-l-t4-s3-q24", number: 24, type: "multiple_choice", question: "24. Jack",
+          options: [
+            { label: "A  demonstrated independence", value: "A" },
+            { label: "B  asked for teacher support", value: "B" },
+            { label: "C  developed a competitive attitude", value: "C" },
+            { label: "D  seemed to find the activity calming", value: "D" },
+            { label: "E  seemed pleased with the results", value: "E" },
+            { label: "F  seemed confused", value: "F" },
+            { label: "G  seemed to find the activity easy", value: "G" },
+          ],
+          correctAnswer: "A", points: 1,
+        },
+        {
+          id: "cam18-l-t4-s3-q25", number: 25, type: "multiple_choice", question: "25. Naomi",
+          options: [
+            { label: "A  demonstrated independence", value: "A" },
+            { label: "B  asked for teacher support", value: "B" },
+            { label: "C  developed a competitive attitude", value: "C" },
+            { label: "D  seemed to find the activity calming", value: "D" },
+            { label: "E  seemed pleased with the results", value: "E" },
+            { label: "F  seemed confused", value: "F" },
+            { label: "G  seemed to find the activity easy", value: "G" },
+          ],
+          correctAnswer: "C", points: 1,
+        },
+        {
+          id: "cam18-l-t4-s3-q26", number: 26, type: "multiple_choice", question: "26. Anya",
+          options: [
+            { label: "A  demonstrated independence", value: "A" },
+            { label: "B  asked for teacher support", value: "B" },
+            { label: "C  developed a competitive attitude", value: "C" },
+            { label: "D  seemed to find the activity calming", value: "D" },
+            { label: "E  seemed pleased with the results", value: "E" },
+            { label: "F  seemed confused", value: "F" },
+            { label: "G  seemed to find the activity easy", value: "G" },
+          ],
+          correctAnswer: "G", points: 1,
+        },
+        {
+          id: "cam18-l-t4-s3-q27", number: 27, type: "multiple_choice", question: "27. Zara",
+          options: [
+            { label: "A  demonstrated independence", value: "A" },
+            { label: "B  asked for teacher support", value: "B" },
+            { label: "C  developed a competitive attitude", value: "C" },
+            { label: "D  seemed to find the activity calming", value: "D" },
+            { label: "E  seemed pleased with the results", value: "E" },
+            { label: "F  seemed confused", value: "F" },
+            { label: "G  seemed to find the activity easy", value: "G" },
+          ],
+          correctAnswer: "F", points: 1,
+        },
+        {
+          id: "cam18-l-t4-s3-q28", number: 28,
+          groupLabel: `Questions 28–30: Choose the correct letter, A, B or C.`,
+          type: "multiple_choice",
+          question: "28. Before starting an origami activity in class, the students think it is important for the teacher to",
+          options: [
+            { label: "A  make models that demonstrate the different stages.", value: "A" },
+            { label: "B  check children understand the terminology involved.", value: "B" },
+            { label: "C  tell children not to worry if they find the activity difficult.", value: "C" },
+          ],
+          correctAnswer: "A", points: 1,
+        },
+        {
+          id: "cam18-l-t4-s3-q29", number: 29, type: "multiple_choice",
+          question: "29. The students agree that some teachers might be unwilling to use origami in class because",
+          options: [
+            { label: "A  they may not think that crafts are important.", value: "A" },
+            { label: "B  they may not have the necessary skills.", value: "B" },
+            { label: "C  they may worry that it will take up too much time.", value: "C" },
+          ],
+          correctAnswer: "B", points: 1,
+        },
+        {
+          id: "cam18-l-t4-s3-q30", number: 30, type: "multiple_choice",
+          question: "30. Why do the students decide to use origami in their maths teaching practice?",
+          options: [
+            { label: "A  to correct a particular misunderstanding", value: "A" },
+            { label: "B  to set a challenge", value: "B" },
+            { label: "C  to introduce a new concept", value: "C" },
+          ],
+          correctAnswer: "C", points: 1,
+        },
+      ],
+    },
+    // ── PART 4 ─────────────────────────────────────────────
+    {
+      id: "cam18-l-t4-s4",
+      sectionNumber: 4,
+      title: "Part 4",
+      instructions: `Questions 31–40: Complete the notes below. Write ONE WORD ONLY for each answer.`,
+      passageText: `Victor Hugo
+
+His novel, Les Misérables
+●  It has been adapted for theatre and cinema.
+●  We know more about its overall 31 _______ than about its author.
+
+His early career
+●  In Paris, his career was successful and he led the Romantic movement.
+●  He spoke publicly about social issues, such as 32 _______ and education.
+●  Napoleon III disliked his views and exiled him.
+
+His exile from France
+●  Victor Hugo had to live elsewhere in 33 _______
+●  He used his income from the sale of some 34 _______ he had written to buy a house on Guernsey.
+
+His house on Guernsey
+●  Victor Hugo lived in this house until the end of the Empire in France.
+●  The ground floor contains portraits, 35 _______ and tapestries that he valued.
+●  He bought cheap 36 _______ made of wood and turned this into beautiful wall carvings.
+●  The first floor consists of furnished areas with wallpaper and 37 _______ that have a Chinese design.
+●  The library still contains many of his favourite books.
+●  He wrote in a room at the top of the house that had a view of the 38 _______.
+●  He entertained other writers as well as poor 39 _______ in his house.
+●  Victor Hugo's 40 _______ gave ownership of the house to the city of Paris in 1927.`,
+      questions: [
+        { id: "cam18-l-t4-s4-q31", number: 31, type: "note_completion", question: "31. We know more about its overall _______ than about its author", correctAnswer: "plot", points: 1 },
+        { id: "cam18-l-t4-s4-q32", number: 32, type: "note_completion", question: "32. social issues, such as _______ and education", correctAnswer: "poverty", points: 1 },
+        { id: "cam18-l-t4-s4-q33", number: 33, type: "note_completion", question: "33. had to live elsewhere in _______", correctAnswer: "Europe", points: 1 },
+        { id: "cam18-l-t4-s4-q34", number: 34, type: "note_completion", question: "34. income from the sale of some _______ he had written", correctAnswer: "poetry", points: 1 },
+        { id: "cam18-l-t4-s4-q35", number: 35, type: "note_completion", question: "35. portraits, _______ and tapestries that he valued", correctAnswer: "drawings", points: 1 },
+        { id: "cam18-l-t4-s4-q36", number: 36, type: "note_completion", question: "36. He bought cheap _______ made of wood", correctAnswer: "furniture", points: 1 },
+        { id: "cam18-l-t4-s4-q37", number: 37, type: "note_completion", question: "37. wallpaper and _______ that have a Chinese design", correctAnswer: "lamps", points: 1 },
+        { id: "cam18-l-t4-s4-q38", number: 38, type: "note_completion", question: "38. had a view of the _______", correctAnswer: "harbour/harbor", points: 1 },
+        { id: "cam18-l-t4-s4-q39", number: 39, type: "note_completion", question: "39. entertained other writers as well as poor _______", correctAnswer: "children", points: 1 },
+        { id: "cam18-l-t4-s4-q40", number: 40, type: "note_completion", question: "40. Victor Hugo's _______ gave ownership of the house", correctAnswer: "relatives", points: 1 },
+      ],
+    },
+  ],
+};
+
 export const cambridge18ListeningTests: IELTSTest[] = [
   cambridge18_listening_t1,
   cambridge18_listening_t2,
   cambridge18_listening_t3,
+  cambridge18_listening_t4,
 ];
