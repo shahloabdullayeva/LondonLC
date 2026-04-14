@@ -4,9 +4,12 @@ import { useRouter } from "next/navigation";
 import { getSession } from "@/lib/store";
 import Link from "next/link";
 
-// Minimalist dark landing page. Just the brand, a short tagline, and a
-// sign-in call to action. Every other surface (dashboard, quote, section
-// picker) lives behind authentication.
+// Landing page: brand mark, tagline, sign in. Serif display type,
+// "London" white and "LC" light purple. All the section navigation
+// lives behind authentication.
+const DISPLAY_FONT = `"Fraunces", "Iowan Old Style", Georgia, serif`;
+const BODY_FONT = `"Inter", system-ui, sans-serif`;
+
 export default function HomePage() {
   const router = useRouter();
 
@@ -20,13 +23,13 @@ export default function HomePage() {
       minHeight: "100vh",
       background: "#0a0a0a",
       color: "#e5e5e5",
-      fontFamily: "Inter, system-ui, sans-serif",
+      fontFamily: BODY_FONT,
       display: "flex", flexDirection: "column",
     }}>
       {/* Subtle glow */}
       <div style={{
         position: "fixed", inset: 0, pointerEvents: "none", zIndex: 0,
-        background: "radial-gradient(ellipse at 50% -10%, rgba(120,100,180,0.08) 0%, transparent 60%), radial-gradient(ellipse at 80% 110%, rgba(100,140,200,0.05) 0%, transparent 55%)",
+        background: "radial-gradient(ellipse at 50% -10%, rgba(167,139,250,0.08) 0%, transparent 60%), radial-gradient(ellipse at 80% 110%, rgba(100,140,200,0.05) 0%, transparent 55%)",
       }} />
 
       <nav style={{
@@ -35,9 +38,7 @@ export default function HomePage() {
         padding: "22px 40px",
         borderBottom: "1px solid rgba(255,255,255,0.06)",
       }}>
-        <Link href="/" style={{ textDecoration: "none", color: "#fff", fontWeight: 700, fontSize: 18, letterSpacing: "0.02em" }}>
-          London<span style={{ opacity: 0.5, margin: "0 4px" }}>·</span>LC
-        </Link>
+        <Brand href="/" size={20} />
         <Link href="/auth/login" style={{
           padding: "8px 18px",
           border: "1px solid rgba(255,255,255,0.25)",
@@ -55,36 +56,29 @@ export default function HomePage() {
         position: "relative", zIndex: 5,
         flex: 1, display: "flex", flexDirection: "column",
         alignItems: "center", justifyContent: "center",
-        padding: "80px 32px", textAlign: "center",
+        padding: "60px 32px 80px", textAlign: "center",
       }}>
-        <div style={{
-          fontSize: 11, letterSpacing: "0.3em", textTransform: "uppercase",
-          color: "rgba(255,255,255,0.3)", marginBottom: 40, fontWeight: 600,
-        }}>
-          London Language Centre
+        {/* Big centered brand mark */}
+        <div style={{ marginBottom: 56 }}>
+          <Brand size={72} />
         </div>
 
         <h1 style={{
-          fontSize: "clamp(2.6rem, 6.5vw, 5rem)",
-          fontWeight: 200, letterSpacing: "-0.02em",
-          color: "#fff", lineHeight: 1.05, marginBottom: 28, maxWidth: 900,
+          fontFamily: DISPLAY_FONT,
+          fontSize: "clamp(3rem, 7.5vw, 5.5rem)",
+          fontWeight: 300, letterSpacing: "-0.02em",
+          color: "#fff", lineHeight: 1.05, marginBottom: 48, maxWidth: 900,
         }}>
-          You deserve <em style={{ fontStyle: "italic", fontWeight: 300, color: "rgba(255,255,255,0.75)" }}>more.</em>
+          You deserve{" "}
+          <em style={{ fontStyle: "italic", fontWeight: 300, color: "rgba(255,255,255,0.8)" }}>more.</em>
         </h1>
-
-        <p style={{
-          fontSize: 15, color: "rgba(255,255,255,0.45)",
-          maxWidth: 520, lineHeight: 1.7, marginBottom: 40,
-        }}>
-          Authentic Cambridge IELTS practice. Exam-grade timing, real audio, instant band scoring.
-        </p>
 
         <Link href="/auth/login" style={{
           display: "inline-flex", alignItems: "center", gap: 10,
-          padding: "13px 32px",
+          padding: "14px 36px",
           background: "#fff", color: "#0a0a0a",
           borderRadius: 999, fontSize: 13, fontWeight: 600,
-          letterSpacing: "0.08em", textTransform: "uppercase",
+          letterSpacing: "0.12em", textTransform: "uppercase",
           textDecoration: "none", transition: "transform 0.15s",
         }}
           onMouseEnter={(e) => (e.currentTarget.style.transform = "translateY(-1px)")}
@@ -104,4 +98,30 @@ export default function HomePage() {
       </footer>
     </div>
   );
+}
+
+// Shared brand mark: "London · LC" with London in white and LC in light
+// purple. Used in the nav and at the centre of the hero. The `href` prop
+// is optional — pass it in the nav to make it a Link, omit it for the
+// large centred display.
+function Brand({ size = 20, href }: { size?: number; href?: string }) {
+  const content = (
+    <span style={{
+      fontFamily: DISPLAY_FONT,
+      fontWeight: 500, letterSpacing: "-0.01em",
+      fontSize: size, color: "#fff",
+      display: "inline-flex", alignItems: "baseline", gap: size * 0.22,
+      lineHeight: 1,
+    }}>
+      <span>London</span>
+      <span style={{ color: "rgba(255,255,255,0.4)", fontSize: size * 0.85 }}>·</span>
+      <span style={{ color: "#c4b5fd" }}>LC</span>
+    </span>
+  );
+  if (href) {
+    return (
+      <Link href={href} style={{ textDecoration: "none" }}>{content}</Link>
+    );
+  }
+  return content;
 }
