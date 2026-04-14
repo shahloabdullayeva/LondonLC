@@ -1905,7 +1905,7 @@ Write TRUE, FALSE, or NOT GIVEN.
 
 Questions 11–13: Answer the questions below.
 Choose NO MORE THAN TWO WORDS from the passage for each answer.`,
-      diagramUrl: "/LondonLC/roman-qanat.png",
+      diagramUrl: "/roman-qanat.png",
       questions: [
         // ── Q1–6: Diagram labelling ────────────────────────────
         {
