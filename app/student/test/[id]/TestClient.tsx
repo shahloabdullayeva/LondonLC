@@ -778,28 +778,81 @@ export default function TestPage() {
   }
 
   // ============================================================
-  // PHASE: Transfer time (listening only)
+  // PHASE: Transfer time (listening only) — IELTS-style answer sheet
+  // The student gets 10 minutes to review and edit any of their 40
+  // answers before final submission. Each row is pre-filled with what
+  // they already entered while the audio was playing.
   // ============================================================
   if (phase === "transfer") {
+    const allQuestions = test.sections.flatMap(s => s.questions);
+    const danger = transferTimeLeft < 60;
     return (
-      <div style={{ minHeight: "100vh", background: "#0a0a0a", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "24px", fontFamily: "Inter, system-ui, sans-serif" }}>
-        <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }}
-          style={{ textAlign: "center", maxWidth: 440, width: "100%" }}>
-          <div style={{ width: 64, height: 64, borderRadius: "50%", background: "rgba(255,255,255,0.07)", border: "2px solid rgba(255,255,255,0.15)", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 24px" }}>
-            <Clock size={28} color="#ffffff" />
+      <div style={{ minHeight: "100vh", background: "#0a0a0a", fontFamily: "Inter, system-ui, sans-serif", display: "flex", flexDirection: "column" }}>
+        {/* Sticky header — countdown + submit */}
+        <header style={{ position: "sticky", top: 0, zIndex: 10, background: "#0a0a0a", borderBottom: "1px solid rgba(255,255,255,0.08)", padding: "14px 24px", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 16 }}>
+          <div>
+            <div style={{ fontSize: 11, letterSpacing: "0.2em", textTransform: "uppercase", color: "rgba(255,255,255,0.4)", fontWeight: 700, marginBottom: 4 }}>Answer sheet</div>
+            <div style={{ fontSize: 18, fontWeight: 800, color: "#fff" }}>{test.title}</div>
           </div>
-          <h2 style={{ fontSize: 26, fontWeight: 800, color: "#e8eeff", marginBottom: 8 }}>Transfer Time</h2>
-          <p style={{ color: "rgba(255,255,255,0.5)", marginBottom: 28, lineHeight: 1.6 }}>
-            You now have <strong style={{ color: "#e8eeff" }}>10 minutes</strong> to review your answers.
+          <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 6, padding: "8px 14px", borderRadius: 10, background: danger ? "rgba(239,68,68,0.15)" : "rgba(255,255,255,0.05)", border: `1px solid ${danger ? "rgba(239,68,68,0.4)" : "rgba(255,255,255,0.1)"}`, color: danger ? "#ef4444" : "#fff", fontFamily: "'IBM Plex Mono', monospace", fontSize: 18, fontWeight: 700 }}>
+              <Clock size={16} /> {formatTime(transferTimeLeft)}
+            </div>
+            <button onClick={() => { if (confirm("Submit your answers now? You won't be able to edit afterwards.")) submitTest(); }}
+              style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "10px 22px", background: "#fff", color: "#0a0a0a", fontWeight: 700, fontSize: 13, letterSpacing: "0.08em", textTransform: "uppercase", border: "none", borderRadius: 999, cursor: "pointer" }}>
+              Submit <CheckCircle size={14} />
+            </button>
+          </div>
+        </header>
+
+        {/* Intro */}
+        <div style={{ padding: "20px 24px 0", maxWidth: 720, margin: "0 auto", width: "100%" }}>
+          <p style={{ color: "rgba(255,255,255,0.55)", fontSize: 14, lineHeight: 1.6, marginBottom: 18 }}>
+            You have <strong style={{ color: "#fff" }}>10 minutes</strong> to transfer your answers to this sheet. All your answers from
+            the test are already filled in below — review and edit any of them before you click <strong style={{ color: "#fff" }}>Submit</strong>.
           </p>
-          <div style={{ fontSize: 60, fontWeight: 900, color: transferTimeLeft < 60 ? "#ef4444" : "#ffffff", marginBottom: 32, fontFamily: "monospace" }}>
-            {formatTime(transferTimeLeft)}
+        </div>
+
+        {/* Answer grid */}
+        <main style={{ flex: 1, padding: "8px 24px 80px", maxWidth: 720, margin: "0 auto", width: "100%" }}>
+          {test.sections.map((sec, sIdx) => (
+            <div key={sec.id} style={{ marginBottom: 28 }}>
+              <div style={{ fontSize: 11, letterSpacing: "0.2em", textTransform: "uppercase", color: "rgba(255,255,255,0.4)", fontWeight: 700, margin: "12px 0 8px" }}>
+                Part {sIdx + 1}
+              </div>
+              <div style={{ background: "#151515", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 14, overflow: "hidden" }}>
+                {sec.questions.map((q, qi) => (
+                  <div key={q.id} style={{ display: "flex", alignItems: "center", gap: 14, padding: "12px 16px", borderBottom: qi < sec.questions.length - 1 ? "1px solid rgba(255,255,255,0.05)" : "none" }}>
+                    <span style={{ flexShrink: 0, fontFamily: "'IBM Plex Mono', monospace", fontWeight: 700, fontSize: 14, color: "#fff", minWidth: 28, textAlign: "right" }}>
+                      {q.number}
+                    </span>
+                    <input
+                      type="text"
+                      value={answers[q.id] || ""}
+                      onChange={(e) => setAnswer(q.id, e.target.value)}
+                      placeholder="—"
+                      style={{
+                        flex: 1, padding: "8px 12px",
+                        background: "rgba(255,255,255,0.04)",
+                        border: "1px solid rgba(255,255,255,0.1)",
+                        borderRadius: 8,
+                        color: "#fff", fontSize: 15, outline: "none",
+                        fontFamily: "inherit",
+                      }}
+                      onFocus={(e) => (e.currentTarget.style.borderColor = "rgba(255,255,255,0.4)")}
+                      onBlur={(e) => (e.currentTarget.style.borderColor = "rgba(255,255,255,0.1)")}
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+
+          {/* Bottom progress */}
+          <div style={{ textAlign: "center", color: "rgba(255,255,255,0.4)", fontSize: 12, marginTop: 16 }}>
+            {allQuestions.filter(q => (answers[q.id] || "").trim()).length} / {allQuestions.length} answered
           </div>
-          <button onClick={submitTest}
-            style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "13px 28px", background: "#2a2a2a", color: "#fff", fontWeight: 700, fontSize: 15, border: "none", borderRadius: 12, cursor: "pointer" }}>
-            Submit Now <CheckCircle size={16} />
-          </button>
-        </motion.div>
+        </main>
       </div>
     );
   }
