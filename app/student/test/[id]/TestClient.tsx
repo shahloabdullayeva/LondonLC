@@ -744,7 +744,7 @@ export default function TestPage() {
   // ============================================================
   if (phase === "cancelled") {
     return (
-      <div style={{ minHeight: "100vh", background: "#0a051f", display: "flex", alignItems: "center", justifyContent: "center", padding: 24, fontFamily: "Inter, system-ui, sans-serif" }}>
+      <div style={{ minHeight: "100vh", background: "#0a0a0a", display: "flex", alignItems: "center", justifyContent: "center", padding: 24, fontFamily: "Inter, system-ui, sans-serif" }}>
         <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }}
           style={{ maxWidth: 420, width: "100%", textAlign: "center" }}>
           <div style={{ width: 72, height: 72, borderRadius: "50%", background: "rgba(239,68,68,0.15)", border: "2px solid rgba(239,68,68,0.35)", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 24px" }}>
@@ -782,7 +782,7 @@ export default function TestPage() {
   // ============================================================
   if (phase === "transfer") {
     return (
-      <div style={{ minHeight: "100vh", background: "#0a051f", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "24px", fontFamily: "Inter, system-ui, sans-serif" }}>
+      <div style={{ minHeight: "100vh", background: "#0a0a0a", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "24px", fontFamily: "Inter, system-ui, sans-serif" }}>
         <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }}
           style={{ textAlign: "center", maxWidth: 440, width: "100%" }}>
           <div style={{ width: 64, height: 64, borderRadius: "50%", background: "rgba(255,255,255,0.07)", border: "2px solid rgba(255,255,255,0.15)", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 24px" }}>
@@ -989,7 +989,7 @@ export default function TestPage() {
         {toolbarPos && (
           <div data-highlight-toolbar
             style={{ position: "fixed", left: Math.min(Math.max(toolbarPos.x, 100), window.innerWidth - 100), top: Math.max(toolbarPos.y, 8), transform: "translateX(-50%)", zIndex: 1000,
-              background: pageMode === "dark" ? "#1a0e42" : T.nav, border: `1px solid ${T.border}`, borderRadius: 10, padding: "6px 10px",
+              background: pageMode === "dark" ? "#111111" : T.nav, border: `1px solid ${T.border}`, borderRadius: 10, padding: "6px 10px",
               display: "flex", alignItems: "center", gap: 7, boxShadow: `0 6px 24px rgba(0,0,0,0.4)` }}>
             <span style={{ fontSize: 10, color: T.textMuted, marginRight: 2, whiteSpace: "nowrap" }}>
               {pendingSide === "passage" ? "Highlight:" : "Mark:"}
@@ -1144,7 +1144,14 @@ export default function TestPage() {
                         <React.Fragment key={`pair-${q1.id}-${q2.id}`}>
                           {q1.groupLabel && (
                             <div style={{ fontSize: 13, padding: "10px 14px", borderRadius: 10, background: T.accentDim, color: T.accent, border: `1px solid ${T.accentBorder}`, fontWeight: 500, lineHeight: 1.6, whiteSpace: "pre-line" }}>
-                              {q1.groupLabel.split(/\n(?=\d+[\s\.])/)[0].trim()}
+                              {/* For Choose TWO pairs, strip the A-E option lines from the
+                                  groupLabel — the checkboxes below repeat them visually.
+                                  Keep the question header and the parenthetical notes. */}
+                              {q1.groupLabel
+                                .split("\n")
+                                .filter((ln) => !/^[A-Za-z]\s{2,}/.test(ln))
+                                .join("\n")
+                                .trim()}
                             </div>
                           )}
                           <div id={`question-${q1.id}`} style={{ paddingBottom: 24, borderBottom: `1px solid ${T.border}` }}>
@@ -1530,9 +1537,9 @@ function WarningScreen({ test, onAccept }: { test: IELTSTest; onAccept: () => vo
   ];
 
   return (
-    <div style={{ minHeight: "100vh", background: "#0a051f", display: "flex", alignItems: "center", justifyContent: "center", padding: 24, fontFamily: "Inter, system-ui, sans-serif" }}>
+    <div style={{ minHeight: "100vh", background: "#0a0a0a", display: "flex", alignItems: "center", justifyContent: "center", padding: 24, fontFamily: "Inter, system-ui, sans-serif" }}>
       <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }}
-        style={{ maxWidth: 520, width: "100%", background: "#140b35", border: "1px solid rgba(255,255,255,0.1)", borderRadius: 24, padding: "36px 32px", boxShadow: "0 24px 64px rgba(0,0,0,0.6)" }}>
+        style={{ maxWidth: 520, width: "100%", background: "#151515", border: "1px solid rgba(255,255,255,0.1)", borderRadius: 24, padding: "36px 32px", boxShadow: "0 24px 64px rgba(0,0,0,0.6)" }}>
 
         <div style={{ width: 56, height: 56, borderRadius: 14, background: "#fef3c7", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 20px" }}>
           <AlertTriangle size={26} color="#d97706" />
@@ -1606,7 +1613,7 @@ function ResultScreen({
   };
 
   return (
-    <div style={{ minHeight: "100vh", background: "#0a051f", fontFamily: "Inter, system-ui, sans-serif", overflowY: "auto" }}>
+    <div style={{ minHeight: "100vh", background: "#0a0a0a", fontFamily: "Inter, system-ui, sans-serif", overflowY: "auto" }}>
       <div style={{ display: "flex", alignItems: "center", justifyContent: "center", padding: 24 }}>
         <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }}
           style={{ maxWidth: 480, width: "100%", textAlign: "center" }}>
@@ -1616,7 +1623,7 @@ function ResultScreen({
           <h1 style={{ fontSize: 30, fontWeight: 900, color: "#e8eeff", marginBottom: 6 }}>Test Complete!</h1>
           <p style={{ color: "rgba(255,255,255,0.4)", marginBottom: 32 }}>Well done, {session.name}! Here are your results.</p>
 
-          <div style={{ background: "#140b35", border: "1px solid rgba(255,255,255,0.1)", borderRadius: 24, padding: "32px", marginBottom: 16 }}>
+          <div style={{ background: "#151515", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 24, padding: "32px", marginBottom: 16 }}>
             <div style={{ fontSize: 72, fontWeight: 900, color: "#ffffff", lineHeight: 1, marginBottom: 4 }}>{result.band}</div>
             <div style={{ fontSize: 13, fontWeight: 600, color: "rgba(255,255,255,0.4)", marginBottom: 24 }}>IELTS Score</div>
 
@@ -1625,7 +1632,7 @@ function ResultScreen({
                 { label: "Raw Score", value: `${result.score}/${result.max}` },
                 { label: "Percentage", value: `${pct}%` },
               ].map(s => (
-                <div key={s.label} style={{ padding: 16, borderRadius: 14, background: "#0e0828", border: "1px solid rgba(255,255,255,0.08)" }}>
+                <div key={s.label} style={{ padding: 16, borderRadius: 14, background: "#0d0d0d", border: "1px solid rgba(255,255,255,0.08)" }}>
                   <div style={{ fontSize: 22, fontWeight: 700, color: "#e8eeff", marginBottom: 4 }}>{s.value}</div>
                   <div style={{ fontSize: 12, color: "rgba(255,255,255,0.35)" }}>{s.label}</div>
                 </div>
