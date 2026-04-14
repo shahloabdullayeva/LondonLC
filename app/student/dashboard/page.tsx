@@ -358,8 +358,8 @@ export default function StudentDashboard() {
             </>
           )}
 
-          {/* Recent attempts (hidden in history view) */}
-          {attempts.length > 0 && sidebarView !== "history" && (
+          {/* Recent attempts (hidden in profile view) */}
+          {attempts.length > 0 && sidebarView !== "profile" && (
             <div style={{ marginTop: 40 }}>
               <h2 style={{ fontSize: 16, fontWeight: 700, color: "#fff", marginBottom: 16 }}>Recent Attempts</h2>
               <div className="attempts-table-wrapper" style={{ background: "#140b35", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 16, overflow: "hidden" }}>
