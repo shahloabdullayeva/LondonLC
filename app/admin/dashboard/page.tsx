@@ -394,6 +394,34 @@ export default function AdminDashboard() {
           </button>
         </nav>
 
+        {/* Rotating quote — tucked at the bottom of the sidebar so it's
+            visible on every tab without pushing main content down.
+            Hidden on the Results tab (density there is already high). */}
+        {quote && activeTab !== "results" && (
+          <figure style={{
+            margin: "8px 14px 0", padding: "12px 14px",
+            background: "rgba(255,255,255,0.025)",
+            border: `1px solid ${C.border}`,
+            borderLeft: "2px solid rgba(255,255,255,0.3)",
+            borderRadius: 8,
+          }}>
+            <blockquote style={{
+              margin: 0, fontSize: 11.5, color: C.sub,
+              lineHeight: 1.55, fontStyle: "italic", fontWeight: 300,
+            }}>
+              &ldquo;{quote.text}&rdquo;
+            </blockquote>
+            {quote.author && (
+              <figcaption style={{
+                marginTop: 6, fontSize: 9, letterSpacing: "0.18em",
+                textTransform: "uppercase", color: C.muted, fontWeight: 600,
+              }}>
+                — {quote.author}
+              </figcaption>
+            )}
+          </figure>
+        )}
+
         {/* Sign out */}
         <div style={{ padding: "12px 10px 20px" }}>
           <button onClick={handleLogout}
@@ -426,33 +454,6 @@ export default function AdminDashboard() {
         </div>
 
       <main style={{ flex: 1, overflowY: activeTab === "students" ? "hidden" : "auto", padding: "32px 36px", display: "flex", flexDirection: "column" }}>
-
-        {/* Rotating quote — visible on every tab EXCEPT Results
-            (where the stats grid already dominates the top area). */}
-        {quote && activeTab !== "results" && (
-          <figure style={{
-            margin: "0 0 24px", padding: "14px 20px",
-            background: "rgba(255,255,255,0.025)",
-            border: `1px solid ${C.border}`,
-            borderLeft: "2px solid rgba(255,255,255,0.3)",
-            borderRadius: 10,
-          }}>
-            <blockquote style={{
-              margin: 0, fontSize: 14, color: C.sub,
-              lineHeight: 1.65, fontStyle: "italic", fontWeight: 300,
-            }}>
-              &ldquo;{quote.text}&rdquo;
-            </blockquote>
-            {quote.author && (
-              <figcaption style={{
-                marginTop: 8, fontSize: 11, letterSpacing: "0.18em",
-                textTransform: "uppercase", color: C.muted, fontWeight: 600,
-              }}>
-                — {quote.author}
-              </figcaption>
-            )}
-          </figure>
-        )}
 
         {/* ══════════════════ RESULTS TAB ══════════════════ */}
         {activeTab === "results" && <>

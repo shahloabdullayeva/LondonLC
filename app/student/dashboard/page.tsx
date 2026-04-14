@@ -97,6 +97,33 @@ export default function StudentDashboard() {
             active={sidebarView === "profile"}
             onClick={() => { setSidebarView("profile"); setSelectedBook(null); }} />
 
+          {/* Rotating quote pinned at the bottom of the sidebar. */}
+          {quote && (
+            <figure style={{
+              margin: "auto 4px 8px",
+              padding: "12px 14px",
+              background: "rgba(255,255,255,0.025)",
+              border: "1px solid rgba(255,255,255,0.06)",
+              borderLeft: "2px solid rgba(255,255,255,0.3)",
+              borderRadius: 8,
+            }}>
+              <blockquote style={{
+                margin: 0, fontSize: 11.5, color: "rgba(255,255,255,0.72)",
+                lineHeight: 1.55, fontStyle: "italic", fontWeight: 300,
+              }}>
+                &ldquo;{quote.text}&rdquo;
+              </blockquote>
+              {quote.author && (
+                <figcaption style={{
+                  marginTop: 6, fontSize: 9, letterSpacing: "0.18em",
+                  textTransform: "uppercase", color: "rgba(255,255,255,0.35)", fontWeight: 600,
+                }}>
+                  — {quote.author}
+                </figcaption>
+              )}
+            </figure>
+          )}
+
         </aside>
 
         {/* Main content */}
@@ -109,31 +136,7 @@ export default function StudentDashboard() {
             <p style={{ color: "rgba(255,255,255,0.4)", fontSize: 14 }}>Ready to boost your IELTS score? Let&apos;s practice!</p>
           </div>
 
-          {/* Rotating quote — a new one every visit */}
-          {quote && (
-            <figure style={{
-              margin: "0 0 28px", padding: "18px 22px",
-              background: "rgba(255,255,255,0.025)",
-              border: "1px solid rgba(255,255,255,0.06)",
-              borderLeft: "2px solid rgba(255,255,255,0.3)",
-              borderRadius: 10,
-            }}>
-              <blockquote style={{
-                margin: 0, fontSize: 14, color: "rgba(255,255,255,0.78)",
-                lineHeight: 1.65, fontStyle: "italic", fontWeight: 300,
-              }}>
-                &ldquo;{quote.text}&rdquo;
-              </blockquote>
-              {quote.author && (
-                <figcaption style={{
-                  marginTop: 8, fontSize: 11, letterSpacing: "0.18em",
-                  textTransform: "uppercase", color: "rgba(255,255,255,0.35)", fontWeight: 600,
-                }}>
-                  — {quote.author}
-                </figcaption>
-              )}
-            </figure>
-          )}
+          {/* Quote is now pinned at the bottom of the sidebar, not here. */}
 
           {/* Coming-soon sections (Writing / Articles / Podcasts / Music)
               — render inside the dashboard so the sidebar stays visible. */}
