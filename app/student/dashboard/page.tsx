@@ -1,14 +1,14 @@
 "use client";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { BookOpen, Headphones, LogOut, User, Clock, Award, ChevronRight, BarChart3, Star, ChevronLeft, Lock, History, ChevronDown, ChevronUp, PenLine, FileText, Mic, Music } from "lucide-react";
-import { getSession, clearSession, getAttempts, type AttemptData } from "@/lib/store";
+import { BookOpen, Headphones, LogOut, User, Clock, Award, ChevronRight, BarChart3, Star, ChevronLeft, Lock, History, ChevronDown, ChevronUp, PenLine, FileText, Mic, Music, UserCircle2, Eye, EyeOff } from "lucide-react";
+import { getSession, clearSession, getAttempts, changeStudentOwnPassword, type AttemptData } from "@/lib/store";
 import { allTests, getTestById } from "@/data/ielts-tests";
 import { quotes, type Quote } from "@/lib/quotes";
 import type { StudentSession } from "@/lib/store";
 
 type TestType = "reading" | "listening";
-type SidebarView = "reading" | "listening" | "history";
+type SidebarView = "reading" | "listening" | "profile";
 
 // Books that have real test content available
 const AVAILABLE_BOOKS = [10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
@@ -91,9 +91,9 @@ export default function StudentDashboard() {
 
           <div style={{ height: 1, background: "rgba(255,255,255,0.07)", margin: "14px 0" }} />
 
-          <SidebarLink icon={History} label="My History"
-            active={sidebarView === "history"}
-            onClick={() => { setSidebarView("history"); setSelectedBook(null); }} />
+          <SidebarLink icon={UserCircle2} label="My Profile"
+            active={sidebarView === "profile"}
+            onClick={() => { setSidebarView("profile"); setSelectedBook(null); }} />
 
         </aside>
 
@@ -152,10 +152,14 @@ export default function StudentDashboard() {
             ))}
           </div>
 
-          {/* History view */}
-          {sidebarView === "history" ? (
+          {/* Profile view: account info + stats + password + history */}
+          {sidebarView === "profile" ? (
             <div>
-              <h2 style={{ fontSize: 18, fontWeight: 800, color: "#fff", marginBottom: 4 }}>My Test History</h2>
+              <ProfilePanel
+                session={session}
+                attempts={attempts}
+              />
+              <h2 style={{ fontSize: 18, fontWeight: 800, color: "#fff", marginBottom: 4, marginTop: 40 }}>My Test History</h2>
               <p style={{ fontSize: 13, color: "rgba(255,255,255,0.4)", marginBottom: 24 }}>All your completed and cancelled tests with full answer details.</p>
               {attempts.length === 0 ? (
                 <div style={{ textAlign: "center", padding: "60px 0", color: "rgba(255,255,255,0.3)" }}>
@@ -388,6 +392,167 @@ export default function StudentDashboard() {
             </div>
           )}
         </main>
+      </div>
+    </div>
+  );
+}
+
+// Account summary + statistics + password change, shown at the top of the
+// profile view. History section lives below it in the dashboard so the user
+// sees "who I am / how I'm doing / my past tests" in order.
+function ProfilePanel({
+  session, attempts,
+}: {
+  session: StudentSession;
+  attempts: AttemptData[];
+}) {
+  const [showCurr, setShowCurr] = useState(false);
+  const [showNew, setShowNew] = useState(false);
+  const [curr, setCurr] = useState("");
+  const [next, setNext] = useState("");
+  const [pwMsg, setPwMsg] = useState<{ kind: "ok" | "err"; text: string } | null>(null);
+  const [saving, setSaving] = useState(false);
+
+  const completed = attempts.filter(a => a.status === "completed");
+  const reading = completed.filter(a => a.testType === "reading");
+  const listening = completed.filter(a => a.testType === "listening");
+  const avg = (arr: AttemptData[]) => arr.length ? (arr.reduce((s, a) => s + a.bandScore, 0) / arr.length).toFixed(1) : "—";
+  const best = (arr: AttemptData[]) => arr.length ? Math.max(...arr.map(a => a.bandScore)).toFixed(1) : "—";
+
+  const submitPw = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setPwMsg(null);
+    setSaving(true);
+    const res = await changeStudentOwnPassword(session.id, curr, next);
+    setSaving(false);
+    if (res.ok) {
+      setPwMsg({ kind: "ok", text: "Password updated." });
+      setCurr(""); setNext("");
+    } else {
+      setPwMsg({ kind: "err", text: res.error ?? "Couldn't update password." });
+    }
+  };
+
+  const fieldStyle: React.CSSProperties = {
+    width: "100%", padding: "10px 40px 10px 14px",
+    background: "rgba(255,255,255,0.04)",
+    border: "1px solid rgba(255,255,255,0.1)",
+    borderRadius: 10, color: "#fff", fontSize: 14, outline: "none",
+    fontFamily: "inherit",
+  };
+
+  return (
+    <div>
+      <h2 style={{ fontSize: 18, fontWeight: 800, color: "#fff", marginBottom: 4 }}>My Profile</h2>
+      <p style={{ fontSize: 13, color: "rgba(255,255,255,0.4)", marginBottom: 20 }}>
+        Your account, statistics, and settings.
+      </p>
+
+      {/* Identity card */}
+      <div style={{ padding: "18px 20px", background: "#140b35", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 14, marginBottom: 16, display: "flex", alignItems: "center", gap: 16 }}>
+        <div style={{ width: 52, height: 52, borderRadius: "50%", background: "linear-gradient(135deg,#7c3aed,#a78bfa)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+          <User size={22} color="#fff" />
+        </div>
+        <div style={{ flex: 1, minWidth: 0 }}>
+          <div style={{ fontSize: 16, fontWeight: 700, color: "#fff" }}>{session.name} {session.surname}</div>
+          <div style={{ fontSize: 12, color: "rgba(255,255,255,0.4)", marginTop: 2 }}>
+            {session.username && <span>@{session.username} · </span>}
+            Group <span style={{ color: "#c4b5fd", fontWeight: 600 }}>{session.group_name}</span>
+          </div>
+        </div>
+      </div>
+
+      {/* Stats grid */}
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: 12, marginBottom: 24 }}>
+        <StatCard label="Reading" tests={reading.length} avg={avg(reading)} best={best(reading)} accent="#8b5cf6" />
+        <StatCard label="Listening" tests={listening.length} avg={avg(listening)} best={best(listening)} accent="#10b981" />
+        <div style={{ padding: "16px 18px", background: "#140b35", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 14 }}>
+          <div style={{ fontSize: 11, fontWeight: 700, color: "rgba(255,255,255,0.4)", letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: 8 }}>Total completed</div>
+          <div style={{ fontSize: 30, fontWeight: 900, color: "#fff", lineHeight: 1 }}>{completed.length}</div>
+          <div style={{ fontSize: 12, color: "rgba(255,255,255,0.35)", marginTop: 6 }}>tests finished so far</div>
+        </div>
+      </div>
+
+      {/* Change password */}
+      <div style={{ padding: "18px 20px", background: "#140b35", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 14, marginBottom: 24 }}>
+        <h3 style={{ fontSize: 14, fontWeight: 700, color: "#fff", marginBottom: 14, display: "flex", alignItems: "center", gap: 8 }}>
+          <Lock size={14} color="#a78bfa" /> Change password
+        </h3>
+        <form onSubmit={submitPw} style={{ display: "grid", gap: 10 }}>
+          <div style={{ position: "relative" }}>
+            <input
+              type={showCurr ? "text" : "password"}
+              autoComplete="current-password"
+              placeholder="Current password"
+              value={curr}
+              onChange={(e) => setCurr(e.target.value)}
+              style={fieldStyle}
+              onFocus={(e) => (e.currentTarget.style.borderColor = "#7c3aed")}
+              onBlur={(e) => (e.currentTarget.style.borderColor = "rgba(255,255,255,0.1)")}
+            />
+            <button type="button" onClick={() => setShowCurr(v => !v)}
+              style={{ position: "absolute", right: 8, top: "50%", transform: "translateY(-50%)", background: "none", border: "none", cursor: "pointer", color: "rgba(255,255,255,0.4)", padding: 6 }}>
+              {showCurr ? <EyeOff size={15} /> : <Eye size={15} />}
+            </button>
+          </div>
+          <div style={{ position: "relative" }}>
+            <input
+              type={showNew ? "text" : "password"}
+              autoComplete="new-password"
+              placeholder="New password (min 4 characters)"
+              value={next}
+              onChange={(e) => setNext(e.target.value)}
+              style={fieldStyle}
+              onFocus={(e) => (e.currentTarget.style.borderColor = "#7c3aed")}
+              onBlur={(e) => (e.currentTarget.style.borderColor = "rgba(255,255,255,0.1)")}
+            />
+            <button type="button" onClick={() => setShowNew(v => !v)}
+              style={{ position: "absolute", right: 8, top: "50%", transform: "translateY(-50%)", background: "none", border: "none", cursor: "pointer", color: "rgba(255,255,255,0.4)", padding: 6 }}>
+              {showNew ? <EyeOff size={15} /> : <Eye size={15} />}
+            </button>
+          </div>
+          {pwMsg && (
+            <div style={{
+              fontSize: 13, padding: "9px 12px", borderRadius: 9,
+              background: pwMsg.kind === "ok" ? "rgba(16,185,129,0.1)" : "rgba(239,68,68,0.1)",
+              border: `1px solid ${pwMsg.kind === "ok" ? "rgba(16,185,129,0.3)" : "rgba(239,68,68,0.3)"}`,
+              color: pwMsg.kind === "ok" ? "#6ee7b7" : "#fca5a5",
+            }}>{pwMsg.text}</div>
+          )}
+          <button type="submit" disabled={saving || !curr || !next}
+            style={{
+              justifySelf: "start",
+              padding: "10px 22px",
+              background: saving || !curr || !next ? "rgba(124,58,237,0.4)" : "linear-gradient(135deg,#7c3aed,#6d28d9)",
+              color: "#fff", fontWeight: 700, fontSize: 13, letterSpacing: "0.05em",
+              border: "none", borderRadius: 9,
+              cursor: saving || !curr || !next ? "not-allowed" : "pointer",
+            }}>
+            {saving ? "Updating…" : "Update password"}
+          </button>
+        </form>
+      </div>
+    </div>
+  );
+}
+
+function StatCard({ label, tests, avg, best, accent }: { label: string; tests: number; avg: string; best: string; accent: string }) {
+  return (
+    <div style={{ padding: "16px 18px", background: "#140b35", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 14 }}>
+      <div style={{ fontSize: 11, fontWeight: 700, color: "rgba(255,255,255,0.4)", letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: 10 }}>{label}</div>
+      <div style={{ display: "flex", gap: 18, alignItems: "flex-end" }}>
+        <div>
+          <div style={{ fontSize: 22, fontWeight: 900, color: "#fff", lineHeight: 1 }}>{tests}</div>
+          <div style={{ fontSize: 11, color: "rgba(255,255,255,0.35)", marginTop: 4 }}>tests</div>
+        </div>
+        <div>
+          <div style={{ fontSize: 22, fontWeight: 900, color: accent, lineHeight: 1 }}>{avg}</div>
+          <div style={{ fontSize: 11, color: "rgba(255,255,255,0.35)", marginTop: 4 }}>avg band</div>
+        </div>
+        <div>
+          <div style={{ fontSize: 22, fontWeight: 900, color: accent, lineHeight: 1 }}>{best}</div>
+          <div style={{ fontSize: 11, color: "rgba(255,255,255,0.35)", marginTop: 4 }}>best</div>
+        </div>
       </div>
     </div>
   );

@@ -230,6 +230,21 @@ export async function setStudentPlainPassword(id: string, plain: string): Promis
   await supabase.from("students").update({ plain_password: plain }).eq("id", id);
 }
 
+// Student-initiated password change. Requires the current password to match
+// before updating. Returns an error tag the UI can show directly.
+export async function changeStudentOwnPassword(
+  id: string, currentPassword: string, newPassword: string,
+): Promise<{ ok: boolean; error?: string }> {
+  const { data } = await supabase.from("students").select("password").eq("id", id).maybeSingle();
+  if (!data) return { ok: false, error: "Account not found." };
+  const ok = await verifyPassword(currentPassword, data.password);
+  if (!ok) return { ok: false, error: "Current password is incorrect." };
+  if (newPassword.trim().length < 4) return { ok: false, error: "New password must be at least 4 characters." };
+  const hashed = await hashPassword(newPassword.trim());
+  await supabase.from("students").update({ password: hashed, plain_password: newPassword.trim() }).eq("id", id);
+  return { ok: true };
+}
+
 // ── Session (localStorage — intentionally per-device) ──────────────────
 const SESSION_KEY = "llc_session";
 const STUDENT_CACHE_KEY = "llc_student_cache";
