@@ -405,4 +405,390 @@ Reasons for the decline in farming
   ],
 };
 
-export const cambridge19ListeningTests: IELTSTest[] = [cambridge19_listening_t1];
+// ============================================================
+// CAMBRIDGE IELTS 19 – LISTENING TEST 2
+// Parts: 1) Guitar Group (form + table completion)
+//        2) Lifeboat volunteer (MCQ + two Choose-TWO pairs)
+//        3) Recycling footwear (MCQ + matching + MCQ)
+//        4) Tardigrades (note completion)
+// ============================================================
+export const cambridge19_listening_t2: IELTSTest = {
+  id: "cam19-listening-t2",
+  title: "Cambridge IELTS 19 – Listening Test 2",
+  bookNumber: 19,
+  testNumber: 2,
+  type: "listening",
+  level: "academic",
+  durationMinutes: 30,
+  transferMinutes: 10,
+  audioUrl: audioUrl("cam19-listening-t2.mp3"),
+  audioDurationSeconds: 1800,
+  sections: [
+    // ── PART 1 ─────────────────────────────────────────────
+    {
+      id: "cam19-l-t2-s1",
+      sectionNumber: 1,
+      title: "Part 1",
+      instructions: `Questions 1–6: Complete the form below. Write ONE WORD AND/OR A NUMBER for each answer.
+Questions 7–10: Complete the table below. Write ONE WORD ONLY for each answer.`,
+      passageText: `Guitar Group
+
+Coordinator: Gary 1 _______
+Level: 2 _______
+Place: the 3 _______
+       4 _______ Street
+       First floor, Room T347
+Time: Thursday morning at 5 _______
+Recommended website: 'The perfect 6 _______'
+
+A typical 45-minute guitar lesson
+
+5 minutes — tuning guitars
+  using an app or by 7 _______
+
+10 minutes — strumming chords using our thumbs
+  keeping time while the teacher is 8 _______
+
+15 minutes — playing songs
+  often listening to a 9 _______ of a song
+
+10 minutes — playing single notes and simple tunes
+  playing together, then 10 _______
+
+5 minutes — noting things to practise at home`,
+      questions: [
+        { id: "cam19-l-t2-s1-q1", number: 1, type: "note_completion", question: "1. Coordinator: Gary _______", correctAnswer: "Mathieson", points: 1 },
+        { id: "cam19-l-t2-s1-q2", number: 2, type: "note_completion", question: "2. Level: _______", correctAnswer: "beginners", points: 1 },
+        { id: "cam19-l-t2-s1-q3", number: 3, type: "note_completion", question: "3. Place: the _______", correctAnswer: "college", points: 1 },
+        { id: "cam19-l-t2-s1-q4", number: 4, type: "note_completion", question: "4. _______ Street", correctAnswer: "New", points: 1 },
+        { id: "cam19-l-t2-s1-q5", number: 5, type: "note_completion", question: "5. Thursday morning at _______", correctAnswer: "11/eleven", points: 1 },
+        { id: "cam19-l-t2-s1-q6", number: 6, type: "note_completion", question: "6. Recommended website: 'The perfect _______'", correctAnswer: "instrument", points: 1 },
+        { id: "cam19-l-t2-s1-q7", number: 7, type: "note_completion", question: "7. using an app or by _______", correctAnswer: "ear", points: 1 },
+        { id: "cam19-l-t2-s1-q8", number: 8, type: "note_completion", question: "8. keeping time while the teacher is _______", correctAnswer: "clapping", points: 1 },
+        { id: "cam19-l-t2-s1-q9", number: 9, type: "note_completion", question: "9. often listening to a _______ of a song", correctAnswer: "recording", points: 1 },
+        { id: "cam19-l-t2-s1-q10", number: 10, type: "note_completion", question: "10. playing together, then _______", correctAnswer: "alone", points: 1 },
+      ],
+    },
+    // ── PART 2 ─────────────────────────────────────────────
+    {
+      id: "cam19-l-t2-s2",
+      sectionNumber: 2,
+      title: "Part 2",
+      instructions: `Questions 11–16: Choose the correct letter, A, B or C.
+Questions 17 & 18: Choose TWO letters, A–E.
+Questions 19 & 20: Choose TWO letters, A–E.`,
+      passageTitle: "Working as a lifeboat volunteer",
+      questions: [
+        {
+          id: "cam19-l-t2-s2-q11", number: 11,
+          groupLabel: `Questions 11–16: Choose the correct letter, A, B or C.\n\nWorking as a lifeboat volunteer`,
+          type: "multiple_choice",
+          question: "11. What made David leave London and move to Northsea?",
+          options: [
+            { label: "A  He was eager to develop a hobby.", value: "A" },
+            { label: "B  He wanted to work shorter hours.", value: "B" },
+            { label: "C  He found his job in website design unsatisfying.", value: "C" },
+          ],
+          correctAnswer: "A", points: 1,
+        },
+        {
+          id: "cam19-l-t2-s2-q12", number: 12, type: "multiple_choice",
+          question: "12. The Lifeboat Institution in Northsea was built with money provided by",
+          options: [
+            { label: "A  a local organisation.", value: "A" },
+            { label: "B  a local resident.", value: "B" },
+            { label: "C  the local council.", value: "C" },
+          ],
+          correctAnswer: "B", points: 1,
+        },
+        {
+          id: "cam19-l-t2-s2-q13", number: 13, type: "multiple_choice",
+          question: "13. In his health assessment, the doctor was concerned about the fact that David",
+          options: [
+            { label: "A  might be colour blind.", value: "A" },
+            { label: "B  was rather short-sighted.", value: "B" },
+            { label: "C  had undergone eye surgery.", value: "C" },
+          ],
+          correctAnswer: "A", points: 1,
+        },
+        {
+          id: "cam19-l-t2-s2-q14", number: 14, type: "multiple_choice",
+          question: "14. After arriving at the lifeboat station, they aim to launch the boat within",
+          options: [
+            { label: "A  five minutes.", value: "A" },
+            { label: "B  six to eight minutes.", value: "B" },
+            { label: "C  eight and a half minutes.", value: "C" },
+          ],
+          correctAnswer: "B", points: 1,
+        },
+        {
+          id: "cam19-l-t2-s2-q15", number: 15, type: "multiple_choice",
+          question: "15. As a 'helmsman', David has the responsibility of deciding",
+          options: [
+            { label: "A  who will be the members of his crew.", value: "A" },
+            { label: "B  what equipment it will be necessary to take.", value: "B" },
+            { label: "C  if the lifeboat should be launched.", value: "C" },
+          ],
+          correctAnswer: "C", points: 1,
+        },
+        {
+          id: "cam19-l-t2-s2-q16", number: 16, type: "multiple_choice",
+          question: "16. As well as going out on the lifeboat, David",
+          options: [
+            { label: "A  gives talks on safety at sea.", value: "A" },
+            { label: "B  helps with fundraising.", value: "B" },
+            { label: "C  recruits new volunteers.", value: "C" },
+          ],
+          correctAnswer: "A", points: 1,
+        },
+        {
+          id: "cam19-l-t2-s2-q17", number: 17,
+          groupLabel: `Questions 17 and 18: Choose TWO letters, A–E.\n\nWhich TWO things does David say about the lifeboat volunteer training?\n\nA  The residential course developed his leadership skills.\nB  The training in use of ropes and knots was quite brief.\nC  The training exercises have built up his mental strength.\nD  The casualty care activities were particularly challenging for him.\nE  The wave tank activities provided practice in survival techniques.\n\n(Answers are accepted in either order.)`,
+          type: "multiple_choice",
+          question: "17. Choose TWO (first answer)",
+          options: [
+            { label: "A  The residential course developed his leadership skills.", value: "A" },
+            { label: "B  The training in use of ropes and knots was quite brief.", value: "B" },
+            { label: "C  The training exercises have built up his mental strength.", value: "C" },
+            { label: "D  The casualty care activities were particularly challenging for him.", value: "D" },
+            { label: "E  The wave tank activities provided practice in survival techniques.", value: "E" },
+          ],
+          correctAnswer: "C/E", points: 1,
+        },
+        {
+          id: "cam19-l-t2-s2-q18", number: 18, type: "multiple_choice",
+          question: "18. Choose TWO (second answer)",
+          options: [
+            { label: "A  The residential course developed his leadership skills.", value: "A" },
+            { label: "B  The training in use of ropes and knots was quite brief.", value: "B" },
+            { label: "C  The training exercises have built up his mental strength.", value: "C" },
+            { label: "D  The casualty care activities were particularly challenging for him.", value: "D" },
+            { label: "E  The wave tank activities provided practice in survival techniques.", value: "E" },
+          ],
+          correctAnswer: "C/E", points: 1,
+        },
+        {
+          id: "cam19-l-t2-s2-q19", number: 19,
+          groupLabel: `Questions 19 and 20: Choose TWO letters, A–E.\n\nWhich TWO things does David find most motivating about the work he does?\n\nA  working as part of a team\nB  experiences when working in winter\nC  being thanked by those he has helped\nD  the fact that it keeps him fit\nE  the chance to develop new equipment\n\n(Answers are accepted in either order.)`,
+          type: "multiple_choice",
+          question: "19. Choose TWO (first answer)",
+          options: [
+            { label: "A  working as part of a team", value: "A" },
+            { label: "B  experiences when working in winter", value: "B" },
+            { label: "C  being thanked by those he has helped", value: "C" },
+            { label: "D  the fact that it keeps him fit", value: "D" },
+            { label: "E  the chance to develop new equipment", value: "E" },
+          ],
+          correctAnswer: "A/B", points: 1,
+        },
+        {
+          id: "cam19-l-t2-s2-q20", number: 20, type: "multiple_choice",
+          question: "20. Choose TWO (second answer)",
+          options: [
+            { label: "A  working as part of a team", value: "A" },
+            { label: "B  experiences when working in winter", value: "B" },
+            { label: "C  being thanked by those he has helped", value: "C" },
+            { label: "D  the fact that it keeps him fit", value: "D" },
+            { label: "E  the chance to develop new equipment", value: "E" },
+          ],
+          correctAnswer: "A/B", points: 1,
+        },
+      ],
+    },
+    // ── PART 3 ─────────────────────────────────────────────
+    {
+      id: "cam19-l-t2-s3",
+      sectionNumber: 3,
+      title: "Part 3",
+      instructions: `Questions 21–24: Choose the correct letter, A, B or C.
+Questions 25–28: Match each footwear to a reason for rejection. Choose from A–F.
+Questions 29 & 30: Choose the correct letter, A, B or C.`,
+      passageText: `Bella and Don discussing their recycling footwear project.
+
+Reasons for rejection (for Q25–28):
+A  one shoe was missing
+B  the colour of one shoe had faded
+C  one shoe had a hole in it
+D  the shoes were brand new
+E  the shoes were too dirty
+F  the stitching on the shoes was broken
+
+Footwear (25–28):
+25  the high-heeled shoes
+26  the ankle boots
+27  the baby shoes
+28  the trainers`,
+      questions: [
+        {
+          id: "cam19-l-t2-s3-q21", number: 21,
+          groupLabel: `Questions 21–24: Choose the correct letter, A, B or C.`,
+          type: "multiple_choice",
+          question: "21. At first, Don thought the topic of recycling footwear might be too",
+          options: [
+            { label: "A  limited in scope.", value: "A" },
+            { label: "B  hard to research.", value: "B" },
+            { label: "C  boring for listeners.", value: "C" },
+          ],
+          correctAnswer: "A", points: 1,
+        },
+        {
+          id: "cam19-l-t2-s3-q22", number: 22, type: "multiple_choice",
+          question: "22. When discussing trainers, Bella and Don disagree about",
+          options: [
+            { label: "A  how popular they are among young people.", value: "A" },
+            { label: "B  how suitable they are for school.", value: "B" },
+            { label: "C  how quickly they wear out.", value: "C" },
+          ],
+          correctAnswer: "B", points: 1,
+        },
+        {
+          id: "cam19-l-t2-s3-q23", number: 23, type: "multiple_choice",
+          question: "23. Bella says that she sometimes recycles shoes because",
+          options: [
+            { label: "A  they no longer fit.", value: "A" },
+            { label: "B  she no longer likes them.", value: "B" },
+            { label: "C  they are no longer in fashion.", value: "C" },
+          ],
+          correctAnswer: "B", points: 1,
+        },
+        {
+          id: "cam19-l-t2-s3-q24", number: 24, type: "multiple_choice",
+          question: "24. What did the article say that confused Don?",
+          options: [
+            { label: "A  Public consumption of footwear has risen.", value: "A" },
+            { label: "B  Less footwear is recycled now than in the past.", value: "B" },
+            { label: "C  People dispose of more footwear than they used to.", value: "C" },
+          ],
+          correctAnswer: "B", points: 1,
+        },
+        {
+          id: "cam19-l-t2-s3-q25", number: 25,
+          groupLabel: `Questions 25–28: What reasons did the recycling manager give for rejecting footwear? Choose FOUR answers from the box (A–F) and write the correct letter next to each item.\n\nA  one shoe was missing\nB  the colour of one shoe had faded\nC  one shoe had a hole in it\nD  the shoes were brand new\nE  the shoes were too dirty\nF  the stitching on the shoes was broken`,
+          type: "multiple_choice",
+          question: "25. the high-heeled shoes",
+          options: [
+            { label: "A  one shoe was missing", value: "A" },
+            { label: "B  the colour of one shoe had faded", value: "B" },
+            { label: "C  one shoe had a hole in it", value: "C" },
+            { label: "D  the shoes were brand new", value: "D" },
+            { label: "E  the shoes were too dirty", value: "E" },
+            { label: "F  the stitching on the shoes was broken", value: "F" },
+          ],
+          correctAnswer: "E", points: 1,
+        },
+        {
+          id: "cam19-l-t2-s3-q26", number: 26, type: "multiple_choice",
+          question: "26. the ankle boots",
+          options: [
+            { label: "A  one shoe was missing", value: "A" },
+            { label: "B  the colour of one shoe had faded", value: "B" },
+            { label: "C  one shoe had a hole in it", value: "C" },
+            { label: "D  the shoes were brand new", value: "D" },
+            { label: "E  the shoes were too dirty", value: "E" },
+            { label: "F  the stitching on the shoes was broken", value: "F" },
+          ],
+          correctAnswer: "B", points: 1,
+        },
+        {
+          id: "cam19-l-t2-s3-q27", number: 27, type: "multiple_choice",
+          question: "27. the baby shoes",
+          options: [
+            { label: "A  one shoe was missing", value: "A" },
+            { label: "B  the colour of one shoe had faded", value: "B" },
+            { label: "C  one shoe had a hole in it", value: "C" },
+            { label: "D  the shoes were brand new", value: "D" },
+            { label: "E  the shoes were too dirty", value: "E" },
+            { label: "F  the stitching on the shoes was broken", value: "F" },
+          ],
+          correctAnswer: "A", points: 1,
+        },
+        {
+          id: "cam19-l-t2-s3-q28", number: 28, type: "multiple_choice",
+          question: "28. the trainers",
+          options: [
+            { label: "A  one shoe was missing", value: "A" },
+            { label: "B  the colour of one shoe had faded", value: "B" },
+            { label: "C  one shoe had a hole in it", value: "C" },
+            { label: "D  the shoes were brand new", value: "D" },
+            { label: "E  the shoes were too dirty", value: "E" },
+            { label: "F  the stitching on the shoes was broken", value: "F" },
+          ],
+          correctAnswer: "C", points: 1,
+        },
+        {
+          id: "cam19-l-t2-s3-q29", number: 29,
+          groupLabel: `Questions 29 and 30: Choose the correct letter, A, B or C.`,
+          type: "multiple_choice",
+          question: "29. Why did the project to make 'new' shoes out of old shoes fail?",
+          options: [
+            { label: "A  People believed the 'new' pairs of shoes were unhygienic.", value: "A" },
+            { label: "B  There were not enough good parts to use in the old shoes.", value: "B" },
+            { label: "C  The shoes in the 'new' pairs were not completely alike.", value: "C" },
+          ],
+          correctAnswer: "C", points: 1,
+        },
+        {
+          id: "cam19-l-t2-s3-q30", number: 30, type: "multiple_choice",
+          question: "30. Bella and Don agree that they can present their topic",
+          options: [
+            { label: "A  from a new angle.", value: "A" },
+            { label: "B  with relevant images.", value: "B" },
+            { label: "C  in a straightforward way.", value: "C" },
+          ],
+          correctAnswer: "A", points: 1,
+        },
+      ],
+    },
+    // ── PART 4 ─────────────────────────────────────────────
+    {
+      id: "cam19-l-t2-s4",
+      sectionNumber: 4,
+      title: "Part 4",
+      instructions: `Questions 31–40: Complete the notes below. Write ONE WORD ONLY for each answer.`,
+      passageText: `Tardigrades
+●  more than 1,000 species, 0.05–1.2 millimetres long
+●  also known as water 'bears' (due to how they 31 _______) and 'moss piglets'
+
+Physical appearance
+●  a 32 _______ round body and four pairs of legs
+●  claws or 33 _______ for gripping
+●  absence of respiratory organs
+●  body filled with a liquid that carries both 34 _______ and blood
+●  mouth shaped like a 35 _______ with teeth called stylets
+
+Habitat
+●  often found at the bottom of a lake or on plants
+●  very resilient and can exist in very low or high 36 _______
+
+Cryptobiosis
+●  In dry conditions, they roll into a ball called a 'tun'.
+●  They stay alive with a much lower metabolism than usual.
+●  A type of 37 _______ ensures their DNA is not damaged.
+●  Research is underway to find out how many days they can stay alive in 38 _______.
+
+Feeding
+●  consume liquids, e.g., those found in moss or 39 _______
+●  may eat other tardigrades
+
+Conservation status
+●  They are not considered to be 40 _______.`,
+      questions: [
+        { id: "cam19-l-t2-s4-q31", number: 31, type: "note_completion", question: "31. due to how they _______", correctAnswer: "move", points: 1 },
+        { id: "cam19-l-t2-s4-q32", number: 32, type: "note_completion", question: "32. a _______ round body and four pairs of legs", correctAnswer: "short", points: 1 },
+        { id: "cam19-l-t2-s4-q33", number: 33, type: "note_completion", question: "33. claws or _______ for gripping", correctAnswer: "discs", points: 1 },
+        { id: "cam19-l-t2-s4-q34", number: 34, type: "note_completion", question: "34. liquid that carries both _______ and blood", correctAnswer: "oxygen", points: 1 },
+        { id: "cam19-l-t2-s4-q35", number: 35, type: "note_completion", question: "35. mouth shaped like a _______ with teeth called stylets", correctAnswer: "tube", points: 1 },
+        { id: "cam19-l-t2-s4-q36", number: 36, type: "note_completion", question: "36. very resilient and can exist in very low or high _______", correctAnswer: "temperatures", points: 1 },
+        { id: "cam19-l-t2-s4-q37", number: 37, type: "note_completion", question: "37. A type of _______ ensures their DNA is not damaged", correctAnswer: "protein", points: 1 },
+        { id: "cam19-l-t2-s4-q38", number: 38, type: "note_completion", question: "38. how many days they can stay alive in _______", correctAnswer: "space", points: 1 },
+        { id: "cam19-l-t2-s4-q39", number: 39, type: "note_completion", question: "39. those found in moss or _______", correctAnswer: "seaweed", points: 1 },
+        { id: "cam19-l-t2-s4-q40", number: 40, type: "note_completion", question: "40. They are not considered to be _______", correctAnswer: "endangered", points: 1 },
+      ],
+    },
+  ],
+};
+
+export const cambridge19ListeningTests: IELTSTest[] = [
+  cambridge19_listening_t1,
+  cambridge19_listening_t2,
+];
