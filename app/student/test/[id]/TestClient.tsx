@@ -1656,21 +1656,51 @@ function QuestionItem({
 
       {!hasInlineBlank && !isPassageCovered && (
         <div style={{ marginLeft: 38 }}>
-          {/* Multiple choice */}
-          {question.type === "multiple_choice" && question.options && (
-            <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-              {question.options.map((opt) => (
-                <label key={opt.value} style={{ display: "flex", alignItems: "center", gap: 10, cursor: "pointer" }}>
-                  <div style={{ width: 18, height: 18, borderRadius: "50%", border: `2px solid ${answer === opt.value ? T.accent : T.border}`, background: answer === opt.value ? T.accent : "transparent", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}
-                    onClick={() => onAnswer(opt.value)}>
-                    {answer === opt.value && <div style={{ width: 7, height: 7, borderRadius: "50%", background: "#fff" }} />}
-                  </div>
-                  <input type="radio" name={`q-${question.id}`} value={opt.value} checked={answer === opt.value} onChange={() => onAnswer(opt.value)} style={{ display: "none" }} />
-                  <span style={{ fontSize: 14, color: T.text }}>{opt.label}</span>
-                </label>
-              ))}
-            </div>
-          )}
+          {/* Multiple choice — compact matching UI if the question is a
+              'matching' (5+ options with short letter/roman-numeral answers
+              like i/ii/iii/A/B/C). The options box is shown once above via
+              the groupLabel, so the student just types the matching
+              identifier next to the item. */}
+          {question.type === "multiple_choice" && question.options && (() => {
+            const validIds = question.options!.map((o) => o.value);
+            const maxLen = Math.max(...validIds.map((v) => v.length));
+            const isMatchingUI = question.options!.length >= 5 && maxLen <= 5
+              && validIds.every((v) => /^[A-Za-z]+$/.test(v));
+            if (isMatchingUI) {
+              return (
+                <div style={{ display: "flex", alignItems: "center", gap: 12, paddingTop: 4 }}>
+                  <span style={{ fontSize: 13, color: T.textMuted }}>Your answer:</span>
+                  <input type="text" value={answer} maxLength={maxLen}
+                    onChange={(e) => {
+                      const raw = e.target.value.trim();
+                      // Accept only if it matches one of the option values (case-insensitive)
+                      const normalized = validIds.find((v) => v.toLowerCase() === raw.toLowerCase());
+                      if (raw === "" || normalized) onAnswer(normalized ?? raw);
+                    }}
+                    placeholder={validIds.length > 0 ? `${validIds[0]}–${validIds[validIds.length - 1]}` : ""}
+                    style={{ width: 80, padding: "8px 12px", borderRadius: 6, background: T.inputBg, border: `1.5px solid ${T.border}`, color: T.text, outline: "none", fontSize: 16, fontWeight: 700, textAlign: "center", fontFamily: "'IBM Plex Mono', monospace" } as React.CSSProperties}
+                    onFocus={(e) => (e.currentTarget.style.borderColor = T.accent)}
+                    onBlur={(e) => (e.currentTarget.style.borderColor = T.border)}
+                  />
+                </div>
+              );
+            }
+            // Standard MCQ — radio-style buttons, one per line.
+            return (
+              <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+                {question.options!.map((opt) => (
+                  <label key={opt.value} style={{ display: "flex", alignItems: "center", gap: 10, cursor: "pointer" }}>
+                    <div style={{ width: 18, height: 18, borderRadius: "50%", border: `2px solid ${answer === opt.value ? T.accent : T.border}`, background: answer === opt.value ? T.accent : "transparent", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}
+                      onClick={() => onAnswer(opt.value)}>
+                      {answer === opt.value && <div style={{ width: 7, height: 7, borderRadius: "50%", background: "#fff" }} />}
+                    </div>
+                    <input type="radio" name={`q-${question.id}`} value={opt.value} checked={answer === opt.value} onChange={() => onAnswer(opt.value)} style={{ display: "none" }} />
+                    <span style={{ fontSize: 14, color: T.text }}>{opt.label}</span>
+                  </label>
+                ))}
+              </div>
+            );
+          })()}
 
           {/* True/False/NG (or Yes/No/NG) — falls back to default buttons if options missing */}
           {question.type === "true_false_ng" && (() => {
