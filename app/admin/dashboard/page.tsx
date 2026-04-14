@@ -4,7 +4,8 @@ import { useRouter } from "next/navigation";
 import {
   BookOpen, LogOut, Users, Award, BarChart3, Search,
   Download, CheckCircle, X, Shield, Plus, Trash2, Eye, EyeOff,
-  Monitor, Ban, Headphones, ChevronRight, ChevronDown, ChevronUp, Pencil, Save
+  Monitor, Ban, Headphones, ChevronRight, ChevronDown, ChevronUp, Pencil, Save,
+  PenLine, FileText, Mic, Music,
 } from "lucide-react";
 
 const ROOT_ADMIN_ID = "admin-root";
@@ -309,6 +310,7 @@ export default function AdminDashboard() {
 
         {/* Nav items */}
         <nav style={{ flex: 1, overflowY: "auto", padding: "4px 10px" }}>
+          <p style={{ fontSize: 10, fontWeight: 700, color: C.muted, letterSpacing: "0.2em", textTransform: "uppercase", margin: "6px 10px 8px", opacity: 0.6 }}>Admin</p>
           {tabs.map(({ id, Icon, label }) => (
             <button key={id} onClick={() => setActiveTab(id)}
               style={{ display: "flex", alignItems: "center", gap: 10, width: "100%", padding: "10px 12px", borderRadius: 10, border: "none", cursor: "pointer", fontWeight: 600, fontSize: 13, textAlign: "left", marginBottom: 2, transition: "all 0.15s",
@@ -316,6 +318,25 @@ export default function AdminDashboard() {
                 color: activeTab === id ? C.accent : C.muted }}>
               <Icon size={15} />
               {label}
+            </button>
+          ))}
+
+          {/* Same sections as the student dashboard so teachers can preview. */}
+          <p style={{ fontSize: 10, fontWeight: 700, color: C.muted, letterSpacing: "0.2em", textTransform: "uppercase", margin: "18px 10px 8px", opacity: 0.6 }}>Sections</p>
+          {[
+            { href: "/writing",  Icon: PenLine,  label: "Writing",  soon: true  },
+            { href: "/articles", Icon: FileText, label: "Articles", soon: false },
+            { href: "/podcasts", Icon: Mic,      label: "Podcasts", soon: false },
+            { href: "/music",    Icon: Music,    label: "Music",    soon: false },
+          ].map(({ href, Icon, label, soon }) => (
+            <button key={href} onClick={() => router.push(href)}
+              style={{ display: "flex", alignItems: "center", gap: 10, width: "100%", padding: "10px 12px", borderRadius: 10, background: "transparent", border: "none", cursor: "pointer", fontWeight: 600, fontSize: 13, textAlign: "left", marginBottom: 2, color: C.muted }}>
+              <Icon size={15} />
+              <span style={{ flex: 1 }}>{label}</span>
+              {soon && (
+                <span style={{ fontSize: 9, padding: "2px 6px", borderRadius: 999, border: `1px solid ${C.border}`, color: C.muted, letterSpacing: "0.08em" }}>SOON</span>
+              )}
+              <ChevronRight size={13} />
             </button>
           ))}
         </nav>
