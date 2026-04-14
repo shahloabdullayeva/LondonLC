@@ -252,7 +252,7 @@ export default function StudentDashboard() {
                   <h2 style={{ fontSize: 16, fontWeight: 700, color: "#fff", marginBottom: 3 }}>Cambridge IELTS Books</h2>
                   <p style={{ fontSize: 13, color: "rgba(255,255,255,0.35)" }}>Cambridge 1 – 20 · Click an available book to practice</p>
                 </div>
-                <span style={{ fontSize: 12, padding: "4px 12px", background: "rgba(124,58,237,0.15)", border: "1px solid rgba(124,58,237,0.25)", borderRadius: 20, color: "#a78bfa", fontWeight: 600 }}>
+                <span style={{ fontSize: 12, padding: "4px 12px", background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.1)", borderRadius: 20, color: "rgba(255,255,255,0.6)", fontWeight: 600 }}>
                   {AVAILABLE_BOOKS.length} books available
                 </span>
               </div>
@@ -265,9 +265,9 @@ export default function StudentDashboard() {
                   return (
                     <div key={n}
                       onClick={() => available && setSelectedBook(n)}
-                      style={{ display: "flex", alignItems: "center", gap: 14, padding: "14px 16px", background: available ? "rgba(124,58,237,0.08)" : "rgba(255,255,255,0.02)", border: `1px solid ${available ? "rgba(124,58,237,0.25)" : "rgba(255,255,255,0.05)"}`, borderRadius: 12, cursor: available ? "pointer" : "default", transition: "all 0.15s" }}
-                      onMouseEnter={e => available && ((e.currentTarget as HTMLElement).style.background = "rgba(124,58,237,0.14)", (e.currentTarget as HTMLElement).style.borderColor = "rgba(124,58,237,0.45)")}
-                      onMouseLeave={e => available && ((e.currentTarget as HTMLElement).style.background = "rgba(124,58,237,0.08)", (e.currentTarget as HTMLElement).style.borderColor = "rgba(124,58,237,0.25)")}>
+                      style={{ display: "flex", alignItems: "center", gap: 14, padding: "14px 16px", background: available ? "#151515" : "rgba(255,255,255,0.02)", border: `1px solid ${available ? "rgba(255,255,255,0.08)" : "rgba(255,255,255,0.05)"}`, borderRadius: 12, cursor: available ? "pointer" : "default", transition: "all 0.15s" }}
+                      onMouseEnter={e => available && ((e.currentTarget as HTMLElement).style.background = "#1c1c1c", (e.currentTarget as HTMLElement).style.borderColor = "rgba(167,139,250,0.35)")}
+                      onMouseLeave={e => available && ((e.currentTarget as HTMLElement).style.background = "#151515", (e.currentTarget as HTMLElement).style.borderColor = "rgba(255,255,255,0.08)")}>
                       {/* Number badge */}
                       <div style={{ width: 38, height: 38, borderRadius: 10, flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 900, fontSize: 15, background: available ? "linear-gradient(135deg,#7c3aed,#6d28d9)" : "rgba(255,255,255,0.05)", color: available ? "#fff" : "rgba(255,255,255,0.2)" }}>
                         {n}

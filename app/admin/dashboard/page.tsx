@@ -1023,7 +1023,7 @@ export default function AdminDashboard() {
                     const bookTests = allTests.filter(t => t.bookNumber === n && t.type === testsTypeFilter);
                     return (
                       <div key={n} onClick={() => available && setTestsSelectedBook(n)}
-                        style={{ display: "flex", alignItems: "center", gap: 14, padding: "14px 16px", background: available ? C.accentLight : "rgba(255,255,255,0.02)", border: `1px solid ${available ? "rgba(124,58,237,0.25)" : C.border}`, borderRadius: 12, cursor: available ? "pointer" : "default" }}>
+                        style={{ display: "flex", alignItems: "center", gap: 14, padding: "14px 16px", background: available ? C.card : "rgba(255,255,255,0.02)", border: `1px solid ${available ? C.border : "rgba(255,255,255,0.05)"}`, borderRadius: 12, cursor: available ? "pointer" : "default" }}>
                         <div style={{ width: 38, height: 38, borderRadius: 10, flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 900, fontSize: 15, background: available ? "linear-gradient(135deg,#7c3aed,#6d28d9)" : "rgba(255,255,255,0.05)", color: available ? "#fff" : "rgba(255,255,255,0.2)" }}>{n}</div>
                         <div style={{ flex: 1 }}>
                           <div style={{ fontSize: 13, fontWeight: 700, color: available ? C.text : "rgba(255,255,255,0.25)", marginBottom: 2 }}>Cambridge IELTS {n}</div>
