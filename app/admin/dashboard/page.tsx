@@ -12,18 +12,19 @@ const ADMIN_USERNAME = "SarvarxonP";
 import { getSession, clearSession, getAttempts, getTeachers, addTeacher, deleteTeacher, updateTeacherPassword, setTeacherPlainPassword, setStudentPlainPassword, registerStudent, getStudentAccounts, deleteStudent, updateStudent, getBlockedIPs, blockIP, unblockIP, type AttemptData, type TeacherAccount, type StudentAccount } from "@/lib/store";
 import { getTestById } from "@/data/ielts-tests";
 import { allTests } from "@/data/ielts-tests";
+import Brand from "@/components/Brand";
 
 // ── Hardcoded dark theme colours ─────────────────────────────
 const C = {
-  bg: "#0a051f",
-  card: "#140b35",
-  card2: "#0e0828",
-  border: "rgba(255,255,255,0.08)",
+  bg: "#0a0a0a",
+  card: "#151515",
+  card2: "#0d0d0d",
+  border: "rgba(255,255,255,0.06)",
   text: "#f0eaff",
-  muted: "#7c5fad",
+  muted: "#8a8594",
   sub: "#c4aff5",
   accent: "#7c3aed",
-  accentLight: "rgba(124,58,237,0.15)",
+  accentLight: "rgba(124,58,237,0.12)",
   success: "#10b981",
   danger: "#ef4444",
 };
@@ -276,9 +277,7 @@ export default function AdminDashboard() {
         <div style={{ height: 4, background: isRootAdmin ? "linear-gradient(90deg,#d97706,#fbbf24)" : isAdminUser ? "linear-gradient(90deg,#2563eb,#60a5fa)" : "linear-gradient(90deg,#7c3aed,#a78bfa)" }} />
         {/* Logo */}
         <div style={{ padding: "22px 20px 18px" }}>
-          <div style={{ fontWeight: 900, fontSize: 20, color: "#fff", letterSpacing: "-0.3px" }}>
-            London <span style={{ color: "#a78bfa" }}>LC</span>
-          </div>
+          <Brand size={20} />
           {/* Role badge — colour-coded by role */}
           <span style={{
             display: "inline-flex", alignItems: "center", gap: 5, marginTop: 8,
@@ -335,7 +334,7 @@ export default function AdminDashboard() {
 
         {/* Mobile header (hidden on desktop by CSS) */}
         <div className="admin-mobile-header" style={{ display: "none", alignItems: "center", justifyContent: "space-between", padding: "0 16px", height: 52, background: C.card2, borderBottom: `1px solid ${C.border}`, flexShrink: 0 }}>
-          <span style={{ fontWeight: 900, fontSize: 17, color: "#fff" }}>London <span style={{ color: "#a78bfa" }}>LC</span> <span style={{ fontSize: 11, fontWeight: 700, color: C.accent }}>Admin</span></span>
+          <Brand size={19} suffix="Admin" />
           <button onClick={handleLogout} style={{ display: "flex", alignItems: "center", gap: 5, padding: "6px 12px", background: "transparent", border: `1px solid ${C.border}`, borderRadius: 8, color: C.muted, fontSize: 12, cursor: "pointer" }}>
             <LogOut size={12} /> Sign Out
           </button>

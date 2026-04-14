@@ -1,24 +1,55 @@
-// Random quote picker for the landing page.
-// Replace the `quotes` array with your own curated list — the component
-// renders whichever entry is returned.
+// Random quote picker shown on the student dashboard.
+// Curated mix of short, memorable quotes (long paragraph-length ones
+// have been intentionally left out so they don't blow out the layout).
 export type Quote = {
   text: string;
   author?: string;
 };
 
-// PLACEHOLDER — replace with your list.
 export const quotes: Quote[] = [
-  { text: "The limits of my language mean the limits of my world.", author: "Ludwig Wittgenstein" },
-  { text: "A different language is a different vision of life.", author: "Federico Fellini" },
-  { text: "To have another language is to possess a second soul.", author: "Charlemagne" },
-  { text: "Language is the road map of a culture.", author: "Rita Mae Brown" },
-  { text: "One language sets you in a corridor for life. Two languages open every door along the way.", author: "Frank Smith" },
+  { text: "Be the change that you wish to see in the world.", author: "Mahatma Gandhi" },
+  { text: "We accept the love we think we deserve.", author: "Stephen Chbosky" },
+  { text: "Without music, life would be a mistake.", author: "Friedrich Nietzsche" },
+  { text: "Imperfection is beauty, madness is genius and it's better to be absolutely ridiculous than absolutely boring.", author: "Marilyn Monroe" },
+  { text: "There are only two ways to live your life. One is as though nothing is a miracle. The other is as though everything is a miracle.", author: "Albert Einstein" },
+  { text: "We are all in the gutter, but some of us are looking at the stars.", author: "Oscar Wilde" },
+  { text: "Fairy tales are more than true: not because they tell us that dragons exist, but because they tell us that dragons can be beaten.", author: "Neil Gaiman" },
+  { text: "Yesterday is history, tomorrow is a mystery, today is a gift of God, which is why we call it the present.", author: "Bill Keane" },
+  { text: "I have not failed. I've just found 10,000 ways that won't work.", author: "Thomas A. Edison" },
+  { text: "It is never too late to be what you might have been.", author: "George Eliot" },
+  { text: "Everything you can imagine is real.", author: "Pablo Picasso" },
+  { text: "Life isn't about finding yourself. Life is about creating yourself.", author: "George Bernard Shaw" },
+  { text: "Do what you can, with what you have, where you are.", author: "Theodore Roosevelt" },
+  { text: "Success is not final, failure is not fatal: it is the courage to continue that counts.", author: "Winston S. Churchill" },
+  { text: "And, when you want something, all the universe conspires in helping you to achieve it.", author: "Paulo Coelho" },
+  { text: "Nothing is impossible, the word itself says 'I'm possible'!", author: "Audrey Hepburn" },
+  { text: "Happiness is not something ready made. It comes from your own actions.", author: "Dalai Lama XIV" },
+  { text: "Whatever you are, be a good one.", author: "Abraham Lincoln" },
+  { text: "Pain is inevitable. Suffering is optional.", author: "Haruki Murakami" },
+  { text: "The future belongs to those who believe in the beauty of their dreams.", author: "Eleanor Roosevelt" },
+  { text: "If you want to be happy, be.", author: "Leo Tolstoy" },
+  { text: "It does not matter how slowly you go as long as you do not stop.", author: "Confucius" },
+  { text: "The past has no power over the present moment.", author: "Eckhart Tolle" },
+  { text: "Though nobody can go back and make a new beginning, anyone can start over and make a new ending.", author: "Chico Xavier" },
+  { text: "Always do what you are afraid to do.", author: "Ralph Waldo Emerson" },
+  { text: "Happiness is only real when shared.", author: "Jon Krakauer" },
+  { text: "Life is a shipwreck, but we must not forget to sing in the lifeboats.", author: "Voltaire" },
+  { text: "A ship is safe in harbor, but that's not what ships are for.", author: "John A. Shedd" },
+  { text: "You were born with wings, why prefer to crawl through life?", author: "Rumi" },
+  { text: "Believe in yourself. You are braver than you think, more talented than you know, and capable of more than you imagine.", author: "Roy T. Bennett" },
+  { text: "Don't be pushed around by the fears in your mind. Be led by the dreams in your heart.", author: "Roy T. Bennett" },
+  { text: "The higher we soar the smaller we appear to those who cannot fly.", author: "Friedrich Nietzsche" },
+  { text: "If you don't go after what you want, you'll never have it. If you don't ask, the answer is always no. If you don't step forward, you're always in the same place.", author: "Nora Roberts" },
+  { text: "Talent hits a target no one else can hit. Genius hits a target no one else can see.", author: "Arthur Schopenhauer" },
+  { text: "What's the good of living if you don't try a few things?", author: "Charles M. Schulz" },
+  { text: "May you live every day of your life.", author: "Jonathan Swift" },
+  { text: "Turn your wounds into wisdom.", author: "Oprah Winfrey" },
+  { text: "Be mindful. Be grateful. Be positive. Be true. Be kind.", author: "Roy T. Bennett" },
+  { text: "In the end, we will remember not the words of our enemies, but the silence of our friends.", author: "Martin Luther King Jr." },
+  { text: "Hell is empty and all the devils are here.", author: "William Shakespeare" },
+  { text: "One love, one heart, one destiny.", author: "Bob Marley" },
+  { text: "None but ourselves can free our minds.", author: "Bob Marley" },
+  { text: "If you're reading this — congratulations, you're alive. If that's not something to smile about, then I don't know what is.", author: "Chad Sugg" },
+  { text: "The most beautiful things in the world cannot be seen or touched, they are felt with the heart.", author: "Antoine de Saint-Exupéry" },
+  { text: "Live in the present, remember the past, and fear not the future, for it doesn't exist and never shall. There is only now.", author: "Christopher Paolini" },
 ];
-
-// Pick a quote. Deterministic per page-load so the text doesn't flicker
-// on re-renders, but a fresh one each visit.
-export function getQuote(): Quote {
-  if (quotes.length === 0) return { text: "" };
-  const i = Math.floor(Math.random() * quotes.length);
-  return quotes[i];
-}

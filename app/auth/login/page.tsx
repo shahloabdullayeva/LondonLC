@@ -3,6 +3,7 @@ import { useState, useEffect, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Eye, EyeOff, ChevronRight } from "lucide-react";
 import { saveSession, getSession, findTeacher, loginStudent, recordStudentAccess, recordTeacherAccess } from "@/lib/store";
+import Brand from "@/components/Brand";
 import Link from "next/link";
 
 // Minimalist dark sign-in. Matches the landing page aesthetic — no purple
@@ -85,15 +86,7 @@ function LoginContent() {
         padding: "22px 40px",
         borderBottom: "1px solid rgba(255,255,255,0.06)",
       }}>
-        <Link href="/" style={{
-          textDecoration: "none", display: "inline-flex", alignItems: "baseline", gap: 4,
-          fontFamily: `"Fraunces", "Iowan Old Style", Georgia, serif`, fontWeight: 500,
-          fontSize: 20, letterSpacing: "-0.01em", lineHeight: 1,
-        }}>
-          <span style={{ color: "#fff" }}>London</span>
-          <span style={{ color: "rgba(255,255,255,0.4)", fontSize: 17 }}>·</span>
-          <span style={{ color: "#c4b5fd" }}>LC</span>
-        </Link>
+        <Brand href="/" size={20} />
         <Link href="/" style={{ fontSize: 13, color: "rgba(255,255,255,0.5)", textDecoration: "none", fontWeight: 500 }}>
           ← Back home
         </Link>

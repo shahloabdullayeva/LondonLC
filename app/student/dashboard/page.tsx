@@ -5,6 +5,7 @@ import { BookOpen, Headphones, LogOut, User, Clock, Award, ChevronRight, BarChar
 import { getSession, clearSession, getAttempts, changeStudentOwnPassword, type AttemptData } from "@/lib/store";
 import { allTests, getTestById } from "@/data/ielts-tests";
 import { quotes, type Quote } from "@/lib/quotes";
+import Brand from "@/components/Brand";
 import type { StudentSession } from "@/lib/store";
 
 type TestType = "reading" | "listening";
@@ -14,8 +15,8 @@ type SidebarView = "reading" | "listening" | "profile";
 const AVAILABLE_BOOKS = [10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
 
 const S = {
-  page: { minHeight: "100vh", background: "#0a051f", fontFamily: "Inter, system-ui, sans-serif", display: "flex", flexDirection: "column" as const },
-  nav: { display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 28px", height: 60, background: "#110730", borderBottom: "1px solid rgba(255,255,255,0.08)", flexShrink: 0 as const },
+  page: { minHeight: "100vh", background: "#0a0a0a", fontFamily: "Inter, system-ui, sans-serif", display: "flex", flexDirection: "column" as const },
+  nav: { display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 28px", height: 60, background: "#0a0a0a", borderBottom: "1px solid rgba(255,255,255,0.06)", flexShrink: 0 as const },
 };
 
 export default function StudentDashboard() {
@@ -51,25 +52,22 @@ export default function StudentDashboard() {
     <div style={S.page}>
       {/* Navbar */}
       <nav style={S.nav}>
-        <span style={{ fontWeight: 900, fontSize: 19, color: "#fff", letterSpacing: "-0.3px", fontFamily: "Inter, system-ui, sans-serif" }}>London <span style={{ color: "#a78bfa" }}>LC</span></span>
-        <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
-          <div style={{ display: "flex", alignItems: "center", gap: 8, padding: "6px 14px", background: "rgba(255,255,255,0.06)", borderRadius: 20, border: "1px solid rgba(255,255,255,0.1)" }}>
-            <div style={{ width: 26, height: 26, borderRadius: "50%", background: "linear-gradient(135deg,#7c3aed,#a78bfa)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-              <User size={12} color="white" />
-            </div>
-            <span style={{ fontSize: 13, fontWeight: 600, color: "#e8eeff" }}>{session.name} {session.surname}</span>
-            <span style={{ fontSize: 11, padding: "2px 8px", background: "rgba(124,58,237,0.3)", borderRadius: 10, color: "#c4b5fd", fontWeight: 600 }}>{session.group_name}</span>
+        {/* Brand mark — same component everywhere */}
+        <Brand size={20} />
+        {/* Profile pill — click to jump into My Profile (where Sign Out lives). */}
+        <button onClick={() => { setSidebarView("profile"); setSelectedBook(null); }}
+          style={{ display: "flex", alignItems: "center", gap: 8, padding: "6px 14px", background: "rgba(255,255,255,0.05)", borderRadius: 20, border: "1px solid rgba(255,255,255,0.08)", cursor: "pointer", fontFamily: "inherit" }}>
+          <div style={{ width: 26, height: 26, borderRadius: "50%", background: "linear-gradient(135deg,#7c3aed,#a78bfa)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <User size={12} color="white" />
           </div>
-          <button onClick={() => { clearSession(); router.push("/"); }}
-            style={{ display: "flex", alignItems: "center", gap: 6, padding: "7px 14px", background: "transparent", border: "1px solid rgba(255,255,255,0.12)", borderRadius: 9, color: "rgba(255,255,255,0.5)", fontSize: 13, cursor: "pointer" }}>
-            <LogOut size={13} /> Sign Out
-          </button>
-        </div>
+          <span style={{ fontSize: 13, fontWeight: 600, color: "#e8eeff" }}>{session.name} {session.surname}</span>
+          <span style={{ fontSize: 11, padding: "2px 8px", background: "rgba(124,58,237,0.25)", borderRadius: 10, color: "#c4b5fd", fontWeight: 600 }}>{session.group_name}</span>
+        </button>
       </nav>
 
       <div className="student-layout" style={{ flex: 1, display: "flex", overflow: "hidden" }}>
         {/* Sidebar — flat list of sections, each with an arrow. */}
-        <aside className="student-sidebar" style={{ width: 240, background: "#0e0828", borderRight: "1px solid rgba(255,255,255,0.07)", padding: "24px 14px", display: "flex", flexDirection: "column", gap: 2, flexShrink: 0, overflowY: "auto" }}>
+        <aside className="student-sidebar" style={{ width: 240, background: "#0d0d0d", borderRight: "1px solid rgba(255,255,255,0.06)", padding: "24px 14px", display: "flex", flexDirection: "column", gap: 2, flexShrink: 0, overflowY: "auto" }}>
           <p style={{ fontSize: 10, fontWeight: 700, color: "rgba(255,255,255,0.3)", letterSpacing: "0.2em", textTransform: "uppercase", margin: "0 0 10px", paddingLeft: 10 }}>
             Sections
           </p>
@@ -142,7 +140,7 @@ export default function StudentDashboard() {
                 { label: "Best Score", value: bestBand, icon: Star, sub: typeFilter === "reading" ? "Reading best" : "Listening best", color: "#f59e0b" },
                 { label: "All Completed", value: completed.length, icon: Clock, sub: "All test types", color: "#8b5cf6" },
               ].map(s => (
-                <div key={s.label} style={{ background: "#140b35", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 16, padding: "20px 20px 16px" }}>
+                <div key={s.label} style={{ background: "#151515", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 16, padding: "20px 20px 16px" }}>
                   <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 12 }}>
                     <s.icon size={15} color={s.color} />
                     <span style={{ fontSize: 12, color: "rgba(255,255,255,0.4)", fontWeight: 600 }}>{s.label}</span>
@@ -160,6 +158,7 @@ export default function StudentDashboard() {
               <ProfilePanel
                 session={session}
                 attempts={attempts}
+                onSignOut={() => { clearSession(); router.push("/"); }}
               />
               <h2 style={{ fontSize: 18, fontWeight: 800, color: "#fff", marginBottom: 4, marginTop: 40 }}>My Test History</h2>
               <p style={{ fontSize: 13, color: "rgba(255,255,255,0.4)", marginBottom: 24 }}>All your completed and cancelled tests with full answer details.</p>
@@ -174,7 +173,7 @@ export default function StudentDashboard() {
                     const isExpanded = expandedAttempt === a.id;
                     const testData = a.status === "completed" ? getTestById(a.testId) : null;
                     return (
-                      <div key={a.id} style={{ background: "#140b35", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 14, overflow: "hidden" }}>
+                      <div key={a.id} style={{ background: "#151515", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 14, overflow: "hidden" }}>
                         <div onClick={() => setExpandedAttempt(isExpanded ? null : a.id)}
                           style={{ display: "flex", alignItems: "center", gap: 14, padding: "14px 18px", cursor: "pointer", flexWrap: "wrap" }}>
                           <div style={{ flex: 1, minWidth: 0 }}>
@@ -324,7 +323,7 @@ export default function StudentDashboard() {
                       const totalQ = test.sections.reduce((s, sec) => s + sec.questions.length, 0);
                       return (
                         <div key={test.id}
-                          style={{ background: "#140b35", border: "1px solid rgba(255,255,255,0.09)", borderRadius: 16, padding: 20, cursor: "pointer", transition: "all 0.2s" }}
+                          style={{ background: "#151515", border: "1px solid rgba(255,255,255,0.09)", borderRadius: 16, padding: 20, cursor: "pointer", transition: "all 0.2s" }}
                           onMouseEnter={e => { (e.currentTarget as HTMLElement).style.borderColor = "rgba(124,58,237,0.5)"; (e.currentTarget as HTMLElement).style.transform = "translateY(-2px)"; }}
                           onMouseLeave={e => { (e.currentTarget as HTMLElement).style.borderColor = "rgba(255,255,255,0.09)"; (e.currentTarget as HTMLElement).style.transform = "none"; }}
                           onClick={() => router.push(`/student/test/${test.id}`)}>
@@ -364,7 +363,7 @@ export default function StudentDashboard() {
           {attempts.length > 0 && sidebarView !== "profile" && (
             <div style={{ marginTop: 40 }}>
               <h2 style={{ fontSize: 16, fontWeight: 700, color: "#fff", marginBottom: 16 }}>Recent Attempts</h2>
-              <div className="attempts-table-wrapper" style={{ background: "#140b35", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 16, overflow: "hidden" }}>
+              <div className="attempts-table-wrapper" style={{ background: "#151515", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 16, overflow: "hidden" }}>
                 <table style={{ width: "100%", borderCollapse: "collapse" }}>
                   <thead>
                     <tr style={{ background: "rgba(255,255,255,0.04)" }}>
@@ -403,10 +402,11 @@ export default function StudentDashboard() {
 // profile view. History section lives below it in the dashboard so the user
 // sees "who I am / how I'm doing / my past tests" in order.
 function ProfilePanel({
-  session, attempts,
+  session, attempts, onSignOut,
 }: {
   session: StudentSession;
   attempts: AttemptData[];
+  onSignOut: () => void;
 }) {
   const [showCurr, setShowCurr] = useState(false);
   const [showNew, setShowNew] = useState(false);
@@ -478,7 +478,7 @@ function ProfilePanel({
       </p>
 
       {/* Identity card */}
-      <div style={{ padding: "18px 20px", background: "#140b35", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 14, marginBottom: 16, display: "flex", alignItems: "center", gap: 16 }}>
+      <div style={{ padding: "18px 20px", background: "#151515", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 14, marginBottom: 16, display: "flex", alignItems: "center", gap: 16 }}>
         <div style={{ width: 52, height: 52, borderRadius: "50%", background: "linear-gradient(135deg,#7c3aed,#a78bfa)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
           <User size={22} color="#fff" />
         </div>
@@ -495,7 +495,7 @@ function ProfilePanel({
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: 12, marginBottom: 24 }}>
         <StatCard label="Reading" tests={reading.length} avg={avg(reading)} best={best(reading)} accent="#8b5cf6" />
         <StatCard label="Listening" tests={listening.length} avg={avg(listening)} best={best(listening)} accent="#10b981" />
-        <div style={{ padding: "16px 18px", background: "#140b35", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 14 }}>
+        <div style={{ padding: "16px 18px", background: "#151515", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 14 }}>
           <div style={{ fontSize: 11, fontWeight: 700, color: "rgba(255,255,255,0.4)", letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: 8 }}>Total completed</div>
           <div style={{ fontSize: 30, fontWeight: 900, color: "#fff", lineHeight: 1 }}>{completed.length}</div>
           <div style={{ fontSize: 12, color: "rgba(255,255,255,0.35)", marginTop: 6 }}>tests finished so far</div>
@@ -506,7 +506,7 @@ function ProfilePanel({
           padding: "16px 18px",
           background: streakActive
             ? "linear-gradient(135deg, rgba(251,146,60,0.15), rgba(239,68,68,0.1))"
-            : "#140b35",
+            : "#151515",
           border: `1px solid ${streakActive ? "rgba(251,146,60,0.4)" : "rgba(255,255,255,0.08)"}`,
           borderRadius: 14,
           boxShadow: streakActive ? "0 0 24px rgba(251,146,60,0.15)" : "none",
@@ -549,7 +549,7 @@ function ProfilePanel({
       </div>
 
       {/* Change password */}
-      <div style={{ padding: "18px 20px", background: "#140b35", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 14, marginBottom: 24 }}>
+      <div style={{ padding: "18px 20px", background: "#151515", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 14, marginBottom: 24 }}>
         <h3 style={{ fontSize: 14, fontWeight: 700, color: "#fff", marginBottom: 14, display: "flex", alignItems: "center", gap: 8 }}>
           <Lock size={14} color="#a78bfa" /> Change password
         </h3>
@@ -607,13 +607,32 @@ function ProfilePanel({
           </button>
         </form>
       </div>
+
+      {/* Sign out — lives inside My Profile rather than the top nav */}
+      <div style={{ display: "flex", justifyContent: "flex-start" }}>
+        <button onClick={onSignOut}
+          style={{
+            display: "inline-flex", alignItems: "center", gap: 8,
+            padding: "10px 20px",
+            background: "transparent",
+            border: "1px solid rgba(239,68,68,0.4)",
+            borderRadius: 10, color: "#fca5a5",
+            fontSize: 13, fontWeight: 600, cursor: "pointer",
+            transition: "background 0.15s",
+          }}
+          onMouseEnter={(e) => (e.currentTarget.style.background = "rgba(239,68,68,0.08)")}
+          onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
+        >
+          <LogOut size={14} /> Sign out
+        </button>
+      </div>
     </div>
   );
 }
 
 function StatCard({ label, tests, avg, best, accent }: { label: string; tests: number; avg: string; best: string; accent: string }) {
   return (
-    <div style={{ padding: "16px 18px", background: "#140b35", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 14 }}>
+    <div style={{ padding: "16px 18px", background: "#151515", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 14 }}>
       <div style={{ fontSize: 11, fontWeight: 700, color: "rgba(255,255,255,0.4)", letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: 10 }}>{label}</div>
       <div style={{ display: "flex", gap: 18, alignItems: "flex-end" }}>
         <div>

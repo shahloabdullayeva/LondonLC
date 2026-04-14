@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import Brand from "@/components/Brand";
 
 // Shared layout for placeholder ("coming soon") sections: writing,
 // articles, podcasts, music. Minimalist dark, matches the landing page.
@@ -15,15 +16,7 @@ export default function SoonLayout({ children }: { children: React.ReactNode }) 
         padding: "22px 40px",
         borderBottom: "1px solid rgba(255,255,255,0.06)",
       }}>
-        <Link href="/" style={{
-          textDecoration: "none", display: "inline-flex", alignItems: "baseline", gap: 4,
-          fontFamily: `"Fraunces", "Iowan Old Style", Georgia, serif`, fontWeight: 500,
-          fontSize: 20, letterSpacing: "-0.01em", lineHeight: 1,
-        }}>
-          <span style={{ color: "#fff" }}>London</span>
-          <span style={{ color: "rgba(255,255,255,0.4)", fontSize: 17 }}>·</span>
-          <span style={{ color: "#c4b5fd" }}>LC</span>
-        </Link>
+        <Brand href="/" size={20} />
         <Link href="/" style={{
           fontSize: 13, color: "rgba(255,255,255,0.5)", textDecoration: "none", fontWeight: 500,
         }}>← Back home</Link>

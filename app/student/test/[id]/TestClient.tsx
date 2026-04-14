@@ -814,9 +814,9 @@ export default function TestPage() {
   return (
     <div className="test-zone" style={{ height: "100svh", display: "flex", flexDirection: "column", background: T.bg, fontFamily: "Inter, system-ui, sans-serif", overflow: "hidden" }}>
       {/* Test header */}
-      <header style={{ position: "sticky", top: 0, zIndex: 20, display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 16px", height: 54, background: T.nav, borderBottom: `1px solid ${T.border}` }}>
-        {/* Left: test info */}
-        <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+      <header className="test-header" style={{ position: "sticky", top: 0, zIndex: 20, display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 12px", minHeight: 54, gap: 8, background: T.nav, borderBottom: `1px solid ${T.border}` }}>
+        {/* Left: test info — title hidden on mobile to make room for P1-P4 + Submit */}
+        <div className="test-header-info" style={{ display: "flex", alignItems: "center", gap: 10, minWidth: 0, flexShrink: 1 }}>
           <div style={{ width: 28, height: 28, borderRadius: 8, display: "flex", alignItems: "center", justifyContent: "center", background: T.accentDim }}>
             {test.type === "listening"
               ? <Headphones size={14} color={T.accent} />
@@ -855,9 +855,9 @@ export default function TestPage() {
         </div>
 
         {/* Right: controls + timer + submit */}
-        <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
-          {/* Font size */}
-          <div style={{ display: "flex", alignItems: "center", gap: 2, border: `1px solid ${T.border}`, borderRadius: 8, overflow: "hidden" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 6, flexShrink: 0 }}>
+          {/* Font size — hidden on mobile */}
+          <div className="test-header-font" style={{ display: "flex", alignItems: "center", gap: 2, border: `1px solid ${T.border}`, borderRadius: 8, overflow: "hidden" }}>
             <button onClick={() => setFontSize(s => Math.max(12, s - 1))} title="Decrease font size"
               style={{ padding: "5px 7px", background: "transparent", border: "none", cursor: "pointer", color: T.textMuted, display: "flex", alignItems: "center" }}>
               <Minus size={12} />
@@ -868,10 +868,11 @@ export default function TestPage() {
               <Plus size={12} />
             </button>
           </div>
-          {/* Theme cycle: dark → sepia → white → dark */}
+          {/* Theme cycle — hidden on small phones */}
           <button
             onClick={() => setPageMode(m => m === "dark" ? "sepia" : m === "sepia" ? "white" : "dark")}
             title={pageMode === "dark" ? "Switch to sepia" : pageMode === "sepia" ? "Switch to white" : "Switch to dark"}
+            className="test-header-theme"
             style={{ padding: "5px 10px", background: T.accentDim, border: `1px solid ${T.accentBorder}`, borderRadius: 8, cursor: "pointer", color: T.accent, display: "flex", alignItems: "center", gap: 4, fontSize: 13, fontWeight: 600 }}>
             {pageMode === "dark" ? <Sun size={14} /> : pageMode === "sepia" ? <Sun size={14} /> : <Moon size={14} />}
           </button>
@@ -1322,6 +1323,13 @@ export default function TestPage() {
           .panel-visible { display: flex !important; flex-direction: column !important; }
           /* Bigger tap targets on mobile */
           button { min-height: 36px; }
+          /* Test header: hide the title block and the secondary controls
+             so P1-P4, timer and Submit all fit on one row. */
+          .test-header-info { display: none !important; }
+          .test-header-font { display: none !important; }
+          .test-header-theme { display: none !important; }
+          .test-header { padding: 0 10px !important; gap: 6px !important; }
+          .test-header button { min-height: 34px; padding: 4px 10px !important; }
         }
       `}</style>
     </div>

@@ -2,6 +2,7 @@
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { getSession } from "@/lib/store";
+import Brand from "@/components/Brand";
 import Link from "next/link";
 
 // Landing page: brand mark, tagline, sign in. Serif display type,
@@ -98,30 +99,4 @@ export default function HomePage() {
       </footer>
     </div>
   );
-}
-
-// Shared brand mark: "London · LC" with London in white and LC in light
-// purple. Used in the nav and at the centre of the hero. The `href` prop
-// is optional — pass it in the nav to make it a Link, omit it for the
-// large centred display.
-function Brand({ size = 20, href }: { size?: number; href?: string }) {
-  const content = (
-    <span style={{
-      fontFamily: DISPLAY_FONT,
-      fontWeight: 500, letterSpacing: "-0.01em",
-      fontSize: size, color: "#fff",
-      display: "inline-flex", alignItems: "baseline", gap: size * 0.22,
-      lineHeight: 1,
-    }}>
-      <span>London</span>
-      <span style={{ color: "rgba(255,255,255,0.4)", fontSize: size * 0.85 }}>·</span>
-      <span style={{ color: "#c4b5fd" }}>LC</span>
-    </span>
-  );
-  if (href) {
-    return (
-      <Link href={href} style={{ textDecoration: "none" }}>{content}</Link>
-    );
-  }
-  return content;
 }
