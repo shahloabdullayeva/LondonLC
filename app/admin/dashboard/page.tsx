@@ -13,6 +13,7 @@ const ADMIN_USERNAME = "SarvarxonP";
 import { getSession, clearSession, getAttempts, getTeachers, addTeacher, deleteTeacher, updateTeacherPassword, setTeacherPlainPassword, setStudentPlainPassword, changeTeacherOwnPassword, registerStudent, getStudentAccounts, deleteStudent, updateStudent, getBlockedIPs, blockIP, unblockIP, type AttemptData, type TeacherAccount, type StudentAccount } from "@/lib/store";
 import { getTestById } from "@/data/ielts-tests";
 import { allTests } from "@/data/ielts-tests";
+import { quotes, type Quote } from "@/lib/quotes";
 import Brand from "@/components/Brand";
 
 // ── Hardcoded dark theme colours ─────────────────────────────
@@ -48,6 +49,12 @@ export default function AdminDashboard() {
   const router = useRouter();
   const [attempts, setAttempts] = useState<AttemptData[]>([]);
   const [activeTab, setActiveTab] = useState<"results" | "students" | "teachers" | "practice" | "tests" | "writing" | "articles" | "podcasts" | "music" | "profile">("results");
+  // Rotating quote shown on every admin tab except Results (where space is
+  // already dense with stats + tables). Picked once on mount.
+  const [quote, setQuote] = useState<Quote | null>(null);
+  useEffect(() => {
+    if (quotes.length > 0) setQuote(quotes[Math.floor(Math.random() * quotes.length)]);
+  }, []);
   // Teacher self-service password change state (rendered in the Profile tab).
   const [ownCurrPw, setOwnCurrPw] = useState("");
   const [ownNewPw, setOwnNewPw] = useState("");
@@ -393,6 +400,33 @@ export default function AdminDashboard() {
         </div>
 
       <main style={{ flex: 1, overflowY: activeTab === "students" ? "hidden" : "auto", padding: "32px 36px", display: "flex", flexDirection: "column" }}>
+
+        {/* Rotating quote — visible on every tab EXCEPT Results
+            (where the stats grid already dominates the top area). */}
+        {quote && activeTab !== "results" && (
+          <figure style={{
+            margin: "0 0 24px", padding: "14px 20px",
+            background: "rgba(255,255,255,0.025)",
+            border: `1px solid ${C.border}`,
+            borderLeft: "2px solid rgba(255,255,255,0.3)",
+            borderRadius: 10,
+          }}>
+            <blockquote style={{
+              margin: 0, fontSize: 14, color: C.sub,
+              lineHeight: 1.65, fontStyle: "italic", fontWeight: 300,
+            }}>
+              &ldquo;{quote.text}&rdquo;
+            </blockquote>
+            {quote.author && (
+              <figcaption style={{
+                marginTop: 8, fontSize: 11, letterSpacing: "0.18em",
+                textTransform: "uppercase", color: C.muted, fontWeight: 600,
+              }}>
+                — {quote.author}
+              </figcaption>
+            )}
+          </figure>
+        )}
 
         {/* ══════════════════ RESULTS TAB ══════════════════ */}
         {activeTab === "results" && <>
