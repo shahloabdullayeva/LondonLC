@@ -1103,9 +1103,11 @@ export default function TestPage() {
                     <span style={{ fontSize: 13, fontWeight: 600, color: T.textMuted }}>{sec.passageTitle}</span>
                   </div>
 
-                  <div style={{ fontSize: 13, marginBottom: 20, padding: "11px 14px", borderRadius: 10, background: T.accentDim, color: T.accent, border: `1px solid ${T.accentBorder}`, fontWeight: 500, lineHeight: 1.5, whiteSpace: "pre-line" }}>
-                    {sec.instructions}
-                  </div>
+                  {sec.instructions && !sec.questions.some(q => q.groupLabel) && (
+                    <div style={{ fontSize: 13, marginBottom: 20, padding: "11px 14px", borderRadius: 10, background: T.accentDim, color: T.accent, border: `1px solid ${T.accentBorder}`, fontWeight: 500, lineHeight: 1.5, whiteSpace: "pre-line" }}>
+                      {sec.instructions}
+                    </div>
+                  )}
 
                   <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
                     {sec.questions.map((q) => (
@@ -1171,11 +1173,15 @@ export default function TestPage() {
                     </div>
                   )}
 
-                  {/* Instructions banner — always first, like the real IELTS
-                      question paper: rubric above, content below. */}
-                  <div style={{ fontSize: 13, marginBottom: 20, padding: "11px 14px", borderRadius: 10, background: T.accentDim, color: T.accent, border: `1px solid ${T.accentBorder}`, fontWeight: 500, lineHeight: 1.5, whiteSpace: "pre-line" }}>
-                    {sec.instructions}
-                  </div>
+                  {/* Instructions banner — like the real IELTS question paper.
+                      Suppressed when the section has per-group `groupLabel`s,
+                      since those already carry the same rubric per cluster
+                      and otherwise appear duplicated at the top. */}
+                  {sec.instructions && !sec.questions.some(q => q.groupLabel) && (
+                    <div style={{ fontSize: 13, marginBottom: 20, padding: "11px 14px", borderRadius: 10, background: T.accentDim, color: T.accent, border: `1px solid ${T.accentBorder}`, fontWeight: 500, lineHeight: 1.5, whiteSpace: "pre-line" }}>
+                      {sec.instructions}
+                    </div>
+                  )}
 
                   {/* Notes text (for Parts 1 & 4) — numbered blanks like
                       "1 _______" are replaced with actual input fields bound
@@ -1731,17 +1737,32 @@ function QuestionItem({
             );
           })()}
 
-          {/* Matching */}
-          {question.type === "matching" && question.options && (
-            <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
-              {question.options.map((opt) => (
-                <button key={opt.value} onClick={() => onAnswer(opt.value)}
-                  style={{ ...btnBase, background: answer === opt.value ? T.accent : T.nav, color: answer === opt.value ? "#fff" : T.textSub, borderColor: answer === opt.value ? T.accent : T.border }}>
-                  {opt.label}
-                </button>
-              ))}
-            </div>
-          )}
+          {/* Matching — student types the letter (A, B, C…) next to the
+              item. Options are shown once in the group's groupLabel above,
+              exactly like the Cambridge paper format. */}
+          {question.type === "matching" && question.options && (() => {
+            const letters = question.options.map(o => o.value).join("");
+            const normalise = (v: string) => v.trim().toUpperCase().slice(0, 1);
+            return (
+              <input
+                type="text"
+                value={answer}
+                maxLength={1}
+                onChange={(e) => onAnswer(normalise(e.target.value))}
+                placeholder={letters ? letters.split("").join("/") : ""}
+                style={{
+                  padding: "9px 14px", borderRadius: 8, fontSize: 14,
+                  background: T.inputBg, border: `1.5px solid ${T.border}`,
+                  color: T.text, outline: "none", width: 72,
+                  textAlign: "center", textTransform: "uppercase",
+                  fontFamily: "'IBM Plex Mono', 'Courier New', monospace",
+                  fontWeight: 700,
+                } as React.CSSProperties}
+                onFocus={e => e.currentTarget.style.borderColor = T.accent}
+                onBlur={e => e.currentTarget.style.borderColor = T.border}
+              />
+            );
+          })()}
 
           {/* Fill blank / short answer fallback (no inline blank marker) */}
           {isGapFill && (

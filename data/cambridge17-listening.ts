@@ -279,7 +279,7 @@ F  They were both surprised how little is known about some aspects of this.`,
         {
           id: "cam17-l-t1-s3-q27", number: 27,
           groupLabel: `Questions 27–30: What opinion do the students give about each of the following modules on their veterinary science course? Choose FOUR answers from the box (A–F) and write the correct letter next to each module.\n\nA  Tim found this easier than expected.\nB  Tim thought this was not very clearly organised.\nC  Diana may do some further study on this.\nD  They both found the reading required for this was difficult.\nE  Tim was shocked at something he learned on this module.\nF  They were both surprised how little is known about some aspects of this.`,
-          type: "multiple_choice", question: "27. Medical terminology",
+          type: "matching", question: "27. Medical terminology",
           options: [
             { label: "A  Tim found this easier than expected.", value: "A" },
             { label: "B  Tim thought this was not very clearly organised.", value: "B" },
@@ -291,7 +291,7 @@ F  They were both surprised how little is known about some aspects of this.`,
           correctAnswer: "A", points: 1,
         },
         {
-          id: "cam17-l-t1-s3-q28", number: 28, type: "multiple_choice",
+          id: "cam17-l-t1-s3-q28", number: 28, type: "matching",
           question: "28. Diet and nutrition",
           options: [
             { label: "A  Tim found this easier than expected.", value: "A" },
@@ -304,7 +304,7 @@ F  They were both surprised how little is known about some aspects of this.`,
           correctAnswer: "E", points: 1,
         },
         {
-          id: "cam17-l-t1-s3-q29", number: 29, type: "multiple_choice",
+          id: "cam17-l-t1-s3-q29", number: 29, type: "matching",
           question: "29. Animal disease",
           options: [
             { label: "A  Tim found this easier than expected.", value: "A" },
@@ -317,7 +317,7 @@ F  They were both surprised how little is known about some aspects of this.`,
           correctAnswer: "F", points: 1,
         },
         {
-          id: "cam17-l-t1-s3-q30", number: 30, type: "multiple_choice",
+          id: "cam17-l-t1-s3-q30", number: 30, type: "matching",
           question: "30. Wildlife medication",
           options: [
             { label: "A  Tim found this easier than expected.", value: "A" },
