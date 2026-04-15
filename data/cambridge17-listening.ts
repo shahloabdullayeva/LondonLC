@@ -1171,8 +1171,400 @@ Scientific developments
   ],
 };
 
+// ============================================================
+// CAMBRIDGE IELTS 17 – LISTENING TEST 4
+// Parts: 1) Easy Life Cleaning Services (notes)
+//        2) Hotel staff retention (MCQ + hotel/strategy matching A/B/C)
+//        3) Thomas's sports background + history of sporting
+//           equipment (two Choose-TWO + matching)
+//        4) Maple syrup (notes)
+// ============================================================
+export const cambridge17_listening_t4: IELTSTest = {
+  id: "cam17-listening-t4",
+  title: "Cambridge IELTS 17 – Listening Test 4",
+  bookNumber: 17,
+  testNumber: 4,
+  type: "listening",
+  level: "academic",
+  durationMinutes: 30,
+  transferMinutes: 10,
+  audioUrl: audioUrl("cam17-listening-t4.mp3"),
+  audioDurationSeconds: 1800,
+  sections: [
+    // ── PART 1 ─────────────────────────────────────────────
+    {
+      id: "cam17-l-t4-s1",
+      sectionNumber: 1,
+      title: "Part 1",
+      instructions: `Questions 1–10: Complete the notes below. Write ONE WORD for each answer.`,
+      passageText: `Easy Life Cleaning Services
+
+Basic cleaning package offered
+●  Cleaning all surfaces
+●  Cleaning the 1 _______ throughout the apartment
+●  Cleaning shower, sinks, toilet etc.
+
+Additional services agreed
+
+Every week
+●  Cleaning the 2 _______
+●  Ironing clothes – 3 _______ only
+
+Every month
+●  Cleaning all the 4 _______ from the inside
+●  Washing down the 5 _______
+
+Other possibilities
+●  They can organise a plumber or an 6 _______ if necessary.
+●  A special cleaning service is available for customers who are allergic to 7 _______
+
+Information on the cleaners
+●  Before being hired, all cleaners have a background check carried out by the 8 _______
+●  References are required.
+●  All cleaners are given 9 _______ for two weeks.
+●  Customers send a 10 _______ after each visit.
+●  Usually, each customer has one regular cleaner.`,
+      questions: [
+        { id: "cam17-l-t4-s1-q1", number: 1, type: "note_completion", question: "1. Cleaning the _______ throughout the apartment", correctAnswer: "floor/floors", points: 1 },
+        { id: "cam17-l-t4-s1-q2", number: 2, type: "note_completion", question: "2. Cleaning the _______ (every week)", correctAnswer: "fridge", points: 1 },
+        { id: "cam17-l-t4-s1-q3", number: 3, type: "note_completion", question: "3. Ironing clothes – _______ only", correctAnswer: "shirts", points: 1 },
+        { id: "cam17-l-t4-s1-q4", number: 4, type: "note_completion", question: "4. Cleaning all the _______ from the inside", correctAnswer: "windows", points: 1 },
+        { id: "cam17-l-t4-s1-q5", number: 5, type: "note_completion", question: "5. Washing down the _______", correctAnswer: "balcony", points: 1 },
+        { id: "cam17-l-t4-s1-q6", number: 6, type: "note_completion", question: "6. organise a plumber or an _______ if necessary", correctAnswer: "electrician", points: 1 },
+        { id: "cam17-l-t4-s1-q7", number: 7, type: "note_completion", question: "7. customers who are allergic to _______", correctAnswer: "dust", points: 1 },
+        { id: "cam17-l-t4-s1-q8", number: 8, type: "note_completion", question: "8. background check carried out by the _______", correctAnswer: "police", points: 1 },
+        { id: "cam17-l-t4-s1-q9", number: 9, type: "note_completion", question: "9. All cleaners are given _______ for two weeks", correctAnswer: "training", points: 1 },
+        { id: "cam17-l-t4-s1-q10", number: 10, type: "note_completion", question: "10. Customers send a _______ after each visit", correctAnswer: "review", points: 1 },
+      ],
+    },
+    // ── PART 2 ─────────────────────────────────────────────
+    {
+      id: "cam17-l-t4-s2",
+      sectionNumber: 2,
+      title: "Part 2",
+      instructions: `Questions 11–14: Choose the correct letter, A, B or C.
+Questions 15–20: Match each hotel with a way of reducing staff turnover. Write the correct letter A, B or C (letters may be used more than once).`,
+      passageTitle: "Staff retention in hotels",
+      passageText: `Ways of reducing staff turnover (for Q15–20):
+A  improving relationships and teamwork
+B  offering incentives and financial benefits
+C  providing career opportunities`,
+      questions: [
+        {
+          id: "cam17-l-t4-s2-q11", number: 11,
+          groupLabel: `Questions 11–14: Choose the correct letter, A, B or C.`,
+          type: "multiple_choice", question: "11. Many hotel managers are unaware that their staff often leave because of",
+          options: [
+            { label: "A  a lack of training.", value: "A" },
+            { label: "B  long hours.", value: "B" },
+            { label: "C  low pay.", value: "C" },
+          ],
+          correctAnswer: "A", points: 1,
+        },
+        {
+          id: "cam17-l-t4-s2-q12", number: 12, type: "multiple_choice",
+          question: "12. What is the impact of high staff turnover on managers?",
+          options: [
+            { label: "A  an increased workload", value: "A" },
+            { label: "B  low morale", value: "B" },
+            { label: "C  an inability to meet targets", value: "C" },
+          ],
+          correctAnswer: "A", points: 1,
+        },
+        {
+          id: "cam17-l-t4-s2-q13", number: 13, type: "multiple_choice",
+          question: "13. What mistake should managers always avoid?",
+          options: [
+            { label: "A  failing to treat staff equally", value: "A" },
+            { label: "B  reorganising shifts without warning", value: "B" },
+            { label: "C  neglecting to have enough staff during busy periods", value: "C" },
+          ],
+          correctAnswer: "A", points: 1,
+        },
+        {
+          id: "cam17-l-t4-s2-q14", number: 14, type: "multiple_choice",
+          question: "14. What unexpected benefit did Dunwich Hotel notice after improving staff retention rates?",
+          options: [
+            { label: "A  a fall in customer complaints", value: "A" },
+            { label: "B  an increase in loyalty club membership", value: "B" },
+            { label: "C  a rise in spending per customer", value: "C" },
+          ],
+          correctAnswer: "C", points: 1,
+        },
+        {
+          id: "cam17-l-t4-s2-q15", number: 15,
+          groupLabel: `Questions 15–20: Which way of reducing staff turnover was used in each of the following hotels? Write the correct letter A, B or C next to each hotel.\n\nA  improving relationships and teamwork\nB  offering incentives and financial benefits\nC  providing career opportunities\n\n(Letters may be used more than once.)`,
+          type: "matching", question: "15. The Sun Club",
+          options: [
+            { label: "A  improving relationships and teamwork", value: "A" },
+            { label: "B  offering incentives and financial benefits", value: "B" },
+            { label: "C  providing career opportunities", value: "C" },
+          ],
+          correctAnswer: "A", points: 1,
+        },
+        {
+          id: "cam17-l-t4-s2-q16", number: 16, type: "matching", question: "16. The Portland",
+          options: [
+            { label: "A  improving relationships and teamwork", value: "A" },
+            { label: "B  offering incentives and financial benefits", value: "B" },
+            { label: "C  providing career opportunities", value: "C" },
+          ],
+          correctAnswer: "C", points: 1,
+        },
+        {
+          id: "cam17-l-t4-s2-q17", number: 17, type: "matching", question: "17. Bluewater Hotels",
+          options: [
+            { label: "A  improving relationships and teamwork", value: "A" },
+            { label: "B  offering incentives and financial benefits", value: "B" },
+            { label: "C  providing career opportunities", value: "C" },
+          ],
+          correctAnswer: "B", points: 1,
+        },
+        {
+          id: "cam17-l-t4-s2-q18", number: 18, type: "matching", question: "18. Pentlow Hotels",
+          options: [
+            { label: "A  improving relationships and teamwork", value: "A" },
+            { label: "B  offering incentives and financial benefits", value: "B" },
+            { label: "C  providing career opportunities", value: "C" },
+          ],
+          correctAnswer: "C", points: 1,
+        },
+        {
+          id: "cam17-l-t4-s2-q19", number: 19, type: "matching", question: "19. Green Planet",
+          options: [
+            { label: "A  improving relationships and teamwork", value: "A" },
+            { label: "B  offering incentives and financial benefits", value: "B" },
+            { label: "C  providing career opportunities", value: "C" },
+          ],
+          correctAnswer: "B", points: 1,
+        },
+        {
+          id: "cam17-l-t4-s2-q20", number: 20, type: "matching", question: "20. The Amesbury",
+          options: [
+            { label: "A  improving relationships and teamwork", value: "A" },
+            { label: "B  offering incentives and financial benefits", value: "B" },
+            { label: "C  providing career opportunities", value: "C" },
+          ],
+          correctAnswer: "A", points: 1,
+        },
+      ],
+    },
+    // ── PART 3 ─────────────────────────────────────────────
+    {
+      id: "cam17-l-t4-s3",
+      sectionNumber: 3,
+      title: "Part 3",
+      instructions: `Questions 21 & 22: Choose TWO letters, A–E.
+Questions 23 & 24: Choose TWO letters, A–E.
+Questions 25–30: Match each item of sporting equipment with a comment. Choose SIX answers from the box (A–H).`,
+      passageTitle: "Thomas's sporting background and the history of sporting equipment",
+      passageText: `Comments about the development of the equipment (for Q25–30):
+A  It could cause excessive sweating.
+B  The material was being mass produced for another purpose.
+C  People often needed to make their own.
+D  It often had to be replaced.
+E  The material was expensive.
+F  It was unpopular among spectators.
+G  It caused injuries.
+H  No one liked it at first.`,
+      questions: [
+        {
+          id: "cam17-l-t4-s3-q21", number: 21,
+          groupLabel: `Questions 21 and 22: Choose TWO letters, A–E.\n\nWhich TWO points do Thomas and Jeanne make about Thomas's sporting activities at school?\n\nA  He should have felt more positive about them.\nB  The training was too challenging for him.\nC  He could have worked harder at them.\nD  His parents were disappointed in him.\nE  His fellow students admired him.\n\n(Answers are accepted in either order.)`,
+          type: "multiple_choice", question: "21. Choose TWO (first answer)",
+          options: [
+            { label: "A  He should have felt more positive about them.", value: "A" },
+            { label: "B  The training was too challenging for him.", value: "B" },
+            { label: "C  He could have worked harder at them.", value: "C" },
+            { label: "D  His parents were disappointed in him.", value: "D" },
+            { label: "E  His fellow students admired him.", value: "E" },
+          ],
+          correctAnswer: "C/E", points: 1,
+        },
+        {
+          id: "cam17-l-t4-s3-q22", number: 22, type: "multiple_choice",
+          question: "22. Choose TWO (second answer)",
+          options: [
+            { label: "A  He should have felt more positive about them.", value: "A" },
+            { label: "B  The training was too challenging for him.", value: "B" },
+            { label: "C  He could have worked harder at them.", value: "C" },
+            { label: "D  His parents were disappointed in him.", value: "D" },
+            { label: "E  His fellow students admired him.", value: "E" },
+          ],
+          correctAnswer: "C/E", points: 1,
+        },
+        {
+          id: "cam17-l-t4-s3-q23", number: 23,
+          groupLabel: `Questions 23 and 24: Choose TWO letters, A–E.\n\nWhich TWO feelings did Thomas experience when he was in Kenya?\n\nA  disbelief\nB  relief\nC  stress\nD  gratitude\nE  homesickness\n\n(Answers are accepted in either order.)`,
+          type: "multiple_choice", question: "23. Choose TWO (first answer)",
+          options: [
+            { label: "A  disbelief", value: "A" },
+            { label: "B  relief", value: "B" },
+            { label: "C  stress", value: "C" },
+            { label: "D  gratitude", value: "D" },
+            { label: "E  homesickness", value: "E" },
+          ],
+          correctAnswer: "A/D", points: 1,
+        },
+        {
+          id: "cam17-l-t4-s3-q24", number: 24, type: "multiple_choice",
+          question: "24. Choose TWO (second answer)",
+          options: [
+            { label: "A  disbelief", value: "A" },
+            { label: "B  relief", value: "B" },
+            { label: "C  stress", value: "C" },
+            { label: "D  gratitude", value: "D" },
+            { label: "E  homesickness", value: "E" },
+          ],
+          correctAnswer: "A/D", points: 1,
+        },
+        {
+          id: "cam17-l-t4-s3-q25", number: 25,
+          groupLabel: `Questions 25–30: What comment do the students make about the development of each of the following items of sporting equipment? Choose SIX answers from the box (A–H).\n\nA  It could cause excessive sweating.\nB  The material was being mass produced for another purpose.\nC  People often needed to make their own.\nD  It often had to be replaced.\nE  The material was expensive.\nF  It was unpopular among spectators.\nG  It caused injuries.\nH  No one liked it at first.`,
+          type: "matching", question: "25. the table tennis bat",
+          options: [
+            { label: "A  It could cause excessive sweating.", value: "A" },
+            { label: "B  The material was being mass produced for another purpose.", value: "B" },
+            { label: "C  People often needed to make their own.", value: "C" },
+            { label: "D  It often had to be replaced.", value: "D" },
+            { label: "E  The material was expensive.", value: "E" },
+            { label: "F  It was unpopular among spectators.", value: "F" },
+            { label: "G  It caused injuries.", value: "G" },
+            { label: "H  No one liked it at first.", value: "H" },
+          ],
+          correctAnswer: "B", points: 1,
+        },
+        {
+          id: "cam17-l-t4-s3-q26", number: 26, type: "matching", question: "26. the cricket helmet",
+          options: [
+            { label: "A  It could cause excessive sweating.", value: "A" },
+            { label: "B  The material was being mass produced for another purpose.", value: "B" },
+            { label: "C  People often needed to make their own.", value: "C" },
+            { label: "D  It often had to be replaced.", value: "D" },
+            { label: "E  The material was expensive.", value: "E" },
+            { label: "F  It was unpopular among spectators.", value: "F" },
+            { label: "G  It caused injuries.", value: "G" },
+            { label: "H  No one liked it at first.", value: "H" },
+          ],
+          correctAnswer: "F", points: 1,
+        },
+        {
+          id: "cam17-l-t4-s3-q27", number: 27, type: "matching", question: "27. the cycle helmet",
+          options: [
+            { label: "A  It could cause excessive sweating.", value: "A" },
+            { label: "B  The material was being mass produced for another purpose.", value: "B" },
+            { label: "C  People often needed to make their own.", value: "C" },
+            { label: "D  It often had to be replaced.", value: "D" },
+            { label: "E  The material was expensive.", value: "E" },
+            { label: "F  It was unpopular among spectators.", value: "F" },
+            { label: "G  It caused injuries.", value: "G" },
+            { label: "H  No one liked it at first.", value: "H" },
+          ],
+          correctAnswer: "A", points: 1,
+        },
+        {
+          id: "cam17-l-t4-s3-q28", number: 28, type: "matching", question: "28. the golf club",
+          options: [
+            { label: "A  It could cause excessive sweating.", value: "A" },
+            { label: "B  The material was being mass produced for another purpose.", value: "B" },
+            { label: "C  People often needed to make their own.", value: "C" },
+            { label: "D  It often had to be replaced.", value: "D" },
+            { label: "E  The material was expensive.", value: "E" },
+            { label: "F  It was unpopular among spectators.", value: "F" },
+            { label: "G  It caused injuries.", value: "G" },
+            { label: "H  No one liked it at first.", value: "H" },
+          ],
+          correctAnswer: "D", points: 1,
+        },
+        {
+          id: "cam17-l-t4-s3-q29", number: 29, type: "matching", question: "29. the hockey stick",
+          options: [
+            { label: "A  It could cause excessive sweating.", value: "A" },
+            { label: "B  The material was being mass produced for another purpose.", value: "B" },
+            { label: "C  People often needed to make their own.", value: "C" },
+            { label: "D  It often had to be replaced.", value: "D" },
+            { label: "E  The material was expensive.", value: "E" },
+            { label: "F  It was unpopular among spectators.", value: "F" },
+            { label: "G  It caused injuries.", value: "G" },
+            { label: "H  No one liked it at first.", value: "H" },
+          ],
+          correctAnswer: "C", points: 1,
+        },
+        {
+          id: "cam17-l-t4-s3-q30", number: 30, type: "matching", question: "30. the football",
+          options: [
+            { label: "A  It could cause excessive sweating.", value: "A" },
+            { label: "B  The material was being mass produced for another purpose.", value: "B" },
+            { label: "C  People often needed to make their own.", value: "C" },
+            { label: "D  It often had to be replaced.", value: "D" },
+            { label: "E  The material was expensive.", value: "E" },
+            { label: "F  It was unpopular among spectators.", value: "F" },
+            { label: "G  It caused injuries.", value: "G" },
+            { label: "H  No one liked it at first.", value: "H" },
+          ],
+          correctAnswer: "G", points: 1,
+        },
+      ],
+    },
+    // ── PART 4 ─────────────────────────────────────────────
+    {
+      id: "cam17-l-t4-s4",
+      sectionNumber: 4,
+      title: "Part 4",
+      instructions: `Questions 31–40: Complete the notes below. Write ONE WORD ONLY for each answer.`,
+      passageText: `Maple syrup
+
+What is maple syrup?
+●  made from the sap of the maple tree
+●  added to food or used in cooking
+●  colour described as 31 _______
+●  very 32 _______ compared to refined sugar
+
+The maple tree
+●  has many species
+●  needs sunny days and cool nights
+●  maple leaf has been on the Canadian flag since 1964
+●  needs moist soil but does not need fertiliser as well
+●  best growing conditions and 33 _______ are in Canada and North America
+
+Early maple sugar producers
+●  made holes in the tree trunks
+●  used hot 34 _______ to heat the sap
+●  used tree bark to make containers for collection
+●  sweetened food and drink with sugar
+
+Today's maple syrup
+
+The trees
+●  Tree trunks may not have the correct 35 _______ until they have been growing for 40 years.
+●  The changing temperature and movement of water within the tree produces the sap.
+
+The production
+●  A tap drilled into the trunk and a 36 _______ carries the sap into a bucket.
+●  Large pans of sap called evaporators are heated by means of a 37 _______.
+●  A lot of 38 _______ is produced during the evaporation process.
+●  'Sugar sand' is removed because it makes the syrup look 39 _______ and affects the taste.
+●  The syrup is ready for use.
+●  A huge quantity of sap is needed to make a 40 _______ of maple syrup.`,
+      questions: [
+        { id: "cam17-l-t4-s4-q31", number: 31, type: "note_completion", question: "31. colour described as _______", correctAnswer: "golden", points: 1 },
+        { id: "cam17-l-t4-s4-q32", number: 32, type: "note_completion", question: "32. very _______ compared to refined sugar", correctAnswer: "healthy", points: 1 },
+        { id: "cam17-l-t4-s4-q33", number: 33, type: "note_completion", question: "33. best growing conditions and _______ are in Canada and North America", correctAnswer: "climate", points: 1 },
+        { id: "cam17-l-t4-s4-q34", number: 34, type: "note_completion", question: "34. used hot _______ to heat the sap", correctAnswer: "rock/rocks", points: 1 },
+        { id: "cam17-l-t4-s4-q35", number: 35, type: "note_completion", question: "35. may not have the correct _______ until they have been growing for 40 years", correctAnswer: "diameter", points: 1 },
+        { id: "cam17-l-t4-s4-q36", number: 36, type: "note_completion", question: "36. a _______ carries the sap into a bucket", correctAnswer: "tube", points: 1 },
+        { id: "cam17-l-t4-s4-q37", number: 37, type: "note_completion", question: "37. evaporators are heated by means of a _______", correctAnswer: "fire", points: 1 },
+        { id: "cam17-l-t4-s4-q38", number: 38, type: "note_completion", question: "38. A lot of _______ is produced during the evaporation process", correctAnswer: "steam", points: 1 },
+        { id: "cam17-l-t4-s4-q39", number: 39, type: "note_completion", question: "39. makes the syrup look _______ and affects the taste", correctAnswer: "cloudy", points: 1 },
+        { id: "cam17-l-t4-s4-q40", number: 40, type: "note_completion", question: "40. to make a _______ of maple syrup", correctAnswer: "litre/liter", points: 1 },
+      ],
+    },
+  ],
+};
+
 export const cambridge17ListeningTests: IELTSTest[] = [
   cambridge17_listening_t1,
   cambridge17_listening_t2,
   cambridge17_listening_t3,
+  cambridge17_listening_t4,
 ];
