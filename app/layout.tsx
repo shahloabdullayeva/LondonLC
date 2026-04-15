@@ -4,9 +4,6 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "London LC – IELTS Practice Platform",
   description: "Authentic IELTS Reading and Listening practice for London Language Centre students.",
-  icons: {
-    icon: "/favicon.ico",
-  },
 };
 
 export default function RootLayout({
