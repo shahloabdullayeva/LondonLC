@@ -26,7 +26,7 @@ export const cambridge20_listening_t1: IELTSTest = {
   type: "listening",
   level: "academic",
   durationMinutes: 30,
-  transferMinutes: 10,
+  transferMinutes: 2,
   // One whole-test MP3 (~30 min) containing all 4 parts. The narrator
   // announces part transitions inside the recording — no per-section
   // files, no auto-advance, just one continuous stream.
@@ -452,7 +452,7 @@ export const cambridge20_listening_t2: IELTSTest = {
   type: "listening",
   level: "academic",
   durationMinutes: 30,
-  transferMinutes: 10,
+  transferMinutes: 2,
   audioUrl: audioUrl("cam20-listening-t2.mp3"),
   audioDurationSeconds: 1800,
   sections: [
@@ -900,7 +900,7 @@ export const cambridge20_listening_t3: IELTSTest = {
   type: "listening",
   level: "academic",
   durationMinutes: 30,
-  transferMinutes: 10,
+  transferMinutes: 2,
   audioUrl: audioUrl("cam20-listening-t3.mp3"),
   audioDurationSeconds: 1800,
   sections: [
@@ -1270,7 +1270,7 @@ export const cambridge20_listening_t4: IELTSTest = {
   type: "listening",
   level: "academic",
   durationMinutes: 30,
-  transferMinutes: 10,
+  transferMinutes: 2,
   audioUrl: audioUrl("cam20-listening-t4.mp3"),
   audioDurationSeconds: 1800,
   sections: [

@@ -23,7 +23,7 @@ export const cambridge18_listening_t1: IELTSTest = {
   type: "listening",
   level: "academic",
   durationMinutes: 30,
-  transferMinutes: 10,
+  transferMinutes: 2,
   audioUrl: audioUrl("cam18-listening-t1.mp3"),
   audioDurationSeconds: 1800,
   sections: [
@@ -76,14 +76,6 @@ Doesn't own a bike because of a lack of 10 _______`,
 Questions 14 & 15: Choose TWO letters, A–E.
 Questions 16–20: Match each area of voluntary work with a helpful skill. Choose from A–G.`,
       passageTitle: "Becoming a volunteer for ACE",
-      passageText: `Helpful things volunteers might offer (for Q16–20):
-A  experience on stage
-B  original, new ideas
-C  parenting skills
-D  an understanding of food and diet
-E  retail experience
-F  a good memory
-G  a good level of fitness`,
       questions: [
         {
           id: "cam18-l-t1-s2-q11", number: 11,
@@ -400,7 +392,7 @@ export const cambridge18_listening_t2: IELTSTest = {
   type: "listening",
   level: "academic",
   durationMinutes: 30,
-  transferMinutes: 10,
+  transferMinutes: 2,
   audioUrl: audioUrl("cam18-listening-t2.mp3"),
   audioDurationSeconds: 1800,
   sections: [
@@ -571,13 +563,6 @@ Questions 15–20: Label the map. Write the correct letter (A–I) next to each 
 Questions 25 & 26: Choose TWO letters, A–E.
 Questions 27–30: Match each country to a comment. Choose from A–F.`,
       passageTitle: "The Laki eruption (1783)",
-      passageText: `Comments (for Q27–30):
-A  This country suffered the most severe loss of life.
-B  The impact on agriculture was predictable.
-C  There was a significant increase in deaths of young people.
-D  Animals suffered from a sickness.
-E  This country saw the highest rise in food prices in the world.
-F  It caused a particularly harsh winter.`,
       questions: [
         {
           id: "cam18-l-t2-s3-q21", number: 21,
@@ -753,7 +738,7 @@ export const cambridge18_listening_t3: IELTSTest = {
   type: "listening",
   level: "academic",
   durationMinutes: 30,
-  transferMinutes: 10,
+  transferMinutes: 2,
   audioUrl: audioUrl("cam18-listening-t3.mp3"),
   audioDurationSeconds: 1800,
   sections: [
@@ -1126,7 +1111,7 @@ export const cambridge18_listening_t4: IELTSTest = {
   type: "listening",
   level: "academic",
   durationMinutes: 30,
-  transferMinutes: 10,
+  transferMinutes: 2,
   audioUrl: audioUrl("cam18-listening-t4.mp3"),
   audioDurationSeconds: 1800,
   sections: [
@@ -1177,15 +1162,6 @@ Other information
       instructions: `Questions 11–14: Choose the correct letter, A, B or C.
 Questions 15–20: Match each museum area to the information. Choose from A–H.`,
       passageTitle: "Museum tour",
-      passageText: `Information (for Q15–20):
-A  Parents must supervise their children.
-B  There are new things to see.
-C  It is closed today.
-D  This is only for school groups.
-E  There is a quiz for visitors.
-F  It features something created by students.
-G  An expert is here today.
-H  There is a one-way system.`,
       questions: [
         {
           id: "cam18-l-t4-s2-q11", number: 11,

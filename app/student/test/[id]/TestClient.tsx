@@ -778,84 +778,14 @@ export default function TestPage() {
   }
 
   // ============================================================
-  // PHASE: Transfer time (listening only) — IELTS-style answer sheet
-  // The student gets 10 minutes to review and edit any of their 40
-  // answers before final submission. Each row is pre-filled with what
-  // they already entered while the audio was playing.
+  // PHASE: Review time (listening only) — CD-IELTS style
+  // After the recording finishes, the student stays in the same test
+  // UI and gets `transferMinutes` (default 2 min) to check/edit their
+  // answers in place. No separate "answer sheet" — they already typed
+  // everything while the audio played.
+  // Rendered by falling through to the main test UI below, with a
+  // banner + the header timer swapped to `transferTimeLeft`.
   // ============================================================
-  if (phase === "transfer") {
-    const allQuestions = test.sections.flatMap(s => s.questions);
-    const danger = transferTimeLeft < 60;
-    return (
-      <div style={{ minHeight: "100vh", background: "#0a0a0a", fontFamily: "Inter, system-ui, sans-serif", display: "flex", flexDirection: "column" }}>
-        {/* Sticky header — countdown + submit */}
-        <header style={{ position: "sticky", top: 0, zIndex: 10, background: "#0a0a0a", borderBottom: "1px solid rgba(255,255,255,0.08)", padding: "14px 24px", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 16 }}>
-          <div>
-            <div style={{ fontSize: 11, letterSpacing: "0.2em", textTransform: "uppercase", color: "rgba(255,255,255,0.4)", fontWeight: 700, marginBottom: 4 }}>Answer sheet</div>
-            <div style={{ fontSize: 18, fontWeight: 800, color: "#fff" }}>{test.title}</div>
-          </div>
-          <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
-            <div style={{ display: "flex", alignItems: "center", gap: 6, padding: "8px 14px", borderRadius: 10, background: danger ? "rgba(239,68,68,0.15)" : "rgba(255,255,255,0.05)", border: `1px solid ${danger ? "rgba(239,68,68,0.4)" : "rgba(255,255,255,0.1)"}`, color: danger ? "#ef4444" : "#fff", fontFamily: "'IBM Plex Mono', monospace", fontSize: 18, fontWeight: 700 }}>
-              <Clock size={16} /> {formatTime(transferTimeLeft)}
-            </div>
-            <button onClick={() => { if (confirm("Submit your answers now? You won't be able to edit afterwards.")) submitTest(); }}
-              style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "10px 22px", background: "#fff", color: "#0a0a0a", fontWeight: 700, fontSize: 13, letterSpacing: "0.08em", textTransform: "uppercase", border: "none", borderRadius: 999, cursor: "pointer" }}>
-              Submit <CheckCircle size={14} />
-            </button>
-          </div>
-        </header>
-
-        {/* Intro */}
-        <div style={{ padding: "20px 24px 0", maxWidth: 720, margin: "0 auto", width: "100%" }}>
-          <p style={{ color: "rgba(255,255,255,0.55)", fontSize: 14, lineHeight: 1.6, marginBottom: 18 }}>
-            You have <strong style={{ color: "#fff" }}>10 minutes</strong> to transfer your answers to this sheet. All your answers from
-            the test are already filled in below — review and edit any of them before you click <strong style={{ color: "#fff" }}>Submit</strong>.
-          </p>
-        </div>
-
-        {/* Answer grid */}
-        <main style={{ flex: 1, padding: "8px 24px 80px", maxWidth: 720, margin: "0 auto", width: "100%" }}>
-          {test.sections.map((sec, sIdx) => (
-            <div key={sec.id} style={{ marginBottom: 28 }}>
-              <div style={{ fontSize: 11, letterSpacing: "0.2em", textTransform: "uppercase", color: "rgba(255,255,255,0.4)", fontWeight: 700, margin: "12px 0 8px" }}>
-                Part {sIdx + 1}
-              </div>
-              <div style={{ background: "#151515", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 14, overflow: "hidden" }}>
-                {sec.questions.map((q, qi) => (
-                  <div key={q.id} style={{ display: "flex", alignItems: "center", gap: 14, padding: "12px 16px", borderBottom: qi < sec.questions.length - 1 ? "1px solid rgba(255,255,255,0.05)" : "none" }}>
-                    <span style={{ flexShrink: 0, fontFamily: "'IBM Plex Mono', monospace", fontWeight: 700, fontSize: 14, color: "#fff", minWidth: 28, textAlign: "right" }}>
-                      {q.number}
-                    </span>
-                    <input
-                      type="text"
-                      value={answers[q.id] || ""}
-                      onChange={(e) => setAnswer(q.id, e.target.value)}
-                      placeholder="—"
-                      style={{
-                        flex: 1, padding: "8px 12px",
-                        background: "rgba(255,255,255,0.04)",
-                        border: "1px solid rgba(255,255,255,0.1)",
-                        borderRadius: 8,
-                        color: "#fff", fontSize: 15, outline: "none",
-                        fontFamily: "inherit",
-                      }}
-                      onFocus={(e) => (e.currentTarget.style.borderColor = "rgba(255,255,255,0.4)")}
-                      onBlur={(e) => (e.currentTarget.style.borderColor = "rgba(255,255,255,0.1)")}
-                    />
-                  </div>
-                ))}
-              </div>
-            </div>
-          ))}
-
-          {/* Bottom progress */}
-          <div style={{ textAlign: "center", color: "rgba(255,255,255,0.4)", fontSize: 12, marginTop: 16 }}>
-            {allQuestions.filter(q => (answers[q.id] || "").trim()).length} / {allQuestions.length} answered
-          </div>
-        </main>
-      </div>
-    );
-  }
 
   const section = test.sections[currentSection];
 
@@ -867,9 +797,12 @@ export default function TestPage() {
   })();
 
   // ============================================================
-  // PHASE: Test (reading or listening questions) + audio_playing
+  // PHASE: Test (reading/listening), audio_playing, and post-audio
+  // review — all share the same UI. The review phase just adds a
+  // banner at the top and swaps the header clock to `transferTimeLeft`.
   // ============================================================
-  if (phase !== "test" && phase !== "audio_playing") return null;
+  if (phase !== "test" && phase !== "audio_playing" && phase !== "transfer") return null;
+  const isReviewing = phase === "transfer";
 
   return (
     <div className="test-zone" style={{ height: "100svh", display: "flex", flexDirection: "column", background: T.bg, fontFamily: "Inter, system-ui, sans-serif", overflow: "hidden" }}>
@@ -936,10 +869,18 @@ export default function TestPage() {
             style={{ padding: "5px 10px", background: T.accentDim, border: `1px solid ${T.accentBorder}`, borderRadius: 8, cursor: "pointer", color: T.accent, display: "flex", alignItems: "center", gap: 4, fontSize: 13, fontWeight: 600 }}>
             {pageMode === "dark" ? <Sun size={14} /> : pageMode === "sepia" ? <Sun size={14} /> : <Moon size={14} />}
           </button>
-          <div style={{ display: "flex", alignItems: "center", gap: 6, padding: "6px 12px", borderRadius: 10, background: T.nav, border: `1px solid ${T.border}`, fontSize: 14, fontWeight: 700, color: timeLeft < 300 ? "#ef4444" : T.accent, fontFamily: "monospace" }}>
-            <Clock size={14} />
-            {formatTime(timeLeft)}
-          </div>
+          {(() => {
+            // During review phase, show the 2-min post-audio countdown
+            // instead of the main test timer.
+            const displayTime = isReviewing ? transferTimeLeft : timeLeft;
+            const danger = isReviewing ? displayTime < 30 : displayTime < 300;
+            return (
+              <div style={{ display: "flex", alignItems: "center", gap: 6, padding: "6px 12px", borderRadius: 10, background: T.nav, border: `1px solid ${danger ? "#ef4444" : T.border}`, fontSize: 14, fontWeight: 700, color: danger ? "#ef4444" : T.accent, fontFamily: "monospace" }}>
+                <Clock size={14} />
+                {formatTime(displayTime)}
+              </div>
+            );
+          })()}
           <button onClick={() => { if (confirm("Are you sure you want to submit your test? This cannot be undone.")) submitTest(); }}
             style={{ display: "inline-flex", alignItems: "center", gap: 6, padding: "7px 16px", background: T.accentBtn, color: "#fff", fontWeight: 700, fontSize: 13, border: "none", borderRadius: 10, cursor: "pointer" }}>
             Submit <CheckCircle size={14} />
@@ -951,6 +892,20 @@ export default function TestPage() {
       <div style={{ height: 3, background: T.border, borderRadius: 0 }}>
         <div style={{ height: "100%", background: "linear-gradient(90deg,#ffffff,#b87fff)", borderRadius: 0, transition: "width 0.3s ease", width: `${readingProgressPct}%` }} />
       </div>
+
+      {/* Review banner (listening – post audio, 2 min to check answers) */}
+      {isReviewing && (
+        <div style={{ background: "rgba(239,68,68,0.08)", borderBottom: `1px solid rgba(239,68,68,0.25)`, padding: "10px 20px", display: "flex", alignItems: "center", gap: 12 }}>
+          <Clock size={16} color="#ef4444" />
+          <div style={{ fontSize: 13, fontWeight: 600, color: T.text, lineHeight: 1.4 }}>
+            The recording has finished.{" "}
+            <span style={{ color: "#ef4444", fontWeight: 700 }}>
+              You now have 2 minutes to check your answers
+            </span>
+            {" "}before the test ends.
+          </div>
+        </div>
+      )}
 
       {/* Audio banner (listening – audio playing) */}
       {phase === "audio_playing" && (

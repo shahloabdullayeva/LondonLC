@@ -19,7 +19,7 @@ export const cambridge17_listening_t1: IELTSTest = {
   type: "listening",
   level: "academic",
   durationMinutes: 30,
-  transferMinutes: 10,
+  transferMinutes: 2,
   audioUrl: audioUrl("cam17-listening-t1.mp3"),
   audioDurationSeconds: 1800,
   sections: [
@@ -207,13 +207,6 @@ Questions 19 & 20: Choose TWO letters, A–E.`,
       instructions: `Questions 21–26: Choose the correct letter, A, B or C.
 Questions 27–30: Match each module with an opinion. Choose FOUR answers from the box (A–F).`,
       passageTitle: "Work experience for veterinary science students",
-      passageText: `Opinions (for Q27–30):
-A  Tim found this easier than expected.
-B  Tim thought this was not very clearly organised.
-C  Diana may do some further study on this.
-D  They both found the reading required for this was difficult.
-E  Tim was shocked at something he learned on this module.
-F  They were both surprised how little is known about some aspects of this.`,
       questions: [
         {
           id: "cam17-l-t1-s3-q21", number: 21,
@@ -394,7 +387,7 @@ export const cambridge17_listening_t2: IELTSTest = {
   type: "listening",
   level: "academic",
   durationMinutes: 30,
-  transferMinutes: 10,
+  transferMinutes: 2,
   audioUrl: audioUrl("cam17-listening-t2.mp3"),
   audioDurationSeconds: 1800,
   sections: [
@@ -446,15 +439,6 @@ Date        | Event                    | Location         | Help needed
       instructions: `Questions 11–14: Choose the correct letter, A, B or C.
 Questions 15–20: Match each location on the farm with an activity. Choose SIX answers from the box (A–H).`,
       passageTitle: "Oniton Hall",
-      passageText: `Activities (for Q15–20):
-A  shopping
-B  watching cows being milked
-C  seeing old farming equipment
-D  eating and drinking
-E  starting a trip
-F  seeing rare breeds of animals
-G  helping to look after animals
-H  using farming tools`,
       questions: [
         {
           id: "cam17-l-t2-s2-q11", number: 11,
@@ -594,14 +578,6 @@ H  using farming tools`,
 Questions 23–27: Match each aspect of the production with an opinion. Choose FIVE answers from the box (A–G).
 Questions 28–30: Choose the correct letter, A, B or C.`,
       passageTitle: "Review of The Emporium's Romeo and Juliet",
-      passageText: `Opinions (for Q23–27):
-A  They both expected this to be more traditional.
-B  They both thought this was original.
-C  They agree this created the right atmosphere.
-D  They agree this was a major strength.
-E  They were both disappointed by this.
-F  They disagree about why this was an issue.
-G  They disagree about how this could be improved.`,
       questions: [
         {
           id: "cam17-l-t2-s3-q21", number: 21,
@@ -790,7 +766,7 @@ export const cambridge17_listening_t3: IELTSTest = {
   type: "listening",
   level: "academic",
   durationMinutes: 30,
-  transferMinutes: 10,
+  transferMinutes: 2,
   audioUrl: audioUrl("cam17-listening-t3.mp3"),
   audioDurationSeconds: 1800,
   sections: [
@@ -845,14 +821,6 @@ Costs
 Questions 13–15: Choose the correct letter, A, B or C.
 Questions 16–20: Match each activity with information. Choose FIVE answers from the box (A–G).`,
       passageTitle: "School extended hours childcare service",
-      passageText: `Information (for Q16–20):
-A  has limited availability
-B  is no longer available
-C  is for over 8s only
-D  requires help from parents
-E  involves an additional fee
-F  is a new activity
-G  was requested by children`,
       questions: [
         {
           id: "cam17-l-t3-s2-q11", number: 11,
@@ -987,15 +955,6 @@ G  was requested by children`,
       instructions: `Questions 21–24: Choose the correct letter, A, B or C.
 Questions 25–30: Match each events-management skill with an important aspect. Choose SIX answers from the box (A–H).`,
       passageTitle: "Holly's Work Placement Tutorial",
-      passageText: `Important aspects (for Q25–30):
-A  being flexible
-B  focusing on details
-C  having a smart appearance
-D  hiding your emotions
-E  relying on experts
-F  trusting your own views
-G  doing one thing at a time
-H  thinking of the future`,
       questions: [
         {
           id: "cam17-l-t3-s3-q21", number: 21,
@@ -1187,7 +1146,7 @@ export const cambridge17_listening_t4: IELTSTest = {
   type: "listening",
   level: "academic",
   durationMinutes: 30,
-  transferMinutes: 10,
+  transferMinutes: 2,
   audioUrl: audioUrl("cam17-listening-t4.mp3"),
   audioDurationSeconds: 1800,
   sections: [
@@ -1245,10 +1204,6 @@ Information on the cleaners
       instructions: `Questions 11–14: Choose the correct letter, A, B or C.
 Questions 15–20: Match each hotel with a way of reducing staff turnover. Write the correct letter A, B or C (letters may be used more than once).`,
       passageTitle: "Staff retention in hotels",
-      passageText: `Ways of reducing staff turnover (for Q15–20):
-A  improving relationships and teamwork
-B  offering incentives and financial benefits
-C  providing career opportunities`,
       questions: [
         {
           id: "cam17-l-t4-s2-q11", number: 11,
@@ -1358,15 +1313,6 @@ C  providing career opportunities`,
 Questions 23 & 24: Choose TWO letters, A–E.
 Questions 25–30: Match each item of sporting equipment with a comment. Choose SIX answers from the box (A–H).`,
       passageTitle: "Thomas's sporting background and the history of sporting equipment",
-      passageText: `Comments about the development of the equipment (for Q25–30):
-A  It could cause excessive sweating.
-B  The material was being mass produced for another purpose.
-C  People often needed to make their own.
-D  It often had to be replaced.
-E  The material was expensive.
-F  It was unpopular among spectators.
-G  It caused injuries.
-H  No one liked it at first.`,
       questions: [
         {
           id: "cam17-l-t4-s3-q21", number: 21,

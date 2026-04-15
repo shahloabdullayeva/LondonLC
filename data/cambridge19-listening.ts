@@ -26,7 +26,7 @@ export const cambridge19_listening_t1: IELTSTest = {
   type: "listening",
   level: "academic",
   durationMinutes: 30,
-  transferMinutes: 10,
+  transferMinutes: 2,
   audioUrl: audioUrl("cam19-listening-t1.mp3"),
   audioDurationSeconds: 1800,
   sections: [
@@ -420,7 +420,7 @@ export const cambridge19_listening_t2: IELTSTest = {
   type: "listening",
   level: "academic",
   durationMinutes: 30,
-  transferMinutes: 10,
+  transferMinutes: 2,
   audioUrl: audioUrl("cam19-listening-t2.mp3"),
   audioDurationSeconds: 1800,
   sections: [
@@ -797,7 +797,7 @@ export const cambridge19_listening_t3: IELTSTest = {
   type: "listening",
   level: "academic",
   durationMinutes: 30,
-  transferMinutes: 10,
+  transferMinutes: 2,
   audioUrl: audioUrl("cam19-listening-t3.mp3"),
   audioDurationSeconds: 1800,
   sections: [
@@ -1210,7 +1210,7 @@ export const cambridge19_listening_t4: IELTSTest = {
   type: "listening",
   level: "academic",
   durationMinutes: 30,
-  transferMinutes: 10,
+  transferMinutes: 2,
   audioUrl: audioUrl("cam19-listening-t4.mp3"),
   audioDurationSeconds: 1800,
   sections: [
@@ -1270,10 +1270,6 @@ Questions 13 & 14: Choose TWO letters, A–E.
 Questions 15–18: Match each club member to a reason. Choose A, B or C.
 Questions 19 & 20: Choose the correct letter, A, B or C.`,
       passageTitle: "Compton Park Runners Club",
-      passageText: `Reasons (for Q15–18):
-A  a lack of confidence
-B  a dislike of running
-C  a lack of time`,
       questions: [
         {
           id: "cam19-l-t4-s2-q11", number: 11,
