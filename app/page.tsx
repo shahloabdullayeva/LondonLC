@@ -1,9 +1,10 @@
 "use client";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { getSession } from "@/lib/store";
 import Brand from "@/components/Brand";
 import Link from "next/link";
+import { quotes, type Quote } from "@/lib/quotes";
 
 // Landing page: brand mark, tagline, sign in. Serif display type,
 // "London" white and "LC" light purple. All the section navigation
@@ -13,11 +14,18 @@ const BODY_FONT = `"Inter", system-ui, sans-serif`;
 
 export default function HomePage() {
   const router = useRouter();
+  const [quote, setQuote] = useState<Quote | null>(null);
 
   useEffect(() => {
     const s = getSession();
     if (s) router.push(s.isAdmin ? "/admin/dashboard" : "/student/dashboard");
   }, [router]);
+
+  useEffect(() => {
+    if (quotes.length > 0) {
+      setQuote(quotes[Math.floor(Math.random() * quotes.length)]);
+    }
+  }, []);
 
   return (
     <div style={{
@@ -73,6 +81,42 @@ export default function HomePage() {
           You deserve{" "}
           <em style={{ fontStyle: "italic", fontWeight: 300, color: "rgba(255,255,255,0.8)" }}>more.</em>
         </h1>
+
+        {/* Rotating quote — picked client-side on mount */}
+        <figure style={{
+          margin: "0 0 48px",
+          maxWidth: 620,
+          minHeight: 72,
+          display: "flex", flexDirection: "column",
+          alignItems: "center", justifyContent: "center",
+          gap: 10,
+        }}>
+          {quote && (
+            <>
+              <blockquote style={{
+                margin: 0,
+                fontFamily: DISPLAY_FONT,
+                fontStyle: "italic",
+                fontWeight: 300,
+                fontSize: "clamp(0.95rem, 1.6vw, 1.1rem)",
+                lineHeight: 1.55,
+                color: "rgba(255,255,255,0.65)",
+              }}>
+                &ldquo;{quote.text}&rdquo;
+              </blockquote>
+              {quote.author && (
+                <figcaption style={{
+                  fontSize: 10.5,
+                  letterSpacing: "0.2em",
+                  textTransform: "uppercase",
+                  color: "rgba(255,255,255,0.35)",
+                }}>
+                  — {quote.author}
+                </figcaption>
+              )}
+            </>
+          )}
+        </figure>
 
         <Link href="/auth/login" style={{
           display: "inline-flex", alignItems: "center", gap: 10,
