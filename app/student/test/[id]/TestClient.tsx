@@ -1463,9 +1463,10 @@ export default function TestPage() {
 // Captures:
 //   group 1 — the question number
 //   group 2 — any intermediate chars between the number and the underscores
-//             (spaces, quotes, brackets, colon, dash etc. — e.g. "4 '_______")
-//             so we can render them back before the input field.
-const BLANK_PATTERN = /(\d+)(\s*['"‘’“”«»():–—-]*\s*)_{3,}/g;
+//             (spaces, quotes, brackets, colon, dash, currency symbols etc.
+//             — e.g. "4 '_______" or "10 £ _______") so we can render them
+//             back before the input field.
+const BLANK_PATTERN = /(\d+)(\s*['"‘’“”«»():–—\-£$€¥]*\s*)_{3,}/g;
 
 function passageBlankNumbers(passage: string): Set<number> {
   const set = new Set<number>();
