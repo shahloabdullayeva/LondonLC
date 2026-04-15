@@ -1,16 +1,16 @@
-import { cambridge10Tests } from "./cambridge10";
-import { cambridge11Tests } from "./cambridge11";
-import { cambridge12Tests } from "./cambridge12";
-import { cambridge13Tests } from "./cambridge13";
-import { cambridge14Tests } from "./cambridge14";
-import { cambridge15Tests } from "./cambridge15";
-import { cambridge16Tests } from "./cambridge16";
-import { cambridge17Tests } from "./cambridge17";
-import { cambridge18Tests } from "./cambridge18";
+import { cambridge10Tests } from "./cambridge10-reading";
+import { cambridge11Tests } from "./cambridge11-reading";
+import { cambridge12Tests } from "./cambridge12-reading";
+import { cambridge13Tests } from "./cambridge13-reading";
+import { cambridge14Tests } from "./cambridge14-reading";
+import { cambridge15Tests } from "./cambridge15-reading";
+import { cambridge16Tests } from "./cambridge16-reading";
+import { cambridge17Tests } from "./cambridge17-reading";
+import { cambridge18Tests } from "./cambridge18-reading";
 import { cambridge18ListeningTests } from "./cambridge18-listening";
-import { cambridge19Tests } from "./cambridge19";
+import { cambridge19Tests } from "./cambridge19-reading";
 import { cambridge19ListeningTests } from "./cambridge19-listening";
-import { cambridge20Tests } from "./cambridge20";
+import { cambridge20Tests } from "./cambridge20-reading";
 import { cambridge20ListeningTests } from "./cambridge20-listening";
 
 export type IELTSTest = {
