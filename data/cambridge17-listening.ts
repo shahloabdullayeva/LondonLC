@@ -773,7 +773,406 @@ The Icelandic government
   ],
 };
 
+// ============================================================
+// CAMBRIDGE IELTS 17 – LISTENING TEST 3
+// Parts: 1) Advice on surfing holidays in Ireland (notes)
+//        2) School extended hours childcare (Choose-TWO + MCQ
+//           + activity/info matching)
+//        3) Holly's work placement tutorial (MCQ + events-management
+//           skills matching)
+//        4) Bird migration theory (notes)
+// ============================================================
+export const cambridge17_listening_t3: IELTSTest = {
+  id: "cam17-listening-t3",
+  title: "Cambridge IELTS 17 – Listening Test 3",
+  bookNumber: 17,
+  testNumber: 3,
+  type: "listening",
+  level: "academic",
+  durationMinutes: 30,
+  transferMinutes: 10,
+  audioUrl: audioUrl("cam17-listening-t3.mp3"),
+  audioDurationSeconds: 1800,
+  sections: [
+    // ── PART 1 ─────────────────────────────────────────────
+    {
+      id: "cam17-l-t3-s1",
+      sectionNumber: 1,
+      title: "Part 1",
+      instructions: `Questions 1–10: Complete the notes below. Write ONE WORD AND/OR A NUMBER for each answer.`,
+      passageText: `Advice on surfing holidays
+
+Jack's advice
+●  Recommends surfing for 1 _______ holidays in the summer
+●  Need to be quite 2 _______
+
+Irish surfing locations
+●  County Clare
+   –  Lahinch has some good quality 3 _______ and surf schools
+   –  There are famous cliffs nearby
+●  County Mayo
+   –  Good surf school at 4 _______ beach
+   –  Surf camp lasts for one 5 _______
+   –  Can also explore the local 6 _______ by kayak
+
+Weather
+●  Best month to go: 7 _______
+●  Average temperature in summer: approx. 8 _______ degrees
+
+Costs
+●  Equipment
+   –  Wetsuit and surfboard: 9 _______ euros per day
+   –  Also advisable to hire 10 _______ for warmth`,
+      questions: [
+        { id: "cam17-l-t3-s1-q1", number: 1, type: "note_completion", question: "1. Recommends surfing for _______ holidays in the summer", correctAnswer: "family", points: 1 },
+        { id: "cam17-l-t3-s1-q2", number: 2, type: "note_completion", question: "2. Need to be quite _______", correctAnswer: "fit", points: 1 },
+        { id: "cam17-l-t3-s1-q3", number: 3, type: "note_completion", question: "3. Lahinch has some good quality _______ and surf schools", correctAnswer: "hotels", points: 1 },
+        { id: "cam17-l-t3-s1-q4", number: 4, type: "note_completion", question: "4. Good surf school at _______ beach", correctAnswer: "Carrowniskey", points: 1 },
+        { id: "cam17-l-t3-s1-q5", number: 5, type: "note_completion", question: "5. Surf camp lasts for one _______", correctAnswer: "week", points: 1 },
+        { id: "cam17-l-t3-s1-q6", number: 6, type: "note_completion", question: "6. explore the local _______ by kayak", correctAnswer: "bay", points: 1 },
+        { id: "cam17-l-t3-s1-q7", number: 7, type: "note_completion", question: "7. Best month to go: _______", correctAnswer: "September", points: 1 },
+        { id: "cam17-l-t3-s1-q8", number: 8, type: "note_completion", question: "8. Average temperature in summer: approx. _______ degrees", correctAnswer: "19/nineteen", points: 1 },
+        { id: "cam17-l-t3-s1-q9", number: 9, type: "note_completion", question: "9. Wetsuit and surfboard: _______ euros per day", correctAnswer: "30/thirty", points: 1 },
+        { id: "cam17-l-t3-s1-q10", number: 10, type: "note_completion", question: "10. advisable to hire _______ for warmth", correctAnswer: "boots", points: 1 },
+      ],
+    },
+    // ── PART 2 ─────────────────────────────────────────────
+    {
+      id: "cam17-l-t3-s2",
+      sectionNumber: 2,
+      title: "Part 2",
+      instructions: `Questions 11 & 12: Choose TWO letters, A–E.
+Questions 13–15: Choose the correct letter, A, B or C.
+Questions 16–20: Match each activity with information. Choose FIVE answers from the box (A–G).`,
+      passageTitle: "School extended hours childcare service",
+      passageText: `Information (for Q16–20):
+A  has limited availability
+B  is no longer available
+C  is for over 8s only
+D  requires help from parents
+E  involves an additional fee
+F  is a new activity
+G  was requested by children`,
+      questions: [
+        {
+          id: "cam17-l-t3-s2-q11", number: 11,
+          groupLabel: `Questions 11 and 12: Choose TWO letters, A–E.\n\nWhich TWO facts are given about the school's extended hours childcare service?\n\nA  It started recently.\nB  More children attend after school than before school.\nC  An average of 50 children attend in the mornings.\nD  A child cannot attend both the before and after school sessions.\nE  The maximum number of children who can attend is 70.\n\n(Answers are accepted in either order.)`,
+          type: "multiple_choice", question: "11. Choose TWO (first answer)",
+          options: [
+            { label: "A  It started recently.", value: "A" },
+            { label: "B  More children attend after school than before school.", value: "B" },
+            { label: "C  An average of 50 children attend in the mornings.", value: "C" },
+            { label: "D  A child cannot attend both the before and after school sessions.", value: "D" },
+            { label: "E  The maximum number of children who can attend is 70.", value: "E" },
+          ],
+          correctAnswer: "B/E", points: 1,
+        },
+        {
+          id: "cam17-l-t3-s2-q12", number: 12, type: "multiple_choice",
+          question: "12. Choose TWO (second answer)",
+          options: [
+            { label: "A  It started recently.", value: "A" },
+            { label: "B  More children attend after school than before school.", value: "B" },
+            { label: "C  An average of 50 children attend in the mornings.", value: "C" },
+            { label: "D  A child cannot attend both the before and after school sessions.", value: "D" },
+            { label: "E  The maximum number of children who can attend is 70.", value: "E" },
+          ],
+          correctAnswer: "B/E", points: 1,
+        },
+        {
+          id: "cam17-l-t3-s2-q13", number: 13,
+          groupLabel: `Questions 13–15: Choose the correct letter, A, B or C.`,
+          type: "multiple_choice", question: "13. How much does childcare cost for a complete afternoon session per child?",
+          options: [
+            { label: "A  £3.50", value: "A" },
+            { label: "B  £5.70", value: "B" },
+            { label: "C  £7.20", value: "C" },
+          ],
+          correctAnswer: "C", points: 1,
+        },
+        {
+          id: "cam17-l-t3-s2-q14", number: 14, type: "multiple_choice",
+          question: "14. What does the manager say about food?",
+          options: [
+            { label: "A  Children with allergies should bring their own food.", value: "A" },
+            { label: "B  Children may bring healthy snacks with them.", value: "B" },
+            { label: "C  Children are given a proper meal at 5 p.m.", value: "C" },
+          ],
+          correctAnswer: "C", points: 1,
+        },
+        {
+          id: "cam17-l-t3-s2-q15", number: 15, type: "multiple_choice",
+          question: "15. What is different about arrangements in the school holidays?",
+          options: [
+            { label: "A  Children from other schools can attend.", value: "A" },
+            { label: "B  Older children can attend.", value: "B" },
+            { label: "C  A greater number of children can attend.", value: "C" },
+          ],
+          correctAnswer: "A", points: 1,
+        },
+        {
+          id: "cam17-l-t3-s2-q16", number: 16,
+          groupLabel: `Questions 16–20: What information is given about each of the following activities on offer? Choose FIVE answers from the box (A–G) and write the correct letter next to each activity.\n\nA  has limited availability\nB  is no longer available\nC  is for over 8s only\nD  requires help from parents\nE  involves an additional fee\nF  is a new activity\nG  was requested by children`,
+          type: "matching", question: "16. Spanish",
+          options: [
+            { label: "A  has limited availability", value: "A" },
+            { label: "B  is no longer available", value: "B" },
+            { label: "C  is for over 8s only", value: "C" },
+            { label: "D  requires help from parents", value: "D" },
+            { label: "E  involves an additional fee", value: "E" },
+            { label: "F  is a new activity", value: "F" },
+            { label: "G  was requested by children", value: "G" },
+          ],
+          correctAnswer: "E", points: 1,
+        },
+        {
+          id: "cam17-l-t3-s2-q17", number: 17, type: "matching", question: "17. Music",
+          options: [
+            { label: "A  has limited availability", value: "A" },
+            { label: "B  is no longer available", value: "B" },
+            { label: "C  is for over 8s only", value: "C" },
+            { label: "D  requires help from parents", value: "D" },
+            { label: "E  involves an additional fee", value: "E" },
+            { label: "F  is a new activity", value: "F" },
+            { label: "G  was requested by children", value: "G" },
+          ],
+          correctAnswer: "D", points: 1,
+        },
+        {
+          id: "cam17-l-t3-s2-q18", number: 18, type: "matching", question: "18. Painting",
+          options: [
+            { label: "A  has limited availability", value: "A" },
+            { label: "B  is no longer available", value: "B" },
+            { label: "C  is for over 8s only", value: "C" },
+            { label: "D  requires help from parents", value: "D" },
+            { label: "E  involves an additional fee", value: "E" },
+            { label: "F  is a new activity", value: "F" },
+            { label: "G  was requested by children", value: "G" },
+          ],
+          correctAnswer: "G", points: 1,
+        },
+        {
+          id: "cam17-l-t3-s2-q19", number: 19, type: "matching", question: "19. Yoga",
+          options: [
+            { label: "A  has limited availability", value: "A" },
+            { label: "B  is no longer available", value: "B" },
+            { label: "C  is for over 8s only", value: "C" },
+            { label: "D  requires help from parents", value: "D" },
+            { label: "E  involves an additional fee", value: "E" },
+            { label: "F  is a new activity", value: "F" },
+            { label: "G  was requested by children", value: "G" },
+          ],
+          correctAnswer: "F", points: 1,
+        },
+        {
+          id: "cam17-l-t3-s2-q20", number: 20, type: "matching", question: "20. Cooking",
+          options: [
+            { label: "A  has limited availability", value: "A" },
+            { label: "B  is no longer available", value: "B" },
+            { label: "C  is for over 8s only", value: "C" },
+            { label: "D  requires help from parents", value: "D" },
+            { label: "E  involves an additional fee", value: "E" },
+            { label: "F  is a new activity", value: "F" },
+            { label: "G  was requested by children", value: "G" },
+          ],
+          correctAnswer: "C", points: 1,
+        },
+      ],
+    },
+    // ── PART 3 ─────────────────────────────────────────────
+    {
+      id: "cam17-l-t3-s3",
+      sectionNumber: 3,
+      title: "Part 3",
+      instructions: `Questions 21–24: Choose the correct letter, A, B or C.
+Questions 25–30: Match each events-management skill with an important aspect. Choose SIX answers from the box (A–H).`,
+      passageTitle: "Holly's Work Placement Tutorial",
+      passageText: `Important aspects (for Q25–30):
+A  being flexible
+B  focusing on details
+C  having a smart appearance
+D  hiding your emotions
+E  relying on experts
+F  trusting your own views
+G  doing one thing at a time
+H  thinking of the future`,
+      questions: [
+        {
+          id: "cam17-l-t3-s3-q21", number: 21,
+          groupLabel: `Questions 21–24: Choose the correct letter, A, B or C.`,
+          type: "multiple_choice", question: "21. Holly has chosen the Orion Stadium placement because",
+          options: [
+            { label: "A  it involves children.", value: "A" },
+            { label: "B  it is outdoors.", value: "B" },
+            { label: "C  it sounds like fun.", value: "C" },
+          ],
+          correctAnswer: "B", points: 1,
+        },
+        {
+          id: "cam17-l-t3-s3-q22", number: 22, type: "multiple_choice",
+          question: "22. Which aspect of safety does Dr Green emphasise most?",
+          options: [
+            { label: "A  ensuring children stay in the stadium", value: "A" },
+            { label: "B  checking the equipment children will use", value: "B" },
+            { label: "C  removing obstacles in changing rooms", value: "C" },
+          ],
+          correctAnswer: "A", points: 1,
+        },
+        {
+          id: "cam17-l-t3-s3-q23", number: 23, type: "multiple_choice",
+          question: "23. What does Dr Green say about the spectators?",
+          options: [
+            { label: "A  They can be hard to manage.", value: "A" },
+            { label: "B  They make useful volunteers.", value: "B" },
+            { label: "C  They shouldn't take photographs.", value: "C" },
+          ],
+          correctAnswer: "A", points: 1,
+        },
+        {
+          id: "cam17-l-t3-s3-q24", number: 24, type: "multiple_choice",
+          question: "24. What has affected the schedule in the past?",
+          options: [
+            { label: "A  bad weather", value: "A" },
+            { label: "B  an injury", value: "B" },
+            { label: "C  extra time", value: "C" },
+          ],
+          correctAnswer: "B", points: 1,
+        },
+        {
+          id: "cam17-l-t3-s3-q25", number: 25,
+          groupLabel: `Questions 25–30: What do Holly and her tutor agree is an important aspect of each of the following events-management skills? Choose SIX answers from the box (A–H).\n\nA  being flexible\nB  focusing on details\nC  having a smart appearance\nD  hiding your emotions\nE  relying on experts\nF  trusting your own views\nG  doing one thing at a time\nH  thinking of the future`,
+          type: "matching", question: "25. Communication",
+          options: [
+            { label: "A  being flexible", value: "A" },
+            { label: "B  focusing on details", value: "B" },
+            { label: "C  having a smart appearance", value: "C" },
+            { label: "D  hiding your emotions", value: "D" },
+            { label: "E  relying on experts", value: "E" },
+            { label: "F  trusting your own views", value: "F" },
+            { label: "G  doing one thing at a time", value: "G" },
+            { label: "H  thinking of the future", value: "H" },
+          ],
+          correctAnswer: "C", points: 1,
+        },
+        {
+          id: "cam17-l-t3-s3-q26", number: 26, type: "matching", question: "26. Organisation",
+          options: [
+            { label: "A  being flexible", value: "A" },
+            { label: "B  focusing on details", value: "B" },
+            { label: "C  having a smart appearance", value: "C" },
+            { label: "D  hiding your emotions", value: "D" },
+            { label: "E  relying on experts", value: "E" },
+            { label: "F  trusting your own views", value: "F" },
+            { label: "G  doing one thing at a time", value: "G" },
+            { label: "H  thinking of the future", value: "H" },
+          ],
+          correctAnswer: "A", points: 1,
+        },
+        {
+          id: "cam17-l-t3-s3-q27", number: 27, type: "matching", question: "27. Time management",
+          options: [
+            { label: "A  being flexible", value: "A" },
+            { label: "B  focusing on details", value: "B" },
+            { label: "C  having a smart appearance", value: "C" },
+            { label: "D  hiding your emotions", value: "D" },
+            { label: "E  relying on experts", value: "E" },
+            { label: "F  trusting your own views", value: "F" },
+            { label: "G  doing one thing at a time", value: "G" },
+            { label: "H  thinking of the future", value: "H" },
+          ],
+          correctAnswer: "D", points: 1,
+        },
+        {
+          id: "cam17-l-t3-s3-q28", number: 28, type: "matching", question: "28. Creativity",
+          options: [
+            { label: "A  being flexible", value: "A" },
+            { label: "B  focusing on details", value: "B" },
+            { label: "C  having a smart appearance", value: "C" },
+            { label: "D  hiding your emotions", value: "D" },
+            { label: "E  relying on experts", value: "E" },
+            { label: "F  trusting your own views", value: "F" },
+            { label: "G  doing one thing at a time", value: "G" },
+            { label: "H  thinking of the future", value: "H" },
+          ],
+          correctAnswer: "B", points: 1,
+        },
+        {
+          id: "cam17-l-t3-s3-q29", number: 29, type: "matching", question: "29. Leadership",
+          options: [
+            { label: "A  being flexible", value: "A" },
+            { label: "B  focusing on details", value: "B" },
+            { label: "C  having a smart appearance", value: "C" },
+            { label: "D  hiding your emotions", value: "D" },
+            { label: "E  relying on experts", value: "E" },
+            { label: "F  trusting your own views", value: "F" },
+            { label: "G  doing one thing at a time", value: "G" },
+            { label: "H  thinking of the future", value: "H" },
+          ],
+          correctAnswer: "F", points: 1,
+        },
+        {
+          id: "cam17-l-t3-s3-q30", number: 30, type: "matching", question: "30. Networking",
+          options: [
+            { label: "A  being flexible", value: "A" },
+            { label: "B  focusing on details", value: "B" },
+            { label: "C  having a smart appearance", value: "C" },
+            { label: "D  hiding your emotions", value: "D" },
+            { label: "E  relying on experts", value: "E" },
+            { label: "F  trusting your own views", value: "F" },
+            { label: "G  doing one thing at a time", value: "G" },
+            { label: "H  thinking of the future", value: "H" },
+          ],
+          correctAnswer: "H", points: 1,
+        },
+      ],
+    },
+    // ── PART 4 ─────────────────────────────────────────────
+    {
+      id: "cam17-l-t3-s4",
+      sectionNumber: 4,
+      title: "Part 4",
+      instructions: `Questions 31–40: Complete the notes below. Write ONE WORD ONLY for each answer.`,
+      passageText: `Bird Migration Theory
+
+Most birds are believed to migrate seasonally.
+
+Hibernation theory
+●  It was believed that birds hibernated underwater or buried themselves in 31 _______.
+●  This theory was later disproved by experiments on caged birds.
+
+Transmutation theory
+●  Aristotle believed birds changed from one species into another in summer and winter.
+   –  In autumn he observed that redstarts experience the loss of 32 _______ and thought they then turned into robins.
+   –  Aristotle's assumptions were logical because the two species of birds had a similar 33 _______.
+
+17th century
+●  Charles Morton popularised the idea that birds fly to the 34 _______ in winter.
+
+Scientific developments
+●  In 1822, a stork was killed in Germany which had an African spear in its 35 _______.
+   –  previously there had been no 36 _______ that storks migrate to Africa
+●  Little was known about the 37 _______ and journeys of migrating birds until the practice of ringing was established.
+   –  It was thought large birds carried small birds on some journeys because they were considered incapable of travelling across huge 38 _______.
+   –  Ringing depended on what is called the 39 '_______' of dead birds.
+●  In 1931, the first 40 _______ to show the migration of European birds was printed.`,
+      questions: [
+        { id: "cam17-l-t3-s4-q31", number: 31, type: "note_completion", question: "31. buried themselves in _______", correctAnswer: "mud", points: 1 },
+        { id: "cam17-l-t3-s4-q32", number: 32, type: "note_completion", question: "32. redstarts experience the loss of _______", correctAnswer: "feathers", points: 1 },
+        { id: "cam17-l-t3-s4-q33", number: 33, type: "note_completion", question: "33. the two species of birds had a similar _______", correctAnswer: "shape", points: 1 },
+        { id: "cam17-l-t3-s4-q34", number: 34, type: "note_completion", question: "34. birds fly to the _______ in winter", correctAnswer: "moon", points: 1 },
+        { id: "cam17-l-t3-s4-q35", number: 35, type: "note_completion", question: "35. an African spear in its _______", correctAnswer: "neck", points: 1 },
+        { id: "cam17-l-t3-s4-q36", number: 36, type: "note_completion", question: "36. there had been no _______ that storks migrate to Africa", correctAnswer: "evidence", points: 1 },
+        { id: "cam17-l-t3-s4-q37", number: 37, type: "note_completion", question: "37. Little was known about the _______ and journeys of migrating birds", correctAnswer: "destinations", points: 1 },
+        { id: "cam17-l-t3-s4-q38", number: 38, type: "note_completion", question: "38. incapable of travelling across huge _______", correctAnswer: "oceans", points: 1 },
+        { id: "cam17-l-t3-s4-q39", number: 39, type: "note_completion", question: "39. what is called the '_______' of dead birds", correctAnswer: "recovery", points: 1 },
+        { id: "cam17-l-t3-s4-q40", number: 40, type: "note_completion", question: "40. the first _______ to show the migration of European birds", correctAnswer: "atlas", points: 1 },
+      ],
+    },
+  ],
+};
+
 export const cambridge17ListeningTests: IELTSTest[] = [
   cambridge17_listening_t1,
   cambridge17_listening_t2,
+  cambridge17_listening_t3,
 ];
