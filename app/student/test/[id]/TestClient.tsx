@@ -870,8 +870,16 @@ export default function TestPage() {
             {pageMode === "dark" ? <Sun size={14} /> : pageMode === "sepia" ? <Sun size={14} /> : <Moon size={14} />}
           </button>
           {(() => {
-            // During review phase, show the 2-min post-audio countdown
-            // instead of the main test timer.
+            // Header clock visibility:
+            //   • Reading — always show `timeLeft` (60-min test countdown).
+            //   • Listening during audio — HIDE. The audio banner below
+            //     already shows elapsed/total and real audios aren't all
+            //     exactly 30 min, so a fixed countdown would mislead.
+            //   • Listening pre-audio — HIDE (audio auto-starts, phase is
+            //     instant so the clock would just flash).
+            //   • Listening review (post-audio) — show the 2-min review
+            //     countdown.
+            if (test.type === "listening" && !isReviewing) return null;
             const displayTime = isReviewing ? transferTimeLeft : timeLeft;
             const danger = isReviewing ? displayTime < 30 : displayTime < 300;
             return (
