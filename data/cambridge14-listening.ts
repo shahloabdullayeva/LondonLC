@@ -1071,8 +1071,432 @@ British composers: Edward Elgar, Thomas Adès`,
   ],
 };
 
+// ============================================================
+// CAMBRIDGE IELTS 14 – LISTENING TEST 4
+// Parts: 1) Enquiry about booking hotel room for an event —
+//           Andrew (notes + facilities matching A/B/C)
+//        2) Excursions (excursion → info matching A–H + two
+//           Choose-TWO on Musical Favourites and Castle Feast)
+//        3) Trevor & Stephanie — children's literature module
+//           (MCQ + story → comment matching A–G)
+//        4) The hunt for sunken settlements & ancient shipwrecks
+//           (notes — Atlit-Yam, AUVs, Marzamemi, Baratti)
+// ============================================================
+export const cambridge14_listening_t4: IELTSTest = {
+  id: "cam14-listening-t4",
+  title: "Cambridge IELTS 14 – Listening Test 4",
+  bookNumber: 14,
+  testNumber: 4,
+  type: "listening",
+  level: "academic",
+  durationMinutes: 30,
+  transferMinutes: 2,
+  audioUrl: audioUrl("cam14-listening-t4.mp3"),
+  audioDurationSeconds: 1800,
+  sections: [
+    // ── PART 1 ─────────────────────────────────────────────
+    {
+      id: "cam14-l-t4-s1",
+      sectionNumber: 1,
+      title: "Part 1",
+      instructions: `Questions 1–7: Complete the notes below. Write ONE WORD AND/OR A NUMBER for each answer.
+Questions 8–10: Match each hotel facility with its availability. Write A, B or C next to each facility.`,
+      passageText: `Enquiry about booking hotel room for event
+
+Andrew is the Events Manager
+
+Rooms
+
+Adelphi Room
+●  number of people who can sit down to eat: 1 _______
+●  has a gallery suitable for musicians
+●  can go out and see the 2 _______ in pots on the terrace
+●  terrace has a view of a group of 3 _______
+
+Carlton Room
+●  number of people who can sit down to eat: 110
+●  has a 4 _______
+●  view of the lake
+
+Options
+
+Master of Ceremonies:
+●  can give a 5 _______ while people are eating
+●  will provide 6 _______ if there are any problems
+
+Accommodation:
+●  in the hotel rooms or 7 _______`,
+      questions: [
+        { id: "cam14-l-t4-s1-q1", number: 1, type: "note_completion", question: "1. number of people who can sit down to eat: _______", correctAnswer: "85", points: 1 },
+        { id: "cam14-l-t4-s1-q2", number: 2, type: "note_completion", question: "2. see the _______ in pots on the terrace", correctAnswer: "roses", points: 1 },
+        { id: "cam14-l-t4-s1-q3", number: 3, type: "note_completion", question: "3. terrace has a view of a group of _______", correctAnswer: "trees", points: 1 },
+        { id: "cam14-l-t4-s1-q4", number: 4, type: "note_completion", question: "4. Carlton Room has a _______", correctAnswer: "stage", points: 1 },
+        { id: "cam14-l-t4-s1-q5", number: 5, type: "note_completion", question: "5. MC can give a _______ while people are eating", correctAnswer: "speech", points: 1 },
+        { id: "cam14-l-t4-s1-q6", number: 6, type: "note_completion", question: "6. will provide _______ if there are any problems", correctAnswer: "support", points: 1 },
+        { id: "cam14-l-t4-s1-q7", number: 7, type: "note_completion", question: "7. in the hotel rooms or _______", correctAnswer: "cabins", points: 1 },
+        {
+          id: "cam14-l-t4-s1-q8", number: 8,
+          groupLabel: `Questions 8–10: What is said about using each of the following hotel facilities? Choose from the box and write the correct letter, A, B or C, next to each facility.\n\nA  included in cost of hiring room\nB  available at extra charge\nC  not available\n\n(Letters may be used more than once.)`,
+          type: "matching", question: "8. outdoor swimming pool",
+          options: [
+            { label: "A  included in cost of hiring room", value: "A" },
+            { label: "B  available at extra charge", value: "B" },
+            { label: "C  not available", value: "C" },
+          ],
+          correctAnswer: "C", points: 1,
+        },
+        {
+          id: "cam14-l-t4-s1-q9", number: 9, type: "matching", question: "9. gym",
+          options: [
+            { label: "A  included in cost of hiring room", value: "A" },
+            { label: "B  available at extra charge", value: "B" },
+            { label: "C  not available", value: "C" },
+          ],
+          correctAnswer: "A", points: 1,
+        },
+        {
+          id: "cam14-l-t4-s1-q10", number: 10, type: "matching", question: "10. tennis courts",
+          options: [
+            { label: "A  included in cost of hiring room", value: "A" },
+            { label: "B  available at extra charge", value: "B" },
+            { label: "C  not available", value: "C" },
+          ],
+          correctAnswer: "B", points: 1,
+        },
+      ],
+    },
+    // ── PART 2 ─────────────────────────────────────────────
+    {
+      id: "cam14-l-t4-s2",
+      sectionNumber: 2,
+      title: "Part 2",
+      instructions: `Questions 11–16: Match each excursion with information about it. Choose SIX answers from the box (A–H).
+Questions 17 & 18: Choose TWO letters, A–E.
+Questions 19 & 20: Choose TWO letters, A–E.`,
+      passageTitle: "Excursions",
+      questions: [
+        {
+          id: "cam14-l-t4-s2-q11", number: 11,
+          groupLabel: `Questions 11–16: What information does the speaker give about each of the following excursions? Choose SIX answers from the box (A–H).\n\nA  all downhill\nB  suitable for beginners\nC  only in good weather\nD  food included\nE  no charge\nF  swimming possible\nG  fully booked today\nH  transport not included`,
+          type: "matching", question: "11. dolphin watching",
+          options: [
+            { label: "A  all downhill", value: "A" },
+            { label: "B  suitable for beginners", value: "B" },
+            { label: "C  only in good weather", value: "C" },
+            { label: "D  food included", value: "D" },
+            { label: "E  no charge", value: "E" },
+            { label: "F  swimming possible", value: "F" },
+            { label: "G  fully booked today", value: "G" },
+            { label: "H  transport not included", value: "H" },
+          ],
+          correctAnswer: "G", points: 1,
+        },
+        {
+          id: "cam14-l-t4-s2-q12", number: 12, type: "matching", question: "12. forest walk",
+          options: [
+            { label: "A  all downhill", value: "A" },
+            { label: "B  suitable for beginners", value: "B" },
+            { label: "C  only in good weather", value: "C" },
+            { label: "D  food included", value: "D" },
+            { label: "E  no charge", value: "E" },
+            { label: "F  swimming possible", value: "F" },
+            { label: "G  fully booked today", value: "G" },
+            { label: "H  transport not included", value: "H" },
+          ],
+          correctAnswer: "D", points: 1,
+        },
+        {
+          id: "cam14-l-t4-s2-q13", number: 13, type: "matching", question: "13. cycle trip",
+          options: [
+            { label: "A  all downhill", value: "A" },
+            { label: "B  suitable for beginners", value: "B" },
+            { label: "C  only in good weather", value: "C" },
+            { label: "D  food included", value: "D" },
+            { label: "E  no charge", value: "E" },
+            { label: "F  swimming possible", value: "F" },
+            { label: "G  fully booked today", value: "G" },
+            { label: "H  transport not included", value: "H" },
+          ],
+          correctAnswer: "A", points: 1,
+        },
+        {
+          id: "cam14-l-t4-s2-q14", number: 14, type: "matching", question: "14. local craft tour",
+          options: [
+            { label: "A  all downhill", value: "A" },
+            { label: "B  suitable for beginners", value: "B" },
+            { label: "C  only in good weather", value: "C" },
+            { label: "D  food included", value: "D" },
+            { label: "E  no charge", value: "E" },
+            { label: "F  swimming possible", value: "F" },
+            { label: "G  fully booked today", value: "G" },
+            { label: "H  transport not included", value: "H" },
+          ],
+          correctAnswer: "E", points: 1,
+        },
+        {
+          id: "cam14-l-t4-s2-q15", number: 15, type: "matching", question: "15. observatory trip",
+          options: [
+            { label: "A  all downhill", value: "A" },
+            { label: "B  suitable for beginners", value: "B" },
+            { label: "C  only in good weather", value: "C" },
+            { label: "D  food included", value: "D" },
+            { label: "E  no charge", value: "E" },
+            { label: "F  swimming possible", value: "F" },
+            { label: "G  fully booked today", value: "G" },
+            { label: "H  transport not included", value: "H" },
+          ],
+          correctAnswer: "F", points: 1,
+        },
+        {
+          id: "cam14-l-t4-s2-q16", number: 16, type: "matching", question: "16. horse riding",
+          options: [
+            { label: "A  all downhill", value: "A" },
+            { label: "B  suitable for beginners", value: "B" },
+            { label: "C  only in good weather", value: "C" },
+            { label: "D  food included", value: "D" },
+            { label: "E  no charge", value: "E" },
+            { label: "F  swimming possible", value: "F" },
+            { label: "G  fully booked today", value: "G" },
+            { label: "H  transport not included", value: "H" },
+          ],
+          correctAnswer: "B", points: 1,
+        },
+        {
+          id: "cam14-l-t4-s2-q17", number: 17,
+          groupLabel: `Questions 17 and 18: Choose TWO letters, A–E.\n\nWhich TWO things does the speaker say about the attraction called Musical Favourites?\n\nA  You pay extra for drinks.\nB  You must book it in advance.\nC  You get a reduction if you buy two tickets.\nD  You can meet the performers.\nE  You can take part in the show.\n\n(Answers are accepted in either order.)`,
+          type: "multiple_choice", question: "17. Choose TWO (first answer)",
+          options: [
+            { label: "A  You pay extra for drinks.", value: "A" },
+            { label: "B  You must book it in advance.", value: "B" },
+            { label: "C  You get a reduction if you buy two tickets.", value: "C" },
+            { label: "D  You can meet the performers.", value: "D" },
+            { label: "E  You can take part in the show.", value: "E" },
+          ],
+          correctAnswer: "B/D", points: 1,
+        },
+        {
+          id: "cam14-l-t4-s2-q18", number: 18, type: "multiple_choice",
+          question: "18. Choose TWO (second answer)",
+          options: [
+            { label: "A  You pay extra for drinks.", value: "A" },
+            { label: "B  You must book it in advance.", value: "B" },
+            { label: "C  You get a reduction if you buy two tickets.", value: "C" },
+            { label: "D  You can meet the performers.", value: "D" },
+            { label: "E  You can take part in the show.", value: "E" },
+          ],
+          correctAnswer: "B/D", points: 1,
+        },
+        {
+          id: "cam14-l-t4-s2-q19", number: 19,
+          groupLabel: `Questions 19 and 20: Choose TWO letters, A–E.\n\nWhich TWO things does the speaker say about the Castle Feast?\n\nA  Visitors can dance after the meal.\nB  There is a choice of food.\nC  Visitors wear historical costume.\nD  Knives and forks are not used.\nE  The entertainment includes horse races.\n\n(Answers are accepted in either order.)`,
+          type: "multiple_choice", question: "19. Choose TWO (first answer)",
+          options: [
+            { label: "A  Visitors can dance after the meal.", value: "A" },
+            { label: "B  There is a choice of food.", value: "B" },
+            { label: "C  Visitors wear historical costume.", value: "C" },
+            { label: "D  Knives and forks are not used.", value: "D" },
+            { label: "E  The entertainment includes horse races.", value: "E" },
+          ],
+          correctAnswer: "A/D", points: 1,
+        },
+        {
+          id: "cam14-l-t4-s2-q20", number: 20, type: "multiple_choice",
+          question: "20. Choose TWO (second answer)",
+          options: [
+            { label: "A  Visitors can dance after the meal.", value: "A" },
+            { label: "B  There is a choice of food.", value: "B" },
+            { label: "C  Visitors wear historical costume.", value: "C" },
+            { label: "D  Knives and forks are not used.", value: "D" },
+            { label: "E  The entertainment includes horse races.", value: "E" },
+          ],
+          correctAnswer: "A/D", points: 1,
+        },
+      ],
+    },
+    // ── PART 3 ─────────────────────────────────────────────
+    {
+      id: "cam14-l-t4-s3",
+      sectionNumber: 3,
+      title: "Part 3",
+      instructions: `Questions 21–25: Choose the correct letter, A, B or C.
+Questions 26–30: Match each story with a comment. Choose FIVE answers from the box (A–G).`,
+      passageTitle: "Trevor & Stephanie — children's literature module",
+      questions: [
+        {
+          id: "cam14-l-t4-s3-q21", number: 21,
+          groupLabel: `Questions 21–25: Choose the correct letter, A, B or C.`,
+          type: "multiple_choice", question: "21. What does Trevor find interesting about the purpose of children's literature?",
+          options: [
+            { label: "A  the fact that authors may not realise what values they're teaching", value: "A" },
+            { label: "B  the fact that literature can be entertaining and educational at the same time", value: "B" },
+            { label: "C  the fact that adults expect children to imitate characters in literature", value: "C" },
+          ],
+          correctAnswer: "A", points: 1,
+        },
+        {
+          id: "cam14-l-t4-s3-q22", number: 22, type: "multiple_choice",
+          question: "22. Trevor says the module about the purpose of children's literature made him",
+          options: [
+            { label: "A  analyse some of the stories that his niece reads.", value: "A" },
+            { label: "B  wonder how far popularity reflects good quality.", value: "B" },
+            { label: "C  decide to start writing some children's stories.", value: "C" },
+          ],
+          correctAnswer: "C", points: 1,
+        },
+        {
+          id: "cam14-l-t4-s3-q23", number: 23, type: "multiple_choice",
+          question: "23. Stephanie is interested in the Pictures module because",
+          options: [
+            { label: "A  she intends to become an illustrator.", value: "A" },
+            { label: "B  she can remember beautiful illustrations from her childhood.", value: "B" },
+            { label: "C  she believes illustrations are more important than words.", value: "C" },
+          ],
+          correctAnswer: "A", points: 1,
+        },
+        {
+          id: "cam14-l-t4-s3-q24", number: 24, type: "multiple_choice",
+          question: "24. Trevor and Stephanie agree that comics",
+          options: [
+            { label: "A  are inferior to books.", value: "A" },
+            { label: "B  have the potential for being useful.", value: "B" },
+            { label: "C  discourage children from using their imagination.", value: "C" },
+          ],
+          correctAnswer: "B", points: 1,
+        },
+        {
+          id: "cam14-l-t4-s3-q25", number: 25, type: "multiple_choice",
+          question: "25. With regard to books aimed at only boys or only girls, Trevor was surprised",
+          options: [
+            { label: "A  how long the distinction had gone unquestioned.", value: "A" },
+            { label: "B  how few books were aimed at both girls and boys.", value: "B" },
+            { label: "C  how many children enjoyed books intended for the opposite sex.", value: "C" },
+          ],
+          correctAnswer: "B", points: 1,
+        },
+        {
+          id: "cam14-l-t4-s3-q26", number: 26,
+          groupLabel: `Questions 26–30: What comment is made about each of these stories? Choose FIVE answers from the box (A–G).\n\nA  translated into many other languages\nB  hard to read\nC  inspired a work in a different area of art\nD  more popular than the author's other works\nE  original title refers to another book\nF  started a new genre\nG  unlikely topic`,
+          type: "matching", question: "26. Perrault's fairy tales",
+          options: [
+            { label: "A  translated into many other languages", value: "A" },
+            { label: "B  hard to read", value: "B" },
+            { label: "C  inspired a work in a different area of art", value: "C" },
+            { label: "D  more popular than the author's other works", value: "D" },
+            { label: "E  original title refers to another book", value: "E" },
+            { label: "F  started a new genre", value: "F" },
+            { label: "G  unlikely topic", value: "G" },
+          ],
+          correctAnswer: "F", points: 1,
+        },
+        {
+          id: "cam14-l-t4-s3-q27", number: 27, type: "matching", question: "27. The Swiss Family Robinson",
+          options: [
+            { label: "A  translated into many other languages", value: "A" },
+            { label: "B  hard to read", value: "B" },
+            { label: "C  inspired a work in a different area of art", value: "C" },
+            { label: "D  more popular than the author's other works", value: "D" },
+            { label: "E  original title refers to another book", value: "E" },
+            { label: "F  started a new genre", value: "F" },
+            { label: "G  unlikely topic", value: "G" },
+          ],
+          correctAnswer: "E", points: 1,
+        },
+        {
+          id: "cam14-l-t4-s3-q28", number: 28, type: "matching", question: "28. The Nutcracker and the Mouse King",
+          options: [
+            { label: "A  translated into many other languages", value: "A" },
+            { label: "B  hard to read", value: "B" },
+            { label: "C  inspired a work in a different area of art", value: "C" },
+            { label: "D  more popular than the author's other works", value: "D" },
+            { label: "E  original title refers to another book", value: "E" },
+            { label: "F  started a new genre", value: "F" },
+            { label: "G  unlikely topic", value: "G" },
+          ],
+          correctAnswer: "C", points: 1,
+        },
+        {
+          id: "cam14-l-t4-s3-q29", number: 29, type: "matching", question: "29. The Lord of the Rings",
+          options: [
+            { label: "A  translated into many other languages", value: "A" },
+            { label: "B  hard to read", value: "B" },
+            { label: "C  inspired a work in a different area of art", value: "C" },
+            { label: "D  more popular than the author's other works", value: "D" },
+            { label: "E  original title refers to another book", value: "E" },
+            { label: "F  started a new genre", value: "F" },
+            { label: "G  unlikely topic", value: "G" },
+          ],
+          correctAnswer: "B", points: 1,
+        },
+        {
+          id: "cam14-l-t4-s3-q30", number: 30, type: "matching", question: "30. War Horse",
+          options: [
+            { label: "A  translated into many other languages", value: "A" },
+            { label: "B  hard to read", value: "B" },
+            { label: "C  inspired a work in a different area of art", value: "C" },
+            { label: "D  more popular than the author's other works", value: "D" },
+            { label: "E  original title refers to another book", value: "E" },
+            { label: "F  started a new genre", value: "F" },
+            { label: "G  unlikely topic", value: "G" },
+          ],
+          correctAnswer: "G", points: 1,
+        },
+      ],
+    },
+    // ── PART 4 ─────────────────────────────────────────────
+    {
+      id: "cam14-l-t4-s4",
+      sectionNumber: 4,
+      title: "Part 4",
+      instructions: `Questions 31–40: Complete the notes below. Write ONE WORD ONLY for each answer.`,
+      passageText: `The hunt for sunken settlements and ancient shipwrecks
+
+ATLIT-YAM
+●  was a village on coast of eastern Mediterranean
+●  thrived until about 7,000 BC
+●  stone homes had a courtyard
+●  had a semicircle of large stones round a 31 _______
+●  cause of destruction unknown – now under the sea
+●  biggest settlement from the prehistoric period found on the seabed
+●  research carried out into structures, 32 _______ and human remains
+
+TRADITIONAL AUTONOMOUS UNDERWATER VEHICLES (AUVs)
+●  used in the oil industry, e.g. to make 33 _______
+●  problems: they were expensive and 34 _______
+
+LATEST AUVs
+●  much easier to use, relatively cheap, sophisticated
+
+Tests:
+●  Marzamemi, Sicily: found ancient Roman ships carrying architectural elements made of 35 _______
+
+Underwater internet:
+●  36 _______ is used for short distance communication, acoustic waves for long distance
+●  plans for communication with researchers by satellite
+●  AUV can send data to another AUV that has better 37 _______, for example
+
+Planned research in Gulf of Baratti:
+●  to find out more about wrecks of ancient Roman ships, including
+   –  one carrying 38 _______ supplies; tables may have been used for cleaning the 39 _______
+   –  others carrying containers of olive oil or 40 _______`,
+      questions: [
+        { id: "cam14-l-t4-s4-q31", number: 31, type: "note_completion", question: "31. semicircle of large stones round a _______", correctAnswer: "spring", points: 1 },
+        { id: "cam14-l-t4-s4-q32", number: 32, type: "note_completion", question: "32. research into structures, _______ and human remains", correctAnswer: "tools", points: 1 },
+        { id: "cam14-l-t4-s4-q33", number: 33, type: "note_completion", question: "33. used in oil industry, e.g. to make _______", correctAnswer: "maps", points: 1 },
+        { id: "cam14-l-t4-s4-q34", number: 34, type: "note_completion", question: "34. problems: expensive and _______", correctAnswer: "heavy", points: 1 },
+        { id: "cam14-l-t4-s4-q35", number: 35, type: "note_completion", question: "35. architectural elements made of _______", correctAnswer: "marble", points: 1 },
+        { id: "cam14-l-t4-s4-q36", number: 36, type: "note_completion", question: "36. _______ is used for short distance communication", correctAnswer: "light", points: 1 },
+        { id: "cam14-l-t4-s4-q37", number: 37, type: "note_completion", question: "37. another AUV that has better _______", correctAnswer: "camera/cameras", points: 1 },
+        { id: "cam14-l-t4-s4-q38", number: 38, type: "note_completion", question: "38. one carrying _______ supplies", correctAnswer: "medical", points: 1 },
+        { id: "cam14-l-t4-s4-q39", number: 39, type: "note_completion", question: "39. tables may have been used for cleaning the _______", correctAnswer: "eyes", points: 1 },
+        { id: "cam14-l-t4-s4-q40", number: 40, type: "note_completion", question: "40. containers of olive oil or _______", correctAnswer: "wine", points: 1 },
+      ],
+    },
+  ],
+};
+
 export const cambridge14ListeningTests: IELTSTest[] = [
   cambridge14_listening_t1,
   cambridge14_listening_t2,
   cambridge14_listening_t3,
+  cambridge14_listening_t4,
 ];
