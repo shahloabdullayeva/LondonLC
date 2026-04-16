@@ -669,7 +669,359 @@ Some critics say the 40 _______ style of the building is inappropriate`,
   ],
 };
 
+// ============================================================
+// CAMBRIDGE IELTS 11 – LISTENING TEST 3
+// Parts: 1) Free activities in Burnham area (MCQ + sentence
+//           completion on Paxton Nature Reserve)
+//        2) Changes in Barford (MCQ + facility → plan matching A–G)
+//        3) Helen & Jeremy — children's book illustrations (table
+//           + report-section authorship A/B/C/D)
+//        4) Ethnography in Business (notes)
+// ============================================================
+export const cambridge11_listening_t3: IELTSTest = {
+  id: "cam11-listening-t3",
+  title: "Cambridge IELTS 11 – Listening Test 3",
+  bookNumber: 11,
+  testNumber: 3,
+  type: "listening",
+  level: "academic",
+  durationMinutes: 30,
+  transferMinutes: 2,
+  audioUrl: audioUrl("cam11-listening-t3.mp3"),
+  audioDurationSeconds: 1800,
+  sections: [
+    // ── PART 1 ─────────────────────────────────────────────
+    {
+      id: "cam11-l-t3-s1",
+      sectionNumber: 1,
+      title: "Part 1",
+      instructions: `Questions 1–6: Choose the correct letter, A, B or C.
+Questions 7–10: Complete the sentences below. Write ONE WORD ONLY for each answer.`,
+      passageTitle: "Free activities in the Burnham area",
+      passageText: `Paxton Nature Reserve
+
+7. Paxton is a good place for seeing rare _______ all year round.
+8. This is a particularly good time for seeing certain unusual _______.
+9. Visitors will be able to learn about _______ and then collect some.
+10. Part of the _______ has been made suitable for swimming.`,
+      questions: [
+        {
+          id: "cam11-l-t3-s1-q1", number: 1,
+          groupLabel: `Questions 1–6: Choose the correct letter, A, B or C.`,
+          type: "multiple_choice", question: "1. The 'Family Welcome' event in the art gallery begins at",
+          options: [
+            { label: "A  10 a.m.", value: "A" },
+            { label: "B  10.30 a.m.", value: "B" },
+            { label: "C  2 p.m.", value: "C" },
+          ],
+          correctAnswer: "B", points: 1,
+        },
+        {
+          id: "cam11-l-t3-s1-q2", number: 2, type: "multiple_choice",
+          question: "2. The film that is now shown in the 'Family Welcome' event is about",
+          options: [
+            { label: "A  sculpture.", value: "A" },
+            { label: "B  painting.", value: "B" },
+            { label: "C  ceramics.", value: "C" },
+          ],
+          correctAnswer: "C", points: 1,
+        },
+        {
+          id: "cam11-l-t3-s1-q3", number: 3, type: "multiple_choice",
+          question: "3. When do most of the free concerts take place?",
+          options: [
+            { label: "A  in the morning", value: "A" },
+            { label: "B  at lunchtime", value: "B" },
+            { label: "C  in the evening", value: "C" },
+          ],
+          correctAnswer: "B", points: 1,
+        },
+        {
+          id: "cam11-l-t3-s1-q4", number: 4, type: "multiple_choice",
+          question: "4. Where will the 4 p.m. concert of Latin American music take place?",
+          options: [
+            { label: "A  in a museum", value: "A" },
+            { label: "B  in a theatre", value: "B" },
+            { label: "C  in a library", value: "C" },
+          ],
+          correctAnswer: "A", points: 1,
+        },
+        {
+          id: "cam11-l-t3-s1-q5", number: 5, type: "multiple_choice",
+          question: "5. The boat race begins at",
+          options: [
+            { label: "A  Summer Pool.", value: "A" },
+            { label: "B  Charlesworth Bridge.", value: "B" },
+            { label: "C  Offord Marina.", value: "C" },
+          ],
+          correctAnswer: "C", points: 1,
+        },
+        {
+          id: "cam11-l-t3-s1-q6", number: 6, type: "multiple_choice",
+          question: "6. One of the boat race teams",
+          options: [
+            { label: "A  won a regional competition earlier this year.", value: "A" },
+            { label: "B  has represented the region in a national competition.", value: "B" },
+            { label: "C  has won several regional competitions.", value: "C" },
+          ],
+          correctAnswer: "A", points: 1,
+        },
+        { id: "cam11-l-t3-s1-q7", number: 7, type: "sentence_completion", question: "7. Paxton is a good place for seeing rare _______ all year round", correctAnswer: "birds", points: 1 },
+        { id: "cam11-l-t3-s1-q8", number: 8, type: "sentence_completion", question: "8. particularly good time for seeing certain unusual _______", correctAnswer: "flowers", points: 1 },
+        { id: "cam11-l-t3-s1-q9", number: 9, type: "sentence_completion", question: "9. learn about _______ and then collect some", correctAnswer: "mushrooms", points: 1 },
+        { id: "cam11-l-t3-s1-q10", number: 10, type: "sentence_completion", question: "10. Part of the _______ has been made suitable for swimming", correctAnswer: "river", points: 1 },
+      ],
+    },
+    // ── PART 2 ─────────────────────────────────────────────
+    {
+      id: "cam11-l-t3-s2",
+      sectionNumber: 2,
+      title: "Part 2",
+      instructions: `Questions 11–15: Choose the correct letter, A, B or C.
+Questions 16–20: Match each facility with its plan. Choose FIVE answers from the box (A–G).`,
+      passageTitle: "Changes in Barford over the last 50 years",
+      questions: [
+        {
+          id: "cam11-l-t3-s2-q11", number: 11,
+          groupLabel: `Questions 11–15: Choose the correct letter, A, B or C.`,
+          type: "multiple_choice", question: "11. In Shona's opinion, why do fewer people use buses in Barford these days?",
+          options: [
+            { label: "A  The buses are old and uncomfortable.", value: "A" },
+            { label: "B  Fares have gone up too much.", value: "B" },
+            { label: "C  There are not so many bus routes.", value: "C" },
+          ],
+          correctAnswer: "C", points: 1,
+        },
+        {
+          id: "cam11-l-t3-s2-q12", number: 12, type: "multiple_choice",
+          question: "12. What change in the road network is known to have benefited the town most?",
+          options: [
+            { label: "A  the construction of a bypass", value: "A" },
+            { label: "B  the development of cycle paths", value: "B" },
+            { label: "C  the banning of cars from certain streets", value: "C" },
+          ],
+          correctAnswer: "B", points: 1,
+        },
+        {
+          id: "cam11-l-t3-s2-q13", number: 13, type: "multiple_choice",
+          question: "13. What is the problem affecting shopping in the town centre?",
+          options: [
+            { label: "A  lack of parking spaces", value: "A" },
+            { label: "B  lack of major retailers", value: "B" },
+            { label: "C  lack of restaurants and cafés", value: "C" },
+          ],
+          correctAnswer: "B", points: 1,
+        },
+        {
+          id: "cam11-l-t3-s2-q14", number: 14, type: "multiple_choice",
+          question: "14. What does Shona say about medical facilities in Barford?",
+          options: [
+            { label: "A  There is no hospital.", value: "A" },
+            { label: "B  New medical practices are planned.", value: "B" },
+            { label: "C  The number of dentists is too low.", value: "C" },
+          ],
+          correctAnswer: "A", points: 1,
+        },
+        {
+          id: "cam11-l-t3-s2-q15", number: 15, type: "multiple_choice",
+          question: "15. The largest number of people are employed in",
+          options: [
+            { label: "A  manufacturing.", value: "A" },
+            { label: "B  services.", value: "B" },
+            { label: "C  education.", value: "C" },
+          ],
+          correctAnswer: "C", points: 1,
+        },
+        {
+          id: "cam11-l-t3-s2-q16", number: 16,
+          groupLabel: `Questions 16–20: What is planned for each of the following facilities? Choose FIVE answers from the box (A–G).\n\nA  It will move to a new location.\nB  It will have its opening hours extended.\nC  It will be refurbished.\nD  It will be used for a different purpose.\nE  It will have its opening hours reduced.\nF  It will have new management.\nG  It will be expanded.`,
+          type: "matching", question: "16. railway station car park",
+          options: [
+            { label: "A  It will move to a new location.", value: "A" },
+            { label: "B  It will have its opening hours extended.", value: "B" },
+            { label: "C  It will be refurbished.", value: "C" },
+            { label: "D  It will be used for a different purpose.", value: "D" },
+            { label: "E  It will have its opening hours reduced.", value: "E" },
+            { label: "F  It will have new management.", value: "F" },
+            { label: "G  It will be expanded.", value: "G" },
+          ],
+          correctAnswer: "G", points: 1,
+        },
+        {
+          id: "cam11-l-t3-s2-q17", number: 17, type: "matching", question: "17. cinema",
+          options: [
+            { label: "A  It will move to a new location.", value: "A" },
+            { label: "B  It will have its opening hours extended.", value: "B" },
+            { label: "C  It will be refurbished.", value: "C" },
+            { label: "D  It will be used for a different purpose.", value: "D" },
+            { label: "E  It will have its opening hours reduced.", value: "E" },
+            { label: "F  It will have new management.", value: "F" },
+            { label: "G  It will be expanded.", value: "G" },
+          ],
+          correctAnswer: "A", points: 1,
+        },
+        {
+          id: "cam11-l-t3-s2-q18", number: 18, type: "matching", question: "18. indoor market",
+          options: [
+            { label: "A  It will move to a new location.", value: "A" },
+            { label: "B  It will have its opening hours extended.", value: "B" },
+            { label: "C  It will be refurbished.", value: "C" },
+            { label: "D  It will be used for a different purpose.", value: "D" },
+            { label: "E  It will have its opening hours reduced.", value: "E" },
+            { label: "F  It will have new management.", value: "F" },
+            { label: "G  It will be expanded.", value: "G" },
+          ],
+          correctAnswer: "C", points: 1,
+        },
+        {
+          id: "cam11-l-t3-s2-q19", number: 19, type: "matching", question: "19. library",
+          options: [
+            { label: "A  It will move to a new location.", value: "A" },
+            { label: "B  It will have its opening hours extended.", value: "B" },
+            { label: "C  It will be refurbished.", value: "C" },
+            { label: "D  It will be used for a different purpose.", value: "D" },
+            { label: "E  It will have its opening hours reduced.", value: "E" },
+            { label: "F  It will have new management.", value: "F" },
+            { label: "G  It will be expanded.", value: "G" },
+          ],
+          correctAnswer: "B", points: 1,
+        },
+        {
+          id: "cam11-l-t3-s2-q20", number: 20, type: "matching", question: "20. nature reserve",
+          options: [
+            { label: "A  It will move to a new location.", value: "A" },
+            { label: "B  It will have its opening hours extended.", value: "B" },
+            { label: "C  It will be refurbished.", value: "C" },
+            { label: "D  It will be used for a different purpose.", value: "D" },
+            { label: "E  It will have its opening hours reduced.", value: "E" },
+            { label: "F  It will have new management.", value: "F" },
+            { label: "G  It will be expanded.", value: "G" },
+          ],
+          correctAnswer: "F", points: 1,
+        },
+      ],
+    },
+    // ── PART 3 ─────────────────────────────────────────────
+    {
+      id: "cam11-l-t3-s3",
+      sectionNumber: 3,
+      title: "Part 3",
+      instructions: `Questions 21–26: Complete the table below. Write ONE WORD ONLY for each answer.
+Questions 27–30: Who is going to write each part of the report? Write A, B, C or D next to each part.`,
+      passageTitle: "Helen & Jeremy — children's book project",
+      passageText: `Subject of drawing                                | Change to be made
+A 21 _______ surrounded by trees                 | Add Malcolm and a 22 _______ noticing him
+People who are 23 _______ outside the forest    | Add Malcolm sitting on a tree trunk and 24 _______
+Ice-skaters on 25 _______ covered with ice       | Add a 26 _______ for each person`,
+      questions: [
+        { id: "cam11-l-t3-s3-q21", number: 21, type: "table_completion", question: "21. A _______ surrounded by trees", correctAnswer: "cave", points: 1 },
+        { id: "cam11-l-t3-s3-q22", number: 22, type: "table_completion", question: "22. Add Malcolm and a _______ noticing him", correctAnswer: "tiger", points: 1 },
+        { id: "cam11-l-t3-s3-q23", number: 23, type: "table_completion", question: "23. People who are _______ outside the forest", correctAnswer: "dancing", points: 1 },
+        { id: "cam11-l-t3-s3-q24", number: 24, type: "table_completion", question: "24. Add Malcolm sitting on a tree trunk and _______", correctAnswer: "crying", points: 1 },
+        { id: "cam11-l-t3-s3-q25", number: 25, type: "table_completion", question: "25. Ice-skaters on _______ covered with ice", correctAnswer: "grass", points: 1 },
+        { id: "cam11-l-t3-s3-q26", number: 26, type: "table_completion", question: "26. Add a _______ for each person", correctAnswer: "scarf", points: 1 },
+        {
+          id: "cam11-l-t3-s3-q27", number: 27,
+          groupLabel: `Questions 27–30: Who is going to write each of the following parts of the report? Write the correct letter A, B, C or D next to each part.\n\nA  Helen only\nB  Jeremy only\nC  both Helen and Jeremy\nD  neither Helen nor Jeremy\n\n(Letters may be used more than once.)`,
+          type: "matching", question: "27. how they planned the project",
+          options: [
+            { label: "A  Helen only", value: "A" },
+            { label: "B  Jeremy only", value: "B" },
+            { label: "C  both Helen and Jeremy", value: "C" },
+            { label: "D  neither Helen nor Jeremy", value: "D" },
+          ],
+          correctAnswer: "A", points: 1,
+        },
+        {
+          id: "cam11-l-t3-s3-q28", number: 28, type: "matching", question: "28. how they had ideas for their stories",
+          options: [
+            { label: "A  Helen only", value: "A" },
+            { label: "B  Jeremy only", value: "B" },
+            { label: "C  both Helen and Jeremy", value: "C" },
+            { label: "D  neither Helen nor Jeremy", value: "D" },
+          ],
+          correctAnswer: "C", points: 1,
+        },
+        {
+          id: "cam11-l-t3-s3-q29", number: 29, type: "matching", question: "29. an interpretation of their stories",
+          options: [
+            { label: "A  Helen only", value: "A" },
+            { label: "B  Jeremy only", value: "B" },
+            { label: "C  both Helen and Jeremy", value: "C" },
+            { label: "D  neither Helen nor Jeremy", value: "D" },
+          ],
+          correctAnswer: "D", points: 1,
+        },
+        {
+          id: "cam11-l-t3-s3-q30", number: 30, type: "matching", question: "30. comments on the illustrations",
+          options: [
+            { label: "A  Helen only", value: "A" },
+            { label: "B  Jeremy only", value: "B" },
+            { label: "C  both Helen and Jeremy", value: "C" },
+            { label: "D  neither Helen nor Jeremy", value: "D" },
+          ],
+          correctAnswer: "B", points: 1,
+        },
+      ],
+    },
+    // ── PART 4 ─────────────────────────────────────────────
+    {
+      id: "cam11-l-t3-s4",
+      sectionNumber: 4,
+      title: "Part 4",
+      instructions: `Questions 31–40: Complete the notes below. Write ONE WORD ONLY for each answer.`,
+      passageText: `ETHNOGRAPHY IN BUSINESS
+
+Ethnography: research which explores human cultures
+
+It can be used in business:
+●  to investigate customer needs and 31 _______
+●  to help companies develop new designs
+
+Examples of ethnographic research in business
+
+Kitchen equipment
+●  Researchers found that cooks could not easily see the 32 _______ in measuring cups.
+
+Cell phones
+●  In Uganda, customers paid to use the cell phones of entrepreneurs.
+●  These customers wanted to check the 33 _______ used.
+
+Computer companies
+●  There was a need to develop 34 _______ to improve communication between system administrators and colleagues.
+
+Hospitals
+●  Nurses needed to access information about 35 _______ in different parts of the hospital.
+
+Airlines
+●  Respondents recorded information about their 36 _______ while travelling.
+
+Principles of ethnographic research in business
+●  The researcher does not start off with a hypothesis.
+●  Participants may be selected by criteria such as age, 37 _______ or product used.
+●  The participants must feel 38 _______ about taking part in the research.
+●  There is usually direct 39 _______ of the participants.
+●  The interview is guided by the participant.
+●  A lot of time is needed for the 40 _______ of the data.
+●  Researchers look for a meaningful pattern in the data.`,
+      questions: [
+        { id: "cam11-l-t3-s4-q31", number: 31, type: "note_completion", question: "31. customer needs and _______", correctAnswer: "attitude/attitudes", points: 1 },
+        { id: "cam11-l-t3-s4-q32", number: 32, type: "note_completion", question: "32. could not easily see the _______ in measuring cups", correctAnswer: "numbers", points: 1 },
+        { id: "cam11-l-t3-s4-q33", number: 33, type: "note_completion", question: "33. customers wanted to check the _______ used", correctAnswer: "time/minutes", points: 1 },
+        { id: "cam11-l-t3-s4-q34", number: 34, type: "note_completion", question: "34. need to develop _______ to improve communication", correctAnswer: "software", points: 1 },
+        { id: "cam11-l-t3-s4-q35", number: 35, type: "note_completion", question: "35. access information about _______ in different parts of the hospital", correctAnswer: "patients", points: 1 },
+        { id: "cam11-l-t3-s4-q36", number: 36, type: "note_completion", question: "36. recorded information about their _______ while travelling", correctAnswer: "emotions/feelings", points: 1 },
+        { id: "cam11-l-t3-s4-q37", number: 37, type: "note_completion", question: "37. selected by criteria such as age, _______ or product used", correctAnswer: "income", points: 1 },
+        { id: "cam11-l-t3-s4-q38", number: 38, type: "note_completion", question: "38. participants must feel _______ about taking part", correctAnswer: "comfortable", points: 1 },
+        { id: "cam11-l-t3-s4-q39", number: 39, type: "note_completion", question: "39. usually direct _______ of the participants", correctAnswer: "observation", points: 1 },
+        { id: "cam11-l-t3-s4-q40", number: 40, type: "note_completion", question: "40. time needed for the _______ of the data", correctAnswer: "analysis", points: 1 },
+      ],
+    },
+  ],
+};
+
 export const cambridge11ListeningTests: IELTSTest[] = [
   cambridge11_listening_t1,
   cambridge11_listening_t2,
+  cambridge11_listening_t3,
 ];
