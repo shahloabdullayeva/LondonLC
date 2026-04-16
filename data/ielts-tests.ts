@@ -4,6 +4,7 @@ import { cambridge12Tests } from "./cambridge12-reading";
 import { cambridge13Tests } from "./cambridge13-reading";
 import { cambridge14Tests } from "./cambridge14-reading";
 import { cambridge15Tests } from "./cambridge15-reading";
+import { cambridge15ListeningTests } from "./cambridge15-listening";
 import { cambridge16Tests } from "./cambridge16-reading";
 import { cambridge16ListeningTests } from "./cambridge16-listening";
 import { cambridge17Tests } from "./cambridge17-reading";
@@ -1271,6 +1272,7 @@ export const allTests: IELTSTest[] = [
   ...cambridge13Tests,
   ...cambridge14Tests,
   ...cambridge15Tests,
+  ...cambridge15ListeningTests,
   ...cambridge16Tests,
   ...cambridge16ListeningTests,
   ...cambridge17Tests,
