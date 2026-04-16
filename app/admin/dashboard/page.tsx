@@ -18,15 +18,15 @@ import Brand from "@/components/Brand";
 
 // ── Hardcoded dark theme colours ─────────────────────────────
 const C = {
-  bg: "#0a0a0a",
-  card: "#151515",
+  bg: "var(--site-bg)",
+  card: "var(--site-card)",
   card2: "#0d0d0d",
-  border: "rgba(255,255,255,0.08)",
+  border: "var(--site-border)",
   text: "#f0f0f0",
   muted: "#8a8a8a",
   sub: "#c0c0c0",
-  accent: "#ffffff",
-  accentLight: "rgba(255,255,255,0.08)",
+  accent: "var(--site-text)",
+  accentLight: "var(--site-border)",
   success: "#10b981",
   danger: "#ef4444",
 };
@@ -315,7 +315,7 @@ export default function AdminDashboard() {
       {/* ── Sidebar ──────────────────────────────── */}
       <aside style={{ width: 220, flexShrink: 0, background: C.card2, borderRight: `1px solid ${C.border}`, display: "flex", flexDirection: "column", overflow: "hidden" }}>
         {/* Role colour strip at top of sidebar */}
-        <div style={{ height: 4, background: isRootAdmin ? "linear-gradient(90deg,#d97706,#fbbf24)" : isAdminUser ? "linear-gradient(90deg,#2563eb,#60a5fa)" : "#ffffff" }} />
+        <div style={{ height: 4, background: isRootAdmin ? "linear-gradient(90deg,#d97706,#fbbf24)" : isAdminUser ? "linear-gradient(90deg,#2563eb,#60a5fa)" : "var(--site-text)" }} />
         {/* Logo */}
         <div style={{ padding: "22px 20px 18px" }}>
           <Brand size={20} />
@@ -328,16 +328,16 @@ export default function AdminDashboard() {
               padding: "4px 12px", borderRadius: 20, fontSize: 11, fontWeight: 800,
               background: isAdminUser
                 ? "linear-gradient(135deg,#2563eb,#1d4ed8)"
-                : "#2a2a2a",
-              color: "#fff",
-              boxShadow: isAdminUser ? "0 2px 8px rgba(37,99,235,0.4)" : "0 2px 8px rgba(255,255,255,0.2)",
+                : "var(--site-card-2)",
+              color: "var(--site-text)",
+              boxShadow: isAdminUser ? "0 2px 8px rgba(37,99,235,0.4)" : "0 2px 8px var(--site-border-strong)",
             }}>
               {isAdminUser ? "Admin" : "Teacher"}
             </span>
           )}
           {/* Logged-in username */}
           <div style={{ marginTop: 8, display: "flex", alignItems: "center", gap: 6 }}>
-            <div style={{ width: 28, height: 28, borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 800, fontSize: 12, color: "#fff",
+            <div style={{ width: 28, height: 28, borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 800, fontSize: 12, color: "var(--site-text)",
               background: isRootAdmin ? "rgba(217,119,6,0.3)" : isAdminUser ? "rgba(37,99,235,0.3)" : C.accentLight,
               border: `1.5px solid ${isRootAdmin ? "rgba(217,119,6,0.5)" : isAdminUser ? "rgba(37,99,235,0.5)" : C.accent}` }}>
               {currentUsername.charAt(0).toUpperCase()}
@@ -445,7 +445,7 @@ export default function AdminDashboard() {
               <figure style={{
                 margin: 0, flex: 1, minWidth: 260, maxWidth: 620,
                 padding: "10px 18px",
-                borderLeft: "2px solid rgba(255,255,255,0.25)",
+                borderLeft: "2px solid var(--site-border-strong)",
               }}>
                 <blockquote style={{
                   margin: 0, fontSize: 13, color: C.sub,
@@ -475,7 +475,7 @@ export default function AdminDashboard() {
               { label: "Total Attempts", value: attempts.length, Icon: BarChart3, color: C.accent },
               { label: "Unique Students", value: uniqueStudents, Icon: Users, color: "#10b981" },
               { label: "Avg IELTS Score", value: avgBand, Icon: Award, color: "#f59e0b" },
-              { label: "Completed", value: attempts.filter(a => a.status === "completed").length, Icon: CheckCircle, color: "#ffffff" },
+              { label: "Completed", value: attempts.filter(a => a.status === "completed").length, Icon: CheckCircle, color: "var(--site-text)" },
             ].map(s => (
               <div key={s.label} style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 14, padding: "18px 20px" }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 10 }}>
@@ -555,8 +555,8 @@ export default function AdminDashboard() {
                           </td>
                           <td style={{ padding: "12px 14px" }}>
                             <span style={{ padding: "3px 9px", borderRadius: 20, fontSize: 11, fontWeight: 600,
-                              background: a.testType === "listening" ? "rgba(255,255,255,0.1)" : "rgba(245,158,11,0.15)",
-                              color: a.testType === "listening" ? "#ffffff" : "#fcd34d" }}>
+                              background: a.testType === "listening" ? "var(--site-border)" : "rgba(245,158,11,0.15)",
+                              color: a.testType === "listening" ? "var(--site-text)" : "#fcd34d" }}>
                               {a.testType}
                             </span>
                           </td>
@@ -582,7 +582,7 @@ export default function AdminDashboard() {
                           </td>
                         </tr>
                         {isExpanded && (
-                          <tr key={`${a.id}-detail`} style={{ background: "rgba(255,255,255,0.03)" }}>
+                          <tr key={`${a.id}-detail`} style={{ background: "var(--site-border)" }}>
                             <td colSpan={10} style={{ padding: "16px 20px", borderBottom: `1px solid ${C.border}` }}>
                               {/* Device/IP info */}
                               {a.deviceInfo && (
@@ -627,7 +627,7 @@ export default function AdminDashboard() {
                                           return (
                                             <div key={q.id} title={`Q${q.number}: Your: "${a.answers[q.id] || "(blank)"}" · Correct: "${q.correctAnswer}"`}
                                               style={{ padding: "4px 8px", borderRadius: 7, fontSize: 11, fontWeight: 700, cursor: "help",
-                                                background: !a.answers[q.id] ? "rgba(255,255,255,0.06)" : isCorrect ? "rgba(16,185,129,0.15)" : "rgba(239,68,68,0.15)",
+                                                background: !a.answers[q.id] ? "var(--site-border)" : isCorrect ? "rgba(16,185,129,0.15)" : "rgba(239,68,68,0.15)",
                                                 color: !a.answers[q.id] ? C.muted : isCorrect ? "#34d399" : "#f87171",
                                                 border: `1px solid ${!a.answers[q.id] ? C.border : isCorrect ? "rgba(16,185,129,0.3)" : "rgba(239,68,68,0.3)"}` }}>
                                               Q{q.number} {isCorrect ? "✓" : !a.answers[q.id] ? "—" : "✗"}
@@ -737,7 +737,7 @@ export default function AdminDashboard() {
                                 <div style={{ fontSize: 11, color: C.muted }}>Reading avg</div>
                               </div>
                               <div style={{ textAlign: "center" }}>
-                                <div style={{ fontSize: 18, fontWeight: 800, color: listening.length ? "#ffffff" : C.muted }}>{avgL}</div>
+                                <div style={{ fontSize: 18, fontWeight: 800, color: listening.length ? "var(--site-text)" : C.muted }}>{avgL}</div>
                                 <div style={{ fontSize: 11, color: C.muted }}>Listening avg</div>
                               </div>
                             </div>
@@ -775,8 +775,8 @@ export default function AdminDashboard() {
                                         </td>
                                         <td style={{ padding: "11px 14px" }}>
                                           <span style={{ padding: "2px 8px", borderRadius: 20, fontSize: 11, fontWeight: 600,
-                                            background: a.testType === "listening" ? "rgba(255,255,255,0.1)" : "rgba(245,158,11,0.15)",
-                                            color: a.testType === "listening" ? "#ffffff" : "#fcd34d" }}>
+                                            background: a.testType === "listening" ? "var(--site-border)" : "rgba(245,158,11,0.15)",
+                                            color: a.testType === "listening" ? "var(--site-text)" : "#fcd34d" }}>
                                             {a.testType}
                                           </span>
                                         </td>
@@ -797,7 +797,7 @@ export default function AdminDashboard() {
                                         <td style={{ padding: "11px 14px", fontSize: 12, color: C.muted, whiteSpace: "nowrap" }}>{new Date(a.submittedAt).toLocaleDateString()}</td>
                                       </tr>
                                       {isAExpanded && testData && a.status === "completed" && (
-                                        <tr key={`${a.id}-expand`} style={{ background: "rgba(255,255,255,0.03)" }}>
+                                        <tr key={`${a.id}-expand`} style={{ background: "var(--site-border)" }}>
                                           <td colSpan={8} style={{ padding: "14px 18px", borderBottom: `1px solid ${C.border}` }}>
                                             {testData.sections.map(sec => (
                                               <div key={sec.id} style={{ marginBottom: 12 }}>
@@ -809,17 +809,17 @@ export default function AdminDashboard() {
                                                     const isCorrect = correctOpts.some(c => userAns.toLowerCase() === c || userAns.toLowerCase().includes(c));
                                                     return (
                                                       <div key={q.id} style={{ display: "flex", alignItems: "flex-start", gap: 10, fontSize: 12 }}>
-                                                        <span style={{ width: 22, height: 22, borderRadius: "50%", flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 700, fontSize: 10, background: !userAns ? "rgba(255,255,255,0.07)" : isCorrect ? "rgba(16,185,129,0.2)" : "rgba(239,68,68,0.2)", color: !userAns ? C.muted : isCorrect ? "#34d399" : "#f87171" }}>
+                                                        <span style={{ width: 22, height: 22, borderRadius: "50%", flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 700, fontSize: 10, background: !userAns ? "var(--site-border)" : isCorrect ? "rgba(16,185,129,0.2)" : "rgba(239,68,68,0.2)", color: !userAns ? C.muted : isCorrect ? "#34d399" : "#f87171" }}>
                                                           {q.number}
                                                         </span>
                                                         <div style={{ flex: 1 }}>
                                                           <div style={{ color: C.sub, lineHeight: 1.4, marginBottom: 3 }}>{q.question.split("\n")[0].slice(0, 120)}</div>
                                                           <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
-                                                            <span style={{ fontSize: 11, padding: "2px 8px", borderRadius: 5, background: !userAns ? "rgba(255,255,255,0.05)" : isCorrect ? "rgba(16,185,129,0.12)" : "rgba(239,68,68,0.12)", color: !userAns ? C.muted : isCorrect ? "#34d399" : "#f87171" }}>
+                                                            <span style={{ fontSize: 11, padding: "2px 8px", borderRadius: 5, background: !userAns ? "var(--site-border)" : isCorrect ? "rgba(16,185,129,0.12)" : "rgba(239,68,68,0.12)", color: !userAns ? C.muted : isCorrect ? "#34d399" : "#f87171" }}>
                                                               Your: {userAns || "(blank)"}
                                                             </span>
                                                             {!isCorrect && (
-                                                              <span style={{ fontSize: 11, padding: "2px 8px", borderRadius: 5, background: "rgba(255,255,255,0.07)", color: "#ffffff" }}>
+                                                              <span style={{ fontSize: 11, padding: "2px 8px", borderRadius: 5, background: "var(--site-border)", color: "var(--site-text)" }}>
                                                                 Correct: {q.correctAnswer}
                                                               </span>
                                                             )}
@@ -869,7 +869,7 @@ export default function AdminDashboard() {
               </div>
               {studentError && <p style={{ fontSize: 13, color: C.danger, marginBottom: 8 }}>{studentError}</p>}
               <button onClick={handleAddStudent}
-                style={{ display: "flex", alignItems: "center", gap: 6, padding: "10px 18px", background: "#2a2a2a", border: "none", borderRadius: 10, color: "#fff", fontSize: 13, fontWeight: 600, cursor: "pointer" }}>
+                style={{ display: "flex", alignItems: "center", gap: 6, padding: "10px 18px", background: "var(--site-card-2)", border: "none", borderRadius: 10, color: "var(--site-text)", fontSize: 13, fontWeight: 600, cursor: "pointer" }}>
                 <Plus size={14} /> Create Student Account
               </button>
 
@@ -879,7 +879,7 @@ export default function AdminDashboard() {
                   <p style={{ fontSize: 12, fontWeight: 700, color: "#34d399", marginBottom: 10 }}>✓ Account created for {createdStudent.name} {createdStudent.surname}</p>
                   <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
                     {[{ label: "Username", val: createdStudent.username }, { label: "Password", val: createdStudent.password }].map(item => (
-                      <div key={item.label} style={{ padding: "10px 14px", background: "rgba(255,255,255,0.04)", borderRadius: 9, border: `1px solid ${C.border}` }}>
+                      <div key={item.label} style={{ padding: "10px 14px", background: "var(--site-border)", borderRadius: 9, border: `1px solid ${C.border}` }}>
                         <div style={{ fontSize: 10, color: C.muted, marginBottom: 4, textTransform: "uppercase", fontWeight: 700 }}>{item.label}</div>
                         <div style={{ fontFamily: "monospace", fontSize: 15, fontWeight: 700, color: C.text }}>{item.val}</div>
                       </div>
@@ -966,8 +966,8 @@ export default function AdminDashboard() {
                             <div style={{ display: "flex", gap: 6 }}>
                               <button onClick={() => editingStudentId === s.id ? setEditingStudentId(null) : startEditStudent(s)}
                                 style={{ display: "flex", alignItems: "center", gap: 5, padding: "7px 14px",
-                                  background: editingStudentId === s.id ? C.accentLight : "linear-gradient(135deg,rgba(255,255,255,0.12),rgba(109,40,217,0.2))",
-                                  border: `1.5px solid ${editingStudentId === s.id ? C.accent : "rgba(255,255,255,0.25)"}`,
+                                  background: editingStudentId === s.id ? C.accentLight : "linear-gradient(135deg,var(--site-border),rgba(109,40,217,0.2))",
+                                  border: `1.5px solid ${editingStudentId === s.id ? C.accent : "var(--site-border-strong)"}`,
                                   borderRadius: 8, color: C.accent, fontSize: 12, fontWeight: 700, cursor: "pointer" }}>
                                 <Pencil size={12} /> {editingStudentId === s.id ? "Cancel" : "Edit"}
                               </button>
@@ -979,7 +979,7 @@ export default function AdminDashboard() {
                           </td>
                         </tr>
                         {isRootAdmin && expandedAccessInfoFor === s.id && (
-                          <tr key={`${s.id}-access`} style={{ borderBottom: `1px solid ${C.border}`, background: "rgba(255,255,255,0.03)" }}>
+                          <tr key={`${s.id}-access`} style={{ borderBottom: `1px solid ${C.border}`, background: "var(--site-border)" }}>
                             <td colSpan={8} style={{ padding: "14px 18px" }}>
                               <div style={{ fontSize: 11, fontWeight: 700, color: C.muted, textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 10 }}>Last Access Details</div>
                               <div style={{ display: "flex", flexWrap: "wrap", gap: 10 }}>
@@ -1004,7 +1004,7 @@ export default function AdminDashboard() {
                           </tr>
                         )}
                         {editingStudentId === s.id && (
-                          <tr key={`${s.id}-edit`} style={{ borderBottom: `2px solid ${C.accent}`, background: "rgba(255,255,255,0.05)" }}>
+                          <tr key={`${s.id}-edit`} style={{ borderBottom: `2px solid ${C.accent}`, background: "var(--site-border)" }}>
                             <td colSpan={8} style={{ padding: "20px 18px" }}>
                               <div style={{ fontSize: 13, fontWeight: 700, color: C.accent, marginBottom: 12 }}>Editing: {s.name} {s.surname}</div>
                               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 10, marginBottom: 10 }}>
@@ -1043,7 +1043,7 @@ export default function AdminDashboard() {
                               {studentEditError && <p style={{ fontSize: 13, color: C.danger, marginBottom: 8 }}>{studentEditError}</p>}
                               <div style={{ display: "flex", gap: 8 }}>
                                 <button onClick={handleSaveStudent}
-                                  style={{ display: "flex", alignItems: "center", gap: 5, padding: "8px 16px", background: "#2a2a2a", border: "none", borderRadius: 8, color: "#fff", fontSize: 13, fontWeight: 600, cursor: "pointer" }}>
+                                  style={{ display: "flex", alignItems: "center", gap: 5, padding: "8px 16px", background: "var(--site-card-2)", border: "none", borderRadius: 8, color: "var(--site-text)", fontSize: 13, fontWeight: 600, cursor: "pointer" }}>
                                   <Save size={13} /> Save Changes
                                 </button>
                                 <button onClick={() => { setEditingStudentId(null); setStudentEditError(""); }}
@@ -1072,14 +1072,14 @@ export default function AdminDashboard() {
             return (
               <div>
                 <button onClick={() => setTestsAnswerKeyId(null)}
-                  style={{ display: "flex", alignItems: "center", gap: 6, padding: "7px 14px", background: "rgba(255,255,255,0.06)", border: `1px solid ${C.border}`, borderRadius: 9, color: C.muted, fontSize: 13, cursor: "pointer", fontWeight: 600, marginBottom: 22 }}>
+                  style={{ display: "flex", alignItems: "center", gap: 6, padding: "7px 14px", background: "var(--site-border)", border: `1px solid ${C.border}`, borderRadius: 9, color: C.muted, fontSize: 13, cursor: "pointer", fontWeight: 600, marginBottom: 22 }}>
                   ← Back to Tests
                 </button>
                 <div style={{ marginBottom: 20 }}>
                   <h1 style={{ fontSize: 20, fontWeight: 800, color: C.text, marginBottom: 4 }}>{answerKeyTest.title} — Answer Key</h1>
                   <div style={{ display: "flex", gap: 10 }}>
                     <button onClick={() => router.push(`/student/test/${answerKeyTest.id}?practice=1`)}
-                      style={{ padding: "8px 18px", background: "#2a2a2a", color: "#fff", fontWeight: 700, fontSize: 13, border: "none", borderRadius: 9, cursor: "pointer" }}>
+                      style={{ padding: "8px 18px", background: "var(--site-card-2)", color: "var(--site-text)", fontWeight: 700, fontSize: 13, border: "none", borderRadius: 9, cursor: "pointer" }}>
                       Take in Practice Mode
                     </button>
                   </div>
@@ -1121,7 +1121,7 @@ export default function AdminDashboard() {
                 {[{ t: "reading" as const, Icon: BookOpen, label: "Reading" }, { t: "listening" as const, Icon: Headphones, label: "Listening" }].map(({ t, Icon, label }) => (
                   <button key={t} onClick={() => { setTestsTypeFilter(t); setTestsSelectedBook(null); }}
                     style={{ display: "flex", alignItems: "center", gap: 7, padding: "9px 18px", borderRadius: 10, border: "none", cursor: "pointer", fontWeight: 600, fontSize: 13,
-                      background: testsTypeFilter === t ? C.accent : C.card, color: testsTypeFilter === t ? "#0a0a0a" : C.muted }}>
+                      background: testsTypeFilter === t ? C.accent : C.card, color: testsTypeFilter === t ? "var(--site-bg)" : C.muted }}>
                     <Icon size={14} /> {label}
                   </button>
                 ))}
@@ -1133,11 +1133,11 @@ export default function AdminDashboard() {
                     const bookTests = allTests.filter(t => t.bookNumber === n && t.type === testsTypeFilter);
                     return (
                       <div key={n} onClick={() => available && setTestsSelectedBook(n)}
-                        style={{ display: "flex", alignItems: "center", gap: 14, padding: "14px 16px", background: available ? C.card : "rgba(255,255,255,0.02)", border: `1px solid ${available ? C.border : "rgba(255,255,255,0.05)"}`, borderRadius: 12, cursor: available ? "pointer" : "default" }}>
-                        <div style={{ width: 38, height: 38, borderRadius: 10, flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 900, fontSize: 15, background: available ? "#2a2a2a" : "rgba(255,255,255,0.05)", color: available ? "#fff" : "rgba(255,255,255,0.2)" }}>{n}</div>
+                        style={{ display: "flex", alignItems: "center", gap: 14, padding: "14px 16px", background: available ? C.card : "rgba(255,255,255,0.02)", border: `1px solid ${available ? C.border : "var(--site-border)"}`, borderRadius: 12, cursor: available ? "pointer" : "default" }}>
+                        <div style={{ width: 38, height: 38, borderRadius: 10, flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 900, fontSize: 15, background: available ? "var(--site-card-2)" : "var(--site-border)", color: available ? "var(--site-text)" : "var(--site-border-strong)" }}>{n}</div>
                         <div style={{ flex: 1 }}>
-                          <div style={{ fontSize: 13, fontWeight: 700, color: available ? C.text : "rgba(255,255,255,0.25)", marginBottom: 2 }}>Cambridge IELTS {n}</div>
-                          <div style={{ fontSize: 11, color: available ? C.muted : "rgba(255,255,255,0.15)" }}>{available ? `${bookTests.length} test${bookTests.length !== 1 ? "s" : ""}` : "Coming soon"}</div>
+                          <div style={{ fontSize: 13, fontWeight: 700, color: available ? C.text : "var(--site-border-strong)", marginBottom: 2 }}>Cambridge IELTS {n}</div>
+                          <div style={{ fontSize: 11, color: available ? C.muted : "var(--site-border-strong)" }}>{available ? `${bookTests.length} test${bookTests.length !== 1 ? "s" : ""}` : "Coming soon"}</div>
                         </div>
                         {available && <ChevronRight size={14} color={C.muted} />}
                       </div>
@@ -1147,7 +1147,7 @@ export default function AdminDashboard() {
               ) : (
                 <div>
                   <button onClick={() => setTestsSelectedBook(null)}
-                    style={{ display: "flex", alignItems: "center", gap: 6, padding: "7px 14px", background: "rgba(255,255,255,0.06)", border: `1px solid ${C.border}`, borderRadius: 9, color: C.muted, fontSize: 13, cursor: "pointer", fontWeight: 600, marginBottom: 20 }}>
+                    style={{ display: "flex", alignItems: "center", gap: 6, padding: "7px 14px", background: "var(--site-border)", border: `1px solid ${C.border}`, borderRadius: 9, color: C.muted, fontSize: 13, cursor: "pointer", fontWeight: 600, marginBottom: 20 }}>
                     ← All Books
                   </button>
                   <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: 14 }}>
@@ -1165,11 +1165,11 @@ export default function AdminDashboard() {
                         </div>
                         <div style={{ display: "flex", gap: 8 }}>
                           <button onClick={() => setTestsAnswerKeyId(test.id)}
-                            style={{ flex: 1, padding: "8px", background: C.accentLight, color: C.accent, fontWeight: 700, fontSize: 12, border: `1px solid rgba(255,255,255,0.2)`, borderRadius: 9, cursor: "pointer" }}>
+                            style={{ flex: 1, padding: "8px", background: C.accentLight, color: C.accent, fontWeight: 700, fontSize: 12, border: `1px solid var(--site-border-strong)`, borderRadius: 9, cursor: "pointer" }}>
                             Answer Key
                           </button>
                           <button onClick={() => router.push(`/student/test/${test.id}?practice=1`)}
-                            style={{ flex: 1, padding: "8px", background: "#2a2a2a", color: "#fff", fontWeight: 700, fontSize: 12, border: "none", borderRadius: 9, cursor: "pointer" }}>
+                            style={{ flex: 1, padding: "8px", background: "var(--site-card-2)", color: "var(--site-text)", fontWeight: 700, fontSize: 12, border: "none", borderRadius: 9, cursor: "pointer" }}>
                             Practice
                           </button>
                         </div>
@@ -1199,7 +1199,7 @@ export default function AdminDashboard() {
                             {a.testTitle}
                             {a.testType === "reading" && !/reading/i.test(a.testTitle) && " – Reading"}
                           </td>
-                          <td style={{ padding: "11px 14px" }}><span style={{ fontSize: 11, padding: "2px 8px", borderRadius: 20, fontWeight: 600, background: a.testType === "listening" ? "rgba(255,255,255,0.1)" : "rgba(245,158,11,0.15)", color: a.testType === "listening" ? "#ffffff" : "#fcd34d" }}>{a.testType}</span></td>
+                          <td style={{ padding: "11px 14px" }}><span style={{ fontSize: 11, padding: "2px 8px", borderRadius: 20, fontWeight: 600, background: a.testType === "listening" ? "var(--site-border)" : "rgba(245,158,11,0.15)", color: a.testType === "listening" ? "var(--site-text)" : "#fcd34d" }}>{a.testType}</span></td>
                           <td style={{ padding: "11px 14px", color: C.sub }}>{a.score}/{a.maxScore}</td>
                           <td style={{ padding: "11px 14px", fontWeight: 700, color: C.accent }}>{a.bandScore}</td>
                           <td style={{ padding: "11px 14px", fontSize: 12, color: C.muted }}>{new Date(a.submittedAt).toLocaleDateString()}</td>
@@ -1232,7 +1232,7 @@ export default function AdminDashboard() {
           };
           const fieldStyle: React.CSSProperties = {
             width: "100%", padding: "10px 40px 10px 14px",
-            background: "rgba(255,255,255,0.04)",
+            background: "var(--site-border)",
             border: `1px solid ${C.border}`,
             borderRadius: 10, color: C.text, fontSize: 14, outline: "none",
             fontFamily: "inherit",
@@ -1243,8 +1243,8 @@ export default function AdminDashboard() {
 
               {/* Identity */}
               <div style={{ padding: "18px 20px", background: C.card, border: `1px solid ${C.border}`, borderRadius: 14, marginBottom: 16, display: "flex", alignItems: "center", gap: 16 }}>
-                <div style={{ width: 52, height: 52, borderRadius: "50%", background: "#2a2a2a", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-                  <UserCircle2 size={26} color="#fff" />
+                <div style={{ width: 52, height: 52, borderRadius: "50%", background: "var(--site-card-2)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                  <UserCircle2 size={26} color="var(--site-text)" />
                 </div>
                 <div>
                   <div style={{ fontSize: 16, fontWeight: 700, color: C.text }}>{currentUsername}</div>
@@ -1293,7 +1293,7 @@ export default function AdminDashboard() {
                     }}>{ownPwMsg.text}</div>
                   )}
                   <button type="submit" disabled={ownPwSaving || !ownCurrPw || !ownNewPw}
-                    style={{ justifySelf: "start", padding: "10px 22px", background: ownPwSaving || !ownCurrPw || !ownNewPw ? "rgba(255,255,255,0.1)" : "#2a2a2a", color: "#fff", fontWeight: 700, fontSize: 13, border: "none", borderRadius: 9, cursor: ownPwSaving || !ownCurrPw || !ownNewPw ? "not-allowed" : "pointer" }}>
+                    style={{ justifySelf: "start", padding: "10px 22px", background: ownPwSaving || !ownCurrPw || !ownNewPw ? "var(--site-border)" : "var(--site-card-2)", color: "var(--site-text)", fontWeight: 700, fontSize: 13, border: "none", borderRadius: 9, cursor: ownPwSaving || !ownCurrPw || !ownNewPw ? "not-allowed" : "pointer" }}>
                     {ownPwSaving ? "Updating…" : "Update password"}
                   </button>
                 </form>
@@ -1308,7 +1308,7 @@ export default function AdminDashboard() {
             <div style={{ fontSize: 11, letterSpacing: "0.3em", textTransform: "uppercase", color: C.muted, marginBottom: 24, fontWeight: 600 }}>
               {activeTab === "writing" ? "IELTS" : activeTab === "articles" ? "Read" : "Listen"}
             </div>
-            <h1 style={{ fontFamily: `"Fraunces", "Iowan Old Style", Georgia, serif`, fontSize: "clamp(3rem, 7vw, 5rem)", fontWeight: 300, letterSpacing: "-0.02em", color: "#fff", lineHeight: 1, marginBottom: 28, textTransform: "capitalize" }}>
+            <h1 style={{ fontFamily: `"Fraunces", "Iowan Old Style", Georgia, serif`, fontSize: "clamp(3rem, 7vw, 5rem)", fontWeight: 300, letterSpacing: "-0.02em", color: "var(--site-text)", lineHeight: 1, marginBottom: 28, textTransform: "capitalize" }}>
               {activeTab}
             </h1>
             <p style={{ fontSize: 15, color: C.muted, maxWidth: 480, lineHeight: 1.7, marginBottom: 40 }}>
@@ -1345,7 +1345,7 @@ export default function AdminDashboard() {
                 {teacherError && <p style={{ fontSize: 13, color: C.danger }}>{teacherError}</p>}
                 {teacherSuccess && <p style={{ fontSize: 13, color: C.success }}>{teacherSuccess}</p>}
                 <button onClick={handleAddTeacher}
-                  style={{ alignSelf: "flex-start", display: "flex", alignItems: "center", gap: 6, padding: "10px 18px", background: "#2a2a2a", border: "none", borderRadius: 10, color: "#fff", fontSize: 13, fontWeight: 600, cursor: "pointer" }}>
+                  style={{ alignSelf: "flex-start", display: "flex", alignItems: "center", gap: 6, padding: "10px 18px", background: "var(--site-card-2)", border: "none", borderRadius: 10, color: "var(--site-text)", fontSize: 13, fontWeight: 600, cursor: "pointer" }}>
                   <Plus size={14} /> Add Teacher
                 </button>
               </div>
@@ -1408,7 +1408,7 @@ export default function AdminDashboard() {
                       <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
                         <button onClick={() => handleChangePassword(t.id)}
                           title="Reset the login password to this value and store it for Show"
-                          style={{ padding: "7px 14px", background: "#2a2a2a", border: "none", borderRadius: 8, color: "#fff", fontSize: 13, fontWeight: 600, cursor: "pointer" }}>
+                          style={{ padding: "7px 14px", background: "var(--site-card-2)", border: "none", borderRadius: 8, color: "var(--site-text)", fontSize: 13, fontWeight: 600, cursor: "pointer" }}>
                           Set as new password
                         </button>
                         <button onClick={() => handleSaveExistingPassword(t.id)}
@@ -1471,7 +1471,7 @@ function TabHeader({ title, subtitle, C, quote }: {
         <figure style={{
           margin: 0, flex: 1, minWidth: 260, maxWidth: 620,
           padding: "8px 18px",
-          borderLeft: "2px solid rgba(255,255,255,0.25)",
+          borderLeft: "2px solid var(--site-border-strong)",
         }}>
           <blockquote style={{
             margin: 0, fontSize: 13, color: C.sub,

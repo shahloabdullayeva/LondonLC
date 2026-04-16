@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { getSession } from "@/lib/store";
 import Brand from "@/components/Brand";
+import ThemeToggle from "@/components/ThemeToggle";
 import Link from "next/link";
 import { quotes, type Quote } from "@/lib/quotes";
 
@@ -30,35 +31,39 @@ export default function HomePage() {
   return (
     <div style={{
       minHeight: "100vh",
-      background: "#0a0a0a",
-      color: "#e5e5e5",
+      background: "var(--site-bg)",
+      color: "var(--site-text)",
       fontFamily: BODY_FONT,
       display: "flex", flexDirection: "column",
     }}>
       {/* Subtle glow */}
       <div style={{
         position: "fixed", inset: 0, pointerEvents: "none", zIndex: 0,
-        background: "radial-gradient(ellipse at 50% -10%, rgba(255,255,255,0.05) 0%, transparent 60%), radial-gradient(ellipse at 80% 110%, rgba(255,255,255,0.03) 0%, transparent 55%)",
+        background: "radial-gradient(ellipse at 50% -10%, var(--site-glow-1) 0%, transparent 60%), radial-gradient(ellipse at 80% 110%, var(--site-glow-2) 0%, transparent 55%)",
       }} />
 
       <nav style={{
         position: "relative", zIndex: 10,
         display: "flex", alignItems: "center", justifyContent: "space-between",
         padding: "22px 40px",
-        borderBottom: "1px solid rgba(255,255,255,0.06)",
+        borderBottom: "1px solid var(--site-border)",
       }}>
         <Brand href="/" size={20} />
-        <Link href="/auth/login" style={{
-          padding: "8px 18px",
-          border: "1px solid rgba(255,255,255,0.25)",
-          borderRadius: 999, color: "#fff", fontSize: 13, fontWeight: 600,
-          textDecoration: "none", transition: "all 0.2s",
-        }}
-          onMouseEnter={(e) => { e.currentTarget.style.background = "#fff"; e.currentTarget.style.color = "#0a0a0a"; }}
-          onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.color = "#fff"; }}
-        >
-          Sign in
-        </Link>
+        <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+          <ThemeToggle />
+          <Link href="/auth/login" style={{
+            padding: "8px 18px",
+            border: "1px solid var(--site-border-strong)",
+            borderRadius: 999, color: "var(--site-text)", fontSize: 13, fontWeight: 600,
+            textDecoration: "none", transition: "all 0.2s",
+            background: "transparent",
+          }}
+            onMouseEnter={(e) => { e.currentTarget.style.background = "var(--site-text)"; e.currentTarget.style.color = "var(--site-bg)"; }}
+            onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.color = "var(--site-text)"; }}
+          >
+            Sign in
+          </Link>
+        </div>
       </nav>
 
       <main style={{
@@ -76,10 +81,10 @@ export default function HomePage() {
           fontFamily: DISPLAY_FONT,
           fontSize: "clamp(3rem, 7.5vw, 5.5rem)",
           fontWeight: 300, letterSpacing: "-0.02em",
-          color: "#fff", lineHeight: 1.05, marginBottom: 48, maxWidth: 900,
+          color: "var(--site-text)", lineHeight: 1.05, marginBottom: 48, maxWidth: 900,
         }}>
           You deserve{" "}
-          <em style={{ fontStyle: "italic", fontWeight: 300, color: "rgba(255,255,255,0.8)" }}>more.</em>
+          <em style={{ fontStyle: "italic", fontWeight: 300, color: "var(--site-text-muted)" }}>more.</em>
         </h1>
 
         {/* Rotating quote — picked client-side on mount */}
@@ -100,7 +105,7 @@ export default function HomePage() {
                 fontWeight: 300,
                 fontSize: "clamp(0.95rem, 1.6vw, 1.1rem)",
                 lineHeight: 1.55,
-                color: "rgba(255,255,255,0.65)",
+                color: "var(--site-text-muted)",
               }}>
                 &ldquo;{quote.text}&rdquo;
               </blockquote>
@@ -109,7 +114,7 @@ export default function HomePage() {
                   fontSize: 10.5,
                   letterSpacing: "0.2em",
                   textTransform: "uppercase",
-                  color: "rgba(255,255,255,0.35)",
+                  color: "var(--site-text-sub)",
                 }}>
                   — {quote.author}
                 </figcaption>
@@ -121,7 +126,7 @@ export default function HomePage() {
         <Link href="/auth/login" style={{
           display: "inline-flex", alignItems: "center", gap: 10,
           padding: "14px 36px",
-          background: "#fff", color: "#0a0a0a",
+          background: "var(--site-text)", color: "var(--site-bg)",
           borderRadius: 999, fontSize: 13, fontWeight: 600,
           letterSpacing: "0.12em", textTransform: "uppercase",
           textDecoration: "none", transition: "transform 0.15s",
@@ -136,8 +141,8 @@ export default function HomePage() {
       <footer style={{
         position: "relative", zIndex: 5,
         padding: "24px 40px", textAlign: "center",
-        fontSize: 12, letterSpacing: "0.1em", color: "rgba(255,255,255,0.3)",
-        borderTop: "1px solid rgba(255,255,255,0.06)",
+        fontSize: 12, letterSpacing: "0.1em", color: "var(--site-text-sub)",
+        borderTop: "1px solid var(--site-border)",
       }}>
         © {new Date().getFullYear()} London Language Centre
       </footer>

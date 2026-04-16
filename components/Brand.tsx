@@ -23,9 +23,9 @@ export default function Brand({ size = 20, href, suffix }: BrandProps) {
       display: "inline-flex", alignItems: "baseline", gap: size * 0.22,
     }}>
       <span>
-        <span style={{ color: "#fff" }}>London</span>
-        <span style={{ color: "rgba(255,255,255,0.4)", fontSize: size * 0.85, margin: `0 ${size * 0.18}px` }}>·</span>
-        <span style={{ color: "#c4b5fd" }}>LC</span>
+        <span style={{ color: "var(--site-text)" }}>London</span>
+        <span style={{ color: "var(--site-text-sub)", fontSize: size * 0.85, margin: `0 ${size * 0.18}px` }}>·</span>
+        <span style={{ color: "var(--site-accent)" }}>LC</span>
       </span>
       {suffix && (
         <span style={{

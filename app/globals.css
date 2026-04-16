@@ -1,6 +1,71 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 @import "tailwindcss";
 
+/* ─────────────────────────────────────────────────────────────
+   Site-wide theme tokens — chrome only (landing, dashboards,
+   auth, etc.). The test-taking view has its own independent
+   theme in TestClient.tsx.
+   Three themes, cycled via the <ThemeToggle> in the nav:
+     • dark    — deep black (default, kept from the original design)
+     • sepia   — warm cream paper, easy on the eyes
+     • slate   — cool blue-grey, modern without being harsh
+   Applied via <html data-site-theme="…">.
+   ───────────────────────────────────────────────────────────── */
+
+html[data-site-theme="dark"], html:not([data-site-theme]) {
+  --site-bg: #0a0a0a;
+  --site-bg-elevated: #111111;
+  --site-card: #151515;
+  --site-card-2: #1a1a1a;
+  --site-text: #ffffff;
+  --site-text-muted: rgba(255, 255, 255, 0.65);
+  --site-text-sub: rgba(255, 255, 255, 0.4);
+  --site-border: rgba(255, 255, 255, 0.08);
+  --site-border-strong: rgba(255, 255, 255, 0.16);
+  --site-accent: #c4b5fd;
+  --site-accent-dim: rgba(196, 181, 253, 0.1);
+  --site-accent-border: rgba(196, 181, 253, 0.25);
+  --site-nav: #111111;
+  --site-glow-1: rgba(255, 255, 255, 0.05);
+  --site-glow-2: rgba(255, 255, 255, 0.03);
+}
+
+html[data-site-theme="sepia"] {
+  --site-bg: #f5ecdb;
+  --site-bg-elevated: #ede2cc;
+  --site-card: #ede2cc;
+  --site-card-2: #e3d6ba;
+  --site-text: #2c1f10;
+  --site-text-muted: rgba(44, 31, 16, 0.7);
+  --site-text-sub: rgba(44, 31, 16, 0.5);
+  --site-border: rgba(44, 31, 16, 0.12);
+  --site-border-strong: rgba(44, 31, 16, 0.22);
+  --site-accent: #8b5a3c;
+  --site-accent-dim: rgba(139, 90, 60, 0.1);
+  --site-accent-border: rgba(139, 90, 60, 0.28);
+  --site-nav: #ede2cc;
+  --site-glow-1: rgba(139, 90, 60, 0.06);
+  --site-glow-2: rgba(139, 90, 60, 0.03);
+}
+
+html[data-site-theme="slate"] {
+  --site-bg: #e7edf3;
+  --site-bg-elevated: #dce5ef;
+  --site-card: #dce5ef;
+  --site-card-2: #ccd7e4;
+  --site-text: #1b2838;
+  --site-text-muted: rgba(27, 40, 56, 0.7);
+  --site-text-sub: rgba(27, 40, 56, 0.5);
+  --site-border: rgba(27, 40, 56, 0.1);
+  --site-border-strong: rgba(27, 40, 56, 0.2);
+  --site-accent: #4c5f7f;
+  --site-accent-dim: rgba(76, 95, 127, 0.1);
+  --site-accent-border: rgba(76, 95, 127, 0.3);
+  --site-nav: #dce5ef;
+  --site-glow-1: rgba(76, 95, 127, 0.06);
+  --site-glow-2: rgba(76, 95, 127, 0.03);
+}
+
 :root {
   --font-inter: 'Inter', system-ui, sans-serif;
 
