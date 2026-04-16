@@ -1069,8 +1069,367 @@ Early knitting
   ],
 };
 
+// ============================================================
+// CAMBRIDGE IELTS 16 – LISTENING TEST 4
+// Parts: 1) Holiday rental — Fitzgerald cottages (notes)
+//        2) Local council traffic report (MCQ + map labelling A–I
+//           of the recreation ground)
+//        3) City bike-sharing schemes (two Choose-TWO + matching
+//           cities to opinions)
+//        4) The extinction of the dodo bird (notes)
+// ============================================================
+export const cambridge16_listening_t4: IELTSTest = {
+  id: "cam16-listening-t4",
+  title: "Cambridge IELTS 16 – Listening Test 4",
+  bookNumber: 16,
+  testNumber: 4,
+  type: "listening",
+  level: "academic",
+  durationMinutes: 30,
+  transferMinutes: 2,
+  audioUrl: audioUrl("cam16-listening-t4.mp3"),
+  audioDurationSeconds: 1800,
+  sections: [
+    // ── PART 1 ─────────────────────────────────────────────
+    {
+      id: "cam16-l-t4-s1",
+      sectionNumber: 1,
+      title: "Part 1",
+      instructions: `Questions 1–10: Complete the notes below. Write ONE WORD AND/OR A NUMBER for each answer.`,
+      passageText: `Holiday rental
+
+Owner's names: Jack Fitzgerald and Shirley Fitzgerald
+
+Granary Cottage
+●  available for week beginning 1 _______ May
+●  cost for the week: £ 2 _______
+
+3 _______ Cottage
+●  cost for the week: £480
+●  building was originally a 4 _______
+●  walk through doors from living room into a 5 _______
+●  several 6 _______ spaces at the front
+●  bathroom has a shower
+●  central heating and stove that burns 7 _______
+●  views of old 8 _______ from living room
+●  view of hilltop 9 _______ from the bedroom
+
+Payment
+●  deposit: £144
+●  deadline for final payment: end of 10 _______`,
+      questions: [
+        { id: "cam16-l-t4-s1-q1", number: 1, type: "note_completion", question: "1. available for week beginning _______ May", correctAnswer: "28th/28", points: 1 },
+        { id: "cam16-l-t4-s1-q2", number: 2, type: "note_completion", question: "2. cost for the week: £ _______", correctAnswer: "550", points: 1 },
+        { id: "cam16-l-t4-s1-q3", number: 3, type: "note_completion", question: "3. _______ Cottage", correctAnswer: "Chervil", points: 1 },
+        { id: "cam16-l-t4-s1-q4", number: 4, type: "note_completion", question: "4. building was originally a _______", correctAnswer: "garage", points: 1 },
+        { id: "cam16-l-t4-s1-q5", number: 5, type: "note_completion", question: "5. walk through doors from living room into a _______", correctAnswer: "garden", points: 1 },
+        { id: "cam16-l-t4-s1-q6", number: 6, type: "note_completion", question: "6. several _______ spaces at the front", correctAnswer: "parking", points: 1 },
+        { id: "cam16-l-t4-s1-q7", number: 7, type: "note_completion", question: "7. stove that burns _______", correctAnswer: "wood", points: 1 },
+        { id: "cam16-l-t4-s1-q8", number: 8, type: "note_completion", question: "8. views of old _______ from living room", correctAnswer: "bridge", points: 1 },
+        { id: "cam16-l-t4-s1-q9", number: 9, type: "note_completion", question: "9. view of hilltop _______ from the bedroom", correctAnswer: "monument", points: 1 },
+        { id: "cam16-l-t4-s1-q10", number: 10, type: "note_completion", question: "10. deadline for final payment: end of _______", correctAnswer: "March", points: 1 },
+      ],
+    },
+    // ── PART 2 ─────────────────────────────────────────────
+    {
+      id: "cam16-l-t4-s2",
+      sectionNumber: 2,
+      title: "Part 2",
+      instructions: `Questions 11–14: Choose the correct letter, A, B or C.
+Questions 15–20: Label the map of the recreation ground below. Write the correct letter, A–I, next to each location.`,
+      passageTitle: "Local council report on traffic and highways",
+      diagramUrl: imageUrl("cam16test4map.png"),
+      questions: [
+        {
+          id: "cam16-l-t4-s2-q11", number: 11,
+          groupLabel: `Questions 11–14: Choose the correct letter, A, B or C.`,
+          type: "multiple_choice", question: "11. A survey found people's main concern about traffic in the area was",
+          options: [
+            { label: "A  cuts to public transport.", value: "A" },
+            { label: "B  poor maintenance of roads.", value: "B" },
+            { label: "C  changes in the type of traffic.", value: "C" },
+          ],
+          correctAnswer: "C", points: 1,
+        },
+        {
+          id: "cam16-l-t4-s2-q12", number: 12, type: "multiple_choice",
+          question: "12. Which change will shortly be made to the cycle path next to the river?",
+          options: [
+            { label: "A  It will be widened.", value: "A" },
+            { label: "B  It will be extended.", value: "B" },
+            { label: "C  It will be resurfaced.", value: "C" },
+          ],
+          correctAnswer: "A", points: 1,
+        },
+        {
+          id: "cam16-l-t4-s2-q13", number: 13, type: "multiple_choice",
+          question: "13. Plans for a pedestrian crossing have been postponed because",
+          options: [
+            { label: "A  the Post Office has moved.", value: "A" },
+            { label: "B  the proposed location is unsafe.", value: "B" },
+            { label: "C  funding is not available at present.", value: "C" },
+          ],
+          correctAnswer: "B", points: 1,
+        },
+        {
+          id: "cam16-l-t4-s2-q14", number: 14, type: "multiple_choice",
+          question: "14. On Station Road, notices have been erected",
+          options: [
+            { label: "A  telling cyclists not to leave their bikes outside the station ticket office.", value: "A" },
+            { label: "B  asking motorists to switch off engines when waiting at the level crossing.", value: "B" },
+            { label: "C  warning pedestrians to leave enough time when crossing the railway line.", value: "C" },
+          ],
+          correctAnswer: "B", points: 1,
+        },
+        {
+          id: "cam16-l-t4-s2-q15", number: 15,
+          groupLabel: `Questions 15–20: Label the map of the recreation ground above. Write the correct letter, A–I, next to each location.`,
+          type: "matching", question: "15. New car park",
+          options: [
+            { label: "A", value: "A" }, { label: "B", value: "B" }, { label: "C", value: "C" },
+            { label: "D", value: "D" }, { label: "E", value: "E" }, { label: "F", value: "F" },
+            { label: "G", value: "G" }, { label: "H", value: "H" }, { label: "I", value: "I" },
+          ],
+          correctAnswer: "C", points: 1,
+        },
+        {
+          id: "cam16-l-t4-s2-q16", number: 16, type: "matching", question: "16. New cricket pitch",
+          options: [
+            { label: "A", value: "A" }, { label: "B", value: "B" }, { label: "C", value: "C" },
+            { label: "D", value: "D" }, { label: "E", value: "E" }, { label: "F", value: "F" },
+            { label: "G", value: "G" }, { label: "H", value: "H" }, { label: "I", value: "I" },
+          ],
+          correctAnswer: "F", points: 1,
+        },
+        {
+          id: "cam16-l-t4-s2-q17", number: 17, type: "matching", question: "17. Children's playground",
+          options: [
+            { label: "A", value: "A" }, { label: "B", value: "B" }, { label: "C", value: "C" },
+            { label: "D", value: "D" }, { label: "E", value: "E" }, { label: "F", value: "F" },
+            { label: "G", value: "G" }, { label: "H", value: "H" }, { label: "I", value: "I" },
+          ],
+          correctAnswer: "A", points: 1,
+        },
+        {
+          id: "cam16-l-t4-s2-q18", number: 18, type: "matching", question: "18. Skateboard ramp",
+          options: [
+            { label: "A", value: "A" }, { label: "B", value: "B" }, { label: "C", value: "C" },
+            { label: "D", value: "D" }, { label: "E", value: "E" }, { label: "F", value: "F" },
+            { label: "G", value: "G" }, { label: "H", value: "H" }, { label: "I", value: "I" },
+          ],
+          correctAnswer: "I", points: 1,
+        },
+        {
+          id: "cam16-l-t4-s2-q19", number: 19, type: "matching", question: "19. Pavilion",
+          options: [
+            { label: "A", value: "A" }, { label: "B", value: "B" }, { label: "C", value: "C" },
+            { label: "D", value: "D" }, { label: "E", value: "E" }, { label: "F", value: "F" },
+            { label: "G", value: "G" }, { label: "H", value: "H" }, { label: "I", value: "I" },
+          ],
+          correctAnswer: "E", points: 1,
+        },
+        {
+          id: "cam16-l-t4-s2-q20", number: 20, type: "matching", question: "20. Notice board",
+          options: [
+            { label: "A", value: "A" }, { label: "B", value: "B" }, { label: "C", value: "C" },
+            { label: "D", value: "D" }, { label: "E", value: "E" }, { label: "F", value: "F" },
+            { label: "G", value: "G" }, { label: "H", value: "H" }, { label: "I", value: "I" },
+          ],
+          correctAnswer: "H", points: 1,
+        },
+      ],
+    },
+    // ── PART 3 ─────────────────────────────────────────────
+    {
+      id: "cam16-l-t4-s3",
+      sectionNumber: 3,
+      title: "Part 3",
+      instructions: `Questions 21 & 22: Choose TWO letters, A–E.
+Questions 23 & 24: Choose TWO letters, A–E.
+Questions 25–30: Match each city with the speakers' opinion of its bike-sharing scheme. Choose SIX answers from the box (A–G).`,
+      passageTitle: "City bike-sharing schemes",
+      questions: [
+        {
+          id: "cam16-l-t4-s3-q21", number: 21,
+          groupLabel: `Questions 21 and 22: Choose TWO letters, A–E.\n\nWhich TWO benefits of city bike-sharing schemes do the students agree are the most important?\n\nA  reducing noise pollution\nB  reducing traffic congestion\nC  improving air quality\nD  encouraging health and fitness\nE  making cycling affordable\n\n(Answers are accepted in either order.)`,
+          type: "multiple_choice", question: "21. Choose TWO (first answer)",
+          options: [
+            { label: "A  reducing noise pollution", value: "A" },
+            { label: "B  reducing traffic congestion", value: "B" },
+            { label: "C  improving air quality", value: "C" },
+            { label: "D  encouraging health and fitness", value: "D" },
+            { label: "E  making cycling affordable", value: "E" },
+          ],
+          correctAnswer: "B/C", points: 1,
+        },
+        {
+          id: "cam16-l-t4-s3-q22", number: 22, type: "multiple_choice",
+          question: "22. Choose TWO (second answer)",
+          options: [
+            { label: "A  reducing noise pollution", value: "A" },
+            { label: "B  reducing traffic congestion", value: "B" },
+            { label: "C  improving air quality", value: "C" },
+            { label: "D  encouraging health and fitness", value: "D" },
+            { label: "E  making cycling affordable", value: "E" },
+          ],
+          correctAnswer: "B/C", points: 1,
+        },
+        {
+          id: "cam16-l-t4-s3-q23", number: 23,
+          groupLabel: `Questions 23 and 24: Choose TWO letters, A–E.\n\nWhich TWO things do the students think are necessary for successful bike-sharing schemes?\n\nA  Bikes should have a GPS system.\nB  The app should be easy to use.\nC  Public awareness should be raised.\nD  Only one scheme should be available.\nE  There should be a large network of cycle lanes.\n\n(Answers are accepted in either order.)`,
+          type: "multiple_choice", question: "23. Choose TWO (first answer)",
+          options: [
+            { label: "A  Bikes should have a GPS system.", value: "A" },
+            { label: "B  The app should be easy to use.", value: "B" },
+            { label: "C  Public awareness should be raised.", value: "C" },
+            { label: "D  Only one scheme should be available.", value: "D" },
+            { label: "E  There should be a large network of cycle lanes.", value: "E" },
+          ],
+          correctAnswer: "B/C", points: 1,
+        },
+        {
+          id: "cam16-l-t4-s3-q24", number: 24, type: "multiple_choice",
+          question: "24. Choose TWO (second answer)",
+          options: [
+            { label: "A  Bikes should have a GPS system.", value: "A" },
+            { label: "B  The app should be easy to use.", value: "B" },
+            { label: "C  Public awareness should be raised.", value: "C" },
+            { label: "D  Only one scheme should be available.", value: "D" },
+            { label: "E  There should be a large network of cycle lanes.", value: "E" },
+          ],
+          correctAnswer: "B/C", points: 1,
+        },
+        {
+          id: "cam16-l-t4-s3-q25", number: 25,
+          groupLabel: `Questions 25–30: What is the speakers' opinion of the bike-sharing schemes in each of the following cities? Choose SIX answers from the box (A–G).\n\nA  They agree it has been disappointing.\nB  They think it should be cheaper.\nC  They are surprised it has been so successful.\nD  They agree that more investment is required.\nE  They think the system has been well designed.\nF  They disagree about the reasons for its success.\nG  They think it has expanded too quickly.`,
+          type: "matching", question: "25. Amsterdam",
+          options: [
+            { label: "A  They agree it has been disappointing.", value: "A" },
+            { label: "B  They think it should be cheaper.", value: "B" },
+            { label: "C  They are surprised it has been so successful.", value: "C" },
+            { label: "D  They agree that more investment is required.", value: "D" },
+            { label: "E  They think the system has been well designed.", value: "E" },
+            { label: "F  They disagree about the reasons for its success.", value: "F" },
+            { label: "G  They think it has expanded too quickly.", value: "G" },
+          ],
+          correctAnswer: "C", points: 1,
+        },
+        {
+          id: "cam16-l-t4-s3-q26", number: 26, type: "matching", question: "26. Dublin",
+          options: [
+            { label: "A  They agree it has been disappointing.", value: "A" },
+            { label: "B  They think it should be cheaper.", value: "B" },
+            { label: "C  They are surprised it has been so successful.", value: "C" },
+            { label: "D  They agree that more investment is required.", value: "D" },
+            { label: "E  They think the system has been well designed.", value: "E" },
+            { label: "F  They disagree about the reasons for its success.", value: "F" },
+            { label: "G  They think it has expanded too quickly.", value: "G" },
+          ],
+          correctAnswer: "F", points: 1,
+        },
+        {
+          id: "cam16-l-t4-s3-q27", number: 27, type: "matching", question: "27. London",
+          options: [
+            { label: "A  They agree it has been disappointing.", value: "A" },
+            { label: "B  They think it should be cheaper.", value: "B" },
+            { label: "C  They are surprised it has been so successful.", value: "C" },
+            { label: "D  They agree that more investment is required.", value: "D" },
+            { label: "E  They think the system has been well designed.", value: "E" },
+            { label: "F  They disagree about the reasons for its success.", value: "F" },
+            { label: "G  They think it has expanded too quickly.", value: "G" },
+          ],
+          correctAnswer: "D", points: 1,
+        },
+        {
+          id: "cam16-l-t4-s3-q28", number: 28, type: "matching", question: "28. Buenos Aires",
+          options: [
+            { label: "A  They agree it has been disappointing.", value: "A" },
+            { label: "B  They think it should be cheaper.", value: "B" },
+            { label: "C  They are surprised it has been so successful.", value: "C" },
+            { label: "D  They agree that more investment is required.", value: "D" },
+            { label: "E  They think the system has been well designed.", value: "E" },
+            { label: "F  They disagree about the reasons for its success.", value: "F" },
+            { label: "G  They think it has expanded too quickly.", value: "G" },
+          ],
+          correctAnswer: "E", points: 1,
+        },
+        {
+          id: "cam16-l-t4-s3-q29", number: 29, type: "matching", question: "29. New York",
+          options: [
+            { label: "A  They agree it has been disappointing.", value: "A" },
+            { label: "B  They think it should be cheaper.", value: "B" },
+            { label: "C  They are surprised it has been so successful.", value: "C" },
+            { label: "D  They agree that more investment is required.", value: "D" },
+            { label: "E  They think the system has been well designed.", value: "E" },
+            { label: "F  They disagree about the reasons for its success.", value: "F" },
+            { label: "G  They think it has expanded too quickly.", value: "G" },
+          ],
+          correctAnswer: "B", points: 1,
+        },
+        {
+          id: "cam16-l-t4-s3-q30", number: 30, type: "matching", question: "30. Sydney",
+          options: [
+            { label: "A  They agree it has been disappointing.", value: "A" },
+            { label: "B  They think it should be cheaper.", value: "B" },
+            { label: "C  They are surprised it has been so successful.", value: "C" },
+            { label: "D  They agree that more investment is required.", value: "D" },
+            { label: "E  They think the system has been well designed.", value: "E" },
+            { label: "F  They disagree about the reasons for its success.", value: "F" },
+            { label: "G  They think it has expanded too quickly.", value: "G" },
+          ],
+          correctAnswer: "A", points: 1,
+        },
+      ],
+    },
+    // ── PART 4 ─────────────────────────────────────────────
+    {
+      id: "cam16-l-t4-s4",
+      sectionNumber: 4,
+      title: "Part 4",
+      instructions: `Questions 31–40: Complete the notes below. Write ONE WORD ONLY for each answer.`,
+      passageText: `THE EXTINCTION OF THE DODO BIRD
+
+The dodo was a large flightless bird which used to inhabit the island of Mauritius.
+
+History
+●  1507 – Portuguese ships transporting 31 _______ stopped at the island to collect food and water.
+●  1638 – The Dutch established a 32 _______ on the island.
+●  They killed the dodo birds for their meat.
+●  The last one was killed in 1681.
+
+Description
+●  The only record we have is written descriptions and pictures (possibly unreliable).
+●  A Dutch painting suggests the dodo was very 33 _______.
+●  The only remaining soft tissue is a dried 34 _______.
+●  Recent studies of a dodo skeleton suggest the birds were capable of rapid 35 _______.
+●  It's thought they were able to use their small wings to maintain 36 _______.
+●  Their 37 _______ was of average size.
+●  Their sense of 38 _______ enabled them to find food.
+
+Reasons for extinction
+●  Hunting was probably not the main cause.
+●  Sailors brought dogs and monkeys.
+●  39 _______ also escaped onto the island and ate the birds' eggs.
+●  The arrival of farming meant the 40 _______ was destroyed.`,
+      questions: [
+        { id: "cam16-l-t4-s4-q31", number: 31, type: "note_completion", question: "31. Portuguese ships transporting _______", correctAnswer: "spice/spices", points: 1 },
+        { id: "cam16-l-t4-s4-q32", number: 32, type: "note_completion", question: "32. The Dutch established a _______ on the island", correctAnswer: "colony/settlement", points: 1 },
+        { id: "cam16-l-t4-s4-q33", number: 33, type: "note_completion", question: "33. Dutch painting suggests the dodo was very _______", correctAnswer: "fat", points: 1 },
+        { id: "cam16-l-t4-s4-q34", number: 34, type: "note_completion", question: "34. only remaining soft tissue is a dried _______", correctAnswer: "head", points: 1 },
+        { id: "cam16-l-t4-s4-q35", number: 35, type: "note_completion", question: "35. capable of rapid _______", correctAnswer: "movement", points: 1 },
+        { id: "cam16-l-t4-s4-q36", number: 36, type: "note_completion", question: "36. use their small wings to maintain _______", correctAnswer: "balance/balancing", points: 1 },
+        { id: "cam16-l-t4-s4-q37", number: 37, type: "note_completion", question: "37. Their _______ was of average size", correctAnswer: "brain", points: 1 },
+        { id: "cam16-l-t4-s4-q38", number: 38, type: "note_completion", question: "38. Their sense of _______ enabled them to find food", correctAnswer: "smell", points: 1 },
+        { id: "cam16-l-t4-s4-q39", number: 39, type: "note_completion", question: "39. _______ also escaped onto the island and ate the birds' eggs", correctAnswer: "rats", points: 1 },
+        { id: "cam16-l-t4-s4-q40", number: 40, type: "note_completion", question: "40. arrival of farming meant the _______ was destroyed", correctAnswer: "forest", points: 1 },
+      ],
+    },
+  ],
+};
+
 export const cambridge16ListeningTests: IELTSTest[] = [
   cambridge16_listening_t1,
   cambridge16_listening_t2,
   cambridge16_listening_t3,
+  cambridge16_listening_t4,
 ];
