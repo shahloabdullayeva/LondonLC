@@ -351,30 +351,57 @@ export default function TestPage() {
     }, 3000);
 
     const cancel = (reason: string) => cancelTestRef.current(reason);
-    const REASON = "Your test was cancelled because the exam screen lost focus — this can happen if you switch apps, open another tab, take a screenshot, or use your phone's screen-capture gesture. Please try again and keep the exam window active.";
-    const FS_REASON = "Your test was cancelled because you exited fullscreen mode. Please try again and keep the exam in fullscreen.";
+
+    // Reasons are intentionally specific so the student can see
+    // exactly what tripped the anti-cheat — vague "lost focus"
+    // messages are confusing when you're trying to figure out what
+    // went wrong.
+    const REASONS = {
+      tabHidden:
+        "Your test was cancelled because you switched away from this tab or minimised the window. Stay on this page and don't open other apps until the test ends.",
+      blur:
+        "Your test was cancelled because the exam window lost focus. This usually happens if you click outside the window, alt-tab to another app, or open a screen-capture tool (e.g. Win+Shift+S, the macOS snipping toolbar).",
+      fullscreen:
+        "Your test was cancelled because you exited fullscreen mode. Stay in fullscreen for the entire test and don't press Esc.",
+      screenshot:
+        "Your test was cancelled because you pressed the Print Screen key. Screenshots aren't allowed during the test.",
+    };
 
     const handleVisibility = () => {
-      if (document.hidden && anticheatActiveRef.current) cancel(REASON);
+      if (document.hidden && anticheatActiveRef.current) cancel(REASONS.tabHidden);
     };
 
     const handleBlur = () => {
-      if (anticheatActiveRef.current) cancel(REASON);
+      if (anticheatActiveRef.current) cancel(REASONS.blur);
     };
 
     const handleFullscreenChange = () => {
-      if (!document.fullscreenElement && anticheatActiveRef.current) cancel(FS_REASON);
+      if (!document.fullscreenElement && anticheatActiveRef.current) cancel(REASONS.fullscreen);
+    };
+
+    // Print Screen on Windows fires a keydown event we can intercept;
+    // catching it here means we can show the screenshot-specific reason
+    // before the subsequent blur/visibility events overwrite it. macOS
+    // and mobile screenshot gestures aren't catchable by browsers, so
+    // those will still surface as a blur or visibility change.
+    const handlePrintScreen = (e: KeyboardEvent) => {
+      if (e.key === "PrintScreen" && anticheatActiveRef.current) {
+        e.preventDefault();
+        cancel(REASONS.screenshot);
+      }
     };
 
     document.addEventListener("visibilitychange", handleVisibility);
     window.addEventListener("blur", handleBlur);
     document.addEventListener("fullscreenchange", handleFullscreenChange);
+    document.addEventListener("keydown", handlePrintScreen);
 
     return () => {
       clearTimeout(activateTimer);
       document.removeEventListener("visibilitychange", handleVisibility);
       window.removeEventListener("blur", handleBlur);
       document.removeEventListener("fullscreenchange", handleFullscreenChange);
+      document.removeEventListener("keydown", handlePrintScreen);
     };
   }, [phase, isPracticeMode]);
 
