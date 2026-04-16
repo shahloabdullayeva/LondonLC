@@ -1072,30 +1072,54 @@ export default function TestPage() {
                     </div>
                   )}
 
-                  <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
-                    {sec.questions.map((q) => (
-                      <React.Fragment key={q.id}>
-                        {q.groupLabel && (
-                          <div style={{ fontSize: 13, padding: "10px 14px", borderRadius: 10, background: T.accentDim, color: T.accent, border: `1px solid ${T.accentBorder}`, fontWeight: 500, lineHeight: 1.6, whiteSpace: "pre-line" }}>
-                            {q.groupLabel.split(/\n(?=\d+[\s\.])/)[0].trim()}
-                          </div>
-                        )}
-                        {sec.diagramUrl && q.type === "diagram_labelling" &&
-                          sec.questions.findIndex(x => x.type === "diagram_labelling") === sec.questions.indexOf(q) && (
-                          <div style={{ textAlign: "center", margin: "8px 0 4px" }}>
-                            <img src={sec.diagramUrl} alt="Diagram" style={{ maxWidth: "100%", borderRadius: 10, border: `1px solid ${T.border}` }} />
-                          </div>
-                        )}
-                        <QuestionItem question={q}
-                          answer={answers[q.id] || ""}
-                          onAnswer={(val) => setAnswer(q.id, val)}
-                          T={T} fontSize={fontSize}
-                          questionHighlights={highlights.filter(h => h.sectionIdx === sIdx && h.side === "questions")}
-                          onRemoveHighlight={removeHighlight}
-                        />
-                      </React.Fragment>
-                    ))}
-                  </div>
+                  {(() => {
+                    // Collect every numbered blank that's present in any
+                    // groupLabel in this section — Q1-7 often have their
+                    // blanks shown inside a table in the group label
+                    // (e.g. "allowed businesses to 1……… regularly"). When
+                    // that blank becomes a real input above, the separate
+                    // question row below is redundant and should be hidden.
+                    const coveredInGroupLabels = new Set<number>();
+                    for (const q of sec.questions) {
+                      if (q.groupLabel) {
+                        passageBlankNumbers(q.groupLabel).forEach(n => coveredInGroupLabels.add(n));
+                      }
+                    }
+                    return (
+                      <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
+                        {sec.questions.map((q) => {
+                          const hasBlanksInLabel = !!q.groupLabel && passageBlankNumbers(q.groupLabel).size > 0;
+                          const skipQuestion = coveredInGroupLabels.has(q.number);
+                          return (
+                            <React.Fragment key={q.id}>
+                              {q.groupLabel && (
+                                <div style={{ fontSize: 13, padding: "10px 14px", borderRadius: 10, background: T.accentDim, color: T.accent, border: `1px solid ${T.accentBorder}`, fontWeight: 500, lineHeight: 1.6, whiteSpace: "pre-line" }}>
+                                  {hasBlanksInLabel
+                                    ? renderPassageWithInputs(q.groupLabel, sec.questions, answers, setAnswer, T)
+                                    : q.groupLabel.split(/\n(?=\d+[\s\.])/)[0].trim()}
+                                </div>
+                              )}
+                              {sec.diagramUrl && q.type === "diagram_labelling" &&
+                                sec.questions.findIndex(x => x.type === "diagram_labelling") === sec.questions.indexOf(q) && (
+                                <div style={{ textAlign: "center", margin: "8px 0 4px" }}>
+                                  <img src={sec.diagramUrl} alt="Diagram" style={{ maxWidth: "100%", borderRadius: 10, border: `1px solid ${T.border}` }} />
+                                </div>
+                              )}
+                              {!skipQuestion && (
+                                <QuestionItem question={q}
+                                  answer={answers[q.id] || ""}
+                                  onAnswer={(val) => setAnswer(q.id, val)}
+                                  T={T} fontSize={fontSize}
+                                  questionHighlights={highlights.filter(h => h.sectionIdx === sIdx && h.side === "questions")}
+                                  onRemoveHighlight={removeHighlight}
+                                />
+                              )}
+                            </React.Fragment>
+                          );
+                        })}
+                      </div>
+                    );
+                  })()}
                 </div>
               ))}
 
@@ -1297,20 +1321,26 @@ export default function TestPage() {
                         </React.Fragment>
                       );
                     }
+                    const hasBlanksInLabel = !!q.groupLabel && passageBlankNumbers(q.groupLabel).size > 0;
+                    const skipQuestion = hasBlanksInLabel && passageBlankNumbers(q.groupLabel!).has(q.number);
                     return (
                       <React.Fragment key={q.id}>
                         {q.groupLabel && (
                           <div style={{ fontSize: 13, padding: "10px 14px", borderRadius: 10, background: T.accentDim, color: T.accent, border: `1px solid ${T.accentBorder}`, fontWeight: 500, lineHeight: 1.6, whiteSpace: "pre-line" }}>
-                            {q.groupLabel.split(/\n(?=\d+[\s\.])/)[0].trim()}
+                            {hasBlanksInLabel
+                              ? renderPassageWithInputs(q.groupLabel, sec.questions, answers, setAnswer, T)
+                              : q.groupLabel.split(/\n(?=\d+[\s\.])/)[0].trim()}
                           </div>
                         )}
-                        <QuestionItem question={q}
-                          answer={answers[q.id] || ""}
-                          onAnswer={(val) => setAnswer(q.id, val)}
-                          T={T} fontSize={fontSize}
-                          questionHighlights={highlights.filter(h => h.sectionIdx === sIdx && h.side === "questions")}
-                          onRemoveHighlight={removeHighlight}
-                        />
+                        {!skipQuestion && (
+                          <QuestionItem question={q}
+                            answer={answers[q.id] || ""}
+                            onAnswer={(val) => setAnswer(q.id, val)}
+                            T={T} fontSize={fontSize}
+                            questionHighlights={highlights.filter(h => h.sectionIdx === sIdx && h.side === "questions")}
+                            onRemoveHighlight={removeHighlight}
+                          />
+                        )}
                       </React.Fragment>
                     );
                       });
@@ -1435,7 +1465,9 @@ export default function TestPage() {
 //             (spaces, quotes, brackets, colon, dash, currency symbols etc.
 //             — e.g. "4 '_______" or "10 £ _______") so we can render them
 //             back before the input field.
-const BLANK_PATTERN = /(\d+)(\s*['"‘’“”«»():–—\-£$€¥]*\s*)_{3,}/g;
+//   the blank itself — 3+ underscores OR 1+ ellipsis chars (…) OR 3+ dots.
+//             IELTS source material mixes all three conventions.
+const BLANK_PATTERN = /(\d+)(\s*['"‘’“”«»():–—\-£$€¥]*\s*)(?:_{3,}|…+|\.{3,})/g;
 
 function passageBlankNumbers(passage: string): Set<number> {
   const set = new Set<number>();
