@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { getSession } from "@/lib/store";
 import Brand from "@/components/Brand";
-import ThemeToggle from "@/components/ThemeToggle";
 import Link from "next/link";
 import { quotes, type Quote } from "@/lib/quotes";
 
@@ -49,21 +48,19 @@ export default function HomePage() {
         borderBottom: "1px solid var(--site-border)",
       }}>
         <Brand href="/" size={20} />
-        <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-          <ThemeToggle />
-          <Link href="/auth/login" style={{
-            padding: "8px 18px",
-            border: "1px solid var(--site-border-strong)",
-            borderRadius: 999, color: "var(--site-text)", fontSize: 13, fontWeight: 600,
-            textDecoration: "none", transition: "all 0.2s",
-            background: "transparent",
-          }}
-            onMouseEnter={(e) => { e.currentTarget.style.background = "var(--site-text)"; e.currentTarget.style.color = "var(--site-bg)"; }}
-            onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.color = "var(--site-text)"; }}
-          >
-            Sign in
-          </Link>
-        </div>
+        <Link href="/auth/login" style={{
+          padding: "8px 18px",
+          marginRight: 52, /* leave room for the floating theme toggle */
+          border: "1px solid var(--site-border-strong)",
+          borderRadius: 999, color: "var(--site-text)", fontSize: 13, fontWeight: 600,
+          textDecoration: "none", transition: "all 0.2s",
+          background: "transparent",
+        }}
+          onMouseEnter={(e) => { e.currentTarget.style.background = "var(--site-text)"; e.currentTarget.style.color = "var(--site-bg)"; }}
+          onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.color = "var(--site-text)"; }}
+        >
+          Sign in
+        </Link>
       </nav>
 
       <main style={{

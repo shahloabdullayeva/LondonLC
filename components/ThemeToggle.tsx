@@ -3,8 +3,16 @@
 // option derives readable text / card / border from the chosen
 // background automatically, and optionally lets the user override
 // the text and accent colours too.
+//
+// Two render modes:
+//   • `floating` (default) — position: fixed in the top-right of the
+//     viewport, shown on every page. Hidden on the test-taking route
+//     because the test has its own theme controls inside the header.
+//   • `inline` — renders in the normal document flow (for places that
+//     want the picker as part of a nav row).
 "use client";
 import { useEffect, useRef, useState } from "react";
+import { usePathname } from "next/navigation";
 import { Palette, X } from "lucide-react";
 import { useSiteTheme, type PresetName, type ThemeChoice } from "@/lib/site-theme";
 
@@ -12,6 +20,12 @@ type Props = {
   size?: number;
   /** Anchor the popover to the right edge (default) or left. */
   align?: "right" | "left";
+  /**
+   * Floating pins the button position: fixed, top-right, so it
+   * shows on every page from the root layout. Inline leaves it
+   * in the normal document flow.
+   */
+  variant?: "floating" | "inline";
 };
 
 const PRESETS: { name: PresetName; label: string; swatch: string[] }[] = [
@@ -20,11 +34,16 @@ const PRESETS: { name: PresetName; label: string; swatch: string[] }[] = [
   { name: "slate", label: "Slate",  swatch: ["#e7edf3", "#dce5ef", "#4c5f7f"] },
 ];
 
-export default function ThemeToggle({ size = 16, align = "right" }: Props) {
+// Paths where the floating toggle should NOT appear — test views
+// have their own in-page theme switcher.
+const HIDE_ON_PATHS = [/^\/student\/test\//, /^\/admin\/practice\//];
+
+export default function ThemeToggle({ size = 16, align = "right", variant = "inline" }: Props) {
   const { theme, setTheme } = useSiteTheme();
   const [open, setOpen] = useState(false);
   const panelRef = useRef<HTMLDivElement | null>(null);
   const anchorRef = useRef<HTMLButtonElement | null>(null);
+  const pathname = usePathname();
 
   // Close on outside click / Escape.
   useEffect(() => {
@@ -44,13 +63,23 @@ export default function ThemeToggle({ size = 16, align = "right" }: Props) {
     };
   }, [open]);
 
+  // The floating variant hides itself inside the test runner — that
+  // page has its own theme picker keyed to the test content.
+  if (variant === "floating" && pathname) {
+    for (const re of HIDE_ON_PATHS) if (re.test(pathname)) return null;
+  }
+
   const activePreset = theme.kind === "preset" ? theme.name : null;
   const customBg = theme.kind === "custom" ? theme.bg : "#2a1f38";
   const customText = theme.kind === "custom" ? theme.text ?? "" : "";
   const customAccent = theme.kind === "custom" ? theme.accent ?? "" : "";
 
+  const wrapperStyle: React.CSSProperties = variant === "floating"
+    ? { position: "fixed", top: 14, right: 14, zIndex: 9999 }
+    : { position: "relative", display: "inline-block" };
+
   return (
-    <div style={{ position: "relative", display: "inline-block" }}>
+    <div style={wrapperStyle}>
       <button
         ref={anchorRef}
         onClick={() => setOpen(o => !o)}
@@ -65,6 +94,7 @@ export default function ThemeToggle({ size = 16, align = "right" }: Props) {
           borderRadius: 10,
           cursor: "pointer",
           transition: "transform 0.15s, background 0.15s",
+          backdropFilter: variant === "floating" ? "blur(6px)" : undefined,
         }}
         onMouseDown={(e) => (e.currentTarget.style.transform = "scale(0.94)")}
         onMouseUp={(e) => (e.currentTarget.style.transform = "scale(1)")}
@@ -77,9 +107,10 @@ export default function ThemeToggle({ size = 16, align = "right" }: Props) {
         <div
           ref={panelRef}
           style={{
-            position: "absolute", zIndex: 1000, top: "calc(100% + 8px)",
+            position: "absolute", zIndex: 10000, top: "calc(100% + 8px)",
             [align]: 0,
             width: 280,
+            maxHeight: "80vh", overflowY: "auto",
             background: "var(--site-card)",
             border: "1px solid var(--site-border-strong)",
             borderRadius: 14,

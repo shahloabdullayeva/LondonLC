@@ -15,7 +15,6 @@ import { getTestById } from "@/data/ielts-tests";
 import { allTests } from "@/data/ielts-tests";
 import { quotes, type Quote } from "@/lib/quotes";
 import Brand from "@/components/Brand";
-import ThemeToggle from "@/components/ThemeToggle";
 
 // ── Theme tokens — backed by the site CSS variables so the admin
 //    dashboard responds to the theme picker in the nav. Only the
@@ -397,11 +396,8 @@ export default function AdminDashboard() {
           </button>
         </nav>
 
-        {/* Theme picker + Sign out */}
-        <div style={{ padding: "12px 10px 20px", display: "flex", flexDirection: "column", gap: 8 }}>
-          <div style={{ display: "flex", justifyContent: "flex-start" }}>
-            <ThemeToggle align="left" />
-          </div>
+        {/* Sign out */}
+        <div style={{ padding: "12px 10px 20px" }}>
           <button onClick={handleLogout}
             style={{ display: "flex", alignItems: "center", gap: 8, width: "100%", padding: "10px 12px", borderRadius: 10, background: "transparent", border: `1px solid ${C.border}`, color: C.muted, fontSize: 13, fontWeight: 600, cursor: "pointer" }}>
             <LogOut size={14} /> Sign Out

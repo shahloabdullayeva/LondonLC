@@ -4,7 +4,6 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { Eye, EyeOff, ChevronRight } from "lucide-react";
 import { saveSession, getSession, findTeacher, loginStudent, recordStudentAccess, recordTeacherAccess } from "@/lib/store";
 import Brand from "@/components/Brand";
-import ThemeToggle from "@/components/ThemeToggle";
 import Link from "next/link";
 
 // Minimalist dark sign-in. Matches the landing page aesthetic — no purple
@@ -88,12 +87,9 @@ function LoginContent() {
         borderBottom: "1px solid var(--site-border)",
       }}>
         <Brand href="/" size={20} />
-        <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-          <ThemeToggle />
-          <Link href="/" style={{ fontSize: 13, color: "var(--site-text-muted)", textDecoration: "none", fontWeight: 500 }}>
-            ← Back home
-          </Link>
-        </div>
+        <Link href="/" style={{ fontSize: 13, marginRight: 52, color: "var(--site-text-muted)", textDecoration: "none", fontWeight: 500 }}>
+          ← Back home
+        </Link>
       </nav>
 
       <main style={{

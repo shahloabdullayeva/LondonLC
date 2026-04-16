@@ -6,7 +6,6 @@ import { getSession, clearSession, getAttempts, changeStudentOwnPassword, type A
 import { allTests, getTestById } from "@/data/ielts-tests";
 import { quotes, type Quote } from "@/lib/quotes";
 import Brand from "@/components/Brand";
-import ThemeToggle from "@/components/ThemeToggle";
 import type { StudentSession } from "@/lib/store";
 
 type TestType = "reading" | "listening";
@@ -55,18 +54,16 @@ export default function StudentDashboard() {
       <nav style={S.nav}>
         {/* Brand mark — same component everywhere */}
         <Brand size={20} />
-        <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-          <ThemeToggle />
-          {/* Profile pill — click to jump into My Profile (where Sign Out lives). */}
-          <button onClick={() => { setSidebarView("profile"); setSelectedBook(null); }}
-            style={{ display: "flex", alignItems: "center", gap: 8, padding: "6px 14px", background: "var(--site-border)", borderRadius: 20, border: "1px solid var(--site-border)", cursor: "pointer", fontFamily: "inherit" }}>
-            <div style={{ width: 26, height: 26, borderRadius: "50%", background: "var(--site-card-2)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-              <User size={12} color="currentColor" />
-            </div>
-            <span style={{ fontSize: 13, fontWeight: 600, color: "var(--site-text)" }}>{session.name} {session.surname}</span>
-            <span style={{ fontSize: 11, padding: "2px 8px", background: "var(--site-border)", borderRadius: 10, color: "var(--site-text)", fontWeight: 600 }}>{session.group_name}</span>
-          </button>
-        </div>
+        {/* Profile pill — click to jump into My Profile (where Sign Out lives).
+            Extra right margin keeps the floating theme picker from overlapping. */}
+        <button onClick={() => { setSidebarView("profile"); setSelectedBook(null); }}
+          style={{ display: "flex", alignItems: "center", gap: 8, padding: "6px 14px", marginRight: 52, background: "var(--site-border)", borderRadius: 20, border: "1px solid var(--site-border)", cursor: "pointer", fontFamily: "inherit" }}>
+          <div style={{ width: 26, height: 26, borderRadius: "50%", background: "var(--site-card-2)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <User size={12} color="currentColor" />
+          </div>
+          <span style={{ fontSize: 13, fontWeight: 600, color: "var(--site-text)" }}>{session.name} {session.surname}</span>
+          <span style={{ fontSize: 11, padding: "2px 8px", background: "var(--site-border)", borderRadius: 10, color: "var(--site-text)", fontWeight: 600 }}>{session.group_name}</span>
+        </button>
       </nav>
 
       <div className="student-layout" style={{ flex: 1, display: "flex", overflow: "hidden" }}>
