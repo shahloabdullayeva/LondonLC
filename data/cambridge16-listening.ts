@@ -688,7 +688,391 @@ Benefits of Zumba:
   ],
 };
 
+// ============================================================
+// CAMBRIDGE IELTS 16 – LISTENING TEST 3
+// Parts: 1) Junior Cycle Camp — Charlie (notes)
+//        2) Agriculture & horticulture careers — Megan
+//           (two Choose-TWO + job/info matching A–H)
+//        3) Adam & Rosie — food-science presentation
+//           (two Choose-TWO + MCQ)
+//        4) Hand knitting (notes)
+// ============================================================
+export const cambridge16_listening_t3: IELTSTest = {
+  id: "cam16-listening-t3",
+  title: "Cambridge IELTS 16 – Listening Test 3",
+  bookNumber: 16,
+  testNumber: 3,
+  type: "listening",
+  level: "academic",
+  durationMinutes: 30,
+  transferMinutes: 2,
+  audioUrl: audioUrl("cam16-listening-t3.mp3"),
+  audioDurationSeconds: 1800,
+  sections: [
+    // ── PART 1 ─────────────────────────────────────────────
+    {
+      id: "cam16-l-t3-s1",
+      sectionNumber: 1,
+      title: "Part 1",
+      instructions: `Questions 1–10: Complete the notes below. Write ONE WORD AND/OR A NUMBER for each answer.`,
+      passageText: `JUNIOR CYCLE CAMP
+
+The course focuses on skills and safety
+●  Charlie would be placed in Level 5.
+●  First of all, children at this level are taken to practise in a 1 _______.
+
+Instructors
+●  Instructors wear 2 _______ shirts.
+●  A 3 _______ is required and training is given.
+
+Classes
+●  The size of the classes is limited.
+●  There are quiet times during the morning for a 4 _______ or a game.
+●  Classes are held even if there is 5 _______.
+
+What to bring
+●  a change of clothing
+●  a 6 _______
+●  shoes (not sandals)
+●  Charlie's 7 _______
+
+Day 1
+●  Charlie should arrive at 9.20 a.m. on the first day.
+●  Before the class, his 8 _______ will be checked.
+●  He should then go to the 9 _______ to meet his class instructor.
+
+Cost
+●  The course costs $ 10 _______ per week.`,
+      questions: [
+        { id: "cam16-l-t3-s1-q1", number: 1, type: "note_completion", question: "1. children at this level are taken to practise in a _______", correctAnswer: "park", points: 1 },
+        { id: "cam16-l-t3-s1-q2", number: 2, type: "note_completion", question: "2. Instructors wear _______ shirts", correctAnswer: "blue", points: 1 },
+        { id: "cam16-l-t3-s1-q3", number: 3, type: "note_completion", question: "3. A _______ is required and training is given", correctAnswer: "reference", points: 1 },
+        { id: "cam16-l-t3-s1-q4", number: 4, type: "note_completion", question: "4. quiet times during the morning for a _______ or a game", correctAnswer: "story", points: 1 },
+        { id: "cam16-l-t3-s1-q5", number: 5, type: "note_completion", question: "5. Classes are held even if there is _______", correctAnswer: "rain", points: 1 },
+        { id: "cam16-l-t3-s1-q6", number: 6, type: "note_completion", question: "6. a _______", correctAnswer: "snack", points: 1 },
+        { id: "cam16-l-t3-s1-q7", number: 7, type: "note_completion", question: "7. Charlie's _______", correctAnswer: "medication", points: 1 },
+        { id: "cam16-l-t3-s1-q8", number: 8, type: "note_completion", question: "8. Before the class, his _______ will be checked", correctAnswer: "helmet", points: 1 },
+        { id: "cam16-l-t3-s1-q9", number: 9, type: "note_completion", question: "9. go to the _______ to meet his class instructor", correctAnswer: "tent", points: 1 },
+        { id: "cam16-l-t3-s1-q10", number: 10, type: "note_completion", question: "10. The course costs $ _______ per week", correctAnswer: "199", points: 1 },
+      ],
+    },
+    // ── PART 2 ─────────────────────────────────────────────
+    {
+      id: "cam16-l-t3-s2",
+      sectionNumber: 2,
+      title: "Part 2",
+      instructions: `Questions 11 & 12: Choose TWO letters, A–E.
+Questions 13 & 14: Choose TWO letters, A–E.
+Questions 15–20: Match each job opportunity with information. Choose SIX answers from the box (A–H).`,
+      passageTitle: "Megan — careers in agriculture and horticulture",
+      questions: [
+        {
+          id: "cam16-l-t3-s2-q11", number: 11,
+          groupLabel: `Questions 11 and 12: Choose TWO letters, A–E.\n\nAccording to Megan, what are the TWO main advantages of working in the agriculture and horticulture sectors?\n\nA  the active lifestyle\nB  the above-average salaries\nC  the flexible working opportunities\nD  the opportunities for overseas travel\nE  the chance to be in a natural environment\n\n(Answers are accepted in either order.)`,
+          type: "multiple_choice", question: "11. Choose TWO (first answer)",
+          options: [
+            { label: "A  the active lifestyle", value: "A" },
+            { label: "B  the above-average salaries", value: "B" },
+            { label: "C  the flexible working opportunities", value: "C" },
+            { label: "D  the opportunities for overseas travel", value: "D" },
+            { label: "E  the chance to be in a natural environment", value: "E" },
+          ],
+          correctAnswer: "A/C", points: 1,
+        },
+        {
+          id: "cam16-l-t3-s2-q12", number: 12, type: "multiple_choice",
+          question: "12. Choose TWO (second answer)",
+          options: [
+            { label: "A  the active lifestyle", value: "A" },
+            { label: "B  the above-average salaries", value: "B" },
+            { label: "C  the flexible working opportunities", value: "C" },
+            { label: "D  the opportunities for overseas travel", value: "D" },
+            { label: "E  the chance to be in a natural environment", value: "E" },
+          ],
+          correctAnswer: "A/C", points: 1,
+        },
+        {
+          id: "cam16-l-t3-s2-q13", number: 13,
+          groupLabel: `Questions 13 and 14: Choose TWO letters, A–E.\n\nWhich TWO of the following are likely to be disadvantages for people working outdoors?\n\nA  the increasing risk of accidents\nB  being in a very quiet location\nC  difficult weather conditions at times\nD  the cost of housing\nE  the level of physical fitness required\n\n(Answers are accepted in either order.)`,
+          type: "multiple_choice", question: "13. Choose TWO (first answer)",
+          options: [
+            { label: "A  the increasing risk of accidents", value: "A" },
+            { label: "B  being in a very quiet location", value: "B" },
+            { label: "C  difficult weather conditions at times", value: "C" },
+            { label: "D  the cost of housing", value: "D" },
+            { label: "E  the level of physical fitness required", value: "E" },
+          ],
+          correctAnswer: "B/C", points: 1,
+        },
+        {
+          id: "cam16-l-t3-s2-q14", number: 14, type: "multiple_choice",
+          question: "14. Choose TWO (second answer)",
+          options: [
+            { label: "A  the increasing risk of accidents", value: "A" },
+            { label: "B  being in a very quiet location", value: "B" },
+            { label: "C  difficult weather conditions at times", value: "C" },
+            { label: "D  the cost of housing", value: "D" },
+            { label: "E  the level of physical fitness required", value: "E" },
+          ],
+          correctAnswer: "B/C", points: 1,
+        },
+        {
+          id: "cam16-l-t3-s2-q15", number: 15,
+          groupLabel: `Questions 15–20: What information does Megan give about each of the following job opportunities? Choose SIX answers from the box (A–H).\n\nA  not a permanent job\nB  involves leading a team\nC  experience not essential\nD  intensive work but also fun\nE  chance to earn more through overtime\nF  chance for rapid promotion\nG  accommodation available\nH  local travel involved`,
+          type: "matching", question: "15. Fresh food commercial manager",
+          options: [
+            { label: "A  not a permanent job", value: "A" },
+            { label: "B  involves leading a team", value: "B" },
+            { label: "C  experience not essential", value: "C" },
+            { label: "D  intensive work but also fun", value: "D" },
+            { label: "E  chance to earn more through overtime", value: "E" },
+            { label: "F  chance for rapid promotion", value: "F" },
+            { label: "G  accommodation available", value: "G" },
+            { label: "H  local travel involved", value: "H" },
+          ],
+          correctAnswer: "D", points: 1,
+        },
+        {
+          id: "cam16-l-t3-s2-q16", number: 16, type: "matching", question: "16. Agronomist",
+          options: [
+            { label: "A  not a permanent job", value: "A" },
+            { label: "B  involves leading a team", value: "B" },
+            { label: "C  experience not essential", value: "C" },
+            { label: "D  intensive work but also fun", value: "D" },
+            { label: "E  chance to earn more through overtime", value: "E" },
+            { label: "F  chance for rapid promotion", value: "F" },
+            { label: "G  accommodation available", value: "G" },
+            { label: "H  local travel involved", value: "H" },
+          ],
+          correctAnswer: "F", points: 1,
+        },
+        {
+          id: "cam16-l-t3-s2-q17", number: 17, type: "matching", question: "17. Fresh produce buyer",
+          options: [
+            { label: "A  not a permanent job", value: "A" },
+            { label: "B  involves leading a team", value: "B" },
+            { label: "C  experience not essential", value: "C" },
+            { label: "D  intensive work but also fun", value: "D" },
+            { label: "E  chance to earn more through overtime", value: "E" },
+            { label: "F  chance for rapid promotion", value: "F" },
+            { label: "G  accommodation available", value: "G" },
+            { label: "H  local travel involved", value: "H" },
+          ],
+          correctAnswer: "A", points: 1,
+        },
+        {
+          id: "cam16-l-t3-s2-q18", number: 18, type: "matching", question: "18. Garden centre sales manager",
+          options: [
+            { label: "A  not a permanent job", value: "A" },
+            { label: "B  involves leading a team", value: "B" },
+            { label: "C  experience not essential", value: "C" },
+            { label: "D  intensive work but also fun", value: "D" },
+            { label: "E  chance to earn more through overtime", value: "E" },
+            { label: "F  chance for rapid promotion", value: "F" },
+            { label: "G  accommodation available", value: "G" },
+            { label: "H  local travel involved", value: "H" },
+          ],
+          correctAnswer: "H", points: 1,
+        },
+        {
+          id: "cam16-l-t3-s2-q19", number: 19, type: "matching", question: "19. Tree technician",
+          options: [
+            { label: "A  not a permanent job", value: "A" },
+            { label: "B  involves leading a team", value: "B" },
+            { label: "C  experience not essential", value: "C" },
+            { label: "D  intensive work but also fun", value: "D" },
+            { label: "E  chance to earn more through overtime", value: "E" },
+            { label: "F  chance for rapid promotion", value: "F" },
+            { label: "G  accommodation available", value: "G" },
+            { label: "H  local travel involved", value: "H" },
+          ],
+          correctAnswer: "C", points: 1,
+        },
+        {
+          id: "cam16-l-t3-s2-q20", number: 20, type: "matching", question: "20. Farm worker",
+          options: [
+            { label: "A  not a permanent job", value: "A" },
+            { label: "B  involves leading a team", value: "B" },
+            { label: "C  experience not essential", value: "C" },
+            { label: "D  intensive work but also fun", value: "D" },
+            { label: "E  chance to earn more through overtime", value: "E" },
+            { label: "F  chance for rapid promotion", value: "F" },
+            { label: "G  accommodation available", value: "G" },
+            { label: "H  local travel involved", value: "H" },
+          ],
+          correctAnswer: "G", points: 1,
+        },
+      ],
+    },
+    // ── PART 3 ─────────────────────────────────────────────
+    {
+      id: "cam16-l-t3-s3",
+      sectionNumber: 3,
+      title: "Part 3",
+      instructions: `Questions 21 & 22: Choose TWO letters, A–E.
+Questions 23 & 24: Choose TWO letters, A–E.
+Questions 25–30: Choose the correct letter, A, B or C.`,
+      passageTitle: "Adam & Rosie — food-science presentation",
+      questions: [
+        {
+          id: "cam16-l-t3-s3-q21", number: 21,
+          groupLabel: `Questions 21 and 22: Choose TWO letters, A–E.\n\nWhich TWO points does Adam make about his experiment on artificial sweeteners?\n\nA  The results were what he had predicted.\nB  The experiment was simple to set up.\nC  A large sample of people was tested.\nD  The subjects were unaware of what they were drinking.\nE  The test was repeated several times for each person.\n\n(Answers are accepted in either order.)`,
+          type: "multiple_choice", question: "21. Choose TWO (first answer)",
+          options: [
+            { label: "A  The results were what he had predicted.", value: "A" },
+            { label: "B  The experiment was simple to set up.", value: "B" },
+            { label: "C  A large sample of people was tested.", value: "C" },
+            { label: "D  The subjects were unaware of what they were drinking.", value: "D" },
+            { label: "E  The test was repeated several times for each person.", value: "E" },
+          ],
+          correctAnswer: "C/D", points: 1,
+        },
+        {
+          id: "cam16-l-t3-s3-q22", number: 22, type: "multiple_choice",
+          question: "22. Choose TWO (second answer)",
+          options: [
+            { label: "A  The results were what he had predicted.", value: "A" },
+            { label: "B  The experiment was simple to set up.", value: "B" },
+            { label: "C  A large sample of people was tested.", value: "C" },
+            { label: "D  The subjects were unaware of what they were drinking.", value: "D" },
+            { label: "E  The test was repeated several times for each person.", value: "E" },
+          ],
+          correctAnswer: "C/D", points: 1,
+        },
+        {
+          id: "cam16-l-t3-s3-q23", number: 23,
+          groupLabel: `Questions 23 and 24: Choose TWO letters, A–E.\n\nWhich TWO problems did Rosie have when measuring the fat content of nuts?\n\nA  She used the wrong sort of nuts.\nB  She used an unsuitable chemical.\nC  She did not grind the nuts finely enough.\nD  The information on the nut package was incorrect.\nE  The weighing scales may have been unsuitable.\n\n(Answers are accepted in either order.)`,
+          type: "multiple_choice", question: "23. Choose TWO (first answer)",
+          options: [
+            { label: "A  She used the wrong sort of nuts.", value: "A" },
+            { label: "B  She used an unsuitable chemical.", value: "B" },
+            { label: "C  She did not grind the nuts finely enough.", value: "C" },
+            { label: "D  The information on the nut package was incorrect.", value: "D" },
+            { label: "E  The weighing scales may have been unsuitable.", value: "E" },
+          ],
+          correctAnswer: "C/E", points: 1,
+        },
+        {
+          id: "cam16-l-t3-s3-q24", number: 24, type: "multiple_choice",
+          question: "24. Choose TWO (second answer)",
+          options: [
+            { label: "A  She used the wrong sort of nuts.", value: "A" },
+            { label: "B  She used an unsuitable chemical.", value: "B" },
+            { label: "C  She did not grind the nuts finely enough.", value: "C" },
+            { label: "D  The information on the nut package was incorrect.", value: "D" },
+            { label: "E  The weighing scales may have been unsuitable.", value: "E" },
+          ],
+          correctAnswer: "C/E", points: 1,
+        },
+        {
+          id: "cam16-l-t3-s3-q25", number: 25,
+          groupLabel: `Questions 25–30: Choose the correct letter, A, B or C.`,
+          type: "multiple_choice", question: "25. Adam suggests that restaurants could reduce obesity if their menus",
+          options: [
+            { label: "A  offered fewer options.", value: "A" },
+            { label: "B  had more low-calorie foods.", value: "B" },
+            { label: "C  were organised in a particular way.", value: "C" },
+          ],
+          correctAnswer: "C", points: 1,
+        },
+        {
+          id: "cam16-l-t3-s3-q26", number: 26, type: "multiple_choice",
+          question: "26. The students agree that food manufacturers deliberately",
+          options: [
+            { label: "A  make calorie counts hard to understand.", value: "A" },
+            { label: "B  fail to provide accurate calorie counts.", value: "B" },
+            { label: "C  use ineffective methods to reduce calories.", value: "C" },
+          ],
+          correctAnswer: "A", points: 1,
+        },
+        {
+          id: "cam16-l-t3-s3-q27", number: 27, type: "multiple_choice",
+          question: "27. What does Rosie say about levels of exercise in England?",
+          options: [
+            { label: "A  The amount recommended is much too low.", value: "A" },
+            { label: "B  Most people overestimate how much they do.", value: "B" },
+            { label: "C  Women now exercise more than they used to.", value: "C" },
+          ],
+          correctAnswer: "B", points: 1,
+        },
+        {
+          id: "cam16-l-t3-s3-q28", number: 28, type: "multiple_choice",
+          question: "28. Adam refers to the location and width of stairs in a train station to illustrate",
+          options: [
+            { label: "A  practical changes that can influence people's behaviour.", value: "A" },
+            { label: "B  methods of helping people who have mobility problems.", value: "B" },
+            { label: "C  ways of preventing accidents by controlling crowd movement.", value: "C" },
+          ],
+          correctAnswer: "A", points: 1,
+        },
+        {
+          id: "cam16-l-t3-s3-q29", number: 29, type: "multiple_choice",
+          question: "29. What do the students agree about including reference to exercise in their presentation?",
+          options: [
+            { label: "A  They should probably leave it out.", value: "A" },
+            { label: "B  They need to do more research on it.", value: "B" },
+            { label: "C  They should discuss this with their tutor.", value: "C" },
+          ],
+          correctAnswer: "A", points: 1,
+        },
+        {
+          id: "cam16-l-t3-s3-q30", number: 30, type: "multiple_choice",
+          question: "30. What are the students going to do next for their presentation?",
+          options: [
+            { label: "A  prepare some slides for it", value: "A" },
+            { label: "B  find out how long they have for it", value: "B" },
+            { label: "C  decide on its content and organisation", value: "C" },
+          ],
+          correctAnswer: "C", points: 1,
+        },
+      ],
+    },
+    // ── PART 4 ─────────────────────────────────────────────
+    {
+      id: "cam16-l-t3-s4",
+      sectionNumber: 4,
+      title: "Part 4",
+      instructions: `Questions 31–40: Complete the notes below. Write ONE WORD ONLY for each answer.`,
+      passageText: `Hand knitting
+
+Interest in knitting
+●  Knitting has a long history around the world.
+●  We imagine someone like a 31 _______ knitting.
+●  A 32 _______ ago, knitting was expected to disappear.
+●  The number of knitting classes is now increasing.
+●  People are buying more 33 _______ for knitting nowadays.
+
+Benefits of knitting
+●  gives support in times of 34 _______ difficulty
+●  requires only 35 _______ skills and little money to start
+●  reduces stress in a busy life
+
+Early knitting
+●  The origins are not known.
+●  Findings show early knitted items to be 36 _______ in shape.
+●  The first needles were made of natural materials such as wood and 37 _______.
+●  Early yarns felt 38 _______ to touch.
+●  Wool became the most popular yarn for spinning.
+●  Geographical areas had their own 39 _______ of knitting.
+●  Everyday tasks like looking after 40 _______ were done while knitting.`,
+      questions: [
+        { id: "cam16-l-t3-s4-q31", number: 31, type: "note_completion", question: "31. We imagine someone like a _______ knitting", correctAnswer: "grandmother", points: 1 },
+        { id: "cam16-l-t3-s4-q32", number: 32, type: "note_completion", question: "32. A _______ ago, knitting was expected to disappear", correctAnswer: "decade", points: 1 },
+        { id: "cam16-l-t3-s4-q33", number: 33, type: "note_completion", question: "33. People are buying more _______ for knitting nowadays", correctAnswer: "equipment", points: 1 },
+        { id: "cam16-l-t3-s4-q34", number: 34, type: "note_completion", question: "34. gives support in times of _______ difficulty", correctAnswer: "economic", points: 1 },
+        { id: "cam16-l-t3-s4-q35", number: 35, type: "note_completion", question: "35. requires only _______ skills and little money to start", correctAnswer: "basic", points: 1 },
+        { id: "cam16-l-t3-s4-q36", number: 36, type: "note_completion", question: "36. early knitted items to be _______ in shape", correctAnswer: "round", points: 1 },
+        { id: "cam16-l-t3-s4-q37", number: 37, type: "note_completion", question: "37. natural materials such as wood and _______", correctAnswer: "bone", points: 1 },
+        { id: "cam16-l-t3-s4-q38", number: 38, type: "note_completion", question: "38. Early yarns felt _______ to touch", correctAnswer: "rough", points: 1 },
+        { id: "cam16-l-t3-s4-q39", number: 39, type: "note_completion", question: "39. Geographical areas had their own _______ of knitting", correctAnswer: "style", points: 1 },
+        { id: "cam16-l-t3-s4-q40", number: 40, type: "note_completion", question: "40. looking after _______ were done while knitting", correctAnswer: "sheep", points: 1 },
+      ],
+    },
+  ],
+};
+
 export const cambridge16ListeningTests: IELTSTest[] = [
   cambridge16_listening_t1,
   cambridge16_listening_t2,
+  cambridge16_listening_t3,
 ];
