@@ -304,10 +304,12 @@ export default function AdminDashboard() {
 
   const canManageTeachers = isRootAdmin || isAdminUser;
 
+  // Admin tabs no longer include "Tests" as a standalone — Reading
+  // and Listening live in the SECTIONS group below (both land on
+  // the tests tab with the matching type filter preset).
   const tabs = [
     { id: "results" as const, Icon: BarChart3, label: "Results" },
     { id: "students" as const, Icon: Users, label: "Students" },
-    { id: "tests" as const, Icon: BookOpen, label: "Tests" },
     ...(canManageTeachers ? [{ id: "teachers" as const, Icon: Shield, label: "Manage Teachers" }] : []),
   ];
 
@@ -366,8 +368,24 @@ export default function AdminDashboard() {
           ))}
 
           {/* Same sections as the student dashboard. Rendered as in-page
-              tabs (not external routes) so the sidebar stays visible. */}
+              tabs (not external routes) so the sidebar stays visible.
+              Reading + Listening come first (they actually exist as the
+              teacher's test library); the others are placeholders. */}
           <p style={{ fontSize: 10, fontWeight: 700, color: C.muted, letterSpacing: "0.2em", textTransform: "uppercase", margin: "18px 10px 8px", opacity: 0.6 }}>Sections</p>
+          {([
+            { type: "reading"   as const, Icon: BookOpen,   label: "Reading" },
+            { type: "listening" as const, Icon: Headphones, label: "Listening" },
+          ]).map(({ type, Icon, label }) => {
+            const active = activeTab === "tests" && testsTypeFilter === type;
+            return (
+              <button key={type} onClick={() => { setActiveTab("tests"); setTestsTypeFilter(type); setTestsSelectedBook(null); }}
+                style={{ display: "flex", alignItems: "center", gap: 10, width: "100%", padding: "10px 12px", borderRadius: 10, background: active ? C.accentLight : "transparent", border: "none", cursor: "pointer", fontWeight: 600, fontSize: 13, textAlign: "left", marginBottom: 2, color: active ? C.accent : C.muted }}>
+                <Icon size={15} />
+                <span style={{ flex: 1 }}>{label}</span>
+                <ChevronRight size={13} />
+              </button>
+            );
+          })}
           {([
             { id: "writing"  as const, Icon: PenLine,  label: "Writing",  soon: true },
             { id: "articles" as const, Icon: FileText, label: "Articles", soon: true },
@@ -425,6 +443,22 @@ export default function AdminDashboard() {
               <Icon size={13} /> {label}
             </button>
           ))}
+          {/* Reading / Listening both drop into the Tests tab with the
+              type filter preset, matching the desktop sidebar. */}
+          {([
+            { type: "reading"   as const, Icon: BookOpen,   label: "Reading" },
+            { type: "listening" as const, Icon: Headphones, label: "Listening" },
+          ]).map(({ type, Icon, label }) => {
+            const active = activeTab === "tests" && testsTypeFilter === type;
+            return (
+              <button key={type} onClick={() => { setActiveTab("tests"); setTestsTypeFilter(type); setTestsSelectedBook(null); }}
+                style={{ display: "inline-flex", alignItems: "center", gap: 6, padding: "7px 12px", borderRadius: 8, border: "none", cursor: "pointer", fontWeight: 600, fontSize: 12, whiteSpace: "nowrap",
+                  background: active ? C.accentLight : "transparent",
+                  color: active ? C.accent : C.muted }}>
+                <Icon size={13} /> {label}
+              </button>
+            );
+          })}
         </div>
 
       <main style={{ flex: 1, overflowY: activeTab === "students" ? "hidden" : "auto", padding: "32px 36px", display: "flex", flexDirection: "column" }}>
@@ -466,7 +500,7 @@ export default function AdminDashboard() {
               </figure>
             )}
             <button onClick={exportExcel}
-              style={{ display: "flex", alignItems: "center", gap: 7, padding: "9px 18px", background: C.accentLight, border: `1px solid ${C.accent}`, borderRadius: 10, color: C.accent, fontSize: 13, fontWeight: 600, cursor: "pointer", flexShrink: 0 }}>
+              style={{ display: "flex", alignItems: "center", gap: 7, padding: "9px 18px", marginRight: 52, background: C.accentLight, border: `1px solid ${C.accent}`, borderRadius: 10, color: C.accent, fontSize: 13, fontWeight: 600, cursor: "pointer", flexShrink: 0 }}>
               <Download size={14} /> Export Excel
             </button>
           </div>
