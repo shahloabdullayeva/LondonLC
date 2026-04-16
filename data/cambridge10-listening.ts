@@ -980,8 +980,355 @@ Leaders' actions affect which focus people use`,
   ],
 };
 
+// ============================================================
+// CAMBRIDGE IELTS 10 – LISTENING TEST 4
+// Parts: 1) Thorndyke's Builders — Edith Pargetter (notes + table
+//           of work to be done in kitchen and garden)
+//        2) Manham Port (MCQ + tourist-attraction table)
+//        3) Laura's work placement — Tim's planning (two
+//           Choose-TWO + stage → source matching A–G)
+//        4) Nanotechnology (MCQ + uses notes)
+// ============================================================
+export const cambridge10_listening_t4: IELTSTest = {
+  id: "cam10-listening-t4",
+  title: "Cambridge IELTS 10 – Listening Test 4",
+  bookNumber: 10,
+  testNumber: 4,
+  type: "listening",
+  level: "academic",
+  durationMinutes: 30,
+  transferMinutes: 2,
+  audioUrl: audioUrl("cam10-listening-t4.mp3"),
+  audioDurationSeconds: 1800,
+  sections: [
+    // ── PART 1 ─────────────────────────────────────────────
+    {
+      id: "cam10-l-t4-s1",
+      sectionNumber: 1,
+      title: "Part 1",
+      instructions: `Questions 1–6: Complete the notes below. Write ONE WORD ONLY for each answer.
+Questions 7–10: Complete the table below. Write ONE WORD ONLY for each answer.`,
+      passageText: `THORNDYKE'S BUILDERS
+
+Customer heard about Thorndyke's from a friend
+
+Name:                Edith 1 _______
+Address:             Flat 4, 2 _______ Park Flats
+                       (Behind the 3 _______)
+Phone number:       875934
+Best time to contact customer: during the 4 _______
+Where to park:       opposite entrance next to the 5 _______
+Needs full quote showing all the jobs and the 6 _______
+
+Area    | Work to be done                          | Notes
+Kitchen | Replace the 7 _______ in the door        | Fix tomorrow
+        | Paint wall above the 8 _______           | Strip paint and plaster approximately one 9 _______ in advance
+Garden  | One 10 _______ needs replacing (end of garden) |`,
+      questions: [
+        { id: "cam10-l-t4-s1-q1", number: 1, type: "note_completion", question: "1. Name: Edith _______", correctAnswer: "Pargetter", points: 1 },
+        { id: "cam10-l-t4-s1-q2", number: 2, type: "note_completion", question: "2. Flat 4, _______ Park Flats", correctAnswer: "East", points: 1 },
+        { id: "cam10-l-t4-s1-q3", number: 3, type: "note_completion", question: "3. (Behind the _______)", correctAnswer: "library", points: 1 },
+        { id: "cam10-l-t4-s1-q4", number: 4, type: "note_completion", question: "4. Best time to contact: during the _______", correctAnswer: "morning/mornings", points: 1 },
+        { id: "cam10-l-t4-s1-q5", number: 5, type: "note_completion", question: "5. Where to park: opposite entrance next to the _______", correctAnswer: "postbox", points: 1 },
+        { id: "cam10-l-t4-s1-q6", number: 6, type: "note_completion", question: "6. Needs full quote showing all the jobs and the _______", correctAnswer: "prices", points: 1 },
+        { id: "cam10-l-t4-s1-q7", number: 7, type: "table_completion", question: "7. Replace the _______ in the door", correctAnswer: "glass", points: 1 },
+        { id: "cam10-l-t4-s1-q8", number: 8, type: "table_completion", question: "8. Paint wall above the _______", correctAnswer: "cooker", points: 1 },
+        { id: "cam10-l-t4-s1-q9", number: 9, type: "table_completion", question: "9. Strip paint and plaster approximately one _______ in advance", correctAnswer: "week", points: 1 },
+        { id: "cam10-l-t4-s1-q10", number: 10, type: "table_completion", question: "10. One _______ needs replacing (end of garden)", correctAnswer: "fence", points: 1 },
+      ],
+    },
+    // ── PART 2 ─────────────────────────────────────────────
+    {
+      id: "cam10-l-t4-s2",
+      sectionNumber: 2,
+      title: "Part 2",
+      instructions: `Questions 11–15: Choose the correct letter, A, B or C.
+Questions 16–20: Complete the table below. Write NO MORE THAN TWO WORDS for each answer.`,
+      passageTitle: "MANHAM PORT",
+      passageText: `Tourist attractions in Manham
+
+Place             | Features and activities                                     | Advice
+copper mine       | specially adapted miners' 16 _______ take visitors into     | the mine is 17 _______ and enclosed –
+                  |   the mountain                                              |   unsuitable for children and animals
+village school    | classrooms and a special exhibition of 18 _______           | a 19 _______ is recommended
+'The George'      | the ship's wheel (was lost but has now been restored)       | children shouldn't use the 20 _______
+(old sailing ship)|                                                             |`,
+      questions: [
+        {
+          id: "cam10-l-t4-s2-q11", number: 11,
+          groupLabel: `Questions 11–15: Choose the correct letter, A, B or C.`,
+          type: "multiple_choice", question: "11. Why did a port originally develop at Manham?",
+          options: [
+            { label: "A  It was safe from enemy attack.", value: "A" },
+            { label: "B  It was convenient for river transport.", value: "B" },
+            { label: "C  It had a good position on the sea coast.", value: "C" },
+          ],
+          correctAnswer: "B", points: 1,
+        },
+        {
+          id: "cam10-l-t4-s2-q12", number: 12, type: "multiple_choice",
+          question: "12. What caused Manham's sudden expansion during the Industrial Revolution?",
+          options: [
+            { label: "A  the improvement in mining techniques", value: "A" },
+            { label: "B  the increase in demand for metals", value: "B" },
+            { label: "C  the discovery of tin in the area", value: "C" },
+          ],
+          correctAnswer: "B", points: 1,
+        },
+        {
+          id: "cam10-l-t4-s2-q13", number: 13, type: "multiple_choice",
+          question: "13. Why did rocks have to be sent away from Manham to be processed?",
+          options: [
+            { label: "A  shortage of fuel", value: "A" },
+            { label: "B  poor transport systems", value: "B" },
+            { label: "C  lack of skills among local people", value: "C" },
+          ],
+          correctAnswer: "A", points: 1,
+        },
+        {
+          id: "cam10-l-t4-s2-q14", number: 14, type: "multiple_choice",
+          question: "14. What happened when the port declined in the twentieth century?",
+          options: [
+            { label: "A  The workers went away.", value: "A" },
+            { label: "B  Traditional skills were lost.", value: "B" },
+            { label: "C  Buildings were used for new purposes.", value: "C" },
+          ],
+          correctAnswer: "A", points: 1,
+        },
+        {
+          id: "cam10-l-t4-s2-q15", number: 15, type: "multiple_choice",
+          question: "15. What did the Manham Trust hope to do?",
+          options: [
+            { label: "A  discover the location of the original port", value: "A" },
+            { label: "B  provide jobs for the unemployed", value: "B" },
+            { label: "C  rebuild the port complex", value: "C" },
+          ],
+          correctAnswer: "C", points: 1,
+        },
+        { id: "cam10-l-t4-s2-q16", number: 16, type: "table_completion", question: "16. specially adapted miners' _______ take visitors into the mountain", correctAnswer: "trains", points: 1 },
+        { id: "cam10-l-t4-s2-q17", number: 17, type: "table_completion", question: "17. the mine is _______ and enclosed", correctAnswer: "dark", points: 1 },
+        { id: "cam10-l-t4-s2-q18", number: 18, type: "table_completion", question: "18. classrooms and a special exhibition of _______", correctAnswer: "games", points: 1 },
+        { id: "cam10-l-t4-s2-q19", number: 19, type: "table_completion", question: "19. a _______ is recommended", correctAnswer: "guided tour", points: 1 },
+        { id: "cam10-l-t4-s2-q20", number: 20, type: "table_completion", question: "20. children shouldn't use the _______", correctAnswer: "ladder/ladders", points: 1 },
+      ],
+    },
+    // ── PART 3 ─────────────────────────────────────────────
+    {
+      id: "cam10-l-t4-s3",
+      sectionNumber: 3,
+      title: "Part 3",
+      instructions: `Questions 21 & 22: Choose TWO letters, A–E.
+Questions 23 & 24: Choose TWO letters, A–E.
+Questions 25–30: Match each stage of the work placement procedure with a source of information. Choose SIX answers from the box (A–G).`,
+      passageTitle: "Laura's work placement — Tim's planning",
+      questions: [
+        {
+          id: "cam10-l-t4-s3-q21", number: 21,
+          groupLabel: `Questions 21 and 22: Choose TWO letters, A–E.\n\nWhich TWO skills did Laura improve as a result of her work placement?\n\nA  communication\nB  design\nC  IT\nD  marketing\nE  organisation\n\n(Answers are accepted in either order.)`,
+          type: "multiple_choice", question: "21. Choose TWO (first answer)",
+          options: [
+            { label: "A  communication", value: "A" },
+            { label: "B  design", value: "B" },
+            { label: "C  IT", value: "C" },
+            { label: "D  marketing", value: "D" },
+            { label: "E  organisation", value: "E" },
+          ],
+          correctAnswer: "A/E", points: 1,
+        },
+        {
+          id: "cam10-l-t4-s3-q22", number: 22, type: "multiple_choice",
+          question: "22. Choose TWO (second answer)",
+          options: [
+            { label: "A  communication", value: "A" },
+            { label: "B  design", value: "B" },
+            { label: "C  IT", value: "C" },
+            { label: "D  marketing", value: "D" },
+            { label: "E  organisation", value: "E" },
+          ],
+          correctAnswer: "A/E", points: 1,
+        },
+        {
+          id: "cam10-l-t4-s3-q23", number: 23,
+          groupLabel: `Questions 23 and 24: Choose TWO letters, A–E.\n\nWhich TWO immediate benefits did the company get from Laura's work placement?\n\nA  updates for its software\nB  cost savings\nC  an improved image\nD  new clients\nE  a growth in sales\n\n(Answers are accepted in either order.)`,
+          type: "multiple_choice", question: "23. Choose TWO (first answer)",
+          options: [
+            { label: "A  updates for its software", value: "A" },
+            { label: "B  cost savings", value: "B" },
+            { label: "C  an improved image", value: "C" },
+            { label: "D  new clients", value: "D" },
+            { label: "E  a growth in sales", value: "E" },
+          ],
+          correctAnswer: "B/C", points: 1,
+        },
+        {
+          id: "cam10-l-t4-s3-q24", number: 24, type: "multiple_choice",
+          question: "24. Choose TWO (second answer)",
+          options: [
+            { label: "A  updates for its software", value: "A" },
+            { label: "B  cost savings", value: "B" },
+            { label: "C  an improved image", value: "C" },
+            { label: "D  new clients", value: "D" },
+            { label: "E  a growth in sales", value: "E" },
+          ],
+          correctAnswer: "B/C", points: 1,
+        },
+        {
+          id: "cam10-l-t4-s3-q25", number: 25,
+          groupLabel: `Questions 25–30: What source of information should Tim use at each of the following stages of the work placement? Choose SIX answers from the box (A–G).\n\nA  company manager\nB  company's personnel department\nC  personal tutor\nD  psychology department\nE  mentor\nF  university careers officer\nG  internet`,
+          type: "matching", question: "25. obtaining booklet",
+          options: [
+            { label: "A  company manager", value: "A" },
+            { label: "B  company's personnel department", value: "B" },
+            { label: "C  personal tutor", value: "C" },
+            { label: "D  psychology department", value: "D" },
+            { label: "E  mentor", value: "E" },
+            { label: "F  university careers officer", value: "F" },
+            { label: "G  internet", value: "G" },
+          ],
+          correctAnswer: "D", points: 1,
+        },
+        {
+          id: "cam10-l-t4-s3-q26", number: 26, type: "matching", question: "26. discussing options",
+          options: [
+            { label: "A  company manager", value: "A" },
+            { label: "B  company's personnel department", value: "B" },
+            { label: "C  personal tutor", value: "C" },
+            { label: "D  psychology department", value: "D" },
+            { label: "E  mentor", value: "E" },
+            { label: "F  university careers officer", value: "F" },
+            { label: "G  internet", value: "G" },
+          ],
+          correctAnswer: "F", points: 1,
+        },
+        {
+          id: "cam10-l-t4-s3-q27", number: 27, type: "matching", question: "27. getting updates",
+          options: [
+            { label: "A  company manager", value: "A" },
+            { label: "B  company's personnel department", value: "B" },
+            { label: "C  personal tutor", value: "C" },
+            { label: "D  psychology department", value: "D" },
+            { label: "E  mentor", value: "E" },
+            { label: "F  university careers officer", value: "F" },
+            { label: "G  internet", value: "G" },
+          ],
+          correctAnswer: "G", points: 1,
+        },
+        {
+          id: "cam10-l-t4-s3-q28", number: 28, type: "matching", question: "28. responding to invitation for interview",
+          options: [
+            { label: "A  company manager", value: "A" },
+            { label: "B  company's personnel department", value: "B" },
+            { label: "C  personal tutor", value: "C" },
+            { label: "D  psychology department", value: "D" },
+            { label: "E  mentor", value: "E" },
+            { label: "F  university careers officer", value: "F" },
+            { label: "G  internet", value: "G" },
+          ],
+          correctAnswer: "B", points: 1,
+        },
+        {
+          id: "cam10-l-t4-s3-q29", number: 29, type: "matching", question: "29. informing about outcome of interview",
+          options: [
+            { label: "A  company manager", value: "A" },
+            { label: "B  company's personnel department", value: "B" },
+            { label: "C  personal tutor", value: "C" },
+            { label: "D  psychology department", value: "D" },
+            { label: "E  mentor", value: "E" },
+            { label: "F  university careers officer", value: "F" },
+            { label: "G  internet", value: "G" },
+          ],
+          correctAnswer: "E", points: 1,
+        },
+        {
+          id: "cam10-l-t4-s3-q30", number: 30, type: "matching", question: "30. requesting a reference",
+          options: [
+            { label: "A  company manager", value: "A" },
+            { label: "B  company's personnel department", value: "B" },
+            { label: "C  personal tutor", value: "C" },
+            { label: "D  psychology department", value: "D" },
+            { label: "E  mentor", value: "E" },
+            { label: "F  university careers officer", value: "F" },
+            { label: "G  internet", value: "G" },
+          ],
+          correctAnswer: "C", points: 1,
+        },
+      ],
+    },
+    // ── PART 4 ─────────────────────────────────────────────
+    {
+      id: "cam10-l-t4-s4",
+      sectionNumber: 4,
+      title: "Part 4",
+      instructions: `Questions 31–33: Choose the correct letter, A, B or C.
+Questions 34–40: Complete the notes below. Write ONE WORD ONLY for each answer.`,
+      passageTitle: "Nanotechnology: technology on a small scale",
+      passageText: `Uses of Nanotechnology
+
+Transport
+●  Nanotechnology could allow the development of stronger 34 _______
+●  Planes would be much lighter in weight.
+●  35 _______ travel will be made available to the masses.
+
+Technology
+●  Computers will be even smaller, faster, and will have a greater 36 _______
+●  37 _______ energy will become more affordable.
+
+The Environment
+●  Nano-robots could rebuild the ozone layer.
+●  Pollutants such as 38 _______ could be removed from water
+●  There will be no 39 _______ from manufacturing.
+
+Health and Medicine
+●  New methods of food production could eradicate famine.
+●  Analysis of medical 40 _______ will be speeded up.
+●  Life expectancy could be increased.`,
+      questions: [
+        {
+          id: "cam10-l-t4-s4-q31", number: 31,
+          groupLabel: `Questions 31–33: Choose the correct letter, A, B or C.`,
+          type: "multiple_choice", question: "31. The speaker says that one problem with nanotechnology is that",
+          options: [
+            { label: "A  it could threaten our way of life.", value: "A" },
+            { label: "B  it could be used to spy on people.", value: "B" },
+            { label: "C  it is misunderstood by the public.", value: "C" },
+          ],
+          correctAnswer: "C", points: 1,
+        },
+        {
+          id: "cam10-l-t4-s4-q32", number: 32, type: "multiple_choice",
+          question: "32. According to the speaker, some scientists believe that nano-particles",
+          options: [
+            { label: "A  should be restricted to secure environments.", value: "A" },
+            { label: "B  should be used with more caution.", value: "B" },
+            { label: "C  should only be developed for essential products.", value: "C" },
+          ],
+          correctAnswer: "B", points: 1,
+        },
+        {
+          id: "cam10-l-t4-s4-q33", number: 33, type: "multiple_choice",
+          question: "33. In the speaker's opinion, research into nanotechnology",
+          options: [
+            { label: "A  has yet to win popular support.", value: "A" },
+            { label: "B  could be seen as unethical.", value: "B" },
+            { label: "C  ought to be continued.", value: "C" },
+          ],
+          correctAnswer: "C", points: 1,
+        },
+        { id: "cam10-l-t4-s4-q34", number: 34, type: "note_completion", question: "34. development of stronger _______", correctAnswer: "metal/metals", points: 1 },
+        { id: "cam10-l-t4-s4-q35", number: 35, type: "note_completion", question: "35. _______ travel will be made available to the masses", correctAnswer: "space", points: 1 },
+        { id: "cam10-l-t4-s4-q36", number: 36, type: "note_completion", question: "36. computers will have a greater _______", correctAnswer: "memory", points: 1 },
+        { id: "cam10-l-t4-s4-q37", number: 37, type: "note_completion", question: "37. _______ energy will become more affordable", correctAnswer: "solar", points: 1 },
+        { id: "cam10-l-t4-s4-q38", number: 38, type: "note_completion", question: "38. Pollutants such as _______ could be removed from water", correctAnswer: "oil", points: 1 },
+        { id: "cam10-l-t4-s4-q39", number: 39, type: "note_completion", question: "39. no _______ from manufacturing", correctAnswer: "waste", points: 1 },
+        { id: "cam10-l-t4-s4-q40", number: 40, type: "note_completion", question: "40. Analysis of medical _______ will be speeded up", correctAnswer: "tests", points: 1 },
+      ],
+    },
+  ],
+};
+
 export const cambridge10ListeningTests: IELTSTest[] = [
   cambridge10_listening_t1,
   cambridge10_listening_t2,
   cambridge10_listening_t3,
+  cambridge10_listening_t4,
 ];
