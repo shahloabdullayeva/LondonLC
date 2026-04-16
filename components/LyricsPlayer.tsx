@@ -15,6 +15,7 @@ import type { Song } from "@/data/songs";
 type YTPlayer = {
   getCurrentTime: () => number;
   seekTo: (seconds: number, allowSeekAhead: boolean) => void;
+  getIframe?: () => HTMLIFrameElement;
   destroy?: () => void;
 };
 
@@ -126,22 +127,19 @@ export default function LyricsPlayer({ song }: { song: Song }) {
       if (destroyed || !playerContainerRef.current) return;
       // Clear any previous player
       playerContainerRef.current.innerHTML = "";
-      // Host div must be sized to the full container so YT's 100% /
-      // 100% width/height actually fills the aspect-ratio wrapper
-      // (a plain unstyled div has 0 height by default).
       const host = document.createElement("div");
       host.id = `yt-${song.id}`;
+      // Fill the aspect-ratio wrapper so the iframe YT creates
+      // inside has a non-zero box to expand into.
       host.style.width = "100%";
       host.style.height = "100%";
       playerContainerRef.current.appendChild(host);
 
       const w = window as unknown as { YT: { Player: new (id: string, opts: Record<string, unknown>) => YTPlayer } };
+      // Don't pass "100%" as a string for width/height — the YT API
+      // expects numbers and silently misbehaves on strings. We size
+      // the iframe AFTER onReady via getIframe() + inline styles.
       const p = new w.YT.Player(host.id, {
-        // Fill the container — without these the API uses 640x390
-        // defaults and the iframe floats at the top-left of the
-        // wrapper leaving black bars around it.
-        width: "100%",
-        height: "100%",
         videoId: song.youtubeId,
         playerVars: {
           rel: 0,          // no unrelated suggestions at the end
@@ -149,7 +147,17 @@ export default function LyricsPlayer({ song }: { song: Song }) {
           playsinline: 1,   // iOS inline playback
         },
         events: {
-          onReady: () => !destroyed && setReady(true),
+          onReady: (e: { target: YTPlayer }) => {
+            if (destroyed) return;
+            const iframe = e.target.getIframe?.();
+            if (iframe) {
+              iframe.style.width = "100%";
+              iframe.style.height = "100%";
+              iframe.style.border = "0";
+              iframe.setAttribute("allowfullscreen", "");
+            }
+            setReady(true);
+          },
           // 1 = PLAYING (YT.PlayerState.PLAYING)
           onStateChange: (e: { data: number }) => !destroyed && setPlaying(e.data === 1),
         },
@@ -329,9 +337,29 @@ export default function LyricsPlayer({ song }: { song: Song }) {
         )}
       </div>
 
-      <p style={{ fontSize: 11, color: "var(--site-text-sub)", letterSpacing: "0.1em", textTransform: "uppercase", textAlign: "center", margin: 0 }}>
-        Tap any line to jump to it · Lyrics from lrclib.net
-      </p>
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12, flexWrap: "wrap" }}>
+        <p style={{ fontSize: 11, color: "var(--site-text-sub)", letterSpacing: "0.1em", textTransform: "uppercase", margin: 0 }}>
+          Tap any line to jump to it · Lyrics from lrclib.net
+        </p>
+        {/* Always-visible fallback link — if the embed says "Video
+            unavailable" (restricted, embed-disabled, wrong ID, etc.)
+            the student can still open the track on YouTube directly. */}
+        <a
+          href={`https://www.youtube.com/watch?v=${song.youtubeId}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{
+            fontSize: 11, letterSpacing: "0.1em", textTransform: "uppercase",
+            color: "var(--site-accent)", textDecoration: "none",
+            padding: "6px 12px", borderRadius: 8,
+            border: "1px solid var(--site-accent-border)",
+            background: "var(--site-accent-dim)",
+            fontWeight: 600,
+          }}
+        >
+          Watch on YouTube ↗
+        </a>
+      </div>
     </div>
   );
 }
