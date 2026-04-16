@@ -806,8 +806,7 @@ export const cambridge19_listening_t3: IELTSTest = {
       id: "cam19-l-t3-s1",
       sectionNumber: 1,
       title: "Part 1",
-      instructions: `Questions 1–6: Complete the notes below. Write ONE WORD AND/OR A NUMBER for each answer.
-Questions 7–10: Complete the table below. Write ONE WORD ONLY for each answer.`,
+      instructions: `Questions 1–10: Complete the notes below. Write ONE WORD AND/OR A NUMBER for each answer.`,
       passageText: `Local food shops
 
 Where to go
@@ -1219,8 +1218,7 @@ export const cambridge19_listening_t4: IELTSTest = {
       id: "cam19-l-t4-s1",
       sectionNumber: 1,
       title: "Part 1",
-      instructions: `Questions 1–6: Complete the notes below. Write ONE WORD AND/OR A NUMBER for each answer.
-Questions 7–10: Complete the table below. Write ONE WORD ONLY for each answer.`,
+      instructions: `Questions 1–10: Complete the notes below. Write ONE WORD AND/OR A NUMBER for each answer.`,
       passageText: `First day at work
 
 ●  Name of supervisor: 1 _______

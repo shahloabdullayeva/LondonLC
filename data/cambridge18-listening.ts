@@ -401,8 +401,7 @@ export const cambridge18_listening_t2: IELTSTest = {
       id: "cam18-l-t2-s1",
       sectionNumber: 1,
       title: "Part 1",
-      instructions: `Questions 1–5: Complete the notes below. Write ONE WORD ONLY for each answer.
-Questions 6–10: Complete the table below. Write ONE WORD AND/OR A NUMBER for each answer.`,
+      instructions: `Questions 1–10: Complete the notes below. Write ONE WORD AND/OR A NUMBER for each answer.`,
       passageText: `Working at Milo's Restaurants
 
 Benefits

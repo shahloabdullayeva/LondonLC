@@ -396,8 +396,7 @@ export const cambridge17_listening_t2: IELTSTest = {
       id: "cam17-l-t2-s1",
       sectionNumber: 1,
       title: "Part 1",
-      instructions: `Questions 1–7: Complete the notes below. Write ONE WORD ONLY for each answer.
-Questions 8–10: Complete the table below. Write ONE WORD ONLY for each answer.`,
+      instructions: `Questions 1–10: Complete the notes below. Write ONE WORD ONLY for each answer.`,
       passageText: `Opportunities for voluntary work in Southoe village
 
 Library
