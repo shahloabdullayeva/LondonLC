@@ -1017,8 +1017,346 @@ Europe from 17th century:
   ],
 };
 
+// ============================================================
+// CAMBRIDGE IELTS 15 – LISTENING TEST 4
+// Parts: 1) Customer satisfaction survey — train journey (form)
+//        2) Park facilities (map labelling A–H + two Choose-TWO)
+//        3) Annie & Jack — refrigeration presentation (MCQ +
+//           topic → person matching A/B/C)
+//        4) How the Industrial Revolution affected life in
+//           Britain (notes)
+// ============================================================
+export const cambridge15_listening_t4: IELTSTest = {
+  id: "cam15-listening-t4",
+  title: "Cambridge IELTS 15 – Listening Test 4",
+  bookNumber: 15,
+  testNumber: 4,
+  type: "listening",
+  level: "academic",
+  durationMinutes: 30,
+  transferMinutes: 2,
+  audioUrl: audioUrl("cam15-listening-t4.mp3"),
+  audioDurationSeconds: 1800,
+  sections: [
+    // ── PART 1 ─────────────────────────────────────────────
+    {
+      id: "cam15-l-t4-s1",
+      sectionNumber: 1,
+      title: "Part 1",
+      instructions: `Questions 1–10: Complete the form below. Write ONE WORD AND/OR A NUMBER for each answer.`,
+      passageText: `Customer Satisfaction Survey
+
+Customer details
+Name: Sophie Bird
+Occupation: 1 _______
+Reason for travel today: 2 _______
+
+Journey information
+Name of station returning to: 3 _______
+Type of ticket purchased: Standard 4 _______ ticket
+Cost of ticket: £ 5 _______
+When ticket was purchased: Yesterday
+Where ticket was bought: 6 _______
+
+Satisfaction with journey
+Most satisfied with: the wifi
+Least satisfied with: the 7 _______ this morning.
+
+Satisfaction with station facilities
+Most satisfied with: how much 8 _______ was provided
+Least satisfied with: lack of seats, particularly on the 9 _______
+
+Neither satisfied nor dissatisfied with: the 10 _______ available`,
+      questions: [
+        { id: "cam15-l-t4-s1-q1", number: 1, type: "note_completion", question: "1. Occupation: _______", correctAnswer: "journalist", points: 1 },
+        { id: "cam15-l-t4-s1-q2", number: 2, type: "note_completion", question: "2. Reason for travel today: _______", correctAnswer: "shopping", points: 1 },
+        { id: "cam15-l-t4-s1-q3", number: 3, type: "note_completion", question: "3. Name of station returning to: _______", correctAnswer: "Staunfirth", points: 1 },
+        { id: "cam15-l-t4-s1-q4", number: 4, type: "note_completion", question: "4. Type of ticket purchased: Standard _______ ticket", correctAnswer: "return", points: 1 },
+        { id: "cam15-l-t4-s1-q5", number: 5, type: "note_completion", question: "5. Cost of ticket: £ _______", correctAnswer: "23.70", points: 1 },
+        { id: "cam15-l-t4-s1-q6", number: 6, type: "note_completion", question: "6. Where ticket was bought: _______", correctAnswer: "online", points: 1 },
+        { id: "cam15-l-t4-s1-q7", number: 7, type: "note_completion", question: "7. Least satisfied with: the _______ this morning", correctAnswer: "delay", points: 1 },
+        { id: "cam15-l-t4-s1-q8", number: 8, type: "note_completion", question: "8. how much _______ was provided", correctAnswer: "information", points: 1 },
+        { id: "cam15-l-t4-s1-q9", number: 9, type: "note_completion", question: "9. lack of seats, particularly on the _______", correctAnswer: "platform/platforms", points: 1 },
+        { id: "cam15-l-t4-s1-q10", number: 10, type: "note_completion", question: "10. the _______ available", correctAnswer: "parking", points: 1 },
+      ],
+    },
+    // ── PART 2 ─────────────────────────────────────────────
+    {
+      id: "cam15-l-t4-s2",
+      sectionNumber: 2,
+      title: "Part 2",
+      instructions: `Questions 11–16: Label the map below. Write the correct letter, A–H, next to each location.
+Questions 17 & 18: Choose TWO letters, A–E.
+Questions 19 & 20: Choose TWO letters, A–E.`,
+      passageTitle: "Park facilities",
+      diagramUrl: imageUrl("cam15test3map.png"),
+      questions: [
+        {
+          id: "cam15-l-t4-s2-q11", number: 11,
+          groupLabel: `Questions 11–16: Label the map of the park above. Write the correct letter, A–H, next to each location.`,
+          type: "matching", question: "11. café",
+          options: [
+            { label: "A", value: "A" }, { label: "B", value: "B" }, { label: "C", value: "C" },
+            { label: "D", value: "D" }, { label: "E", value: "E" }, { label: "F", value: "F" },
+            { label: "G", value: "G" }, { label: "H", value: "H" },
+          ],
+          correctAnswer: "D", points: 1,
+        },
+        {
+          id: "cam15-l-t4-s2-q12", number: 12, type: "matching", question: "12. toilets",
+          options: [
+            { label: "A", value: "A" }, { label: "B", value: "B" }, { label: "C", value: "C" },
+            { label: "D", value: "D" }, { label: "E", value: "E" }, { label: "F", value: "F" },
+            { label: "G", value: "G" }, { label: "H", value: "H" },
+          ],
+          correctAnswer: "C", points: 1,
+        },
+        {
+          id: "cam15-l-t4-s2-q13", number: 13, type: "matching", question: "13. formal gardens",
+          options: [
+            { label: "A", value: "A" }, { label: "B", value: "B" }, { label: "C", value: "C" },
+            { label: "D", value: "D" }, { label: "E", value: "E" }, { label: "F", value: "F" },
+            { label: "G", value: "G" }, { label: "H", value: "H" },
+          ],
+          correctAnswer: "G", points: 1,
+        },
+        {
+          id: "cam15-l-t4-s2-q14", number: 14, type: "matching", question: "14. outdoor gym",
+          options: [
+            { label: "A", value: "A" }, { label: "B", value: "B" }, { label: "C", value: "C" },
+            { label: "D", value: "D" }, { label: "E", value: "E" }, { label: "F", value: "F" },
+            { label: "G", value: "G" }, { label: "H", value: "H" },
+          ],
+          correctAnswer: "H", points: 1,
+        },
+        {
+          id: "cam15-l-t4-s2-q15", number: 15, type: "matching", question: "15. skateboard ramp",
+          options: [
+            { label: "A", value: "A" }, { label: "B", value: "B" }, { label: "C", value: "C" },
+            { label: "D", value: "D" }, { label: "E", value: "E" }, { label: "F", value: "F" },
+            { label: "G", value: "G" }, { label: "H", value: "H" },
+          ],
+          correctAnswer: "A", points: 1,
+        },
+        {
+          id: "cam15-l-t4-s2-q16", number: 16, type: "matching", question: "16. wild flowers",
+          options: [
+            { label: "A", value: "A" }, { label: "B", value: "B" }, { label: "C", value: "C" },
+            { label: "D", value: "D" }, { label: "E", value: "E" }, { label: "F", value: "F" },
+            { label: "G", value: "G" }, { label: "H", value: "H" },
+          ],
+          correctAnswer: "E", points: 1,
+        },
+        {
+          id: "cam15-l-t4-s2-q17", number: 17,
+          groupLabel: `Questions 17 and 18: Choose TWO letters, A–E.\n\nWhat does the speaker say about the adventure playground?\n\nA  Children must be supervised.\nB  It costs more in winter.\nC  Some activities are only for younger children.\nD  No payment is required.\nE  It was recently expanded.\n\n(Answers are accepted in either order.)`,
+          type: "multiple_choice", question: "17. Choose TWO (first answer)",
+          options: [
+            { label: "A  Children must be supervised.", value: "A" },
+            { label: "B  It costs more in winter.", value: "B" },
+            { label: "C  Some activities are only for younger children.", value: "C" },
+            { label: "D  No payment is required.", value: "D" },
+            { label: "E  It was recently expanded.", value: "E" },
+          ],
+          correctAnswer: "A/D", points: 1,
+        },
+        {
+          id: "cam15-l-t4-s2-q18", number: 18, type: "multiple_choice",
+          question: "18. Choose TWO (second answer)",
+          options: [
+            { label: "A  Children must be supervised.", value: "A" },
+            { label: "B  It costs more in winter.", value: "B" },
+            { label: "C  Some activities are only for younger children.", value: "C" },
+            { label: "D  No payment is required.", value: "D" },
+            { label: "E  It was recently expanded.", value: "E" },
+          ],
+          correctAnswer: "A/D", points: 1,
+        },
+        {
+          id: "cam15-l-t4-s2-q19", number: 19,
+          groupLabel: `Questions 19 and 20: Choose TWO letters, A–E.\n\nWhat does the speaker say about the glass houses?\n\nA  They are closed at weekends.\nB  Volunteers are needed to work there.\nC  They were badly damaged by fire.\nD  More money is needed to repair some of the glass.\nE  Visitors can see palm trees from tropical regions.\n\n(Answers are accepted in either order.)`,
+          type: "multiple_choice", question: "19. Choose TWO (first answer)",
+          options: [
+            { label: "A  They are closed at weekends.", value: "A" },
+            { label: "B  Volunteers are needed to work there.", value: "B" },
+            { label: "C  They were badly damaged by fire.", value: "C" },
+            { label: "D  More money is needed to repair some of the glass.", value: "D" },
+            { label: "E  Visitors can see palm trees from tropical regions.", value: "E" },
+          ],
+          correctAnswer: "A/C", points: 1,
+        },
+        {
+          id: "cam15-l-t4-s2-q20", number: 20, type: "multiple_choice",
+          question: "20. Choose TWO (second answer)",
+          options: [
+            { label: "A  They are closed at weekends.", value: "A" },
+            { label: "B  Volunteers are needed to work there.", value: "B" },
+            { label: "C  They were badly damaged by fire.", value: "C" },
+            { label: "D  More money is needed to repair some of the glass.", value: "D" },
+            { label: "E  Visitors can see palm trees from tropical regions.", value: "E" },
+          ],
+          correctAnswer: "A/C", points: 1,
+        },
+      ],
+    },
+    // ── PART 3 ─────────────────────────────────────────────
+    {
+      id: "cam15-l-t4-s3",
+      sectionNumber: 3,
+      title: "Part 3",
+      instructions: `Questions 21–24: Choose the correct letter, A, B or C.
+Questions 25–30: Match each research topic with the person who will research it. Write A, B or C next to each topic.`,
+      passageTitle: "Annie & Jack — presentation about refrigeration",
+      questions: [
+        {
+          id: "cam15-l-t4-s3-q21", number: 21,
+          groupLabel: `Questions 21–24: Choose the correct letter, A, B or C.`,
+          type: "multiple_choice", question: "21. What did Annie discover from reading about icehouses?",
+          options: [
+            { label: "A  why they were first created", value: "A" },
+            { label: "B  how the ice was kept frozen", value: "B" },
+            { label: "C  where they were located", value: "C" },
+          ],
+          correctAnswer: "B", points: 1,
+        },
+        {
+          id: "cam15-l-t4-s3-q22", number: 22, type: "multiple_choice",
+          question: "22. What point does Annie make about refrigeration in ancient Rome?",
+          options: [
+            { label: "A  It became a commercial business.", value: "A" },
+            { label: "B  It used snow from nearby.", value: "B" },
+            { label: "C  It took a long time to become popular.", value: "C" },
+          ],
+          correctAnswer: "A", points: 1,
+        },
+        {
+          id: "cam15-l-t4-s3-q23", number: 23, type: "multiple_choice",
+          question: "23. In connection with modern refrigerators, both Annie and Jack are worried about",
+          options: [
+            { label: "A  the complexity of the technology.", value: "A" },
+            { label: "B  the fact that some are disposed of irresponsibly.", value: "B" },
+            { label: "C  the large number that quickly break down.", value: "C" },
+          ],
+          correctAnswer: "B", points: 1,
+        },
+        {
+          id: "cam15-l-t4-s3-q24", number: 24, type: "multiple_choice",
+          question: "24. What do Jack and Annie agree regarding domestic fridges?",
+          options: [
+            { label: "A  They are generally good value for money.", value: "A" },
+            { label: "B  There are plenty of useful variations.", value: "B" },
+            { label: "C  They are more useful than other domestic appliances.", value: "C" },
+          ],
+          correctAnswer: "A", points: 1,
+        },
+        {
+          id: "cam15-l-t4-s3-q25", number: 25,
+          groupLabel: `Questions 25–30: Who is going to do research into each topic? Write the correct letter next to each topic.\n\nA  Annie\nB  Jack\nC  both Annie and Jack\n\n(Letters may be used more than once.)`,
+          type: "matching", question: "25. the goods that are refrigerated",
+          options: [
+            { label: "A  Annie", value: "A" },
+            { label: "B  Jack", value: "B" },
+            { label: "C  both Annie and Jack", value: "C" },
+          ],
+          correctAnswer: "A", points: 1,
+        },
+        {
+          id: "cam15-l-t4-s3-q26", number: 26, type: "matching", question: "26. the effects on health",
+          options: [
+            { label: "A  Annie", value: "A" },
+            { label: "B  Jack", value: "B" },
+            { label: "C  both Annie and Jack", value: "C" },
+          ],
+          correctAnswer: "A", points: 1,
+        },
+        {
+          id: "cam15-l-t4-s3-q27", number: 27, type: "matching", question: "27. the impact on food producers",
+          options: [
+            { label: "A  Annie", value: "A" },
+            { label: "B  Jack", value: "B" },
+            { label: "C  both Annie and Jack", value: "C" },
+          ],
+          correctAnswer: "B", points: 1,
+        },
+        {
+          id: "cam15-l-t4-s3-q28", number: 28, type: "matching", question: "28. the impact on cities",
+          options: [
+            { label: "A  Annie", value: "A" },
+            { label: "B  Jack", value: "B" },
+            { label: "C  both Annie and Jack", value: "C" },
+          ],
+          correctAnswer: "B", points: 1,
+        },
+        {
+          id: "cam15-l-t4-s3-q29", number: 29, type: "matching", question: "29. refrigerated transport",
+          options: [
+            { label: "A  Annie", value: "A" },
+            { label: "B  Jack", value: "B" },
+            { label: "C  both Annie and Jack", value: "C" },
+          ],
+          correctAnswer: "A", points: 1,
+        },
+        {
+          id: "cam15-l-t4-s3-q30", number: 30, type: "matching", question: "30. domestic fridges",
+          options: [
+            { label: "A  Annie", value: "A" },
+            { label: "B  Jack", value: "B" },
+            { label: "C  both Annie and Jack", value: "C" },
+          ],
+          correctAnswer: "C", points: 1,
+        },
+      ],
+    },
+    // ── PART 4 ─────────────────────────────────────────────
+    {
+      id: "cam15-l-t4-s4",
+      sectionNumber: 4,
+      title: "Part 4",
+      instructions: `Questions 31–40: Complete the notes below. Write ONE WORD ONLY for each answer.`,
+      passageText: `How the Industrial Revolution affected life in Britain
+
+19th century
+●  For the first time, people's possessions were used to measure Britain's 31 _______.
+●  Developments in production of goods and in 32 _______ greatly changed lives.
+
+MAIN AREAS OF CHANGE
+
+Manufacturing
+●  The Industrial Revolution would not have happened without the new types of 33 _______ that were used then.
+●  The leading industry was 34 _______ (its products became widely available).
+●  New 35 _______ made factories necessary and so more people moved into towns.
+
+Transport
+●  The railways took the place of canals.
+●  Because of the new transport:
+   –  greater access to 36 _______ made people more aware of what they could buy in shops.
+   –  when shopping, people were not limited to buying 37 _______ goods.
+
+Retailing
+●  The first department stores were opened.
+●  The displays of goods were more visible:
+   –  inside stores because of better 38 _______.
+   –  outside stores, because 39 _______ were bigger.
+●  40 _______ that was persuasive became much more common.`,
+      questions: [
+        { id: "cam15-l-t4-s4-q31", number: 31, type: "note_completion", question: "31. people's possessions were used to measure Britain's _______", correctAnswer: "wealth", points: 1 },
+        { id: "cam15-l-t4-s4-q32", number: 32, type: "note_completion", question: "32. Developments in production of goods and in _______ greatly changed lives", correctAnswer: "technology", points: 1 },
+        { id: "cam15-l-t4-s4-q33", number: 33, type: "note_completion", question: "33. new types of _______ that were used then", correctAnswer: "power", points: 1 },
+        { id: "cam15-l-t4-s4-q34", number: 34, type: "note_completion", question: "34. The leading industry was _______", correctAnswer: "textile/textiles", points: 1 },
+        { id: "cam15-l-t4-s4-q35", number: 35, type: "note_completion", question: "35. New _______ made factories necessary", correctAnswer: "machines", points: 1 },
+        { id: "cam15-l-t4-s4-q36", number: 36, type: "note_completion", question: "36. greater access to _______ made people more aware", correctAnswer: "newspapers", points: 1 },
+        { id: "cam15-l-t4-s4-q37", number: 37, type: "note_completion", question: "37. not limited to buying _______ goods", correctAnswer: "local", points: 1 },
+        { id: "cam15-l-t4-s4-q38", number: 38, type: "note_completion", question: "38. inside stores because of better _______", correctAnswer: "lighting", points: 1 },
+        { id: "cam15-l-t4-s4-q39", number: 39, type: "note_completion", question: "39. outside stores, because _______ were bigger", correctAnswer: "windows", points: 1 },
+        { id: "cam15-l-t4-s4-q40", number: 40, type: "note_completion", question: "40. _______ that was persuasive became much more common", correctAnswer: "advertising", points: 1 },
+      ],
+    },
+  ],
+};
+
 export const cambridge15ListeningTests: IELTSTest[] = [
   cambridge15_listening_t1,
   cambridge15_listening_t2,
   cambridge15_listening_t3,
+  cambridge15_listening_t4,
 ];
