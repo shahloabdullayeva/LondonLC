@@ -665,7 +665,397 @@ Episodic memory impairments
   ],
 };
 
+// ============================================================
+// CAMBRIDGE IELTS 13 – LISTENING TEST 3
+// Parts: 1) Moving to Banford City — Linda (notes)
+//        2) Physical activities (activity → advantage matching A–G
+//           + two Choose-TWO on gym drop-outs and goal-setting)
+//        3) Jim — project on natural dyes for fabrics (MCQ +
+//           dye → problem matching A–H)
+//        4) The sleepy lizard — tiliqua rugosa (notes)
+// ============================================================
+export const cambridge13_listening_t3: IELTSTest = {
+  id: "cam13-listening-t3",
+  title: "Cambridge IELTS 13 – Listening Test 3",
+  bookNumber: 13,
+  testNumber: 3,
+  type: "listening",
+  level: "academic",
+  durationMinutes: 30,
+  transferMinutes: 2,
+  audioUrl: audioUrl("cam13-listening-t3.mp3"),
+  audioDurationSeconds: 1800,
+  sections: [
+    // ── PART 1 ─────────────────────────────────────────────
+    {
+      id: "cam13-l-t3-s1",
+      sectionNumber: 1,
+      title: "Part 1",
+      instructions: `Questions 1–10: Complete the notes below. Write ONE WORD AND/OR A NUMBER for each answer.`,
+      passageText: `Moving to Banford City
+
+Linda recommends living in suburb of: Dalton
+
+Accommodation
+●  Average rent: £ 1 _______ a month
+
+Transport
+●  Linda travels to work by 2 _______
+●  Limited 3 _______ in city centre
+●  Trains to London every 4 _______ minutes
+●  Poor train service at 5 _______
+
+Advantages of living in Banford
+●  New 6 _______ opened recently
+●  7 _______ has excellent reputation
+●  Good 8 _______ on Bridge Street
+
+Meet Linda
+●  Meet Linda on 9 _______ after 5.30 p.m.
+●  In the 10 _______ opposite the station`,
+      questions: [
+        { id: "cam13-l-t3-s1-q1", number: 1, type: "note_completion", question: "1. Average rent: £ _______ a month", correctAnswer: "850", points: 1 },
+        { id: "cam13-l-t3-s1-q2", number: 2, type: "note_completion", question: "2. Linda travels to work by _______", correctAnswer: "bike/bicycle", points: 1 },
+        { id: "cam13-l-t3-s1-q3", number: 3, type: "note_completion", question: "3. Limited _______ in city centre", correctAnswer: "parking", points: 1 },
+        { id: "cam13-l-t3-s1-q4", number: 4, type: "note_completion", question: "4. Trains to London every _______ minutes", correctAnswer: "30/thirty", points: 1 },
+        { id: "cam13-l-t3-s1-q5", number: 5, type: "note_completion", question: "5. Poor train service at _______", correctAnswer: "weekend/weekends", points: 1 },
+        { id: "cam13-l-t3-s1-q6", number: 6, type: "note_completion", question: "6. New _______ opened recently", correctAnswer: "cinema", points: 1 },
+        { id: "cam13-l-t3-s1-q7", number: 7, type: "note_completion", question: "7. _______ has excellent reputation", correctAnswer: "hospital", points: 1 },
+        { id: "cam13-l-t3-s1-q8", number: 8, type: "note_completion", question: "8. Good _______ on Bridge Street", correctAnswer: "dentist", points: 1 },
+        { id: "cam13-l-t3-s1-q9", number: 9, type: "note_completion", question: "9. Meet Linda on _______ after 5.30 p.m.", correctAnswer: "Thursday", points: 1 },
+        { id: "cam13-l-t3-s1-q10", number: 10, type: "note_completion", question: "10. In the _______ opposite the station", correctAnswer: "café/cafe", points: 1 },
+      ],
+    },
+    // ── PART 2 ─────────────────────────────────────────────
+    {
+      id: "cam13-l-t3-s2",
+      sectionNumber: 2,
+      title: "Part 2",
+      instructions: `Questions 11–16: Match each physical activity with its advantage. Choose SIX answers from the box (A–G).
+Questions 17 & 18: Choose TWO letters, A–E.
+Questions 19 & 20: Choose TWO letters, A–E.`,
+      passageTitle: "Physical activities",
+      questions: [
+        {
+          id: "cam13-l-t3-s2-q11", number: 11,
+          groupLabel: `Questions 11–16: What advantage does the speaker mention for each of the following physical activities? Choose SIX answers from the box (A–G).\n\nA  not dependent on season\nB  enjoyable\nC  low risk of injury\nD  fitness level unimportant\nE  sociable\nF  fast results\nG  motivating`,
+          type: "matching", question: "11. using a gym",
+          options: [
+            { label: "A  not dependent on season", value: "A" },
+            { label: "B  enjoyable", value: "B" },
+            { label: "C  low risk of injury", value: "C" },
+            { label: "D  fitness level unimportant", value: "D" },
+            { label: "E  sociable", value: "E" },
+            { label: "F  fast results", value: "F" },
+            { label: "G  motivating", value: "G" },
+          ],
+          correctAnswer: "F", points: 1,
+        },
+        {
+          id: "cam13-l-t3-s2-q12", number: 12, type: "matching", question: "12. running",
+          options: [
+            { label: "A  not dependent on season", value: "A" },
+            { label: "B  enjoyable", value: "B" },
+            { label: "C  low risk of injury", value: "C" },
+            { label: "D  fitness level unimportant", value: "D" },
+            { label: "E  sociable", value: "E" },
+            { label: "F  fast results", value: "F" },
+            { label: "G  motivating", value: "G" },
+          ],
+          correctAnswer: "D", points: 1,
+        },
+        {
+          id: "cam13-l-t3-s2-q13", number: 13, type: "matching", question: "13. swimming",
+          options: [
+            { label: "A  not dependent on season", value: "A" },
+            { label: "B  enjoyable", value: "B" },
+            { label: "C  low risk of injury", value: "C" },
+            { label: "D  fitness level unimportant", value: "D" },
+            { label: "E  sociable", value: "E" },
+            { label: "F  fast results", value: "F" },
+            { label: "G  motivating", value: "G" },
+          ],
+          correctAnswer: "A", points: 1,
+        },
+        {
+          id: "cam13-l-t3-s2-q14", number: 14, type: "matching", question: "14. cycling",
+          options: [
+            { label: "A  not dependent on season", value: "A" },
+            { label: "B  enjoyable", value: "B" },
+            { label: "C  low risk of injury", value: "C" },
+            { label: "D  fitness level unimportant", value: "D" },
+            { label: "E  sociable", value: "E" },
+            { label: "F  fast results", value: "F" },
+            { label: "G  motivating", value: "G" },
+          ],
+          correctAnswer: "B", points: 1,
+        },
+        {
+          id: "cam13-l-t3-s2-q15", number: 15, type: "matching", question: "15. doing yoga",
+          options: [
+            { label: "A  not dependent on season", value: "A" },
+            { label: "B  enjoyable", value: "B" },
+            { label: "C  low risk of injury", value: "C" },
+            { label: "D  fitness level unimportant", value: "D" },
+            { label: "E  sociable", value: "E" },
+            { label: "F  fast results", value: "F" },
+            { label: "G  motivating", value: "G" },
+          ],
+          correctAnswer: "C", points: 1,
+        },
+        {
+          id: "cam13-l-t3-s2-q16", number: 16, type: "matching", question: "16. training with a personal trainer",
+          options: [
+            { label: "A  not dependent on season", value: "A" },
+            { label: "B  enjoyable", value: "B" },
+            { label: "C  low risk of injury", value: "C" },
+            { label: "D  fitness level unimportant", value: "D" },
+            { label: "E  sociable", value: "E" },
+            { label: "F  fast results", value: "F" },
+            { label: "G  motivating", value: "G" },
+          ],
+          correctAnswer: "G", points: 1,
+        },
+        {
+          id: "cam13-l-t3-s2-q17", number: 17,
+          groupLabel: `Questions 17 and 18: Choose TWO letters, A–E.\n\nFor which TWO reasons does the speaker say people give up going to the gym?\n\nA  lack of time\nB  loss of confidence\nC  too much effort required\nD  high costs\nE  feeling less successful than others\n\n(Answers are accepted in either order.)`,
+          type: "multiple_choice", question: "17. Choose TWO (first answer)",
+          options: [
+            { label: "A  lack of time", value: "A" },
+            { label: "B  loss of confidence", value: "B" },
+            { label: "C  too much effort required", value: "C" },
+            { label: "D  high costs", value: "D" },
+            { label: "E  feeling less successful than others", value: "E" },
+          ],
+          correctAnswer: "B/C", points: 1,
+        },
+        {
+          id: "cam13-l-t3-s2-q18", number: 18, type: "multiple_choice",
+          question: "18. Choose TWO (second answer)",
+          options: [
+            { label: "A  lack of time", value: "A" },
+            { label: "B  loss of confidence", value: "B" },
+            { label: "C  too much effort required", value: "C" },
+            { label: "D  high costs", value: "D" },
+            { label: "E  feeling less successful than others", value: "E" },
+          ],
+          correctAnswer: "B/C", points: 1,
+        },
+        {
+          id: "cam13-l-t3-s2-q19", number: 19,
+          groupLabel: `Questions 19 and 20: Choose TWO letters, A–E.\n\nWhich TWO pieces of advice does the speaker give for setting goals?\n\nA  write goals down\nB  have achievable aims\nC  set a time limit\nD  give yourself rewards\nE  challenge yourself\n\n(Answers are accepted in either order.)`,
+          type: "multiple_choice", question: "19. Choose TWO (first answer)",
+          options: [
+            { label: "A  write goals down", value: "A" },
+            { label: "B  have achievable aims", value: "B" },
+            { label: "C  set a time limit", value: "C" },
+            { label: "D  give yourself rewards", value: "D" },
+            { label: "E  challenge yourself", value: "E" },
+          ],
+          correctAnswer: "B/D", points: 1,
+        },
+        {
+          id: "cam13-l-t3-s2-q20", number: 20, type: "multiple_choice",
+          question: "20. Choose TWO (second answer)",
+          options: [
+            { label: "A  write goals down", value: "A" },
+            { label: "B  have achievable aims", value: "B" },
+            { label: "C  set a time limit", value: "C" },
+            { label: "D  give yourself rewards", value: "D" },
+            { label: "E  challenge yourself", value: "E" },
+          ],
+          correctAnswer: "B/D", points: 1,
+        },
+      ],
+    },
+    // ── PART 3 ─────────────────────────────────────────────
+    {
+      id: "cam13-l-t3-s3",
+      sectionNumber: 3,
+      title: "Part 3",
+      instructions: `Questions 21–24: Choose the correct letter, A, B or C.
+Questions 25–30: Match each natural dye with a problem. Choose SIX answers from the box (A–H).`,
+      passageTitle: "Jim — project on natural dyes",
+      questions: [
+        {
+          id: "cam13-l-t3-s3-q21", number: 21,
+          groupLabel: `Questions 21–24: Choose the correct letter, A, B or C.`,
+          type: "multiple_choice", question: "21. What first inspired Jim to choose this project?",
+          options: [
+            { label: "A  textiles displayed in an exhibition", value: "A" },
+            { label: "B  a book about a botanic garden", value: "B" },
+            { label: "C  carpets he saw on holiday", value: "C" },
+          ],
+          correctAnswer: "C", points: 1,
+        },
+        {
+          id: "cam13-l-t3-s3-q22", number: 22, type: "multiple_choice",
+          question: "22. Jim eventually decided to do a practical investigation which involved",
+          options: [
+            { label: "A  using a range of dyes with different fibres.", value: "A" },
+            { label: "B  applying different dyes to one type of fibre.", value: "B" },
+            { label: "C  testing one dye and a range of fibres.", value: "C" },
+          ],
+          correctAnswer: "A", points: 1,
+        },
+        {
+          id: "cam13-l-t3-s3-q23", number: 23, type: "multiple_choice",
+          question: "23. When doing his experiments, Jim was surprised by",
+          options: [
+            { label: "A  how much natural material was needed to make the dye.", value: "A" },
+            { label: "B  the fact that dyes were widely available on the internet.", value: "B" },
+            { label: "C  the time that he had to leave the fabric in the dye.", value: "C" },
+          ],
+          correctAnswer: "A", points: 1,
+        },
+        {
+          id: "cam13-l-t3-s3-q24", number: 24, type: "multiple_choice",
+          question: "24. What problem did Jim have with using tartrazine as a fabric dye?",
+          options: [
+            { label: "A  It caused a slight allergic reaction.", value: "A" },
+            { label: "B  It was not a permanent dye on cotton.", value: "B" },
+            { label: "C  It was ineffective when used on nylon.", value: "C" },
+          ],
+          correctAnswer: "B", points: 1,
+        },
+        {
+          id: "cam13-l-t3-s3-q25", number: 25,
+          groupLabel: `Questions 25–30: What problem is identified with each of the following natural dyes? Choose SIX answers from the box (A–H).\n\nA  It is expensive.\nB  The colour is too strong.\nC  The colour is not long-lasting.\nD  It is very poisonous.\nE  It can damage the fabric.\nF  The colour may be unexpected.\nG  It is unsuitable for some fabrics.\nH  It is not generally available.`,
+          type: "matching", question: "25. turmeric",
+          options: [
+            { label: "A  It is expensive.", value: "A" },
+            { label: "B  The colour is too strong.", value: "B" },
+            { label: "C  The colour is not long-lasting.", value: "C" },
+            { label: "D  It is very poisonous.", value: "D" },
+            { label: "E  It can damage the fabric.", value: "E" },
+            { label: "F  The colour may be unexpected.", value: "F" },
+            { label: "G  It is unsuitable for some fabrics.", value: "G" },
+            { label: "H  It is not generally available.", value: "H" },
+          ],
+          correctAnswer: "C", points: 1,
+        },
+        {
+          id: "cam13-l-t3-s3-q26", number: 26, type: "matching", question: "26. beetroot",
+          options: [
+            { label: "A  It is expensive.", value: "A" },
+            { label: "B  The colour is too strong.", value: "B" },
+            { label: "C  The colour is not long-lasting.", value: "C" },
+            { label: "D  It is very poisonous.", value: "D" },
+            { label: "E  It can damage the fabric.", value: "E" },
+            { label: "F  The colour may be unexpected.", value: "F" },
+            { label: "G  It is unsuitable for some fabrics.", value: "G" },
+            { label: "H  It is not generally available.", value: "H" },
+          ],
+          correctAnswer: "F", points: 1,
+        },
+        {
+          id: "cam13-l-t3-s3-q27", number: 27, type: "matching", question: "27. Tyrian purple",
+          options: [
+            { label: "A  It is expensive.", value: "A" },
+            { label: "B  The colour is too strong.", value: "B" },
+            { label: "C  The colour is not long-lasting.", value: "C" },
+            { label: "D  It is very poisonous.", value: "D" },
+            { label: "E  It can damage the fabric.", value: "E" },
+            { label: "F  The colour may be unexpected.", value: "F" },
+            { label: "G  It is unsuitable for some fabrics.", value: "G" },
+            { label: "H  It is not generally available.", value: "H" },
+          ],
+          correctAnswer: "H", points: 1,
+        },
+        {
+          id: "cam13-l-t3-s3-q28", number: 28, type: "matching", question: "28. logwood",
+          options: [
+            { label: "A  It is expensive.", value: "A" },
+            { label: "B  The colour is too strong.", value: "B" },
+            { label: "C  The colour is not long-lasting.", value: "C" },
+            { label: "D  It is very poisonous.", value: "D" },
+            { label: "E  It can damage the fabric.", value: "E" },
+            { label: "F  The colour may be unexpected.", value: "F" },
+            { label: "G  It is unsuitable for some fabrics.", value: "G" },
+            { label: "H  It is not generally available.", value: "H" },
+          ],
+          correctAnswer: "D", points: 1,
+        },
+        {
+          id: "cam13-l-t3-s3-q29", number: 29, type: "matching", question: "29. cochineal",
+          options: [
+            { label: "A  It is expensive.", value: "A" },
+            { label: "B  The colour is too strong.", value: "B" },
+            { label: "C  The colour is not long-lasting.", value: "C" },
+            { label: "D  It is very poisonous.", value: "D" },
+            { label: "E  It can damage the fabric.", value: "E" },
+            { label: "F  The colour may be unexpected.", value: "F" },
+            { label: "G  It is unsuitable for some fabrics.", value: "G" },
+            { label: "H  It is not generally available.", value: "H" },
+          ],
+          correctAnswer: "A", points: 1,
+        },
+        {
+          id: "cam13-l-t3-s3-q30", number: 30, type: "matching", question: "30. metal oxide",
+          options: [
+            { label: "A  It is expensive.", value: "A" },
+            { label: "B  The colour is too strong.", value: "B" },
+            { label: "C  The colour is not long-lasting.", value: "C" },
+            { label: "D  It is very poisonous.", value: "D" },
+            { label: "E  It can damage the fabric.", value: "E" },
+            { label: "F  The colour may be unexpected.", value: "F" },
+            { label: "G  It is unsuitable for some fabrics.", value: "G" },
+            { label: "H  It is not generally available.", value: "H" },
+          ],
+          correctAnswer: "E", points: 1,
+        },
+      ],
+    },
+    // ── PART 4 ─────────────────────────────────────────────
+    {
+      id: "cam13-l-t3-s4",
+      sectionNumber: 4,
+      title: "Part 4",
+      instructions: `Questions 31–40: Complete the notes below. Write ONE WORD ONLY for each answer.`,
+      passageText: `The sleepy lizard (tiliqua rugosa)
+
+Description
+●  They are common in Western and South Australia
+●  They are brown, but recognisable by their blue 31 _______
+●  They are relatively large
+●  Their diet consists mainly of 32 _______
+●  Their main predators are large birds and 33 _______
+
+Navigation study
+●  One study found that lizards can use the 34 _______ to help them navigate
+
+Observations in the wild
+●  Observations show that these lizards keep the same 35 _______ for several years
+
+What people want
+●  Possible reasons:
+   –  to improve the survival of their young
+      (but little 36 _______ has been noted between parents and children)
+   –  to provide 37 _______ for female lizards
+
+Tracking study
+●  A study was carried out using GPS systems attached to the 38 _______ of the lizards
+●  This provided information on the lizards' location and even the number of 39 _______ taken
+●  It appeared that the lizards were trying to avoid one another
+●  This may be in order to reduce chances of 40 _______`,
+      questions: [
+        { id: "cam13-l-t3-s4-q31", number: 31, type: "note_completion", question: "31. recognisable by their blue _______", correctAnswer: "tongue/tongues", points: 1 },
+        { id: "cam13-l-t3-s4-q32", number: 32, type: "note_completion", question: "32. Their diet consists mainly of _______", correctAnswer: "plants", points: 1 },
+        { id: "cam13-l-t3-s4-q33", number: 33, type: "note_completion", question: "33. main predators are large birds and _______", correctAnswer: "snakes", points: 1 },
+        { id: "cam13-l-t3-s4-q34", number: 34, type: "note_completion", question: "34. lizards can use the _______ to help them navigate", correctAnswer: "sky", points: 1 },
+        { id: "cam13-l-t3-s4-q35", number: 35, type: "note_completion", question: "35. these lizards keep the same _______ for several years", correctAnswer: "partner/partners", points: 1 },
+        { id: "cam13-l-t3-s4-q36", number: 36, type: "note_completion", question: "36. little _______ has been noted between parents and children", correctAnswer: "contact", points: 1 },
+        { id: "cam13-l-t3-s4-q37", number: 37, type: "note_completion", question: "37. to provide _______ for female lizards", correctAnswer: "protection", points: 1 },
+        { id: "cam13-l-t3-s4-q38", number: 38, type: "note_completion", question: "38. GPS systems attached to the _______ of the lizards", correctAnswer: "tail/tails", points: 1 },
+        { id: "cam13-l-t3-s4-q39", number: 39, type: "note_completion", question: "39. even the number of _______ taken", correctAnswer: "steps", points: 1 },
+        { id: "cam13-l-t3-s4-q40", number: 40, type: "note_completion", question: "40. to reduce chances of _______", correctAnswer: "injury/injuries", points: 1 },
+      ],
+    },
+  ],
+};
+
 export const cambridge13ListeningTests: IELTSTest[] = [
   cambridge13_listening_t1,
   cambridge13_listening_t2,
+  cambridge13_listening_t3,
 ];
