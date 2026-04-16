@@ -704,7 +704,321 @@ Evaluation and lessons learned
   ],
 };
 
+// ============================================================
+// CAMBRIDGE IELTS 15 – LISTENING TEST 3
+// Parts: 1) Employment agency — two job options (notes)
+//        2) Street Play Scheme — Alice (MCQ + two Choose-TWO)
+//        3) Hazel's newspaper-analysis assignment (notes +
+//           article-type decision matching A/B/C)
+//        4) Early history of keeping clean (notes)
+// ============================================================
+export const cambridge15_listening_t3: IELTSTest = {
+  id: "cam15-listening-t3",
+  title: "Cambridge IELTS 15 – Listening Test 3",
+  bookNumber: 15,
+  testNumber: 3,
+  type: "listening",
+  level: "academic",
+  durationMinutes: 30,
+  transferMinutes: 2,
+  audioUrl: audioUrl("cam15-listening-t3.mp3"),
+  audioDurationSeconds: 1800,
+  sections: [
+    // ── PART 1 ─────────────────────────────────────────────
+    {
+      id: "cam15-l-t3-s1",
+      sectionNumber: 1,
+      title: "Part 1",
+      instructions: `Questions 1–10: Complete the notes below. Write ONE WORD AND/OR A NUMBER for each answer.`,
+      passageText: `Employment Agency: Possible Jobs
+
+First Job
+Administrative assistant in a company that produces 1 _______ (North London)
+
+Responsibilities
+●  data entry
+●  go to 2 _______ and take notes
+●  general admin
+●  management of 3 _______
+
+Requirements
+●  good computer skills including spreadsheets
+●  good interpersonal skills
+●  attention to 4 _______
+
+Experience
+●  need a minimum of 5 _______ of experience of teleconferencing
+
+Second Job
+Warehouse assistant in South London
+
+Responsibilities
+●  stock management
+●  managing 6 _______
+
+Requirements
+●  ability to work with numbers
+●  good computer skills
+●  very organised and 7 _______
+●  good communication skills
+●  used to working in a 8 _______
+●  able to cope with items that are 9 _______
+
+Need experience of
+●  driving in London
+●  warehouse work
+●  10 _______ service`,
+      questions: [
+        { id: "cam15-l-t3-s1-q1", number: 1, type: "note_completion", question: "1. company that produces _______", correctAnswer: "furniture", points: 1 },
+        { id: "cam15-l-t3-s1-q2", number: 2, type: "note_completion", question: "2. go to _______ and take notes", correctAnswer: "meetings", points: 1 },
+        { id: "cam15-l-t3-s1-q3", number: 3, type: "note_completion", question: "3. management of _______", correctAnswer: "diary", points: 1 },
+        { id: "cam15-l-t3-s1-q4", number: 4, type: "note_completion", question: "4. attention to _______", correctAnswer: "detail/details", points: 1 },
+        { id: "cam15-l-t3-s1-q5", number: 5, type: "note_completion", question: "5. need a minimum of _______ of experience of teleconferencing", correctAnswer: "1 year/one year", points: 1 },
+        { id: "cam15-l-t3-s1-q6", number: 6, type: "note_completion", question: "6. managing _______", correctAnswer: "deliveries", points: 1 },
+        { id: "cam15-l-t3-s1-q7", number: 7, type: "note_completion", question: "7. very organised and _______", correctAnswer: "tidy", points: 1 },
+        { id: "cam15-l-t3-s1-q8", number: 8, type: "note_completion", question: "8. used to working in a _______", correctAnswer: "team", points: 1 },
+        { id: "cam15-l-t3-s1-q9", number: 9, type: "note_completion", question: "9. able to cope with items that are _______", correctAnswer: "heavy", points: 1 },
+        { id: "cam15-l-t3-s1-q10", number: 10, type: "note_completion", question: "10. _______ service", correctAnswer: "customer", points: 1 },
+      ],
+    },
+    // ── PART 2 ─────────────────────────────────────────────
+    {
+      id: "cam15-l-t3-s2",
+      sectionNumber: 2,
+      title: "Part 2",
+      instructions: `Questions 11–16: Choose the correct letter, A, B or C.
+Questions 17 & 18: Choose TWO letters, A–E.
+Questions 19 & 20: Choose TWO letters, A–E.`,
+      passageTitle: "Alice — Street Play Scheme",
+      questions: [
+        {
+          id: "cam15-l-t3-s2-q11", number: 11,
+          groupLabel: `Questions 11–16: Choose the correct letter, A, B or C.`,
+          type: "multiple_choice", question: "11. When did the Street Play Scheme first take place?",
+          options: [
+            { label: "A  two years ago", value: "A" },
+            { label: "B  three years ago", value: "B" },
+            { label: "C  six years ago", value: "C" },
+          ],
+          correctAnswer: "B", points: 1,
+        },
+        {
+          id: "cam15-l-t3-s2-q12", number: 12, type: "multiple_choice",
+          question: "12. How often is Beechwood Road closed to traffic now?",
+          options: [
+            { label: "A  once a week", value: "A" },
+            { label: "B  on Saturdays and Sundays", value: "B" },
+            { label: "C  once a month", value: "C" },
+          ],
+          correctAnswer: "A", points: 1,
+        },
+        {
+          id: "cam15-l-t3-s2-q13", number: 13, type: "multiple_choice",
+          question: "13. Who is responsible for closing the road?",
+          options: [
+            { label: "A  a council official", value: "A" },
+            { label: "B  the police", value: "B" },
+            { label: "C  local wardens", value: "C" },
+          ],
+          correctAnswer: "C", points: 1,
+        },
+        {
+          id: "cam15-l-t3-s2-q14", number: 14, type: "multiple_choice",
+          question: "14. Residents who want to use their cars",
+          options: [
+            { label: "A  have to park in another street.", value: "A" },
+            { label: "B  must drive very slowly.", value: "B" },
+            { label: "C  need permission from a warden.", value: "C" },
+          ],
+          correctAnswer: "B", points: 1,
+        },
+        {
+          id: "cam15-l-t3-s2-q15", number: 15, type: "multiple_choice",
+          question: "15. Alice says that Street Play Schemes are most needed in",
+          options: [
+            { label: "A  wealthy areas.", value: "A" },
+            { label: "B  quiet suburban areas.", value: "B" },
+            { label: "C  areas with heavy traffic.", value: "C" },
+          ],
+          correctAnswer: "C", points: 1,
+        },
+        {
+          id: "cam15-l-t3-s2-q16", number: 16, type: "multiple_choice",
+          question: "16. What has been the reaction of residents who are not parents?",
+          options: [
+            { label: "A  Many of them were unhappy at first.", value: "A" },
+            { label: "B  They like seeing children play in the street.", value: "B" },
+            { label: "C  They are surprised by the lack of noise.", value: "C" },
+          ],
+          correctAnswer: "B", points: 1,
+        },
+        {
+          id: "cam15-l-t3-s2-q17", number: 17,
+          groupLabel: `Questions 17 and 18: Choose TWO letters, A–E.\n\nWhich TWO benefits for children does Alice think are the most important?\n\nA  increased physical activity\nB  increased sense of independence\nC  opportunity to learn new games\nD  opportunity to be part of a community\nE  opportunity to make new friends\n\n(Answers are accepted in either order.)`,
+          type: "multiple_choice", question: "17. Choose TWO (first answer)",
+          options: [
+            { label: "A  increased physical activity", value: "A" },
+            { label: "B  increased sense of independence", value: "B" },
+            { label: "C  opportunity to learn new games", value: "C" },
+            { label: "D  opportunity to be part of a community", value: "D" },
+            { label: "E  opportunity to make new friends", value: "E" },
+          ],
+          correctAnswer: "B/D", points: 1,
+        },
+        {
+          id: "cam15-l-t3-s2-q18", number: 18, type: "multiple_choice",
+          question: "18. Choose TWO (second answer)",
+          options: [
+            { label: "A  increased physical activity", value: "A" },
+            { label: "B  increased sense of independence", value: "B" },
+            { label: "C  opportunity to learn new games", value: "C" },
+            { label: "D  opportunity to be part of a community", value: "D" },
+            { label: "E  opportunity to make new friends", value: "E" },
+          ],
+          correctAnswer: "B/D", points: 1,
+        },
+        {
+          id: "cam15-l-t3-s2-q19", number: 19,
+          groupLabel: `Questions 19 and 20: Choose TWO letters, A–E.\n\nWhich TWO results of the King Street experiment surprised Alice?\n\nA  more shoppers\nB  improved safety\nC  less air pollution\nD  more relaxed atmosphere\nE  less noise pollution\n\n(Answers are accepted in either order.)`,
+          type: "multiple_choice", question: "19. Choose TWO (first answer)",
+          options: [
+            { label: "A  more shoppers", value: "A" },
+            { label: "B  improved safety", value: "B" },
+            { label: "C  less air pollution", value: "C" },
+            { label: "D  more relaxed atmosphere", value: "D" },
+            { label: "E  less noise pollution", value: "E" },
+          ],
+          correctAnswer: "A/E", points: 1,
+        },
+        {
+          id: "cam15-l-t3-s2-q20", number: 20, type: "multiple_choice",
+          question: "20. Choose TWO (second answer)",
+          options: [
+            { label: "A  more shoppers", value: "A" },
+            { label: "B  improved safety", value: "B" },
+            { label: "C  less air pollution", value: "C" },
+            { label: "D  more relaxed atmosphere", value: "D" },
+            { label: "E  less noise pollution", value: "E" },
+          ],
+          correctAnswer: "A/E", points: 1,
+        },
+      ],
+    },
+    // ── PART 3 ─────────────────────────────────────────────
+    {
+      id: "cam15-l-t3-s3",
+      sectionNumber: 3,
+      title: "Part 3",
+      instructions: `Questions 21–26: Complete the notes below. Write ONE WORD ONLY for each answer.
+Questions 27–30: Match each type of article with Hazel's decision. Write the correct letter A, B or C.`,
+      passageTitle: "Hazel — newspaper analysis assignment",
+      passageText: `What Hazel should analyse about items in newspapers:
+●  what 21 _______ the item is on
+●  the 22 _______ of the item, including the headline
+●  any 23 _______ accompanying the item
+●  the 24 _______ of the item, e.g. what's made prominent
+●  the writer's main 25 _______
+●  the 26 _______ the writer may make about the reader`,
+      questions: [
+        { id: "cam15-l-t3-s3-q21", number: 21, type: "note_completion", question: "21. what _______ the item is on", correctAnswer: "page", points: 1 },
+        { id: "cam15-l-t3-s3-q22", number: 22, type: "note_completion", question: "22. the _______ of the item, including the headline", correctAnswer: "size", points: 1 },
+        { id: "cam15-l-t3-s3-q23", number: 23, type: "note_completion", question: "23. any _______ accompanying the item", correctAnswer: "graphic/graphics", points: 1 },
+        { id: "cam15-l-t3-s3-q24", number: 24, type: "note_completion", question: "24. the _______ of the item, e.g. what's made prominent", correctAnswer: "structure", points: 1 },
+        { id: "cam15-l-t3-s3-q25", number: 25, type: "note_completion", question: "25. the writer's main _______", correctAnswer: "purpose", points: 1 },
+        { id: "cam15-l-t3-s3-q26", number: 26, type: "note_completion", question: "26. the _______ the writer may make about the reader", correctAnswer: "assumption/assumptions", points: 1 },
+        {
+          id: "cam15-l-t3-s3-q27", number: 27,
+          groupLabel: `Questions 27–30: What does Hazel decide to do about each of the following types of articles? Write the correct letter A, B or C next to each type.\n\nA  She will definitely look for a suitable article.\nB  She may look for a suitable article.\nC  She definitely won't look for an article.\n\n(Letters may be used more than once.)`,
+          type: "matching", question: "27. national news item",
+          options: [
+            { label: "A  She will definitely look for a suitable article.", value: "A" },
+            { label: "B  She may look for a suitable article.", value: "B" },
+            { label: "C  She definitely won't look for an article.", value: "C" },
+          ],
+          correctAnswer: "A", points: 1,
+        },
+        {
+          id: "cam15-l-t3-s3-q28", number: 28, type: "matching", question: "28. editorial",
+          options: [
+            { label: "A  She will definitely look for a suitable article.", value: "A" },
+            { label: "B  She may look for a suitable article.", value: "B" },
+            { label: "C  She definitely won't look for an article.", value: "C" },
+          ],
+          correctAnswer: "C", points: 1,
+        },
+        {
+          id: "cam15-l-t3-s3-q29", number: 29, type: "matching", question: "29. human interest",
+          options: [
+            { label: "A  She will definitely look for a suitable article.", value: "A" },
+            { label: "B  She may look for a suitable article.", value: "B" },
+            { label: "C  She definitely won't look for an article.", value: "C" },
+          ],
+          correctAnswer: "C", points: 1,
+        },
+        {
+          id: "cam15-l-t3-s3-q30", number: 30, type: "matching", question: "30. arts",
+          options: [
+            { label: "A  She will definitely look for a suitable article.", value: "A" },
+            { label: "B  She may look for a suitable article.", value: "B" },
+            { label: "C  She definitely won't look for an article.", value: "C" },
+          ],
+          correctAnswer: "B", points: 1,
+        },
+      ],
+    },
+    // ── PART 4 ─────────────────────────────────────────────
+    {
+      id: "cam15-l-t3-s4",
+      sectionNumber: 4,
+      title: "Part 4",
+      instructions: `Questions 31–40: Complete the notes below. Write ONE WORD ONLY for each answer.`,
+      passageText: `Early history of keeping clean
+
+Prehistoric times:
+●  water was used to wash off 31 _______
+
+Ancient Babylon
+●  soap-like material found in 32 _______ cylinders
+
+Ancient Greece:
+●  people cleaned themselves with sand and other substances
+●  used a strigil – scraper made of 33 _______
+●  washed clothes in streams
+
+Ancient Germany and Gaul:
+●  used soap to colour their 34 _______
+
+Ancient Rome:
+●  animal fat, ashes and clay mixed through action of rain, used for washing clothes
+●  from about 312 BC, water carried to Roman 35 _______ by aqueducts
+
+Europe in Middle Ages:
+●  decline in bathing contributed to occurrence of 36 _______
+●  37 _______ began to be added to soap
+
+Europe from 17th century:
+●  1600s: cleanliness and bathing started becoming usual
+●  1791: Leblanc invented a way of making soda ash from 38 _______
+●  early 1800s: Chevreul turned soapmaking into a 39 _______
+●  from 1800s, there was no longer a 40 _______ on soap.`,
+      questions: [
+        { id: "cam15-l-t3-s4-q31", number: 31, type: "note_completion", question: "31. water was used to wash off _______", correctAnswer: "mud", points: 1 },
+        { id: "cam15-l-t3-s4-q32", number: 32, type: "note_completion", question: "32. soap-like material found in _______ cylinders", correctAnswer: "clay", points: 1 },
+        { id: "cam15-l-t3-s4-q33", number: 33, type: "note_completion", question: "33. strigil – scraper made of _______", correctAnswer: "metal", points: 1 },
+        { id: "cam15-l-t3-s4-q34", number: 34, type: "note_completion", question: "34. used soap to colour their _______", correctAnswer: "hair", points: 1 },
+        { id: "cam15-l-t3-s4-q35", number: 35, type: "note_completion", question: "35. water carried to Roman _______ by aqueducts", correctAnswer: "bath/baths", points: 1 },
+        { id: "cam15-l-t3-s4-q36", number: 36, type: "note_completion", question: "36. decline in bathing contributed to occurrence of _______", correctAnswer: "disease/diseases", points: 1 },
+        { id: "cam15-l-t3-s4-q37", number: 37, type: "note_completion", question: "37. _______ began to be added to soap", correctAnswer: "perfume", points: 1 },
+        { id: "cam15-l-t3-s4-q38", number: 38, type: "note_completion", question: "38. Leblanc invented a way of making soda ash from _______", correctAnswer: "salt", points: 1 },
+        { id: "cam15-l-t3-s4-q39", number: 39, type: "note_completion", question: "39. Chevreul turned soapmaking into a _______", correctAnswer: "science", points: 1 },
+        { id: "cam15-l-t3-s4-q40", number: 40, type: "note_completion", question: "40. from 1800s, there was no longer a _______ on soap", correctAnswer: "tax", points: 1 },
+      ],
+    },
+  ],
+};
+
 export const cambridge15ListeningTests: IELTSTest[] = [
   cambridge15_listening_t1,
   cambridge15_listening_t2,
+  cambridge15_listening_t3,
 ];
