@@ -15,16 +15,19 @@ import { getTestById } from "@/data/ielts-tests";
 import { allTests } from "@/data/ielts-tests";
 import { quotes, type Quote } from "@/lib/quotes";
 import Brand from "@/components/Brand";
+import ThemeToggle from "@/components/ThemeToggle";
 
-// ── Hardcoded dark theme colours ─────────────────────────────
+// ── Theme tokens — backed by the site CSS variables so the admin
+//    dashboard responds to the theme picker in the nav. Only the
+//    semantic status colours (success / danger) stay hardcoded.
 const C = {
   bg: "var(--site-bg)",
   card: "var(--site-card)",
-  card2: "#0d0d0d",
+  card2: "var(--site-nav)",
   border: "var(--site-border)",
-  text: "#f0f0f0",
-  muted: "#8a8a8a",
-  sub: "#c0c0c0",
+  text: "var(--site-text)",
+  muted: "var(--site-text-muted)",
+  sub: "var(--site-text-sub)",
   accent: "var(--site-text)",
   accentLight: "var(--site-border)",
   success: "#10b981",
@@ -394,8 +397,11 @@ export default function AdminDashboard() {
           </button>
         </nav>
 
-        {/* Sign out */}
-        <div style={{ padding: "12px 10px 20px" }}>
+        {/* Theme picker + Sign out */}
+        <div style={{ padding: "12px 10px 20px", display: "flex", flexDirection: "column", gap: 8 }}>
+          <div style={{ display: "flex", justifyContent: "flex-start" }}>
+            <ThemeToggle align="left" />
+          </div>
           <button onClick={handleLogout}
             style={{ display: "flex", alignItems: "center", gap: 8, width: "100%", padding: "10px 12px", borderRadius: 10, background: "transparent", border: `1px solid ${C.border}`, color: C.muted, fontSize: 13, fontWeight: 600, cursor: "pointer" }}>
             <LogOut size={14} /> Sign Out
@@ -919,7 +925,7 @@ export default function AdminDashboard() {
                     <tbody>
                       {students.filter(s => !studentSearch || `${s.name} ${s.surname} ${s.username} ${s.group_name}`.toLowerCase().includes(studentSearch.toLowerCase())).map((s, i) => (
                         <React.Fragment key={s.id}>
-                        <tr style={{ background: i % 2 === 0 ? "transparent" : "rgba(255,255,255,0.02)", borderBottom: editingStudentId === s.id ? "none" : `1px solid ${C.border}` }}>
+                        <tr style={{ background: i % 2 === 0 ? "transparent" : "var(--site-border)", borderBottom: editingStudentId === s.id ? "none" : `1px solid ${C.border}` }}>
                           <td style={{ padding: "12px 14px" }}>
                             <div style={{ fontWeight: 600, fontSize: 14, color: C.text }}>{s.name} {s.surname}</div>
                           </td>
@@ -1133,7 +1139,7 @@ export default function AdminDashboard() {
                     const bookTests = allTests.filter(t => t.bookNumber === n && t.type === testsTypeFilter);
                     return (
                       <div key={n} onClick={() => available && setTestsSelectedBook(n)}
-                        style={{ display: "flex", alignItems: "center", gap: 14, padding: "14px 16px", background: available ? C.card : "rgba(255,255,255,0.02)", border: `1px solid ${available ? C.border : "var(--site-border)"}`, borderRadius: 12, cursor: available ? "pointer" : "default" }}>
+                        style={{ display: "flex", alignItems: "center", gap: 14, padding: "14px 16px", background: available ? C.card : "var(--site-border)", border: `1px solid ${available ? C.border : "var(--site-border)"}`, borderRadius: 12, cursor: available ? "pointer" : "default" }}>
                         <div style={{ width: 38, height: 38, borderRadius: 10, flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 900, fontSize: 15, background: available ? "var(--site-card-2)" : "var(--site-border)", color: available ? "var(--site-text)" : "var(--site-border-strong)" }}>{n}</div>
                         <div style={{ flex: 1 }}>
                           <div style={{ fontSize: 13, fontWeight: 700, color: available ? C.text : "var(--site-border-strong)", marginBottom: 2 }}>Cambridge IELTS {n}</div>

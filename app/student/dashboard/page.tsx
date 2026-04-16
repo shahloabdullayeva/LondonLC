@@ -6,6 +6,7 @@ import { getSession, clearSession, getAttempts, changeStudentOwnPassword, type A
 import { allTests, getTestById } from "@/data/ielts-tests";
 import { quotes, type Quote } from "@/lib/quotes";
 import Brand from "@/components/Brand";
+import ThemeToggle from "@/components/ThemeToggle";
 import type { StudentSession } from "@/lib/store";
 
 type TestType = "reading" | "listening";
@@ -54,20 +55,23 @@ export default function StudentDashboard() {
       <nav style={S.nav}>
         {/* Brand mark — same component everywhere */}
         <Brand size={20} />
-        {/* Profile pill — click to jump into My Profile (where Sign Out lives). */}
-        <button onClick={() => { setSidebarView("profile"); setSelectedBook(null); }}
-          style={{ display: "flex", alignItems: "center", gap: 8, padding: "6px 14px", background: "var(--site-border)", borderRadius: 20, border: "1px solid var(--site-border)", cursor: "pointer", fontFamily: "inherit" }}>
-          <div style={{ width: 26, height: 26, borderRadius: "50%", background: "var(--site-card-2)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-            <User size={12} color="white" />
-          </div>
-          <span style={{ fontSize: 13, fontWeight: 600, color: "#e8eeff" }}>{session.name} {session.surname}</span>
-          <span style={{ fontSize: 11, padding: "2px 8px", background: "var(--site-border)", borderRadius: 10, color: "var(--site-text)", fontWeight: 600 }}>{session.group_name}</span>
-        </button>
+        <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+          <ThemeToggle />
+          {/* Profile pill — click to jump into My Profile (where Sign Out lives). */}
+          <button onClick={() => { setSidebarView("profile"); setSelectedBook(null); }}
+            style={{ display: "flex", alignItems: "center", gap: 8, padding: "6px 14px", background: "var(--site-border)", borderRadius: 20, border: "1px solid var(--site-border)", cursor: "pointer", fontFamily: "inherit" }}>
+            <div style={{ width: 26, height: 26, borderRadius: "50%", background: "var(--site-card-2)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+              <User size={12} color="currentColor" />
+            </div>
+            <span style={{ fontSize: 13, fontWeight: 600, color: "var(--site-text)" }}>{session.name} {session.surname}</span>
+            <span style={{ fontSize: 11, padding: "2px 8px", background: "var(--site-border)", borderRadius: 10, color: "var(--site-text)", fontWeight: 600 }}>{session.group_name}</span>
+          </button>
+        </div>
       </nav>
 
       <div className="student-layout" style={{ flex: 1, display: "flex", overflow: "hidden" }}>
         {/* Sidebar — flat list of sections, each with an arrow. */}
-        <aside className="student-sidebar" style={{ width: 240, background: "#0d0d0d", borderRight: "1px solid var(--site-border)", padding: "24px 14px", display: "flex", flexDirection: "column", gap: 2, flexShrink: 0, overflowY: "auto" }}>
+        <aside className="student-sidebar" style={{ width: 240, background: "var(--site-nav)", borderRight: "1px solid var(--site-border)", padding: "24px 14px", display: "flex", flexDirection: "column", gap: 2, flexShrink: 0, overflowY: "auto" }}>
           <p style={{ fontSize: 10, fontWeight: 700, color: "var(--site-text-sub)", letterSpacing: "0.2em", textTransform: "uppercase", margin: "0 0 10px", paddingLeft: 10 }}>
             Sections
           </p>
@@ -118,7 +122,7 @@ export default function StudentDashboard() {
                 borderLeft: "2px solid var(--site-border-strong)",
               }}>
                 <blockquote style={{
-                  margin: 0, fontSize: 13, color: "rgba(255,255,255,0.72)",
+                  margin: 0, fontSize: 13, color: "var(--site-text-muted)",
                   lineHeight: 1.5, fontStyle: "italic", fontWeight: 300,
                 }}>
                   &ldquo;{quote.text}&rdquo;
@@ -205,7 +209,7 @@ export default function StudentDashboard() {
                         <div onClick={() => setExpandedAttempt(isExpanded ? null : a.id)}
                           style={{ display: "flex", alignItems: "center", gap: 14, padding: "14px 18px", cursor: "pointer", flexWrap: "wrap" }}>
                           <div style={{ flex: 1, minWidth: 0 }}>
-                            <div style={{ fontWeight: 700, fontSize: 14, color: "#e8eeff", marginBottom: 2 }}>
+                            <div style={{ fontWeight: 700, fontSize: 14, color: "var(--site-text)", marginBottom: 2 }}>
                               {a.testTitle}
                               {a.testType === "reading" && !/reading/i.test(a.testTitle) && " – Reading"}
                             </div>
@@ -304,8 +308,8 @@ export default function StudentDashboard() {
                   return (
                     <div key={n}
                       onClick={() => available && setSelectedBook(n)}
-                      style={{ display: "flex", alignItems: "center", gap: 14, padding: "14px 16px", background: available ? "var(--site-card)" : "rgba(255,255,255,0.02)", border: `1px solid ${available ? "var(--site-border)" : "var(--site-border)"}`, borderRadius: 12, cursor: available ? "pointer" : "default", transition: "all 0.15s" }}
-                      onMouseEnter={e => available && ((e.currentTarget as HTMLElement).style.background = "#1c1c1c", (e.currentTarget as HTMLElement).style.borderColor = "var(--site-border-strong)")}
+                      style={{ display: "flex", alignItems: "center", gap: 14, padding: "14px 16px", background: available ? "var(--site-card)" : "var(--site-border)", border: `1px solid ${available ? "var(--site-border)" : "var(--site-border)"}`, borderRadius: 12, cursor: available ? "pointer" : "default", transition: "all 0.15s" }}
+                      onMouseEnter={e => available && ((e.currentTarget as HTMLElement).style.background = "var(--site-card-2)", (e.currentTarget as HTMLElement).style.borderColor = "var(--site-border-strong)")}
                       onMouseLeave={e => available && ((e.currentTarget as HTMLElement).style.background = "var(--site-card)", (e.currentTarget as HTMLElement).style.borderColor = "var(--site-border)")}>
                       {/* Number badge */}
                       <div style={{ width: 38, height: 38, borderRadius: 10, flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 900, fontSize: 15, background: available ? "var(--site-card-2)" : "var(--site-border)", color: available ? "var(--site-text)" : "var(--site-border-strong)" }}>
@@ -313,7 +317,7 @@ export default function StudentDashboard() {
                       </div>
                       {/* Title */}
                       <div style={{ flex: 1, minWidth: 0 }}>
-                        <div style={{ fontSize: 13, fontWeight: 700, color: available ? "#e8eeff" : "var(--site-border-strong)", marginBottom: 2 }}>
+                        <div style={{ fontSize: 13, fontWeight: 700, color: available ? "var(--site-text)" : "var(--site-border-strong)", marginBottom: 2 }}>
                           Cambridge IELTS {n}
                         </div>
                         <div style={{ fontSize: 11, color: available ? "var(--site-text-muted)" : "var(--site-border-strong)" }}>
@@ -362,9 +366,9 @@ export default function StudentDashboard() {
                       const totalQ = test.sections.reduce((s, sec) => s + sec.questions.length, 0);
                       return (
                         <div key={test.id}
-                          style={{ background: "var(--site-card)", border: "1px solid rgba(255,255,255,0.09)", borderRadius: 16, padding: 20, cursor: "pointer", transition: "all 0.2s" }}
+                          style={{ background: "var(--site-card)", border: "1px solid var(--site-border)", borderRadius: 16, padding: 20, cursor: "pointer", transition: "all 0.2s" }}
                           onMouseEnter={e => { (e.currentTarget as HTMLElement).style.borderColor = "var(--site-text-sub)"; (e.currentTarget as HTMLElement).style.transform = "translateY(-2px)"; }}
-                          onMouseLeave={e => { (e.currentTarget as HTMLElement).style.borderColor = "rgba(255,255,255,0.09)"; (e.currentTarget as HTMLElement).style.transform = "none"; }}
+                          onMouseLeave={e => { (e.currentTarget as HTMLElement).style.borderColor = "var(--site-border)"; (e.currentTarget as HTMLElement).style.transform = "none"; }}
                           onClick={() => router.push(`/student/test/${test.id}`)}>
                           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 12 }}>
                             <div>
@@ -414,7 +418,7 @@ export default function StudentDashboard() {
                   <tbody>
                     {[...attempts].reverse().slice(0, 8).map((a, i) => (
                       <tr key={a.id} style={{ borderBottom: i < attempts.length - 1 ? "1px solid var(--site-border)" : "none" }}>
-                        <td style={{ padding: "13px 16px", fontSize: 13, fontWeight: 600, color: "#e8eeff" }}>
+                        <td style={{ padding: "13px 16px", fontSize: 13, fontWeight: 600, color: "var(--site-text)" }}>
                           {a.testTitle}
                           {a.testType === "reading" && !/reading/i.test(a.testTitle) && " – Reading"}
                         </td>
@@ -573,7 +577,7 @@ function ProfilePanel({
               <div style={{ fontSize: 30, fontWeight: 900, color: streakActive ? "var(--site-text)" : "var(--site-text-muted)", lineHeight: 1 }}>
                 {streak}
               </div>
-              <div style={{ fontSize: 12, color: streakActive ? "rgba(255,255,255,0.75)" : "var(--site-text-sub)", marginTop: 6 }}>
+              <div style={{ fontSize: 12, color: streakActive ? "var(--site-text-muted)" : "var(--site-text-sub)", marginTop: 6 }}>
                 {streak === 0 ? "start a streak today" : streak === 1 ? "day" : "days in a row"}
               </div>
             </div>
