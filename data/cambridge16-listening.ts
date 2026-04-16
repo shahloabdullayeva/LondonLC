@@ -76,9 +76,7 @@ Plenty of 10 _______ is available.`,
       instructions: `Questions 11–14: Choose the correct letter, A, B or C.
 Questions 15–20: Label the map below. Write the correct letter, A–J, next to each location.`,
       passageTitle: "Stevenson's site tour",
-      // When you upload the site plan to Supabase storage, change
-      // this to imageUrl("cam16-listening-t1-stevensons-map.png").
-      diagramUrl: imageUrl("cam16-listening-t1-stevensons-map.png"),
+      diagramUrl: imageUrl("cam16test1map.png"),
       questions: [
         {
           id: "cam16-l-t1-s2-q11", number: 11,
