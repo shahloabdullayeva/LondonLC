@@ -626,7 +626,309 @@ Minimising conflict
   ],
 };
 
+// ============================================================
+// CAMBRIDGE IELTS 12 – LISTENING TEST 3
+// Parts: 1) Public library — re-opening info (notes)
+//        2) BC Travel — holidays (Choose-TWO + MCQ +
+//           fitness-holiday table)
+//        3) Tourism case-study flow chart + Natalie & Dave on
+//           Horton Castle (A–H flow chart + MCQ)
+//        4) Effects of environmental change on birds — mercury
+//           (notes)
+// ============================================================
+export const cambridge12_listening_t3: IELTSTest = {
+  id: "cam12-listening-t3",
+  title: "Cambridge IELTS 12 – Listening Test 3",
+  bookNumber: 12,
+  testNumber: 3,
+  type: "listening",
+  level: "academic",
+  durationMinutes: 30,
+  transferMinutes: 2,
+  audioUrl: audioUrl("cam12-listening-t3.mp3"),
+  audioDurationSeconds: 1800,
+  sections: [
+    // ── PART 1 ─────────────────────────────────────────────
+    {
+      id: "cam12-l-t3-s1",
+      sectionNumber: 1,
+      title: "Part 1",
+      instructions: `Questions 1–10: Complete the notes below. Write ONE WORD ONLY for each answer.`,
+      passageText: `PUBLIC LIBRARY
+
+The library re-opened last month
+
+The library now has
+●  a seating area with magazines
+●  an expanded section for books on 1 _______
+●  a new section on local 2 _______
+●  a community room for meetings (also possible to 3 _______ there)
+●  a new section of books for 4 _______
+
+For younger children
+●  the next Science Club meeting: experiments using things from your 5 _______
+●  Reading Challenge: read six books during the holidays
+
+For adults
+●  this Friday: a local author talks about a novel based on a real 6 _______
+●  IT support is available on Tuesday – no 7 _______ is necessary
+●  free check of blood 8 _______ and cholesterol levels (over 60s only)
+
+Other information
+●  the library shop sells wall-charts, cards and 9 _______
+●  evenings and weekends: free 10 _______ is available`,
+      questions: [
+        { id: "cam12-l-t3-s1-q1", number: 1, type: "note_completion", question: "1. expanded section for books on _______", correctAnswer: "travel/travelling/traveling", points: 1 },
+        { id: "cam12-l-t3-s1-q2", number: 2, type: "note_completion", question: "2. a new section on local _______", correctAnswer: "history", points: 1 },
+        { id: "cam12-l-t3-s1-q3", number: 3, type: "note_completion", question: "3. community room for meetings (also possible to _______ there)", correctAnswer: "study", points: 1 },
+        { id: "cam12-l-t3-s1-q4", number: 4, type: "note_completion", question: "4. new section of books for _______", correctAnswer: "teenagers", points: 1 },
+        { id: "cam12-l-t3-s1-q5", number: 5, type: "note_completion", question: "5. experiments using things from your _______", correctAnswer: "kitchen", points: 1 },
+        { id: "cam12-l-t3-s1-q6", number: 6, type: "note_completion", question: "6. a novel based on a real _______", correctAnswer: "crime", points: 1 },
+        { id: "cam12-l-t3-s1-q7", number: 7, type: "note_completion", question: "7. no _______ is necessary", correctAnswer: "appointment/booking", points: 1 },
+        { id: "cam12-l-t3-s1-q8", number: 8, type: "note_completion", question: "8. free check of blood _______ and cholesterol levels", correctAnswer: "sugar", points: 1 },
+        { id: "cam12-l-t3-s1-q9", number: 9, type: "note_completion", question: "9. library shop sells wall-charts, cards and _______", correctAnswer: "stamps", points: 1 },
+        { id: "cam12-l-t3-s1-q10", number: 10, type: "note_completion", question: "10. evenings and weekends: free _______ is available", correctAnswer: "parking", points: 1 },
+      ],
+    },
+    // ── PART 2 ─────────────────────────────────────────────
+    {
+      id: "cam12-l-t3-s2",
+      sectionNumber: 2,
+      title: "Part 2",
+      instructions: `Questions 11 & 12: Choose TWO letters, A–E.
+Questions 13 & 14: Choose TWO letters, A–E.
+Questions 15–17: Choose the correct letter, A, B or C.
+Questions 18–20: Complete the fitness-holiday table below. Write ONE WORD ONLY for each answer.`,
+      passageTitle: "BC Travel — activity holidays",
+      passageText: `Fitness Holidays
+
+Location               | Main focus          | Other comments
+Ireland and Italy     | general fitness     | ●  personally designed programme
+                      |                     | ●  also reduces 18 _______
+Greece                | 19 _______ control  | ●  includes exercise on the beach
+Morocco               | mountain biking     | ●  wide variety of levels
+                      |                     | ●  one holiday specially designed for 20 _______`,
+      questions: [
+        {
+          id: "cam12-l-t3-s2-q11", number: 11,
+          groupLabel: `Questions 11 and 12: Choose TWO letters, A–E.\n\nWhich TWO age groups are taking increasing numbers of holidays with BC Travel?\n\nA  16–30 years\nB  31–42 years\nC  43–54 years\nD  55–64 years\nE  over 65 years\n\n(Answers are accepted in either order.)`,
+          type: "multiple_choice", question: "11. Choose TWO (first answer)",
+          options: [
+            { label: "A  16–30 years", value: "A" },
+            { label: "B  31–42 years", value: "B" },
+            { label: "C  43–54 years", value: "C" },
+            { label: "D  55–64 years", value: "D" },
+            { label: "E  over 65 years", value: "E" },
+          ],
+          correctAnswer: "D/E", points: 1,
+        },
+        {
+          id: "cam12-l-t3-s2-q12", number: 12, type: "multiple_choice",
+          question: "12. Choose TWO (second answer)",
+          options: [
+            { label: "A  16–30 years", value: "A" },
+            { label: "B  31–42 years", value: "B" },
+            { label: "C  43–54 years", value: "C" },
+            { label: "D  55–64 years", value: "D" },
+            { label: "E  over 65 years", value: "E" },
+          ],
+          correctAnswer: "D/E", points: 1,
+        },
+        {
+          id: "cam12-l-t3-s2-q13", number: 13,
+          groupLabel: `Questions 13 and 14: Choose TWO letters, A–E.\n\nWhich TWO are the main reasons given for the popularity of activity holidays?\n\nA  Clients make new friends.\nB  Clients learn a useful skill.\nC  Clients learn about a different culture.\nD  Clients are excited by the risk involved.\nE  Clients find them good value for money.\n\n(Answers are accepted in either order.)`,
+          type: "multiple_choice", question: "13. Choose TWO (first answer)",
+          options: [
+            { label: "A  Clients make new friends.", value: "A" },
+            { label: "B  Clients learn a useful skill.", value: "B" },
+            { label: "C  Clients learn about a different culture.", value: "C" },
+            { label: "D  Clients are excited by the risk involved.", value: "D" },
+            { label: "E  Clients find them good value for money.", value: "E" },
+          ],
+          correctAnswer: "A/C", points: 1,
+        },
+        {
+          id: "cam12-l-t3-s2-q14", number: 14, type: "multiple_choice",
+          question: "14. Choose TWO (second answer)",
+          options: [
+            { label: "A  Clients make new friends.", value: "A" },
+            { label: "B  Clients learn a useful skill.", value: "B" },
+            { label: "C  Clients learn about a different culture.", value: "C" },
+            { label: "D  Clients are excited by the risk involved.", value: "D" },
+            { label: "E  Clients find them good value for money.", value: "E" },
+          ],
+          correctAnswer: "A/C", points: 1,
+        },
+        {
+          id: "cam12-l-t3-s2-q15", number: 15,
+          groupLabel: `Questions 15–17: Choose the correct letter, A, B or C.`,
+          type: "multiple_choice", question: "15. How does BC Travel plan to expand the painting holidays?",
+          options: [
+            { label: "A  by adding to the number of locations", value: "A" },
+            { label: "B  by increasing the range of levels", value: "B" },
+            { label: "C  by employing more teachers", value: "C" },
+          ],
+          correctAnswer: "C", points: 1,
+        },
+        {
+          id: "cam12-l-t3-s2-q16", number: 16, type: "multiple_choice",
+          question: "16. Why are BC Travel's cooking holidays unusual?",
+          options: [
+            { label: "A  They only use organic foods.", value: "A" },
+            { label: "B  They have an international focus.", value: "B" },
+            { label: "C  They mainly involve vegetarian dishes.", value: "C" },
+          ],
+          correctAnswer: "B", points: 1,
+        },
+        {
+          id: "cam12-l-t3-s2-q17", number: 17, type: "multiple_choice",
+          question: "17. What does the speaker say about the photography holidays?",
+          options: [
+            { label: "A  Clients receive individual tuition.", value: "A" },
+            { label: "B  The tutors are also trained guides.", value: "B" },
+            { label: "C  Advice is given on selling photographs.", value: "C" },
+          ],
+          correctAnswer: "A", points: 1,
+        },
+        { id: "cam12-l-t3-s2-q18", number: 18, type: "table_completion", question: "18. Ireland and Italy — also reduces _______", correctAnswer: "stress", points: 1 },
+        { id: "cam12-l-t3-s2-q19", number: 19, type: "table_completion", question: "19. Greece — _______ control", correctAnswer: "weight", points: 1 },
+        { id: "cam12-l-t3-s2-q20", number: 20, type: "table_completion", question: "20. Morocco — holiday specially designed for _______", correctAnswer: "families", points: 1 },
+      ],
+    },
+    // ── PART 3 ─────────────────────────────────────────────
+    {
+      id: "cam12-l-t3-s3",
+      sectionNumber: 3,
+      title: "Part 3",
+      instructions: `Questions 21–26: Complete the flow chart below. Choose SIX answers from the box (A–H).
+Questions 27–30: Choose the correct letter, A, B or C.`,
+      passageTitle: "Natalie & Dave — tourism case study and Horton Castle",
+      passageText: `STAGES IN DOING A TOURISM CASE STUDY
+
+A  patterns        B  names        C  sources       D  questions
+E  employees       F  solutions    G  headings      H  officials
+
+RESEARCH
+Locate and read relevant articles, noting key information and also 21 _______
+
+Identify a problem or need
+
+Select interviewees – these may be site 22 _______, visitors or city 23 _______
+
+Prepare and carry out interviews. If possible, collect statistics.
+
+Check whether 24 _______ of interviewees can be used.
+
+↓
+
+ANALYSIS
+Select relevant information and try to identify 25 _______
+
+Decide on the best form of visuals
+
+↓
+
+WRITING THE CASE STUDY
+Give some background before writing the main sections
+
+Do NOT end with 26 _______`,
+      questions: [
+        { id: "cam12-l-t3-s3-q21", number: 21, type: "note_completion", question: "21. noting key information and also _______", correctAnswer: "C/sources", points: 1 },
+        { id: "cam12-l-t3-s3-q22", number: 22, type: "note_completion", question: "22. Select interviewees – these may be site _______", correctAnswer: "E/employees", points: 1 },
+        { id: "cam12-l-t3-s3-q23", number: 23, type: "note_completion", question: "23. visitors or city _______", correctAnswer: "H/officials", points: 1 },
+        { id: "cam12-l-t3-s3-q24", number: 24, type: "note_completion", question: "24. Check whether _______ of interviewees can be used", correctAnswer: "B/names", points: 1 },
+        { id: "cam12-l-t3-s3-q25", number: 25, type: "note_completion", question: "25. try to identify _______", correctAnswer: "A/patterns", points: 1 },
+        { id: "cam12-l-t3-s3-q26", number: 26, type: "note_completion", question: "26. Do NOT end with _______", correctAnswer: "F/solutions", points: 1 },
+        {
+          id: "cam12-l-t3-s3-q27", number: 27,
+          groupLabel: `Questions 27–30: Choose the correct letter, A, B or C.`,
+          type: "multiple_choice", question: "27. Natalie and Dave agree one reason why so few people visit Horton Castle is that",
+          options: [
+            { label: "A  the publicity is poor.", value: "A" },
+            { label: "B  it is difficult to get to.", value: "B" },
+            { label: "C  there is little there of interest.", value: "C" },
+          ],
+          correctAnswer: "A", points: 1,
+        },
+        {
+          id: "cam12-l-t3-s3-q28", number: 28, type: "multiple_choice",
+          question: "28. Natalie and Dave agree that the greatest problem with a visitor centre could be",
+          options: [
+            { label: "A  covering the investment costs.", value: "A" },
+            { label: "B  finding a big enough space for it.", value: "B" },
+            { label: "C  dealing with planning restrictions.", value: "C" },
+          ],
+          correctAnswer: "C", points: 1,
+        },
+        {
+          id: "cam12-l-t3-s3-q29", number: 29, type: "multiple_choice",
+          question: "29. What does Dave say about conditions in the town of Horton?",
+          options: [
+            { label: "A  There is a lot of unemployment.", value: "A" },
+            { label: "B  There are few people of working age.", value: "B" },
+            { label: "C  There are opportunities for skilled workers.", value: "C" },
+          ],
+          correctAnswer: "B", points: 1,
+        },
+        {
+          id: "cam12-l-t3-s3-q30", number: 30, type: "multiple_choice",
+          question: "30. According to Natalie, one way to prevent damage to the castle site would be to",
+          options: [
+            { label: "A  insist visitors have a guide.", value: "A" },
+            { label: "B  make visitors keep to the paths.", value: "B" },
+            { label: "C  limit visitor numbers.", value: "C" },
+          ],
+          correctAnswer: "B", points: 1,
+        },
+      ],
+    },
+    // ── PART 4 ─────────────────────────────────────────────
+    {
+      id: "cam12-l-t3-s4",
+      sectionNumber: 4,
+      title: "Part 4",
+      instructions: `Questions 31–40: Complete the notes below. Write ONE WORD ONLY for each answer.`,
+      passageText: `The effects of environmental change on birds
+
+Mercury (Hg)
+●  Highly toxic
+●  Released into the atmosphere from coal
+●  In water it may be consumed by fish
+●  It has also recently been found to affect birds which feed on 31 _______
+
+Research on effects of mercury on birds
+●  Claire Varian-Ramos is investigating
+   –  the effects on birds' 32 _______ or mental processes, e.g. memory
+   –  the effects on bird song (usually learned from a bird's 33 _______)
+●  Findings:
+   –  songs learned by birds exposed to mercury are less 34 _______
+   –  this may have a negative effect on birds' 35 _______
+●  Lab-based studies
+   –  allow more 36 _______ for the experimenter
+
+Implications for humans
+●  Migrating birds such as 37 _______ containing mercury may be eaten by humans
+●  Mercury also causes problems in learning 38 _______
+●  Mercury in a mother's body from 39 _______ may affect the unborn child
+●  New regulations for mercury emissions will affect everyone's energy 40 _______`,
+      questions: [
+        { id: "cam12-l-t3-s4-q31", number: 31, type: "note_completion", question: "31. affect birds which feed on _______", correctAnswer: "insects", points: 1 },
+        { id: "cam12-l-t3-s4-q32", number: 32, type: "note_completion", question: "32. effects on birds' _______ or mental processes", correctAnswer: "behaviour/behavior", points: 1 },
+        { id: "cam12-l-t3-s4-q33", number: 33, type: "note_completion", question: "33. bird song learned from a bird's _______", correctAnswer: "father", points: 1 },
+        { id: "cam12-l-t3-s4-q34", number: 34, type: "note_completion", question: "34. songs learned by exposed birds are less _______", correctAnswer: "complex/complicated", points: 1 },
+        { id: "cam12-l-t3-s4-q35", number: 35, type: "note_completion", question: "35. negative effect on birds' _______", correctAnswer: "reproduction/breeding", points: 1 },
+        { id: "cam12-l-t3-s4-q36", number: 36, type: "note_completion", question: "36. allow more _______ for the experimenter", correctAnswer: "control", points: 1 },
+        { id: "cam12-l-t3-s4-q37", number: 37, type: "note_completion", question: "37. Migrating birds such as _______ may be eaten", correctAnswer: "duck/ducks", points: 1 },
+        { id: "cam12-l-t3-s4-q38", number: 38, type: "note_completion", question: "38. Mercury causes problems in learning _______", correctAnswer: "language", points: 1 },
+        { id: "cam12-l-t3-s4-q39", number: 39, type: "note_completion", question: "39. Mercury in a mother's body from _______", correctAnswer: "food", points: 1 },
+        { id: "cam12-l-t3-s4-q40", number: 40, type: "note_completion", question: "40. affect everyone's energy _______", correctAnswer: "cost/costs/price/prices/bill/bills", points: 1 },
+      ],
+    },
+  ],
+};
+
 export const cambridge12ListeningTests: IELTSTest[] = [
   cambridge12_listening_t1,
   cambridge12_listening_t2,
+  cambridge12_listening_t3,
 ];
