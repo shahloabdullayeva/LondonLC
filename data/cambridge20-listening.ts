@@ -7,7 +7,7 @@ const audioUrl = (name: string) =>
   `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/audio/${name}`;
 
 // Build the public Supabase Storage URL for an image (diagram / map) that
-// lives in the `images` bucket — e.g. `Bidcaster-Archaeological-Dig.png`.
+// lives in the `images` bucket — e.g. `cam20test3map.png`.
 const imageUrl = (name: string) =>
   `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/images/${name}`;
 
@@ -949,7 +949,7 @@ Larch Furniture
       id: "cam20-l-t3-s2",
       sectionNumber: 2,
       title: "Part 2",
-      diagramUrl: imageUrl("Bidcaster-Archaeological-Dig.png"),
+      diagramUrl: imageUrl("cam20test3map.png"),
       instructions: `Questions 11–16: Choose the correct letter, A, B or C.
 Questions 17–20: Label the map. Choose the correct letter, A–G, next to each item.`,
       passageTitle: "Bidcaster Archaeological Dig",
