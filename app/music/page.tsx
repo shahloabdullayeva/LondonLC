@@ -59,7 +59,7 @@ export default function MusicPage() {
       </nav>
 
       {/* Header */}
-      <header style={{ padding: "32px 36px 20px", maxWidth: 1200, margin: "0 auto", width: "100%" }}>
+      <header style={{ padding: "32px 36px 20px", width: "100%" }}>
         <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 6 }}>
           <div style={{ width: 36, height: 36, borderRadius: 10, background: "var(--site-accent-dim)", display: "flex", alignItems: "center", justifyContent: "center", color: "var(--site-accent)" }}>
             <Music size={18} />
@@ -76,16 +76,17 @@ export default function MusicPage() {
         </p>
       </header>
 
-      {/* Main layout */}
+      {/* Main layout — full viewport width, no maxWidth cap */}
       <div className="music-layout" style={{
         flex: 1, display: "flex", gap: 24,
         padding: "8px 36px 56px",
-        maxWidth: 1200, margin: "0 auto", width: "100%",
+        width: "100%", minHeight: 0,
       }}>
         {/* Song list */}
         <aside className="music-song-list" style={{
           width: 280, flexShrink: 0,
           display: "flex", flexDirection: "column", gap: 4,
+          maxHeight: "calc(100vh - 220px)", overflowY: "auto",
         }}>
           <p style={{ fontSize: 10, fontWeight: 700, color: "var(--site-text-sub)", letterSpacing: "0.22em", textTransform: "uppercase", margin: "4px 12px 10px" }}>
             Catalogue · {songs.length}
@@ -103,7 +104,7 @@ export default function MusicPage() {
                   border: `1px solid ${active ? "var(--site-accent-border)" : "transparent"}`,
                   cursor: "pointer", transition: "all 0.15s",
                   color: active ? "var(--site-accent)" : "var(--site-text-muted)",
-                  fontFamily: "inherit",
+                  fontFamily: "inherit", flexShrink: 0,
                 }}
                 onMouseEnter={(e) => { if (!active) e.currentTarget.style.background = "var(--site-border)"; }}
                 onMouseLeave={(e) => { if (!active) e.currentTarget.style.background = "transparent"; }}
@@ -119,8 +120,8 @@ export default function MusicPage() {
           })}
         </aside>
 
-        {/* Player */}
-        <main style={{ flex: 1, minWidth: 0, display: "flex", justifyContent: "center" }}>
+        {/* Player — fills the remaining width */}
+        <main style={{ flex: 1, minWidth: 0, display: "flex", justifyContent: "stretch" }}>
           {selected && <LyricsPlayer key={selected.id} song={selected} />}
         </main>
       </div>

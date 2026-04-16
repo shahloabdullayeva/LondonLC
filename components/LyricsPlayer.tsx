@@ -107,6 +107,14 @@ export default function LyricsPlayer({ song }: { song: Song }) {
     { kind: "loading" } | { kind: "error" } | { kind: "none" } | { kind: "synced"; lines: LrcLine[] } | { kind: "plain"; text: string }
   >({ kind: "loading" });
 
+  // Sync offset in seconds — positive = lyrics advance earlier
+  // (use when highlighting is behind the vocal); negative = later.
+  // lrclib timestamps are based on the studio recording, but
+  // YouTube videos often add intro bumpers or start slightly
+  // offset, so users need a way to nudge the sync.
+  const [offset, setOffset] = useState(0);
+  useEffect(() => { setOffset(0); }, [song.id]);
+
   // ── Create the YouTube player when the song changes ──────────
   useEffect(() => {
     let destroyed = false;
@@ -118,12 +126,22 @@ export default function LyricsPlayer({ song }: { song: Song }) {
       if (destroyed || !playerContainerRef.current) return;
       // Clear any previous player
       playerContainerRef.current.innerHTML = "";
+      // Host div must be sized to the full container so YT's 100% /
+      // 100% width/height actually fills the aspect-ratio wrapper
+      // (a plain unstyled div has 0 height by default).
       const host = document.createElement("div");
       host.id = `yt-${song.id}`;
+      host.style.width = "100%";
+      host.style.height = "100%";
       playerContainerRef.current.appendChild(host);
 
       const w = window as unknown as { YT: { Player: new (id: string, opts: Record<string, unknown>) => YTPlayer } };
       const p = new w.YT.Player(host.id, {
+        // Fill the container — without these the API uses 640x390
+        // defaults and the iframe floats at the top-left of the
+        // wrapper leaving black bars around it.
+        width: "100%",
+        height: "100%",
         videoId: song.youtubeId,
         playerVars: {
           rel: 0,          // no unrelated suggestions at the end
@@ -174,15 +192,17 @@ export default function LyricsPlayer({ song }: { song: Song }) {
   const activeIndex = useMemo(() => {
     if (lyricsState.kind !== "synced") return -1;
     const lines = lyricsState.lines;
-    // Binary search for the latest line whose timestamp is <= currentTime.
+    // Apply the user-set sync offset before searching.
+    const target = currentTime + offset;
+    // Binary search for the latest line whose timestamp is <= target.
     let lo = 0, hi = lines.length - 1, ans = -1;
     while (lo <= hi) {
       const mid = (lo + hi) >> 1;
-      if (lines[mid].time <= currentTime) { ans = mid; lo = mid + 1; }
+      if (lines[mid].time <= target) { ans = mid; lo = mid + 1; }
       else hi = mid - 1;
     }
     return ans;
-  }, [lyricsState, currentTime]);
+  }, [lyricsState, currentTime, offset]);
 
   // ── Auto-scroll the active line into view ────────────────────
   const lyricsScrollRef = useRef<HTMLDivElement | null>(null);
@@ -203,14 +223,44 @@ export default function LyricsPlayer({ song }: { song: Song }) {
         <div ref={playerContainerRef} style={{ position: "absolute", inset: 0 }} />
       </div>
 
-      {/* Song meta */}
-      <div style={{ display: "flex", flexDirection: "column", gap: 2 }}>
-        <div style={{ fontFamily: `"Fraunces", serif`, fontSize: 26, fontWeight: 500, color: "var(--site-text)", letterSpacing: "-0.01em" }}>
-          {song.title}
+      {/* Song meta + sync controls */}
+      <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", gap: 16, flexWrap: "wrap" }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: 2, minWidth: 0 }}>
+          <div style={{ fontFamily: `"Fraunces", serif`, fontSize: 26, fontWeight: 500, color: "var(--site-text)", letterSpacing: "-0.01em" }}>
+            {song.title}
+          </div>
+          <div style={{ fontSize: 13, color: "var(--site-text-muted)", letterSpacing: "0.06em" }}>
+            {song.artist}{song.album ? ` · ${song.album}` : ""}
+          </div>
         </div>
-        <div style={{ fontSize: 13, color: "var(--site-text-muted)", letterSpacing: "0.06em" }}>
-          {song.artist}{song.album ? ` · ${song.album}` : ""}
-        </div>
+
+        {lyricsState.kind === "synced" && (
+          <div style={{ display: "flex", alignItems: "center", gap: 8, flexShrink: 0 }}>
+            <span style={{ fontSize: 10, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--site-text-sub)", fontWeight: 700 }}>
+              Sync
+            </span>
+            <button
+              onClick={() => setOffset(o => o - 0.5)}
+              title="Lyrics are ahead — delay them by 0.5s"
+              style={{ width: 32, height: 32, borderRadius: 8, background: "var(--site-card)", color: "var(--site-text-muted)", border: "1px solid var(--site-border-strong)", cursor: "pointer", fontSize: 15, fontWeight: 600, fontFamily: "'IBM Plex Mono', monospace" }}
+            >−</button>
+            <span style={{ minWidth: 52, textAlign: "center", fontSize: 12, color: "var(--site-text)", fontFamily: "'IBM Plex Mono', monospace", fontWeight: 600 }}>
+              {offset >= 0 ? "+" : ""}{offset.toFixed(1)}s
+            </span>
+            <button
+              onClick={() => setOffset(o => o + 0.5)}
+              title="Lyrics are behind — advance them by 0.5s"
+              style={{ width: 32, height: 32, borderRadius: 8, background: "var(--site-card)", color: "var(--site-text-muted)", border: "1px solid var(--site-border-strong)", cursor: "pointer", fontSize: 15, fontWeight: 600, fontFamily: "'IBM Plex Mono', monospace" }}
+            >+</button>
+            {offset !== 0 && (
+              <button
+                onClick={() => setOffset(0)}
+                title="Reset offset"
+                style={{ marginLeft: 4, padding: "4px 10px", borderRadius: 8, background: "transparent", color: "var(--site-text-sub)", border: "1px solid var(--site-border)", cursor: "pointer", fontSize: 11, fontWeight: 600 }}
+              >Reset</button>
+            )}
+          </div>
+        )}
       </div>
 
       {/* Lyrics */}

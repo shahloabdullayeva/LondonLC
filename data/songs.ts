@@ -19,6 +19,41 @@ export type Song = {
 };
 
 export const starterSongs: Song[] = [
+  // ── Recent viral / TikTok favourites ───────────────────────
+  {
+    id: "melanie-martinez-playdate",
+    title: "Play Date",
+    artist: "Melanie Martinez",
+    album: "K-12",
+    youtubeId: "C7kZ0D-PEIs",
+    duration: 175,
+  },
+  {
+    id: "surf-curse-freaks",
+    title: "Freaks",
+    artist: "Surf Curse",
+    album: "Buds",
+    youtubeId: "zhFwYZYJ-nI",
+    duration: 145,
+  },
+  {
+    id: "joji-glimpse-of-us",
+    title: "Glimpse of Us",
+    artist: "Joji",
+    album: "SMITHEREENS",
+    youtubeId: "sk3AYWvlwE0",
+    duration: 233,
+  },
+  {
+    id: "stephen-sanchez-until-i-found-you",
+    title: "Until I Found You",
+    artist: "Stephen Sanchez",
+    album: "Angel Face",
+    youtubeId: "pp5yeQrcCwc",
+    duration: 165,
+  },
+
+  // ── Modern pop ballads ────────────────────────────────────
   {
     id: "adele-hello",
     title: "Hello",
@@ -42,38 +77,6 @@ export const starterSongs: Song[] = [
     album: "÷ (Divide)",
     youtubeId: "2Vv-BfVoq4g",
     duration: 263,
-  },
-  {
-    id: "coldplay-yellow",
-    title: "Yellow",
-    artist: "Coldplay",
-    album: "Parachutes",
-    youtubeId: "yKNxeF4KMsY",
-    duration: 269,
-  },
-  {
-    id: "coldplay-fix-you",
-    title: "Fix You",
-    artist: "Coldplay",
-    album: "X&Y",
-    youtubeId: "k4V3Mo61fJM",
-    duration: 294,
-  },
-  {
-    id: "beatles-let-it-be",
-    title: "Let It Be",
-    artist: "The Beatles",
-    album: "Let It Be",
-    youtubeId: "QDYfEBY9NM4",
-    duration: 243,
-  },
-  {
-    id: "john-lennon-imagine",
-    title: "Imagine",
-    artist: "John Lennon",
-    album: "Imagine",
-    youtubeId: "YkgkThdzX-8",
-    duration: 183,
   },
   {
     id: "sam-smith-stay-with-me",
@@ -100,12 +103,158 @@ export const starterSongs: Song[] = [
     duration: 285,
   },
   {
+    id: "dj-snake-let-me-love-you",
+    title: "Let Me Love You",
+    artist: "DJ Snake & Justin Bieber",
+    album: "Encore",
+    youtubeId: "RgKAFK5djSk",
+    duration: 206,
+  },
+
+  // ── Coldplay ───────────────────────────────────────────────
+  {
+    id: "coldplay-yellow",
+    title: "Yellow",
+    artist: "Coldplay",
+    album: "Parachutes",
+    youtubeId: "yKNxeF4KMsY",
+    duration: 269,
+  },
+  {
+    id: "coldplay-fix-you",
+    title: "Fix You",
+    artist: "Coldplay",
+    album: "X&Y",
+    youtubeId: "k4V3Mo61fJM",
+    duration: 294,
+  },
+
+  // ── Taylor Swift ──────────────────────────────────────────
+  {
     id: "taylor-swift-love-story",
     title: "Love Story",
     artist: "Taylor Swift",
     album: "Fearless",
     youtubeId: "8xg3vE8Ie_E",
     duration: 236,
+  },
+  {
+    id: "taylor-swift-betty",
+    title: "betty",
+    artist: "Taylor Swift",
+    album: "folklore",
+    youtubeId: "mn9iiP0YIyQ",
+    duration: 294,
+  },
+
+  // ── Classic rock & pop legends ────────────────────────────
+  {
+    id: "prince-purple-rain",
+    title: "Purple Rain",
+    artist: "Prince",
+    album: "Purple Rain",
+    youtubeId: "TvnYmWpD_T8",
+    duration: 520,
+  },
+  {
+    id: "the-clash-should-i-stay-or-should-i-go",
+    title: "Should I Stay or Should I Go",
+    artist: "The Clash",
+    album: "Combat Rock",
+    youtubeId: "BN1WwnEDWAM",
+    duration: 193,
+  },
+  {
+    id: "kate-bush-running-up-that-hill",
+    title: "Running Up That Hill",
+    artist: "Kate Bush",
+    album: "Hounds of Love",
+    youtubeId: "wp43OdtAAkM",
+    duration: 300,
+  },
+  {
+    id: "elton-john-im-still-standing",
+    title: "I'm Still Standing",
+    artist: "Elton John",
+    album: "Too Low for Zero",
+    youtubeId: "ZHwVBirqD2s",
+    duration: 202,
+  },
+  {
+    id: "beatles-let-it-be",
+    title: "Let It Be",
+    artist: "The Beatles",
+    album: "Let It Be",
+    youtubeId: "QDYfEBY9NM4",
+    duration: 243,
+  },
+  {
+    id: "john-lennon-imagine",
+    title: "Imagine",
+    artist: "John Lennon",
+    album: "Imagine",
+    youtubeId: "YkgkThdzX-8",
+    duration: 183,
+  },
+
+  // ── ABBA ──────────────────────────────────────────────────
+  {
+    id: "abba-dancing-queen",
+    title: "Dancing Queen",
+    artist: "ABBA",
+    album: "Arrival",
+    youtubeId: "xFrGuyw1V8s",
+    duration: 230,
+  },
+  {
+    id: "abba-mamma-mia",
+    title: "Mamma Mia",
+    artist: "ABBA",
+    album: "ABBA",
+    youtubeId: "unfzfe8f9NI",
+    duration: 212,
+  },
+  {
+    id: "abba-waterloo",
+    title: "Waterloo",
+    artist: "ABBA",
+    album: "Waterloo",
+    youtubeId: "3FsVeMz1F5c",
+    duration: 166,
+  },
+  {
+    id: "abba-winner-takes-it-all",
+    title: "The Winner Takes It All",
+    artist: "ABBA",
+    album: "Super Trouper",
+    youtubeId: "92cwKCU8Z5c",
+    duration: 275,
+  },
+
+  // ── 80s / 90s / 2000s classics ────────────────────────────
+  {
+    id: "sting-shape-of-my-heart",
+    title: "Shape of My Heart",
+    artist: "Sting",
+    album: "Ten Summoner's Tales",
+    youtubeId: "NlwIDxCjL-8",
+    duration: 278,
+  },
+  {
+    id: "george-michael-careless-whisper",
+    title: "Careless Whisper",
+    artist: "George Michael",
+    album: "Make It Big",
+    youtubeId: "izGwDsrQ1eQ",
+    duration: 319,
+  },
+  {
+    id: "nelly-furtado-say-it-right",
+    title: "Say It Right",
+    artist: "Nelly Furtado",
+    album: "Loose",
+    youtubeId: "6JnGBs88sL0",
+    duration: 223,
   },
   {
     id: "sia-chandelier",
