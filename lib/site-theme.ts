@@ -22,7 +22,7 @@ const DEFAULT: ThemeChoice = { kind: "preset", name: "dark" };
 const ORDER: PresetName[] = ["dark", "sepia", "slate"];
 
 // ── Persistence ──────────────────────────────────────────────────────
-function readStored(): ThemeChoice {
+function parseStored(): ThemeChoice {
   if (typeof window === "undefined") return DEFAULT;
   const raw = window.localStorage.getItem(STORAGE_KEY);
   if (!raw) return DEFAULT;
@@ -39,6 +39,20 @@ function readStored(): ThemeChoice {
   return DEFAULT;
 }
 
+// Cached snapshot — `useSyncExternalStore` compares snapshots with
+// Object.is, so `getSnapshot` MUST return a stable reference between
+// actual changes. Without this cache, parseStored() would return a
+// fresh object on every render and we'd infinite-loop.
+let cachedSnapshot: ThemeChoice | null = null;
+function readStored(): ThemeChoice {
+  if (cachedSnapshot !== null) return cachedSnapshot;
+  cachedSnapshot = parseStored();
+  return cachedSnapshot;
+}
+function invalidateSnapshot() {
+  cachedSnapshot = null;
+}
+
 function writeStored(c: ThemeChoice) {
   if (typeof window === "undefined") return;
   if (c.kind === "preset") {
@@ -46,6 +60,7 @@ function writeStored(c: ThemeChoice) {
   } else {
     window.localStorage.setItem(STORAGE_KEY, JSON.stringify(c));
   }
+  invalidateSnapshot();
 }
 
 // ── Colour maths for custom themes ───────────────────────────────────
@@ -144,10 +159,14 @@ function applyToDom(c: ThemeChoice) {
 
 // ── External store so every consumer re-renders on theme change. ─────
 const listeners = new Set<() => void>();
+function notify() {
+  invalidateSnapshot();
+  listeners.forEach((cb) => cb());
+}
 function subscribe(cb: () => void): () => void {
   listeners.add(cb);
-  const onStorage = (e: StorageEvent) => { if (e.key === STORAGE_KEY) cb(); };
-  const onCustom = () => cb();
+  const onStorage = (e: StorageEvent) => { if (e.key === STORAGE_KEY) notify(); };
+  const onCustom = () => notify();
   window.addEventListener("storage", onStorage);
   window.addEventListener("london-lc:theme", onCustom);
   return () => {
