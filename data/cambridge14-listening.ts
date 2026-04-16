@@ -739,7 +739,340 @@ Middle Ages
   ],
 };
 
+// ============================================================
+// CAMBRIDGE IELTS 14 – LISTENING TEST 3
+// Parts: 1) Flanders Conference Hotel — Angela (notes)
+//        2) Volunteering (two Choose-TWO + volunteer → action
+//           matching A–G)
+//        3) School marching band — Joe (notes + band member →
+//           problem matching A–F)
+//        4) University arts festival concerts (notes — composers
+//           Liza Lim, Ross Edwards, Carl Vine)
+// ============================================================
+export const cambridge14_listening_t3: IELTSTest = {
+  id: "cam14-listening-t3",
+  title: "Cambridge IELTS 14 – Listening Test 3",
+  bookNumber: 14,
+  testNumber: 3,
+  type: "listening",
+  level: "academic",
+  durationMinutes: 30,
+  transferMinutes: 2,
+  audioUrl: audioUrl("cam14-listening-t3.mp3"),
+  audioDurationSeconds: 1800,
+  sections: [
+    // ── PART 1 ─────────────────────────────────────────────
+    {
+      id: "cam14-l-t3-s1",
+      sectionNumber: 1,
+      title: "Part 1",
+      instructions: `Questions 1–10: Complete the notes below. Write ONE WORD AND/OR A NUMBER for each answer.`,
+      passageText: `Flanders Conference Hotel
+
+Customer Services Manager: Angela
+
+Date available
+●  weekend beginning February 4th
+
+Conference facilities
+●  the 1 _______ room for talks
+   (projector and 2 _______ available)
+●  area for coffee and an 3 _______
+●  free 4 _______ throughout
+●  a standard buffet lunch costs $ 5 _______ per head
+
+Accommodation
+●  Rooms will cost $ 6 _______ including breakfast.
+
+Other facilities
+●  The hotel also has a spa and rooftop 7 _______
+●  There's a free shuttle service to the 8 _______
+
+Location
+●  Wilby Street (quite near the 9 _______)
+●  near to restaurants and many 10 _______`,
+      questions: [
+        { id: "cam14-l-t3-s1-q1", number: 1, type: "note_completion", question: "1. the _______ room for talks", correctAnswer: "Tesla", points: 1 },
+        { id: "cam14-l-t3-s1-q2", number: 2, type: "note_completion", question: "2. projector and _______ available", correctAnswer: "microphone", points: 1 },
+        { id: "cam14-l-t3-s1-q3", number: 3, type: "note_completion", question: "3. area for coffee and an _______", correctAnswer: "exhibition", points: 1 },
+        { id: "cam14-l-t3-s1-q4", number: 4, type: "note_completion", question: "4. free _______ throughout", correctAnswer: "wifi", points: 1 },
+        { id: "cam14-l-t3-s1-q5", number: 5, type: "note_completion", question: "5. standard buffet lunch costs $ _______ per head", correctAnswer: "45", points: 1 },
+        { id: "cam14-l-t3-s1-q6", number: 6, type: "note_completion", question: "6. Rooms will cost $ _______ including breakfast", correctAnswer: "135", points: 1 },
+        { id: "cam14-l-t3-s1-q7", number: 7, type: "note_completion", question: "7. spa and rooftop _______", correctAnswer: "pool", points: 1 },
+        { id: "cam14-l-t3-s1-q8", number: 8, type: "note_completion", question: "8. free shuttle service to the _______", correctAnswer: "airport", points: 1 },
+        { id: "cam14-l-t3-s1-q9", number: 9, type: "note_completion", question: "9. quite near the _______", correctAnswer: "sea", points: 1 },
+        { id: "cam14-l-t3-s1-q10", number: 10, type: "note_completion", question: "10. near to restaurants and many _______", correctAnswer: "clubs", points: 1 },
+      ],
+    },
+    // ── PART 2 ─────────────────────────────────────────────
+    {
+      id: "cam14-l-t3-s2",
+      sectionNumber: 2,
+      title: "Part 2",
+      instructions: `Questions 11 & 12: Choose TWO letters, A–E.
+Questions 13 & 14: Choose TWO letters, A–E.
+Questions 15–20: Match each volunteer with what they have helped someone to do. Choose SIX answers from the box (A–G).`,
+      passageTitle: "Volunteering",
+      questions: [
+        {
+          id: "cam14-l-t3-s2-q11", number: 11,
+          groupLabel: `Questions 11 and 12: Choose TWO letters, A–E.\n\nWhich TWO activities that volunteers do are mentioned?\n\nA  decorating\nB  cleaning\nC  delivering meals\nD  shopping\nE  childcare\n\n(Answers are accepted in either order.)`,
+          type: "multiple_choice", question: "11. Choose TWO (first answer)",
+          options: [
+            { label: "A  decorating", value: "A" },
+            { label: "B  cleaning", value: "B" },
+            { label: "C  delivering meals", value: "C" },
+            { label: "D  shopping", value: "D" },
+            { label: "E  childcare", value: "E" },
+          ],
+          correctAnswer: "A/E", points: 1,
+        },
+        {
+          id: "cam14-l-t3-s2-q12", number: 12, type: "multiple_choice",
+          question: "12. Choose TWO (second answer)",
+          options: [
+            { label: "A  decorating", value: "A" },
+            { label: "B  cleaning", value: "B" },
+            { label: "C  delivering meals", value: "C" },
+            { label: "D  shopping", value: "D" },
+            { label: "E  childcare", value: "E" },
+          ],
+          correctAnswer: "A/E", points: 1,
+        },
+        {
+          id: "cam14-l-t3-s2-q13", number: 13,
+          groupLabel: `Questions 13 and 14: Choose TWO letters, A–E.\n\nWhich TWO ways that volunteers can benefit from volunteering are mentioned?\n\nA  learning how to be part of a team\nB  having a sense of purpose\nC  realising how lucky they are\nD  improved ability at time management\nE  boosting their employment prospects\n\n(Answers are accepted in either order.)`,
+          type: "multiple_choice", question: "13. Choose TWO (first answer)",
+          options: [
+            { label: "A  learning how to be part of a team", value: "A" },
+            { label: "B  having a sense of purpose", value: "B" },
+            { label: "C  realising how lucky they are", value: "C" },
+            { label: "D  improved ability at time management", value: "D" },
+            { label: "E  boosting their employment prospects", value: "E" },
+          ],
+          correctAnswer: "B/E", points: 1,
+        },
+        {
+          id: "cam14-l-t3-s2-q14", number: 14, type: "multiple_choice",
+          question: "14. Choose TWO (second answer)",
+          options: [
+            { label: "A  learning how to be part of a team", value: "A" },
+            { label: "B  having a sense of purpose", value: "B" },
+            { label: "C  realising how lucky they are", value: "C" },
+            { label: "D  improved ability at time management", value: "D" },
+            { label: "E  boosting their employment prospects", value: "E" },
+          ],
+          correctAnswer: "B/E", points: 1,
+        },
+        {
+          id: "cam14-l-t3-s2-q15", number: 15,
+          groupLabel: `Questions 15–20: What has each of the following volunteers helped someone to do? Choose SIX answers from the box (A–G).\n\nA  overcome physical difficulties\nB  rediscover skills not used for a long time\nC  improve their communication skills\nD  solve problems independently\nE  escape isolation\nF  remember past times\nG  start a new hobby`,
+          type: "matching", question: "15. Habib",
+          options: [
+            { label: "A  overcome physical difficulties", value: "A" },
+            { label: "B  rediscover skills not used for a long time", value: "B" },
+            { label: "C  improve their communication skills", value: "C" },
+            { label: "D  solve problems independently", value: "D" },
+            { label: "E  escape isolation", value: "E" },
+            { label: "F  remember past times", value: "F" },
+            { label: "G  start a new hobby", value: "G" },
+          ],
+          correctAnswer: "F", points: 1,
+        },
+        {
+          id: "cam14-l-t3-s2-q16", number: 16, type: "matching", question: "16. Consuela",
+          options: [
+            { label: "A  overcome physical difficulties", value: "A" },
+            { label: "B  rediscover skills not used for a long time", value: "B" },
+            { label: "C  improve their communication skills", value: "C" },
+            { label: "D  solve problems independently", value: "D" },
+            { label: "E  escape isolation", value: "E" },
+            { label: "F  remember past times", value: "F" },
+            { label: "G  start a new hobby", value: "G" },
+          ],
+          correctAnswer: "A", points: 1,
+        },
+        {
+          id: "cam14-l-t3-s2-q17", number: 17, type: "matching", question: "17. Minh",
+          options: [
+            { label: "A  overcome physical difficulties", value: "A" },
+            { label: "B  rediscover skills not used for a long time", value: "B" },
+            { label: "C  improve their communication skills", value: "C" },
+            { label: "D  solve problems independently", value: "D" },
+            { label: "E  escape isolation", value: "E" },
+            { label: "F  remember past times", value: "F" },
+            { label: "G  start a new hobby", value: "G" },
+          ],
+          correctAnswer: "E", points: 1,
+        },
+        {
+          id: "cam14-l-t3-s2-q18", number: 18, type: "matching", question: "18. Tanya",
+          options: [
+            { label: "A  overcome physical difficulties", value: "A" },
+            { label: "B  rediscover skills not used for a long time", value: "B" },
+            { label: "C  improve their communication skills", value: "C" },
+            { label: "D  solve problems independently", value: "D" },
+            { label: "E  escape isolation", value: "E" },
+            { label: "F  remember past times", value: "F" },
+            { label: "G  start a new hobby", value: "G" },
+          ],
+          correctAnswer: "G", points: 1,
+        },
+        {
+          id: "cam14-l-t3-s2-q19", number: 19, type: "matching", question: "19. Alexei",
+          options: [
+            { label: "A  overcome physical difficulties", value: "A" },
+            { label: "B  rediscover skills not used for a long time", value: "B" },
+            { label: "C  improve their communication skills", value: "C" },
+            { label: "D  solve problems independently", value: "D" },
+            { label: "E  escape isolation", value: "E" },
+            { label: "F  remember past times", value: "F" },
+            { label: "G  start a new hobby", value: "G" },
+          ],
+          correctAnswer: "D", points: 1,
+        },
+        {
+          id: "cam14-l-t3-s2-q20", number: 20, type: "matching", question: "20. Juba",
+          options: [
+            { label: "A  overcome physical difficulties", value: "A" },
+            { label: "B  rediscover skills not used for a long time", value: "B" },
+            { label: "C  improve their communication skills", value: "C" },
+            { label: "D  solve problems independently", value: "D" },
+            { label: "E  escape isolation", value: "E" },
+            { label: "F  remember past times", value: "F" },
+            { label: "G  start a new hobby", value: "G" },
+          ],
+          correctAnswer: "C", points: 1,
+        },
+      ],
+    },
+    // ── PART 3 ─────────────────────────────────────────────
+    {
+      id: "cam14-l-t3-s3",
+      sectionNumber: 3,
+      title: "Part 3",
+      instructions: `Questions 21–26: Complete the notes below. Write ONE WORD AND/OR A NUMBER for each answer.
+Questions 27–30: Match each band member with a problem. Choose FOUR answers from the box (A–F).`,
+      passageTitle: "Joe — school marching band",
+      passageText: `Background on school marching band
+
+It consists of around 21 _______ students.
+It is due to play in a 22 _______ band competition.
+It has been invited to play in the town's 23 _______.
+They have listened to a talk by a 24 _______.
+Joe will discuss a 25 _______ with the band.
+Joe hopes the band will attend a 26 _______ next month.`,
+      questions: [
+        { id: "cam14-l-t3-s3-q21", number: 21, type: "note_completion", question: "21. It consists of around _______ students", correctAnswer: "50", points: 1 },
+        { id: "cam14-l-t3-s3-q22", number: 22, type: "note_completion", question: "22. It is due to play in a _______ band competition", correctAnswer: "regional", points: 1 },
+        { id: "cam14-l-t3-s3-q23", number: 23, type: "note_completion", question: "23. invited to play in the town's _______", correctAnswer: "carnival", points: 1 },
+        { id: "cam14-l-t3-s3-q24", number: 24, type: "note_completion", question: "24. have listened to a talk by a _______", correctAnswer: "drummer", points: 1 },
+        { id: "cam14-l-t3-s3-q25", number: 25, type: "note_completion", question: "25. Joe will discuss a _______ with the band", correctAnswer: "film", points: 1 },
+        { id: "cam14-l-t3-s3-q26", number: 26, type: "note_completion", question: "26. attend a _______ next month", correctAnswer: "parade", points: 1 },
+        {
+          id: "cam14-l-t3-s3-q27", number: 27,
+          groupLabel: `Questions 27–30: What problem does Joe mention in connection with each of the following band members? Choose FOUR answers from the box (A–F).\n\nA  makes a lot of mistakes in rehearsals\nB  keeps making unhelpful suggestions\nC  has difficulty with rhythm\nD  misses too many rehearsals\nE  has a health problem\nF  doesn't mix with other students`,
+          type: "matching", question: "27. flautist",
+          options: [
+            { label: "A  makes a lot of mistakes in rehearsals", value: "A" },
+            { label: "B  keeps making unhelpful suggestions", value: "B" },
+            { label: "C  has difficulty with rhythm", value: "C" },
+            { label: "D  misses too many rehearsals", value: "D" },
+            { label: "E  has a health problem", value: "E" },
+            { label: "F  doesn't mix with other students", value: "F" },
+          ],
+          correctAnswer: "D", points: 1,
+        },
+        {
+          id: "cam14-l-t3-s3-q28", number: 28, type: "matching", question: "28. trumpeter",
+          options: [
+            { label: "A  makes a lot of mistakes in rehearsals", value: "A" },
+            { label: "B  keeps making unhelpful suggestions", value: "B" },
+            { label: "C  has difficulty with rhythm", value: "C" },
+            { label: "D  misses too many rehearsals", value: "D" },
+            { label: "E  has a health problem", value: "E" },
+            { label: "F  doesn't mix with other students", value: "F" },
+          ],
+          correctAnswer: "B", points: 1,
+        },
+        {
+          id: "cam14-l-t3-s3-q29", number: 29, type: "matching", question: "29. trombonist",
+          options: [
+            { label: "A  makes a lot of mistakes in rehearsals", value: "A" },
+            { label: "B  keeps making unhelpful suggestions", value: "B" },
+            { label: "C  has difficulty with rhythm", value: "C" },
+            { label: "D  misses too many rehearsals", value: "D" },
+            { label: "E  has a health problem", value: "E" },
+            { label: "F  doesn't mix with other students", value: "F" },
+          ],
+          correctAnswer: "E", points: 1,
+        },
+        {
+          id: "cam14-l-t3-s3-q30", number: 30, type: "matching", question: "30. percussionist",
+          options: [
+            { label: "A  makes a lot of mistakes in rehearsals", value: "A" },
+            { label: "B  keeps making unhelpful suggestions", value: "B" },
+            { label: "C  has difficulty with rhythm", value: "C" },
+            { label: "D  misses too many rehearsals", value: "D" },
+            { label: "E  has a health problem", value: "E" },
+            { label: "F  doesn't mix with other students", value: "F" },
+          ],
+          correctAnswer: "F", points: 1,
+        },
+      ],
+    },
+    // ── PART 4 ─────────────────────────────────────────────
+    {
+      id: "cam14-l-t3-s4",
+      sectionNumber: 4,
+      title: "Part 4",
+      instructions: `Questions 31–40: Complete the notes below. Write ONE WORD AND/OR A NUMBER for each answer.`,
+      passageText: `Concerts in university arts festival
+
+Concert 1
+Australian composer: Liza Lim
+●  studied piano and 31 _______ before turning to composition
+●  performers and festivals around the world have given her a lot of commissions
+●  compositions show a great deal of 32 _______ and are drawn from various cultural sources
+●  her music is very expressive and also 33 _______
+●  festival will include her 34 _______ called The Oresteia
+●  Lim described the sounds in The Oresteia as 35 _______
+British composers: Ralph Vaughan Williams, Frederick Delius
+
+Concert 2
+British composers: Benjamin Britten, Judith Weir
+Australian composer: Ross Edwards
+●  festival will include The Tower of Remoteness, inspired by nature
+●  The Tower of Remoteness is performed by piano and 36 _______
+●  compositions include music for children
+●  celebrates Australia's cultural 37 _______
+
+Concert 3
+Australian composer: Carl Vine
+●  played cornet then piano
+●  studied 38 _______ before studying music
+●  worked in Sydney as a pianist and composer
+●  became well known as composer of music for 39 _______
+●  festival will include his music for the 1996 40 _______
+British composers: Edward Elgar, Thomas Adès`,
+      questions: [
+        { id: "cam14-l-t3-s4-q31", number: 31, type: "note_completion", question: "31. studied piano and _______ before turning to composition", correctAnswer: "violin", points: 1 },
+        { id: "cam14-l-t3-s4-q32", number: 32, type: "note_completion", question: "32. compositions show a great deal of _______", correctAnswer: "energy", points: 1 },
+        { id: "cam14-l-t3-s4-q33", number: 33, type: "note_completion", question: "33. very expressive and also _______", correctAnswer: "complex", points: 1 },
+        { id: "cam14-l-t3-s4-q34", number: 34, type: "note_completion", question: "34. festival will include her _______ called The Oresteia", correctAnswer: "opera", points: 1 },
+        { id: "cam14-l-t3-s4-q35", number: 35, type: "note_completion", question: "35. Lim described the sounds in The Oresteia as _______", correctAnswer: "disturbing", points: 1 },
+        { id: "cam14-l-t3-s4-q36", number: 36, type: "note_completion", question: "36. The Tower of Remoteness performed by piano and _______", correctAnswer: "clarinet", points: 1 },
+        { id: "cam14-l-t3-s4-q37", number: 37, type: "note_completion", question: "37. celebrates Australia's cultural _______", correctAnswer: "diversity", points: 1 },
+        { id: "cam14-l-t3-s4-q38", number: 38, type: "note_completion", question: "38. studied _______ before studying music", correctAnswer: "physics", points: 1 },
+        { id: "cam14-l-t3-s4-q39", number: 39, type: "note_completion", question: "39. well known as composer of music for _______", correctAnswer: "dance", points: 1 },
+        { id: "cam14-l-t3-s4-q40", number: 40, type: "note_completion", question: "40. his music for the 1996 _______", correctAnswer: "Olympics", points: 1 },
+      ],
+    },
+  ],
+};
+
 export const cambridge14ListeningTests: IELTSTest[] = [
   cambridge14_listening_t1,
   cambridge14_listening_t2,
+  cambridge14_listening_t3,
 ];
