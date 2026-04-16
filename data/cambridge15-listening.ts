@@ -4,6 +4,10 @@ import type { IELTSTest } from "./ielts-tests";
 const audioUrl = (name: string) =>
   `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/audio/${name}`;
 
+// Build the public Supabase Storage URL for a diagram / map image.
+const imageUrl = (name: string) =>
+  `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/images/${name}`;
+
 // ============================================================
 // CAMBRIDGE IELTS 15 – LISTENING TEST 1
 // Parts: 1) Bankside Recruitment Agency — Becky (notes)
@@ -336,6 +340,371 @@ William Jackson's theory:
   ],
 };
 
+// ============================================================
+// CAMBRIDGE IELTS 15 – LISTENING TEST 2
+// Parts: 1) Festival information (table + notes — concert, ballet,
+//           play, dance show, workshops, outdoor activities)
+//        2) Minster Park (MCQ + map labelling A–I)
+//        3) Display on Charles Dickens (two Choose-TWO + novel
+//           → topic matching)
+//        4) Agricultural programme in Mozambique (notes)
+// ============================================================
+export const cambridge15_listening_t2: IELTSTest = {
+  id: "cam15-listening-t2",
+  title: "Cambridge IELTS 15 – Listening Test 2",
+  bookNumber: 15,
+  testNumber: 2,
+  type: "listening",
+  level: "academic",
+  durationMinutes: 30,
+  transferMinutes: 2,
+  audioUrl: audioUrl("cam15-listening-t2.mp3"),
+  audioDurationSeconds: 1800,
+  sections: [
+    // ── PART 1 ─────────────────────────────────────────────
+    {
+      id: "cam15-l-t2-s1",
+      sectionNumber: 1,
+      title: "Part 1",
+      instructions: `Questions 1–10: Complete the table and notes below. Write ONE WORD ONLY for each answer.`,
+      passageText: `Festival information
+
+Date          | Type of event    | Details
+17th          | a concert        | performers from Canada
+18th          | a ballet         | company called 1 _______
+19th–20th     | a play           | type of play: a comedy called Jemima has had a good 2 _______
+(afternoon)   |                  |
+20th          | a 3 _______      | show is called 4 _______
+(evening)     | show             |
+
+Workshops
+●  Making 5 _______ food
+●  (children only) Making 6 _______
+●  (adults only) Making toys from 7 _______ using various tools
+
+Outdoor activities
+●  Swimming in the 8 _______
+●  Walking in the woods, led by an expert on 9 _______
+
+See the festival organiser's 10 _______ for more information`,
+      questions: [
+        { id: "cam15-l-t2-s1-q1", number: 1, type: "table_completion", question: "1. ballet: company called _______", correctAnswer: "Eustatis", points: 1 },
+        { id: "cam15-l-t2-s1-q2", number: 2, type: "table_completion", question: "2. comedy called Jemima has had a good _______", correctAnswer: "review", points: 1 },
+        { id: "cam15-l-t2-s1-q3", number: 3, type: "table_completion", question: "3. a _______ show", correctAnswer: "dance", points: 1 },
+        { id: "cam15-l-t2-s1-q4", number: 4, type: "table_completion", question: "4. show is called _______", correctAnswer: "Chat", points: 1 },
+        { id: "cam15-l-t2-s1-q5", number: 5, type: "note_completion", question: "5. Making _______ food", correctAnswer: "healthy", points: 1 },
+        { id: "cam15-l-t2-s1-q6", number: 6, type: "note_completion", question: "6. (children only) Making _______", correctAnswer: "posters", points: 1 },
+        { id: "cam15-l-t2-s1-q7", number: 7, type: "note_completion", question: "7. Making toys from _______ using various tools", correctAnswer: "wood", points: 1 },
+        { id: "cam15-l-t2-s1-q8", number: 8, type: "note_completion", question: "8. Swimming in the _______", correctAnswer: "lake", points: 1 },
+        { id: "cam15-l-t2-s1-q9", number: 9, type: "note_completion", question: "9. Walking in the woods, led by an expert on _______", correctAnswer: "insects", points: 1 },
+        { id: "cam15-l-t2-s1-q10", number: 10, type: "note_completion", question: "10. See the festival organiser's _______ for more information", correctAnswer: "blog", points: 1 },
+      ],
+    },
+    // ── PART 2 ─────────────────────────────────────────────
+    {
+      id: "cam15-l-t2-s2",
+      sectionNumber: 2,
+      title: "Part 2",
+      instructions: `Questions 11–14: Choose the correct letter, A, B or C.
+Questions 15–20: Label the map of Minster Park below. Write the correct letter, A–I, next to each location.`,
+      passageTitle: "Minster Park",
+      diagramUrl: imageUrl("cam15test2map.png"),
+      questions: [
+        {
+          id: "cam15-l-t2-s2-q11", number: 11,
+          groupLabel: `Questions 11–14: Choose the correct letter, A, B or C.`,
+          type: "multiple_choice", question: "11. The park was originally established",
+          options: [
+            { label: "A  as an amenity provided by the city council.", value: "A" },
+            { label: "B  as land belonging to a private house.", value: "B" },
+            { label: "C  as a shared area set up by the local community.", value: "C" },
+          ],
+          correctAnswer: "C", points: 1,
+        },
+        {
+          id: "cam15-l-t2-s2-q12", number: 12, type: "multiple_choice",
+          question: "12. Why is there a statue of Diane Gosforth in the park?",
+          options: [
+            { label: "A  She was a resident who helped to lead a campaign.", value: "A" },
+            { label: "B  She was a council member responsible for giving the public access.", value: "B" },
+            { label: "C  She was a senior worker at the park for many years.", value: "C" },
+          ],
+          correctAnswer: "A", points: 1,
+        },
+        {
+          id: "cam15-l-t2-s2-q13", number: 13, type: "multiple_choice",
+          question: "13. During the First World War, the park was mainly used for",
+          options: [
+            { label: "A  exercises by troops.", value: "A" },
+            { label: "B  growing vegetables.", value: "B" },
+            { label: "C  public meetings.", value: "C" },
+          ],
+          correctAnswer: "B", points: 1,
+        },
+        {
+          id: "cam15-l-t2-s2-q14", number: 14, type: "multiple_choice",
+          question: "14. When did the physical transformation of the park begin?",
+          options: [
+            { label: "A  2013", value: "A" },
+            { label: "B  2015", value: "B" },
+            { label: "C  2016", value: "C" },
+          ],
+          correctAnswer: "C", points: 1,
+        },
+        {
+          id: "cam15-l-t2-s2-q15", number: 15,
+          groupLabel: `Questions 15–20: Label the map of Minster Park above. Write the correct letter, A–I, next to each location.`,
+          type: "matching", question: "15. statue of Diane Gosforth",
+          options: [
+            { label: "A", value: "A" }, { label: "B", value: "B" }, { label: "C", value: "C" },
+            { label: "D", value: "D" }, { label: "E", value: "E" }, { label: "F", value: "F" },
+            { label: "G", value: "G" }, { label: "H", value: "H" }, { label: "I", value: "I" },
+          ],
+          correctAnswer: "E", points: 1,
+        },
+        {
+          id: "cam15-l-t2-s2-q16", number: 16, type: "matching", question: "16. wooden sculptures",
+          options: [
+            { label: "A", value: "A" }, { label: "B", value: "B" }, { label: "C", value: "C" },
+            { label: "D", value: "D" }, { label: "E", value: "E" }, { label: "F", value: "F" },
+            { label: "G", value: "G" }, { label: "H", value: "H" }, { label: "I", value: "I" },
+          ],
+          correctAnswer: "C", points: 1,
+        },
+        {
+          id: "cam15-l-t2-s2-q17", number: 17, type: "matching", question: "17. playground",
+          options: [
+            { label: "A", value: "A" }, { label: "B", value: "B" }, { label: "C", value: "C" },
+            { label: "D", value: "D" }, { label: "E", value: "E" }, { label: "F", value: "F" },
+            { label: "G", value: "G" }, { label: "H", value: "H" }, { label: "I", value: "I" },
+          ],
+          correctAnswer: "B", points: 1,
+        },
+        {
+          id: "cam15-l-t2-s2-q18", number: 18, type: "matching", question: "18. maze",
+          options: [
+            { label: "A", value: "A" }, { label: "B", value: "B" }, { label: "C", value: "C" },
+            { label: "D", value: "D" }, { label: "E", value: "E" }, { label: "F", value: "F" },
+            { label: "G", value: "G" }, { label: "H", value: "H" }, { label: "I", value: "I" },
+          ],
+          correctAnswer: "A", points: 1,
+        },
+        {
+          id: "cam15-l-t2-s2-q19", number: 19, type: "matching", question: "19. tennis courts",
+          options: [
+            { label: "A", value: "A" }, { label: "B", value: "B" }, { label: "C", value: "C" },
+            { label: "D", value: "D" }, { label: "E", value: "E" }, { label: "F", value: "F" },
+            { label: "G", value: "G" }, { label: "H", value: "H" }, { label: "I", value: "I" },
+          ],
+          correctAnswer: "G", points: 1,
+        },
+        {
+          id: "cam15-l-t2-s2-q20", number: 20, type: "matching", question: "20. fitness area",
+          options: [
+            { label: "A", value: "A" }, { label: "B", value: "B" }, { label: "C", value: "C" },
+            { label: "D", value: "D" }, { label: "E", value: "E" }, { label: "F", value: "F" },
+            { label: "G", value: "G" }, { label: "H", value: "H" }, { label: "I", value: "I" },
+          ],
+          correctAnswer: "D", points: 1,
+        },
+      ],
+    },
+    // ── PART 3 ─────────────────────────────────────────────
+    {
+      id: "cam15-l-t2-s3",
+      sectionNumber: 3,
+      title: "Part 3",
+      instructions: `Questions 21 & 22: Choose TWO letters, A–E.
+Questions 23 & 24: Choose TWO letters, A–E.
+Questions 25–30: Match each novel with a topic. Choose SIX answers from the box (A–H).`,
+      passageTitle: "Cathy & Graham — Charles Dickens display",
+      questions: [
+        {
+          id: "cam15-l-t2-s3-q21", number: 21,
+          groupLabel: `Questions 21 and 22: Choose TWO letters, A–E.\n\nWhich TWO groups of people is the display primarily intended for?\n\nA  students from the English department\nB  residents of the local area\nC  the university's teaching staff\nD  potential new students\nE  students from other departments\n\n(Answers are accepted in either order.)`,
+          type: "multiple_choice", question: "21. Choose TWO (first answer)",
+          options: [
+            { label: "A  students from the English department", value: "A" },
+            { label: "B  residents of the local area", value: "B" },
+            { label: "C  the university's teaching staff", value: "C" },
+            { label: "D  potential new students", value: "D" },
+            { label: "E  students from other departments", value: "E" },
+          ],
+          correctAnswer: "B/D", points: 1,
+        },
+        {
+          id: "cam15-l-t2-s3-q22", number: 22, type: "multiple_choice",
+          question: "22. Choose TWO (second answer)",
+          options: [
+            { label: "A  students from the English department", value: "A" },
+            { label: "B  residents of the local area", value: "B" },
+            { label: "C  the university's teaching staff", value: "C" },
+            { label: "D  potential new students", value: "D" },
+            { label: "E  students from other departments", value: "E" },
+          ],
+          correctAnswer: "B/D", points: 1,
+        },
+        {
+          id: "cam15-l-t2-s3-q23", number: 23,
+          groupLabel: `Questions 23 and 24: Choose TWO letters, A–E.\n\nWhat are Cathy and Graham's TWO reasons for choosing the novelist Charles Dickens?\n\nA  His speeches inspired others to try to improve society.\nB  He used his publications to draw attention to social problems.\nC  His novels are well-known now.\nD  He was consulted on a number of social issues.\nE  His reputation has changed in recent times.\n\n(Answers are accepted in either order.)`,
+          type: "multiple_choice", question: "23. Choose TWO (first answer)",
+          options: [
+            { label: "A  His speeches inspired others to try to improve society.", value: "A" },
+            { label: "B  He used his publications to draw attention to social problems.", value: "B" },
+            { label: "C  His novels are well-known now.", value: "C" },
+            { label: "D  He was consulted on a number of social issues.", value: "D" },
+            { label: "E  His reputation has changed in recent times.", value: "E" },
+          ],
+          correctAnswer: "B/C", points: 1,
+        },
+        {
+          id: "cam15-l-t2-s3-q24", number: 24, type: "multiple_choice",
+          question: "24. Choose TWO (second answer)",
+          options: [
+            { label: "A  His speeches inspired others to try to improve society.", value: "A" },
+            { label: "B  He used his publications to draw attention to social problems.", value: "B" },
+            { label: "C  His novels are well-known now.", value: "C" },
+            { label: "D  He was consulted on a number of social issues.", value: "D" },
+            { label: "E  His reputation has changed in recent times.", value: "E" },
+          ],
+          correctAnswer: "B/C", points: 1,
+        },
+        {
+          id: "cam15-l-t2-s3-q25", number: 25,
+          groupLabel: `Questions 25–30: What topic do Cathy and Graham choose to illustrate with each novel? Choose SIX answers from the box (A–H).\n\nA  poverty\nB  education\nC  Dickens's travels\nD  entertainment\nE  crime and the law\nF  wealth\nG  medicine\nH  a woman's life`,
+          type: "matching", question: "25. The Pickwick Papers",
+          options: [
+            { label: "A  poverty", value: "A" },
+            { label: "B  education", value: "B" },
+            { label: "C  Dickens's travels", value: "C" },
+            { label: "D  entertainment", value: "D" },
+            { label: "E  crime and the law", value: "E" },
+            { label: "F  wealth", value: "F" },
+            { label: "G  medicine", value: "G" },
+            { label: "H  a woman's life", value: "H" },
+          ],
+          correctAnswer: "G", points: 1,
+        },
+        {
+          id: "cam15-l-t2-s3-q26", number: 26, type: "matching", question: "26. Oliver Twist",
+          options: [
+            { label: "A  poverty", value: "A" },
+            { label: "B  education", value: "B" },
+            { label: "C  Dickens's travels", value: "C" },
+            { label: "D  entertainment", value: "D" },
+            { label: "E  crime and the law", value: "E" },
+            { label: "F  wealth", value: "F" },
+            { label: "G  medicine", value: "G" },
+            { label: "H  a woman's life", value: "H" },
+          ],
+          correctAnswer: "B", points: 1,
+        },
+        {
+          id: "cam15-l-t2-s3-q27", number: 27, type: "matching", question: "27. Nicholas Nickleby",
+          options: [
+            { label: "A  poverty", value: "A" },
+            { label: "B  education", value: "B" },
+            { label: "C  Dickens's travels", value: "C" },
+            { label: "D  entertainment", value: "D" },
+            { label: "E  crime and the law", value: "E" },
+            { label: "F  wealth", value: "F" },
+            { label: "G  medicine", value: "G" },
+            { label: "H  a woman's life", value: "H" },
+          ],
+          correctAnswer: "D", points: 1,
+        },
+        {
+          id: "cam15-l-t2-s3-q28", number: 28, type: "matching", question: "28. Martin Chuzzlewit",
+          options: [
+            { label: "A  poverty", value: "A" },
+            { label: "B  education", value: "B" },
+            { label: "C  Dickens's travels", value: "C" },
+            { label: "D  entertainment", value: "D" },
+            { label: "E  crime and the law", value: "E" },
+            { label: "F  wealth", value: "F" },
+            { label: "G  medicine", value: "G" },
+            { label: "H  a woman's life", value: "H" },
+          ],
+          correctAnswer: "C", points: 1,
+        },
+        {
+          id: "cam15-l-t2-s3-q29", number: 29, type: "matching", question: "29. Bleak House",
+          options: [
+            { label: "A  poverty", value: "A" },
+            { label: "B  education", value: "B" },
+            { label: "C  Dickens's travels", value: "C" },
+            { label: "D  entertainment", value: "D" },
+            { label: "E  crime and the law", value: "E" },
+            { label: "F  wealth", value: "F" },
+            { label: "G  medicine", value: "G" },
+            { label: "H  a woman's life", value: "H" },
+          ],
+          correctAnswer: "H", points: 1,
+        },
+        {
+          id: "cam15-l-t2-s3-q30", number: 30, type: "matching", question: "30. Little Dorrit",
+          options: [
+            { label: "A  poverty", value: "A" },
+            { label: "B  education", value: "B" },
+            { label: "C  Dickens's travels", value: "C" },
+            { label: "D  entertainment", value: "D" },
+            { label: "E  crime and the law", value: "E" },
+            { label: "F  wealth", value: "F" },
+            { label: "G  medicine", value: "G" },
+            { label: "H  a woman's life", value: "H" },
+          ],
+          correctAnswer: "F", points: 1,
+        },
+      ],
+    },
+    // ── PART 4 ─────────────────────────────────────────────
+    {
+      id: "cam15-l-t2-s4",
+      sectionNumber: 4,
+      title: "Part 4",
+      instructions: `Questions 31–40: Complete the notes below. Write ONE WORD ONLY for each answer.`,
+      passageText: `Agricultural programme in Mozambique
+
+How the programme was organised
+●  It focused on a dry and arid region in Chicualacuala district, near the Limpopo River.
+●  People depended on the forest to provide charcoal as a source of income.
+●  31 _______ was seen as the main priority to ensure the supply of water.
+●  Most of the work organised by farmers' associations was done by 32 _______.
+●  Fenced areas created to keep animals away from crops.
+●  The programme provided
+   –  33 _______ for the fences
+   –  34 _______ for suitable crops
+   –  water pumps.
+●  The farmers provided
+   –  labour
+   –  35 _______ for the fences on their land.
+
+Further developments
+●  The marketing of produce was sometimes difficult due to lack of 36 _______.
+●  Training was therefore provided in methods of food 37 _______.
+●  Farmers made special places where 38 _______ could be kept.
+●  Local people later suggested keeping 39 _______.
+
+Evaluation and lessons learned
+●  Agricultural production increased, improving incomes and food security.
+●  Enough time must be allowed, particularly for the 40 _______ phase of the programme.`,
+      questions: [
+        { id: "cam15-l-t2-s4-q31", number: 31, type: "note_completion", question: "31. _______ was seen as the main priority to ensure the supply of water", correctAnswer: "irrigation", points: 1 },
+        { id: "cam15-l-t2-s4-q32", number: 32, type: "note_completion", question: "32. Most of the work was done by _______", correctAnswer: "women", points: 1 },
+        { id: "cam15-l-t2-s4-q33", number: 33, type: "note_completion", question: "33. _______ for the fences", correctAnswer: "wire/wires", points: 1 },
+        { id: "cam15-l-t2-s4-q34", number: 34, type: "note_completion", question: "34. _______ for suitable crops", correctAnswer: "seed/seeds", points: 1 },
+        { id: "cam15-l-t2-s4-q35", number: 35, type: "note_completion", question: "35. _______ for the fences on their land", correctAnswer: "posts", points: 1 },
+        { id: "cam15-l-t2-s4-q36", number: 36, type: "note_completion", question: "36. difficult due to lack of _______", correctAnswer: "transport", points: 1 },
+        { id: "cam15-l-t2-s4-q37", number: 37, type: "note_completion", question: "37. methods of food _______", correctAnswer: "preservation", points: 1 },
+        { id: "cam15-l-t2-s4-q38", number: 38, type: "note_completion", question: "38. special places where _______ could be kept", correctAnswer: "fish/fishes", points: 1 },
+        { id: "cam15-l-t2-s4-q39", number: 39, type: "note_completion", question: "39. Local people later suggested keeping _______", correctAnswer: "bees", points: 1 },
+        { id: "cam15-l-t2-s4-q40", number: 40, type: "note_completion", question: "40. Enough time must be allowed, particularly for the _______ phase", correctAnswer: "design", points: 1 },
+      ],
+    },
+  ],
+};
+
 export const cambridge15ListeningTests: IELTSTest[] = [
   cambridge15_listening_t1,
+  cambridge15_listening_t2,
 ];
