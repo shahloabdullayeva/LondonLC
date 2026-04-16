@@ -4,6 +4,10 @@ import type { IELTSTest } from "./ielts-tests";
 const audioUrl = (name: string) =>
   `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/audio/${name}`;
 
+// Build the public Supabase Storage URL for a diagram / map image.
+const imageUrl = (name: string) =>
+  `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/images/${name}`;
+
 // ============================================================
 // CAMBRIDGE IELTS 12 – LISTENING TEST 1
 // Parts: 1) Family Excursions — lake cruise, farm visit,
@@ -927,8 +931,335 @@ Implications for humans
   ],
 };
 
+// ============================================================
+// CAMBRIDGE IELTS 12 – LISTENING TEST 4
+// Parts: 1) Cycle tour leader — Margaret Smith applicant enquiry
+//        2) Visiting the Sheepmarket area (MCQ + A–I map labels)
+//        3) Presentation on film adaptations of Shakespeare's
+//           plays (table + film → comment matching A–G)
+//        4) Noise in Cities (notes)
+// ============================================================
+export const cambridge12_listening_t4: IELTSTest = {
+  id: "cam12-listening-t4",
+  title: "Cambridge IELTS 12 – Listening Test 4",
+  bookNumber: 12,
+  testNumber: 4,
+  type: "listening",
+  level: "academic",
+  durationMinutes: 30,
+  transferMinutes: 2,
+  audioUrl: audioUrl("cam12-listening-t4.mp3"),
+  audioDurationSeconds: 1800,
+  sections: [
+    // ── PART 1 ─────────────────────────────────────────────
+    {
+      id: "cam12-l-t4-s1",
+      sectionNumber: 1,
+      title: "Part 1",
+      instructions: `Questions 1–10: Complete the notes below. Write ONE WORD AND/OR A NUMBER for each answer.`,
+      passageText: `Cycle tour leader: Applicant enquiry
+
+Name: Margaret Smith
+
+About the applicant:
+●  wants a 1 _______ job
+●  will soon start work as a 2 _______
+●  has led cycle trips in 3 _______
+●  interested in being a leader of a cycling trip for families
+●  is currently doing voluntary work with members of a 4 _______ club
+●  available for five months from the 1st of 5 _______
+●  can't eat 6 _______
+
+Contact details:
+●  address: 27 7 _______ Place, Dumfries
+●  postcode: 8 _______
+
+Interview:
+●  interview at 2.30 p.m. on 9 _______
+●  will plan a short 10 _______ about being a tour guide`,
+      questions: [
+        { id: "cam12-l-t4-s1-q1", number: 1, type: "note_completion", question: "1. wants a _______ job", correctAnswer: "temporary", points: 1 },
+        { id: "cam12-l-t4-s1-q2", number: 2, type: "note_completion", question: "2. will soon start work as a _______", correctAnswer: "doctor", points: 1 },
+        { id: "cam12-l-t4-s1-q3", number: 3, type: "note_completion", question: "3. has led cycle trips in _______", correctAnswer: "Africa", points: 1 },
+        { id: "cam12-l-t4-s1-q4", number: 4, type: "note_completion", question: "4. voluntary work with members of a _______ club", correctAnswer: "youth", points: 1 },
+        { id: "cam12-l-t4-s1-q5", number: 5, type: "note_completion", question: "5. available for five months from the 1st of _______", correctAnswer: "May", points: 1 },
+        { id: "cam12-l-t4-s1-q6", number: 6, type: "note_completion", question: "6. can't eat _______", correctAnswer: "cheese", points: 1 },
+        { id: "cam12-l-t4-s1-q7", number: 7, type: "note_completion", question: "7. address: 27 _______ Place, Dumfries", correctAnswer: "Arbuthnot", points: 1 },
+        { id: "cam12-l-t4-s1-q8", number: 8, type: "note_completion", question: "8. postcode: _______", correctAnswer: "DG7 4PH", points: 1 },
+        { id: "cam12-l-t4-s1-q9", number: 9, type: "note_completion", question: "9. interview at 2.30 p.m. on _______", correctAnswer: "Tuesday", points: 1 },
+        { id: "cam12-l-t4-s1-q10", number: 10, type: "note_completion", question: "10. will plan a short _______ about being a tour guide", correctAnswer: "talk/presentation", points: 1 },
+      ],
+    },
+    // ── PART 2 ─────────────────────────────────────────────
+    {
+      id: "cam12-l-t4-s2",
+      sectionNumber: 2,
+      title: "Part 2",
+      instructions: `Questions 11–14: Choose the correct letter, A, B or C.
+Questions 15–20: Label the map below. Write the correct letter, A–I, next to each location.`,
+      passageTitle: "Visiting the Sheepmarket area",
+      diagramUrl: imageUrl("cam12test4map.png"),
+      questions: [
+        {
+          id: "cam12-l-t4-s2-q11", number: 11,
+          groupLabel: `Questions 11–14: Choose the correct letter, A, B or C.`,
+          type: "multiple_choice", question: "11. Which is the most rapidly-growing group of residents in the Sheepmarket area?",
+          options: [
+            { label: "A  young professional people", value: "A" },
+            { label: "B  students from the university", value: "B" },
+            { label: "C  employees in the local market", value: "C" },
+          ],
+          correctAnswer: "A", points: 1,
+        },
+        {
+          id: "cam12-l-t4-s2-q12", number: 12, type: "multiple_choice",
+          question: "12. The speaker recommends the side streets in the Sheepmarket for their",
+          options: [
+            { label: "A  international restaurants.", value: "A" },
+            { label: "B  historical buildings.", value: "B" },
+            { label: "C  arts and crafts.", value: "C" },
+          ],
+          correctAnswer: "C", points: 1,
+        },
+        {
+          id: "cam12-l-t4-s2-q13", number: 13, type: "multiple_choice",
+          question: "13. Clothes designed by entrants for the Young Fashion competition must",
+          options: [
+            { label: "A  be modelled by the designers themselves.", value: "A" },
+            { label: "B  be inspired by aspects of contemporary culture.", value: "B" },
+            { label: "C  be made from locally produced materials.", value: "C" },
+          ],
+          correctAnswer: "B", points: 1,
+        },
+        {
+          id: "cam12-l-t4-s2-q14", number: 14, type: "multiple_choice",
+          question: "14. Car parking is free in some car parks if you",
+          options: [
+            { label: "A  stay for less than an hour.", value: "A" },
+            { label: "B  buy something in the shops.", value: "B" },
+            { label: "C  park in the evenings or at weekends.", value: "C" },
+          ],
+          correctAnswer: "B", points: 1,
+        },
+        {
+          id: "cam12-l-t4-s2-q15", number: 15,
+          groupLabel: `Questions 15–20: Label the map of the Sheepmarket area above. Write the correct letter, A–I, next to each location.`,
+          type: "matching", question: "15. The Reynolds House",
+          options: [
+            { label: "A", value: "A" }, { label: "B", value: "B" }, { label: "C", value: "C" },
+            { label: "D", value: "D" }, { label: "E", value: "E" }, { label: "F", value: "F" },
+            { label: "G", value: "G" }, { label: "H", value: "H" }, { label: "I", value: "I" },
+          ],
+          correctAnswer: "H", points: 1,
+        },
+        {
+          id: "cam12-l-t4-s2-q16", number: 16, type: "matching", question: "16. The Thumb",
+          options: [
+            { label: "A", value: "A" }, { label: "B", value: "B" }, { label: "C", value: "C" },
+            { label: "D", value: "D" }, { label: "E", value: "E" }, { label: "F", value: "F" },
+            { label: "G", value: "G" }, { label: "H", value: "H" }, { label: "I", value: "I" },
+          ],
+          correctAnswer: "C", points: 1,
+        },
+        {
+          id: "cam12-l-t4-s2-q17", number: 17, type: "matching", question: "17. The Museum",
+          options: [
+            { label: "A", value: "A" }, { label: "B", value: "B" }, { label: "C", value: "C" },
+            { label: "D", value: "D" }, { label: "E", value: "E" }, { label: "F", value: "F" },
+            { label: "G", value: "G" }, { label: "H", value: "H" }, { label: "I", value: "I" },
+          ],
+          correctAnswer: "F", points: 1,
+        },
+        {
+          id: "cam12-l-t4-s2-q18", number: 18, type: "matching", question: "18. The Contemporary Art Gallery",
+          options: [
+            { label: "A", value: "A" }, { label: "B", value: "B" }, { label: "C", value: "C" },
+            { label: "D", value: "D" }, { label: "E", value: "E" }, { label: "F", value: "F" },
+            { label: "G", value: "G" }, { label: "H", value: "H" }, { label: "I", value: "I" },
+          ],
+          correctAnswer: "G", points: 1,
+        },
+        {
+          id: "cam12-l-t4-s2-q19", number: 19, type: "matching", question: "19. The Warner Gallery",
+          options: [
+            { label: "A", value: "A" }, { label: "B", value: "B" }, { label: "C", value: "C" },
+            { label: "D", value: "D" }, { label: "E", value: "E" }, { label: "F", value: "F" },
+            { label: "G", value: "G" }, { label: "H", value: "H" }, { label: "I", value: "I" },
+          ],
+          correctAnswer: "I", points: 1,
+        },
+        {
+          id: "cam12-l-t4-s2-q20", number: 20, type: "matching", question: "20. Nucleus",
+          options: [
+            { label: "A", value: "A" }, { label: "B", value: "B" }, { label: "C", value: "C" },
+            { label: "D", value: "D" }, { label: "E", value: "E" }, { label: "F", value: "F" },
+            { label: "G", value: "G" }, { label: "H", value: "H" }, { label: "I", value: "I" },
+          ],
+          correctAnswer: "B", points: 1,
+        },
+      ],
+    },
+    // ── PART 3 ─────────────────────────────────────────────
+    {
+      id: "cam12-l-t4-s3",
+      sectionNumber: 3,
+      title: "Part 3",
+      instructions: `Questions 21–24: Complete the table below. Write ONE WORD ONLY for each answer.
+Questions 25–30: Match each film with a comment. Choose SIX answers from the box (A–G).`,
+      passageTitle: "Presentation of film adaptations of Shakespeare's plays",
+      passageText: `Stages of presentation                                              | Work still to be done
+Introduce Giannetti's book containing a 21 _______ of adaptations   | Organise notes
+Ask class to suggest the 22 _______ adaptations                     | No further work needed
+Present Rachel Malchow's ideas                                      | Prepare some 23 _______
+Discuss relationship between adaptations and 24 _______             | No further work needed
+at the time of making the film                                      |`,
+      questions: [
+        { id: "cam12-l-t4-s3-q21", number: 21, type: "table_completion", question: "21. Giannetti's book containing a _______ of adaptations", correctAnswer: "classification", points: 1 },
+        { id: "cam12-l-t4-s3-q22", number: 22, type: "table_completion", question: "22. Ask class to suggest the _______ adaptations", correctAnswer: "worst", points: 1 },
+        { id: "cam12-l-t4-s3-q23", number: 23, type: "table_completion", question: "23. Present Rachel Malchow's ideas — Prepare some _______", correctAnswer: "slides", points: 1 },
+        { id: "cam12-l-t4-s3-q24", number: 24, type: "table_completion", question: "24. relationship between adaptations and _______ at the time of making the film", correctAnswer: "issues", points: 1 },
+        {
+          id: "cam12-l-t4-s3-q25", number: 25,
+          groupLabel: `Questions 25–30: What do the speakers say about each of the following films? Choose SIX answers from the box (A–G).\n\nA  clearly shows the historical period\nB  contains only parts of the play\nC  is too similar to another kind of film\nD  turned out to be unpopular with audiences\nE  presents the play in a different period from the original\nF  sets the original in a different country\nG  incorporates a variety of art forms`,
+          type: "matching", question: "25. Ran",
+          options: [
+            { label: "A  clearly shows the historical period", value: "A" },
+            { label: "B  contains only parts of the play", value: "B" },
+            { label: "C  is too similar to another kind of film", value: "C" },
+            { label: "D  turned out to be unpopular with audiences", value: "D" },
+            { label: "E  presents the play in a different period from the original", value: "E" },
+            { label: "F  sets the original in a different country", value: "F" },
+            { label: "G  incorporates a variety of art forms", value: "G" },
+          ],
+          correctAnswer: "F", points: 1,
+        },
+        {
+          id: "cam12-l-t4-s3-q26", number: 26, type: "matching", question: "26. Much Ado About Nothing",
+          options: [
+            { label: "A  clearly shows the historical period", value: "A" },
+            { label: "B  contains only parts of the play", value: "B" },
+            { label: "C  is too similar to another kind of film", value: "C" },
+            { label: "D  turned out to be unpopular with audiences", value: "D" },
+            { label: "E  presents the play in a different period from the original", value: "E" },
+            { label: "F  sets the original in a different country", value: "F" },
+            { label: "G  incorporates a variety of art forms", value: "G" },
+          ],
+          correctAnswer: "A", points: 1,
+        },
+        {
+          id: "cam12-l-t4-s3-q27", number: 27, type: "matching", question: "27. Romeo & Juliet",
+          options: [
+            { label: "A  clearly shows the historical period", value: "A" },
+            { label: "B  contains only parts of the play", value: "B" },
+            { label: "C  is too similar to another kind of film", value: "C" },
+            { label: "D  turned out to be unpopular with audiences", value: "D" },
+            { label: "E  presents the play in a different period from the original", value: "E" },
+            { label: "F  sets the original in a different country", value: "F" },
+            { label: "G  incorporates a variety of art forms", value: "G" },
+          ],
+          correctAnswer: "E", points: 1,
+        },
+        {
+          id: "cam12-l-t4-s3-q28", number: 28, type: "matching", question: "28. Hamlet",
+          options: [
+            { label: "A  clearly shows the historical period", value: "A" },
+            { label: "B  contains only parts of the play", value: "B" },
+            { label: "C  is too similar to another kind of film", value: "C" },
+            { label: "D  turned out to be unpopular with audiences", value: "D" },
+            { label: "E  presents the play in a different period from the original", value: "E" },
+            { label: "F  sets the original in a different country", value: "F" },
+            { label: "G  incorporates a variety of art forms", value: "G" },
+          ],
+          correctAnswer: "C", points: 1,
+        },
+        {
+          id: "cam12-l-t4-s3-q29", number: 29, type: "matching", question: "29. Prospero's Books",
+          options: [
+            { label: "A  clearly shows the historical period", value: "A" },
+            { label: "B  contains only parts of the play", value: "B" },
+            { label: "C  is too similar to another kind of film", value: "C" },
+            { label: "D  turned out to be unpopular with audiences", value: "D" },
+            { label: "E  presents the play in a different period from the original", value: "E" },
+            { label: "F  sets the original in a different country", value: "F" },
+            { label: "G  incorporates a variety of art forms", value: "G" },
+          ],
+          correctAnswer: "G", points: 1,
+        },
+        {
+          id: "cam12-l-t4-s3-q30", number: 30, type: "matching", question: "30. Looking for Richard",
+          options: [
+            { label: "A  clearly shows the historical period", value: "A" },
+            { label: "B  contains only parts of the play", value: "B" },
+            { label: "C  is too similar to another kind of film", value: "C" },
+            { label: "D  turned out to be unpopular with audiences", value: "D" },
+            { label: "E  presents the play in a different period from the original", value: "E" },
+            { label: "F  sets the original in a different country", value: "F" },
+            { label: "G  incorporates a variety of art forms", value: "G" },
+          ],
+          correctAnswer: "B", points: 1,
+        },
+      ],
+    },
+    // ── PART 4 ─────────────────────────────────────────────
+    {
+      id: "cam12-l-t4-s4",
+      sectionNumber: 4,
+      title: "Part 4",
+      instructions: `Questions 31–40: Complete the notes below. Write ONE WORD ONLY for each answer.`,
+      passageText: `Noise in Cities
+
+Past research focused on noise level (measured in decibels) and people's responses.
+
+Noise 'maps'
+●  show that the highest noise levels are usually found on roads
+●  do not show other sources of noise, e.g. when windows are open or people's neighbours are in their 31 _______
+●  ignore variation in people's perceptions of noise
+●  have made people realize that the noise is a 32 _______ issue that must be dealt with
+
+Problems caused by noise
+●  sleep disturbance
+●  increase in amount of stress
+●  effect on the 33 _______ of schoolchildren
+
+Different types of noise
+●  Some noises can be considered pleasant e.g. the sound of a 34 _______ in a town
+●  To investigate this, researchers may use methods from 35 _______ sciences e.g. questionnaires
+
+What people want
+●  Plenty of activity in urban environments which are 36 _______, but also allow people to relax
+
+But architects and town planners
+●  do not get much 37 _______ in acoustics
+●  regard sound as the responsibility of engineers
+
+Understanding sound as an art form
+We need to know
+●  how sound relates to 38 _______
+●  what can be learnt from psychology about the effects of sound
+●  whether physics can help us understand the 39 _______ of sound
+
+Virtual reality programs
+●  advantage: predict the effect of buildings
+●  current disadvantage: they are 40 _______`,
+      questions: [
+        { id: "cam12-l-t4-s4-q31", number: 31, type: "note_completion", question: "31. people's neighbours are in their _______", correctAnswer: "garden/gardens", points: 1 },
+        { id: "cam12-l-t4-s4-q32", number: 32, type: "note_completion", question: "32. noise is a _______ issue that must be dealt with", correctAnswer: "political", points: 1 },
+        { id: "cam12-l-t4-s4-q33", number: 33, type: "note_completion", question: "33. effect on the _______ of schoolchildren", correctAnswer: "work/study", points: 1 },
+        { id: "cam12-l-t4-s4-q34", number: 34, type: "note_completion", question: "34. the sound of a _______ in a town", correctAnswer: "fountain", points: 1 },
+        { id: "cam12-l-t4-s4-q35", number: 35, type: "note_completion", question: "35. methods from _______ sciences e.g. questionnaires", correctAnswer: "social", points: 1 },
+        { id: "cam12-l-t4-s4-q36", number: 36, type: "note_completion", question: "36. urban environments which are _______", correctAnswer: "lively", points: 1 },
+        { id: "cam12-l-t4-s4-q37", number: 37, type: "note_completion", question: "37. architects do not get much _______ in acoustics", correctAnswer: "training", points: 1 },
+        { id: "cam12-l-t4-s4-q38", number: 38, type: "note_completion", question: "38. how sound relates to _______", correctAnswer: "culture", points: 1 },
+        { id: "cam12-l-t4-s4-q39", number: 39, type: "note_completion", question: "39. physics can help us understand the _______ of sound", correctAnswer: "nature", points: 1 },
+        { id: "cam12-l-t4-s4-q40", number: 40, type: "note_completion", question: "40. current disadvantage: they are _______", correctAnswer: "silent", points: 1 },
+      ],
+    },
+  ],
+};
+
 export const cambridge12ListeningTests: IELTSTest[] = [
   cambridge12_listening_t1,
   cambridge12_listening_t2,
   cambridge12_listening_t3,
+  cambridge12_listening_t4,
 ];
