@@ -301,6 +301,332 @@ Excellence
   ],
 };
 
+// ============================================================
+// CAMBRIDGE IELTS 12 – LISTENING TEST 2
+// Parts: 1) Events during Kenton Festival (notes)
+//        2) Theatre trip to Munich (MCQ + day → play comment
+//           matching A–G)
+//        3) James — Scandinavian Studies (MCQ + flow-chart
+//           letters A–G for Viking paper process)
+//        4) Conflict at work (notes)
+// ============================================================
+export const cambridge12_listening_t2: IELTSTest = {
+  id: "cam12-listening-t2",
+  title: "Cambridge IELTS 12 – Listening Test 2",
+  bookNumber: 12,
+  testNumber: 2,
+  type: "listening",
+  level: "academic",
+  durationMinutes: 30,
+  transferMinutes: 2,
+  audioUrl: audioUrl("cam12-listening-t2.mp3"),
+  audioDurationSeconds: 1800,
+  sections: [
+    // ── PART 1 ─────────────────────────────────────────────
+    {
+      id: "cam12-l-t2-s1",
+      sectionNumber: 1,
+      title: "Part 1",
+      instructions: `Questions 1–10: Complete the notes below. Write ONE WORD AND/OR A NUMBER for each answer.`,
+      passageText: `Events during Kenton Festival
+
+Start date: 16th May
+
+Opening ceremony (first day)
+●  In town centre, starting at 1 _______
+●  The mayor will make a speech
+●  A 2 _______ will perform
+●  Performance of a 3 _______ about Helen Tungate (a 4 _______)
+●  Evening fireworks display situated across the 5 _______
+
+Other events
+●  Video about relationships that children have with their 6 _______
+   Venue: 7 _______ House
+●  Performance of 8 _______ dances
+   Venue: the 9 _______ market in the town centre
+   Time: 2 and 5 p.m. every day except 1st day of festival
+●  Several professional concerts and one by children
+   Venue: library
+   Time: 6.30 p.m. on the 18th
+
+Tickets available online from festival box office and from shops which have the festival 10 _______ in their windows`,
+      questions: [
+        { id: "cam12-l-t2-s1-q1", number: 1, type: "note_completion", question: "1. In town centre, starting at _______", correctAnswer: "2.45", points: 1 },
+        { id: "cam12-l-t2-s1-q2", number: 2, type: "note_completion", question: "2. A _______ will perform", correctAnswer: "band", points: 1 },
+        { id: "cam12-l-t2-s1-q3", number: 3, type: "note_completion", question: "3. Performance of a _______ about Helen Tungate", correctAnswer: "play", points: 1 },
+        { id: "cam12-l-t2-s1-q4", number: 4, type: "note_completion", question: "4. Helen Tungate (a _______)", correctAnswer: "scientist", points: 1 },
+        { id: "cam12-l-t2-s1-q5", number: 5, type: "note_completion", question: "5. Evening fireworks display situated across the _______", correctAnswer: "river", points: 1 },
+        { id: "cam12-l-t2-s1-q6", number: 6, type: "note_completion", question: "6. relationships that children have with their _______", correctAnswer: "grandparents", points: 1 },
+        { id: "cam12-l-t2-s1-q7", number: 7, type: "note_completion", question: "7. Venue: _______ House", correctAnswer: "Handsworth", points: 1 },
+        { id: "cam12-l-t2-s1-q8", number: 8, type: "note_completion", question: "8. Performance of _______ dances", correctAnswer: "traditional", points: 1 },
+        { id: "cam12-l-t2-s1-q9", number: 9, type: "note_completion", question: "9. the _______ market in the town centre", correctAnswer: "outdoor", points: 1 },
+        { id: "cam12-l-t2-s1-q10", number: 10, type: "note_completion", question: "10. shops which have the festival _______ in their windows", correctAnswer: "logo", points: 1 },
+      ],
+    },
+    // ── PART 2 ─────────────────────────────────────────────
+    {
+      id: "cam12-l-t2-s2",
+      sectionNumber: 2,
+      title: "Part 2",
+      instructions: `Questions 11–15: Choose the correct letter, A, B or C.
+Questions 16–20: Match each day with a comment about the play. Choose FIVE answers from the box (A–G).`,
+      passageTitle: "Theatre trip to Munich",
+      questions: [
+        {
+          id: "cam12-l-t2-s2-q11", number: 11,
+          groupLabel: `Questions 11–15: Choose the correct letter, A, B or C.`,
+          type: "multiple_choice", question: "11. When the group meet at the airport they will have",
+          options: [
+            { label: "A  breakfast.", value: "A" },
+            { label: "B  coffee.", value: "B" },
+            { label: "C  lunch.", value: "C" },
+          ],
+          correctAnswer: "B", points: 1,
+        },
+        {
+          id: "cam12-l-t2-s2-q12", number: 12, type: "multiple_choice",
+          question: "12. The group will be met at Munich Airport by",
+          options: [
+            { label: "A  an employee at the National Theatre.", value: "A" },
+            { label: "B  a theatre manager.", value: "B" },
+            { label: "C  a tour operator.", value: "C" },
+          ],
+          correctAnswer: "C", points: 1,
+        },
+        {
+          id: "cam12-l-t2-s2-q13", number: 13, type: "multiple_choice",
+          question: "13. How much will they pay per night for a double room at the hotel?",
+          options: [
+            { label: "A  110 euros", value: "A" },
+            { label: "B  120 euros", value: "B" },
+            { label: "C  150 euros", value: "C" },
+          ],
+          correctAnswer: "A", points: 1,
+        },
+        {
+          id: "cam12-l-t2-s2-q14", number: 14, type: "multiple_choice",
+          question: "14. What type of restaurant will they go to on Tuesday evening?",
+          options: [
+            { label: "A  an Italian restaurant", value: "A" },
+            { label: "B  a Lebanese restaurant", value: "B" },
+            { label: "C  a typical restaurant of the region", value: "C" },
+          ],
+          correctAnswer: "B", points: 1,
+        },
+        {
+          id: "cam12-l-t2-s2-q15", number: 15, type: "multiple_choice",
+          question: "15. Who will they meet on Wednesday afternoon?",
+          options: [
+            { label: "A  an actor", value: "A" },
+            { label: "B  a playwright", value: "B" },
+            { label: "C  a theatre director", value: "C" },
+          ],
+          correctAnswer: "C", points: 1,
+        },
+        {
+          id: "cam12-l-t2-s2-q16", number: 16,
+          groupLabel: `Questions 16–20: What does the man say about the play on each of the following days? Choose FIVE answers from the box (A–G).\n\nA  The playwright will be present.\nB  The play was written to celebrate an anniversary.\nC  The play will be performed inside a historic building.\nD  The play will be accompanied by live music.\nE  The play will be performed outdoors.\nF  The play will be performed for the first time.\nG  The performance will be attended by officials from the town.`,
+          type: "matching", question: "16. Wednesday",
+          options: [
+            { label: "A  The playwright will be present.", value: "A" },
+            { label: "B  The play was written to celebrate an anniversary.", value: "B" },
+            { label: "C  The play will be performed inside a historic building.", value: "C" },
+            { label: "D  The play will be accompanied by live music.", value: "D" },
+            { label: "E  The play will be performed outdoors.", value: "E" },
+            { label: "F  The play will be performed for the first time.", value: "F" },
+            { label: "G  The performance will be attended by officials from the town.", value: "G" },
+          ],
+          correctAnswer: "F", points: 1,
+        },
+        {
+          id: "cam12-l-t2-s2-q17", number: 17, type: "matching", question: "17. Thursday",
+          options: [
+            { label: "A  The playwright will be present.", value: "A" },
+            { label: "B  The play was written to celebrate an anniversary.", value: "B" },
+            { label: "C  The play will be performed inside a historic building.", value: "C" },
+            { label: "D  The play will be accompanied by live music.", value: "D" },
+            { label: "E  The play will be performed outdoors.", value: "E" },
+            { label: "F  The play will be performed for the first time.", value: "F" },
+            { label: "G  The performance will be attended by officials from the town.", value: "G" },
+          ],
+          correctAnswer: "B", points: 1,
+        },
+        {
+          id: "cam12-l-t2-s2-q18", number: 18, type: "matching", question: "18. Friday",
+          options: [
+            { label: "A  The playwright will be present.", value: "A" },
+            { label: "B  The play was written to celebrate an anniversary.", value: "B" },
+            { label: "C  The play will be performed inside a historic building.", value: "C" },
+            { label: "D  The play will be accompanied by live music.", value: "D" },
+            { label: "E  The play will be performed outdoors.", value: "E" },
+            { label: "F  The play will be performed for the first time.", value: "F" },
+            { label: "G  The performance will be attended by officials from the town.", value: "G" },
+          ],
+          correctAnswer: "E", points: 1,
+        },
+        {
+          id: "cam12-l-t2-s2-q19", number: 19, type: "matching", question: "19. Saturday",
+          options: [
+            { label: "A  The playwright will be present.", value: "A" },
+            { label: "B  The play was written to celebrate an anniversary.", value: "B" },
+            { label: "C  The play will be performed inside a historic building.", value: "C" },
+            { label: "D  The play will be accompanied by live music.", value: "D" },
+            { label: "E  The play will be performed outdoors.", value: "E" },
+            { label: "F  The play will be performed for the first time.", value: "F" },
+            { label: "G  The performance will be attended by officials from the town.", value: "G" },
+          ],
+          correctAnswer: "G", points: 1,
+        },
+        {
+          id: "cam12-l-t2-s2-q20", number: 20, type: "matching", question: "20. Monday",
+          options: [
+            { label: "A  The playwright will be present.", value: "A" },
+            { label: "B  The play was written to celebrate an anniversary.", value: "B" },
+            { label: "C  The play will be performed inside a historic building.", value: "C" },
+            { label: "D  The play will be accompanied by live music.", value: "D" },
+            { label: "E  The play will be performed outdoors.", value: "E" },
+            { label: "F  The play will be performed for the first time.", value: "F" },
+            { label: "G  The performance will be attended by officials from the town.", value: "G" },
+          ],
+          correctAnswer: "C", points: 1,
+        },
+      ],
+    },
+    // ── PART 3 ─────────────────────────────────────────────
+    {
+      id: "cam12-l-t2-s3",
+      sectionNumber: 3,
+      title: "Part 3",
+      instructions: `Questions 21–25: Choose the correct letter, A, B or C.
+Questions 26–30: Complete the flow chart below. Choose FIVE answers from the box (A–G).`,
+      passageTitle: "James & Beth — Scandinavian Studies",
+      passageText: `How James will write his paper on the Vikings
+
+A  bullet points   B  film        C  notes         D  structure
+E  student paper   F  textbook    G  documentary
+
+He'll read a 26 _______ and choose his topic.
+
+↓
+
+He'll borrow a 27 _______ from Beth.
+
+↓
+
+He'll plan the 28 _______ of the paper.
+
+↓
+
+He'll read some source material and write 29 _______.
+
+↓
+
+He'll write the paper using 30 _______.
+
+↓
+
+He'll write the complete paper.`,
+      questions: [
+        {
+          id: "cam12-l-t2-s3-q21", number: 21,
+          groupLabel: `Questions 21–25: Choose the correct letter, A, B or C.`,
+          type: "multiple_choice", question: "21. James chose to take Scandinavian Studies because when he was a child",
+          options: [
+            { label: "A  he was often taken to Denmark.", value: "A" },
+            { label: "B  his mother spoke to him in Danish.", value: "B" },
+            { label: "C  a number of Danish people visited his family.", value: "C" },
+          ],
+          correctAnswer: "C", points: 1,
+        },
+        {
+          id: "cam12-l-t2-s3-q22", number: 22, type: "multiple_choice",
+          question: "22. When he graduates, James would like to",
+          options: [
+            { label: "A  take a postgraduate course.", value: "A" },
+            { label: "B  work in the media.", value: "B" },
+            { label: "C  become a translator.", value: "C" },
+          ],
+          correctAnswer: "B", points: 1,
+        },
+        {
+          id: "cam12-l-t2-s3-q23", number: 23, type: "multiple_choice",
+          question: "23. Which course will end this term?",
+          options: [
+            { label: "A  Swedish cinema", value: "A" },
+            { label: "B  Danish television programmes", value: "B" },
+            { label: "C  Scandinavian literature", value: "C" },
+          ],
+          correctAnswer: "C", points: 1,
+        },
+        {
+          id: "cam12-l-t2-s3-q24", number: 24, type: "multiple_choice",
+          question: "24. They agree that James's literature paper this term will be on",
+          options: [
+            { label: "A  19th century playwrights", value: "A" },
+            { label: "B  the Icelandic sagas", value: "B" },
+            { label: "C  modern Scandinavian novels.", value: "C" },
+          ],
+          correctAnswer: "A", points: 1,
+        },
+        {
+          id: "cam12-l-t2-s3-q25", number: 25, type: "multiple_choice",
+          question: "25. Beth recommends that James's paper should be",
+          options: [
+            { label: "A  a historical overview of the genre.", value: "A" },
+            { label: "B  an in-depth analysis of a single writer.", value: "B" },
+            { label: "C  a study of the social background to the literature.", value: "C" },
+          ],
+          correctAnswer: "C", points: 1,
+        },
+        { id: "cam12-l-t2-s3-q26", number: 26, type: "note_completion", question: "26. He'll read a _______ and choose his topic", correctAnswer: "E/student paper", points: 1 },
+        { id: "cam12-l-t2-s3-q27", number: 27, type: "note_completion", question: "27. He'll borrow a _______ from Beth", correctAnswer: "G/documentary", points: 1 },
+        { id: "cam12-l-t2-s3-q28", number: 28, type: "note_completion", question: "28. He'll plan the _______ of the paper", correctAnswer: "D/structure", points: 1 },
+        { id: "cam12-l-t2-s3-q29", number: 29, type: "note_completion", question: "29. read some source material and write _______", correctAnswer: "C/notes", points: 1 },
+        { id: "cam12-l-t2-s3-q30", number: 30, type: "note_completion", question: "30. write the paper using _______", correctAnswer: "A/bullet points", points: 1 },
+      ],
+    },
+    // ── PART 4 ─────────────────────────────────────────────
+    {
+      id: "cam12-l-t2-s4",
+      sectionNumber: 4,
+      title: "Part 4",
+      instructions: `Questions 31–40: Complete the notes below. Write ONE WORD ONLY for each answer.`,
+      passageText: `Conflict at work
+
+Conflict mostly consists of behaviour in the general category of 31 _______
+Often a result of people wanting to prove their 32 _______
+Also caused by differences in 33 _______ between people
+34 '_______' conflicts: people more concerned about own team than about company
+Conflict-related stress can cause 35 _______ that may last for months
+
+Chief Executives (CEOs)
+●  Many have both 36 _______ and anxiety
+●  May not like to have their decisions questioned
+●  There may be conflict between people who have different 37 _______
+
+Other managers
+●  A structure that is more 38 _______ may create a feeling of uncertainty about who staff should report to.
+
+Minimising conflict
+●  Bosses need to try hard to gain 39 _______
+●  Someone from outside the company may be given the role of 40 _______ in order to resolve conflicts.`,
+      questions: [
+        { id: "cam12-l-t2-s4-q31", number: 31, type: "note_completion", question: "31. behaviour in the general category of _______", correctAnswer: "bullying", points: 1 },
+        { id: "cam12-l-t2-s4-q32", number: 32, type: "note_completion", question: "32. people wanting to prove their _______", correctAnswer: "superiority", points: 1 },
+        { id: "cam12-l-t2-s4-q33", number: 33, type: "note_completion", question: "33. differences in _______ between people", correctAnswer: "personality", points: 1 },
+        { id: "cam12-l-t2-s4-q34", number: 34, type: "note_completion", question: "34. '_______' conflicts: people more concerned about own team", correctAnswer: "structural", points: 1 },
+        { id: "cam12-l-t2-s4-q35", number: 35, type: "note_completion", question: "35. stress can cause _______ that may last for months", correctAnswer: "absence", points: 1 },
+        { id: "cam12-l-t2-s4-q36", number: 36, type: "note_completion", question: "36. Many have both _______ and anxiety", correctAnswer: "confidence", points: 1 },
+        { id: "cam12-l-t2-s4-q37", number: 37, type: "note_completion", question: "37. conflict between people who have different _______", correctAnswer: "visions", points: 1 },
+        { id: "cam12-l-t2-s4-q38", number: 38, type: "note_completion", question: "38. A structure that is more _______", correctAnswer: "democratic", points: 1 },
+        { id: "cam12-l-t2-s4-q39", number: 39, type: "note_completion", question: "39. Bosses need to try hard to gain _______", correctAnswer: "respect", points: 1 },
+        { id: "cam12-l-t2-s4-q40", number: 40, type: "note_completion", question: "40. given the role of _______ in order to resolve conflicts", correctAnswer: "mediator", points: 1 },
+      ],
+    },
+  ],
+};
+
 export const cambridge12ListeningTests: IELTSTest[] = [
   cambridge12_listening_t1,
+  cambridge12_listening_t2,
 ];
