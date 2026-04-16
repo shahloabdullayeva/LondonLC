@@ -1268,7 +1268,7 @@ export default function TestPage() {
                                         </svg>
                                       )}
                                     </div>
-                                    <span style={{ fontSize: 14, color: T.text }}>{opt.label}</span>
+                                    <span style={{ fontSize: fontSize - 1, color: T.text }}>{opt.label}</span>
                                   </div>
                                 );
                               })}
@@ -1312,7 +1312,7 @@ export default function TestPage() {
                                   if (raw === "" || validLetters.includes(raw)) setAnswer(q.id, raw);
                                 }}
                                 placeholder={`${validLetters[0]}–${validLetters[validLetters.length - 1]}`}
-                                style={{ width: 60, padding: "6px 10px", borderRadius: 6, background: T.inputBg, border: `1.5px solid ${T.border}`, color: T.text, outline: "none", fontSize: 16, fontWeight: 700, textAlign: "center", fontFamily: "inherit", textTransform: "uppercase" }}
+                                style={{ width: 60, padding: "6px 10px", borderRadius: 6, background: T.inputBg, border: `1.5px solid ${T.border}`, color: T.text, outline: "none", fontSize: fontSize + 1, fontWeight: 700, textAlign: "center", fontFamily: "inherit", textTransform: "uppercase" }}
                                 onFocus={e => e.currentTarget.style.borderColor = T.accent}
                                 onBlur={e => e.currentTarget.style.borderColor = T.border}
                               />
@@ -1589,7 +1589,9 @@ function QuestionItem({
   questionHighlights: Highlight[];
   onRemoveHighlight: (id: string) => void;
 }) {
-  const btnBase: React.CSSProperties = { padding: "8px 16px", borderRadius: 8, fontSize: 13, fontWeight: 600, cursor: "pointer", border: "1px solid", transition: "all 0.15s" };
+  // Button base — fontSize tracks the picker so True/False/NG, Y/N/NG
+  // and any other button-row options scale alongside the question text.
+  const btnBase: React.CSSProperties = { padding: "8px 16px", borderRadius: 8, fontSize: fontSize - 2, fontWeight: 600, cursor: "pointer", border: "1px solid", transition: "all 0.15s" };
 
   const handleQuestionClick = (e: React.MouseEvent) => {
     const el = e.target as HTMLElement;
@@ -1680,7 +1682,7 @@ function QuestionItem({
                       if (raw === "" || normalized) onAnswer(normalized ?? raw);
                     }}
                     placeholder={validIds.length > 0 ? `${validIds[0]}–${validIds[validIds.length - 1]}` : ""}
-                    style={{ width: 80, padding: "8px 12px", borderRadius: 6, background: T.inputBg, border: `1.5px solid ${T.border}`, color: T.text, outline: "none", fontSize: 16, fontWeight: 700, textAlign: "center", fontFamily: "'IBM Plex Mono', monospace" } as React.CSSProperties}
+                    style={{ width: 80, padding: "8px 12px", borderRadius: 6, background: T.inputBg, border: `1.5px solid ${T.border}`, color: T.text, outline: "none", fontSize: fontSize + 1, fontWeight: 700, textAlign: "center", fontFamily: "'IBM Plex Mono', monospace" } as React.CSSProperties}
                     onFocus={(e) => (e.currentTarget.style.borderColor = T.accent)}
                     onBlur={(e) => (e.currentTarget.style.borderColor = T.border)}
                   />
@@ -1697,7 +1699,7 @@ function QuestionItem({
                       {answer === opt.value && <div style={{ width: 7, height: 7, borderRadius: "50%", background: "#fff" }} />}
                     </div>
                     <input type="radio" name={`q-${question.id}`} value={opt.value} checked={answer === opt.value} onChange={() => onAnswer(opt.value)} style={{ display: "none" }} />
-                    <span style={{ fontSize: 14, color: T.text }}>{opt.label}</span>
+                    <span style={{ fontSize: fontSize - 1, color: T.text }}>{opt.label}</span>
                   </label>
                 ))}
               </div>
@@ -1744,7 +1746,7 @@ function QuestionItem({
                 maxLength={1}
                 onChange={(e) => onAnswer(normalise(e.target.value))}
                 style={{
-                  padding: "9px 14px", borderRadius: 8, fontSize: 14,
+                  padding: "9px 14px", borderRadius: 8, fontSize: fontSize,
                   background: T.inputBg, border: `1.5px solid ${T.border}`,
                   color: T.text, outline: "none", width: 72,
                   textAlign: "center", textTransform: "uppercase",
@@ -1761,7 +1763,7 @@ function QuestionItem({
           {isGapFill && (
             <input type="text" value={answer} onChange={(e) => onAnswer(e.target.value)}
               placeholder="Write your answer here..."
-              style={{ padding: "9px 14px", borderRadius: 8, fontSize: 14, background: T.inputBg, border: `1.5px solid ${T.border}`, color: T.text, outline: "none", minWidth: 200, fontFamily: "Inter, system-ui, sans-serif", userSelect: "text", WebkitUserSelect: "text" } as React.CSSProperties}
+              style={{ padding: "9px 14px", borderRadius: 8, fontSize: fontSize - 1, background: T.inputBg, border: `1.5px solid ${T.border}`, color: T.text, outline: "none", minWidth: 200, fontFamily: "Inter, system-ui, sans-serif", userSelect: "text", WebkitUserSelect: "text" } as React.CSSProperties}
               onFocus={e => e.currentTarget.style.borderColor = T.accent}
               onBlur={e => e.currentTarget.style.borderColor = T.border}
             />
