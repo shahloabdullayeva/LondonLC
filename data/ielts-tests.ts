@@ -1,4 +1,5 @@
 import { cambridge10Tests } from "./cambridge10-reading";
+import { cambridge10ListeningTests } from "./cambridge10-listening";
 import { cambridge11Tests } from "./cambridge11-reading";
 import { cambridge11ListeningTests } from "./cambridge11-listening";
 import { cambridge12Tests } from "./cambridge12-reading";
@@ -1271,6 +1272,7 @@ Volunteer days: first __20__ of every month`,
 export const allTests: IELTSTest[] = [
   cambridge1_listening_test1,
   ...cambridge10Tests,
+  ...cambridge10ListeningTests,
   ...cambridge11Tests,
   ...cambridge11ListeningTests,
   ...cambridge12Tests,
