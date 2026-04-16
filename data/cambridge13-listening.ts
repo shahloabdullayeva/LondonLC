@@ -1054,8 +1054,358 @@ Tracking study
   ],
 };
 
+// ============================================================
+// CAMBRIDGE IELTS 13 – LISTENING TEST 4
+// Parts: 1) Alex's training at JPNW (notes)
+//        2) The Snow Centre — Annie (MCQ + trail → info matching)
+//        3) Jack & Alice — nutritional food labels (MCQ + two
+//           Choose-TWO on traffic-light system)
+//        4) History of coffee (notes)
+// ============================================================
+export const cambridge13_listening_t4: IELTSTest = {
+  id: "cam13-listening-t4",
+  title: "Cambridge IELTS 13 – Listening Test 4",
+  bookNumber: 13,
+  testNumber: 4,
+  type: "listening",
+  level: "academic",
+  durationMinutes: 30,
+  transferMinutes: 2,
+  audioUrl: audioUrl("cam13-listening-t4.mp3"),
+  audioDurationSeconds: 1800,
+  sections: [
+    // ── PART 1 ─────────────────────────────────────────────
+    {
+      id: "cam13-l-t4-s1",
+      sectionNumber: 1,
+      title: "Part 1",
+      instructions: `Questions 1–10: Complete the notes below. Write ONE WORD AND/OR A NUMBER for each answer.`,
+      passageText: `Alex's Training
+
+Alex completed his training in 2014
+
+About the applicant:
+●  At first, Alex did his training in the 1 _______ department.
+●  Alex didn't have a qualification from school in 2 _______.
+●  Alex thinks he should have done the diploma in 3 _______ skills.
+●  Age of other trainees: the youngest was 4 _______.
+
+Benefits of doing training at JPNW:
+●  Lots of opportunities because of the size of the organisation.
+●  Trainees receive the same amount of 5 _______ as permanent staff.
+●  The training experience increases people's confidence a lot.
+●  Trainees go to 6 _______ one day per month.
+●  The company is in a convenient 7 _______.
+
+Advice for interview:
+●  Don't wear 8 _______.
+●  Don't be 9 _______.
+●  Make sure you 10 _______.`,
+      questions: [
+        { id: "cam13-l-t4-s1-q1", number: 1, type: "note_completion", question: "1. Alex did his training in the _______ department", correctAnswer: "Finance", points: 1 },
+        { id: "cam13-l-t4-s1-q2", number: 2, type: "note_completion", question: "2. didn't have a qualification from school in _______", correctAnswer: "Maths/Math/Mathematics", points: 1 },
+        { id: "cam13-l-t4-s1-q3", number: 3, type: "note_completion", question: "3. should have done the diploma in _______ skills", correctAnswer: "business", points: 1 },
+        { id: "cam13-l-t4-s1-q4", number: 4, type: "note_completion", question: "4. youngest was _______", correctAnswer: "17/seventeen", points: 1 },
+        { id: "cam13-l-t4-s1-q5", number: 5, type: "note_completion", question: "5. same amount of _______ as permanent staff", correctAnswer: "holiday/holidays/vacation/vacations", points: 1 },
+        { id: "cam13-l-t4-s1-q6", number: 6, type: "note_completion", question: "6. Trainees go to _______ one day per month", correctAnswer: "college", points: 1 },
+        { id: "cam13-l-t4-s1-q7", number: 7, type: "note_completion", question: "7. The company is in a convenient _______", correctAnswer: "location", points: 1 },
+        { id: "cam13-l-t4-s1-q8", number: 8, type: "note_completion", question: "8. Don't wear _______", correctAnswer: "jeans", points: 1 },
+        { id: "cam13-l-t4-s1-q9", number: 9, type: "note_completion", question: "9. Don't be _______", correctAnswer: "late", points: 1 },
+        { id: "cam13-l-t4-s1-q10", number: 10, type: "note_completion", question: "10. Make sure you _______", correctAnswer: "smile", points: 1 },
+      ],
+    },
+    // ── PART 2 ─────────────────────────────────────────────
+    {
+      id: "cam13-l-t4-s2",
+      sectionNumber: 2,
+      title: "Part 2",
+      instructions: `Questions 11–16: Choose the correct letter, A, B or C.
+Questions 17–20: Match each mountain trail with information. Choose FOUR answers from the box (A–F).`,
+      passageTitle: "The Snow Centre — Annie",
+      questions: [
+        {
+          id: "cam13-l-t4-s2-q11", number: 11,
+          groupLabel: `Questions 11–16: Choose the correct letter, A, B or C.`,
+          type: "multiple_choice", question: "11. Annie recommends that when cross-country skiing, the visitors should",
+          options: [
+            { label: "A  get away from the regular trails.", value: "A" },
+            { label: "B  stop to enjoy views of the scenery.", value: "B" },
+            { label: "C  go at a slow speed at the beginning.", value: "C" },
+          ],
+          correctAnswer: "A", points: 1,
+        },
+        {
+          id: "cam13-l-t4-s2-q12", number: 12, type: "multiple_choice",
+          question: "12. What does Annie tell the group about this afternoon's dog-sled trip?",
+          options: [
+            { label: "A  Those who want to can take part in a race.", value: "A" },
+            { label: "B  Anyone has the chance to drive a team of dogs.", value: "B" },
+            { label: "C  One group member will be chosen to lead the trail.", value: "C" },
+          ],
+          correctAnswer: "B", points: 1,
+        },
+        {
+          id: "cam13-l-t4-s2-q13", number: 13, type: "multiple_choice",
+          question: "13. What does Annie say about the team relay event?",
+          options: [
+            { label: "A  All participants receive a medal.", value: "A" },
+            { label: "B  The course is 4 km long.", value: "B" },
+            { label: "C  Each team is led by a teacher.", value: "C" },
+          ],
+          correctAnswer: "A", points: 1,
+        },
+        {
+          id: "cam13-l-t4-s2-q14", number: 14, type: "multiple_choice",
+          question: "14. On the snow-shoe trip, the visitors will",
+          options: [
+            { label: "A  visit an old gold mine.", value: "A" },
+            { label: "B  learn about unusual flowers.", value: "B" },
+            { label: "C  climb to the top of a mountain.", value: "C" },
+          ],
+          correctAnswer: "C", points: 1,
+        },
+        {
+          id: "cam13-l-t4-s2-q15", number: 15, type: "multiple_choice",
+          question: "15. The cost of accommodation in the mountain hut includes",
+          options: [
+            { label: "A  a supply of drinking water.", value: "A" },
+            { label: "B  transport of visitors' luggage.", value: "B" },
+            { label: "C  cooked meals.", value: "C" },
+          ],
+          correctAnswer: "A", points: 1,
+        },
+        {
+          id: "cam13-l-t4-s2-q16", number: 16, type: "multiple_choice",
+          question: "16. If there is a storm while the visitors are in the hut, they should",
+          options: [
+            { label: "A  contact the bus driver.", value: "A" },
+            { label: "B  wait until the weather improves.", value: "B" },
+            { label: "C  use the emergency locator beacon.", value: "C" },
+          ],
+          correctAnswer: "B", points: 1,
+        },
+        {
+          id: "cam13-l-t4-s2-q17", number: 17,
+          groupLabel: `Questions 17–20: What information does Annie give about skiing on each of the following mountain trails? Choose FOUR answers from the box (A–F).\n\nA  It has a good place to stop and rest.\nB  It is suitable for all abilities.\nC  It involves crossing a river.\nD  It demands a lot of skill.\nE  It may be closed in bad weather.\nF  It has some very narrow sections.`,
+          type: "matching", question: "17. Highland Trail",
+          options: [
+            { label: "A  It has a good place to stop and rest.", value: "A" },
+            { label: "B  It is suitable for all abilities.", value: "B" },
+            { label: "C  It involves crossing a river.", value: "C" },
+            { label: "D  It demands a lot of skill.", value: "D" },
+            { label: "E  It may be closed in bad weather.", value: "E" },
+            { label: "F  It has some very narrow sections.", value: "F" },
+          ],
+          correctAnswer: "B", points: 1,
+        },
+        {
+          id: "cam13-l-t4-s2-q18", number: 18, type: "matching", question: "18. Pine Trail",
+          options: [
+            { label: "A  It has a good place to stop and rest.", value: "A" },
+            { label: "B  It is suitable for all abilities.", value: "B" },
+            { label: "C  It involves crossing a river.", value: "C" },
+            { label: "D  It demands a lot of skill.", value: "D" },
+            { label: "E  It may be closed in bad weather.", value: "E" },
+            { label: "F  It has some very narrow sections.", value: "F" },
+          ],
+          correctAnswer: "D", points: 1,
+        },
+        {
+          id: "cam13-l-t4-s2-q19", number: 19, type: "matching", question: "19. Stony Trail",
+          options: [
+            { label: "A  It has a good place to stop and rest.", value: "A" },
+            { label: "B  It is suitable for all abilities.", value: "B" },
+            { label: "C  It involves crossing a river.", value: "C" },
+            { label: "D  It demands a lot of skill.", value: "D" },
+            { label: "E  It may be closed in bad weather.", value: "E" },
+            { label: "F  It has some very narrow sections.", value: "F" },
+          ],
+          correctAnswer: "A", points: 1,
+        },
+        {
+          id: "cam13-l-t4-s2-q20", number: 20, type: "matching", question: "20. Loser's Trail",
+          options: [
+            { label: "A  It has a good place to stop and rest.", value: "A" },
+            { label: "B  It is suitable for all abilities.", value: "B" },
+            { label: "C  It involves crossing a river.", value: "C" },
+            { label: "D  It demands a lot of skill.", value: "D" },
+            { label: "E  It may be closed in bad weather.", value: "E" },
+            { label: "F  It has some very narrow sections.", value: "F" },
+          ],
+          correctAnswer: "E", points: 1,
+        },
+      ],
+    },
+    // ── PART 3 ─────────────────────────────────────────────
+    {
+      id: "cam13-l-t4-s3",
+      sectionNumber: 3,
+      title: "Part 3",
+      instructions: `Questions 21–26: Choose the correct letter, A, B or C.
+Questions 27 & 28: Choose TWO letters, A–E.
+Questions 29 & 30: Choose TWO letters, A–E.`,
+      passageTitle: "Jack & Alice — labels giving nutritional information on food packaging",
+      questions: [
+        {
+          id: "cam13-l-t4-s3-q21", number: 21,
+          groupLabel: `Questions 21–26: Choose the correct letter, A, B or C.`,
+          type: "multiple_choice", question: "21. What was Jack's attitude to nutritional food labels before this project?",
+          options: [
+            { label: "A  He didn't read everything on them.", value: "A" },
+            { label: "B  He didn't think they were important.", value: "B" },
+            { label: "C  He thought they were too complicated.", value: "C" },
+          ],
+          correctAnswer: "A", points: 1,
+        },
+        {
+          id: "cam13-l-t4-s3-q22", number: 22, type: "multiple_choice",
+          question: "22. Alice says that before doing this project,",
+          options: [
+            { label: "A  she was unaware of what certain foods contained.", value: "A" },
+            { label: "B  she was too lazy to read food labels.", value: "B" },
+            { label: "C  she was only interested in the number of calories.", value: "C" },
+          ],
+          correctAnswer: "A", points: 1,
+        },
+        {
+          id: "cam13-l-t4-s3-q23", number: 23, type: "multiple_choice",
+          question: "23. When discussing supermarket brands of pizza, Jack agrees with Alice that",
+          options: [
+            { label: "A  the list of ingredients is shocking.", value: "A" },
+            { label: "B  he will hesitate before buying pizza again.", value: "B" },
+            { label: "C  the nutritional label is misleading.", value: "C" },
+          ],
+          correctAnswer: "C", points: 1,
+        },
+        {
+          id: "cam13-l-t4-s3-q24", number: 24, type: "multiple_choice",
+          question: "24. Jack prefers the daily value system to other labelling systems because it is",
+          options: [
+            { label: "A  more accessible.", value: "A" },
+            { label: "B  more logical.", value: "B" },
+            { label: "C  more comprehensive.", value: "C" },
+          ],
+          correctAnswer: "C", points: 1,
+        },
+        {
+          id: "cam13-l-t4-s3-q25", number: 25, type: "multiple_choice",
+          question: "25. What surprised both students about one flavour of crisps?",
+          options: [
+            { label: "A  The percentage of artificial additives given was incorrect.", value: "A" },
+            { label: "B  The products did not contain any meat.", value: "B" },
+            { label: "C  The labels did not list all the ingredients.", value: "C" },
+          ],
+          correctAnswer: "B", points: 1,
+        },
+        {
+          id: "cam13-l-t4-s3-q26", number: 26, type: "multiple_choice",
+          question: "26. What do the students think about research into the impact of nutritional food labelling?",
+          options: [
+            { label: "A  It did not produce clear results.", value: "A" },
+            { label: "B  It focused on the wrong people.", value: "B" },
+            { label: "C  It made unrealistic recommendations.", value: "C" },
+          ],
+          correctAnswer: "A", points: 1,
+        },
+        {
+          id: "cam13-l-t4-s3-q27", number: 27,
+          groupLabel: `Questions 27 and 28: Choose TWO letters, A–E.\n\nWhich TWO things surprised the students about the traffic-light system for nutritional labels?\n\nA  its widespread use\nB  the fact that it is voluntary for supermarkets\nC  how little research was done before its introduction\nD  its unpopularity with food manufacturers\nE  the way that certain colours are used\n\n(Answers are accepted in either order.)`,
+          type: "multiple_choice", question: "27. Choose TWO (first answer)",
+          options: [
+            { label: "A  its widespread use", value: "A" },
+            { label: "B  the fact that it is voluntary for supermarkets", value: "B" },
+            { label: "C  how little research was done before its introduction", value: "C" },
+            { label: "D  its unpopularity with food manufacturers", value: "D" },
+            { label: "E  the way that certain colours are used", value: "E" },
+          ],
+          correctAnswer: "B/C", points: 1,
+        },
+        {
+          id: "cam13-l-t4-s3-q28", number: 28, type: "multiple_choice",
+          question: "28. Choose TWO (second answer)",
+          options: [
+            { label: "A  its widespread use", value: "A" },
+            { label: "B  the fact that it is voluntary for supermarkets", value: "B" },
+            { label: "C  how little research was done before its introduction", value: "C" },
+            { label: "D  its unpopularity with food manufacturers", value: "D" },
+            { label: "E  the way that certain colours are used", value: "E" },
+          ],
+          correctAnswer: "B/C", points: 1,
+        },
+        {
+          id: "cam13-l-t4-s3-q29", number: 29,
+          groupLabel: `Questions 29 and 30: Choose TWO letters, A–E.\n\nWhich TWO things are true about the participants in the study on the traffic-light system?\n\nA  They had low literacy levels.\nB  They were regular consumers of packaged food.\nC  They were selected randomly.\nD  They were from all socio-economic groups.\nE  They were interviewed face-to-face.\n\n(Answers are accepted in either order.)`,
+          type: "multiple_choice", question: "29. Choose TWO (first answer)",
+          options: [
+            { label: "A  They had low literacy levels.", value: "A" },
+            { label: "B  They were regular consumers of packaged food.", value: "B" },
+            { label: "C  They were selected randomly.", value: "C" },
+            { label: "D  They were from all socio-economic groups.", value: "D" },
+            { label: "E  They were interviewed face-to-face.", value: "E" },
+          ],
+          correctAnswer: "D/E", points: 1,
+        },
+        {
+          id: "cam13-l-t4-s3-q30", number: 30, type: "multiple_choice",
+          question: "30. Choose TWO (second answer)",
+          options: [
+            { label: "A  They had low literacy levels.", value: "A" },
+            { label: "B  They were regular consumers of packaged food.", value: "B" },
+            { label: "C  They were selected randomly.", value: "C" },
+            { label: "D  They were from all socio-economic groups.", value: "D" },
+            { label: "E  They were interviewed face-to-face.", value: "E" },
+          ],
+          correctAnswer: "D/E", points: 1,
+        },
+      ],
+    },
+    // ── PART 4 ─────────────────────────────────────────────
+    {
+      id: "cam13-l-t4-s4",
+      sectionNumber: 4,
+      title: "Part 4",
+      instructions: `Questions 31–40: Complete the notes below. Write ONE WORD ONLY for each answer.`,
+      passageText: `The history of coffee
+
+Coffee in the Arab world
+●  There was small-scale trade in wild coffee from Ethiopia.
+●  1522: Coffee was approved in the Ottoman court as a type of medicine.
+●  1623: In Constantinople, the ruler ordered the 31 _______ of every coffee house.
+
+Coffee arrives in Europe (17th century)
+●  Coffee shops were compared to 32 _______.
+●  They played an important part in social and 33 _______ changes.
+
+Coffee and European colonization
+●  European powers established coffee plantations in their colonies.
+●  Types of coffee were often named according to the 34 _______ they came from.
+●  In Brazil and the Caribbean, most cultivation depended on 35 _______.
+●  In Java, coffee was used as a form of 36 _______.
+●  Coffee became almost as important as 37 _______.
+●  The move towards the consumption of 38 _______ in Britain did not also take place in the USA.
+
+Coffee in the 19th century
+●  Prices dropped because of improvements in 39 _______.
+●  Industrial workers found coffee helped them to work at 40 _______.`,
+      questions: [
+        { id: "cam13-l-t4-s4-q31", number: 31, type: "note_completion", question: "31. the ruler ordered the _______ of every coffee house", correctAnswer: "destruction", points: 1 },
+        { id: "cam13-l-t4-s4-q32", number: 32, type: "note_completion", question: "32. Coffee shops were compared to _______", correctAnswer: "universities/university", points: 1 },
+        { id: "cam13-l-t4-s4-q33", number: 33, type: "note_completion", question: "33. social and _______ changes", correctAnswer: "political", points: 1 },
+        { id: "cam13-l-t4-s4-q34", number: 34, type: "note_completion", question: "34. named according to the _______ they came from", correctAnswer: "port/ports", points: 1 },
+        { id: "cam13-l-t4-s4-q35", number: 35, type: "note_completion", question: "35. most cultivation depended on _______", correctAnswer: "slaves/slavery", points: 1 },
+        { id: "cam13-l-t4-s4-q36", number: 36, type: "note_completion", question: "36. In Java, coffee was used as a form of _______", correctAnswer: "taxation", points: 1 },
+        { id: "cam13-l-t4-s4-q37", number: 37, type: "note_completion", question: "37. Coffee became almost as important as _______", correctAnswer: "sugar", points: 1 },
+        { id: "cam13-l-t4-s4-q38", number: 38, type: "note_completion", question: "38. move towards the consumption of _______ in Britain", correctAnswer: "tea", points: 1 },
+        { id: "cam13-l-t4-s4-q39", number: 39, type: "note_completion", question: "39. because of improvements in _______", correctAnswer: "transportation", points: 1 },
+        { id: "cam13-l-t4-s4-q40", number: 40, type: "note_completion", question: "40. helped them to work at _______", correctAnswer: "night", points: 1 },
+      ],
+    },
+  ],
+};
+
 export const cambridge13ListeningTests: IELTSTest[] = [
   cambridge13_listening_t1,
   cambridge13_listening_t2,
   cambridge13_listening_t3,
+  cambridge13_listening_t4,
 ];
