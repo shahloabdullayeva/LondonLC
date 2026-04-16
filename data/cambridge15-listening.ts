@@ -1089,7 +1089,7 @@ Neither satisfied nor dissatisfied with: the 10 _______ available`,
 Questions 17 & 18: Choose TWO letters, A–E.
 Questions 19 & 20: Choose TWO letters, A–E.`,
       passageTitle: "Park facilities",
-      diagramUrl: imageUrl("cam15test3map.png"),
+      diagramUrl: imageUrl("cam15test4map.png"),
       questions: [
         {
           id: "cam15-l-t4-s2-q11", number: 11,
