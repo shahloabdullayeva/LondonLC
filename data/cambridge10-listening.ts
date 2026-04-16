@@ -609,7 +609,379 @@ Changes in the economy
   ],
 };
 
+// ============================================================
+// CAMBRIDGE IELTS 10 – LISTENING TEST 3
+// Parts: 1) Early Learning Childcare Centre — Carol Smith
+//           enrolment for Kate (form)
+//        2) Alice on the Dolphin Conservation Trust (Choose-TWO
+//           + MCQ + dolphin → comment matching A–D)
+//        3) Rob on Theatre Studies course (MCQ + 'year abroad'
+//           stages → action matching A–G)
+//        4) 'Self-regulatory focus theory' and leadership (notes)
+// ============================================================
+export const cambridge10_listening_t3: IELTSTest = {
+  id: "cam10-listening-t3",
+  title: "Cambridge IELTS 10 – Listening Test 3",
+  bookNumber: 10,
+  testNumber: 3,
+  type: "listening",
+  level: "academic",
+  durationMinutes: 30,
+  transferMinutes: 2,
+  audioUrl: audioUrl("cam10-listening-t3.mp3"),
+  audioDurationSeconds: 1800,
+  sections: [
+    // ── PART 1 ─────────────────────────────────────────────
+    {
+      id: "cam10-l-t3-s1",
+      sectionNumber: 1,
+      title: "Part 1",
+      instructions: `Questions 1–10: Complete the form below. Write ONE WORD AND/OR A NUMBER for each answer.`,
+      passageText: `Early Learning Childcare Centre — Enrolment Form
+
+Parent or guardian: Carol Smith
+
+Personal Details
+Child's name: Kate
+Age: 1 _______
+Address: 2 _______ Road, Woodside, 4032
+Phone: 3345 9865
+
+Childcare Information
+Days enrolled for: Monday and 3 _______
+Start time: 4 _______ a.m.
+Childcare group: the 5 _______ group
+Which meal/s are required each day? 6 _______
+Medical conditions: needs 7 _______
+Emergency contact: Jenny 8 _______
+Phone: 3346 7523
+Relationship to child: 9 _______
+
+Fees
+Will pay each 10 _______`,
+      questions: [
+        { id: "cam10-l-t3-s1-q1", number: 1, type: "note_completion", question: "1. Age: _______", correctAnswer: "4", points: 1 },
+        { id: "cam10-l-t3-s1-q2", number: 2, type: "note_completion", question: "2. Address: _______ Road, Woodside, 4032", correctAnswer: "46 Wombat", points: 1 },
+        { id: "cam10-l-t3-s1-q3", number: 3, type: "note_completion", question: "3. Days enrolled for: Monday and _______", correctAnswer: "Thursday", points: 1 },
+        { id: "cam10-l-t3-s1-q4", number: 4, type: "note_completion", question: "4. Start time: _______ a.m.", correctAnswer: "8.30", points: 1 },
+        { id: "cam10-l-t3-s1-q5", number: 5, type: "note_completion", question: "5. Childcare group: the _______ group", correctAnswer: "red", points: 1 },
+        { id: "cam10-l-t3-s1-q6", number: 6, type: "note_completion", question: "6. Which meal/s are required each day? _______", correctAnswer: "lunch", points: 1 },
+        { id: "cam10-l-t3-s1-q7", number: 7, type: "note_completion", question: "7. Medical conditions: needs _______", correctAnswer: "glasses", points: 1 },
+        { id: "cam10-l-t3-s1-q8", number: 8, type: "note_completion", question: "8. Emergency contact: Jenny _______", correctAnswer: "BALL", points: 1 },
+        { id: "cam10-l-t3-s1-q9", number: 9, type: "note_completion", question: "9. Relationship to child: _______", correctAnswer: "aunt", points: 1 },
+        { id: "cam10-l-t3-s1-q10", number: 10, type: "note_completion", question: "10. Will pay each _______", correctAnswer: "month", points: 1 },
+      ],
+    },
+    // ── PART 2 ─────────────────────────────────────────────
+    {
+      id: "cam10-l-t3-s2",
+      sectionNumber: 2,
+      title: "Part 2",
+      instructions: `Questions 11 & 12: Choose TWO letters, A–E.
+Questions 13–15: Choose the correct letter, A, B or C.
+Questions 16–20: Match each comment with a dolphin. Write A, B, C or D next to each comment.`,
+      passageTitle: "Alice — Dolphin Conservation Trust",
+      questions: [
+        {
+          id: "cam10-l-t3-s2-q11", number: 11,
+          groupLabel: `Questions 11 and 12: Choose TWO letters, A–E.\n\nWhich TWO things does Alice say about the Dolphin Conservation Trust?\n\nA  Children make up most of the membership.\nB  It's the country's largest conservation organisation.\nC  It helps finance campaigns for changes in fishing practices.\nD  It employs several dolphin experts full-time.\nE  Volunteers help in various ways.\n\n(Answers are accepted in either order.)`,
+          type: "multiple_choice", question: "11. Choose TWO (first answer)",
+          options: [
+            { label: "A  Children make up most of the membership.", value: "A" },
+            { label: "B  It's the country's largest conservation organisation.", value: "B" },
+            { label: "C  It helps finance campaigns for changes in fishing practices.", value: "C" },
+            { label: "D  It employs several dolphin experts full-time.", value: "D" },
+            { label: "E  Volunteers help in various ways.", value: "E" },
+          ],
+          correctAnswer: "C/E", points: 1,
+        },
+        {
+          id: "cam10-l-t3-s2-q12", number: 12, type: "multiple_choice",
+          question: "12. Choose TWO (second answer)",
+          options: [
+            { label: "A  Children make up most of the membership.", value: "A" },
+            { label: "B  It's the country's largest conservation organisation.", value: "B" },
+            { label: "C  It helps finance campaigns for changes in fishing practices.", value: "C" },
+            { label: "D  It employs several dolphin experts full-time.", value: "D" },
+            { label: "E  Volunteers help in various ways.", value: "E" },
+          ],
+          correctAnswer: "C/E", points: 1,
+        },
+        {
+          id: "cam10-l-t3-s2-q13", number: 13,
+          groupLabel: `Questions 13–15: Choose the correct letter, A, B or C.`,
+          type: "multiple_choice", question: "13. Why is Alice so pleased the Trust has won the Charity Commission award?",
+          options: [
+            { label: "A  It has brought in extra money.", value: "A" },
+            { label: "B  It made the work of the trust better known.", value: "B" },
+            { label: "C  It has attracted more members.", value: "C" },
+          ],
+          correctAnswer: "B", points: 1,
+        },
+        {
+          id: "cam10-l-t3-s2-q14", number: 14, type: "multiple_choice",
+          question: "14. Alice says oil exploration causes problems to dolphins because of",
+          options: [
+            { label: "A  noise.", value: "A" },
+            { label: "B  oil leaks.", value: "B" },
+            { label: "C  movement of ships.", value: "C" },
+          ],
+          correctAnswer: "A", points: 1,
+        },
+        {
+          id: "cam10-l-t3-s2-q15", number: 15, type: "multiple_choice",
+          question: "15. Alice became interested in dolphins when",
+          options: [
+            { label: "A  she saw one swimming near her home.", value: "A" },
+            { label: "B  she heard a speaker at her school.", value: "B" },
+            { label: "C  she read a book about them.", value: "C" },
+          ],
+          correctAnswer: "C", points: 1,
+        },
+        {
+          id: "cam10-l-t3-s2-q16", number: 16,
+          groupLabel: `Questions 16–20: Which dolphin does Alice make each of the following comments about? Write the correct letter, A, B, C or D, next to each comment.\n\nA  Moondancer\nB  Echo\nC  Kiwi\nD  Samson\n\n(Letters may be used more than once.)`,
+          type: "matching", question: "16. It has not been seen this year.",
+          options: [
+            { label: "A  Moondancer", value: "A" },
+            { label: "B  Echo", value: "B" },
+            { label: "C  Kiwi", value: "C" },
+            { label: "D  Samson", value: "D" },
+          ],
+          correctAnswer: "B", points: 1,
+        },
+        {
+          id: "cam10-l-t3-s2-q17", number: 17, type: "matching", question: "17. It is photographed more than the others.",
+          options: [
+            { label: "A  Moondancer", value: "A" },
+            { label: "B  Echo", value: "B" },
+            { label: "C  Kiwi", value: "C" },
+            { label: "D  Samson", value: "D" },
+          ],
+          correctAnswer: "C", points: 1,
+        },
+        {
+          id: "cam10-l-t3-s2-q18", number: 18, type: "matching", question: "18. It is always very energetic.",
+          options: [
+            { label: "A  Moondancer", value: "A" },
+            { label: "B  Echo", value: "B" },
+            { label: "C  Kiwi", value: "C" },
+            { label: "D  Samson", value: "D" },
+          ],
+          correctAnswer: "D", points: 1,
+        },
+        {
+          id: "cam10-l-t3-s2-q19", number: 19, type: "matching", question: "19. It is the newest one in the scheme.",
+          options: [
+            { label: "A  Moondancer", value: "A" },
+            { label: "B  Echo", value: "B" },
+            { label: "C  Kiwi", value: "C" },
+            { label: "D  Samson", value: "D" },
+          ],
+          correctAnswer: "D", points: 1,
+        },
+        {
+          id: "cam10-l-t3-s2-q20", number: 20, type: "matching", question: "20. It has an unusual shape.",
+          options: [
+            { label: "A  Moondancer", value: "A" },
+            { label: "B  Echo", value: "B" },
+            { label: "C  Kiwi", value: "C" },
+            { label: "D  Samson", value: "D" },
+          ],
+          correctAnswer: "A", points: 1,
+        },
+      ],
+    },
+    // ── PART 3 ─────────────────────────────────────────────
+    {
+      id: "cam10-l-t3-s3",
+      sectionNumber: 3,
+      title: "Part 3",
+      instructions: `Questions 21–25: Choose the correct letter, A, B or C.
+Questions 26–30: Match each stage in doing the 'year abroad' option with an action. Choose FIVE answers from the box (A–G).`,
+      passageTitle: "Rob — Theatre Studies course",
+      questions: [
+        {
+          id: "cam10-l-t3-s3-q21", number: 21,
+          groupLabel: `Questions 21–25: Choose the correct letter, A, B or C.`,
+          type: "multiple_choice", question: "21. What helped Rob to prepare to play the character of a doctor?",
+          options: [
+            { label: "A  the stories his grandfather told him", value: "A" },
+            { label: "B  the times when he watched his grandfather working", value: "B" },
+            { label: "C  the way he imagined his grandfather at work", value: "C" },
+          ],
+          correctAnswer: "C", points: 1,
+        },
+        {
+          id: "cam10-l-t3-s3-q22", number: 22, type: "multiple_choice",
+          question: "22. In the play's first scene, the boredom of village life was suggested by",
+          options: [
+            { label: "A  repetition of words and phrases.", value: "A" },
+            { label: "B  scenery painted in dull colours.", value: "B" },
+            { label: "C  long pauses within conversations.", value: "C" },
+          ],
+          correctAnswer: "A", points: 1,
+        },
+        {
+          id: "cam10-l-t3-s3-q23", number: 23, type: "multiple_choice",
+          question: "23. What has Rob learned about himself through working in a group?",
+          options: [
+            { label: "A  He likes to have clear guidelines.", value: "A" },
+            { label: "B  He copes well with stress.", value: "B" },
+            { label: "C  He thinks he is a good leader.", value: "C" },
+          ],
+          correctAnswer: "A", points: 1,
+        },
+        {
+          id: "cam10-l-t3-s3-q24", number: 24, type: "multiple_choice",
+          question: "24. To support the production, research material was used which described",
+          options: [
+            { label: "A  political developments.", value: "A" },
+            { label: "B  changing social attitudes.", value: "B" },
+            { label: "C  economic transformations.", value: "C" },
+          ],
+          correctAnswer: "B", points: 1,
+        },
+        {
+          id: "cam10-l-t3-s3-q25", number: 25, type: "multiple_choice",
+          question: "25. What problem did the students overcome in the final rehearsal?",
+          options: [
+            { label: "A  one person forgetting their words", value: "A" },
+            { label: "B  an equipment failure", value: "B" },
+            { label: "C  the injury of one character", value: "C" },
+          ],
+          correctAnswer: "B", points: 1,
+        },
+        {
+          id: "cam10-l-t3-s3-q26", number: 26,
+          groupLabel: `Questions 26–30: What action is needed for the following stages in doing the 'year abroad' option? Choose FIVE answers from the box (A–G).\n\nA  be on time\nB  get a letter of recommendation\nC  plan for the final year\nD  make sure the institution's focus is relevant\nE  show ability in Theatre Studies\nF  make travel arrangements and bookings\nG  ask for help`,
+          type: "matching", question: "26. in the second year of the course",
+          options: [
+            { label: "A  be on time", value: "A" },
+            { label: "B  get a letter of recommendation", value: "B" },
+            { label: "C  plan for the final year", value: "C" },
+            { label: "D  make sure the institution's focus is relevant", value: "D" },
+            { label: "E  show ability in Theatre Studies", value: "E" },
+            { label: "F  make travel arrangements and bookings", value: "F" },
+            { label: "G  ask for help", value: "G" },
+          ],
+          correctAnswer: "E", points: 1,
+        },
+        {
+          id: "cam10-l-t3-s3-q27", number: 27, type: "matching", question: "27. when first choosing where to go",
+          options: [
+            { label: "A  be on time", value: "A" },
+            { label: "B  get a letter of recommendation", value: "B" },
+            { label: "C  plan for the final year", value: "C" },
+            { label: "D  make sure the institution's focus is relevant", value: "D" },
+            { label: "E  show ability in Theatre Studies", value: "E" },
+            { label: "F  make travel arrangements and bookings", value: "F" },
+            { label: "G  ask for help", value: "G" },
+          ],
+          correctAnswer: "D", points: 1,
+        },
+        {
+          id: "cam10-l-t3-s3-q28", number: 28, type: "matching", question: "28. when sending in your choices",
+          options: [
+            { label: "A  be on time", value: "A" },
+            { label: "B  get a letter of recommendation", value: "B" },
+            { label: "C  plan for the final year", value: "C" },
+            { label: "D  make sure the institution's focus is relevant", value: "D" },
+            { label: "E  show ability in Theatre Studies", value: "E" },
+            { label: "F  make travel arrangements and bookings", value: "F" },
+            { label: "G  ask for help", value: "G" },
+          ],
+          correctAnswer: "A", points: 1,
+        },
+        {
+          id: "cam10-l-t3-s3-q29", number: 29, type: "matching", question: "29. when writing your personal statement",
+          options: [
+            { label: "A  be on time", value: "A" },
+            { label: "B  get a letter of recommendation", value: "B" },
+            { label: "C  plan for the final year", value: "C" },
+            { label: "D  make sure the institution's focus is relevant", value: "D" },
+            { label: "E  show ability in Theatre Studies", value: "E" },
+            { label: "F  make travel arrangements and bookings", value: "F" },
+            { label: "G  ask for help", value: "G" },
+          ],
+          correctAnswer: "G", points: 1,
+        },
+        {
+          id: "cam10-l-t3-s3-q30", number: 30, type: "matching", question: "30. when doing the year abroad",
+          options: [
+            { label: "A  be on time", value: "A" },
+            { label: "B  get a letter of recommendation", value: "B" },
+            { label: "C  plan for the final year", value: "C" },
+            { label: "D  make sure the institution's focus is relevant", value: "D" },
+            { label: "E  show ability in Theatre Studies", value: "E" },
+            { label: "F  make travel arrangements and bookings", value: "F" },
+            { label: "G  ask for help", value: "G" },
+          ],
+          correctAnswer: "C", points: 1,
+        },
+      ],
+    },
+    // ── PART 4 ─────────────────────────────────────────────
+    {
+      id: "cam10-l-t3-s4",
+      sectionNumber: 4,
+      title: "Part 4",
+      instructions: `Questions 31–40: Complete the notes below. Write ONE WORD ONLY for each answer.`,
+      passageText: `'Self-regulatory focus theory' and leadership
+
+Self-regulatory focus theory
+People's focus is to approach pleasure or avoid pain
+Promotion goals focus on 31 _______
+Prevention goals emphasise avoiding punishment
+
+Factors that affect people's focus
+
+The Chronic Factor
+●  comes from one's 32 _______
+
+The 33 _______ Factor
+●  we are more likely to focus on promotion goals when with a 34 _______
+●  we are more likely to focus on prevention goals with our boss
+
+How people's focus affects them
+Promotion Focus: People think about an ideal version of themselves, their 35 _______ and their gains.
+Prevention Focus: People think about their 'ought' self and their obligations
+
+Leaders
+Leadership behaviour and 36 _______ affects people's focus
+
+Transformational Leaders:
+●  pay special attention to the 37 _______ of their followers
+●  passionately communicate a clear 38 _______
+●  inspire promotion focus in followers
+
+Transactional Leaders:
+●  create 39 _______ to make expectations clear
+●  emphasise the results of a mistake
+●  inspire prevention focus in followers
+
+Conclusion
+Promotion Focus is good for jobs requiring 40 _______
+Prevention Focus is good for work such as a surgeon
+Leaders' actions affect which focus people use`,
+      questions: [
+        { id: "cam10-l-t3-s4-q31", number: 31, type: "note_completion", question: "31. Promotion goals focus on _______", correctAnswer: "achievement/achievements", points: 1 },
+        { id: "cam10-l-t3-s4-q32", number: 32, type: "note_completion", question: "32. comes from one's _______", correctAnswer: "personality/character", points: 1 },
+        { id: "cam10-l-t3-s4-q33", number: 33, type: "note_completion", question: "33. The _______ Factor", correctAnswer: "Situational", points: 1 },
+        { id: "cam10-l-t3-s4-q34", number: 34, type: "note_completion", question: "34. focus on promotion goals when with a _______", correctAnswer: "friend", points: 1 },
+        { id: "cam10-l-t3-s4-q35", number: 35, type: "note_completion", question: "35. ideal version of themselves, their _______ and their gains", correctAnswer: "aspirations/ambitions", points: 1 },
+        { id: "cam10-l-t3-s4-q36", number: 36, type: "note_completion", question: "36. Leadership behaviour and _______ affects people's focus", correctAnswer: "style", points: 1 },
+        { id: "cam10-l-t3-s4-q37", number: 37, type: "note_completion", question: "37. pay special attention to the _______ of their followers", correctAnswer: "development", points: 1 },
+        { id: "cam10-l-t3-s4-q38", number: 38, type: "note_completion", question: "38. passionately communicate a clear _______", correctAnswer: "vision", points: 1 },
+        { id: "cam10-l-t3-s4-q39", number: 39, type: "note_completion", question: "39. create _______ to make expectations clear", correctAnswer: "structures", points: 1 },
+        { id: "cam10-l-t3-s4-q40", number: 40, type: "note_completion", question: "40. Promotion Focus is good for jobs requiring _______", correctAnswer: "innovation/innovations", points: 1 },
+      ],
+    },
+  ],
+};
+
 export const cambridge10ListeningTests: IELTSTest[] = [
   cambridge10_listening_t1,
   cambridge10_listening_t2,
+  cambridge10_listening_t3,
 ];
