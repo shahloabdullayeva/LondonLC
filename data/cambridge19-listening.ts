@@ -76,7 +76,7 @@ Practical issues
       id: "cam19-l-t1-s2",
       sectionNumber: 2,
       title: "Part 2",
-      diagramUrl: imageUrl("farleyhouse.png"),
+      diagramUrl: imageUrl("cam19test1map.png"),
       instructions: `Questions 11–15: Choose the correct letter, A, B or C.
 Questions 16–20: Label the map. Write the correct letter (A–H) next to each feature.`,
       passageTitle: "Stanthorpe Twinning Association",

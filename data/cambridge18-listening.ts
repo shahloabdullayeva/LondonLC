@@ -441,7 +441,7 @@ City Road — Junior chef
       id: "cam18-l-t2-s2",
       sectionNumber: 2,
       title: "Part 2",
-      diagramUrl: imageUrl("cam18-listening-t2-map.png"),
+      diagramUrl: imageUrl("cam18test2map.png"),
       instructions: `Questions 11 & 12: Choose TWO letters, A–E.
 Questions 13 & 14: Choose TWO letters, A–E.
 Questions 15–20: Label the map. Write the correct letter (A–I) next to each feature.`,
