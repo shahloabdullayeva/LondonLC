@@ -88,9 +88,9 @@ export default function StudentDashboard() {
           <SidebarLink icon={Mic} label="Podcasts" soon
             active={sidebarView === "podcasts"}
             onClick={() => { setSidebarView("podcasts"); setSelectedBook(null); }} />
-          <SidebarLink icon={Music} label="Music" soon
-            active={sidebarView === "music"}
-            onClick={() => { setSidebarView("music"); setSelectedBook(null); }} />
+          <SidebarLink icon={Music} label="Music"
+            active={false}
+            onClick={() => { router.push("/music"); }} />
 
           <div style={{ height: 1, background: "var(--site-border)", margin: "14px 0" }} />
 
@@ -138,9 +138,10 @@ export default function StudentDashboard() {
 
           {/* Quote is now pinned at the bottom of the sidebar, not here. */}
 
-          {/* Coming-soon sections (Writing / Articles / Podcasts / Music)
-              — render inside the dashboard so the sidebar stays visible. */}
-          {(sidebarView === "writing" || sidebarView === "articles" || sidebarView === "podcasts" || sidebarView === "music") && (
+          {/* Coming-soon sections (Writing / Articles / Podcasts).
+              Music now has its own page at /music so it's not in
+              this list anymore. */}
+          {(sidebarView === "writing" || sidebarView === "articles" || sidebarView === "podcasts") && (
             <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "60px 32px", textAlign: "center", minHeight: 480 }}>
               <div style={{ fontSize: 11, letterSpacing: "0.3em", textTransform: "uppercase", color: "var(--site-text-muted)", marginBottom: 24, fontWeight: 600 }}>
                 {sidebarView === "writing" ? "IELTS" : sidebarView === "articles" ? "Read" : "Listen"}
@@ -152,7 +153,6 @@ export default function StudentDashboard() {
                 {sidebarView === "writing" && "Task 1 and Task 2 practice with model answers and feedback. Coming soon."}
                 {sidebarView === "articles" && "Hand-picked essays, exam tips and long reads to level up your English. Coming soon."}
                 {sidebarView === "podcasts" && "Curated podcast episodes and transcripts for every level. Coming soon."}
-                {sidebarView === "music" && "Songs with lyrics to help you train your ear. Coming soon."}
               </p>
               <div style={{ fontSize: 11, letterSpacing: "0.25em", textTransform: "uppercase", color: "var(--site-text-muted)", fontWeight: 600, border: "1px solid var(--site-border-strong)", borderRadius: 999, padding: "8px 20px" }}>
                 In development
