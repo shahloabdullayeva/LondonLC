@@ -320,6 +320,356 @@ Recommendations to retain ocean biodiversity
   ],
 };
 
+// ============================================================
+// CAMBRIDGE IELTS 11 – LISTENING TEST 2
+// Parts: 1) Enquiry about joining Youth Council — Roger Brown
+//        2) New staff at theatre (three Choose-TWO + A–G plan
+//           labelling of the ground floor)
+//        3) Rocky Bay field trip (MCQ + two Choose-TWO on splash
+//           zone and error reasons)
+//        4) Designing the Taylor Concert Hall (notes)
+// ============================================================
+export const cambridge11_listening_t2: IELTSTest = {
+  id: "cam11-listening-t2",
+  title: "Cambridge IELTS 11 – Listening Test 2",
+  bookNumber: 11,
+  testNumber: 2,
+  type: "listening",
+  level: "academic",
+  durationMinutes: 30,
+  transferMinutes: 2,
+  audioUrl: audioUrl("cam11-listening-t2.mp3"),
+  audioDurationSeconds: 1800,
+  sections: [
+    // ── PART 1 ─────────────────────────────────────────────
+    {
+      id: "cam11-l-t2-s1",
+      sectionNumber: 1,
+      title: "Part 1",
+      instructions: `Questions 1–10: Complete the notes below. Write ONE WORD AND/OR A NUMBER for each answer.`,
+      passageText: `Enquiry about joining Youth Council
+
+Name: Roger Brown
+Age: 18
+Currently staying in a 1 _______ during the week
+Postal address: 17, 2 _______ Street, Stamford, Lincs
+Postcode: 3 _______
+Occupation: student and part-time job as a 4 _______
+Studying 5 _______ (major subject) and history (minor subject)
+Hobbies: does a lot of 6 _______, and is interested in the 7 _______
+On Youth Council, wants to work with young people who are 8 _______
+Will come to talk to the Elections Officer next Monday at 9 _______ p.m.
+Mobile number: 10 _______`,
+      questions: [
+        { id: "cam11-l-t2-s1-q1", number: 1, type: "note_completion", question: "1. Currently staying in a _______ during the week", correctAnswer: "hostel", points: 1 },
+        { id: "cam11-l-t2-s1-q2", number: 2, type: "note_completion", question: "2. 17, _______ Street, Stamford, Lincs", correctAnswer: "Buckleigh", points: 1 },
+        { id: "cam11-l-t2-s1-q3", number: 3, type: "note_completion", question: "3. Postcode: _______", correctAnswer: "PE9 7QT", points: 1 },
+        { id: "cam11-l-t2-s1-q4", number: 4, type: "note_completion", question: "4. part-time job as a _______", correctAnswer: "waiter", points: 1 },
+        { id: "cam11-l-t2-s1-q5", number: 5, type: "note_completion", question: "5. Studying _______ (major subject)", correctAnswer: "politics", points: 1 },
+        { id: "cam11-l-t2-s1-q6", number: 6, type: "note_completion", question: "6. does a lot of _______", correctAnswer: "cycling", points: 1 },
+        { id: "cam11-l-t2-s1-q7", number: 7, type: "note_completion", question: "7. is interested in the _______", correctAnswer: "cinema", points: 1 },
+        { id: "cam11-l-t2-s1-q8", number: 8, type: "note_completion", question: "8. wants to work with young people who are _______", correctAnswer: "disabled", points: 1 },
+        { id: "cam11-l-t2-s1-q9", number: 9, type: "note_completion", question: "9. next Monday at _______ p.m.", correctAnswer: "4.30/half past four", points: 1 },
+        { id: "cam11-l-t2-s1-q10", number: 10, type: "note_completion", question: "10. Mobile number: _______", correctAnswer: "07788 136711", points: 1 },
+      ],
+    },
+    // ── PART 2 ─────────────────────────────────────────────
+    {
+      id: "cam11-l-t2-s2",
+      sectionNumber: 2,
+      title: "Part 2",
+      instructions: `Questions 11 & 12: Choose TWO letters, A–E.
+Questions 13 & 14: Choose TWO letters, A–E.
+Questions 15 & 16: Choose TWO letters, A–E.
+Questions 17–20: Label the ground-floor plan of the theatre below. Write the correct letter, A–G, next to each area.`,
+      passageTitle: "New staff at theatre",
+      diagramUrl: imageUrl("cam11test2map.png"),
+      questions: [
+        {
+          id: "cam11-l-t2-s2-q11", number: 11,
+          groupLabel: `Questions 11 and 12: Choose TWO letters, A–E.\n\nWhich TWO changes have been made so far during the refurbishment of the theatre?\n\nA  Some rooms now have a different use.\nB  A different type of seating has been installed.\nC  An elevator has been installed.\nD  The outside of the building has been repaired.\nE  Extra seats have been added.\n\n(Answers are accepted in either order.)`,
+          type: "multiple_choice", question: "11. Choose TWO (first answer)",
+          options: [
+            { label: "A  Some rooms now have a different use.", value: "A" },
+            { label: "B  A different type of seating has been installed.", value: "B" },
+            { label: "C  An elevator has been installed.", value: "C" },
+            { label: "D  The outside of the building has been repaired.", value: "D" },
+            { label: "E  Extra seats have been added.", value: "E" },
+          ],
+          correctAnswer: "A/B", points: 1,
+        },
+        {
+          id: "cam11-l-t2-s2-q12", number: 12, type: "multiple_choice",
+          question: "12. Choose TWO (second answer)",
+          options: [
+            { label: "A  Some rooms now have a different use.", value: "A" },
+            { label: "B  A different type of seating has been installed.", value: "B" },
+            { label: "C  An elevator has been installed.", value: "C" },
+            { label: "D  The outside of the building has been repaired.", value: "D" },
+            { label: "E  Extra seats have been added.", value: "E" },
+          ],
+          correctAnswer: "A/B", points: 1,
+        },
+        {
+          id: "cam11-l-t2-s2-q13", number: 13,
+          groupLabel: `Questions 13 and 14: Choose TWO letters, A–E.\n\nWhich TWO facilities does the theatre currently offer to the public?\n\nA  rooms for hire\nB  backstage tours\nC  hire of costumes\nD  a bookshop\nE  a café\n\n(Answers are accepted in either order.)`,
+          type: "multiple_choice", question: "13. Choose TWO (first answer)",
+          options: [
+            { label: "A  rooms for hire", value: "A" },
+            { label: "B  backstage tours", value: "B" },
+            { label: "C  hire of costumes", value: "C" },
+            { label: "D  a bookshop", value: "D" },
+            { label: "E  a café", value: "E" },
+          ],
+          correctAnswer: "B/D", points: 1,
+        },
+        {
+          id: "cam11-l-t2-s2-q14", number: 14, type: "multiple_choice",
+          question: "14. Choose TWO (second answer)",
+          options: [
+            { label: "A  rooms for hire", value: "A" },
+            { label: "B  backstage tours", value: "B" },
+            { label: "C  hire of costumes", value: "C" },
+            { label: "D  a bookshop", value: "D" },
+            { label: "E  a café", value: "E" },
+          ],
+          correctAnswer: "B/D", points: 1,
+        },
+        {
+          id: "cam11-l-t2-s2-q15", number: 15,
+          groupLabel: `Questions 15 and 16: Choose TWO letters, A–E.\n\nWhich TWO workshops does the theatre currently offer?\n\nA  sound\nB  acting\nC  making puppets\nD  make-up\nE  lighting\n\n(Answers are accepted in either order.)`,
+          type: "multiple_choice", question: "15. Choose TWO (first answer)",
+          options: [
+            { label: "A  sound", value: "A" },
+            { label: "B  acting", value: "B" },
+            { label: "C  making puppets", value: "C" },
+            { label: "D  make-up", value: "D" },
+            { label: "E  lighting", value: "E" },
+          ],
+          correctAnswer: "C/E", points: 1,
+        },
+        {
+          id: "cam11-l-t2-s2-q16", number: 16, type: "multiple_choice",
+          question: "16. Choose TWO (second answer)",
+          options: [
+            { label: "A  sound", value: "A" },
+            { label: "B  acting", value: "B" },
+            { label: "C  making puppets", value: "C" },
+            { label: "D  make-up", value: "D" },
+            { label: "E  lighting", value: "E" },
+          ],
+          correctAnswer: "C/E", points: 1,
+        },
+        {
+          id: "cam11-l-t2-s2-q17", number: 17,
+          groupLabel: `Questions 17–20: Label the ground-floor plan of the theatre above. Write the correct letter, A–G, next to each area.`,
+          type: "matching", question: "17. box office",
+          options: [
+            { label: "A", value: "A" }, { label: "B", value: "B" }, { label: "C", value: "C" },
+            { label: "D", value: "D" }, { label: "E", value: "E" }, { label: "F", value: "F" },
+            { label: "G", value: "G" },
+          ],
+          correctAnswer: "G", points: 1,
+        },
+        {
+          id: "cam11-l-t2-s2-q18", number: 18, type: "matching", question: "18. theatre manager's office",
+          options: [
+            { label: "A", value: "A" }, { label: "B", value: "B" }, { label: "C", value: "C" },
+            { label: "D", value: "D" }, { label: "E", value: "E" }, { label: "F", value: "F" },
+            { label: "G", value: "G" },
+          ],
+          correctAnswer: "D", points: 1,
+        },
+        {
+          id: "cam11-l-t2-s2-q19", number: 19, type: "matching", question: "19. lighting box",
+          options: [
+            { label: "A", value: "A" }, { label: "B", value: "B" }, { label: "C", value: "C" },
+            { label: "D", value: "D" }, { label: "E", value: "E" }, { label: "F", value: "F" },
+            { label: "G", value: "G" },
+          ],
+          correctAnswer: "B", points: 1,
+        },
+        {
+          id: "cam11-l-t2-s2-q20", number: 20, type: "matching", question: "20. artistic director's offices",
+          options: [
+            { label: "A", value: "A" }, { label: "B", value: "B" }, { label: "C", value: "C" },
+            { label: "D", value: "D" }, { label: "E", value: "E" }, { label: "F", value: "F" },
+            { label: "G", value: "G" },
+          ],
+          correctAnswer: "F", points: 1,
+        },
+      ],
+    },
+    // ── PART 3 ─────────────────────────────────────────────
+    {
+      id: "cam11-l-t2-s3",
+      sectionNumber: 3,
+      title: "Part 3",
+      instructions: `Questions 21–26: Choose the correct letter, A, B or C.
+Questions 27 & 28: Choose TWO letters, A–E.
+Questions 29 & 30: Choose TWO letters, A–E.`,
+      passageTitle: "Helen & Colin — Rocky Bay field trip",
+      questions: [
+        {
+          id: "cam11-l-t2-s3-q21", number: 21,
+          groupLabel: `Questions 21–26: Choose the correct letter, A, B or C.`,
+          type: "multiple_choice", question: "21. What do the students agree should be included in their aims?",
+          options: [
+            { label: "A  factors affecting where organisms live", value: "A" },
+            { label: "B  the need to preserve endangered species", value: "B" },
+            { label: "C  techniques for classifying different organisms", value: "C" },
+          ],
+          correctAnswer: "A", points: 1,
+        },
+        {
+          id: "cam11-l-t2-s3-q22", number: 22, type: "multiple_choice",
+          question: "22. What equipment did they forget to take on the field trip?",
+          options: [
+            { label: "A  string", value: "A" },
+            { label: "B  a compass", value: "B" },
+            { label: "C  a ruler", value: "C" },
+          ],
+          correctAnswer: "A", points: 1,
+        },
+        {
+          id: "cam11-l-t2-s3-q23", number: 23, type: "multiple_choice",
+          question: "23. In Helen's procedure section, Colin suggests a change in",
+          options: [
+            { label: "A  the order in which information is given.", value: "A" },
+            { label: "B  the way the information is divided up.", value: "B" },
+            { label: "C  the amount of information provided.", value: "C" },
+          ],
+          correctAnswer: "C", points: 1,
+        },
+        {
+          id: "cam11-l-t2-s3-q24", number: 24, type: "multiple_choice",
+          question: "24. What do they say about the method they used to measure wave speed?",
+          options: [
+            { label: "A  It provided accurate results.", value: "A" },
+            { label: "B  It was simple to carry out.", value: "B" },
+            { label: "C  It required special equipment.", value: "C" },
+          ],
+          correctAnswer: "B", points: 1,
+        },
+        {
+          id: "cam11-l-t2-s3-q25", number: 25, type: "multiple_choice",
+          question: "25. What mistake did Helen make when first drawing the map?",
+          options: [
+            { label: "A  She chose the wrong scale.", value: "A" },
+            { label: "B  She stood in the wrong place.", value: "B" },
+            { label: "C  She did it at the wrong time.", value: "C" },
+          ],
+          correctAnswer: "B", points: 1,
+        },
+        {
+          id: "cam11-l-t2-s3-q26", number: 26, type: "multiple_choice",
+          question: "26. What do they decide to do next with their map?",
+          options: [
+            { label: "A  scan it onto a computer", value: "A" },
+            { label: "B  check it using photographs", value: "B" },
+            { label: "C  add information from the internet", value: "C" },
+          ],
+          correctAnswer: "B", points: 1,
+        },
+        {
+          id: "cam11-l-t2-s3-q27", number: 27,
+          groupLabel: `Questions 27 and 28: Choose TWO letters, A–E.\n\nWhich TWO problems affecting organisms in the splash zone are mentioned?\n\nA  lack of water\nB  strong winds\nC  lack of food\nD  high temperatures\nE  large waves\n\n(Answers are accepted in either order.)`,
+          type: "multiple_choice", question: "27. Choose TWO (first answer)",
+          options: [
+            { label: "A  lack of water", value: "A" },
+            { label: "B  strong winds", value: "B" },
+            { label: "C  lack of food", value: "C" },
+            { label: "D  high temperatures", value: "D" },
+            { label: "E  large waves", value: "E" },
+          ],
+          correctAnswer: "A/D", points: 1,
+        },
+        {
+          id: "cam11-l-t2-s3-q28", number: 28, type: "multiple_choice",
+          question: "28. Choose TWO (second answer)",
+          options: [
+            { label: "A  lack of water", value: "A" },
+            { label: "B  strong winds", value: "B" },
+            { label: "C  lack of food", value: "C" },
+            { label: "D  high temperatures", value: "D" },
+            { label: "E  large waves", value: "E" },
+          ],
+          correctAnswer: "A/D", points: 1,
+        },
+        {
+          id: "cam11-l-t2-s3-q29", number: 29,
+          groupLabel: `Questions 29 and 30: Choose TWO letters, A–E.\n\nWhich TWO reasons for possible error will they include in their report?\n\nA  inaccurate records of the habitat of organisms\nB  influence on behaviour of organisms by observer\nC  incorrect identification of some organisms\nD  making generalisations from a small sample\nE  missing some organisms when counting\n\n(Answers are accepted in either order.)`,
+          type: "multiple_choice", question: "29. Choose TWO (first answer)",
+          options: [
+            { label: "A  inaccurate records of the habitat of organisms", value: "A" },
+            { label: "B  influence on behaviour of organisms by observer", value: "B" },
+            { label: "C  incorrect identification of some organisms", value: "C" },
+            { label: "D  making generalisations from a small sample", value: "D" },
+            { label: "E  missing some organisms when counting", value: "E" },
+          ],
+          correctAnswer: "C/E", points: 1,
+        },
+        {
+          id: "cam11-l-t2-s3-q30", number: 30, type: "multiple_choice",
+          question: "30. Choose TWO (second answer)",
+          options: [
+            { label: "A  inaccurate records of the habitat of organisms", value: "A" },
+            { label: "B  influence on behaviour of organisms by observer", value: "B" },
+            { label: "C  incorrect identification of some organisms", value: "C" },
+            { label: "D  making generalisations from a small sample", value: "D" },
+            { label: "E  missing some organisms when counting", value: "E" },
+          ],
+          correctAnswer: "C/E", points: 1,
+        },
+      ],
+    },
+    // ── PART 4 ─────────────────────────────────────────────
+    {
+      id: "cam11-l-t2-s4",
+      sectionNumber: 4,
+      title: "Part 4",
+      instructions: `Questions 31–40: Complete the notes below. Write ONE WORD ONLY for each answer.`,
+      passageText: `DESIGNING A PUBLIC BUILDING: THE TAYLOR CONCERT HALL
+
+Introduction
+The designer of a public building may need to consider the building's
+●  function
+●  physical and 31 _______ context
+●  symbolic meaning
+
+Location and concept of the Concert Hall
+●  On the site of a disused 32 _______
+●  Beside a 33 _______
+●  The design is based on the concept of a mystery
+
+Building design
+●  It's approached by a 34 _______ for pedestrians
+●  The building is the shape of a 35 _______
+●  One exterior wall acts as a large 36 _______
+●  In the auditorium:
+   –  the floor is built on huge pads made of 37 _______
+   –  the walls are made of local wood and are 38 _______ in shape
+   –  ceiling panels and 39 _______ on walls allow adjustment of acoustics
+
+Evaluation
+Some critics say the 40 _______ style of the building is inappropriate`,
+      questions: [
+        { id: "cam11-l-t2-s4-q31", number: 31, type: "note_completion", question: "31. physical and _______ context", correctAnswer: "social", points: 1 },
+        { id: "cam11-l-t2-s4-q32", number: 32, type: "note_completion", question: "32. On the site of a disused _______", correctAnswer: "factory", points: 1 },
+        { id: "cam11-l-t2-s4-q33", number: 33, type: "note_completion", question: "33. Beside a _______", correctAnswer: "canal", points: 1 },
+        { id: "cam11-l-t2-s4-q34", number: 34, type: "note_completion", question: "34. approached by a _______ for pedestrians", correctAnswer: "bridge", points: 1 },
+        { id: "cam11-l-t2-s4-q35", number: 35, type: "note_completion", question: "35. shape of a _______", correctAnswer: "box", points: 1 },
+        { id: "cam11-l-t2-s4-q36", number: 36, type: "note_completion", question: "36. One exterior wall acts as a large _______", correctAnswer: "screen", points: 1 },
+        { id: "cam11-l-t2-s4-q37", number: 37, type: "note_completion", question: "37. huge pads made of _______", correctAnswer: "rubber", points: 1 },
+        { id: "cam11-l-t2-s4-q38", number: 38, type: "note_completion", question: "38. walls are _______ in shape", correctAnswer: "curved", points: 1 },
+        { id: "cam11-l-t2-s4-q39", number: 39, type: "note_completion", question: "39. ceiling panels and _______ on walls", correctAnswer: "curtains", points: 1 },
+        { id: "cam11-l-t2-s4-q40", number: 40, type: "note_completion", question: "40. the _______ style of the building is inappropriate", correctAnswer: "international", points: 1 },
+      ],
+    },
+  ],
+};
+
 export const cambridge11ListeningTests: IELTSTest[] = [
   cambridge11_listening_t1,
+  cambridge11_listening_t2,
 ];
