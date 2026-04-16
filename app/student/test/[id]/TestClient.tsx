@@ -1736,7 +1736,6 @@ function QuestionItem({
               item. Options are shown once in the group's groupLabel above,
               exactly like the Cambridge paper format. */}
           {question.type === "matching" && question.options && (() => {
-            const letters = question.options.map(o => o.value).join("");
             const normalise = (v: string) => v.trim().toUpperCase().slice(0, 1);
             return (
               <input
@@ -1744,7 +1743,6 @@ function QuestionItem({
                 value={answer}
                 maxLength={1}
                 onChange={(e) => onAnswer(normalise(e.target.value))}
-                placeholder={letters ? letters.split("").join("/") : ""}
                 style={{
                   padding: "9px 14px", borderRadius: 8, fontSize: 14,
                   background: T.inputBg, border: `1.5px solid ${T.border}`,
