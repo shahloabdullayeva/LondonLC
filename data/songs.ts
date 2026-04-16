@@ -16,6 +16,13 @@ export type Song = {
   youtubeId: string;
   /** Song duration in seconds. Helps lrclib return the right version. */
   duration?: number;
+  /**
+   * Lyrics timing offset in seconds — usually set by a teacher via
+   * the in-player calibration controls and persisted as an override.
+   * Positive = lyrics advance earlier; negative = delayed (for
+   * videos with intros).
+   */
+  offset?: number;
 };
 
 export const starterSongs: Song[] = [

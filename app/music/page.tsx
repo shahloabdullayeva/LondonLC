@@ -56,6 +56,7 @@ export default function MusicPage() {
         ...s,
         youtubeId: o.youtubeId ?? s.youtubeId,
         duration: o.duration ?? s.duration,
+        offset: o.offset ?? s.offset,
       };
     });
     // overridesTick invalidates the memo when localStorage changes.
@@ -133,7 +134,7 @@ export default function MusicPage() {
 
         {/* Player — fills the remaining width */}
         <main style={{ flex: 1, minWidth: 0, display: "flex", justifyContent: "stretch" }}>
-          {selected && <LyricsPlayer key={selected.id} song={selected} />}
+          {selected && <LyricsPlayer key={selected.id} song={selected} isAdmin={isAdmin} />}
         </main>
       </div>
 

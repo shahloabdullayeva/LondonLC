@@ -17,6 +17,12 @@ export type SongOverride = {
   youtubeId?: string;
   /** Optional manual duration override (seconds). */
   duration?: number;
+  /**
+   * Lyrics timing offset in seconds — positive advances the lyrics
+   * (line highlights earlier); negative delays them (useful when
+   * the YouTube video has an intro bumper before the vocal starts).
+   */
+  offset?: number;
 };
 
 type OverridesMap = Record<string, SongOverride>;

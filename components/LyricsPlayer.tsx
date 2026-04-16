@@ -10,6 +10,7 @@
 "use client";
 import { useEffect, useMemo, useRef, useState } from "react";
 import type { Song } from "@/data/songs";
+import { setOverride, getOverride } from "@/lib/song-overrides";
 
 // ── Types for the YouTube IFrame API (loaded dynamically) ────────
 type YTPlayer = {
@@ -96,8 +97,18 @@ function loadYouTubeApi(): Promise<void> {
   return ytApiPromise;
 }
 
+// Shared style for the +/- sync buttons so the row stays compact.
+const syncBtn: React.CSSProperties = {
+  minWidth: 32, height: 30, padding: "0 8px",
+  borderRadius: 8,
+  background: "var(--site-card)", color: "var(--site-text-muted)",
+  border: "1px solid var(--site-border-strong)",
+  cursor: "pointer", fontSize: 12, fontWeight: 700,
+  fontFamily: "'IBM Plex Mono', monospace",
+};
+
 // ── Component ─────────────────────────────────────────────────────
-export default function LyricsPlayer({ song }: { song: Song }) {
+export default function LyricsPlayer({ song, isAdmin = false }: { song: Song; isAdmin?: boolean }) {
   const playerContainerRef = useRef<HTMLDivElement | null>(null);
   const playerRef = useRef<YTPlayer | null>(null);
   const [ready, setReady] = useState(false);
@@ -113,8 +124,23 @@ export default function LyricsPlayer({ song }: { song: Song }) {
   // lrclib timestamps are based on the studio recording, but
   // YouTube videos often add intro bumpers or start slightly
   // offset, so users need a way to nudge the sync.
-  const [offset, setOffset] = useState(0);
-  useEffect(() => { setOffset(0); }, [song.id]);
+  //
+  // Seeded from the song's saved override, if any. Teachers can
+  // save new values via the "Save" button; students see whatever
+  // was saved and can nudge locally for the session.
+  const [offset, setOffset] = useState(song.offset ?? 0);
+  const [savedOffset, setSavedOffset] = useState(song.offset ?? 0);
+  useEffect(() => {
+    const seed = song.offset ?? 0;
+    setOffset(seed);
+    setSavedOffset(seed);
+  }, [song.id, song.offset]);
+
+  const saveOffset = () => {
+    const existing = getOverride(song.id) || {};
+    setOverride(song.id, { ...existing, offset });
+    setSavedOffset(offset);
+  };
 
   // ── Create the YouTube player when the song changes ──────────
   useEffect(() => {
@@ -243,29 +269,49 @@ export default function LyricsPlayer({ song }: { song: Song }) {
         </div>
 
         {lyricsState.kind === "synced" && (
-          <div style={{ display: "flex", alignItems: "center", gap: 8, flexShrink: 0 }}>
-            <span style={{ fontSize: 10, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--site-text-sub)", fontWeight: 700 }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 6, flexShrink: 0, flexWrap: "wrap" }}>
+            <span style={{ fontSize: 10, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--site-text-sub)", fontWeight: 700, marginRight: 2 }}>
               Sync
             </span>
+            {/* Bigger coarse step for large intros */}
             <button
-              onClick={() => setOffset(o => o - 0.5)}
-              title="Lyrics are ahead — delay them by 0.5s"
-              style={{ width: 32, height: 32, borderRadius: 8, background: "var(--site-card)", color: "var(--site-text-muted)", border: "1px solid var(--site-border-strong)", cursor: "pointer", fontSize: 15, fontWeight: 600, fontFamily: "'IBM Plex Mono', monospace" }}
+              onClick={() => setOffset(o => +(o - 1).toFixed(1))}
+              title="Delay lyrics by 1 s"
+              style={syncBtn}
+            >−1s</button>
+            <button
+              onClick={() => setOffset(o => +(o - 0.2).toFixed(1))}
+              title="Delay lyrics by 0.2 s"
+              style={syncBtn}
             >−</button>
-            <span style={{ minWidth: 52, textAlign: "center", fontSize: 12, color: "var(--site-text)", fontFamily: "'IBM Plex Mono', monospace", fontWeight: 600 }}>
+            <span style={{ minWidth: 56, textAlign: "center", fontSize: 12, color: "var(--site-text)", fontFamily: "'IBM Plex Mono', monospace", fontWeight: 700 }}>
               {offset >= 0 ? "+" : ""}{offset.toFixed(1)}s
             </span>
             <button
-              onClick={() => setOffset(o => o + 0.5)}
-              title="Lyrics are behind — advance them by 0.5s"
-              style={{ width: 32, height: 32, borderRadius: 8, background: "var(--site-card)", color: "var(--site-text-muted)", border: "1px solid var(--site-border-strong)", cursor: "pointer", fontSize: 15, fontWeight: 600, fontFamily: "'IBM Plex Mono', monospace" }}
+              onClick={() => setOffset(o => +(o + 0.2).toFixed(1))}
+              title="Advance lyrics by 0.2 s"
+              style={syncBtn}
             >+</button>
-            {offset !== 0 && (
-              <button
-                onClick={() => setOffset(0)}
-                title="Reset offset"
-                style={{ marginLeft: 4, padding: "4px 10px", borderRadius: 8, background: "transparent", color: "var(--site-text-sub)", border: "1px solid var(--site-border)", cursor: "pointer", fontSize: 11, fontWeight: 600 }}
-              >Reset</button>
+            <button
+              onClick={() => setOffset(o => +(o + 1).toFixed(1))}
+              title="Advance lyrics by 1 s"
+              style={syncBtn}
+            >+1s</button>
+            {offset !== savedOffset && (
+              <>
+                {isAdmin && (
+                  <button
+                    onClick={saveOffset}
+                    title="Save this offset so everyone sees it"
+                    style={{ marginLeft: 2, padding: "6px 12px", borderRadius: 8, background: "var(--site-accent)", color: "var(--site-bg)", border: "none", cursor: "pointer", fontSize: 11, fontWeight: 700, letterSpacing: "0.04em" }}
+                  >Save</button>
+                )}
+                <button
+                  onClick={() => setOffset(savedOffset)}
+                  title={savedOffset === 0 ? "Reset to 0" : `Reset to saved (${savedOffset.toFixed(1)}s)`}
+                  style={{ padding: "6px 10px", borderRadius: 8, background: "transparent", color: "var(--site-text-sub)", border: "1px solid var(--site-border)", cursor: "pointer", fontSize: 11, fontWeight: 600 }}
+                >Reset</button>
+              </>
             )}
           </div>
         )}
