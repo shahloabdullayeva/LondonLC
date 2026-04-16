@@ -1020,8 +1020,396 @@ Principles of ethnographic research in business
   ],
 };
 
+// ============================================================
+// CAMBRIDGE IELTS 11 – LISTENING TEST 4
+// Parts: 1) Festival events — jazz band, duck races, flower show,
+//           plays (table + audience matching A/B/C)
+//        2) Museum collections + basement plan (collection →
+//           comment matching A–G + A–H plan labelling)
+//        3) Joanna's psychology study on musicians' concert dress
+//           (three Choose-TWO + MCQ)
+//        4) Use of soil to reduce CO2 (notes — Rattan Lal,
+//           regenerative agriculture, California, Australia)
+// ============================================================
+export const cambridge11_listening_t4: IELTSTest = {
+  id: "cam11-listening-t4",
+  title: "Cambridge IELTS 11 – Listening Test 4",
+  bookNumber: 11,
+  testNumber: 4,
+  type: "listening",
+  level: "academic",
+  durationMinutes: 30,
+  transferMinutes: 2,
+  audioUrl: audioUrl("cam11-listening-t4.mp3"),
+  audioDurationSeconds: 1800,
+  sections: [
+    // ── PART 1 ─────────────────────────────────────────────
+    {
+      id: "cam11-l-t4-s1",
+      sectionNumber: 1,
+      title: "Part 1",
+      instructions: `Questions 1–7: Complete the table below. Write ONE WORD AND/OR A NUMBER for each answer.
+Questions 8–10: Who is each play suitable for? Write A, B or C next to each play.`,
+      passageText: `Festival events
+
+Event       | Cost                  | Venue           | Notes
+Jazz band   | Tickets £15           | The 1 _______   | Also appearing: Carolyn Hart
+            |                       | school          | (plays the 2 _______)
+Duck races  | £1 per duck           | Start behind    | Prize: tickets for 4 _______ held at the
+            |                       | the 3 _______   | end of the festival.
+            |                       |                 | Ducks can be bought in the 5 _______
+Flower show | Free                  | 6 _______ Hall  | Prizes presented at 5 p.m. by a
+            |                       |                 | well-known 7 _______`,
+      questions: [
+        { id: "cam11-l-t4-s1-q1", number: 1, type: "table_completion", question: "1. Jazz band venue: The _______ school", correctAnswer: "secondary", points: 1 },
+        { id: "cam11-l-t4-s1-q2", number: 2, type: "table_completion", question: "2. Carolyn Hart plays the _______", correctAnswer: "flute", points: 1 },
+        { id: "cam11-l-t4-s1-q3", number: 3, type: "table_completion", question: "3. Duck races start behind the _______", correctAnswer: "cinema", points: 1 },
+        { id: "cam11-l-t4-s1-q4", number: 4, type: "table_completion", question: "4. Prize: tickets for _______", correctAnswer: "concert", points: 1 },
+        { id: "cam11-l-t4-s1-q5", number: 5, type: "table_completion", question: "5. Ducks can be bought in the _______", correctAnswer: "market", points: 1 },
+        { id: "cam11-l-t4-s1-q6", number: 6, type: "table_completion", question: "6. Flower show venue: _______ Hall", correctAnswer: "Bythwaite", points: 1 },
+        { id: "cam11-l-t4-s1-q7", number: 7, type: "table_completion", question: "7. Prizes presented by a well-known _______", correctAnswer: "actor", points: 1 },
+        {
+          id: "cam11-l-t4-s1-q8", number: 8,
+          groupLabel: `Questions 8–10: Who is each play suitable for? Write the correct letter, A, B or C, next to each play.\n\nA  mainly for children\nB  mainly for adults\nC  suitable for people of all ages\n\n(Letters may be used more than once.)`,
+          type: "matching", question: "8. The Mystery of Muldoon",
+          options: [
+            { label: "A  mainly for children", value: "A" },
+            { label: "B  mainly for adults", value: "B" },
+            { label: "C  suitable for people of all ages", value: "C" },
+          ],
+          correctAnswer: "A", points: 1,
+        },
+        {
+          id: "cam11-l-t4-s1-q9", number: 9, type: "matching", question: "9. Fire and Flood",
+          options: [
+            { label: "A  mainly for children", value: "A" },
+            { label: "B  mainly for adults", value: "B" },
+            { label: "C  suitable for people of all ages", value: "C" },
+          ],
+          correctAnswer: "B", points: 1,
+        },
+        {
+          id: "cam11-l-t4-s1-q10", number: 10, type: "matching", question: "10. Silly Sailor",
+          options: [
+            { label: "A  mainly for children", value: "A" },
+            { label: "B  mainly for adults", value: "B" },
+            { label: "C  suitable for people of all ages", value: "C" },
+          ],
+          correctAnswer: "C", points: 1,
+        },
+      ],
+    },
+    // ── PART 2 ─────────────────────────────────────────────
+    {
+      id: "cam11-l-t4-s2",
+      sectionNumber: 2,
+      title: "Part 2",
+      instructions: `Questions 11–16: Match each museum collection with a comment. Choose SIX answers from the box (A–G).
+Questions 17–20: Label the plan of the museum basement below. Write the correct letter, A–H, next to each location.`,
+      passageTitle: "Museum tour",
+      diagramUrl: imageUrl("cam11test4map.png"),
+      questions: [
+        {
+          id: "cam11-l-t4-s2-q11", number: 11,
+          groupLabel: `Questions 11–16: What does the speaker say about each of the following collections? Choose SIX answers from the box (A–G).\n\nA  was given by one person\nB  was recently publicised in the media\nC  includes some items given by members of the public\nD  includes some items given by the artists\nE  includes the most popular exhibits in the museum\nF  is the largest of its kind in the country\nG  has had some of its contents relocated`,
+          type: "matching", question: "11. 20th- and 21st-century paintings",
+          options: [
+            { label: "A  was given by one person", value: "A" },
+            { label: "B  was recently publicised in the media", value: "B" },
+            { label: "C  includes some items given by members of the public", value: "C" },
+            { label: "D  includes some items given by the artists", value: "D" },
+            { label: "E  includes the most popular exhibits in the museum", value: "E" },
+            { label: "F  is the largest of its kind in the country", value: "F" },
+            { label: "G  has had some of its contents relocated", value: "G" },
+          ],
+          correctAnswer: "E", points: 1,
+        },
+        {
+          id: "cam11-l-t4-s2-q12", number: 12, type: "matching", question: "12. 19th-century paintings",
+          options: [
+            { label: "A  was given by one person", value: "A" },
+            { label: "B  was recently publicised in the media", value: "B" },
+            { label: "C  includes some items given by members of the public", value: "C" },
+            { label: "D  includes some items given by the artists", value: "D" },
+            { label: "E  includes the most popular exhibits in the museum", value: "E" },
+            { label: "F  is the largest of its kind in the country", value: "F" },
+            { label: "G  has had some of its contents relocated", value: "G" },
+          ],
+          correctAnswer: "D", points: 1,
+        },
+        {
+          id: "cam11-l-t4-s2-q13", number: 13, type: "matching", question: "13. Sculptures",
+          options: [
+            { label: "A  was given by one person", value: "A" },
+            { label: "B  was recently publicised in the media", value: "B" },
+            { label: "C  includes some items given by members of the public", value: "C" },
+            { label: "D  includes some items given by the artists", value: "D" },
+            { label: "E  includes the most popular exhibits in the museum", value: "E" },
+            { label: "F  is the largest of its kind in the country", value: "F" },
+            { label: "G  has had some of its contents relocated", value: "G" },
+          ],
+          correctAnswer: "G", points: 1,
+        },
+        {
+          id: "cam11-l-t4-s2-q14", number: 14, type: "matching", question: "14. 'Around the world' exhibition",
+          options: [
+            { label: "A  was given by one person", value: "A" },
+            { label: "B  was recently publicised in the media", value: "B" },
+            { label: "C  includes some items given by members of the public", value: "C" },
+            { label: "D  includes some items given by the artists", value: "D" },
+            { label: "E  includes the most popular exhibits in the museum", value: "E" },
+            { label: "F  is the largest of its kind in the country", value: "F" },
+            { label: "G  has had some of its contents relocated", value: "G" },
+          ],
+          correctAnswer: "B", points: 1,
+        },
+        {
+          id: "cam11-l-t4-s2-q15", number: 15, type: "matching", question: "15. Coins",
+          options: [
+            { label: "A  was given by one person", value: "A" },
+            { label: "B  was recently publicised in the media", value: "B" },
+            { label: "C  includes some items given by members of the public", value: "C" },
+            { label: "D  includes some items given by the artists", value: "D" },
+            { label: "E  includes the most popular exhibits in the museum", value: "E" },
+            { label: "F  is the largest of its kind in the country", value: "F" },
+            { label: "G  has had some of its contents relocated", value: "G" },
+          ],
+          correctAnswer: "C", points: 1,
+        },
+        {
+          id: "cam11-l-t4-s2-q16", number: 16, type: "matching", question: "16. Porcelain and glass",
+          options: [
+            { label: "A  was given by one person", value: "A" },
+            { label: "B  was recently publicised in the media", value: "B" },
+            { label: "C  includes some items given by members of the public", value: "C" },
+            { label: "D  includes some items given by the artists", value: "D" },
+            { label: "E  includes the most popular exhibits in the museum", value: "E" },
+            { label: "F  is the largest of its kind in the country", value: "F" },
+            { label: "G  has had some of its contents relocated", value: "G" },
+          ],
+          correctAnswer: "A", points: 1,
+        },
+        {
+          id: "cam11-l-t4-s2-q17", number: 17,
+          groupLabel: `Questions 17–20: Label the plan of the museum basement above. Write the correct letter, A–H, next to each location.`,
+          type: "matching", question: "17. restaurant",
+          options: [
+            { label: "A", value: "A" }, { label: "B", value: "B" }, { label: "C", value: "C" },
+            { label: "D", value: "D" }, { label: "E", value: "E" }, { label: "F", value: "F" },
+            { label: "G", value: "G" }, { label: "H", value: "H" },
+          ],
+          correctAnswer: "F", points: 1,
+        },
+        {
+          id: "cam11-l-t4-s2-q18", number: 18, type: "matching", question: "18. café",
+          options: [
+            { label: "A", value: "A" }, { label: "B", value: "B" }, { label: "C", value: "C" },
+            { label: "D", value: "D" }, { label: "E", value: "E" }, { label: "F", value: "F" },
+            { label: "G", value: "G" }, { label: "H", value: "H" },
+          ],
+          correctAnswer: "H", points: 1,
+        },
+        {
+          id: "cam11-l-t4-s2-q19", number: 19, type: "matching", question: "19. baby-changing facilities",
+          options: [
+            { label: "A", value: "A" }, { label: "B", value: "B" }, { label: "C", value: "C" },
+            { label: "D", value: "D" }, { label: "E", value: "E" }, { label: "F", value: "F" },
+            { label: "G", value: "G" }, { label: "H", value: "H" },
+          ],
+          correctAnswer: "C", points: 1,
+        },
+        {
+          id: "cam11-l-t4-s2-q20", number: 20, type: "matching", question: "20. cloakroom",
+          options: [
+            { label: "A", value: "A" }, { label: "B", value: "B" }, { label: "C", value: "C" },
+            { label: "D", value: "D" }, { label: "E", value: "E" }, { label: "F", value: "F" },
+            { label: "G", value: "G" }, { label: "H", value: "H" },
+          ],
+          correctAnswer: "B", points: 1,
+        },
+      ],
+    },
+    // ── PART 3 ─────────────────────────────────────────────
+    {
+      id: "cam11-l-t4-s3",
+      sectionNumber: 3,
+      title: "Part 3",
+      instructions: `Questions 21 & 22: Choose TWO letters, A–E.
+Questions 23 & 24: Choose TWO letters, A–E.
+Questions 25 & 26: Choose TWO letters, A–E.
+Questions 27–30: Choose the correct letter, A, B or C.`,
+      passageTitle: "Joanna — psychology study on musicians' concert dress",
+      questions: [
+        {
+          id: "cam11-l-t4-s3-q21", number: 21,
+          groupLabel: `Questions 21 and 22: Choose TWO letters, A–E.\n\nWhich TWO characteristics were shared by the subjects of Joanna's psychology study?\n\nA  They had all won prizes for their music.\nB  They had all made music recordings.\nC  They were all under 27 years old.\nD  They had all toured internationally.\nE  They all played a string instrument.\n\n(Answers are accepted in either order.)`,
+          type: "multiple_choice", question: "21. Choose TWO (first answer)",
+          options: [
+            { label: "A  They had all won prizes for their music.", value: "A" },
+            { label: "B  They had all made music recordings.", value: "B" },
+            { label: "C  They were all under 27 years old.", value: "C" },
+            { label: "D  They had all toured internationally.", value: "D" },
+            { label: "E  They all played a string instrument.", value: "E" },
+          ],
+          correctAnswer: "B/D", points: 1,
+        },
+        {
+          id: "cam11-l-t4-s3-q22", number: 22, type: "multiple_choice",
+          question: "22. Choose TWO (second answer)",
+          options: [
+            { label: "A  They had all won prizes for their music.", value: "A" },
+            { label: "B  They had all made music recordings.", value: "B" },
+            { label: "C  They were all under 27 years old.", value: "C" },
+            { label: "D  They had all toured internationally.", value: "D" },
+            { label: "E  They all played a string instrument.", value: "E" },
+          ],
+          correctAnswer: "B/D", points: 1,
+        },
+        {
+          id: "cam11-l-t4-s3-q23", number: 23,
+          groupLabel: `Questions 23 and 24: Choose TWO letters, A–E.\n\nWhich TWO points does Joanna make about her use of telephone interviews?\n\nA  It meant rich data could be collected.\nB  It allowed the involvement of top performers.\nC  It led to a stressful atmosphere at times.\nD  It meant interview times had to be limited.\nE  It caused some technical problems.\n\n(Answers are accepted in either order.)`,
+          type: "multiple_choice", question: "23. Choose TWO (first answer)",
+          options: [
+            { label: "A  It meant rich data could be collected.", value: "A" },
+            { label: "B  It allowed the involvement of top performers.", value: "B" },
+            { label: "C  It led to a stressful atmosphere at times.", value: "C" },
+            { label: "D  It meant interview times had to be limited.", value: "D" },
+            { label: "E  It caused some technical problems.", value: "E" },
+          ],
+          correctAnswer: "A/B", points: 1,
+        },
+        {
+          id: "cam11-l-t4-s3-q24", number: 24, type: "multiple_choice",
+          question: "24. Choose TWO (second answer)",
+          options: [
+            { label: "A  It meant rich data could be collected.", value: "A" },
+            { label: "B  It allowed the involvement of top performers.", value: "B" },
+            { label: "C  It led to a stressful atmosphere at times.", value: "C" },
+            { label: "D  It meant interview times had to be limited.", value: "D" },
+            { label: "E  It caused some technical problems.", value: "E" },
+          ],
+          correctAnswer: "A/B", points: 1,
+        },
+        {
+          id: "cam11-l-t4-s3-q25", number: 25,
+          groupLabel: `Questions 25 and 26: Choose TWO letters, A–E.\n\nWhich TWO topics did Joanna originally intend to investigate in her research?\n\nA  regulations concerning concert dress\nB  audience reactions to the dress of performers\nC  changes in performer attitudes to concert dress\nD  how choice of dress relates to performer roles\nE  links between musical instrument and dress choice\n\n(Answers are accepted in either order.)`,
+          type: "multiple_choice", question: "25. Choose TWO (first answer)",
+          options: [
+            { label: "A  regulations concerning concert dress", value: "A" },
+            { label: "B  audience reactions to the dress of performers", value: "B" },
+            { label: "C  changes in performer attitudes to concert dress", value: "C" },
+            { label: "D  how choice of dress relates to performer roles", value: "D" },
+            { label: "E  links between musical instrument and dress choice", value: "E" },
+          ],
+          correctAnswer: "B/E", points: 1,
+        },
+        {
+          id: "cam11-l-t4-s3-q26", number: 26, type: "multiple_choice",
+          question: "26. Choose TWO (second answer)",
+          options: [
+            { label: "A  regulations concerning concert dress", value: "A" },
+            { label: "B  audience reactions to the dress of performers", value: "B" },
+            { label: "C  changes in performer attitudes to concert dress", value: "C" },
+            { label: "D  how choice of dress relates to performer roles", value: "D" },
+            { label: "E  links between musical instrument and dress choice", value: "E" },
+          ],
+          correctAnswer: "B/E", points: 1,
+        },
+        {
+          id: "cam11-l-t4-s3-q27", number: 27,
+          groupLabel: `Questions 27–30: Choose the correct letter, A, B or C.`,
+          type: "multiple_choice", question: "27. Joanna concentrated on women performers because",
+          options: [
+            { label: "A  women are more influenced by fashion.", value: "A" },
+            { label: "B  women's dress has led to more controversy.", value: "B" },
+            { label: "C  women's code of dress is less strict than men's.", value: "C" },
+          ],
+          correctAnswer: "C", points: 1,
+        },
+        {
+          id: "cam11-l-t4-s3-q28", number: 28, type: "multiple_choice",
+          question: "28. Mike Frost's article suggests that in popular music, women's dress is affected by",
+          options: [
+            { label: "A  their wish to be taken seriously.", value: "A" },
+            { label: "B  their tendency to copy each other.", value: "B" },
+            { label: "C  their reaction to the masculine nature of the music.", value: "C" },
+          ],
+          correctAnswer: "A", points: 1,
+        },
+        {
+          id: "cam11-l-t4-s3-q29", number: 29, type: "multiple_choice",
+          question: "29. What did Joanna's subjects say about the audience at a performance?",
+          options: [
+            { label: "A  The musicians' choice of clothing is linked to respect for the audience.", value: "A" },
+            { label: "B  The clothing should not distract the audience from the music.", value: "B" },
+            { label: "C  The audience should make the effort to dress appropriately.", value: "C" },
+          ],
+          correctAnswer: "A", points: 1,
+        },
+        {
+          id: "cam11-l-t4-s3-q30", number: 30, type: "multiple_choice",
+          question: "30. According to the speakers, musicians could learn from sports scientists about",
+          options: [
+            { label: "A  the importance of clothing for physical freedom.", value: "A" },
+            { label: "B  the part played by clothing in improving performance.", value: "B" },
+            { label: "C  the way clothing may protect against physical injury.", value: "C" },
+          ],
+          correctAnswer: "C", points: 1,
+        },
+      ],
+    },
+    // ── PART 4 ─────────────────────────────────────────────
+    {
+      id: "cam11-l-t4-s4",
+      sectionNumber: 4,
+      title: "Part 4",
+      instructions: `Questions 31–40: Complete the notes below. Write ONE WORD ONLY for each answer.`,
+      passageText: `The use of soil to reduce carbon dioxide (CO2) in the atmosphere
+
+Rattan Lal:
+●  Claims that 13% of CO2 in the atmosphere could be absorbed by agricultural soils
+●  Erosion is more likely in soil that is 31 _______
+●  Lal found soil in Africa that was very 32 _______
+●  It was suggested that carbon from soil was entering the atmosphere
+
+Soil and carbon:
+●  plants turn CO2 from the air into carbon-based substances such as 33 _______
+●  some CO2 moves from the 34 _______ of plants to microbes in the soil
+●  carbon was lost from the soil when agriculture was invented
+
+Regenerative agriculture:
+●  uses established practices to make sure soil remains fertile and 35 _______
+●  e.g. through year-round planting and increasing the 36 _______ of plants that are grown
+
+California study:
+●  taking place on a big 37 _______ farm
+●  uses compost made from waste from agriculture and 38 _______
+
+Australia study:
+●  aims to increase soil carbon by using 39 _______ that are always green
+
+Future developments may include:
+●  reducing the amount of fertilizer used in farming
+●  giving farmers 40 _______ for carbon storage, as well as their produce`,
+      questions: [
+        { id: "cam11-l-t4-s4-q31", number: 31, type: "note_completion", question: "31. Erosion is more likely in soil that is _______", correctAnswer: "dry", points: 1 },
+        { id: "cam11-l-t4-s4-q32", number: 32, type: "note_completion", question: "32. soil in Africa that was very _______", correctAnswer: "hard", points: 1 },
+        { id: "cam11-l-t4-s4-q33", number: 33, type: "note_completion", question: "33. carbon-based substances such as _______", correctAnswer: "sugar/sugars", points: 1 },
+        { id: "cam11-l-t4-s4-q34", number: 34, type: "note_completion", question: "34. CO2 moves from the _______ of plants", correctAnswer: "roots", points: 1 },
+        { id: "cam11-l-t4-s4-q35", number: 35, type: "note_completion", question: "35. soil remains fertile and _______", correctAnswer: "moist/damp/wet", points: 1 },
+        { id: "cam11-l-t4-s4-q36", number: 36, type: "note_completion", question: "36. increasing the _______ of plants that are grown", correctAnswer: "variety", points: 1 },
+        { id: "cam11-l-t4-s4-q37", number: 37, type: "note_completion", question: "37. taking place on a big _______ farm", correctAnswer: "cattle", points: 1 },
+        { id: "cam11-l-t4-s4-q38", number: 38, type: "note_completion", question: "38. compost from waste from agriculture and _______", correctAnswer: "gardens/gardening", points: 1 },
+        { id: "cam11-l-t4-s4-q39", number: 39, type: "note_completion", question: "39. using _______ that are always green", correctAnswer: "grasses", points: 1 },
+        { id: "cam11-l-t4-s4-q40", number: 40, type: "note_completion", question: "40. giving farmers _______ for carbon storage", correctAnswer: "payment/payments/money", points: 1 },
+      ],
+    },
+  ],
+};
+
 export const cambridge11ListeningTests: IELTSTest[] = [
   cambridge11_listening_t1,
   cambridge11_listening_t2,
   cambridge11_listening_t3,
+  cambridge11_listening_t4,
 ];
