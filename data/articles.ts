@@ -317,4 +317,37 @@ Hackers are not the only ones who may be miffed by Project Glasswing. America's 
 
 That would surely enrage Pete Hegseth, America's defence secretary, who labelled Anthropic a supply-chain risk earlier this year after a bust-up between it and the Pentagon over limits on the use of the lab's models for military purposes (a judge has since temporarily blocked the "Orwellian" designation). Mr Amodei may continue to be a thorn in his side.`,
   },
+  {
+    id: "global-imbalances-back",
+    title: "Global imbalances are back. Who's to blame?",
+    author: "The Economist",
+    category: "Economics",
+    readingTime: 7,
+    image: imageUrl("globalimbalance.png"),
+    content: `The suspects look familiar
+
+In the years before Lehman Brothers went bust in 2008, plunging the world into financial crisis, macroeconomists were understandably worried. But they worried about the wrong thing: not over-indebted American banks, but over-thrifty Asian economies. There was a glut of commentary about the "global saving glut". According to this theory, Asia's determination to accumulate dollar reserves was depressing interest rates, tempting Americans to overspend. The upshot was that Asia earned more than it spent, resulting in large trade surpluses. This enabled America to spend more than it earned, reflected in a yawning current-account deficit (which includes the trade deficit and a few other things).
+
+These "global imbalances" are back. And they have inspired a new glut of analysis. In March four prominent economists sent a memo on imbalances to the G7, drawing on a new publication (the fourth "Paris report") by the Centre for Economic Policy Research (CEPR) and the Bruegel Institute, two European think-tanks. This month the IMF released a paper of its own on the topic.
+
+The new imbalances are not quite as big as those of two decades ago. The world's deficit countries, taken together, had a combined current-account gap of 1.6% of global GDP in 2025, according to IMF data, compared with a peak of 2.6% in 2006. But today's debate is, if anything, more heated. President Donald Trump cited America's deficit to justify his "Liberation Day" tariffs last year. President Emmanuel Macron of France, which currently chairs the G7, called China's surpluses "unbearable" on his visit to Beijing in December. When imbalances were discussed 20 years ago, the Paris report points out, economists and policymakers were keen to know "Who was the perpetrator? Who was the victim—and why?" The same questions are being asked today.
+
+One answer to the first question is America's budget deficit. Fiscal easing can deepen trade deficits through a few mechanisms. Tax cuts or higher welfare spending increase American consumption and reduce saving. That can lift interest rates and thus the dollar—which makes exports less competitive, deepening the trade deficit. By raising world interest rates, it can also boost saving in other countries, and their current-account balances.
+
+Other commentators are equally confident that the culprit is once again Asia, especially China. But this time the murder weapon is different: not the rope of reserve accumulation, but the wrench of unfair industrial policy. China subsidises its manufacturers, resulting in excess capacity. What these firms cannot sell at home, they dump abroad. This crowds out local manufacturers, destroying jobs and obliging countries like America to increase their fiscal deficits to restore demand and curb unemployment.
+
+This simple story contains important grains of truth. A paper by the CEPR's Ambrogio Cesa-Bianchi and his co-authors measures the "intensity" of industrial policy from positive citations of it in the earnings calls of companies from 24 countries. The measure correlates with export growth from 2002 to 2019.
+
+But in macroeconomics, the plots are rarely this simple. Since imbalances are driven by saving and investment, they are also driven by expectations. And that can lead to counterintuitive results. In principle, industrial policy need not lead to an overall trade surplus, the IMF points out. Much depends on whether the policy is seen as permanent or temporary, and whether it succeeds in raising efficiency or backfires. If it is seen as a passing success, people will not raise their spending, even as their income temporarily picks up. The resulting increase in saving will improve the trade balance. If the policy is seen as a durable success, permanently improving incomes, people will lift their spending. That need not lead to any change in the trade balance. Exports may indeed take off, but imports will increase to match. Indeed Mr Cesa-Bianchi and his co-authors find no correlation between their intensity measure and a country's current-account surplus.
+
+For industrial promotion to result in reliably higher trade surpluses, they point out, it must be coupled with some kind of "consumption suppression". Many commentators argue that China does just that. Its fiscal conservatism and patchy social safety-net, for example, oblige people to "self-insure" through high saving. The problem with this story is that, as China's surpluses have waxed and waned, consumption suppression has not moved in the same way. Spending on pensions and consumer trade-in schemes (think "cash for clunkers") has increased, even as surpluses have surged. China's fiscal deficit, broadly measured, rose from 12.8% of GDP in 2023 to 14.3% in 2025, estimates the IMF, even as the current-account surplus grew from 1.4% to 3.7%.
+
+Mr Xi, in the study, with the spanner
+
+What has suppressed domestic spending in China is a property slump. Although this slump was triggered by a government crackdown on borrowing by developers, policymakers did not expect housing investment to collapse nor did they want falling home values to depress consumer spending. If China is the culprit for imbalances, it has perpetrated more a blunder than a crime.
+
+Is China also ultimately responsible for America's fiscal easing and the resulting pressure on the trade deficit? Hardly. In the years after the global financial crisis, when the world was short of demand and interest rates were at rock-bottom, it was plausible to argue that America needed big budget deficits to keep employment steady. But in those years China's surplus was shrinking. Since 2021 America has, if anything, wrestled with too much demand, and interest rates have risen in response. Its big fiscal deficits are a political choice not an economic necessity.
+
+The causes of global imbalances are not, then, as clear as some commentators allege. All of the suspects are implicated. The plot is fiendishly complex. But the ending could still be bad.`,
+  },
 ];
