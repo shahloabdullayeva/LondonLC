@@ -3,7 +3,7 @@
 // Click a card → full reader view opens with comfortable
 // typography and font-size controls.
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { FileText, Clock, ArrowLeft, Minus, Plus } from "lucide-react";
@@ -17,6 +17,15 @@ export default function ArticlesPage() {
   const router = useRouter();
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [fontSize, setFontSize] = useState(17);
+
+  const shuffled = useMemo(() => {
+    const arr = [...starterArticles];
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+  }, []);
 
   useEffect(() => {
     const s = getSession();
@@ -58,7 +67,7 @@ export default function ArticlesPage() {
               gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))",
               gap: 18,
             }}>
-              {starterArticles.map(a => (
+              {shuffled.map(a => (
                 <button
                   key={a.id}
                   onClick={() => setSelectedId(a.id)}
