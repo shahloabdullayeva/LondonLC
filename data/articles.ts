@@ -410,4 +410,45 @@ Expect a bigger push into alternative energy. Solar is being rolled out, but tha
 
 The push towards coal is driven by concerns about political stability. Asians are sensitive to energy prices and willing to take to the streets over them: transport workers in the Philippines have already launched protests. During the energy shock of 2022, when gas prices soared after Russia invaded Ukraine, political turmoil unfolded in South Asia. In the year to October 2022, around a quarter of all protests in the region were related to food and energy, according to an estimate by Friedrich-Ebert-Stiftung, a German think-tank. After analysing social unrest across 101 developing countries between 2000 and 2020, researchers at the IMF found a clear association between fuel-price increases and protests. These demonstrations can be revolutionary: riots in Sri Lanka, fuelled by high energy prices, contributed in large measure to the government's ousting in 2022. What has begun as an energy shock could become a political one.`,
   },
+  {
+    id: "gulf-war-uneasy-limbo",
+    title: "The Gulf war has settled into an uneasy limbo",
+    author: "The Economist",
+    category: "Geopolitics",
+    readingTime: 8,
+    image: imageUrl("hormuzisshut.png"),
+    content: `Fighting is paused, Hormuz is shut and prospects for a deal are uncertain
+
+AMERICA has long turned to economic pressure as a means to coerce Iran. Barack Obama used sanctions to push the regime into signing a nuclear pact in 2015, known as the Joint Comprehensive Plan of Action (JCPOA). Donald Trump withdrew from it in his first term and launched his "maximum pressure" campaign, which fuelled an economic crisis in Iran but failed to produce a new deal.
+
+Mr Trump has now turned to that tool again. This time, however, he is imposing economic pain at gunpoint—and Iran is doing the same to the rest of the world. Each side hopes to force the other to make concessions that will end the third Gulf war. The question is which will yield first.
+
+The war has been paused since April 8th, when America and Iran announced a two-week ceasefire, although Iranian threats mean the Strait of Hormuz is still largely closed to commercial traffic. Delegations from both countries met on April 11th in Islamabad, the capital of Pakistan, which helped broker the truce. A second round of talks may occur in the next few days; the truce may be extended.
+
+Meanwhile Mr Trump has imposed his own blockade, which bars Iranian shipping through the strait. It took effect on April 13th. The Pentagon says it has since ordered ten ships to turn back for Iranian ports, and that all of them complied. The Treasury Department has also said it will not renew a 30-day waiver, issued on March 20th, that permitted the sale of some Iranian oil, an ill-advised effort to bring down oil prices.
+
+The Iranians insist they can endure the pain, as they have in the past. Yet their economy was already in dire shape, with a debased currency, annual inflation above 50%, and billions of dollars in war damage to repair. And a maritime blockade could be more onerous than the sanctions of decades past, which the Iranians often found ways to circumvent.
+
+Oil sales will be the most obvious casualty. At current production levels, if exports are blocked, storage tanks will fill up within two weeks. That will force Iran to trim output, and eventually halt it, which could risk long-term damage to oil wells. The consequences will be felt in other sectors. The soyabeans used to produce nearly all of Iran's vegetable oil and animal feed are imported by sea. Disruption would mean a surge in food prices, already 110% higher in March than a year earlier.
+
+Officials in some Gulf states support the blockade and see it as long overdue. They have fumed for weeks that America allowed Iran to continue exporting oil while theirs remained stuck. Yet the embargo on Iran will not help their own economies, which are losing billions of dollars a day in lost exports, nor solve the energy crisis sweeping the world.
+
+Though futures markets are still surprisingly optimistic about an imminent end to the war, shortages are already hitting the physical market. America may be relatively insulated by its vast oil-and-gas industry, but motorists are paying 29% more at the pump than they did a year ago. Annual inflation jumped to 3.3% in March, up from 2.4% in February. Mr Trump's advisers have warned him that the war must end soon if he is to have any chance of reversing the damage before the midterms in November.
+
+It is hard to know exactly what was said in the first round of talks, which lasted almost 21 hours. A few diplomats, for example, believe that America was willing to allow Iran to charge tolls on vessels transiting Hormuz (which would infuriate America's allies in the Gulf). Others believe it insisted on free passage for all. In some cases, even officials from the same country have heard different readouts.
+
+What seems clear is that Iran's nuclear programme was America's priority—and that the Americans showed some flexibility in their demands. In two previous rounds of talks, the Trump administration insisted that Iran must swear off uranium enrichment altogether. Iran refused. America now seems willing to accept a time-bound moratorium rather than an open-ended ban. Iran would probably accept that, although its negotiators will need to haggle over the duration: America's demand for 20 years seems too long, while Iran's offer of five years is too short.
+
+Yet that is only one of many issues. The most pressing is Iran's stockpile of more than 400kg of uranium enriched to near-weapons-grade. America wants Iran to ship it outside the country. Iran prefers to dilute it in situ. The latter is not inherently problematic, but the details will be crucial: where and when will the down-blending occur, and who will monitor it?
+
+Dust yourself off and try again
+
+That points to a broader concern about a possible deal. If the ban covers only the act of enrichment itself, Iran could continue to develop advanced centrifuges (the machines that enrich uranium), install them in new facilities and research how to turn fissile material into a nuclear weapon—all of which it has done before. When the moratorium ends, it could be well positioned to dash for a bomb. Such issues can be resolved, but they will take time: the JCPOA was the work of two years.
+
+Iran, for its part, came to Pakistan with one clear demand. "All they cared about was money," says one Arab official briefed on the talks. Iran wants America to lift not only "secondary" sanctions, which bar third countries from buying Iranian oil (among other things), but also the primary ones that block American firms from doing business in Iran. That will take time as well, because some are mandated by acts of Congress rather than executive fiat.
+
+To reach a deal quickly, both sides may need to settle for a rough framework. They would stop the war and lift their mutual blockades. Iran would agree to a moratorium on enrichment, and in exchange it could tap billions of dollars of oil revenues frozen in foreign banks.
+
+That would fall short of the permanent peace sought by Iran's leaders and the lasting change in Iranian behaviour desired by Mr Trump. But the alternative is another round of fighting—probably a more destructive one. A third American aircraft-carrier will reach the Middle East soon. So will amphibious-warfare units dispatched from California last month. America could carry out Mr Trump's threats to attack vital infrastructure in Iran, which would do the same in Gulf states. In a battle of economic will, both sides might lose.`,
+  },
 ];
