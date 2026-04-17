@@ -389,7 +389,6 @@ export default function AdminDashboard() {
           {([
             { id: "writing"  as const, Icon: PenLine,  label: "Writing",  soon: true },
             { id: "articles" as const, Icon: FileText, label: "Articles", soon: true },
-            { id: "podcasts" as const, Icon: Mic,      label: "Podcasts", soon: true },
           ]).map(({ id, Icon, label, soon }) => (
             <button key={id} onClick={() => setActiveTab(id)}
               style={{ display: "flex", alignItems: "center", gap: 10, width: "100%", padding: "10px 12px", borderRadius: 10, background: activeTab === id ? C.accentLight : "transparent", border: "none", cursor: "pointer", fontWeight: 600, fontSize: 13, textAlign: "left", marginBottom: 2, color: activeTab === id ? C.accent : C.muted }}>
@@ -401,8 +400,13 @@ export default function AdminDashboard() {
               <ChevronRight size={13} />
             </button>
           ))}
-          {/* Music has its own page — link out instead of rendering
-              an in-tab placeholder. Teacher song management coming next. */}
+          {/* Podcasts + Music have their own pages — link out. */}
+          <button onClick={() => router.push("/podcasts")}
+            style={{ display: "flex", alignItems: "center", gap: 10, width: "100%", padding: "10px 12px", borderRadius: 10, background: "transparent", border: "none", cursor: "pointer", fontWeight: 600, fontSize: 13, textAlign: "left", marginBottom: 2, color: C.muted }}>
+            <Mic size={15} />
+            <span style={{ flex: 1 }}>Podcasts</span>
+            <ChevronRight size={13} />
+          </button>
           <button onClick={() => router.push("/music")}
             style={{ display: "flex", alignItems: "center", gap: 10, width: "100%", padding: "10px 12px", borderRadius: 10, background: "transparent", border: "none", cursor: "pointer", fontWeight: 600, fontSize: 13, textAlign: "left", marginBottom: 2, color: C.muted }}>
             <Music size={15} />
@@ -1346,7 +1350,7 @@ export default function AdminDashboard() {
         })()}
 
         {/* ══════════════════ COMING-SOON SECTIONS ══════════════════ */}
-        {(activeTab === "writing" || activeTab === "articles" || activeTab === "podcasts") && (
+        {(activeTab === "writing" || activeTab === "articles") && (
           <div style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "60px 32px", textAlign: "center", minHeight: 480 }}>
             <div style={{ fontSize: 11, letterSpacing: "0.3em", textTransform: "uppercase", color: C.muted, marginBottom: 24, fontWeight: 600 }}>
               {activeTab === "writing" ? "IELTS" : activeTab === "articles" ? "Read" : "Listen"}
@@ -1357,7 +1361,6 @@ export default function AdminDashboard() {
             <p style={{ fontSize: 15, color: C.muted, maxWidth: 480, lineHeight: 1.7, marginBottom: 40 }}>
               {activeTab === "writing" && "Task 1 and Task 2 practice with model answers and feedback. Coming soon."}
               {activeTab === "articles" && "Hand-picked essays, exam tips and long reads to level up your English. Coming soon."}
-              {activeTab === "podcasts" && "Curated podcast episodes and transcripts for every level. Coming soon."}
             </p>
             <div style={{ fontSize: 11, letterSpacing: "0.25em", textTransform: "uppercase", color: C.muted, fontWeight: 600, border: `1px solid ${C.border}`, borderRadius: 999, padding: "8px 20px" }}>
               In development
