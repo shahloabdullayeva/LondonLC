@@ -451,4 +451,30 @@ To reach a deal quickly, both sides may need to settle for a rough framework. Th
 
 That would fall short of the permanent peace sought by Iran's leaders and the lasting change in Iranian behaviour desired by Mr Trump. But the alternative is another round of fighting—probably a more destructive one. A third American aircraft-carrier will reach the Middle East soon. So will amphibious-warfare units dispatched from California last month. America could carry out Mr Trump's threats to attack vital infrastructure in Iran, which would do the same in Gulf states. In a battle of economic will, both sides might lose.`,
   },
+  {
+    id: "crispr-gene-editing-promise",
+    title: "Can gene editing deliver on its promise?",
+    author: "Ida Emilie Steinmark, The Economist",
+    category: "Science",
+    readingTime: 7,
+    image: imageUrl("theageofCRISPR.png"),
+    content: `Technology Quarterly | CRISPR
+Ida Emilie Steinmark explores how the technology could change the world
+
+In early 2005 Rodolphe Barrangou and Philippe Horvath were staring at some very odd bits of repeating genetic code on a computer screen in France. The sequences came from Streptococcus thermophilus, a bacterium that, like other bacteria, often skirmishes with viruses. Rumour had it that these sequences of DNA might help bacteria gain the upper hand in the fight. If they did, the researchers wanted to know all about it. S. thermophilus is one of the microbes used to make yogurt. Stopping it from falling prey to viruses would save Danisco, the foodmaker they both worked for at the time, millions of euros.
+
+They compared the strange sequences from varying strains of S. thermophilus which were resistant to different viruses. In every case, the bits of DNA between the repeated sequences were identical to DNA from the virus to which that strain of bacterium was resistant. The researchers then took bits of DNA from a specific virus and stuck them in between the repeats in a non-resistant strain of S. thermophilus. Remarkably, the strain became resistant. It seemed as if bacteria which survived a viral attack kept chunks of the attacking virus's DNA in their own genomes. These functioned as a rogues' gallery in preparation for future fisticuffs: if the same piece of DNA were seen again, the cell would know it was under attack.
+
+The discovery of this bacterial immune system was big news for the dairy industry, which suddenly had a new way to select bacteria based on desired immunity. Such strains are now the norm in most yogurt and cheese production, a nice commercial pay-off for microbiology. But in 2012 Emmanuelle Charpentier at the Max Planck Institute in Germany and Jennifer Doudna at the University of California in Berkeley took the practical implications of the work much further. The strangely Clustered, Regularly Interspaced, Short Palindromic Repeats, or CRISPR, could be hacked to make cuts at precise sequences in the genome of any organism: yeast, fish, pigs. Or humans.
+
+Their technique worked by introducing into cells the means of making a protein called Cas9—responsible for making cuts in DNA—and a piece of CRISPR-like RNA that tells it which bit to cut. RNA, like DNA, carries a sequence of "bases", and if you know a particular sequence of DNA you can easily design a "complementary" sequence of RNA to put at the end of a piece of CRISPR RNA to which Cas9 will attach itself. When the RNA-plus-protein mechanism finds the matching piece of DNA in the cell's genome, Cas9 makes its cut.
+
+The beauty of imperfection
+
+From there CRISPR takes advantage of the cell's DNA-repair mechanisms. Because cells usually fix damaged sequences imperfectly, the repair process often "knocks out" the targeted gene. This ability to knock out genes sits behind the first wave of CRISPR medicines advancing towards clinics. More sophisticated techniques which make precise edits, or insert new sequences, are now commonplace in labs, and will migrate into clinics as well as seed companies and farms.
+
+Manipulating genes to correct diseases or improve crops are not new ideas. But (especially in medicine) earlier technologies struggled due to being unsafe or prohibitively cumbersome. Building a gene editor took months. With CRISPR even high-schoolers can get hold of editing systems in the time it takes to order RNA sequences online and have them shipped by FedEx. In a short while this technology has been adopted by pharmaceutical giants and become ubiquitous in laboratories, spawning biotechs and inspiring innovations that may prove still more powerful. Governments are tweaking regulations to exploit its potential.
+
+Everything about the technology screams "world-changing". CRISPR offers ways to achieve biological goals—not just medical goals like curbing heart disease, but also agricultural and environmental goals—in ways never before dreamed possible. As yet, though, the world seems largely unchanged. Might CRISPR fall prey to the same pitfalls and disappointments as its predecessor technologies? Or is the transformation it promised within scientists' grasp? This Technology Quarterly will offer answers to these questions.`,
+  },
 ];
