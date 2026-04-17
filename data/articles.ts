@@ -189,7 +189,7 @@ On the other hand, Mr Vance, a reformed blogger, has asserted so many provocativ
     author: "The Economist",
     category: "Politics",
     readingTime: 7,
-    image: imageUrl("puting.png"),
+    image: imageUrl("putin.png"),
     content: `Russia has been driven mad. Could other countries suffer the same fate?
 
 The Descent. By Marc Bennetts. Bloomsbury Continuum; 272 pages; £20. To be published in America in May; $30
