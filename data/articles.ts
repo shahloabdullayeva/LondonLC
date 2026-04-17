@@ -259,4 +259,33 @@ The trouble is that, besides a fused Honda-Nissan, it is not obvious there are w
 
 In lieu of mergers, Japanese carmakers are finding other ways to collaborate. Ivan Espinosa, Nissan's boss, speaks of joint procurement standards for commoditised inputs, such as wiring or steel, lending the carmakers greater pricing power with suppliers. "Dialogues are happening now in the industry that wouldn't have happened two or three years ago," he says. Honda and Nissan could still find ways to combine parts of their operations, such as by integrating their battery supply chains. It is too early to count out Japan's battle-hardened carmakers. But they will need bold thinking to survive.`,
   },
+  {
+    id: "american-luxury-booming",
+    title: "From Ralph Lauren to The Row, American luxury is booming",
+    author: "The Economist",
+    category: "Business",
+    readingTime: 6,
+    image: imageUrl("ralphlauren.png"),
+    content: `It is a miserable time for most purveyors of fancy handbags and pricey frocks. Following a post-pandemic boom, spending on personal-luxury goods worldwide has contracted in both of the past two years, according to Bain, a consultancy. War in the Middle East—and the resulting shock to the global economy—has luxury brands braced for further gloom. On April 13th LVMH, the industry's colossus, reported that sales of its clothes and leather goods in the first three months of 2026 were down by 2% from the year before—the seventh consecutive quarter of decline.
+
+Yet one group of labels has been surprisingly perky lately: American ones. Europe's maisons have long dominated the luxury business. Lyst, an e-commerce site, maintains a ranking of the hottest labels in fashion based on sales, online searches and social-media activity. Five years ago none of the top ten was American. Now three make the cut—Ralph Lauren, Coach and The Row. In the final three months of 2025 Ralph Lauren's revenue rose by 10% year on year. Sales at Coach were up by 25%, resulting in a record quarter for its owner, Tapestry. The two companies' share prices have risen by 89% and 135%, respectively, over the past year. What is behind the new world's newfound success?
+
+Shifts in strategy are part of the explanation. At Ralph Lauren, a years-long turnaround is now paying off. It has refreshed its product line-up, taken greater control over distribution and revamped its tired shops. Many of its larger stores now house coffee bars and restaurants; David Lauren, the founder's son, who oversees branding and innovation, says that people visit "because they love the ambience". Average selling prices (what shoppers pay after discounts) have risen every quarter for almost nine years. The firm also now spends over 7% of its sales on marketing, twice the figure a decade ago. With clear results: every fashion influencer worth their ring-light has one of the brand's pony-logo caps.
+
+More recently, Coach has followed a similar playbook. It has abandoned crumbling malls and department stores and shed its reputation as the go-to label for discounted bags. It now sells almost 90% of its products directly to customers. Ads featuring stars such as Selena Gomez, and a push into customisable charms for bags, have lured younger shoppers.
+
+Other forces are giving these American labels a leg up. Preppy looks and '90s throwbacks are in vogue. Online searches for Ralph Lauren's quarter-zip sweaters jumped by 132% year on year in the last quarter of 2025, reckons Lyst.
+
+The global economy is on the side of the American brands, too. Shoppers in America have been more resilient than those elsewhere. Luxury spending rose slightly there last year, even as it declined in Europe and Asia, where old-world labels dominate. The strengthening of the euro over the past year has also made it dearer for tourists in Paris and Milan to splurge on French and Italian brands.
+
+That American designer brands on the whole tend to be less expensive than those from European rivals has also helped at a time when stretched consumers around the world are looking for cheaper alternatives. Sandeep Seth of Tapestry argues that the $200-500 that most Coach bags sell for is the "sweet spot" right now. JPMorgan Chase, a bank, reckons that European luxury labels' bags now cost 5-10 times those from Coach, up from 2-3 times 15 years ago.
+
+Cashmere-clad European bosses pooh-pooh this: "affordable luxury", they say, is an oxymoron. Others beg to differ. Patrice Louvet, Ralph Lauren's chief executive, contends that luxury is defined not by price, but "by the experience you provide".
+
+Besides, American brands have shown that they can occupy the swankiest end of the luxury industry when they choose to. Ralph Lauren caters both to the merely well-off, with its Polo products, and the stinking rich, with its Purple Label line. Then there is The Row, which sells $5,000 bags and $12,000 coats. The brand, founded by Mary-Kate and Ashley Olsen, two former child actors, focuses on the kind of understated designs that have thrived amid growing demand from today's uber-rich for so-called "quiet luxury". The ability of the Olsen twins to persuade stars such as Kendall Jenner and Zoë Kravitz to wear their products, while restricting distribution, has created a sense among shoppers that they must earn the "right to buy", says Flavio Cereda of GAM, an asset manager.
+
+None of this will make America the new centre of gravity for luxury. Three of the world's four top fashion shows still take place in Europe. And plenty of American labels are struggling. Tapestry has failed to turn around Kate Spade, another fashion business it owns, and last year sold Stuart Weitzman, a shoe brand, amid flagging sales. Capri, a rival American luxury group, has struggled as Michael Kors, its biggest label, has fallen out of favour with shoppers. After being blocked by trustbusters from merging with Tapestry in 2024, Capri sold Versace to Prada to reduce its debts.
+
+For their part, European labels are doing everything they can to revive sales. Many, including Chanel and Gucci, have hired new creative directors in the past year or so. Having irked shoppers with hefty price increases as luxury spending soared after the pandemic, they are now making up for it by adding cheaper wares to their line-ups and holding constant the prices of high-end ones. Whether or not this revives their fortunes, the old assumption that only Europe can do luxury looks increasingly outmoded.`,
+  },
 ];
