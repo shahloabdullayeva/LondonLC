@@ -350,4 +350,31 @@ Is China also ultimately responsible for America's fiscal easing and the resulti
 
 The causes of global imbalances are not, then, as clear as some commentators allege. All of the suspects are implicated. The plot is fiendishly complex. But the ending could still be bad.`,
   },
+  {
+    id: "pakistan-diplomacy-blessing-curse",
+    title: "Pakistan's deft diplomacy is an economic blessing. And a curse",
+    author: "The Economist",
+    category: "Economics",
+    readingTime: 7,
+    image: imageUrl("Pakistan.png"),
+    content: `It allows the country's rulers to put off necessary reforms
+
+DIPLOMATS WOULD say that Pakistan has had a good Gulf war. Friendly relations with both Donald Trump and the Islamic Revolutionary Guard Corps, the elite force that runs Iran, have allowed it to play go-between. Economists are not so sure. When fuel and food prices are climbing as a consequence of the war, Pakistanis' pride in their country's global standing provides only limited comfort.
+
+Pakistan has a record of turning that standing into financial breathing room. The country has not been short of outside help, from American military aid during the cold war and the "war on terror" in the 2000s to Chinese infrastructure lending and cheap loans from Gulf countries more recently. Though its economic buffers are thin, its diplomatic prowess will help it through the latest crisis. But turning geopolitical clout into cash risks perpetuating a cycle of lacklustre reform efforts, poor growth and eventual bail-outs.
+
+The need for foreign support is obvious. Pakistan spends roughly 4% of GDP annually on fuel and fertiliser from the Gulf. With the Strait of Hormuz closed, the government has been forced to introduce fuel rationing. Civil servants are working a shorter week; there have been rolling blackouts in Punjab, the most populous province; cricket matches have been played without crowds. Petrol prices have been raised by 43% and diesel prices by 55%. But this is unlikely to stem the drain of foreign currency. Before the war Pakistan's foreign-exchange reserves covered only about three months' imports.
+
+The war hurts overseas earnings, too. Around half of Pakistanis working abroad are based in the Gulf, mostly in Saudi Arabia and the United Arab Emirates (UAE). These expatriates' remittances are worth around $40bn a year (10% of GDP). The Pakistan Institute of Development Economics, a think-tank, estimates that economic disruption in the Gulf could cut this by between $3bn and $4bn. Unemployment at home is likely to surge as fewer Pakistanis can find jobs elsewhere.
+
+Never before has Pakistan faced a similar crisis with so little room for manoeuvre, argues Murtaza Syed, a former deputy governor of the central bank and ex-IMF official. Every time commodity prices spike, Mr Syed says, it has had to turn to international lenders. In all it has had 25 IMF bail-outs since it joined the fund in 1950. The latest—which is still current—was agreed on in 2024, after the energy shock from Russia's invasion of Ukraine and devastating floods. Pakistan spends more than half its tax revenue on debt service.
+
+Its $138bn of external debt (48% of its total borrowing) is largely split between loans from American-backed multilateral institutions, such as the IMF, the World Bank and the Asian Development Bank, and bilateral loans from China, mostly for infrastructure. The UAE, Qatar and Saudi Arabia have also chipped in, for example with deferred oil payments and short-term deposits at the central bank. Scholars of Pakistani foreign policy have coined the term "strategic rents" for the country's ability to extract payments from allies. "The problem with good relations with America is that it means the IMF is too nice to us," says Miftah Ismail, a former finance minister now in opposition. "That is bad because we always use that space to delay doing the right thing."
+
+That might mean attracting foreign capital by building productive capacity or providing an easy environment to do business. Instead, Pakistan's outsize intelligence and security apparatus has kept America and others interested. Saudi Arabia, with which Pakistan has a mutual defence pact, owns a chunk of external debt. Pakistan sometimes appears close to exhausting this strategy. The Chinese, noting the IMF's experience, have become wary of throwing good money after bad. On April 4th Pakistan's ministry of finance said that the UAE had declined to roll over a $3.5bn loan, requiring the repayment of 18% of Pakistan's dollar reserves and blowing a hole in the current IMF plan. But Saudi Arabia has stepped in with an extra $3bn.
+
+Pakistan faces what Janos Kornai, a Hungarian economist, called a soft budget constraint. Writing many years ago about socialist economies in the old Soviet bloc, Kornai argued that state-backed companies had no realistic prospect of failure. They could limp on for ever, often enriching their patrons and management, in the knowledge that more money would eventually be forthcoming. Pakistan's importance in its allies' strategic plans affords it a similar licence. The military men who run much of the economy know that more funding may appear, whether or not they pursue the reforms that could break the cycle of bail-outs.
+
+Pakistanis have been the victims. In 1995 Pakistan's GDP per person was around 45% higher than India's and nearly twice that of Bangladesh; it is now 45% below India's and 35% below Bangladesh's. Liberal economists had hoped that the current crisis might have been enough to force Pakistan to confront its structural problems. Yet once again the country's geopolitical value has provided an escape route.`,
+  },
 ];
