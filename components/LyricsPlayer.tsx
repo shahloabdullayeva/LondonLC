@@ -324,7 +324,7 @@ export default function LyricsPlayer({ song, isAdmin = false }: { song: Song; is
               </div>
             </div>
 
-            {lyricsState.kind === "synced" && (
+            {lyricsState.kind === "synced" && isAdmin && (
               <div style={{ display: "flex", alignItems: "center", gap: 5, flexShrink: 0, flexWrap: "wrap" }}>
                 <span style={{ fontSize: 9, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--site-text-sub)", fontWeight: 700 }}>Sync</span>
                 <button onClick={() => setOffset(o => +(o - 1).toFixed(1))} style={syncBtn}>−1s</button>
