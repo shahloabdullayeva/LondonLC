@@ -477,4 +477,63 @@ Manipulating genes to correct diseases or improve crops are not new ideas. But (
 
 Everything about the technology screams "world-changing". CRISPR offers ways to achieve biological goals—not just medical goals like curbing heart disease, but also agricultural and environmental goals—in ways never before dreamed possible. As yet, though, the world seems largely unchanged. Might CRISPR fall prey to the same pitfalls and disappointments as its predecessor technologies? Or is the transformation it promised within scientists' grasp? This Technology Quarterly will offer answers to these questions.`,
   },
+  {
+    id: "africa-social-change-no-economic",
+    title: "Africa is undergoing social change without economic transformation",
+    author: "The Economist",
+    category: "Economics",
+    readingTime: 10,
+    image: imageUrl("theafricegap.png"),
+    content: `It is hard to decide which looks more forlorn, Webster Malupande or the wilted maize stalks around him. A smallholder in southern Zambia, Mr Malupande is one of many farmers devastated by a recent drought that halved production, leading the government to declare a state of emergency. Even before then he struggled to get more yield from his fields. "We do what we can," he says, "but it is never enough."
+
+The next day Hakainde Hichilema is standing in another field, tipping his cowboy hat to the crowd. Zambia's president—who has an MBA and a cattle farm—is inspecting crops grown from drought-resistant seeds. "Climate change is here to stay…We don't need to debate that any more," he says. Using new technology can prevent shocks in future, he continues. More productive farms mean more food and higher rural incomes, which in turn will boost industry. "This is a Godsend," the president says of the new seeds.
+
+Mr Hichilema wants Zambia, whose GDP per person of $1,226 is below the average for sub-Saharan Africa, to be a "prosperous middle-income country" by 2030. He has talked of the need for "structural transformation". That means people swapping farming and rural life for urban, industrial jobs. He wants Zambia—and Africa as a whole—to go through the sort of green revolution seen in Asia and Latin America last century.
+
+It is not the only revolution Africa has done without. Robert Osei, an economist, has written that Ghana developed "without a green revolution, an industrial revolution, or a service revolution of the types seen…in Asia"; the observation applies beyond his homeland. In 2024 the African Centre for Economic Transformation (ACET), a Ghana-based think-tank, likened African economies to "early transformers" in Asia and Latin America. Its "African Transformation Index", which scores countries based on their adoption of technology, labour productivity and diversity of exports, was sobering. "Most African countries are not transforming their economies at a consistent or steady rate," noted K.Y. Amoako, ACET's founder.
+
+Superstructuralism
+
+Underpinning much of this is a lack of productivity growth. If the Africa gap is defined in terms of GDP per person, then closing it could happen via two channels. The first is by having a rising share of workers relative to non-workers. In many African countries that ratio will become more favourable over the 21st century as women have fewer children. But a large "demographic dividend"—like that seen in late-20th-century Asia, where fertility plummeted much faster—is unlikely.
+
+The second channel—increasing how productive each worker is—remains the crucial one. Research by the World Bank has found that growth in total-factor productivity (TFP)—how efficiently labour and capital are combined, and a proxy for the use of technology in production—has been "negligible" on the continent for the past 60 years. This suggests that African economies have grown from increases in labour, capital and natural resources, but not from technology.
+
+It is not that African countries are standing still. Far from it. But social change is happening without economic change alongside. Understanding what is happening is crucial to closing the Africa gap.
+
+In 1960, 15% of sub-Saharan Africa's population lived in cities. Now 43% of people are classed by the UN as urban. The region is urbanising faster than any other. The Economist Intelligence Unit (EIU), our sister organisation, reckons that more than half of Africans will live in cities by 2035. Africa will have six cities of over 10m and a further 17 of over 5m.
+
+On the face of it this is a repeat of the global shifts from rural to city life. But African urbanisation is happening in countries poorer than has been the norm elsewhere. And elsewhere more productive farms encouraged urban migration, with less need for farmhands to till fields. Again Africa is different. Its urbanisation looks more like an alternative to rural development than a consequence of it.
+
+[CHART:africachart.png]Today a little more than half of workers in sub-Saharan Africa still labour on farms, about the share in western Europe two centuries ago. They typically work unproductive plots of less than two hectares (five acres) using methods more suited to the 19th century. The "value-added" per worker in sub-Saharan Africa, a measure of productivity, is less than half the global average, and less than one-fiftieth of the places with the most productive farms. Africa's cereal yields, another measure of productivity, are less than half the average in the rest of the world. And though production has increased since 1980, this has largely been because Africans are farming more land, not farming it more productively. Between 1980 and 2018 South Asia more than doubled cereal yields without using any more land. In sub-Saharan Africa yields tripled, but the land used more than doubled.
+
+Though there are hi-tech commercial farms in parts of Africa, most small farms are low-to-no tech. Fertiliser use is a tenth of that in Asia. Only 3.5% of agricultural land in sub-Saharan Africa is irrigated. A lack of cold storage means that much food is wasted; in Nigeria 45% of produce rots. Christopher Udry, an economist based at Northwestern University in Illinois, notes how, in America's Midwest, farmers just 80km apart may use different seed varieties. But in Africa, "We don't have seeds optimised for every 50 miles, we have seeds optimised for the continent."
+
+Less than 5% of agricultural land is irrigated
+
+African policymakers and donors have tried to encourage smallholders to adopt better technology. But it has proved difficult. In a review of the evidence on technological adoption published in 2024, Mr Udry and Tavneet Suri of MIT found that "there is no single binding constraint". Mr Malupande, the Zambian farmer, has barely any savings to invest, no access to finance and little option but to buy the generic seeds on offer from state-subsidised schemes.
+
+Small surprise that some farmers, or at least their children, are upping sticks. In a lecture in 2024 Mr Udry showed that, in a sample of 200,000 plots in six African countries, yields fell by 4-5% per year between 2008 and 2018. After mulling many explanations—such as changing weather, land degradation, nearby conflict—he concluded that it was because the farms were being worked less. Farmers, and their children, are opting to try their luck elsewhere. Yields declined most in farms closest to cities, suggesting that there is a flow of erstwhile farmhands from the fields to the hustle on the margins of the urban economy.
+
+The share of Africans working in the service economy has risen from 26% to 37% over the past three decades, more or less mirroring the decline of the share in agriculture from 64% to 52%. However, these jobs are not in corporate back offices. They are casual work in shops, markets and building sites. McKinsey, a consultancy, notes that service-sector productivity in Africa is less than half that in Latin America, and lower than in India.
+
+Trouble at mill
+
+So far manufacturing has not offered the plethora of jobs seen in other parts of the world. Only 11.5% of sub-Saharan African workers are employed in industry, marginally higher than the 9.9% share in 1991. Why manufacturing has struggled to take off is hotly debated. Africa has for centuries had lots of land and a scarcity of labour, the opposite of Asia. At independence economies were geared to resource extraction. And perhaps because unproductive farms mean more expensive food, it seems to cost more to employ Africans than it does to employ Asians. Research by the Centre for Global Development (CGD), a think-tank based in Washington, has found that in Africa labour costs were on average roughly twice as much as a country's GDP per person, whereas in Bangladesh, for instance, they were roughly the same.
+
+[CHART:africachart1.png]In 2021 Xinshen Diao and co-authors at the Washington-based International Food Policy Research Institute analysed what they call "Africa's manufacturing puzzle". Using data from factories in Ethiopia and Tanzania, they find a dichotomy: highly productive plants use lots of hi-tech equipment but few workers, and many less productive plants use lots of people and little kit. This is not what happened in Vietnam and Taiwan, they note, where labour was absorbed into productive factories—creating a flywheel that helped boost GDP per person over many years.
+
+The authors suggest that this is primarily because, to be globally competitive and plug into international supply chains, factories need to adhere to high technological standards. "The choice that African manufacturers seem to face is either to increase productivity or to increase employment."
+
+The implication is that Africa was late to the party; cheap labour may not be the advantage it once was. "The escalator is slowing, although it will not stop altogether," says Alan Gelb of CGD.
+
+For some, manufacturing is special because it has historically employed lots of people globally and had positive spillover effects. In an article about Mauritius, which successfully transitioned from a poor, sugar-dependent economy in the 1960s to one based on textile manufacturing, Joe Studwell, author of "How Asia Works", writes, "The lesson about the special role of manufacturing in developing countries ought to be clear to every African state. And yet the continent has almost no other examples of governments developing and deploying coherent manufacturing strategies."
+
+It may be the case that Africa's development will look more like South Asia's than East Asia's. A paper by Tianyu Fan of Yale University and co-authors, entitled "Growing like India", noted that Indian development has come in part from improving productivity in non-traded service sectors, such as retail, hospitality and property, rather than export-oriented manufacturing. This suggests that Africa could follow the same path, given its large services sector. The authors imply, however, that the cost could be high levels of inequality and joblessness, as seen in India.
+
+A different route
+
+"The general process of African transformation—which seems to be bypassing an industrialisation stage—is probably not just a temporary phenomenon," argues Douglas Gollin of Tufts University. "What's much less clear to me is that this alternative path is suboptimal." He believes that development economists can be too focused on what is happening in parts of the economy, such as farms or factories, and not enough on general market frictions that hinder productivity. He would like more attention on removing barriers to trade, specialisation and the allocation of capital wherever it is most productive.
+
+The fact that Africa is following an idiosyncratic path does not mean it is headed for a dead end. But whatever route it is on, it needs more productive firms. Even if the continent is not having a green or an industrial revolution, it will still need a commercial one.`,
+  },
 ];
