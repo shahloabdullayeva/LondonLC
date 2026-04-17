@@ -146,10 +146,19 @@ export default function ArticlesPage() {
             {/* Body */}
             <div style={{
               fontSize, lineHeight: 1.9, color: "var(--site-text)",
-              whiteSpace: "pre-line",
               fontFamily: `"Lora", "Iowan Old Style", Georgia, serif`,
             }}>
-              {selected.content}
+              {selected.content.split(/(\[CHART:[^\]]+\])/).map((part, i) => {
+                const m = part.match(/^\[CHART:([^\]]+)\]$/);
+                if (m) {
+                  const src = `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/images/${m[1]}`;
+                  return (
+                    <img key={i} src={src} alt="Chart" style={{ float: "left", width: "min(340px, 50%)", margin: "8px 20px 12px 0", borderRadius: 6 }} />
+                  );
+                }
+                return <span key={i} style={{ whiteSpace: "pre-line" }}>{part}</span>;
+              })}
+              <div style={{ clear: "both" }} />
             </div>
 
             {/* Back to articles */}

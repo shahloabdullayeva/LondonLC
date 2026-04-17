@@ -226,4 +226,37 @@ However, despite dominating the means of persuasion, the Kremlin still needs to 
 
 Some Russians still see hope. One who defected to join the Ukrainian army suggests a way for his compatriots to free themselves from mental subjugation: "Just switch your brains on."`,
   },
+  {
+    id: "japan-carmakers-trouble",
+    title: "Japan's mighty carmakers are in serious trouble",
+    author: "The Economist",
+    category: "Business",
+    readingTime: 7,
+    image: imageUrl("japancarmakers.png"),
+    content: `They will need bold thinking to survive
+
+In a doleful press conference last month, Mibe Toshihiro, chief executive of Honda, announced that the Japanese carmaker was on course to post its first net loss since 1957 in its fiscal year ending in March—a failure for which he took personal responsibility. In a sign of his contrition, Mr Mibe said that he would dock his pay by 30%, along with that of his deputy. Honda is not the only Japanese carmaker under severe strain. At an industry event the following week, Mr Mibe issued a stark warning: "The Japanese automotive industry itself is on the brink of survival."
+
+He was hardly exaggerating. Nissan, once the sixth-largest carmaker in the world by sales, is entering the second year of a brutal restructuring, with seven factory closures planned by 2028. A 25% tariff on cars imported into America has bitten into the industry's profits. Yet it is the blistering rise of Chinese competitors that has hit hardest. In 2019 Japanese carmakers accounted for 31% of sales globally; by last year their share had fallen to 26%. The shock has been greatest in Asia. In China itself, sales of Japanese cars have slumped by a third since 2019. In South-East Asia, once a stronghold, their share of the market was 57% in 2025, down from 68% just two years earlier. Japanese carmakers once seemed unstoppable. How did it go so wrong for them?
+
+[CHART:japanchart.png]The heart of the problem is that, even more so than their Western counterparts, Japanese carmakers have struggled with electrification. Many have been sceptical of the staying power of electric vehicles (EVs), which account for a vanishingly small share of their sales (see chart). Conventional petrol vehicles make up more than half of sales for all Japanese carmakers; at beleaguered Nissan it is 80%. Rather than plug-in cars, most have opted instead to emphasise conventional hybrids, which rely on the engine and regenerative braking to power the battery, as the assembly of these fits more easily into a production line built for internal-combustion engines. Japan's carmakers have expressed interest in alternative technologies such as hydrogen-powered cars for much the same reason.
+
+Yet growth in EVs has continued apace, led by Chinese rivals. Sales of EVs, including plug-in hybrids, accounted for 26% of the global car market last year, up from just 3% in 2019. The pace of adoption has been especially brisk in Japan's own neighbourhood: a third of cars sold in Asia are now EVs. It is not just China where they have taken off. In Singapore, 45% of car registrations last year were EVs. In Thailand, where Japanese carmakers have had supply-chains in place as far back as the 1960s, the share is 20% and rising.
+
+Faced with all this, the Japanese have belatedly begun ramping up their electric offerings. In 2024 Honda launched its first mass-production EV, jointly developed with General Motors, an American car giant. The trouble is that making EVs—which are, in effect, computers on wheels that rely far more on software than complicated hardware—does not play to Japan's traditional strength in mechanical engineering. Honda's Mr Mibe nodded to this in his press conference, pledging that his company would invest more in software features such as advanced driver assistance systems (ADAS).
+
+Japanese carmakers are experimenting with various ways of obtaining software expertise. Last year Nissan struck a partnership with Wayve, a British startup that is developing self-driving technology, to improve its ADAS. But the record of such arrangements has been mixed. Last month Honda gave up on a joint EV project with Sony, a Japanese technology giant. The pairing of two "proud" companies looked fraught from the start, says Shibusawa Ken of Commons Asset Management, a Japanese investment firm which recently sold Honda's shares after backing the company for 17 years.
+
+New investments have added cost for Japanese carmakers even as their total sales remain below their pre-pandemic peak, squeezing profit margins. According to Bernstein, a broker, the industry's per unit fixed costs—including research and development and the depreciation of equipment—are 78% higher than they were a decade ago. Rising wages and inflexible employment laws in Japan have made it difficult to keep costs under control.
+
+The one exception to all this gloom is Toyota, the world's biggest carmaker by both sales and net profit. Its position as the global leader in conventional hybrids, in which it holds a 40% market share, has meant it has benefited from the revocation of subsidies for EVs in America under President Donald Trump. Although its chairman, Toyoda Akio, has expressed doubt about the potential scale of demand for EVs, the company has launched several of them exclusively for China, which it has developed in partnership with local firms including BYD and Huawei. That has provided valuable lessons. Alone among Japanese carmakers (and most Western ones), Toyota has managed to maintain a stable market share in China, where it accounts for 6% of sales (BYD, the market leader, holds 13%). An expanded global EV line-up is expected by 2027.
+
+Crash course
+
+Yet one stalwart carmaker and a slate of struggling ones does not make for a healthy industry. Speculation is rife in Tokyo that Japan's carmakers will have to consolidate in order to remain competitive globally. At the end of 2024 Honda and Nissan began talks over a merger that would have created the world's third-largest carmaker by sales, though these later collapsed in acrimony.
+
+The trouble is that, besides a fused Honda-Nissan, it is not obvious there are worthwhile deals to be made. Overlapping models and hard-to-integrate production processes mean that "the whole is less than the sum of its parts when you consolidate," reckons Mike Smitka, an academic who studies the Japanese auto industry. Toyota would be in the strongest financial position for dealmaking. But it seems to prefer strengthening its grip over the industry through minority stakes; it already owns 21% of Subaru and 5% of both Mazda and Suzuki (which mostly sells in India). It may not have much to gain from an expensive acquisition of one of its struggling competitors. "It will be hard for [Nissan] to keep their current shape," says a person close to Toyota. "But their business is not appealing [to the car colossus]."
+
+In lieu of mergers, Japanese carmakers are finding other ways to collaborate. Ivan Espinosa, Nissan's boss, speaks of joint procurement standards for commoditised inputs, such as wiring or steel, lending the carmakers greater pricing power with suppliers. "Dialogues are happening now in the industry that wouldn't have happened two or three years ago," he says. Honda and Nissan could still find ways to combine parts of their operations, such as by integrating their battery supply chains. It is too early to count out Japan's battle-hardened carmakers. But they will need bold thinking to survive.`,
+  },
 ];
