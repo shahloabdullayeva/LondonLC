@@ -483,7 +483,7 @@ Everything about the technology screams "world-changing". CRISPR offers ways to 
     author: "The Economist",
     category: "Economics",
     readingTime: 10,
-    image: imageUrl("theafricegap.png"),
+    image: imageUrl("theafricagap.png"),
     content: `It is hard to decide which looks more forlorn, Webster Malupande or the wilted maize stalks around him. A smallholder in southern Zambia, Mr Malupande is one of many farmers devastated by a recent drought that halved production, leading the government to declare a state of emergency. Even before then he struggled to get more yield from his fields. "We do what we can," he says, "but it is never enough."
 
 The next day Hakainde Hichilema is standing in another field, tipping his cowboy hat to the crowd. Zambia's president—who has an MBA and a cattle farm—is inspecting crops grown from drought-resistant seeds. "Climate change is here to stay…We don't need to debate that any more," he says. Using new technology can prevent shocks in future, he continues. More productive farms mean more food and higher rural incomes, which in turn will boost industry. "This is a Godsend," the president says of the new seeds.
