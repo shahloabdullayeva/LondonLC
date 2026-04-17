@@ -48,7 +48,7 @@ export default function ArticlesPage() {
               </h1>
             </div>
             <p style={{ color: "var(--site-text-muted)", fontSize: 14, margin: "0 0 0 48px" }}>
-              Tap a card to read.
+              {Array.from(new Set(starterArticles.map(a => a.category))).join(" · ")}
             </p>
           </header>
 
