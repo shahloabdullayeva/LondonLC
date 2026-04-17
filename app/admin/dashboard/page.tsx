@@ -10,7 +10,7 @@ import {
 
 const ROOT_ADMIN_ID = "admin-root";
 const ADMIN_USERNAME = "SarvarxonP";
-import { getSession, clearSession, getAttempts, getTeachers, addTeacher, deleteTeacher, updateTeacherPassword, setTeacherPlainPassword, setStudentPlainPassword, changeTeacherOwnPassword, registerStudent, getStudentAccounts, deleteStudent, updateStudent, getBlockedIPs, blockIP, unblockIP, type AttemptData, type TeacherAccount, type StudentAccount } from "@/lib/store";
+import { getSession, clearSession, getAttempts, getTeachers, addTeacher, deleteTeacher, updateTeacherPassword, setTeacherPlainPassword, setStudentPlainPassword, changeTeacherOwnPassword, registerStudent, getStudentAccounts, deleteStudent, updateStudent, getBlockedIPs, blockIP, unblockIP, recordTeacherAccess, type AttemptData, type TeacherAccount, type StudentAccount } from "@/lib/store";
 import { getTestById } from "@/data/ielts-tests";
 import { allTests } from "@/data/ielts-tests";
 import { quotes, type Quote } from "@/lib/quotes";
@@ -151,6 +151,12 @@ export default function AdminDashboard() {
     setCurrentTeacherId(s.id);
     setCurrentUsername(s.username || s.name || "");
     refreshData(s.id);
+
+    // Update "last seen" on every dashboard visit, not just login
+    const di = { userAgent: navigator.userAgent, platform: navigator.platform, language: navigator.language };
+    fetch("https://api.ipify.org?format=text").then(r => r.text()).then(ip => {
+      recordTeacherAccess(s.id, ip, di);
+    }).catch(() => { recordTeacherAccess(s.id, "unknown", di); });
 
     // Refresh when teacher switches back to this tab
     const onVisible = () => { if (document.visibilityState === "visible") refreshData(); };
@@ -1415,7 +1421,6 @@ export default function AdminDashboard() {
                         <div style={{ fontWeight: 600, fontSize: 14, color: C.text }}>{t.username}</div>
                         {t.username === ADMIN_USERNAME && t.id !== ROOT_ADMIN_ID && <div style={{ fontSize: 11, color: "#f59e0b" }}>Admin</div>}
                         <div style={{ fontSize: 11, color: C.muted, marginTop: 2 }}>Last seen: {fmtLastSeen(t.lastAccessedAt)}</div>
-                        {isRootAdmin && t.lastIp && <div style={{ fontSize: 11, color: C.muted, fontFamily: "monospace" }}>IP: {t.lastIp}</div>}
                         {showPasswordFor === t.id && !isProtected && (
                           <div style={{ fontSize: 12, marginTop: 2, fontFamily: "monospace", color: t.plainPassword ? C.text : C.muted }}>
                             {t.plainPassword
