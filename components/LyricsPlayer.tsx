@@ -265,6 +265,34 @@ export default function LyricsPlayer({ song, isAdmin = false }: { song: Song; is
     playerRef.current?.seekTo(Math.max(0, seconds - 0.2), true);
   };
 
+  // ── Resizable divider between video and lyrics columns ───
+  const [lyricsWidthPct, setLyricsWidthPct] = useState(35);
+  const isResizingRef = useRef(false);
+  const handleDividerMouseDown = (e: React.MouseEvent) => {
+    e.preventDefault();
+    isResizingRef.current = true;
+    const startX = e.clientX;
+    const startPct = lyricsWidthPct;
+    const container = (e.currentTarget as HTMLElement).parentElement;
+    if (!container) return;
+    const containerWidth = container.getBoundingClientRect().width;
+
+    const onMove = (ev: MouseEvent) => {
+      const dx = ev.clientX - startX;
+      const deltaPct = (dx / containerWidth) * 100;
+      // Moving right → lyrics gets smaller; moving left → bigger
+      const next = Math.min(65, Math.max(20, startPct - deltaPct));
+      setLyricsWidthPct(next);
+    };
+    const onUp = () => {
+      isResizingRef.current = false;
+      document.removeEventListener("mousemove", onMove);
+      document.removeEventListener("mouseup", onUp);
+    };
+    document.addEventListener("mousemove", onMove);
+    document.addEventListener("mouseup", onUp);
+  };
+
   return (
     <div className="lyrics-player" style={{ display: "flex", flexDirection: "column", width: "100%", gap: 0, flex: 1, minHeight: 0 }}>
       {/* ── Desktop: side-by-side | Mobile: stacked ────────── */}
@@ -328,10 +356,25 @@ export default function LyricsPlayer({ song, isAdmin = false }: { song: Song; is
           </div>
         </div>
 
+        {/* Draggable divider — desktop only */}
+        <div className="lp-divider"
+          onMouseDown={handleDividerMouseDown}
+          style={{
+            width: 10, flexShrink: 0, cursor: "col-resize",
+            display: "flex", alignItems: "center", justifyContent: "center",
+            zIndex: 5, userSelect: "none",
+          }}
+        >
+          <div style={{ width: 4, height: 40, borderRadius: 4, background: "var(--site-border-strong)", transition: "background 0.15s" }}
+            onMouseEnter={(e) => (e.currentTarget.style.background = "var(--site-accent)")}
+            onMouseLeave={(e) => (e.currentTarget.style.background = "var(--site-border-strong)")}
+          />
+        </div>
+
         {/* Right column: lyrics (desktop) / below video (mobile) */}
         <div className="lp-lyrics-col" ref={lyricsScrollRef}
           style={{
-            width: 380, flexShrink: 0, overflowY: "auto", padding: "20px 16px",
+            width: `${lyricsWidthPct}%`, flexShrink: 0, overflowY: "auto", padding: "20px 16px",
             background: "var(--site-card)", border: "1px solid var(--site-border)", borderRadius: 14,
             scrollbarWidth: "thin", minHeight: 300,
           }}
@@ -380,16 +423,18 @@ export default function LyricsPlayer({ song, isAdmin = false }: { song: Song; is
 
       {/* ── Responsive overrides ──────────────────────────── */}
       <style>{`
-        /* Desktop: side by side */
+        /* Desktop: side by side with draggable divider */
         @media (min-width: 900px) {
           .lp-main { flex-direction: row !important; }
-          .lp-video-col { flex: 1 !important; }
-          .lp-lyrics-col { width: 380px !important; height: calc(100vh - 260px) !important; }
+          .lp-video-col { flex: 1 !important; min-width: 0 !important; }
+          .lp-lyrics-col { height: calc(100vh - 260px) !important; }
+          .lp-divider { display: flex !important; }
         }
-        /* Mobile: stacked, Spotify-style */
+        /* Mobile: stacked Spotify-style, hide divider */
         @media (max-width: 899px) {
           .lp-main { flex-direction: column !important; }
           .lp-video-col { flex: none !important; }
+          .lp-divider { display: none !important; }
           .lp-lyrics-col {
             width: 100% !important;
             flex: 1 !important;
