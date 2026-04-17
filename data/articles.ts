@@ -125,4 +125,35 @@ Even if the two sides reach an agreement, there will be no room for triumphalism
 
 Before America and Israel started bombing, a decent agreement may already have been within reach. It is hard to see the sum of what comes out of the fighting being any better.`,
   },
+  {
+    id: "hungary-lead-fight-illiberalism",
+    title: "How Hungary can now lead the fight against illiberalism",
+    author: "The Economist",
+    category: "Geopolitics",
+    readingTime: 6,
+    image: imageUrl("HowHungarycannowlead.png"),
+    content: `AFTER ELECTIONS in Hungary on April 12th, Europeans and democrats everywhere breathed a sigh of relief. And they were right to. Hungarians have struck a blow for democracy by voting out their strongman leader, Viktor Orban, after 16 long years in office—and by a landslide. The triumphant Peter Magyar, his new government and Hungary itself have won the sort of new beginning that comes rarely in politics. They must not squander it.
+
+Their opportunity began with Mr Orban's surprisingly prompt concession speech. After years of chipping away at independent institutions in Hungary, the outgoing prime minister could easily have put up a fight. Yet with his Fidesz party on track to win just 38% of the votes and 55 seats, compared with 54% and 138 seats for Mr Magyar and Tisza, he may have felt the odds were insurmountable. The hope is that Mr Orban has now set the tone for a smooth transition to a new government.
+
+For the sake of his legacy and his country, Mr Orban should lift Hungary's veto on European Union military aid to Ukraine, worth some €90bn ($105bn)—and do so now, rather than wait until his successor takes office. Voters on Sunday showed how strongly they disagree with his alignment of Hungary with Vladimir Putin and Russia. By rejecting Russian and American efforts to influence their votes, a large majority demonstrated that they want to belong in Brussels' sphere of influence.
+
+Europeans should return the compliment. Governments across the continent are eager to show Hungarians all the economic benefits that flow once a country will observe agreed-upon rules. As Hungary fully restores EU standards on the rule of law, especially by dismantling Mr Orban's system of large-scale corruption, Europe should in turn quickly unlock the billions of euros it has withheld and publicly welcome Hungary back into the fold. Rejecting Mr Putin and embracing the EU should bring material and diplomatic rewards.
+
+The greatest responsibility, naturally, falls upon the new leader. As a campaigner, Mr Magyar was extraordinary, criss-crossing the country to hold rallies, attacking corruption and economic misrule under Mr Orban and uniting a broad coalition of opposition figures behind the young party he called Tisza. What will he be like in office?
+
+Mr Magyar remains something of a mystery. He defected from Mr Orban's camp only two years ago. Liberals and moderates hope he will not be tempted to stray like his predecessor. The test of that will come when he exercises power.
+
+One challenge rises above all others. In his years as prime minister, Mr Orban thoroughly rewrote the constitution in order to jam Fidesz into every corner of the state. The party controls the supreme and constitutional courts. Its allies own most of the broadcast, online and print media. It has apparatchiks throughout the civil service, in state-owned companies and the education system. The party machine could yet hinder Mr Magyar's ability to govern. He has complained that the foreign minister spent the morning after the election shredding official documents.
+
+The priority is therefore to rapidly loosen its grip. The good news is that Tisza won so decisively that it will have a two-thirds majority in Parliament, just as Fidesz once did. That provides it with tools to deal with Mr Orban's constitutional abuse and to remove his flunkies.
+
+Mr Magyar must act quickly. Poland, which voted in an anti-populist government in 2023, shows how hard it can be to repair the damage from years of populist rule if the former party keeps control of the levers of power. When Fidesz protests, as it surely will, Mr Magyar can point to the sweeping democratic mandate he has just won. Voters want him to restore the rule of law, revive Hungary's economy and, most important of all, eradicate corruption and the crooks who benefit from it.
+
+But if Mr Magyar is ruthless in rooting out abuse, he must be magnanimous in the reconstruction that follows. Tisza did not win its victory alone. Nearly all the other opposition groups in Hungary—conservative, liberal and leftist—laid down their standards to unite behind Mr Magyar. They need to share in the new Hungary, too.
+
+On April 13th the victor vowed to represent all Hungarians, including those who "did not vote for us". As he forms his administration in the coming weeks, Mr Magyar should cleave to those words. To succeed, he needs to fill national life with people from all shades of democratic politics and from all law-abiding sectors of society. Such diversity is precisely where the strength of liberalism lies.
+
+The world will be watching. Mr Orban led the campaign to install an "illiberal democracy". That gave him outsize appeal for all sorts of populist nationalists, from MAGA in America to National Rally in France. Mr Magyar is thereby destined to be a test case for how easy it is to reverse democratic decay. Much is riding on his success.`,
+  },
 ];
