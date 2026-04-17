@@ -392,7 +392,7 @@ export default function LyricsPlayer({ song, isAdmin = false }: { song: Song; is
             <p style={{ color: "var(--site-text-sub)", fontSize: 13, textAlign: "center", marginTop: 40 }}>No lyrics found on lrclib.net for this track.</p>
           )}
           {lyricsState.kind === "plain" && (
-            <pre style={{ color: "var(--site-text-muted)", fontSize: 15, lineHeight: 1.8, margin: 0, whiteSpace: "pre-wrap", fontFamily: "inherit" }}>
+            <pre style={{ color: "var(--site-text-muted)", fontSize: 15 + (lyricsWidthPct - 35) * 0.2, lineHeight: 1.8, margin: 0, whiteSpace: "pre-wrap", fontFamily: "inherit" }}>
               {lyricsState.text}
               <span style={{ display: "block", marginTop: 18, fontSize: 11, letterSpacing: "0.15em", textTransform: "uppercase", color: "var(--site-text-sub)" }}>
                 (plain lyrics — no timestamps available)
@@ -410,7 +410,7 @@ export default function LyricsPlayer({ song, isAdmin = false }: { song: Song; is
                     style={{
                       textAlign: "left", background: "transparent", border: "none", cursor: "pointer",
                       padding: "6px 10px", borderRadius: 8,
-                      fontSize: active ? 18 : 14, fontWeight: active ? 700 : 500, lineHeight: 1.4,
+                      fontSize: active ? 18 + (lyricsWidthPct - 35) * 0.2 : 14 + (lyricsWidthPct - 35) * 0.2, fontWeight: active ? 700 : 500, lineHeight: 1.4,
                       color: active ? "var(--site-accent)" : past ? "var(--site-text-sub)" : "var(--site-text-muted)",
                       transition: "all 0.25s ease", fontFamily: "inherit",
                     }}
