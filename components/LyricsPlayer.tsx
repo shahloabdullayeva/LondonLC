@@ -85,10 +85,19 @@ async function fetchLyrics(song: Song): Promise<{
   }
 
   if (!data) return null;
-  // Strip LRC metadata tags that sometimes leak into plainLyrics
-  // (e.g. [ti:...], [ar:...], [al:...], [by:...], [offset:0]).
-  const cleanPlain = (text: string) =>
-    text.replace(/^\[(?:ti|ar|al|au|by|offset|length|re|ve|#|encoding):[^\]]*\]\s*$/gim, "").trim();
+  // Clean up plain lyrics: strip LRC metadata tags AND credit
+  // lines that lrclib embeds at the top of some tracks (e.g.
+  // "Song Title - Artist", "Lyrics by: ...", "Composed by: ...").
+  const cleanPlain = (text: string) => {
+    return text
+      // LRC metadata tags: [ti:...], [ar:...], [al:...], etc.
+      .replace(/^\[(?:ti|ar|al|au|by|offset|length|re|ve|#|encoding):[^\]]*\]\s*$/gim, "")
+      // Credit / header lines at the top
+      .replace(/^.+\s*[-–—]\s*.+\n/m, "")          // "Title - Artist" header
+      .replace(/^(?:Lyrics|Written|Composed|Produced|Arranged|Music)\s*(?:by|:).+$/gim, "")
+      .replace(/^\n{2,}/gm, "\n")                   // collapse blank lines
+      .trim();
+  };
 
   return {
     synced: data.syncedLyrics ? parseLRC(data.syncedLyrics) : undefined,
