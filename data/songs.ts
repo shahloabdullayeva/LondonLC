@@ -83,7 +83,6 @@ export const starterSongs: Song[] = [
   { id: "kate-bush-running-up-that-hill", title: "Running Up That Hill", artist: "Kate Bush", album: "Hounds of Love", youtubeId: "wp43OdtAAkM", duration: 300 },
   { id: "elton-john-im-still-standing", title: "I'm Still Standing", artist: "Elton John", album: "Too Low for Zero", youtubeId: "ZHwVBirqD2s", duration: 202 },
   { id: "beatles-let-it-be", title: "Let It Be", artist: "The Beatles", album: "Let It Be", youtubeId: "QDYfEBY9NM4", duration: 243 },
-  { id: "john-lennon-imagine", title: "Imagine", artist: "John Lennon", album: "Imagine", youtubeId: "YkgkThdzX-8", duration: 183 },
 
   // ═══════════════════════════════════════════════════════════
   // ABBA
