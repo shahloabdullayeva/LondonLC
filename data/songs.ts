@@ -95,7 +95,6 @@ export const starterSongs: Song[] = [
   // ═══════════════════════════════════════════════════════════
   // Alan Walker
   // ═══════════════════════════════════════════════════════════
-  { id: "alan-walker-spectre", title: "Spectre", artist: "Alan Walker", youtubeId: "wJnBTPUQS5A", duration: 227 },
   { id: "alan-walker-alone", title: "Alone", artist: "Alan Walker", youtubeId: "1-xTEfGRDTc", duration: 161 },
   { id: "alan-walker-alone-pt-ii", title: "Alone, Pt. II", artist: "Alan Walker & Ava Max", album: "Alone, Pt. II", youtubeId: "JLMOeiLF0JQ", duration: 176 },
   { id: "alan-walker-alone-pt-iii", title: "Alone, Pt. III", artist: "Alan Walker", youtubeId: "M8AjlgJRNHg", duration: 162 },
@@ -209,7 +208,6 @@ export const starterSongs: Song[] = [
   { id: "dido-thank-you", title: "Thank You", artist: "Dido", album: "No Angel", youtubeId: "1TO48Cnl66w", duration: 234 },
   { id: "eminem-stan", title: "Stan", artist: "Eminem ft. Dido", album: "The Marshall Mathers LP", youtubeId: "gOMhN-hfMtY", duration: 404 },
   { id: "rains-of-castamere", title: "The Rains of Castamere", artist: "Serj Tankian", album: "Game of Thrones", youtubeId: "ECewrAld3zw", duration: 136 },
-  { id: "piazzolla-libertango", title: "Libertango", artist: "Astor Piazzolla", youtubeId: "A-HDRCaWCxw", duration: 198 },
   { id: "lp-lost-on-you", title: "Lost on You", artist: "LP", album: "Lost on You", youtubeId: "wDjeBNv6ip0", duration: 240 },
   { id: "rewrite-the-stars", title: "Rewrite the Stars", artist: "Zac Efron & Zendaya", album: "The Greatest Showman", youtubeId: "RI-M9NMhMgc", duration: 215 },
   { id: "seafret-atlantis", title: "Atlantis", artist: "Seafret", album: "Tell Me It's Real", youtubeId: "JD2I4MAmyQA", duration: 224 },
