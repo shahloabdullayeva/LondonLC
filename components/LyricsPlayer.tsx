@@ -306,36 +306,36 @@ export default function LyricsPlayer({ song, isAdmin = false }: { song: Song; is
     <div className="lyrics-player" style={{ display: "flex", flexDirection: "column", width: "100%", gap: 0, flex: 1, minHeight: 0 }}>
       {/* ── Desktop: side-by-side | Mobile: stacked ────────── */}
       <div className="lp-main" style={{ display: "flex", gap: 16, flex: 1, minHeight: 0 }}>
-        {/* Left column: video + song info + sync */}
-        <div className="lp-video-col" style={{ display: "flex", flexDirection: "column", gap: 12, flex: 1, minWidth: 0 }}>
-          {/* Video */}
-          <div style={{ position: "relative", width: "100%", aspectRatio: "16/9", background: "#000", borderRadius: 14, overflow: "hidden", border: "1px solid var(--site-border-strong)", flexShrink: 0 }}>
-            <div ref={playerContainerRef} style={{ position: "absolute", inset: 0 }} />
-          </div>
-
-          {/* Song meta + sync controls */}
-          <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", gap: 12, flexWrap: "wrap" }}>
-            <div style={{ display: "flex", flexDirection: "column", gap: 2, minWidth: 0 }}>
-              <div style={{ fontFamily: `"Fraunces", serif`, fontSize: 22, fontWeight: 500, color: "var(--site-text)", letterSpacing: "-0.01em" }}>
+        {/* Left column: song info on top → video → YouTube link */}
+        <div className="lp-video-col" style={{ display: "flex", flexDirection: "column", gap: 8, flex: 1, minWidth: 0 }}>
+          {/* Song meta + sync — ABOVE the video so it never scrolls off */}
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 10, flexWrap: "wrap", flexShrink: 0 }}>
+            <div style={{ display: "flex", flexDirection: "column", gap: 1, minWidth: 0 }}>
+              <div style={{ fontFamily: `"Fraunces", serif`, fontSize: 20, fontWeight: 500, color: "var(--site-text)", letterSpacing: "-0.01em", lineHeight: 1.2 }}>
                 {song.title}
               </div>
-              <div style={{ fontSize: 12, color: "var(--site-text-muted)", letterSpacing: "0.06em" }}>
+              <div style={{ fontSize: 11, color: "var(--site-text-muted)", letterSpacing: "0.06em" }}>
                 {song.artist}{song.album ? ` · ${song.album}` : ""}
+                {" · "}
+                <a href={`https://www.youtube.com/watch?v=${song.youtubeId}`} target="_blank" rel="noopener noreferrer"
+                  style={{ color: "var(--site-accent)", textDecoration: "none", fontWeight: 600 }}>
+                  YouTube ↗
+                </a>
               </div>
             </div>
 
             {lyricsState.kind === "synced" && (
-              <div style={{ display: "flex", alignItems: "center", gap: 6, flexShrink: 0, flexWrap: "wrap" }}>
-                <span style={{ fontSize: 10, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--site-text-sub)", fontWeight: 700, marginRight: 2 }}>Sync</span>
+              <div style={{ display: "flex", alignItems: "center", gap: 5, flexShrink: 0, flexWrap: "wrap" }}>
+                <span style={{ fontSize: 9, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--site-text-sub)", fontWeight: 700 }}>Sync</span>
                 <button onClick={() => setOffset(o => +(o - 1).toFixed(1))} style={syncBtn}>−1s</button>
                 <button onClick={() => setOffset(o => +(o - 0.2).toFixed(1))} style={syncBtn}>−</button>
                 {isAdmin ? (
                   <input type="number" step="0.1" value={offset}
                     onChange={(e) => { const v = parseFloat(e.target.value); if (!isNaN(v)) setOffset(v); }}
-                    style={{ width: 68, textAlign: "center", fontSize: 12, color: "var(--site-text)", fontFamily: "'IBM Plex Mono', monospace", fontWeight: 700, background: "var(--site-bg)", border: "1px solid var(--site-border-strong)", borderRadius: 6, padding: "4px 6px", outline: "none" }}
+                    style={{ width: 64, textAlign: "center", fontSize: 11, color: "var(--site-text)", fontFamily: "'IBM Plex Mono', monospace", fontWeight: 700, background: "var(--site-bg)", border: "1px solid var(--site-border-strong)", borderRadius: 6, padding: "3px 5px", outline: "none" }}
                   />
                 ) : (
-                  <span style={{ minWidth: 50, textAlign: "center", fontSize: 12, color: "var(--site-text)", fontFamily: "'IBM Plex Mono', monospace", fontWeight: 700 }}>
+                  <span style={{ minWidth: 46, textAlign: "center", fontSize: 11, color: "var(--site-text)", fontFamily: "'IBM Plex Mono', monospace", fontWeight: 700 }}>
                     {offset >= 0 ? "+" : ""}{offset.toFixed(1)}s
                   </span>
                 )}
@@ -344,24 +344,18 @@ export default function LyricsPlayer({ song, isAdmin = false }: { song: Song; is
                 {offset !== savedOffset && (
                   <>
                     {isAdmin && (
-                      <button onClick={saveOffset} style={{ marginLeft: 2, padding: "5px 10px", borderRadius: 8, background: "var(--site-accent)", color: "var(--site-bg)", border: "none", cursor: "pointer", fontSize: 10, fontWeight: 700 }}>Save</button>
+                      <button onClick={saveOffset} style={{ padding: "4px 8px", borderRadius: 6, background: "var(--site-accent)", color: "var(--site-bg)", border: "none", cursor: "pointer", fontSize: 9, fontWeight: 700 }}>Save</button>
                     )}
-                    <button onClick={() => setOffset(savedOffset)} style={{ padding: "5px 8px", borderRadius: 8, background: "transparent", color: "var(--site-text-sub)", border: "1px solid var(--site-border)", cursor: "pointer", fontSize: 10, fontWeight: 600 }}>Reset</button>
+                    <button onClick={() => setOffset(savedOffset)} style={{ padding: "4px 6px", borderRadius: 6, background: "transparent", color: "var(--site-text-sub)", border: "1px solid var(--site-border)", cursor: "pointer", fontSize: 9, fontWeight: 600 }}>Reset</button>
                   </>
                 )}
               </div>
             )}
           </div>
 
-          {/* Watch on YouTube fallback */}
-          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12, flexWrap: "wrap" }}>
-            <span style={{ fontSize: 10, color: "var(--site-text-sub)", letterSpacing: "0.1em", textTransform: "uppercase" }}>
-              Tap any line to jump · lrclib.net
-            </span>
-            <a href={`https://www.youtube.com/watch?v=${song.youtubeId}`} target="_blank" rel="noopener noreferrer"
-              style={{ fontSize: 10, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--site-accent)", textDecoration: "none", padding: "5px 10px", borderRadius: 8, border: "1px solid var(--site-accent-border)", background: "var(--site-accent-dim)", fontWeight: 600 }}>
-              YouTube ↗
-            </a>
+          {/* Video — fills remaining space */}
+          <div style={{ position: "relative", width: "100%", flex: 1, minHeight: 200, background: "#000", borderRadius: 14, overflow: "hidden", border: "1px solid var(--site-border-strong)" }}>
+            <div ref={playerContainerRef} style={{ position: "absolute", inset: 0 }} />
           </div>
         </div>
 
