@@ -251,155 +251,144 @@ export default function LyricsPlayer({ song, isAdmin = false }: { song: Song; is
   };
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: 16, width: "100%", maxWidth: 960 }}>
-      {/* Video */}
-      <div style={{ position: "relative", width: "100%", aspectRatio: "16/9", background: "#000", borderRadius: 14, overflow: "hidden", border: "1px solid var(--site-border-strong)" }}>
-        <div ref={playerContainerRef} style={{ position: "absolute", inset: 0 }} />
-      </div>
-
-      {/* Song meta + sync controls */}
-      <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", gap: 16, flexWrap: "wrap" }}>
-        <div style={{ display: "flex", flexDirection: "column", gap: 2, minWidth: 0 }}>
-          <div style={{ fontFamily: `"Fraunces", serif`, fontSize: 26, fontWeight: 500, color: "var(--site-text)", letterSpacing: "-0.01em" }}>
-            {song.title}
+    <div className="lyrics-player" style={{ display: "flex", flexDirection: "column", width: "100%", gap: 0, flex: 1, minHeight: 0 }}>
+      {/* ── Desktop: side-by-side | Mobile: stacked ────────── */}
+      <div className="lp-main" style={{ display: "flex", gap: 16, flex: 1, minHeight: 0 }}>
+        {/* Left column: video + song info + sync */}
+        <div className="lp-video-col" style={{ display: "flex", flexDirection: "column", gap: 12, flex: 1, minWidth: 0 }}>
+          {/* Video */}
+          <div style={{ position: "relative", width: "100%", aspectRatio: "16/9", background: "#000", borderRadius: 14, overflow: "hidden", border: "1px solid var(--site-border-strong)", flexShrink: 0 }}>
+            <div ref={playerContainerRef} style={{ position: "absolute", inset: 0 }} />
           </div>
-          <div style={{ fontSize: 13, color: "var(--site-text-muted)", letterSpacing: "0.06em" }}>
-            {song.artist}{song.album ? ` · ${song.album}` : ""}
+
+          {/* Song meta + sync controls */}
+          <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", gap: 12, flexWrap: "wrap" }}>
+            <div style={{ display: "flex", flexDirection: "column", gap: 2, minWidth: 0 }}>
+              <div style={{ fontFamily: `"Fraunces", serif`, fontSize: 22, fontWeight: 500, color: "var(--site-text)", letterSpacing: "-0.01em" }}>
+                {song.title}
+              </div>
+              <div style={{ fontSize: 12, color: "var(--site-text-muted)", letterSpacing: "0.06em" }}>
+                {song.artist}{song.album ? ` · ${song.album}` : ""}
+              </div>
+            </div>
+
+            {lyricsState.kind === "synced" && (
+              <div style={{ display: "flex", alignItems: "center", gap: 6, flexShrink: 0, flexWrap: "wrap" }}>
+                <span style={{ fontSize: 10, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--site-text-sub)", fontWeight: 700, marginRight: 2 }}>Sync</span>
+                <button onClick={() => setOffset(o => +(o - 1).toFixed(1))} style={syncBtn}>−1s</button>
+                <button onClick={() => setOffset(o => +(o - 0.2).toFixed(1))} style={syncBtn}>−</button>
+                {isAdmin ? (
+                  <input type="number" step="0.1" value={offset}
+                    onChange={(e) => { const v = parseFloat(e.target.value); if (!isNaN(v)) setOffset(v); }}
+                    style={{ width: 68, textAlign: "center", fontSize: 12, color: "var(--site-text)", fontFamily: "'IBM Plex Mono', monospace", fontWeight: 700, background: "var(--site-bg)", border: "1px solid var(--site-border-strong)", borderRadius: 6, padding: "4px 6px", outline: "none" }}
+                  />
+                ) : (
+                  <span style={{ minWidth: 50, textAlign: "center", fontSize: 12, color: "var(--site-text)", fontFamily: "'IBM Plex Mono', monospace", fontWeight: 700 }}>
+                    {offset >= 0 ? "+" : ""}{offset.toFixed(1)}s
+                  </span>
+                )}
+                <button onClick={() => setOffset(o => +(o + 0.2).toFixed(1))} style={syncBtn}>+</button>
+                <button onClick={() => setOffset(o => +(o + 1).toFixed(1))} style={syncBtn}>+1s</button>
+                {offset !== savedOffset && (
+                  <>
+                    {isAdmin && (
+                      <button onClick={saveOffset} style={{ marginLeft: 2, padding: "5px 10px", borderRadius: 8, background: "var(--site-accent)", color: "var(--site-bg)", border: "none", cursor: "pointer", fontSize: 10, fontWeight: 700 }}>Save</button>
+                    )}
+                    <button onClick={() => setOffset(savedOffset)} style={{ padding: "5px 8px", borderRadius: 8, background: "transparent", color: "var(--site-text-sub)", border: "1px solid var(--site-border)", cursor: "pointer", fontSize: 10, fontWeight: 600 }}>Reset</button>
+                  </>
+                )}
+              </div>
+            )}
+          </div>
+
+          {/* Watch on YouTube fallback */}
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12, flexWrap: "wrap" }}>
+            <span style={{ fontSize: 10, color: "var(--site-text-sub)", letterSpacing: "0.1em", textTransform: "uppercase" }}>
+              Tap any line to jump · lrclib.net
+            </span>
+            <a href={`https://www.youtube.com/watch?v=${song.youtubeId}`} target="_blank" rel="noopener noreferrer"
+              style={{ fontSize: 10, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--site-accent)", textDecoration: "none", padding: "5px 10px", borderRadius: 8, border: "1px solid var(--site-accent-border)", background: "var(--site-accent-dim)", fontWeight: 600 }}>
+              YouTube ↗
+            </a>
           </div>
         </div>
 
-        {lyricsState.kind === "synced" && (
-          <div style={{ display: "flex", alignItems: "center", gap: 6, flexShrink: 0, flexWrap: "wrap" }}>
-            <span style={{ fontSize: 10, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--site-text-sub)", fontWeight: 700, marginRight: 2 }}>
-              Sync
-            </span>
-            <button onClick={() => setOffset(o => +(o - 1).toFixed(1))} title="Delay lyrics by 1 s" style={syncBtn}>−1s</button>
-            <button onClick={() => setOffset(o => +(o - 0.2).toFixed(1))} title="Delay lyrics by 0.2 s" style={syncBtn}>−</button>
-            {/* Admin gets a direct number input; students see read-only display */}
-            {isAdmin ? (
-              <input
-                type="number"
-                step="0.1"
-                value={offset}
-                onChange={(e) => { const v = parseFloat(e.target.value); if (!isNaN(v)) setOffset(v); }}
-                style={{ width: 72, textAlign: "center", fontSize: 12, color: "var(--site-text)", fontFamily: "'IBM Plex Mono', monospace", fontWeight: 700, background: "var(--site-bg)", border: "1px solid var(--site-border-strong)", borderRadius: 6, padding: "4px 6px", outline: "none" }}
-              />
-            ) : (
-              <span style={{ minWidth: 56, textAlign: "center", fontSize: 12, color: "var(--site-text)", fontFamily: "'IBM Plex Mono', monospace", fontWeight: 700 }}>
-                {offset >= 0 ? "+" : ""}{offset.toFixed(1)}s
-              </span>
-            )}
-            <button onClick={() => setOffset(o => +(o + 0.2).toFixed(1))} title="Advance lyrics by 0.2 s" style={syncBtn}>+</button>
-            <button onClick={() => setOffset(o => +(o + 1).toFixed(1))} title="Advance lyrics by 1 s" style={syncBtn}>+1s</button>
-            {offset !== savedOffset && (
-              <>
-                {isAdmin && (
-                  <button
-                    onClick={saveOffset}
-                    title="Save this offset so everyone sees it"
-                    style={{ marginLeft: 2, padding: "6px 12px", borderRadius: 8, background: "var(--site-accent)", color: "var(--site-bg)", border: "none", cursor: "pointer", fontSize: 11, fontWeight: 700, letterSpacing: "0.04em" }}
-                  >Save</button>
-                )}
-                <button
-                  onClick={() => setOffset(savedOffset)}
-                  title={savedOffset === 0 ? "Reset to 0" : `Reset to saved (${savedOffset.toFixed(1)}s)`}
-                  style={{ padding: "6px 10px", borderRadius: 8, background: "transparent", color: "var(--site-text-sub)", border: "1px solid var(--site-border)", cursor: "pointer", fontSize: 11, fontWeight: 600 }}
-                >Reset</button>
-              </>
-            )}
-          </div>
-        )}
-      </div>
-
-      {/* Lyrics */}
-      <div
-        ref={lyricsScrollRef}
-        style={{
-          height: 420, overflowY: "auto", padding: "24px 20px",
-          background: "var(--site-card)", border: "1px solid var(--site-border)", borderRadius: 14,
-          scrollbarWidth: "thin",
-        }}
-      >
-        {lyricsState.kind === "loading" && (
-          <p style={{ color: "var(--site-text-sub)", fontSize: 13, textAlign: "center", marginTop: 40 }}>
-            Loading lyrics…
-          </p>
-        )}
-
-        {lyricsState.kind === "error" && (
-          <p style={{ color: "var(--site-text-sub)", fontSize: 13, textAlign: "center", marginTop: 40 }}>
-            Couldn&apos;t fetch lyrics for this song.
-          </p>
-        )}
-
-        {lyricsState.kind === "none" && (
-          <p style={{ color: "var(--site-text-sub)", fontSize: 13, textAlign: "center", marginTop: 40 }}>
-            No lyrics found on lrclib.net for this track.
-          </p>
-        )}
-
-        {lyricsState.kind === "plain" && (
-          <pre style={{ color: "var(--site-text-muted)", fontSize: 15, lineHeight: 1.8, margin: 0, whiteSpace: "pre-wrap", fontFamily: "inherit" }}>
-            {lyricsState.text}
-            <span style={{ display: "block", marginTop: 18, fontSize: 11, letterSpacing: "0.15em", textTransform: "uppercase", color: "var(--site-text-sub)" }}>
-              (plain lyrics — no timestamps available)
-            </span>
-          </pre>
-        )}
-
-        {lyricsState.kind === "synced" && (
-          <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
-            {lyricsState.lines.map((ln, i) => {
-              const active = i === activeIndex;
-              const past = i < activeIndex;
-              return (
-                <button
-                  key={`${i}-${ln.time}`}
-                  data-lrc-line={i}
-                  onClick={() => seekTo(ln.time)}
-                  title={`Jump to ${Math.floor(ln.time / 60)}:${String(Math.floor(ln.time % 60)).padStart(2, "0")}`}
-                  style={{
-                    textAlign: "left", background: "transparent", border: "none", cursor: "pointer",
-                    padding: "8px 12px", borderRadius: 8,
-                    fontSize: active ? 19 : 15,
-                    fontWeight: active ? 700 : 500,
-                    lineHeight: 1.4,
-                    color: active ? "var(--site-accent)" : past ? "var(--site-text-sub)" : "var(--site-text-muted)",
-                    transition: "all 0.25s ease",
-                    fontFamily: "inherit",
-                  }}
-                >
-                  {ln.text || " "}
-                </button>
-              );
-            })}
-          </div>
-        )}
-      </div>
-
-      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12, flexWrap: "wrap" }}>
-        <p style={{ fontSize: 11, color: "var(--site-text-sub)", letterSpacing: "0.1em", textTransform: "uppercase", margin: 0 }}>
-          Tap any line to jump to it · Lyrics from lrclib.net
-        </p>
-        {/* Always-visible fallback link — if the embed says "Video
-            unavailable" (restricted, embed-disabled, wrong ID, etc.)
-            the student can still open the track on YouTube directly. */}
-        <a
-          href={`https://www.youtube.com/watch?v=${song.youtubeId}`}
-          target="_blank"
-          rel="noopener noreferrer"
+        {/* Right column: lyrics (desktop) / below video (mobile) */}
+        <div className="lp-lyrics-col" ref={lyricsScrollRef}
           style={{
-            fontSize: 11, letterSpacing: "0.1em", textTransform: "uppercase",
-            color: "var(--site-accent)", textDecoration: "none",
-            padding: "6px 12px", borderRadius: 8,
-            border: "1px solid var(--site-accent-border)",
-            background: "var(--site-accent-dim)",
-            fontWeight: 600,
+            width: 380, flexShrink: 0, overflowY: "auto", padding: "20px 16px",
+            background: "var(--site-card)", border: "1px solid var(--site-border)", borderRadius: 14,
+            scrollbarWidth: "thin", minHeight: 300,
           }}
         >
-          Watch on YouTube ↗
-        </a>
+          {lyricsState.kind === "loading" && (
+            <p style={{ color: "var(--site-text-sub)", fontSize: 13, textAlign: "center", marginTop: 40 }}>Loading lyrics…</p>
+          )}
+          {lyricsState.kind === "error" && (
+            <p style={{ color: "var(--site-text-sub)", fontSize: 13, textAlign: "center", marginTop: 40 }}>Couldn&apos;t fetch lyrics for this song.</p>
+          )}
+          {lyricsState.kind === "none" && (
+            <p style={{ color: "var(--site-text-sub)", fontSize: 13, textAlign: "center", marginTop: 40 }}>No lyrics found on lrclib.net for this track.</p>
+          )}
+          {lyricsState.kind === "plain" && (
+            <pre style={{ color: "var(--site-text-muted)", fontSize: 15, lineHeight: 1.8, margin: 0, whiteSpace: "pre-wrap", fontFamily: "inherit" }}>
+              {lyricsState.text}
+              <span style={{ display: "block", marginTop: 18, fontSize: 11, letterSpacing: "0.15em", textTransform: "uppercase", color: "var(--site-text-sub)" }}>
+                (plain lyrics — no timestamps available)
+              </span>
+            </pre>
+          )}
+          {lyricsState.kind === "synced" && (
+            <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
+              {lyricsState.lines.map((ln, i) => {
+                const active = i === activeIndex;
+                const past = i < activeIndex;
+                return (
+                  <button key={`${i}-${ln.time}`} data-lrc-line={i} onClick={() => seekTo(ln.time)}
+                    title={`Jump to ${Math.floor(ln.time / 60)}:${String(Math.floor(ln.time % 60)).padStart(2, "0")}`}
+                    style={{
+                      textAlign: "left", background: "transparent", border: "none", cursor: "pointer",
+                      padding: "6px 10px", borderRadius: 8,
+                      fontSize: active ? 18 : 14, fontWeight: active ? 700 : 500, lineHeight: 1.4,
+                      color: active ? "var(--site-accent)" : past ? "var(--site-text-sub)" : "var(--site-text-muted)",
+                      transition: "all 0.25s ease", fontFamily: "inherit",
+                    }}
+                  >
+                    {ln.text || " "}
+                  </button>
+                );
+              })}
+            </div>
+          )}
+        </div>
       </div>
+
+      {/* ── Responsive overrides ──────────────────────────── */}
+      <style>{`
+        /* Desktop: side by side */
+        @media (min-width: 900px) {
+          .lp-main { flex-direction: row !important; }
+          .lp-video-col { flex: 1 !important; }
+          .lp-lyrics-col { width: 380px !important; height: calc(100vh - 260px) !important; }
+        }
+        /* Mobile: stacked, Spotify-style */
+        @media (max-width: 899px) {
+          .lp-main { flex-direction: column !important; }
+          .lp-video-col { flex: none !important; }
+          .lp-lyrics-col {
+            width: 100% !important;
+            flex: 1 !important;
+            min-height: 50vh !important;
+            border-radius: 18px 18px 0 0 !important;
+            padding: 28px 20px !important;
+          }
+          .lp-lyrics-col button {
+            text-align: center !important;
+            font-size: 16px !important;
+            padding: 10px 8px !important;
+          }
+        }
+      `}</style>
     </div>
   );
 }
