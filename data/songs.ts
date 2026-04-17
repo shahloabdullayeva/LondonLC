@@ -116,7 +116,7 @@ export const starterSongs: Song[] = [
   { id: "billie-eilish-chihiro", title: "CHIHIRO", artist: "Billie Eilish", album: "HIT ME HARD AND SOFT", youtubeId: "BY_XwvKloqc", duration: 303 },
   { id: "billie-eilish-i-love-you", title: "i love you", artist: "Billie Eilish", album: "WHEN WE ALL FALL ASLEEP", youtubeId: "cShRHx2mGBY", duration: 292 },
   { id: "billie-eilish-bored", title: "Bored", artist: "Billie Eilish", album: "13 Reasons Why", youtubeId: "RadqOgrMtRA", duration: 237 },
-  { id: "billie-eilish-broken-heart", title: "I CAN DO IT WITH A BROKEN HEART", artist: "Billie Eilish", album: "HIT ME HARD AND SOFT", youtubeId: "aPVIQnuYhvA", duration: 213 },
+  { id: "taylor-swift-broken-heart", title: "I Can Do It With a Broken Heart", artist: "Taylor Swift", album: "The Tortured Poets Department", youtubeId: "aPVIQnuYhvA", duration: 213 },
 
   // ═══════════════════════════════════════════════════════════
   // Katy Perry
