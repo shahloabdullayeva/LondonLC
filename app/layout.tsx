@@ -29,9 +29,9 @@ export default function RootLayout({
           rel="stylesheet"
         />
         <script dangerouslySetInnerHTML={{ __html: noFlashScript }} />
-        <Script src="https://www.googletagmanager.com/gtag/js?id=G-DBQ38SPVBL" strategy="afterInteractive" />
+        <Script src="https://www.googletagmanager.com/gtag/js?id=G-ZR8XWQZF8P" strategy="afterInteractive" />
         <Script id="gtag-init" strategy="afterInteractive">
-          {`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-DBQ38SPVBL');`}
+          {`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-ZR8XWQZF8P');`}
         </Script>
       </head>
       <body>
