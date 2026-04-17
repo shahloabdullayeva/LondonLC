@@ -68,6 +68,7 @@ export const starterSongs: Song[] = [
     album: "25",
     youtubeId: "YQHsXMglC9A",
     duration: 295,
+    offset: -74,
   },
   {
     id: "adele-someone-like-you",
