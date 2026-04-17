@@ -93,6 +93,17 @@ export const starterSongs: Song[] = [
   { id: "abba-winner-takes-it-all", title: "The Winner Takes It All", artist: "ABBA", album: "Super Trouper", youtubeId: "92cwKCU8Z5c", duration: 275 },
 
   // ═══════════════════════════════════════════════════════════
+  // Alan Walker
+  // ═══════════════════════════════════════════════════════════
+  { id: "alan-walker-spectre", title: "Spectre", artist: "Alan Walker", youtubeId: "wJnBTPUQS5A", duration: 227 },
+  { id: "alan-walker-alone", title: "Alone", artist: "Alan Walker", youtubeId: "1-xTEfGRDTc", duration: 161 },
+  { id: "alan-walker-alone-pt-ii", title: "Alone, Pt. II", artist: "Alan Walker & Ava Max", album: "Alone, Pt. II", youtubeId: "JLMOeiLF0JQ", duration: 176 },
+  { id: "alan-walker-alone-pt-iii", title: "Alone, Pt. III", artist: "Alan Walker", youtubeId: "M8AjlgJRNHg", duration: 162 },
+  { id: "alan-walker-on-my-way", title: "On My Way", artist: "Alan Walker, Sabrina Carpenter & Farruko", album: "Different World", youtubeId: "dhYOPzcsbGM", duration: 193 },
+  { id: "alan-walker-faded", title: "Faded", artist: "Alan Walker", youtubeId: "60ItHLz5WEA", duration: 212 },
+  { id: "alan-walker-darkside", title: "Darkside", artist: "Alan Walker feat. Au/Ra & Tomine Harket", album: "Different World", youtubeId: "M-P4QBt-FWw", duration: 212 },
+
+  // ═══════════════════════════════════════════════════════════
   // 80s / 90s / 2000s
   // ═══════════════════════════════════════════════════════════
   { id: "sting-shape-of-my-heart", title: "Shape of My Heart", artist: "Sting", album: "Ten Summoner's Tales", youtubeId: "NlwIDxCjL-8", duration: 278 },
