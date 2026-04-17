@@ -356,7 +356,7 @@ The causes of global imbalances are not, then, as clear as some commentators all
     author: "The Economist",
     category: "Economics",
     readingTime: 7,
-    image: imageUrl("Pakistan.png"),
+    image: imageUrl("pakistan.png"),
     content: `It allows the country's rulers to put off necessary reforms
 
 DIPLOMATS WOULD say that Pakistan has had a good Gulf war. Friendly relations with both Donald Trump and the Islamic Revolutionary Guard Corps, the elite force that runs Iran, have allowed it to play go-between. Economists are not so sure. When fuel and food prices are climbing as a consequence of the war, Pakistanis' pride in their country's global standing provides only limited comfort.
