@@ -48,7 +48,7 @@ export default function ArticlesPage() {
               </h1>
             </div>
             <p style={{ color: "var(--site-text-muted)", fontSize: 14, margin: "0 0 0 48px" }}>
-              IELTS tips, grammar guides, and reading practice. Tap a card to read.
+              Tap a card to read.
             </p>
           </header>
 
@@ -72,11 +72,11 @@ export default function ArticlesPage() {
                   onMouseLeave={e => { e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.boxShadow = "none"; }}
                 >
                   {/* Image */}
-                  <div style={{ width: "100%", height: 160, background: "var(--site-card-2)", overflow: "hidden" }}>
+                  <div style={{ width: "100%", aspectRatio: "16 / 10", background: "var(--site-card-2)", overflow: "hidden", display: "flex", alignItems: "center", justifyContent: "center" }}>
                     {a.image ? (
-                      <img src={a.image} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                      <img src={a.image} alt="" style={{ width: "100%", height: "100%", objectFit: "contain" }} />
                     ) : (
-                      <div style={{ width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center", color: "var(--site-text-sub)" }}>
+                      <div style={{ color: "var(--site-text-sub)" }}>
                         <FileText size={40} />
                       </div>
                     )}
@@ -109,8 +109,8 @@ export default function ArticlesPage() {
         <main style={{ flex: 1, overflowY: "auto", padding: "0 0 80px" }}>
           {/* Hero image */}
           {selected.image && (
-            <div style={{ width: "100%", maxHeight: 360, overflow: "hidden" }}>
-              <img src={selected.image} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+            <div style={{ width: "100%", maxWidth: 900, margin: "0 auto", padding: "20px 20px 0" }}>
+              <img src={selected.image} alt="" style={{ width: "100%", height: "auto", maxHeight: 520, objectFit: "contain", display: "block", margin: "0 auto", borderRadius: 10 }} />
             </div>
           )}
 
