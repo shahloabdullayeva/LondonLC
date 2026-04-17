@@ -273,30 +273,24 @@ export default function LyricsPlayer({ song, isAdmin = false }: { song: Song; is
             <span style={{ fontSize: 10, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--site-text-sub)", fontWeight: 700, marginRight: 2 }}>
               Sync
             </span>
-            {/* Bigger coarse step for large intros */}
-            <button
-              onClick={() => setOffset(o => +(o - 1).toFixed(1))}
-              title="Delay lyrics by 1 s"
-              style={syncBtn}
-            >−1s</button>
-            <button
-              onClick={() => setOffset(o => +(o - 0.2).toFixed(1))}
-              title="Delay lyrics by 0.2 s"
-              style={syncBtn}
-            >−</button>
-            <span style={{ minWidth: 56, textAlign: "center", fontSize: 12, color: "var(--site-text)", fontFamily: "'IBM Plex Mono', monospace", fontWeight: 700 }}>
-              {offset >= 0 ? "+" : ""}{offset.toFixed(1)}s
-            </span>
-            <button
-              onClick={() => setOffset(o => +(o + 0.2).toFixed(1))}
-              title="Advance lyrics by 0.2 s"
-              style={syncBtn}
-            >+</button>
-            <button
-              onClick={() => setOffset(o => +(o + 1).toFixed(1))}
-              title="Advance lyrics by 1 s"
-              style={syncBtn}
-            >+1s</button>
+            <button onClick={() => setOffset(o => +(o - 1).toFixed(1))} title="Delay lyrics by 1 s" style={syncBtn}>−1s</button>
+            <button onClick={() => setOffset(o => +(o - 0.2).toFixed(1))} title="Delay lyrics by 0.2 s" style={syncBtn}>−</button>
+            {/* Admin gets a direct number input; students see read-only display */}
+            {isAdmin ? (
+              <input
+                type="number"
+                step="0.1"
+                value={offset}
+                onChange={(e) => { const v = parseFloat(e.target.value); if (!isNaN(v)) setOffset(v); }}
+                style={{ width: 72, textAlign: "center", fontSize: 12, color: "var(--site-text)", fontFamily: "'IBM Plex Mono', monospace", fontWeight: 700, background: "var(--site-bg)", border: "1px solid var(--site-border-strong)", borderRadius: 6, padding: "4px 6px", outline: "none" }}
+              />
+            ) : (
+              <span style={{ minWidth: 56, textAlign: "center", fontSize: 12, color: "var(--site-text)", fontFamily: "'IBM Plex Mono', monospace", fontWeight: 700 }}>
+                {offset >= 0 ? "+" : ""}{offset.toFixed(1)}s
+              </span>
+            )}
+            <button onClick={() => setOffset(o => +(o + 0.2).toFixed(1))} title="Advance lyrics by 0.2 s" style={syncBtn}>+</button>
+            <button onClick={() => setOffset(o => +(o + 1).toFixed(1))} title="Advance lyrics by 1 s" style={syncBtn}>+1s</button>
             {offset !== savedOffset && (
               <>
                 {isAdmin && (
