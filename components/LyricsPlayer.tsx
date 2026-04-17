@@ -61,23 +61,38 @@ async function fetchLyrics(song: Song): Promise<{
     if (r.ok) data = await r.json();
   } catch { /* fall through to search */ }
 
-  // If the strict lookup failed (404), fall back to `/search` and
-  // take the first result. Still constrained to the artist/track.
-  if (!data) {
+  // If the strict lookup missed or returned no synced lyrics,
+  // try `/search` and pick the first result that HAS synced
+  // lyrics — preferring synced over plain.
+  if (!data || !data.syncedLyrics) {
     try {
       const s = new URLSearchParams({ artist_name: song.artist, track_name: song.title });
       const r = await fetch(`https://lrclib.net/api/search?${s.toString()}`);
       if (r.ok) {
         const arr = (await r.json()) as Array<{ syncedLyrics?: string; plainLyrics?: string }>;
-        if (arr.length > 0) data = arr[0];
+        // Prefer a result that has synced lyrics over one with only plain.
+        const synced = arr.find(x => x.syncedLyrics);
+        const fallback = arr[0];
+        const best = synced || fallback;
+        if (best) {
+          // Keep the existing data if it has synced and the search
+          // doesn't — but upgrade from plain to synced when possible.
+          if (!data?.syncedLyrics && best.syncedLyrics) data = best;
+          else if (!data) data = best;
+        }
       }
     } catch { /* swallow */ }
   }
 
   if (!data) return null;
+  // Strip LRC metadata tags that sometimes leak into plainLyrics
+  // (e.g. [ti:...], [ar:...], [al:...], [by:...], [offset:0]).
+  const cleanPlain = (text: string) =>
+    text.replace(/^\[(?:ti|ar|al|au|by|offset|length|re|ve|#|encoding):[^\]]*\]\s*$/gim, "").trim();
+
   return {
     synced: data.syncedLyrics ? parseLRC(data.syncedLyrics) : undefined,
-    plain: data.plainLyrics || undefined,
+    plain: data.plainLyrics ? cleanPlain(data.plainLyrics) : undefined,
   };
 }
 
