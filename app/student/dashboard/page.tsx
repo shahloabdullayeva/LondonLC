@@ -82,9 +82,9 @@ export default function StudentDashboard() {
           <SidebarLink icon={PenLine} label="Writing" soon
             active={sidebarView === "writing"}
             onClick={() => { setSidebarView("writing"); setSelectedBook(null); }} />
-          <SidebarLink icon={FileText} label="Articles" soon
-            active={sidebarView === "articles"}
-            onClick={() => { setSidebarView("articles"); setSelectedBook(null); }} />
+          <SidebarLink icon={FileText} label="Articles"
+            active={false}
+            onClick={() => { router.push("/articles"); }} />
           <SidebarLink icon={Mic} label="Podcasts"
             active={false}
             onClick={() => { router.push("/podcasts"); }} />
@@ -138,9 +138,8 @@ export default function StudentDashboard() {
 
           {/* Quote is now pinned at the bottom of the sidebar, not here. */}
 
-          {/* Coming-soon sections (Writing / Articles).
-              Music and Podcasts now have their own pages. */}
-          {(sidebarView === "writing" || sidebarView === "articles") && (
+          {/* Coming-soon section: Writing only now. */}
+          {sidebarView === "writing" && (
             <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "60px 32px", textAlign: "center", minHeight: 480 }}>
               <div style={{ fontSize: 11, letterSpacing: "0.3em", textTransform: "uppercase", color: "var(--site-text-muted)", marginBottom: 24, fontWeight: 600 }}>
                 {sidebarView === "writing" ? "IELTS" : sidebarView === "articles" ? "Read" : "Listen"}
@@ -150,7 +149,6 @@ export default function StudentDashboard() {
               </h1>
               <p style={{ fontSize: 15, color: "var(--site-text-muted)", maxWidth: 480, lineHeight: 1.7, marginBottom: 40 }}>
                 {sidebarView === "writing" && "Task 1 and Task 2 practice with model answers and feedback. Coming soon."}
-                {sidebarView === "articles" && "Hand-picked essays, exam tips and long reads to level up your English. Coming soon."}
               </p>
               <div style={{ fontSize: 11, letterSpacing: "0.25em", textTransform: "uppercase", color: "var(--site-text-muted)", fontWeight: 600, border: "1px solid var(--site-border-strong)", borderRadius: 999, padding: "8px 20px" }}>
                 In development
