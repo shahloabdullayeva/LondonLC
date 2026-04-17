@@ -26,6 +26,16 @@ export type Song = {
 };
 
 export const starterSongs: Song[] = [
+  // ── Taylor Swift (Love Story first by request) ────────────
+  {
+    id: "taylor-swift-love-story",
+    title: "Love Story",
+    artist: "Taylor Swift",
+    album: "Fearless",
+    youtubeId: "8xg3vE8Ie_E",
+    duration: 236,
+  },
+
   // ── Recent viral / TikTok favourites ───────────────────────
   {
     id: "melanie-martinez-playdate",
@@ -137,14 +147,38 @@ export const starterSongs: Song[] = [
     duration: 294,
   },
 
-  // ── Taylor Swift ──────────────────────────────────────────
+  // ── Taylor Swift (continued) ────────────────────────────────
   {
-    id: "taylor-swift-love-story",
-    title: "Love Story",
+    id: "taylor-swift-you-belong-with-me",
+    title: "You Belong With Me",
     artist: "Taylor Swift",
     album: "Fearless",
-    youtubeId: "8xg3vE8Ie_E",
-    duration: 236,
+    youtubeId: "VuNIsY6JdUw",
+    duration: 231,
+  },
+  {
+    id: "taylor-swift-back-to-december",
+    title: "Back to December",
+    artist: "Taylor Swift",
+    album: "Speak Now",
+    youtubeId: "QUwxKWT6m7U",
+    duration: 293,
+  },
+  {
+    id: "taylor-swift-lover",
+    title: "Lover",
+    artist: "Taylor Swift",
+    album: "Lover",
+    youtubeId: "cvUAahytk2Q",
+    duration: 221,
+  },
+  {
+    id: "taylor-swift-right-where-you-left-me",
+    title: "right where you left me",
+    artist: "Taylor Swift",
+    album: "evermore",
+    youtubeId: "YiaxOSSmXCM",
+    duration: 263,
   },
   {
     id: "taylor-swift-betty",
@@ -153,6 +187,50 @@ export const starterSongs: Song[] = [
     album: "folklore",
     youtubeId: "mn9iiP0YIyQ",
     duration: 294,
+  },
+
+  // ── Olivia Rodrigo ────────────────────────────────────────
+  {
+    id: "olivia-rodrigo-drivers-license",
+    title: "drivers license",
+    artist: "Olivia Rodrigo",
+    album: "SOUR",
+    youtubeId: "ZmDBbnmKFnI",
+    duration: 244,
+  },
+  {
+    id: "olivia-rodrigo-good-4-u",
+    title: "good 4 u",
+    artist: "Olivia Rodrigo",
+    album: "SOUR",
+    youtubeId: "gNi_6U5Pm_o",
+    duration: 178,
+  },
+  {
+    id: "olivia-rodrigo-traitor",
+    title: "traitor",
+    artist: "Olivia Rodrigo",
+    album: "SOUR",
+    youtubeId: "qqiC50BSGSI",
+    duration: 229,
+  },
+  {
+    id: "olivia-rodrigo-deja-vu",
+    title: "deja vu",
+    artist: "Olivia Rodrigo",
+    album: "SOUR",
+    youtubeId: "cii6ruuycQA",
+    duration: 215,
+  },
+
+  // ── Arctic Monkeys ────────────────────────────────────────
+  {
+    id: "arctic-monkeys-505",
+    title: "505",
+    artist: "Arctic Monkeys",
+    album: "Favourite Worst Nightmare",
+    youtubeId: "MrmPDUvKyLs",
+    duration: 253,
   },
 
   // ── Classic rock & pop legends ────────────────────────────
