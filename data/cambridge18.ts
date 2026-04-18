@@ -1701,4 +1701,562 @@ Questions 36–40: Do the statements agree with the views of the writer? Write Y
   ],
 };
 
-export const cambridge18Tests: IELTSTest[] = [cambridge18_reading_t1, cambridge18_reading_t2, cambridge18_reading_t3];
+
+// ============================================================
+// CAMBRIDGE IELTS 18 – TEST 4  (Academic Reading)
+// Passages: [TBD — paste titles from your copy of Cambridge 18 Test 4]
+// ============================================================
+// NOTE: Passage titles, passage text, question wording AND answer keys
+// are all placeholders. Paste the real text and the real answer keys
+// from your copy of Cambridge IELTS 18 Test 4 into each marked spot
+// before using this test in production. Question numbers, question
+// types, and grouping follow a plausible Cambridge layout — adjust the
+// type of any group if your copy of the book uses different task types.
+export const cambridge18_reading_t4: IELTSTest = {
+  id: "cam18-reading-academic-t4",
+  title: "Cambridge IELTS 18 – Test 4",
+  bookNumber: 18,
+  testNumber: 4,
+  type: "reading",
+  level: "academic",
+  durationMinutes: 60,
+  transferMinutes: 0,
+  sections: [
+    // ── PASSAGE 1 ─────────────────────────────────────────────
+    {
+      id: "cam18-ra-t4-s1",
+      sectionNumber: 1,
+      title: "Reading Passage 1",
+      passageTitle: "[PASTE PASSAGE 1 TITLE]",
+      passageText: `[PASTE PASSAGE 1 HERE — Cambridge 18 Test 4, Reading Passage 1. Paste as continuous prose unless the source marks paragraphs A–H, in which case keep the paragraph letters at the start of each paragraph.]`,
+      instructions: `Questions 1–7: Do the statements agree with the information given in the passage? Write TRUE, FALSE or NOT GIVEN.
+Questions 8–13: Complete the sentences below — choose NO MORE THAN TWO WORDS from the passage for each answer.`,
+      questions: [
+        // ── Q1–7: True / False / Not Given ────────────────────
+        {
+          id: "cam18-ra-t4-s1-q1",
+          number: 1,
+          groupLabel: `Questions 1–7: Do the following statements agree with the information given in Reading Passage 1?\nWrite TRUE if the statement agrees with the information.\nWrite FALSE if the statement contradicts the information.\nWrite NOT GIVEN if there is no information on this.`,
+          type: "true_false_ng",
+          question: "1. [Paste Q1 statement here]",
+          options: [
+            { label: "TRUE", value: "TRUE" },
+            { label: "FALSE", value: "FALSE" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "TRUE",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t4-s1-q2",
+          number: 2,
+          type: "true_false_ng",
+          question: "2. [Paste Q2 statement here]",
+          options: [
+            { label: "TRUE", value: "TRUE" },
+            { label: "FALSE", value: "FALSE" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "FALSE",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t4-s1-q3",
+          number: 3,
+          type: "true_false_ng",
+          question: "3. [Paste Q3 statement here]",
+          options: [
+            { label: "TRUE", value: "TRUE" },
+            { label: "FALSE", value: "FALSE" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "NOT GIVEN",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t4-s1-q4",
+          number: 4,
+          type: "true_false_ng",
+          question: "4. [Paste Q4 statement here]",
+          options: [
+            { label: "TRUE", value: "TRUE" },
+            { label: "FALSE", value: "FALSE" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "TRUE",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t4-s1-q5",
+          number: 5,
+          type: "true_false_ng",
+          question: "5. [Paste Q5 statement here]",
+          options: [
+            { label: "TRUE", value: "TRUE" },
+            { label: "FALSE", value: "FALSE" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "FALSE",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t4-s1-q6",
+          number: 6,
+          type: "true_false_ng",
+          question: "6. [Paste Q6 statement here]",
+          options: [
+            { label: "TRUE", value: "TRUE" },
+            { label: "FALSE", value: "FALSE" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "NOT GIVEN",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t4-s1-q7",
+          number: 7,
+          type: "true_false_ng",
+          question: "7. [Paste Q7 statement here]",
+          options: [
+            { label: "TRUE", value: "TRUE" },
+            { label: "FALSE", value: "FALSE" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "TRUE",
+          points: 1,
+        },
+        // ── Q8–13: Sentence completion (NO MORE THAN TWO WORDS) ─
+        {
+          id: "cam18-ra-t4-s1-q8",
+          number: 8,
+          groupLabel: `Questions 8–13: Complete the sentences below. Choose NO MORE THAN TWO WORDS from the passage for each answer.\n\n[PASTE THE SIX SENTENCES HERE — each contains a gap numbered 8, 9, 10, 11, 12, 13.]`,
+          type: "sentence_completion",
+          question: "8. [first sentence with gap 8]",
+          correctAnswer: "[ANSWER 8]",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t4-s1-q9",
+          number: 9,
+          type: "sentence_completion",
+          question: "9. [second sentence with gap 9]",
+          correctAnswer: "[ANSWER 9]",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t4-s1-q10",
+          number: 10,
+          type: "sentence_completion",
+          question: "10. [third sentence with gap 10]",
+          correctAnswer: "[ANSWER 10]",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t4-s1-q11",
+          number: 11,
+          type: "sentence_completion",
+          question: "11. [fourth sentence with gap 11]",
+          correctAnswer: "[ANSWER 11]",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t4-s1-q12",
+          number: 12,
+          type: "sentence_completion",
+          question: "12. [fifth sentence with gap 12]",
+          correctAnswer: "[ANSWER 12]",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t4-s1-q13",
+          number: 13,
+          type: "sentence_completion",
+          question: "13. [sixth sentence with gap 13]",
+          correctAnswer: "[ANSWER 13]",
+          points: 1,
+        },
+      ],
+    },
+    // ── PASSAGE 2 ─────────────────────────────────────────────
+    {
+      id: "cam18-ra-t4-s2",
+      sectionNumber: 2,
+      title: "Reading Passage 2",
+      passageTitle: "[PASTE PASSAGE 2 TITLE]",
+      passageText: `[PASTE PASSAGE 2 HERE — Cambridge 18 Test 4, Reading Passage 2. Keep the paragraph labels A–G (or A–H, whichever your copy uses) at the start of each paragraph so matching-headings questions still line up.]`,
+      instructions: `Questions 14–20: Matching headings — choose the correct heading (i–ix) for each paragraph.
+Questions 21–24: Matching features — match each statement with the correct option A–E.
+Questions 25–26: Complete the notes below — ONE WORD ONLY from the passage for each answer.`,
+      questions: [
+        // ── Q14–20: Matching headings ─────────────────────────
+        {
+          id: "cam18-ra-t4-s2-q14",
+          number: 14,
+          groupLabel: `Questions 14–20: Reading Passage 2 has seven paragraphs, A–G. Choose the correct heading for each paragraph from the list of headings below. Write the correct number, i–ix.\n\ni   [Paste heading i]\nii  [Paste heading ii]\niii [Paste heading iii]\niv  [Paste heading iv]\nv   [Paste heading v]\nvi  [Paste heading vi]\nvii [Paste heading vii]\nviii[Paste heading viii]\nix  [Paste heading ix]`,
+          type: "matching",
+          question: "14. Paragraph A",
+          options: [
+            { label: "i", value: "i" }, { label: "ii", value: "ii" }, { label: "iii", value: "iii" },
+            { label: "iv", value: "iv" }, { label: "v", value: "v" }, { label: "vi", value: "vi" },
+            { label: "vii", value: "vii" }, { label: "viii", value: "viii" }, { label: "ix", value: "ix" },
+          ],
+          correctAnswer: "i",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t4-s2-q15",
+          number: 15,
+          type: "matching",
+          question: "15. Paragraph B",
+          options: [
+            { label: "i", value: "i" }, { label: "ii", value: "ii" }, { label: "iii", value: "iii" },
+            { label: "iv", value: "iv" }, { label: "v", value: "v" }, { label: "vi", value: "vi" },
+            { label: "vii", value: "vii" }, { label: "viii", value: "viii" }, { label: "ix", value: "ix" },
+          ],
+          correctAnswer: "ii",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t4-s2-q16",
+          number: 16,
+          type: "matching",
+          question: "16. Paragraph C",
+          options: [
+            { label: "i", value: "i" }, { label: "ii", value: "ii" }, { label: "iii", value: "iii" },
+            { label: "iv", value: "iv" }, { label: "v", value: "v" }, { label: "vi", value: "vi" },
+            { label: "vii", value: "vii" }, { label: "viii", value: "viii" }, { label: "ix", value: "ix" },
+          ],
+          correctAnswer: "iii",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t4-s2-q17",
+          number: 17,
+          type: "matching",
+          question: "17. Paragraph D",
+          options: [
+            { label: "i", value: "i" }, { label: "ii", value: "ii" }, { label: "iii", value: "iii" },
+            { label: "iv", value: "iv" }, { label: "v", value: "v" }, { label: "vi", value: "vi" },
+            { label: "vii", value: "vii" }, { label: "viii", value: "viii" }, { label: "ix", value: "ix" },
+          ],
+          correctAnswer: "iv",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t4-s2-q18",
+          number: 18,
+          type: "matching",
+          question: "18. Paragraph E",
+          options: [
+            { label: "i", value: "i" }, { label: "ii", value: "ii" }, { label: "iii", value: "iii" },
+            { label: "iv", value: "iv" }, { label: "v", value: "v" }, { label: "vi", value: "vi" },
+            { label: "vii", value: "vii" }, { label: "viii", value: "viii" }, { label: "ix", value: "ix" },
+          ],
+          correctAnswer: "v",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t4-s2-q19",
+          number: 19,
+          type: "matching",
+          question: "19. Paragraph F",
+          options: [
+            { label: "i", value: "i" }, { label: "ii", value: "ii" }, { label: "iii", value: "iii" },
+            { label: "iv", value: "iv" }, { label: "v", value: "v" }, { label: "vi", value: "vi" },
+            { label: "vii", value: "vii" }, { label: "viii", value: "viii" }, { label: "ix", value: "ix" },
+          ],
+          correctAnswer: "vi",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t4-s2-q20",
+          number: 20,
+          type: "matching",
+          question: "20. Paragraph G",
+          options: [
+            { label: "i", value: "i" }, { label: "ii", value: "ii" }, { label: "iii", value: "iii" },
+            { label: "iv", value: "iv" }, { label: "v", value: "v" }, { label: "vi", value: "vi" },
+            { label: "vii", value: "vii" }, { label: "viii", value: "viii" }, { label: "ix", value: "ix" },
+          ],
+          correctAnswer: "vii",
+          points: 1,
+        },
+        // ── Q21–24: Matching features ─────────────────────────
+        {
+          id: "cam18-ra-t4-s2-q21",
+          number: 21,
+          groupLabel: `Questions 21–24: Look at the following statements and the list of options below. Match each statement with the correct option, A–E. NB: You may use any letter more than once.\n\nA  [Paste option A]\nB  [Paste option B]\nC  [Paste option C]\nD  [Paste option D]\nE  [Paste option E]\n\n[PASTE Q21–Q24 STATEMENTS HERE.]`,
+          type: "matching",
+          question: "21. [Paste Q21 statement here]",
+          options: [
+            { label: "A", value: "A" }, { label: "B", value: "B" }, { label: "C", value: "C" },
+            { label: "D", value: "D" }, { label: "E", value: "E" },
+          ],
+          correctAnswer: "A",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t4-s2-q22",
+          number: 22,
+          type: "matching",
+          question: "22. [Paste Q22 statement here]",
+          options: [
+            { label: "A", value: "A" }, { label: "B", value: "B" }, { label: "C", value: "C" },
+            { label: "D", value: "D" }, { label: "E", value: "E" },
+          ],
+          correctAnswer: "B",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t4-s2-q23",
+          number: 23,
+          type: "matching",
+          question: "23. [Paste Q23 statement here]",
+          options: [
+            { label: "A", value: "A" }, { label: "B", value: "B" }, { label: "C", value: "C" },
+            { label: "D", value: "D" }, { label: "E", value: "E" },
+          ],
+          correctAnswer: "C",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t4-s2-q24",
+          number: 24,
+          type: "matching",
+          question: "24. [Paste Q24 statement here]",
+          options: [
+            { label: "A", value: "A" }, { label: "B", value: "B" }, { label: "C", value: "C" },
+            { label: "D", value: "D" }, { label: "E", value: "E" },
+          ],
+          correctAnswer: "D",
+          points: 1,
+        },
+        // ── Q25–26: Note completion (ONE WORD ONLY) ───────────
+        {
+          id: "cam18-ra-t4-s2-q25",
+          number: 25,
+          groupLabel: `Questions 25–26: Complete the notes below. Choose ONE WORD ONLY from the passage for each answer.\n\n[PASTE THE NOTES PARAGRAPH HERE — it contains gaps numbered 25 and 26.]`,
+          type: "note_completion",
+          question: "25. [first gap in the notes]",
+          correctAnswer: "[ANSWER 25]",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t4-s2-q26",
+          number: 26,
+          type: "note_completion",
+          question: "26. [second gap in the notes]",
+          correctAnswer: "[ANSWER 26]",
+          points: 1,
+        },
+      ],
+    },
+    // ── PASSAGE 3 ─────────────────────────────────────────────
+    {
+      id: "cam18-ra-t4-s3",
+      sectionNumber: 3,
+      title: "Reading Passage 3",
+      passageTitle: "[PASTE PASSAGE 3 TITLE]",
+      passageText: `[PASTE PASSAGE 3 HERE — Cambridge 18 Test 4, Reading Passage 3. Paste as continuous prose.]`,
+      instructions: `Questions 27–30: Multiple choice — choose the correct letter A–D.
+Questions 31–35: Complete the summary below using the list of words/phrases A–I.
+Questions 36–40: Do the statements agree with the views of the writer? Write YES, NO or NOT GIVEN.`,
+      questions: [
+        // ── Q27–30: Multiple choice ───────────────────────────
+        {
+          id: "cam18-ra-t4-s3-q27",
+          number: 27,
+          groupLabel: `Questions 27–30: Choose the correct letter, A, B, C or D.`,
+          type: "multiple_choice",
+          question: "27. [Paste Q27 stem here]",
+          options: [
+            { label: "A  [paste option A]", value: "A" },
+            { label: "B  [paste option B]", value: "B" },
+            { label: "C  [paste option C]", value: "C" },
+            { label: "D  [paste option D]", value: "D" },
+          ],
+          correctAnswer: "A",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t4-s3-q28",
+          number: 28,
+          type: "multiple_choice",
+          question: "28. [Paste Q28 stem here]",
+          options: [
+            { label: "A  [paste option A]", value: "A" },
+            { label: "B  [paste option B]", value: "B" },
+            { label: "C  [paste option C]", value: "C" },
+            { label: "D  [paste option D]", value: "D" },
+          ],
+          correctAnswer: "B",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t4-s3-q29",
+          number: 29,
+          type: "multiple_choice",
+          question: "29. [Paste Q29 stem here]",
+          options: [
+            { label: "A  [paste option A]", value: "A" },
+            { label: "B  [paste option B]", value: "B" },
+            { label: "C  [paste option C]", value: "C" },
+            { label: "D  [paste option D]", value: "D" },
+          ],
+          correctAnswer: "C",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t4-s3-q30",
+          number: 30,
+          type: "multiple_choice",
+          question: "30. [Paste Q30 stem here]",
+          options: [
+            { label: "A  [paste option A]", value: "A" },
+            { label: "B  [paste option B]", value: "B" },
+            { label: "C  [paste option C]", value: "C" },
+            { label: "D  [paste option D]", value: "D" },
+          ],
+          correctAnswer: "D",
+          points: 1,
+        },
+        // ── Q31–35: Summary with list of words A–I ────────────
+        {
+          id: "cam18-ra-t4-s3-q31",
+          number: 31,
+          groupLabel: `Questions 31–35: Complete the summary below using the list of words/phrases, A–I, below.\n\nA  [paste option A]\nB  [paste option B]\nC  [paste option C]\nD  [paste option D]\nE  [paste option E]\nF  [paste option F]\nG  [paste option G]\nH  [paste option H]\nI  [paste option I]\n\n[PASTE THE SUMMARY PARAGRAPH HERE — with gaps 31, 32, 33, 34, 35.]`,
+          type: "matching",
+          question: "31. [first gap in the summary]",
+          options: [
+            { label: "A", value: "A" }, { label: "B", value: "B" }, { label: "C", value: "C" },
+            { label: "D", value: "D" }, { label: "E", value: "E" }, { label: "F", value: "F" },
+            { label: "G", value: "G" }, { label: "H", value: "H" }, { label: "I", value: "I" },
+          ],
+          correctAnswer: "A",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t4-s3-q32",
+          number: 32,
+          type: "matching",
+          question: "32. [second gap]",
+          options: [
+            { label: "A", value: "A" }, { label: "B", value: "B" }, { label: "C", value: "C" },
+            { label: "D", value: "D" }, { label: "E", value: "E" }, { label: "F", value: "F" },
+            { label: "G", value: "G" }, { label: "H", value: "H" }, { label: "I", value: "I" },
+          ],
+          correctAnswer: "B",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t4-s3-q33",
+          number: 33,
+          type: "matching",
+          question: "33. [third gap]",
+          options: [
+            { label: "A", value: "A" }, { label: "B", value: "B" }, { label: "C", value: "C" },
+            { label: "D", value: "D" }, { label: "E", value: "E" }, { label: "F", value: "F" },
+            { label: "G", value: "G" }, { label: "H", value: "H" }, { label: "I", value: "I" },
+          ],
+          correctAnswer: "C",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t4-s3-q34",
+          number: 34,
+          type: "matching",
+          question: "34. [fourth gap]",
+          options: [
+            { label: "A", value: "A" }, { label: "B", value: "B" }, { label: "C", value: "C" },
+            { label: "D", value: "D" }, { label: "E", value: "E" }, { label: "F", value: "F" },
+            { label: "G", value: "G" }, { label: "H", value: "H" }, { label: "I", value: "I" },
+          ],
+          correctAnswer: "D",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t4-s3-q35",
+          number: 35,
+          type: "matching",
+          question: "35. [fifth gap]",
+          options: [
+            { label: "A", value: "A" }, { label: "B", value: "B" }, { label: "C", value: "C" },
+            { label: "D", value: "D" }, { label: "E", value: "E" }, { label: "F", value: "F" },
+            { label: "G", value: "G" }, { label: "H", value: "H" }, { label: "I", value: "I" },
+          ],
+          correctAnswer: "E",
+          points: 1,
+        },
+        // ── Q36–40: Yes / No / Not Given ──────────────────────
+        {
+          id: "cam18-ra-t4-s3-q36",
+          number: 36,
+          groupLabel: `Questions 36–40: Do the following statements agree with the views of the writer in Reading Passage 3?\nWrite YES if the statement agrees with the views of the writer.\nWrite NO if the statement contradicts the views of the writer.\nWrite NOT GIVEN if it is impossible to say what the writer thinks about this.`,
+          type: "true_false_ng",
+          question: "36. [Paste Q36 statement here]",
+          options: [
+            { label: "YES", value: "YES" },
+            { label: "NO", value: "NO" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "YES",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t4-s3-q37",
+          number: 37,
+          type: "true_false_ng",
+          question: "37. [Paste Q37 statement here]",
+          options: [
+            { label: "YES", value: "YES" },
+            { label: "NO", value: "NO" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "NO",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t4-s3-q38",
+          number: 38,
+          type: "true_false_ng",
+          question: "38. [Paste Q38 statement here]",
+          options: [
+            { label: "YES", value: "YES" },
+            { label: "NO", value: "NO" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "NOT GIVEN",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t4-s3-q39",
+          number: 39,
+          type: "true_false_ng",
+          question: "39. [Paste Q39 statement here]",
+          options: [
+            { label: "YES", value: "YES" },
+            { label: "NO", value: "NO" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "YES",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t4-s3-q40",
+          number: 40,
+          type: "true_false_ng",
+          question: "40. [Paste Q40 statement here]",
+          options: [
+            { label: "YES", value: "YES" },
+            { label: "NO", value: "NO" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "NO",
+          points: 1,
+        },
+      ],
+    },
+  ],
+};
+
+export const cambridge18Tests: IELTSTest[] = [cambridge18_reading_t1, cambridge18_reading_t2, cambridge18_reading_t3, cambridge18_reading_t4];
