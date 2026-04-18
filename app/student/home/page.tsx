@@ -207,7 +207,7 @@ export default function StudentHomePage() {
               : "No practice yet this week. A single reading passage kicks the engine back on."}
           </p>
           <div className="flex g12" style={{ marginTop: 28 }}>
-            <button className="btn primary" onClick={() => router.push("/student/dashboard")}>
+            <button className="btn primary" onClick={() => router.push("/student/reading")}>
               Continue practice →
             </button>
             <button className="btn ghost" onClick={() => router.push("/articles")}>
@@ -319,7 +319,7 @@ export default function StudentHomePage() {
               <div
                 key={i}
                 className="list-row"
-                onClick={() => router.push("/student/dashboard")}
+                onClick={() => router.push("/student/reading")}
                 role="button"
                 tabIndex={0}
               >

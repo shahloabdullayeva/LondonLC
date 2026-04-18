@@ -20,7 +20,7 @@ function LoginContent() {
 
   useEffect(() => {
     const s = getSession();
-    if (s) router.push(s.isAdmin ? "/admin/dashboard" : "/student/dashboard");
+    if (s) router.push(s.isAdmin ? "/admin/dashboard" : "/student/home");
   }, [router]);
 
   const captureAndRecordAccess = (id: string, isAdminLogin: boolean) => {
@@ -51,7 +51,7 @@ function LoginContent() {
       if (student) {
         saveSession({ id: student.id, name: student.name, surname: student.surname, group_name: student.group_name, isAdmin: false, anticheatBypass: !!student.anticheatBypass });
         captureAndRecordAccess(student.id, false);
-        router.push("/student/dashboard");
+        router.push("/student/home");
       } else { setError("Incorrect username or password."); setLoading(false); }
     }
     setLoading(false);

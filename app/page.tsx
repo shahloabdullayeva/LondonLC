@@ -18,7 +18,7 @@ export default function HomePage() {
 
   useEffect(() => {
     const s = getSession();
-    if (s) router.push(s.isAdmin ? "/admin/dashboard" : "/student/dashboard");
+    if (s) router.push(s.isAdmin ? "/admin/dashboard" : "/student/home");
   }, [router]);
 
   useEffect(() => {

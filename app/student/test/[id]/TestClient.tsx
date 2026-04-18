@@ -334,7 +334,7 @@ export default function TestPage() {
     if (s.isAdmin && !isPracticeMode) { router.push("/admin/dashboard"); return; }
     setSession(s);
     const t = getTestById(testId);
-    if (!t) { router.push(s.isAdmin ? "/admin/dashboard" : "/student/dashboard"); return; }
+    if (!t) { router.push(s.isAdmin ? "/admin/dashboard" : "/student/home"); return; }
     setTest(t);
     setTimeLeft(t.durationMinutes * 60);
     setTransferTimeLeft(t.transferMinutes * 60);
@@ -788,7 +788,7 @@ export default function TestPage() {
               style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 8, padding: "13px", background: "#2a2a2a", color: "#fff", fontWeight: 700, fontSize: 15, border: "none", borderRadius: 12, cursor: "pointer", boxShadow: "0 4px 15px rgba(255,255,255,0.25)" }}>
               Try Again
             </button>
-            <button onClick={() => router.push(isPracticeMode ? "/admin/dashboard" : "/student/dashboard")}
+            <button onClick={() => router.push(isPracticeMode ? "/admin/dashboard" : "/student/home")}
               style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 8, padding: "13px", background: "rgba(255,255,255,0.07)", color: "rgba(255,255,255,0.7)", fontWeight: 600, fontSize: 15, border: "1px solid rgba(255,255,255,0.15)", borderRadius: 12, cursor: "pointer" }}>
               Go to Dashboard
             </button>
@@ -803,7 +803,7 @@ export default function TestPage() {
   // ============================================================
   if (phase === "submitted" && result) {
     return <ResultScreen result={result} test={test} session={session} answers={answers}
-      onBack={() => router.push(isPracticeMode ? "/admin/dashboard" : "/student/dashboard")} />;
+      onBack={() => router.push(isPracticeMode ? "/admin/dashboard" : "/student/home")} />;
   }
 
   // ============================================================
