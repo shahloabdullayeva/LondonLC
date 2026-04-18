@@ -877,6 +877,32 @@ Vinyl pressings of Eilish's most recent album were made with 100% recycled vinyl
 "Some of the biggest artists in the world are making 40 different vinyl packages that have a different unique thing just to get you to keep buying more."`,
   },
   {
+    id: "britney-spears-sells-music-catalog",
+    title: "Britney Spears sells rights to music catalog for undisclosed sum, say reports",
+    author: "Dani Anguiano, The Guardian",
+    source: "The Guardian",
+    category: "Music",
+    readingTime: 4,
+    image: "https://i.guim.co.uk/img/media/7e599eaa0e00a135bd1b5aafe97af8589cc314b0/43_0_3001_2401/master/3001.jpg?width=620&dpr=1&s=none&crop=none",
+    content: `Music publisher Primary Wave said to have bought rights to pop star's music, including Toxic and Baby One More Time
+
+Britney Spears has sold the rights to her music catalog, which includes hits such as Toxic, Baby One More Time and Gimme More, according to media reports.
+
+The music publisher Primary Wave is said to have purchased the pop star's music rights on 30 December, TMZ reported on Tuesday, citing legal documents. An unnamed source "familiar with the deal" confirmed the sale to the New York Times.
+
+The terms of the sale and the price of the catalog have not been made public, but such deals have been lucrative for artists in recent years.
+
+High-profile artists such as Bruce Springsteen, Shakira, Justin Bieber and Justin Timberlake have sold their catalogs. Springsteen sold his songs to Sony in 2021 for $500m, and that company purchased Queen's catalog for more than $1bn in 2024.
+
+Spears has released nine studio albums since her debut in 1999 and is one of the bestselling female artists. She was at the forefront of pop music for nearly two decades, and her personal struggles have been widely publicized.
+
+The 44-year-old spent nearly 14 years under a conservatorship that required her to pay attorneys to manage her life and did not allow her to make decisions about her personal affairs, career or finances. A judge terminated the legal arrangement in 2021.
+
+She recounted how the conservatorship shaped her life, controlling decisions about her diet and family planning, and "stripped me of my womanhood [and] made me into a child" in a 2023 memoir The Woman in Me.
+
+Spears has not yet publicly commented on the sale of music catalog. She has previously said she has no plans to return to the music industry or perform in the US.`,
+  },
+  {
     id: "theatre-choreographers-awards",
     title: "Give theatre choreographers and movement directors their own awards, says union group",
     author: "The Guardian",
