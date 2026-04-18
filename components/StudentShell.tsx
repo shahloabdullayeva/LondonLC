@@ -1,7 +1,4 @@
 "use client";
-// Student-area shell: left sidebar + topbar + page container.
-// Applies the "terminal" design tokens scoped under .student-shell
-// so it does not leak into landing / admin / auth pages.
 import { ReactNode, useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
@@ -9,7 +6,7 @@ import {
   LayoutDashboard, BarChart3, User2,
   BookOpen, Headphones, PenLine,
   FileText, Mic, Music,
-  MessageCircle, LogOut,
+  MessageCircle, LogOut, Menu, X,
 } from "lucide-react";
 import { getSession, clearSession, type StudentSession } from "@/lib/store";
 
@@ -68,11 +65,16 @@ export default function StudentShell({ children, wide }: { children: ReactNode; 
   const path = usePathname();
   const router = useRouter();
   const [session, setSession] = useState<StudentSession | null>(null);
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   useEffect(() => {
     const s = getSession();
     if (s && !s.isAdmin) setSession(s);
   }, []);
+
+  useEffect(() => {
+    setMobileOpen(false);
+  }, [path]);
 
   const initials = session
     ? `${(session.name?.[0] ?? "").toUpperCase()}${(session.surname?.[0] ?? "").toUpperCase()}`
@@ -83,11 +85,23 @@ export default function StudentShell({ children, wide }: { children: ReactNode; 
   return (
     <div className="student-shell" data-student-theme="terminal">
       <div className="sh-app">
-        <aside className="sb">
+        {/* Mobile overlay */}
+        {mobileOpen && (
+          <div className="sb-overlay" onClick={() => setMobileOpen(false)} />
+        )}
+
+        <aside className={`sb${mobileOpen ? " open" : ""}`}>
           <div className="sb-brand">
             <span className="name">London</span>
             <span className="dot" />
             <span className="lc">LC</span>
+            <button
+              className="sb-close"
+              onClick={() => setMobileOpen(false)}
+              aria-label="Close menu"
+            >
+              <X size={18} />
+            </button>
           </div>
 
           <div className="sb-me">
@@ -129,6 +143,13 @@ export default function StudentShell({ children, wide }: { children: ReactNode; 
 
         <main className="sh-main">
           <div className="topbar">
+            <button
+              className="sb-hamburger"
+              onClick={() => setMobileOpen(true)}
+              aria-label="Open menu"
+            >
+              <Menu size={20} />
+            </button>
             <div className="crumbs">
               London · LC <span style={{ opacity: 0.4 }}>/</span> Student <span style={{ opacity: 0.4 }}>/</span> <b>{crumbLabel(path)}</b>
             </div>
