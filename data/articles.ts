@@ -837,6 +837,46 @@ Grainge was paid more than €41m last year, in a package that included a €4.4
 Under the proposed deal, UMG would merge with a blank-cheque company set up by Pershing Square, and then list on the New York Stock Exchange. Shareholders would receive a total of €9.4bn in cash and 0.77 shares in the new company for every Universal share they own. Together, that would represent a 78% premium compared with the company's closing share price on Thursday, Pershing said.`,
   },
   {
+    id: "taylor-swift-vinyl-sales-1bn",
+    title: "The Taylor Swift effect: US vinyl sales top $1bn for the first time since 1983",
+    author: "Owen Myers, The Guardian",
+    source: "The Guardian",
+    category: "Music",
+    readingTime: 7,
+    image: "https://hips.hearstapps.com/hmg-prod/images/taylor-tiny-bubbles-68accf10c7c54.jpg?crop=1.00xw:1.00xh;0,0&resize=1200:*",
+    content: `Swift leads with 1.6m vinyl sales of The Life of a Showgirl in 2025 while Sabrina Carpenter and Kendrick Lamar round out the LP charts
+
+For the first time in over four decades, US vinyl sales have topped $1bn in annual revenue.
+
+Vinyl purchases reached $1.04bn in 2025, per a new report by the Recording Industry Association of America (RIAA) published on 16 March. It marks the 19th consecutive year of growth for the format that was once considered a niche interest.
+
+Vinyl sales grossed 46.8m in 2025, marking a rise of 7.9% from 2024's takings of 43.4m. CD sales brought in less than a third of vinyl's profits with $312.4m in revenue, while other physical formats such as cassettes brought in $25.8m.
+
+The explosive resurgence of vinyl has been led by Taylor Swift's canny marketing of the format as a collectible. Her 2025 album The Life of a Showgirl was last year's bestselling vinyl release, with 1.6m vinyl sales alone.
+
+Swift released a total of eight vinyl variants of The Life of a Showgirl with alternate cover artwork and LP colors. Some editions came with extra material from Swift, such as a Target exclusive that came with previously unseen photos, a double-sided poster, as well as a poem penned by Swift. Other editions were only available for 48-hour windows through Swift's web store.
+
+As well as vinyl, Swift's embrace of CD, cassette and digital download formats helped The Life of a Showgirl shatter music records upon its release. The singer released at least 34 variants of the album in total. The album racked up 4.002m US sales in its opening week in the highest ever first week sales recorded for an album. Of that figure, 1.3m sales were vinyl.
+
+Also in the top three of vinyl sales last year: Sabrina Carpenter, who sold 292,000 of her album Man's Best Friend, and Kendrick Lamar who moved 272,000 copies of his Grammy-winning album GNX. In fourth place was Carpenter's Short n' Sweet with 262,000 in sales, followed by Billie Eilish with 192,000 sold of her 2024 LP Hit Me Hard and Soft.
+
+Classic pop albums also proved to be an enduringly popular choice for vinyl purchases, with Fleetwood Mac's Rumours and Michael Jackson's Thriller also making the top 10 of US vinyl sales.
+
+Vinyl represented less than 10% of US music sales last year, with its $1bn revenue paling in comparison to the $9.5bn revenue that the industry made from streaming.
+
+US consumers purchased about 48.5m copies of new vinyl releases (the RIAA report does not include used vinyl sales). That figure is largely made up of traditional LP and EP releases. By contrast, CDs sold 29.5m units.
+
+Swift's dominance of vinyl has drawn criticism from some music fans and commentators. In a January video titled "Taylor Swift is Still Ruining Vinyl," the YouTube personality Anthony Fantano asked: "Once you drop eight different vinyl versions of your new album, what market demand are you really meeting at that point?
+
+"Are you really giving your fans what they want, or are you merely exploiting a very weird niche monopoly that you have over a certain market of fans who are basically going to shell money out for anything you physically drop?"
+
+Vinyl pressings of Eilish's most recent album were made with 100% recycled vinyl, while Coldplay's 2024 album Moon Music was pressed on to records made from recycled plastic bottles.
+
+"I can't even express to you how wasteful it is," Eilish said in a 2024 interview of superfluous vinyl variants. "I find it really frustrating as somebody who goes out of my way to be sustainable and do the best that I can and try to involve everybody in my team in being sustainable.
+
+"Some of the biggest artists in the world are making 40 different vinyl packages that have a different unique thing just to get you to keep buying more."`,
+  },
+  {
     id: "theatre-choreographers-awards",
     title: "Give theatre choreographers and movement directors their own awards, says union group",
     author: "The Guardian",
