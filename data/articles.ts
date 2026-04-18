@@ -1068,4 +1068,62 @@ Movement director and choreographer Polly Bennett established the CMDN in 2023 f
 
 Last month, professionals from across the theatre industry signed a petition for the Oliviers to include a video design category to "enhance the inclusivity of the Olivier awards, further reflecting the diverse and evolving nature of the performing arts". Under the current system, video designers share eligibility with other disciplines. This year, the Olivier award for best set design went to Tom Pye (set) and Ash J Woodward (video) for Paddington: The Musical while best lighting design went to Aideen Malone (lighting) and Roland Horvath (video) for Into the Woods.`,
   },
+  {
+    id: "vultures-india",
+    title: "How do you replace 40 million dead vultures?",
+    author: "Sudipto Sanyal, The Economist",
+    source: "The Economist",
+    category: "Environment",
+    readingTime: 18,
+    image: "https://www.economist.com/cdn-cgi/image/width=960,quality=80,format=auto/content-assets/images/1843_20260409_Vulture_01.jpg",
+    content: `The Jatayu Conservation Breeding Centre, the world's largest facility for protecting and breeding vultures, is hidden in a dense forest of sal and ash trees outside the town of Pinjore in northern India. You get there by following a rutted dirt track that even Google Maps doesn't know about. Santosh Kumar's family has lived in a nearby village for almost ten generations. For much of that time, vultures were a daily sight throughout the state of Haryana and, indeed, much of India. "When I was ten and an animal died," recalled Kumar, a slight 46-year-old, "hundreds of the damn birds would gather."
+
+Like many Indians who live under skies that are no longer darkened by vultures, Kumar, who runs a small shop at the edge of the forest, speaks of the birds wistfully—and conspiratorially. "All the vultures disappeared after an earthquake in Pakistan and never came back," he told me while handing over an ice-cold bottle of water. "The Pakistanis lured them with rotting corpses."
+
+Given the suddenness and scale of the vultures' disappearance, it's not surprising that the mind reaches for such far-fetched explanations. Sometime in the 1990s vultures started dropping dead throughout India—first in the thousands, then in the millions. By 2007 more than 99% of the estimated 40m vultures in South Asia had died. This was an example of what ecologists call a "functional extinction": a population so diminished that it can no longer fulfil its role in the ecosystem.
+
+At first, biologists were baffled. Livestock carcasses—vultures' main source of food—were tested for pesticides, but none appeared to be present. Then the autopsies of dead vultures began to show the presence of visceral gout, a disease that encrusts the birds' internal organs in a crystalline shroud. This prevented the vultures' kidneys from expelling uric acid, causing them to die of renal failure.
+
+The culprit turned out to be diclofenac—a non-steroidal anti-inflammatory drug (NSAID) typically prescribed to large animals, including humans. By the early 1990s, diclofenac was the cheapest and most widely used NSAID in India. Vultures, as nature's disposal system, were scavenging the remains of dead cattle and ingesting traces of the drug.
+
+[IMG:https://www.economist.com/cdn-cgi/image/width=834,quality=80,format=auto/content-assets/images/1843_20260409_Vulture_02.jpg]
+
+Because scavengers have been so prevalent, South Asia has historically not required infrastructure for the hygienic removal of animal corpses. The disappearance of vultures was thus a public-health catastrophe. The Indian government acted quickly: by 2006 it had produced an "action plan" for vulture conservation and banned the veterinary use of diclofenac. The hope was to stabilise the population by breeding three decimated species—the white-rumped Gyps bengalensis, the long-billed Gyps indicus and the slender-billed Gyps tenuirostris—in captivity. Once the vultures' natural habitats had been purged of diclofenac, they would then be released into the wild.
+
+Almost 20 years later India's wild vulture population is no longer decreasing—but it isn't flourishing either. According to a report from the Wildlife Institute of India published in November 2025, there are fewer than 5,000 vultures in the wild today. Almost three in four historical nesting sites still lie abandoned, and deforestation continues to wreak havoc. Slender-billed vultures continue to face extinction, and colonies of white-rumped vultures now persist only in fragmentary pockets.
+
+India's nine vulture-conservation centres should, in theory, offer hope. The total captive population in the country now exceeds 800—the start of a viable genetic safety-net. But they also represent a gamble. To boost the wild vulture population, the birds must survive a fraught transition from the safety of aviaries to shrinking habitats that are still plagued by illegal toxins—including diclofenac, which remains in circulation despite the ban.
+
+Vultures are found everywhere on Earth apart from Australia and Antarctica. There is huge variation between the 23 extant species: the smallest birds weigh just 2 or 3kg; the largest Himalayan griffons clock in at as much as 12kg. Without vultures, diseases that might spread to other animals would fester in carcasses. For their work in eliminating these threats, the birds have gained our respect; the Victorian naturalist J.G. Wood once called them "the acknowledged chiefs of Earth's Purifiers".
+
+In parts of India, vultures are especially revered. In the Sanskrit epic "Ramayana", the 60,000-year-old vulture king Jatayu sacrifices himself in battle to protect Rama's consort Sita. As a result, the vulture is often regarded as a symbol of dharma, or righteousness. The birds also play an essential role in Parsi funerary rites, such as in the dakhma, or Tower of Silence, an open-air structure upon which the dead are exposed to the purifying rays of the sun and consumed by scavengers.
+
+Until the diclofenac scourge of the 1990s, vultures were responsible for the disposal of roughly 27.5m cow carcasses in India each year. In the vultures' absence, rats and feral dogs have come to fill the scavenging void, albeit far less efficiently. This, in turn, has fuelled the spread of animal-borne diseases such as rabies. Eyal Frank and Anant Sudarshan, economists from the University of Chicago and the University of Warwick, have calculated that more than 500,000 Indians died between 2000 and 2005 alone because of the loss of vultures' scavenging services. They reckon that these premature deaths cost the country close to $70bn each year—roughly 1.7% of the country's GDP—during that period.
+
+[IMG:https://www.economist.com/cdn-cgi/image/width=834,quality=80,format=auto/content-assets/images/1843_20260409_Vulture_03.jpg]
+
+At the entrance to the Pinjore facility, a massive metal vulture resembling no known species keeps vigil on top of a 20-foot pole, its wings spread menacingly over a metal basket with huge eggs inside. As soon as I walked through the gate, a vet named Shravan Singh Rathore pointed towards a garage-like structure near the entrance. "We are processing the meat now," he told me by way of greeting. Inside, 22 headless goats hung from iron hooks. A puddle of blood had formed on a yellow tarp underneath.
+
+I had arrived on feeding day, which typically happens twice a week. Every month, the Pinjore facility buys roughly 6,000kg of clean goat meat for the 323 birds housed there. "In India, people usually treat their cattle themselves [with drugs], they don't call a vet," said Hemant Bajpai, the genial, moustached biologist and centre manager. "So, goat meat tends to be safer." To ensure the goats are NSAID-free, they are monitored for at least a week before they are slaughtered and samples are collected to check for contamination.
+
+The Pinjore centre houses most of its vultures in six aviaries, which are 100 feet long and 20 feet high. The walls of their cages are made from bamboo slats, so the vultures can't see out. This is to prevent them from mistaking the human caretakers for their parents—vultures are particularly prone to imprinting, a process whereby a newborn instinctively mirrors the behaviour patterns of the first moving figures it encounters.
+
+[IMG:https://www.economist.com/cdn-cgi/image/width=834,quality=80,format=auto/content-assets/images/1843_20260409_Vulture_04.jpg]
+
+According to Chris Bowden, an expert on vulture conservation, it's simply too soon to be freeing captive-bred vultures into the wild. They are only supposed to be released into vulture "safe zones": areas roughly 100km in radius where the presence of toxic NSAIDs has been drastically reduced. But it's not always easy to determine whether these zones are truly safe—especially because diclofenac, despite having been banned for veterinary use in India for almost two decades, is still very much present in the environment.
+
+This is primarily the fault of the country's teetering drug-regulatory and enforcement system. Not long ago, I managed to order ten vials of diclofenac—which remains a legal prescription drug for humans—for the equivalent of about 50 cents. Bowden also knows of several instances of Indian pharmacists selling diclofenac for use in animals, as well as nimesulide, another painkiller that vets have been banned from using because it's toxic for vultures.
+
+Bowden compared the situation in India with Nepal, which has almost entirely ended the use of toxic NSAIDs. There, released vultures have thrived: wild populations of most species have stabilised or even increased. "It's not a coincidence," he said. Nepal's vulture populations are increasing at such a steady rate without human assistance that, in 2023, its only captive breeding centre closed down after setting its last ten birds free.
+
+Yet, despite the risks, precipitous releases of vultures in India continue to happen. This is perhaps because they are institutional milestones that allow conservationists to demonstrate their ongoing relevance and India to project itself as a leader in wildlife protection. "It is often done for trivial reasons, including photo ops," Ravi Chellam, a wildlife biologist, told me.
+
+[IMG:https://www.economist.com/cdn-cgi/image/width=834,quality=80,format=auto/content-assets/images/1843_20260409_Vulture_05.jpg]
+
+A week after I left Pinjore, the chief minister of Haryana found space in his diary, meaning the long-postponed vulture release could finally go ahead. Each bird had been tagged with GSM trackers and satellite transmitters. The expensive subscriptions to these trackers will expire in a year and a half. Biologists hope that the government will sanction the funds to keep their research alive, but they are not confident.
+
+After all the pomp and preparation, the release itself was anti-climactic. The chief minister pulled a rope to hoist the pulley gate of the aviary. For half an hour, a knot of politicians, bureaucrats and conservationists watched as nothing happened. Eventually, an inquisitive bird waddled out of the aviary and lumbered about outside before flying back in. It took days for all 25 of the white-rumped vultures to fly away—by which point the VIPs had long dispersed.
+
+So far, the released vultures are thriving. Two of the birds have even paired with wild vultures, and the staff are looking forward to the eggs hatching. As Lalit Sharma, the technician, told me, "God willing, we shall see many more vultures in the sky in the next few years."`,
+  },
 ];
