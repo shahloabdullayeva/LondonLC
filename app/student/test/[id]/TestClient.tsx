@@ -343,6 +343,8 @@ export default function TestPage() {
   // ── Anti-cheat: tab visibility + window focus + fullscreen ──────────
   useEffect(() => {
     if (isPracticeMode) return;
+    // Admin-granted exception: student can leave focus without cancelling.
+    if (session?.anticheatBypass) return;
     if (phase !== "test" && phase !== "audio_playing" && phase !== "transfer") return;
 
     anticheatActiveRef.current = false;
@@ -403,7 +405,7 @@ export default function TestPage() {
       document.removeEventListener("fullscreenchange", handleFullscreenChange);
       document.removeEventListener("keydown", handlePrintScreen);
     };
-  }, [phase, isPracticeMode]);
+  }, [phase, isPracticeMode, session?.anticheatBypass]);
 
   // ── Anti-cheat: context menu + copy/paste ───────────────────────────
   useEffect(() => {

@@ -32,6 +32,10 @@ export type StudentAccount = {
   lastAccessedAt?: string;
   lastIp?: string;
   lastDeviceInfo?: { userAgent: string; platform: string; language: string };
+  // If true, the anti-cheat listeners (tab-hidden, blur, fullscreen-exit,
+  // screenshot) don't cancel this student's tests. Admin-managed exception
+  // for students who can't avoid focus loss during work hours.
+  anticheatBypass?: boolean;
 };
 
 export type TeacherAccount = {
@@ -52,6 +56,7 @@ export type StudentSession = {
   group_name: string;
   isAdmin: boolean;
   username?: string;
+  anticheatBypass?: boolean;
 };
 
 export type DeviceInfo = {
@@ -110,6 +115,7 @@ export async function getStudentAccounts(): Promise<StudentAccount[]> {
     lastAccessedAt: r.last_accessed_at ?? undefined,
     lastIp: r.last_ip ?? undefined,
     lastDeviceInfo: r.last_device_info ?? undefined,
+    anticheatBypass: !!r.anticheat_bypass,
   }));
 }
 
@@ -140,7 +146,7 @@ export async function loginStudent(username: string, password: string): Promise<
     const hashed = await hashPassword(password);
     await supabase.from("students").update({ password: hashed }).eq("id", data.id);
   }
-  return { id: data.id, username: data.username, password: data.password, name: data.name, surname: data.surname, group_name: data.group_name, createdAt: data.created_at };
+  return { id: data.id, username: data.username, password: data.password, name: data.name, surname: data.surname, group_name: data.group_name, createdAt: data.created_at, anticheatBypass: !!data.anticheat_bypass };
 }
 
 export async function deleteStudent(id: string): Promise<void> {
@@ -149,9 +155,9 @@ export async function deleteStudent(id: string): Promise<void> {
 
 export async function updateStudent(
   id: string,
-  fields: { name?: string; surname?: string; group_name?: string; username?: string; password?: string }
+  fields: { name?: string; surname?: string; group_name?: string; username?: string; password?: string; anticheatBypass?: boolean }
 ): Promise<{ ok: boolean; error?: string }> {
-  const update: Record<string, string> = {};
+  const update: Record<string, string | boolean> = {};
   if (fields.name !== undefined) update.name = fields.name.trim();
   if (fields.surname !== undefined) update.surname = fields.surname.trim();
   if (fields.group_name !== undefined) update.group_name = fields.group_name.trim();
@@ -161,6 +167,7 @@ export async function updateStudent(
     update.password = await hashPassword(trimmed);
     update.plain_password = trimmed;
   }
+  if (fields.anticheatBypass !== undefined) update.anticheat_bypass = fields.anticheatBypass;
   const { error } = await supabase.from("students").update(update).eq("id", id);
   if (error) {
     if (error.code === "23505") return { ok: false, error: "Username already exists" };

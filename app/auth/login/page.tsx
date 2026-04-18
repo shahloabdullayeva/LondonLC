@@ -49,7 +49,7 @@ function LoginContent() {
     } else {
       const student = await loginStudent(form.username.trim(), form.password);
       if (student) {
-        saveSession({ id: student.id, name: student.name, surname: student.surname, group_name: student.group_name, isAdmin: false });
+        saveSession({ id: student.id, name: student.name, surname: student.surname, group_name: student.group_name, isAdmin: false, anticheatBypass: !!student.anticheatBypass });
         captureAndRecordAccess(student.id, false);
         router.push("/student/dashboard");
       } else { setError("Incorrect username or password."); setLoading(false); }

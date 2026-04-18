@@ -193,6 +193,18 @@ export default function AdminDashboard() {
     await deleteStudent(id); setStudents(await getStudentAccounts());
   };
 
+  // Flip the anti-cheat bypass for one student. Bypassed students won't have
+  // their tests cancelled when they switch tabs, lose focus, or exit
+  // fullscreen — used for people who can't stay focused due to work/personal
+  // constraints. Regular scoring still applies.
+  const handleToggleBypass = async (id: string, current: boolean) => {
+    const next = !current;
+    const label = current ? "Remove" : "Grant";
+    if (!confirm(`${label} anti-cheat bypass for this student?\n\nWhen granted, their test will NOT be cancelled if they switch tabs, minimise the window, or lose focus. Scores still count.`)) return;
+    await updateStudent(id, { anticheatBypass: next });
+    setStudents(await getStudentAccounts());
+  };
+
   const startEditStudent = (s: StudentAccount) => {
     setEditingStudentId(s.id);
     setEditStudentForm({ name: s.name, surname: s.surname, group_name: s.group_name, username: s.username, password: "", passwordIsExisting: false });
@@ -1028,6 +1040,18 @@ export default function AdminDashboard() {
                                   border: `1.5px solid ${editingStudentId === s.id ? C.accent : "var(--site-border-strong)"}`,
                                   borderRadius: 8, color: C.accent, fontSize: 12, fontWeight: 700, cursor: "pointer" }}>
                                 <Pencil size={12} /> {editingStudentId === s.id ? "Cancel" : "Edit"}
+                              </button>
+                              <button onClick={() => handleToggleBypass(s.id, !!s.anticheatBypass)}
+                                title={s.anticheatBypass
+                                  ? "Bypass ON — anti-cheat doesn't cancel their tests. Click to revoke."
+                                  : "Grant anti-cheat bypass — their tests won't cancel on focus loss."}
+                                style={{ display: "flex", alignItems: "center", gap: 4, padding: "7px 12px",
+                                  background: s.anticheatBypass ? "rgba(251,146,60,0.12)" : "rgba(100,116,139,0.08)",
+                                  border: `1px solid ${s.anticheatBypass ? "rgba(251,146,60,0.45)" : "var(--site-border-strong)"}`,
+                                  borderRadius: 8,
+                                  color: s.anticheatBypass ? "#fb923c" : C.muted,
+                                  fontSize: 12, fontWeight: 600, cursor: "pointer" }}>
+                                <Shield size={12} /> {s.anticheatBypass ? "Bypass ON" : "Bypass"}
                               </button>
                               <button onClick={() => handleDeleteStudent(s.id)}
                                 style={{ display: "flex", alignItems: "center", gap: 4, padding: "7px 12px", background: "rgba(239,68,68,0.08)", border: `1px solid rgba(239,68,68,0.3)`, borderRadius: 8, color: C.danger, fontSize: 12, fontWeight: 600, cursor: "pointer" }}>
