@@ -364,7 +364,7 @@ export default function AdminDashboard() {
               border: `1.5px solid ${isRootAdmin ? "rgba(217,119,6,0.5)" : isAdminUser ? "rgba(37,99,235,0.5)" : C.accent}` }}>
               {currentUsername.charAt(0).toUpperCase()}
             </div>
-            <span style={{ fontSize: 13, fontWeight: 700, color: C.text, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", maxWidth: 140 }}>
+            <span style={{ fontSize: 13, fontWeight: 500, color: C.text, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", maxWidth: 140 }}>
               {currentUsername}
             </span>
           </div>
@@ -374,10 +374,10 @@ export default function AdminDashboard() {
 
         {/* Nav items */}
         <nav style={{ flex: 1, overflowY: "auto", padding: "4px 10px" }}>
-          <p style={{ fontSize: 10, fontWeight: 700, color: C.muted, letterSpacing: "0.2em", textTransform: "uppercase", margin: "6px 10px 8px", opacity: 0.6 }}>Admin</p>
+          <p style={{ fontFamily: `'JetBrains Mono', ui-monospace, monospace`, fontSize: 10, fontWeight: 500, color: C.muted, letterSpacing: "0.12em", textTransform: "uppercase", margin: "6px 10px 8px" }}>Admin</p>
           {tabs.map(({ id, Icon, label }) => (
             <button key={id} onClick={() => setActiveTab(id)}
-              style={{ display: "flex", alignItems: "center", gap: 10, width: "100%", padding: "10px 12px", borderRadius: 10, border: "none", cursor: "pointer", fontWeight: 600, fontSize: 13, textAlign: "left", marginBottom: 2, transition: "all 0.15s",
+              style={{ display: "flex", alignItems: "center", gap: 10, width: "100%", padding: "10px 12px", borderRadius: 10, border: "none", cursor: "pointer", fontWeight: 500, fontSize: 13.5, textAlign: "left", marginBottom: 2, transition: "all 0.15s",
                 background: activeTab === id ? C.accentLight : "transparent",
                 color: activeTab === id ? C.accent : C.muted }}>
               <Icon size={15} />
@@ -389,7 +389,7 @@ export default function AdminDashboard() {
               tabs (not external routes) so the sidebar stays visible.
               Reading + Listening come first (they actually exist as the
               teacher's test library); the others are placeholders. */}
-          <p style={{ fontSize: 10, fontWeight: 700, color: C.muted, letterSpacing: "0.2em", textTransform: "uppercase", margin: "18px 10px 8px", opacity: 0.6 }}>Sections</p>
+          <p style={{ fontFamily: `'JetBrains Mono', ui-monospace, monospace`, fontSize: 10, fontWeight: 500, color: C.muted, letterSpacing: "0.12em", textTransform: "uppercase", margin: "18px 10px 8px" }}>Sections</p>
           {([
             { type: "reading"   as const, Icon: BookOpen,   label: "Reading" },
             { type: "listening" as const, Icon: Headphones, label: "Listening" },
@@ -397,7 +397,7 @@ export default function AdminDashboard() {
             const active = activeTab === "tests" && testsTypeFilter === type;
             return (
               <button key={type} onClick={() => { setActiveTab("tests"); setTestsTypeFilter(type); setTestsSelectedBook(null); }}
-                style={{ display: "flex", alignItems: "center", gap: 10, width: "100%", padding: "10px 12px", borderRadius: 10, background: active ? C.accentLight : "transparent", border: "none", cursor: "pointer", fontWeight: 600, fontSize: 13, textAlign: "left", marginBottom: 2, color: active ? C.accent : C.muted }}>
+                style={{ display: "flex", alignItems: "center", gap: 10, width: "100%", padding: "10px 12px", borderRadius: 10, background: active ? C.accentLight : "transparent", border: "none", cursor: "pointer", fontWeight: 500, fontSize: 13.5, textAlign: "left", marginBottom: 2, color: active ? C.accent : C.muted }}>
                 <Icon size={15} />
                 <span style={{ flex: 1 }}>{label}</span>
                 <ChevronRight size={13} />
@@ -408,7 +408,7 @@ export default function AdminDashboard() {
             { id: "writing"  as const, Icon: PenLine,  label: "Writing",  soon: true },
           ]).map(({ id, Icon, label, soon }) => (
             <button key={id} onClick={() => setActiveTab(id)}
-              style={{ display: "flex", alignItems: "center", gap: 10, width: "100%", padding: "10px 12px", borderRadius: 10, background: activeTab === id ? C.accentLight : "transparent", border: "none", cursor: "pointer", fontWeight: 600, fontSize: 13, textAlign: "left", marginBottom: 2, color: activeTab === id ? C.accent : C.muted }}>
+              style={{ display: "flex", alignItems: "center", gap: 10, width: "100%", padding: "10px 12px", borderRadius: 10, background: activeTab === id ? C.accentLight : "transparent", border: "none", cursor: "pointer", fontWeight: 500, fontSize: 13.5, textAlign: "left", marginBottom: 2, color: activeTab === id ? C.accent : C.muted }}>
               <Icon size={15} />
               <span style={{ flex: 1 }}>{label}</span>
               {soon && (
@@ -419,19 +419,19 @@ export default function AdminDashboard() {
           ))}
           {/* Articles, Podcasts + Music have their own pages. */}
           <button onClick={() => router.push("/articles")}
-            style={{ display: "flex", alignItems: "center", gap: 10, width: "100%", padding: "10px 12px", borderRadius: 10, background: "transparent", border: "none", cursor: "pointer", fontWeight: 600, fontSize: 13, textAlign: "left", marginBottom: 2, color: C.muted }}>
+            style={{ display: "flex", alignItems: "center", gap: 10, width: "100%", padding: "10px 12px", borderRadius: 10, background: "transparent", border: "none", cursor: "pointer", fontWeight: 500, fontSize: 13.5, textAlign: "left", marginBottom: 2, color: C.muted }}>
             <FileText size={15} />
             <span style={{ flex: 1 }}>Articles</span>
             <ChevronRight size={13} />
           </button>
           <button onClick={() => router.push("/podcasts")}
-            style={{ display: "flex", alignItems: "center", gap: 10, width: "100%", padding: "10px 12px", borderRadius: 10, background: "transparent", border: "none", cursor: "pointer", fontWeight: 600, fontSize: 13, textAlign: "left", marginBottom: 2, color: C.muted }}>
+            style={{ display: "flex", alignItems: "center", gap: 10, width: "100%", padding: "10px 12px", borderRadius: 10, background: "transparent", border: "none", cursor: "pointer", fontWeight: 500, fontSize: 13.5, textAlign: "left", marginBottom: 2, color: C.muted }}>
             <Mic size={15} />
             <span style={{ flex: 1 }}>Podcasts</span>
             <ChevronRight size={13} />
           </button>
           <button onClick={() => router.push("/music")}
-            style={{ display: "flex", alignItems: "center", gap: 10, width: "100%", padding: "10px 12px", borderRadius: 10, background: "transparent", border: "none", cursor: "pointer", fontWeight: 600, fontSize: 13, textAlign: "left", marginBottom: 2, color: C.muted }}>
+            style={{ display: "flex", alignItems: "center", gap: 10, width: "100%", padding: "10px 12px", borderRadius: 10, background: "transparent", border: "none", cursor: "pointer", fontWeight: 500, fontSize: 13.5, textAlign: "left", marginBottom: 2, color: C.muted }}>
             <Music size={15} />
             <span style={{ flex: 1 }}>Music</span>
             <ChevronRight size={13} />
@@ -440,7 +440,7 @@ export default function AdminDashboard() {
           {/* My Profile — self-service account management for teachers */}
           <div style={{ height: 1, background: C.border, margin: "14px 0" }} />
           <button onClick={() => setActiveTab("profile")}
-            style={{ display: "flex", alignItems: "center", gap: 10, width: "100%", padding: "10px 12px", borderRadius: 10, border: "none", cursor: "pointer", fontWeight: 600, fontSize: 13, textAlign: "left", marginBottom: 2, transition: "all 0.15s",
+            style={{ display: "flex", alignItems: "center", gap: 10, width: "100%", padding: "10px 12px", borderRadius: 10, border: "none", cursor: "pointer", fontWeight: 500, fontSize: 13.5, textAlign: "left", marginBottom: 2, transition: "all 0.15s",
               background: activeTab === "profile" ? C.accentLight : "transparent",
               color: activeTab === "profile" ? C.accent : C.muted }}>
             <UserCircle2 size={15} />
@@ -451,7 +451,7 @@ export default function AdminDashboard() {
         {/* Sign out */}
         <div style={{ padding: "12px 10px 20px" }}>
           <button onClick={handleLogout}
-            style={{ display: "flex", alignItems: "center", gap: 8, width: "100%", padding: "10px 12px", borderRadius: 10, background: "transparent", border: `1px solid ${C.border}`, color: C.muted, fontSize: 13, fontWeight: 600, cursor: "pointer" }}>
+            style={{ display: "flex", alignItems: "center", gap: 8, width: "100%", padding: "10px 12px", borderRadius: 10, background: "transparent", border: `1px solid ${C.border}`, color: C.muted, fontSize: 13.5, fontWeight: 500, cursor: "pointer" }}>
             <LogOut size={14} /> Sign Out
           </button>
         </div>
