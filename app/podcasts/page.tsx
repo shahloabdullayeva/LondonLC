@@ -1,18 +1,16 @@
-// /podcasts — YouTube-based English learning episodes. Same
-// side-by-side layout as /music but without lyric sync —
-// just the video + a description panel.
+// /podcasts — Phase 3 redesign. Wrapped in StudentShell with the new
+// design tokens (eyebrow / h1 / lede + episode list with accent rail).
+// Keeps the real YouTube iframe player and the admin override flow so
+// teachers can swap videos without redeploying.
 "use client";
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-import Link from "next/link";
-import { Mic, Pencil, X, Check, RotateCcw } from "lucide-react";
-import Brand from "@/components/Brand";
+import { Pencil, X, Check, RotateCcw } from "lucide-react";
+import StudentShell from "@/components/StudentShell";
 import { starterEpisodes, type Episode } from "@/data/podcasts";
 import { getSession, type StudentSession } from "@/lib/store";
 
-const DISPLAY_FONT = `"Fraunces", "Iowan Old Style", Georgia, serif`;
-
-// ── YouTube API loader (singleton, shared with music page) ───
+// ── YouTube API loader (singleton) ──────────────────────────
 type YTPlayer = { destroy?: () => void; getIframe?: () => HTMLIFrameElement };
 let ytApiPromise: Promise<void> | null = null;
 function loadYouTubeApi(): Promise<void> {
@@ -29,12 +27,12 @@ function loadYouTubeApi(): Promise<void> {
   return ytApiPromise;
 }
 
-// ── Simple localStorage override for episode YouTube IDs ─────
+// ── Per-episode YouTube-ID override (localStorage) ──────────
 const STORAGE_KEY = "london-lc.podcast-overrides";
 type Overrides = Record<string, { youtubeId?: string }>;
 function readOverrides(): Overrides { try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}"); } catch { return {}; } }
 function writeOverride(id: string, youtubeId: string) { const all = readOverrides(); all[id] = { youtubeId }; localStorage.setItem(STORAGE_KEY, JSON.stringify(all)); }
-function clearOverride(id: string) { const all = readOverrides(); delete all[id]; localStorage.setItem(STORAGE_KEY, JSON.stringify(all)); }
+function clearOverrideFor(id: string) { const all = readOverrides(); delete all[id]; localStorage.setItem(STORAGE_KEY, JSON.stringify(all)); }
 
 function extractYouTubeId(input: string): string | null {
   const t = input.trim();
@@ -76,7 +74,6 @@ export default function PodcastsPage() {
   });
   const selected = episodes.find(e => e.id === selectedId) || episodes[0];
 
-  // ── YouTube player ─────────────────────────────────────────
   useEffect(() => {
     if (!selected) return;
     let destroyed = false;
@@ -105,103 +102,89 @@ export default function PodcastsPage() {
     return () => { destroyed = true; try { playerRef.current?.destroy?.(); } catch {} playerRef.current = null; };
   }, [selected?.id, selected?.youtubeId, tick]);
 
-  // ── Resizable divider ──────────────────────────────────────
-  const [descWidthPct, setDescWidthPct] = useState(35);
-  const isResizingRef = useRef(false);
-  const handleDividerMouseDown = (e: React.MouseEvent) => {
-    e.preventDefault();
-    isResizingRef.current = true;
-    const startX = e.clientX;
-    const startPct = descWidthPct;
-    const container = (e.currentTarget as HTMLElement).parentElement;
-    if (!container) return;
-    const cw = container.getBoundingClientRect().width;
-    const onMove = (ev: MouseEvent) => { const dx = ev.clientX - startX; setDescWidthPct(Math.min(65, Math.max(20, startPct - (dx / cw) * 100))); };
-    const onUp = () => { isResizingRef.current = false; document.removeEventListener("mousemove", onMove); document.removeEventListener("mouseup", onUp); };
-    document.addEventListener("mousemove", onMove);
-    document.addEventListener("mouseup", onUp);
-  };
+  if (!session) return null;
 
   return (
-    <div style={{ minHeight: "100vh", background: "var(--site-bg)", color: "var(--site-text)", fontFamily: "Inter, system-ui, sans-serif", display: "flex", flexDirection: "column" }}>
-      <nav style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "18px 32px", borderBottom: "1px solid var(--site-border)" }}>
-        <Brand href="/" size={20} />
-        <Link href="/student/dashboard" style={{ marginRight: 52, fontSize: 13, color: "var(--site-text-muted)", textDecoration: "none", fontWeight: 500 }}>← Back to dashboard</Link>
-      </nav>
+    <StudentShell>
+      <p className="eyebrow">Library · Audio</p>
+      <h1 className="h1">Podcasts <em>& episodes</em></h1>
+      <p className="lede" style={{ marginTop: 16, marginBottom: 32 }}>
+        English-learning episodes curated weekly — BBC 6 Minute English, TED-Ed, and longer
+        TED talks for advanced listeners. Streamed directly from YouTube.
+      </p>
 
-      <header style={{ padding: "32px 36px 20px", width: "100%" }}>
-        <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 6 }}>
-          <div style={{ width: 36, height: 36, borderRadius: 10, background: "var(--site-accent-dim)", display: "flex", alignItems: "center", justifyContent: "center", color: "var(--site-accent)" }}><Mic size={18} /></div>
-          <h1 style={{ fontFamily: DISPLAY_FONT, fontSize: 34, fontWeight: 500, letterSpacing: "-0.02em", color: "var(--site-text)", margin: 0 }}>
-            Podcasts <em style={{ fontStyle: "italic", fontWeight: 300, color: "var(--site-text-muted)" }}>& episodes</em>
-          </h1>
-        </div>
-        <p style={{ color: "var(--site-text-muted)", fontSize: 14, margin: "0 0 0 48px", lineHeight: 1.5 }}>English learning episodes — BBC, TED-Ed, and more.</p>
-      </header>
-
-      <div className="pod-layout" style={{ flex: 1, display: "flex", gap: 24, padding: "8px 36px 56px", width: "100%", minHeight: 0 }}>
+      <div className="pod-grid" style={{ display: "grid", gridTemplateColumns: "320px 1fr 300px", gap: 24 }}>
         {/* Episode list */}
-        <aside className="pod-list" style={{ width: 280, flexShrink: 0, display: "flex", flexDirection: "column", gap: 4, maxHeight: "calc(100vh - 220px)", overflowY: "auto" }}>
-          <p style={{ fontSize: 10, fontWeight: 700, color: "var(--site-text-sub)", letterSpacing: "0.22em", textTransform: "uppercase", margin: "4px 12px 10px" }}>Episodes · {episodes.length}</p>
+        <div className="card flush pod-list" style={{ maxHeight: 600, overflowY: "auto" }}>
+          <div className="card-hd" style={{ paddingBottom: 14 }}>
+            <span className="sub">Episodes · {episodes.length}</span>
+          </div>
           {episodes.map(ep => (
-            <EpisodeRow key={ep.id} episode={ep} active={ep.id === selectedId} isAdmin={isAdmin} onSelect={() => setSelectedId(ep.id)} onOverrideChange={() => setTick(t => t + 1)} />
+            <EpisodeRow
+              key={ep.id}
+              episode={ep}
+              active={ep.id === selectedId}
+              isAdmin={isAdmin}
+              onSelect={() => setSelectedId(ep.id)}
+              onOverrideChange={() => setTick(t => t + 1)}
+            />
           ))}
-        </aside>
+        </div>
 
-        {/* Main area */}
-        <div className="pod-main" style={{ flex: 1, display: "flex", gap: 0, minHeight: 0 }}>
-          {/* Video column */}
-          <div className="pod-video-col" style={{ display: "flex", flexDirection: "column", gap: 8, flex: 1, minWidth: 0 }}>
-            <div style={{ display: "flex", flexDirection: "column", gap: 1, flexShrink: 0 }}>
-              <div style={{ fontFamily: DISPLAY_FONT, fontSize: 20, fontWeight: 500, color: "var(--site-text)", lineHeight: 1.2 }}>{selected?.title}</div>
-              <div style={{ fontSize: 11, color: "var(--site-text-muted)" }}>
-                {selected?.channel}{selected?.duration ? ` · ${formatDuration(selected.duration)}` : ""}
-                {" · "}<a href={`https://www.youtube.com/watch?v=${selected?.youtubeId}`} target="_blank" rel="noopener noreferrer" style={{ color: "var(--site-accent)", textDecoration: "none", fontWeight: 600 }}>YouTube ↗</a>
-              </div>
-            </div>
-            <div style={{ position: "relative", width: "100%", flex: 1, minHeight: 200, background: "#000", borderRadius: 14, overflow: "hidden", border: "1px solid var(--site-border-strong)" }}>
-              <div ref={playerContainerRef} style={{ position: "absolute", inset: 0 }} />
-            </div>
+        {/* Player card */}
+        <div className="card" style={{ padding: 28 }}>
+          <p className="eyebrow">{selected?.channel}</p>
+          <h2 style={{ fontFamily: "var(--ff-serif)", fontSize: 28, fontWeight: 500, letterSpacing: "-0.01em", margin: "6px 0 10px", lineHeight: 1.2, color: "var(--text)" }}>
+            {selected?.title}
+          </h2>
+          <div style={{ fontFamily: "var(--ff-mono)", fontSize: 11, color: "var(--text-3)", letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: 20 }}>
+            {selected?.channel}{selected?.duration ? ` · ${formatDuration(selected.duration)}` : ""}
           </div>
 
-          {/* Divider */}
-          <div className="pod-divider" onMouseDown={handleDividerMouseDown} style={{ width: 10, flexShrink: 0, cursor: "col-resize", display: "flex", alignItems: "center", justifyContent: "center", zIndex: 5, userSelect: "none" }}>
-            <div style={{ width: 4, height: 40, borderRadius: 4, background: "var(--site-border-strong)", transition: "background 0.15s" }}
-              onMouseEnter={e => (e.currentTarget.style.background = "var(--site-accent)")}
-              onMouseLeave={e => (e.currentTarget.style.background = "var(--site-border-strong)")} />
+          <div style={{ aspectRatio: "16 / 9", borderRadius: 10, overflow: "hidden", border: "1px solid var(--line-2)", background: "#000", marginBottom: 16 }}>
+            <div ref={playerContainerRef} style={{ width: "100%", height: "100%" }} />
           </div>
 
-          {/* Description / transcript panel */}
-          <div className="pod-desc-col" style={{ width: `${descWidthPct}%`, flexShrink: 0, overflowY: "auto", padding: "20px 18px", background: "var(--site-card)", border: "1px solid var(--site-border)", borderRadius: 14, minHeight: 300 }}>
-            <p style={{ fontSize: 10, fontWeight: 700, color: "var(--site-text-sub)", letterSpacing: "0.2em", textTransform: "uppercase", marginBottom: 14 }}>About this episode</p>
-            <p style={{ fontSize: 15, color: "var(--site-text-muted)", lineHeight: 1.8 }}>
-              {selected?.description || "No description available for this episode."}
-            </p>
+          <div className="flex g8" style={{ flexWrap: "wrap" }}>
+            <a
+              href={`https://www.youtube.com/watch?v=${selected?.youtubeId}`}
+              target="_blank"
+              rel="noreferrer"
+              className="chip"
+              style={{ textDecoration: "none", cursor: "pointer" }}
+            >
+              open on YouTube ↗
+            </a>
+            {selected?.duration && (
+              <span className="chip" style={{ marginLeft: "auto" }}>{formatDuration(selected.duration)}</span>
+            )}
           </div>
+        </div>
+
+        {/* About panel */}
+        <div className="card pod-about">
+          <p className="eyebrow">About this episode</p>
+          <p style={{ fontSize: 14, color: "var(--text-2)", lineHeight: 1.65, margin: "10px 0 0" }}>
+            {selected?.description || "No description available for this episode."}
+          </p>
         </div>
       </div>
 
       <style>{`
-        @media (min-width: 900px) {
-          .pod-main { flex-direction: row !important; }
-          .pod-video-col { flex: 1 !important; min-width: 0 !important; }
-          .pod-desc-col { height: calc(100vh - 260px) !important; }
-          .pod-divider { display: flex !important; }
+        @media (max-width: 1100px) {
+          .pod-grid { grid-template-columns: 280px 1fr !important; }
+          .pod-about { grid-column: 1 / -1 !important; }
         }
-        @media (max-width: 899px) {
-          .pod-layout { flex-direction: column !important; padding: 8px 16px 40px !important; }
-          .pod-list { width: 100% !important; flex-direction: row !important; overflow-x: auto !important; gap: 8px !important; max-height: none !important; }
-          .pod-list p { display: none !important; }
-          .pod-main { flex-direction: column !important; }
-          .pod-divider { display: none !important; }
-          .pod-desc-col { width: 100% !important; min-height: auto !important; }
+        @media (max-width: 780px) {
+          .pod-grid { grid-template-columns: 1fr !important; }
+          .pod-list { max-height: 320px !important; }
         }
       `}</style>
-    </div>
+    </StudentShell>
   );
 }
 
-// ── Episode row with inline URL editor for admins ─────────
+// ── Episode row (with inline admin YouTube-ID editor) ─────
 function EpisodeRow({ episode, active, isAdmin, onSelect, onOverrideChange }: {
   episode: Episode; active: boolean; isAdmin: boolean; onSelect: () => void; onOverrideChange: () => void;
 }) {
@@ -211,33 +194,70 @@ function EpisodeRow({ episode, active, isAdmin, onSelect, onOverrideChange }: {
 
   const save = () => {
     const id = extractYouTubeId(url);
-    if (!id) { setError("Paste a YouTube URL or 11-char video ID."); return; }
+    if (!id) { setError("Paste a YouTube URL or 11-char ID."); return; }
     writeOverride(episode.id, id);
     setError(""); setEditing(false); setUrl(""); onOverrideChange();
   };
-  const reset = () => { clearOverride(episode.id); setEditing(false); setUrl(""); setError(""); onOverrideChange(); };
+  const reset = () => { clearOverrideFor(episode.id); setEditing(false); setUrl(""); setError(""); onOverrideChange(); };
 
   return (
-    <div style={{ padding: "10px 12px 10px 14px", borderRadius: 10, background: active ? "var(--site-accent-dim)" : "transparent", border: `1px solid ${active ? "var(--site-accent-border)" : "transparent"}`, transition: "all 0.15s", display: "flex", flexDirection: "column", gap: 6, flexShrink: 0 }}>
+    <div
+      onClick={onSelect}
+      style={{
+        padding: "14px 20px",
+        borderTop: "1px solid var(--line)",
+        background: active ? "var(--surface-2)" : "transparent",
+        borderLeft: active ? "2px solid var(--accent)" : "2px solid transparent",
+        cursor: "pointer",
+      }}
+    >
       <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-        <button onClick={onSelect} style={{ flex: 1, minWidth: 0, display: "flex", flexDirection: "column", alignItems: "flex-start", textAlign: "left", padding: 0, background: "transparent", border: "none", cursor: "pointer", color: active ? "var(--site-accent)" : "var(--site-text-muted)", fontFamily: "inherit" }}>
-          <span style={{ fontSize: 13, fontWeight: 600, lineHeight: 1.2, marginBottom: 2 }}>{episode.title}</span>
-          <span style={{ fontSize: 10, color: "var(--site-text-sub)", letterSpacing: "0.04em" }}>{episode.channel}{episode.duration ? ` · ${formatDuration(episode.duration)}` : ""}</span>
-        </button>
+        <div style={{ flex: 1, minWidth: 0 }}>
+          <div style={{ fontFamily: "var(--ff-mono)", fontSize: 9.5, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--text-3)", marginBottom: 4 }}>
+            {episode.channel}
+          </div>
+          <div style={{ fontFamily: "var(--ff-serif)", fontSize: 15, fontWeight: 500, letterSpacing: "-0.005em", lineHeight: 1.3, marginBottom: 4, color: "var(--text)" }}>
+            {episode.title}
+          </div>
+          <div style={{ fontFamily: "var(--ff-mono)", fontSize: 10.5, color: "var(--text-3)" }}>
+            {formatDuration(episode.duration)}
+          </div>
+        </div>
         {isAdmin && (
-          <button onClick={() => { setEditing(e => !e); setError(""); }} style={{ width: 26, height: 26, borderRadius: 6, background: editing ? "var(--site-accent)" : "transparent", color: editing ? "var(--site-bg)" : "var(--site-text-sub)", border: `1px solid ${editing ? "var(--site-accent)" : "var(--site-border-strong)"}`, cursor: "pointer", display: "inline-flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+          <button
+            onClick={(e) => { e.stopPropagation(); setEditing(v => !v); setError(""); }}
+            className="btn icon ghost"
+            style={{ flexShrink: 0 }}
+            aria-label={editing ? "Cancel edit" : "Edit YouTube ID"}
+          >
             {editing ? <X size={12} /> : <Pencil size={12} />}
           </button>
         )}
       </div>
       {editing && (
-        <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
-          <input type="text" value={url} onChange={e => { setUrl(e.target.value); setError(""); }} onKeyDown={e => { if (e.key === "Enter") save(); }} placeholder="Paste YouTube URL…" autoFocus
-            style={{ padding: "7px 10px", borderRadius: 6, fontSize: 12, background: "var(--site-bg)", color: "var(--site-text)", border: `1px solid ${error ? "#ef4444" : "var(--site-border-strong)"}`, outline: "none", fontFamily: "'IBM Plex Mono', monospace" }} />
-          {error && <div style={{ fontSize: 10.5, color: "#ef4444", lineHeight: 1.3 }}>{error}</div>}
+        <div onClick={(e) => e.stopPropagation()} style={{ display: "flex", flexDirection: "column", gap: 6, marginTop: 10 }}>
+          <input
+            type="text"
+            value={url}
+            onChange={e => { setUrl(e.target.value); setError(""); }}
+            onKeyDown={e => { if (e.key === "Enter") save(); }}
+            placeholder="Paste YouTube URL…"
+            autoFocus
+            style={{
+              padding: "7px 10px", borderRadius: 6, fontSize: 12,
+              background: "var(--bg)", color: "var(--text)",
+              border: `1px solid ${error ? "var(--danger)" : "var(--line-2)"}`,
+              outline: "none", fontFamily: "var(--ff-mono)",
+            }}
+          />
+          {error && <div style={{ fontSize: 10.5, color: "var(--danger)", lineHeight: 1.3 }}>{error}</div>}
           <div style={{ display: "flex", gap: 6 }}>
-            <button onClick={save} style={{ flex: 1, padding: "6px 10px", borderRadius: 6, background: "var(--site-accent)", color: "var(--site-bg)", border: "none", cursor: "pointer", fontSize: 11, fontWeight: 700, display: "inline-flex", alignItems: "center", justifyContent: "center", gap: 4 }}><Check size={12} /> Save</button>
-            <button onClick={reset} style={{ padding: "6px 10px", borderRadius: 6, background: "transparent", color: "var(--site-text-sub)", border: "1px solid var(--site-border-strong)", cursor: "pointer", fontSize: 11, fontWeight: 600, display: "inline-flex", alignItems: "center", justifyContent: "center", gap: 4 }}><RotateCcw size={11} /> Reset</button>
+            <button onClick={save} className="btn primary sm" style={{ flex: 1 }}>
+              <Check size={12} /> Save
+            </button>
+            <button onClick={reset} className="btn ghost sm">
+              <RotateCcw size={11} /> Reset
+            </button>
           </div>
         </div>
       )}

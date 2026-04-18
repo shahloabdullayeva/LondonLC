@@ -1,14 +1,13 @@
-// /articles — curated reading content for English learners.
-// Flashcard grid: each article is a card with an image + title.
-// Click a card → full reader view opens with comfortable
-// typography and font-size controls.
+// /articles — library reading. Phase 3 redesign: sits inside the new
+// StudentShell with an editor's-pick hero, filter chips and a 3-column
+// media-card grid. Reader view keeps the [CHART:…] inline marker
+// rendering from the previous version.
 "use client";
 import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
-import Link from "next/link";
-import { FileText, Clock, ArrowLeft, Minus, Plus } from "lucide-react";
-import Brand from "@/components/Brand";
-import { starterArticles, type Article } from "@/data/articles";
+import { ArrowLeft, Clock, Minus, Plus } from "lucide-react";
+import StudentShell from "@/components/StudentShell";
+import { starterArticles } from "@/data/articles";
 import { getSession } from "@/lib/store";
 
 const DISPLAY_FONT = `"Fraunces", "Iowan Old Style", Georgia, serif`;
@@ -17,171 +16,182 @@ export default function ArticlesPage() {
   const router = useRouter();
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [fontSize, setFontSize] = useState(17);
-
-  const shuffled = useMemo(() => {
-    const arr = [...starterArticles];
-    for (let i = arr.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [arr[i], arr[j]] = [arr[j], arr[i]];
-    }
-    return arr;
-  }, []);
+  const [category, setCategory] = useState<string>("All");
 
   useEffect(() => {
     const s = getSession();
     if (!s) router.push("/auth/login");
   }, [router]);
 
+  const categories = useMemo(() => {
+    const set = new Set(starterArticles.map(a => a.category));
+    return ["All", ...Array.from(set)];
+  }, []);
+
+  const list = useMemo(
+    () => category === "All" ? starterArticles : starterArticles.filter(a => a.category === category),
+    [category]
+  );
+
+  const featured = starterArticles[0];
   const selected = selectedId ? starterArticles.find(a => a.id === selectedId) : null;
 
-  return (
-    <div style={{ minHeight: "100vh", background: "var(--site-bg)", color: "var(--site-text)", fontFamily: "Inter, system-ui, sans-serif", display: "flex", flexDirection: "column" }}>
-      {/* Nav */}
-      <nav style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "18px 32px", borderBottom: "1px solid var(--site-border)", flexShrink: 0 }}>
-        <Brand href="/" size={20} />
-        <Link href="/student/dashboard" style={{ marginRight: 52, fontSize: 13, color: "var(--site-text-muted)", textDecoration: "none", fontWeight: 500 }}>← Back to dashboard</Link>
-      </nav>
+  if (selected) {
+    return (
+      <StudentShell>
+        <button
+          onClick={() => setSelectedId(null)}
+          className="btn ghost sm"
+          style={{ marginBottom: 24 }}
+        >
+          <ArrowLeft size={14} /> All articles
+        </button>
 
-      {!selected ? (
-        // ═══════════════════════════════════════════════════════
-        // GRID VIEW — flashcard tiles
-        // ═══════════════════════════════════════════════════════
-        <>
-          <header style={{ padding: "36px 36px 24px", width: "100%", maxWidth: 1100, margin: "0 auto" }}>
-            <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 6 }}>
-              <div style={{ width: 36, height: 36, borderRadius: 10, background: "var(--site-accent-dim)", display: "flex", alignItems: "center", justifyContent: "center", color: "var(--site-accent)" }}>
-                <FileText size={18} />
-              </div>
-              <h1 style={{ fontFamily: DISPLAY_FONT, fontSize: 34, fontWeight: 500, letterSpacing: "-0.02em", color: "var(--site-text)", margin: 0 }}>
-                Articles <em style={{ fontStyle: "italic", fontWeight: 300, color: "var(--site-text-muted)" }}>& guides</em>
-              </h1>
-            </div>
-            <p style={{ color: "var(--site-text-muted)", fontSize: 14, margin: "0 0 0 48px" }}>
-              {Array.from(new Set(starterArticles.map(a => a.category))).join(" · ")}
-            </p>
-          </header>
+        {selected.image && (
+          <div style={{ marginBottom: 24, borderRadius: 10, overflow: "hidden", border: "1px solid var(--line)" }}>
+            <img src={selected.image} alt="" style={{ width: "100%", height: "auto", maxHeight: 520, objectFit: "cover", display: "block" }} />
+          </div>
+        )}
 
-          <main style={{ padding: "0 36px 60px", maxWidth: 1100, margin: "0 auto", width: "100%" }}>
-            <div style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))",
-              gap: 18,
-            }}>
-              {shuffled.map(a => (
-                <button
-                  key={a.id}
-                  onClick={() => setSelectedId(a.id)}
-                  style={{
-                    textAlign: "left", padding: 0, border: "1px solid var(--site-border)",
-                    borderRadius: 14, overflow: "hidden", cursor: "pointer",
-                    background: "var(--site-card)", transition: "transform 0.15s, box-shadow 0.15s",
-                    fontFamily: "inherit", display: "flex", flexDirection: "column",
-                  }}
-                  onMouseEnter={e => { e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.boxShadow = "0 8px 24px rgba(0,0,0,0.15)"; }}
-                  onMouseLeave={e => { e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.boxShadow = "none"; }}
-                >
-                  {/* Image */}
-                  <div style={{ width: "100%", aspectRatio: "16 / 10", background: "var(--site-card-2)", overflow: "hidden", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                    {a.image ? (
-                      <img src={a.image} alt="" style={{ width: "100%", height: "100%", objectFit: "contain" }} />
-                    ) : (
-                      <div style={{ color: "var(--site-text-sub)" }}>
-                        <FileText size={40} />
-                      </div>
-                    )}
-                  </div>
-                  {/* Info */}
-                  <div style={{ padding: "14px 16px 18px" }}>
-                    <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--site-accent)", marginBottom: 6, display: "block" }}>
-                      {a.category}
-                    </span>
-                    <div style={{ fontSize: 15, fontWeight: 700, color: "var(--site-text)", lineHeight: 1.3, marginBottom: 8 }}>
-                      {a.title}
-                    </div>
-                    <div style={{ display: "flex", gap: 10, fontSize: 11, color: "var(--site-text-sub)" }}>
-                      <span>{a.author}</span>
-                      <span>·</span>
-                      <span style={{ display: "flex", alignItems: "center", gap: 3 }}>
-                        <Clock size={10} /> {a.readingTime} min
-                      </span>
-                    </div>
-                  </div>
-                </button>
-              ))}
-            </div>
-          </main>
-        </>
-      ) : (
-        // ═══════════════════════════════════════════════════════
-        // READER VIEW — full article
-        // ═══════════════════════════════════════════════════════
-        <main style={{ flex: 1, overflowY: "auto", padding: "0 0 80px" }}>
-          {/* Hero image */}
-          {selected.image && (
-            <div style={{ width: "100%", maxWidth: 900, margin: "0 auto", padding: "20px 20px 0" }}>
-              <img src={selected.image} alt="" style={{ width: "100%", height: "auto", maxHeight: 520, objectFit: "contain", display: "block", margin: "0 auto", borderRadius: 10 }} />
-            </div>
-          )}
-
-          <div style={{ maxWidth: 720, margin: "0 auto", padding: "32px 28px 0" }}>
-            {/* Back button */}
-            <button
-              onClick={() => setSelectedId(null)}
-              style={{ display: "flex", alignItems: "center", gap: 6, padding: "8px 14px", borderRadius: 8, background: "var(--site-border)", border: "none", cursor: "pointer", color: "var(--site-text-muted)", fontSize: 13, fontWeight: 600, marginBottom: 28, fontFamily: "inherit" }}
-            >
-              <ArrowLeft size={14} /> All Articles
+        <p className="eyebrow" style={{ marginBottom: 12 }}>
+          <span>{selected.category}</span>
+          <span className="rule" />
+          <span>{selected.readingTime} min read</span>
+        </p>
+        <h1 className="h1" style={{ marginBottom: 16 }}>{selected.title}</h1>
+        <div style={{ display: "flex", alignItems: "center", gap: 16, fontFamily: "var(--ff-mono)", fontSize: 11, color: "var(--text-3)", letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: 28, paddingBottom: 20, borderBottom: "1px solid var(--line)" }}>
+          <span>{selected.author}</span>
+          <span style={{ display: "flex", alignItems: "center", gap: 4 }}>
+            <Clock size={12} /> {selected.readingTime} min
+          </span>
+          <div style={{ display: "flex", alignItems: "center", gap: 4, marginLeft: "auto" }}>
+            <button onClick={() => setFontSize(s => Math.max(13, s - 1))}
+              className="btn ghost sm"
+              style={{ padding: "4px 8px" }}
+              aria-label="Smaller text">
+              <Minus size={12} />
             </button>
+            <span style={{ minWidth: 22, textAlign: "center" }}>{fontSize}</span>
+            <button onClick={() => setFontSize(s => Math.min(24, s + 1))}
+              className="btn ghost sm"
+              style={{ padding: "4px 8px" }}
+              aria-label="Bigger text">
+              <Plus size={12} />
+            </button>
+          </div>
+        </div>
 
-            {/* Article header */}
-            <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--site-accent)", marginBottom: 10, display: "block" }}>
-              {selected.category}
-            </span>
-            <h1 style={{ fontFamily: DISPLAY_FONT, fontSize: "clamp(1.8rem, 4vw, 2.4rem)", fontWeight: 500, color: "var(--site-text)", lineHeight: 1.2, marginBottom: 14, letterSpacing: "-0.01em" }}>
-              {selected.title}
-            </h1>
-            <div style={{ display: "flex", alignItems: "center", gap: 16, fontSize: 12, color: "var(--site-text-sub)", marginBottom: 28, paddingBottom: 20, borderBottom: "1px solid var(--site-border)" }}>
-              <span>{selected.author}</span>
-              <span style={{ display: "flex", alignItems: "center", gap: 4 }}>
-                <Clock size={12} /> {selected.readingTime} min read
-              </span>
-              {/* Font controls */}
-              <div style={{ display: "flex", alignItems: "center", gap: 4, marginLeft: "auto" }}>
-                <button onClick={() => setFontSize(s => Math.max(13, s - 1))} style={{ width: 28, height: 28, borderRadius: 6, background: "var(--site-border)", border: "none", cursor: "pointer", color: "var(--site-text-muted)", display: "flex", alignItems: "center", justifyContent: "center" }}><Minus size={12} /></button>
-                <span style={{ fontSize: 11, fontWeight: 700, color: "var(--site-text-muted)", minWidth: 22, textAlign: "center" }}>{fontSize}</span>
-                <button onClick={() => setFontSize(s => Math.min(24, s + 1))} style={{ width: 28, height: 28, borderRadius: 6, background: "var(--site-border)", border: "none", cursor: "pointer", color: "var(--site-text-muted)", display: "flex", alignItems: "center", justifyContent: "center" }}><Plus size={12} /></button>
-              </div>
-            </div>
+        <div style={{
+          fontSize, lineHeight: 1.85, color: "var(--text)",
+          fontFamily: DISPLAY_FONT, maxWidth: 720,
+        }}>
+          {selected.content.split(/(\[CHART:[^\]]+\])/).map((part, i) => {
+            const m = part.match(/^\[CHART:([^\]]+)\]$/);
+            if (m) {
+              const src = `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/images/${m[1]}`;
+              return (
+                <img key={i} src={src} alt="Chart"
+                  style={{ float: "left", width: "min(340px, 50%)", margin: "8px 20px 12px 0", borderRadius: 6, border: "1px solid var(--line)" }} />
+              );
+            }
+            return <span key={i} style={{ whiteSpace: "pre-line" }}>{part}</span>;
+          })}
+          <div style={{ clear: "both" }} />
+        </div>
 
-            {/* Body */}
+        <div style={{ marginTop: 48, paddingTop: 24, borderTop: "1px solid var(--line)" }}>
+          <button onClick={() => setSelectedId(null)} className="btn ghost">
+            ← Back to all articles
+          </button>
+        </div>
+      </StudentShell>
+    );
+  }
+
+  return (
+    <StudentShell>
+      <p className="eyebrow">Library · Long reads</p>
+      <h1 className="h1">
+        Articles <em>& guides</em>
+      </h1>
+      <p className="lede" style={{ marginTop: 16, marginBottom: 28 }}>
+        Selected reading for band 6.5 and above. Every article is tagged by topic and comes
+        with an estimated reading time.
+      </p>
+
+      {/* Filter chips */}
+      <div className="flex g8" style={{ flexWrap: "wrap", marginBottom: 28 }}>
+        {categories.map(c => (
+          <button
+            key={c}
+            className={`chip${category === c ? " on" : ""}`}
+            style={{ cursor: "pointer", background: "transparent", fontFamily: "inherit" }}
+            onClick={() => setCategory(c)}
+          >
+            {c}
+          </button>
+        ))}
+      </div>
+
+      {/* Editor's pick — only shown on "All" */}
+      {category === "All" && featured && (
+        <div
+          className="card flush"
+          onClick={() => setSelectedId(featured.id)}
+          role="button"
+          tabIndex={0}
+          style={{ marginBottom: 28, cursor: "pointer" }}
+        >
+          <div style={{ display: "grid", gridTemplateColumns: "1.2fr 1fr", gap: 0 }}>
             <div style={{
-              fontSize, lineHeight: 1.9, color: "var(--site-text)",
-              fontFamily: `"Lora", "Iowan Old Style", Georgia, serif`,
-            }}>
-              {selected.content.split(/(\[CHART:[^\]]+\])/).map((part, i) => {
-                const m = part.match(/^\[CHART:([^\]]+)\]$/);
-                if (m) {
-                  const src = `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/images/${m[1]}`;
-                  return (
-                    <img key={i} src={src} alt="Chart" style={{ float: "left", width: "min(340px, 50%)", margin: "8px 20px 12px 0", borderRadius: 6 }} />
-                  );
-                }
-                return <span key={i} style={{ whiteSpace: "pre-line" }}>{part}</span>;
-              })}
-              <div style={{ clear: "both" }} />
-            </div>
-
-            {/* Back to articles */}
-            <div style={{ marginTop: 48, paddingTop: 24, borderTop: "1px solid var(--site-border)", textAlign: "center" }}>
-              <button
-                onClick={() => setSelectedId(null)}
-                style={{ padding: "10px 24px", borderRadius: 10, background: "var(--site-accent-dim)", border: "1px solid var(--site-accent-border)", color: "var(--site-accent)", cursor: "pointer", fontSize: 13, fontWeight: 600, fontFamily: "inherit" }}
-              >
-                ← Back to all articles
+              minHeight: 320,
+              background: featured.image
+                ? `url(${featured.image}) center / cover`
+                : "repeating-linear-gradient(135deg, var(--line-2) 0 1px, transparent 1px 11px), var(--surface-2)",
+              display: "grid", placeItems: "center",
+            }} />
+            <div style={{ padding: 40, display: "flex", flexDirection: "column", justifyContent: "center" }}>
+              <div style={{ fontFamily: "var(--ff-mono)", fontSize: 10, letterSpacing: "0.14em", textTransform: "uppercase", color: "var(--accent)", marginBottom: 16 }}>
+                Editor&apos;s pick · {featured.category}
+              </div>
+              <h2 style={{ fontFamily: DISPLAY_FONT, fontSize: 32, fontWeight: 500, letterSpacing: "-0.015em", lineHeight: 1.15, margin: "0 0 16px", color: "var(--text)" }}>
+                {featured.title}
+              </h2>
+              <div style={{ fontFamily: "var(--ff-mono)", fontSize: 10.5, color: "var(--text-3)", letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: 20, display: "flex", gap: 12, flexWrap: "wrap" }}>
+                <span>{featured.author}</span>
+                <span>·</span>
+                <span>{featured.readingTime} min read</span>
+              </div>
+              <button className="btn primary" style={{ alignSelf: "flex-start" }} onClick={e => { e.stopPropagation(); setSelectedId(featured.id); }}>
+                Read article →
               </button>
             </div>
           </div>
-        </main>
+        </div>
       )}
-    </div>
+
+      {/* Grid */}
+      <div className="grid cols-3">
+        {list.filter(a => category !== "All" || a.id !== featured?.id).map(a => (
+          <div key={a.id} className="media-card" onClick={() => setSelectedId(a.id)} role="button" tabIndex={0}>
+            <div
+              className="thumb"
+              style={a.image ? { background: `url(${a.image}) center / cover` } : undefined}
+            >
+              <span className="badge">{a.category}</span>
+              <span className="time">{a.readingTime} min</span>
+            </div>
+            <div className="body">
+              <div className="cat">{a.category}</div>
+              <div className="t">{a.title}</div>
+              <div className="f">
+                <span style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", maxWidth: "70%" }}>{a.author}</span>
+                <span>read →</span>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </StudentShell>
   );
 }
