@@ -536,4 +536,49 @@ A different route
 
 The fact that Africa is following an idiosyncratic path does not mean it is headed for a dead end. But whatever route it is on, it needs more productive firms. Even if the continent is not having a green or an industrial revolution, it will still need a commercial one.`,
   },
+  {
+    id: "gulf-6trn-treasure-chest",
+    title: "War will drain the Gulf's $6trn treasure chest",
+    author: "The Economist",
+    category: "Economics",
+    readingTime: 8,
+    image: imageUrl("treasure.png"),
+    content: `The conflict complicates life for the custodians of Middle Eastern oil fortunes.
+
+For decades the Gulf's sovereign-wealth funds have been among the quietest and most powerful players in global finance. They have bought football clubs, skyscrapers and chunks of Wall Street's biggest names. They have backed tech startups in California and infrastructure in Asia. And they have done it all with the patience that comes from sitting atop rivers of petrodollars. Now the region's war with its neighbours threatens to drain a treasure chest worth some $6trn—and to rewrite the rules by which it has been managed.
+
+The Gulf's six main funds—the Abu Dhabi Investment Authority, Mubadala and ADQ in the United Arab Emirates; the Public Investment Fund in Saudi Arabia; the Qatar Investment Authority; and the Kuwait Investment Authority—have long operated on a simple bargain. Oil revenues flowed in, a portion was saved, and the surplus was deployed abroad to diversify national wealth away from hydrocarbons. The funds grew into giants. The PIF alone has almost quadrupled its assets since 2015, to around $940bn. Abu Dhabi's constellation of funds manages more than $1.7trn between them.
+
+That scale has made them indispensable to global capital markets. When Credit Suisse wobbled, a Saudi bank stepped in. When SoftBank needed a lifeline for its Vision Fund, the PIF wrote the cheque. When Manchester City or Newcastle United changed hands, Gulf money was behind it. The funds have become, in effect, the world's most patient lenders of last resort.
+
+But war changes the arithmetic. The current conflict has already pushed defence spending across the Gulf to record levels. Saudi Arabia's military budget is set to exceed $90bn this year, the UAE's has climbed above $30bn, and Qatar is rearming at a pace not seen in decades. At the same time, the region's governments are ramping up domestic infrastructure projects—from NEOM in Saudi Arabia to the expansion of Abu Dhabi's cultural district—that were already straining public finances before the fighting began.
+
+The result is a squeeze from both ends. Oil revenues, though still healthy, are no longer sufficient to fund both the guns and the butter. And the funds, which were designed as long-term savings vehicles, are increasingly being tapped as short-term piggy banks.
+
+A matter of mandate
+
+Consider the PIF. Once a sleepy holding company, it has been transformed under Crown Prince Muhammad bin Salman into the engine of Saudi Arabia's Vision 2030 programme. It now owns stakes in everything from Uber to Lucid Motors to the LIV Golf league. But its mandate has shifted from pure financial return to a mix of investment and domestic development. Roughly two-thirds of its spending now flows into projects inside Saudi Arabia itself. The war has only accelerated this inward turn.
+
+Abu Dhabi has taken a different path. Its funds remain more globally focused, with ADIA in particular sticking to its traditional role as a diversified institutional investor. But even here the pressures are mounting. Mubadala has increased its exposure to defence and dual-use technologies, betting that the region's security needs will generate long-term returns. ADQ has been tapped repeatedly to stabilise domestic banks and utilities. The lines between sovereign investor and state bailout fund are blurring.
+
+Qatar's QIA, flush with gas revenues, has remained relatively insulated. But even it is being drawn into the vortex. The emirate's role as a mediator in the current conflict has come with financial costs, from humanitarian aid to reconstruction pledges. And Kuwait's fund, long the most conservative of the bunch, faces the awkward reality that its home government is increasingly reliant on transfers from the fund to balance the books.
+
+The squeeze is being felt in global markets. Deal-making by Gulf funds slowed sharply in the first half of this year, according to data from Global SWF, a consultancy. Investment volumes dropped by roughly a third compared with the same period in 2024. Several high-profile transactions—including a mooted stake in a European football league and a bid for an American defence contractor—have been quietly shelved.
+
+Some of this is cyclical. The funds are waiting for oil prices to stabilise and for clarity on the war's trajectory. But some of it is structural. The shift towards domestic investment means less money is available for foreign acquisitions. And the rise of geopolitical scrutiny—particularly in America and Europe—has made large cross-border deals harder to pull off.
+
+The political dimension is particularly tricky. Washington has grown more wary of Gulf capital in sensitive sectors, from semiconductors to artificial intelligence. London has tightened rules on foreign ownership of critical infrastructure. Brussels is debating new screening mechanisms. The Gulf funds, which once moved with ease across jurisdictions, now find themselves navigating a thicket of national-security reviews.
+
+This has pushed them towards alternative markets. Asia, and particularly China and India, has become a growing focus. So has Africa, where Gulf money is backing everything from mining ventures to renewable-energy projects. The strategy is to diversify away from Western markets that are becoming less welcoming, while building economic ties with regions that may matter more in the long run.
+
+Yet diversification has its limits. The sheer size of the funds means they need deep, liquid markets to deploy capital at scale. For all their ambitions in Asia and Africa, the bulk of their holdings remain in America and Europe. And the returns on those holdings are increasingly shaped by the geopolitical currents they are trying to escape.
+
+The bigger question is what the war means for the Gulf's long-term financial model. The funds were built on the assumption that oil revenues would provide a steady surplus for decades to come. That assumption is now being tested. The energy transition, though slower than many expected, is real. Demand for oil will eventually peak. And the costs of defending the region's wealth—both literally, through military spending, and figuratively, through economic diversification—are rising.
+
+Some in the region argue that the war is a wake-up call. It has exposed the vulnerabilities of an economy still heavily dependent on hydrocarbons. It has shown that even the richest of Gulf states cannot insulate themselves from regional instability. And it has made clear that the funds, for all their power, cannot simply buy their way out of these challenges.
+
+Others take a more sanguine view. The Gulf has weathered wars before. Oil prices, if anything, tend to rise during periods of instability, cushioning the blow to government finances. And the funds, though stretched, remain enormously wealthy. Even after a decade of heavy spending, their combined assets would take generations to exhaust.
+
+The truth probably lies in between. The Gulf's treasure chest is not about to disappear. But it is being reshaped by forces its custodians cannot fully control. The funds will continue to shape global markets, but they will do so from a position that is both more powerful and more constrained than before. The era of easy, quiet, patient capital may be drawing to a close. What replaces it will depend on how the region, and the world, navigates the years ahead.`,
+  },
 ];
