@@ -1542,7 +1542,11 @@ function TabHeader({ title, subtitle, C, quote }: {
       borderBottom: `1px solid ${C.border}`, flexWrap: "wrap",
     }}>
       <div style={{ flexShrink: 0 }}>
-        <h1 style={{ fontSize: 22, fontWeight: 800, color: C.text, marginBottom: 2 }}>{title}</h1>
+        <h1 style={{
+          fontFamily: `"Fraunces", "Iowan Old Style", Georgia, serif`,
+          fontSize: 30, fontWeight: 500, letterSpacing: "-0.015em",
+          color: C.text, marginBottom: 4, lineHeight: 1.15,
+        }}>{title}</h1>
         <p style={{ fontSize: 13, color: C.muted }}>{subtitle}</p>
       </div>
       {quote && (
