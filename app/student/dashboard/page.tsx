@@ -1,20 +1,22 @@
 "use client";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { BookOpen, Headphones, LogOut, User, Clock, Award, ChevronRight, BarChart3, Star, ChevronLeft, Lock, History, ChevronDown, ChevronUp } from "lucide-react";
-import { getSession, clearSession, getAttempts, type AttemptData } from "@/lib/store";
+import { BookOpen, Headphones, LogOut, User, Clock, Award, ChevronRight, BarChart3, Star, ChevronLeft, Lock, History, ChevronDown, ChevronUp, PenLine, FileText, Mic, Music, UserCircle2, Eye, EyeOff, Flame } from "lucide-react";
+import { getSession, clearSession, getAttempts, changeStudentOwnPassword, type AttemptData } from "@/lib/store";
 import { allTests, getTestById } from "@/data/ielts-tests";
+import { quotes, type Quote } from "@/lib/quotes";
+import Brand from "@/components/Brand";
 import type { StudentSession } from "@/lib/store";
 
 type TestType = "reading" | "listening";
-type SidebarView = "reading" | "listening" | "history";
+type SidebarView = "reading" | "listening" | "profile" | "writing" | "articles" | "podcasts" | "music";
 
 // Books that have real test content available
-const AVAILABLE_BOOKS = [10, 11, 12, 13, 14, 15, 16, 17, 18];
+const AVAILABLE_BOOKS = [10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
 
 const S = {
-  page: { minHeight: "100vh", background: "#0a051f", fontFamily: "Inter, system-ui, sans-serif", display: "flex", flexDirection: "column" as const },
-  nav: { display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 28px", height: 60, background: "#110730", borderBottom: "1px solid rgba(255,255,255,0.08)", flexShrink: 0 as const },
+  page: { minHeight: "100vh", background: "var(--site-bg)", fontFamily: "Inter, system-ui, sans-serif", display: "flex", flexDirection: "column" as const },
+  nav: { display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 28px", height: 60, background: "var(--site-bg)", borderBottom: "1px solid var(--site-border)", flexShrink: 0 as const },
 };
 
 export default function StudentDashboard() {
@@ -25,6 +27,7 @@ export default function StudentDashboard() {
   const [selectedBook, setSelectedBook] = useState<number | null>(null);
   const [expandedAttempt, setExpandedAttempt] = useState<string | null>(null);
   const [attempts, setAttempts] = useState<AttemptData[]>([]);
+  const [quote, setQuote] = useState<Quote | null>(null);
 
   useEffect(() => {
     const s = getSession();
@@ -32,6 +35,11 @@ export default function StudentDashboard() {
     setSession(s);
     getAttempts().then(all => setAttempts(all.filter(a => a.studentId === s.id)));
   }, [router]);
+
+  // Pick a random quote each visit. Client-side to avoid hydration mismatch.
+  useEffect(() => {
+    if (quotes.length > 0) setQuote(quotes[Math.floor(Math.random() * quotes.length)]);
+  }, []);
   const typeAttempts = attempts.filter(a => a.testType === typeFilter && a.status === "completed");
   const completed = attempts.filter(a => a.status === "completed");
   const avgBand = typeAttempts.length ? (typeAttempts.reduce((s, a) => s + a.bandScore, 0) / typeAttempts.length).toFixed(1) : "—";
@@ -44,87 +52,143 @@ export default function StudentDashboard() {
     <div style={S.page}>
       {/* Navbar */}
       <nav style={S.nav}>
-        <span style={{ fontWeight: 900, fontSize: 19, color: "#fff", letterSpacing: "-0.3px", fontFamily: "Inter, system-ui, sans-serif" }}>London <span style={{ color: "#a78bfa" }}>LC</span></span>
-        <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
-          <div style={{ display: "flex", alignItems: "center", gap: 8, padding: "6px 14px", background: "rgba(255,255,255,0.06)", borderRadius: 20, border: "1px solid rgba(255,255,255,0.1)" }}>
-            <div style={{ width: 26, height: 26, borderRadius: "50%", background: "linear-gradient(135deg,#7c3aed,#a78bfa)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-              <User size={12} color="white" />
-            </div>
-            <span style={{ fontSize: 13, fontWeight: 600, color: "#e8eeff" }}>{session.name} {session.surname}</span>
-            <span style={{ fontSize: 11, padding: "2px 8px", background: "rgba(124,58,237,0.3)", borderRadius: 10, color: "#c4b5fd", fontWeight: 600 }}>{session.group_name}</span>
+        {/* Brand mark — same component everywhere */}
+        <Brand size={20} />
+        {/* Profile pill — click to jump into My Profile (where Sign Out lives).
+            Extra right margin keeps the floating theme picker from overlapping. */}
+        <button onClick={() => { setSidebarView("profile"); setSelectedBook(null); }}
+          style={{ display: "flex", alignItems: "center", gap: 8, padding: "6px 14px", marginRight: 52, background: "var(--site-border)", borderRadius: 20, border: "1px solid var(--site-border)", cursor: "pointer", fontFamily: "inherit" }}>
+          <div style={{ width: 26, height: 26, borderRadius: "50%", background: "var(--site-card-2)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <User size={12} color="currentColor" />
           </div>
-          <button onClick={() => { clearSession(); router.push("/"); }}
-            style={{ display: "flex", alignItems: "center", gap: 6, padding: "7px 14px", background: "transparent", border: "1px solid rgba(255,255,255,0.12)", borderRadius: 9, color: "rgba(255,255,255,0.5)", fontSize: 13, cursor: "pointer" }}>
-            <LogOut size={13} /> Sign Out
-          </button>
-        </div>
+          <span style={{ fontSize: 13, fontWeight: 600, color: "var(--site-text)" }}>{session.name} {session.surname}</span>
+          <span style={{ fontSize: 11, padding: "2px 8px", background: "var(--site-border)", borderRadius: 10, color: "var(--site-text)", fontWeight: 600 }}>{session.group_name}</span>
+        </button>
       </nav>
 
       <div className="student-layout" style={{ flex: 1, display: "flex", overflow: "hidden" }}>
-        {/* Sidebar */}
-        <aside className="student-sidebar" style={{ width: 220, background: "#0e0828", borderRight: "1px solid rgba(255,255,255,0.07)", padding: "28px 16px", display: "flex", flexDirection: "column", gap: 6, flexShrink: 0 }}>
-          <p style={{ fontSize: 11, fontWeight: 700, color: "rgba(255,255,255,0.3)", letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: 8, paddingLeft: 8 }}>Tests</p>
-          {[
-            { view: "reading" as SidebarView, type: "reading" as TestType, icon: BookOpen, label: "Reading" },
-            { view: "listening" as SidebarView, type: "listening" as TestType, icon: Headphones, label: "Listening" },
-          ].map(item => (
-            <button key={item.view} onClick={() => { setSidebarView(item.view); setTypeFilter(item.type); setSelectedBook(null); }}
-              style={{ display: "flex", alignItems: "center", gap: 10, padding: "11px 14px", borderRadius: 11, border: "none", cursor: "pointer", fontWeight: 600, fontSize: 14, transition: "all 0.18s", textAlign: "left",
-                background: sidebarView === item.view ? "rgba(124,58,237,0.18)" : "transparent",
-                color: sidebarView === item.view ? "#c4b5fd" : "rgba(255,255,255,0.45)",
-                borderLeft: sidebarView === item.view ? "2px solid #7c3aed" : "2px solid transparent",
-              }}>
-              <item.icon size={16} /> {item.label}
-            </button>
-          ))}
-          <div style={{ height: 1, background: "rgba(255,255,255,0.07)", margin: "10px 0" }} />
-          <button onClick={() => { setSidebarView("history"); setSelectedBook(null); }}
-            style={{ display: "flex", alignItems: "center", gap: 10, padding: "11px 14px", borderRadius: 11, border: "none", cursor: "pointer", fontWeight: 600, fontSize: 14, transition: "all 0.18s", textAlign: "left",
-              background: sidebarView === "history" ? "rgba(124,58,237,0.18)" : "transparent",
-              color: sidebarView === "history" ? "#c4b5fd" : "rgba(255,255,255,0.45)",
-              borderLeft: sidebarView === "history" ? "2px solid #7c3aed" : "2px solid transparent",
-            }}>
-            <History size={16} /> My History
-          </button>
+        {/* Sidebar — flat list of sections, each with an arrow. */}
+        <aside className="student-sidebar" style={{ width: 240, background: "var(--site-nav)", borderRight: "1px solid var(--site-border)", padding: "24px 14px", display: "flex", flexDirection: "column", gap: 2, flexShrink: 0, overflowY: "auto" }}>
+          <p style={{ fontSize: 10, fontWeight: 700, color: "var(--site-text-sub)", letterSpacing: "0.2em", textTransform: "uppercase", margin: "0 0 10px", paddingLeft: 10 }}>
+            Sections
+          </p>
+
+          <SidebarLink icon={Headphones} label="Listening"
+            active={sidebarView === "listening"}
+            onClick={() => { setSidebarView("listening"); setTypeFilter("listening"); setSelectedBook(null); }} />
+          <SidebarLink icon={BookOpen} label="Reading"
+            active={sidebarView === "reading"}
+            onClick={() => { setSidebarView("reading"); setTypeFilter("reading"); setSelectedBook(null); }} />
+          <SidebarLink icon={PenLine} label="Writing" soon
+            active={sidebarView === "writing"}
+            onClick={() => { setSidebarView("writing"); setSelectedBook(null); }} />
+          <SidebarLink icon={FileText} label="Articles"
+            active={false}
+            onClick={() => { router.push("/articles"); }} />
+          <SidebarLink icon={Mic} label="Podcasts"
+            active={false}
+            onClick={() => { router.push("/podcasts"); }} />
+          <SidebarLink icon={Music} label="Music"
+            active={false}
+            onClick={() => { router.push("/music"); }} />
+
+          <div style={{ height: 1, background: "var(--site-border)", margin: "14px 0" }} />
+
+          <SidebarLink icon={UserCircle2} label="My Profile"
+            active={sidebarView === "profile"}
+            onClick={() => { setSidebarView("profile"); setSelectedBook(null); }} />
 
         </aside>
 
         {/* Main content */}
         <main className="student-main" style={{ flex: 1, overflowY: "auto", padding: "32px 36px" }}>
-          {/* Welcome */}
-          <div style={{ marginBottom: 28 }}>
-            <h1 style={{ fontSize: 26, fontWeight: 800, color: "#fff", marginBottom: 4 }}>
-              Welcome Back, {session.name}!
-            </h1>
-            <p style={{ color: "rgba(255,255,255,0.4)", fontSize: 14 }}>Ready to boost your IELTS score? Let&apos;s practice!</p>
+          {/* Welcome + quote in the same title row, separated by a thin
+              divider from the content below — same pattern as the admin
+              Results tab. */}
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 20, marginBottom: 24, paddingBottom: 18, borderBottom: "1px solid var(--site-border)", flexWrap: "wrap" }}>
+            <div style={{ flexShrink: 0 }}>
+              <h1 style={{ fontSize: 26, fontWeight: 800, color: "var(--site-text)", marginBottom: 4 }}>
+                Welcome Back, {session.name}!
+              </h1>
+              <p style={{ color: "var(--site-text-muted)", fontSize: 14 }}>Ready to boost your IELTS score? Let&apos;s practice!</p>
+            </div>
+            {quote && (
+              <figure style={{
+                margin: 0, flex: 1, minWidth: 260, maxWidth: 620,
+                padding: "8px 18px",
+                borderLeft: "2px solid var(--site-border-strong)",
+              }}>
+                <blockquote style={{
+                  margin: 0, fontSize: 13, color: "var(--site-text-muted)",
+                  lineHeight: 1.5, fontStyle: "italic", fontWeight: 300,
+                }}>
+                  &ldquo;{quote.text}&rdquo;
+                </blockquote>
+                {quote.author && (
+                  <figcaption style={{
+                    marginTop: 4, fontSize: 10, letterSpacing: "0.18em",
+                    textTransform: "uppercase", color: "var(--site-text-sub)", fontWeight: 600,
+                  }}>
+                    — {quote.author}
+                  </figcaption>
+                )}
+              </figure>
+            )}
           </div>
 
-          {/* Stats */}
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", gap: 14, marginBottom: 36 }}>
-            {[
-              { label: "Total Tests", value: typeAttempts.length, icon: BarChart3, sub: typeFilter === "reading" ? "Reading tests" : "Listening tests", color: "#8b5cf6" },
-              { label: "Average Score", value: avgBand, icon: Award, sub: typeFilter === "reading" ? "Reading average" : "Listening average", color: "#10b981" },
-              { label: "Best Score", value: bestBand, icon: Star, sub: typeFilter === "reading" ? "Reading best" : "Listening best", color: "#f59e0b" },
-              { label: "All Completed", value: completed.length, icon: Clock, sub: "All test types", color: "#8b5cf6" },
-            ].map(s => (
-              <div key={s.label} style={{ background: "#140b35", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 16, padding: "20px 20px 16px" }}>
-                <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 12 }}>
-                  <s.icon size={15} color={s.color} />
-                  <span style={{ fontSize: 12, color: "rgba(255,255,255,0.4)", fontWeight: 600 }}>{s.label}</span>
-                </div>
-                <div style={{ fontSize: 28, fontWeight: 900, color: "#fff", lineHeight: 1, marginBottom: 4 }}>{s.value}</div>
-                <div style={{ fontSize: 11, color: "rgba(255,255,255,0.3)" }}>{s.sub}</div>
+          {/* Quote is now pinned at the bottom of the sidebar, not here. */}
+
+          {/* Coming-soon section: Writing only now. */}
+          {sidebarView === "writing" && (
+            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "60px 32px", textAlign: "center", minHeight: 480 }}>
+              <div style={{ fontSize: 11, letterSpacing: "0.3em", textTransform: "uppercase", color: "var(--site-text-muted)", marginBottom: 24, fontWeight: 600 }}>
+                {sidebarView === "writing" ? "IELTS" : sidebarView === "articles" ? "Read" : "Listen"}
               </div>
-            ))}
-          </div>
+              <h1 style={{ fontFamily: `"Fraunces", "Iowan Old Style", Georgia, serif`, fontSize: "clamp(3rem, 7vw, 5rem)", fontWeight: 300, letterSpacing: "-0.02em", color: "var(--site-text)", lineHeight: 1, marginBottom: 28, textTransform: "capitalize" }}>
+                {sidebarView}
+              </h1>
+              <p style={{ fontSize: 15, color: "var(--site-text-muted)", maxWidth: 480, lineHeight: 1.7, marginBottom: 40 }}>
+                {sidebarView === "writing" && "Task 1 and Task 2 practice with model answers and feedback. Coming soon."}
+              </p>
+              <div style={{ fontSize: 11, letterSpacing: "0.25em", textTransform: "uppercase", color: "var(--site-text-muted)", fontWeight: 600, border: "1px solid var(--site-border-strong)", borderRadius: 999, padding: "8px 20px" }}>
+                In development
+              </div>
+            </div>
+          )}
 
-          {/* History view */}
-          {sidebarView === "history" ? (
+          {/* Stats (hidden on profile view — profile has its own stats) */}
+          {sidebarView !== "profile" && sidebarView !== "writing" && sidebarView !== "articles" && sidebarView !== "podcasts" && sidebarView !== "music" && (
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", gap: 14, marginBottom: 36 }}>
+              {[
+                { label: "Total Tests", value: typeAttempts.length, icon: BarChart3, sub: typeFilter === "reading" ? "Reading tests" : "Listening tests", color: "var(--site-text)" },
+                { label: "Average Score", value: avgBand, icon: Award, sub: typeFilter === "reading" ? "Reading average" : "Listening average", color: "#10b981" },
+                { label: "Best Score", value: bestBand, icon: Star, sub: typeFilter === "reading" ? "Reading best" : "Listening best", color: "#f59e0b" },
+                { label: "All Completed", value: completed.length, icon: Clock, sub: "All test types", color: "var(--site-text)" },
+              ].map(s => (
+                <div key={s.label} style={{ background: "var(--site-card)", border: "1px solid var(--site-border)", borderRadius: 16, padding: "20px 20px 16px" }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 12 }}>
+                    <s.icon size={15} color={s.color} />
+                    <span style={{ fontSize: 12, color: "var(--site-text-muted)", fontWeight: 600 }}>{s.label}</span>
+                  </div>
+                  <div style={{ fontSize: 28, fontWeight: 900, color: "var(--site-text)", lineHeight: 1, marginBottom: 4 }}>{s.value}</div>
+                  <div style={{ fontSize: 11, color: "var(--site-text-sub)" }}>{s.sub}</div>
+                </div>
+              ))}
+            </div>
+          )}
+
+          {/* Profile view: account info + stats + password + history */}
+          {sidebarView === "profile" ? (
             <div>
-              <h2 style={{ fontSize: 18, fontWeight: 800, color: "#fff", marginBottom: 4 }}>My Test History</h2>
-              <p style={{ fontSize: 13, color: "rgba(255,255,255,0.4)", marginBottom: 24 }}>All your completed and cancelled tests with full answer details.</p>
+              <ProfilePanel
+                session={session}
+                attempts={attempts}
+                onSignOut={() => { clearSession(); router.push("/"); }}
+              />
+              <h2 style={{ fontSize: 18, fontWeight: 800, color: "var(--site-text)", marginBottom: 4, marginTop: 40 }}>My Test History</h2>
+              <p style={{ fontSize: 13, color: "var(--site-text-muted)", marginBottom: 24 }}>All your completed and cancelled tests with full answer details.</p>
               {attempts.length === 0 ? (
-                <div style={{ textAlign: "center", padding: "60px 0", color: "rgba(255,255,255,0.3)" }}>
+                <div style={{ textAlign: "center", padding: "60px 0", color: "var(--site-text-sub)" }}>
                   <History size={36} style={{ margin: "0 auto 12px", opacity: 0.3 }} />
                   <p style={{ fontWeight: 600 }}>No test history yet.</p>
                 </div>
@@ -134,12 +198,15 @@ export default function StudentDashboard() {
                     const isExpanded = expandedAttempt === a.id;
                     const testData = a.status === "completed" ? getTestById(a.testId) : null;
                     return (
-                      <div key={a.id} style={{ background: "#140b35", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 14, overflow: "hidden" }}>
+                      <div key={a.id} style={{ background: "var(--site-card)", border: "1px solid var(--site-border)", borderRadius: 14, overflow: "hidden" }}>
                         <div onClick={() => setExpandedAttempt(isExpanded ? null : a.id)}
                           style={{ display: "flex", alignItems: "center", gap: 14, padding: "14px 18px", cursor: "pointer", flexWrap: "wrap" }}>
                           <div style={{ flex: 1, minWidth: 0 }}>
-                            <div style={{ fontWeight: 700, fontSize: 14, color: "#e8eeff", marginBottom: 2 }}>{a.testTitle}</div>
-                            <div style={{ display: "flex", gap: 10, flexWrap: "wrap", fontSize: 12, color: "rgba(255,255,255,0.4)" }}>
+                            <div style={{ fontWeight: 700, fontSize: 14, color: "var(--site-text)", marginBottom: 2 }}>
+                              {a.testTitle}
+                              {a.testType === "reading" && !/reading/i.test(a.testTitle) && " – Reading"}
+                            </div>
+                            <div style={{ display: "flex", gap: 10, flexWrap: "wrap", fontSize: 12, color: "var(--site-text-muted)" }}>
                               <span>{a.testType}</span>
                               <span>·</span>
                               <span>{new Date(a.submittedAt).toLocaleDateString()}</span>
@@ -150,38 +217,46 @@ export default function StudentDashboard() {
                           <div style={{ display: "flex", gap: 10, alignItems: "center", flexShrink: 0 }}>
                             {a.status === "completed" ? (
                               <>
-                                <span style={{ fontSize: 12, color: "rgba(255,255,255,0.5)" }}>{a.score}/{a.maxScore}</span>
-                                <span style={{ fontSize: 18, fontWeight: 900, color: "#a78bfa" }}>{a.bandScore}</span>
+                                <span style={{ fontSize: 12, color: "var(--site-text-muted)" }}>{a.score}/{a.maxScore}</span>
+                                <span style={{ fontSize: 18, fontWeight: 900, color: "var(--site-text)" }}>{a.bandScore}</span>
                               </>
                             ) : (
                               <span style={{ fontSize: 12, padding: "3px 9px", borderRadius: 10, background: "rgba(239,68,68,0.15)", color: "#f87171", fontWeight: 600 }}>Cancelled</span>
                             )}
-                            {isExpanded ? <ChevronUp size={14} color="rgba(255,255,255,0.35)" /> : <ChevronDown size={14} color="rgba(255,255,255,0.35)" />}
+                            {isExpanded ? <ChevronUp size={14} color="var(--site-text-sub)" /> : <ChevronDown size={14} color="var(--site-text-sub)" />}
                           </div>
                         </div>
-                        {isExpanded && testData && a.status === "completed" && (
-                          <div style={{ borderTop: "1px solid rgba(255,255,255,0.06)", padding: "16px 18px" }}>
+                        {/* Answer details — shown for both completed AND cancelled tests.
+                            For cancelled tests the student can still see which answers
+                            they'd filled in before leaving the exam + the correct keys. */}
+                        {isExpanded && testData && (
+                          <div style={{ borderTop: "1px solid var(--site-border)", padding: "16px 18px" }}>
+                            {a.status === "cancelled" && (
+                              <div style={{ marginBottom: 14, fontSize: 12, color: "#fca5a5" }}>
+                                This test was cancelled before submission. Answers filled in so far are shown below.
+                              </div>
+                            )}
                             {testData.sections.map(sec => (
                               <div key={sec.id} style={{ marginBottom: 20 }}>
-                                <div style={{ fontSize: 12, fontWeight: 700, color: "rgba(255,255,255,0.4)", marginBottom: 10, textTransform: "uppercase", letterSpacing: "0.06em" }}>{sec.title}</div>
+                                <div style={{ fontSize: 12, fontWeight: 700, color: "var(--site-text-muted)", marginBottom: 10, textTransform: "uppercase", letterSpacing: "0.06em" }}>{sec.title}</div>
                                 <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
                                   {sec.questions.map(q => {
                                     const userAns = (a.answers[q.id] || "").trim();
                                     const correctOpts = q.correctAnswer.toLowerCase().split("/").map(s => s.trim());
-                                    const isCorrect = correctOpts.some(c => userAns.toLowerCase() === c || userAns.toLowerCase().includes(c));
+                                    const isCorrect = !!userAns && correctOpts.some(c => userAns.toLowerCase() === c || userAns.toLowerCase().includes(c));
                                     return (
-                                      <div key={q.id} style={{ display: "flex", alignItems: "flex-start", gap: 10, padding: "8px 12px", borderRadius: 9, background: !userAns ? "rgba(255,255,255,0.03)" : isCorrect ? "rgba(16,185,129,0.07)" : "rgba(239,68,68,0.07)", border: `1px solid ${!userAns ? "rgba(255,255,255,0.06)" : isCorrect ? "rgba(16,185,129,0.2)" : "rgba(239,68,68,0.2)"}` }}>
-                                        <span style={{ width: 22, height: 22, borderRadius: "50%", flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 700, fontSize: 10, background: !userAns ? "rgba(255,255,255,0.07)" : isCorrect ? "rgba(16,185,129,0.25)" : "rgba(239,68,68,0.25)", color: !userAns ? "rgba(255,255,255,0.3)" : isCorrect ? "#34d399" : "#f87171" }}>
+                                      <div key={q.id} style={{ display: "flex", alignItems: "flex-start", gap: 10, padding: "8px 12px", borderRadius: 9, background: !userAns ? "var(--site-border)" : isCorrect ? "rgba(16,185,129,0.07)" : "rgba(239,68,68,0.07)", border: `1px solid ${!userAns ? "var(--site-border)" : isCorrect ? "rgba(16,185,129,0.2)" : "rgba(239,68,68,0.2)"}` }}>
+                                        <span style={{ width: 22, height: 22, borderRadius: "50%", flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 700, fontSize: 10, background: !userAns ? "var(--site-border)" : isCorrect ? "rgba(16,185,129,0.25)" : "rgba(239,68,68,0.25)", color: !userAns ? "var(--site-text-sub)" : isCorrect ? "#34d399" : "#f87171" }}>
                                           {q.number}
                                         </span>
                                         <div style={{ flex: 1, minWidth: 0 }}>
-                                          <div style={{ fontSize: 12, color: "rgba(255,255,255,0.65)", marginBottom: 6, lineHeight: 1.4 }}>{q.question.split("\n")[0].slice(0, 140)}</div>
+                                          <div style={{ fontSize: 12, color: "var(--site-text-muted)", marginBottom: 6, lineHeight: 1.4 }}>{q.question.split("\n")[0].slice(0, 140)}</div>
                                           <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
-                                            <span style={{ fontSize: 11, padding: "2px 8px", borderRadius: 5, fontWeight: 600, background: !userAns ? "rgba(255,255,255,0.05)" : isCorrect ? "rgba(16,185,129,0.15)" : "rgba(239,68,68,0.15)", color: !userAns ? "rgba(255,255,255,0.3)" : isCorrect ? "#34d399" : "#f87171" }}>
+                                            <span style={{ fontSize: 11, padding: "2px 8px", borderRadius: 5, fontWeight: 600, background: !userAns ? "var(--site-border)" : isCorrect ? "rgba(16,185,129,0.15)" : "rgba(239,68,68,0.15)", color: !userAns ? "var(--site-text-sub)" : isCorrect ? "#34d399" : "#f87171" }}>
                                               Your answer: {userAns || "(no answer)"}
                                             </span>
-                                            {!isCorrect && userAns && (
-                                              <span style={{ fontSize: 11, padding: "2px 8px", borderRadius: 5, background: "rgba(124,58,237,0.15)", color: "#c4b5fd", fontWeight: 600 }}>
+                                            {!isCorrect && (
+                                              <span style={{ fontSize: 11, padding: "2px 8px", borderRadius: 5, background: "var(--site-border)", color: "var(--site-text)", fontWeight: 600 }}>
                                                 Correct: {q.correctAnswer}
                                               </span>
                                             )}
@@ -196,7 +271,7 @@ export default function StudentDashboard() {
                           </div>
                         )}
                         {isExpanded && a.status === "cancelled" && (
-                          <div style={{ borderTop: "1px solid rgba(255,255,255,0.06)", padding: "12px 18px" }}>
+                          <div style={{ borderTop: "1px solid var(--site-border)", padding: "12px 18px" }}>
                             <p style={{ fontSize: 13, color: "#fca5a5" }}>{a.cancelReason || "Test was cancelled."}</p>
                           </div>
                         )}
@@ -210,45 +285,45 @@ export default function StudentDashboard() {
             <>
               <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 20 }}>
                 <div>
-                  <h2 style={{ fontSize: 16, fontWeight: 700, color: "#fff", marginBottom: 3 }}>Cambridge IELTS Books</h2>
-                  <p style={{ fontSize: 13, color: "rgba(255,255,255,0.35)" }}>Cambridge 1 – 19 · Click an available book to practice</p>
+                  <h2 style={{ fontSize: 16, fontWeight: 700, color: "var(--site-text)", marginBottom: 3 }}>Cambridge IELTS Books</h2>
+                  <p style={{ fontSize: 13, color: "var(--site-text-sub)" }}>Cambridge 1 – 20 · Click an available book to practice</p>
                 </div>
-                <span style={{ fontSize: 12, padding: "4px 12px", background: "rgba(124,58,237,0.15)", border: "1px solid rgba(124,58,237,0.25)", borderRadius: 20, color: "#a78bfa", fontWeight: 600 }}>
-                  {AVAILABLE_BOOKS.length} / 19 available
+                <span style={{ fontSize: 12, padding: "4px 12px", background: "var(--site-border)", border: "1px solid var(--site-border)", borderRadius: 20, color: "var(--site-text-muted)", fontWeight: 600 }}>
+                  {AVAILABLE_BOOKS.length} books available
                 </span>
               </div>
 
               {/* Books as a 2-column list */}
               <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(320px, 1fr))", gap: 8 }}>
-                {Array.from({ length: 19 }, (_, i) => i + 1).map(n => {
-                  const available = AVAILABLE_BOOKS.includes(n);
+                {AVAILABLE_BOOKS.map(n => {
+                  const available = true;
                   const bookTests = allTests.filter(t => t.bookNumber === n && t.type === typeFilter);
                   return (
                     <div key={n}
                       onClick={() => available && setSelectedBook(n)}
-                      style={{ display: "flex", alignItems: "center", gap: 14, padding: "14px 16px", background: available ? "rgba(124,58,237,0.08)" : "rgba(255,255,255,0.02)", border: `1px solid ${available ? "rgba(124,58,237,0.25)" : "rgba(255,255,255,0.05)"}`, borderRadius: 12, cursor: available ? "pointer" : "default", transition: "all 0.15s" }}
-                      onMouseEnter={e => available && ((e.currentTarget as HTMLElement).style.background = "rgba(124,58,237,0.14)", (e.currentTarget as HTMLElement).style.borderColor = "rgba(124,58,237,0.45)")}
-                      onMouseLeave={e => available && ((e.currentTarget as HTMLElement).style.background = "rgba(124,58,237,0.08)", (e.currentTarget as HTMLElement).style.borderColor = "rgba(124,58,237,0.25)")}>
+                      style={{ display: "flex", alignItems: "center", gap: 14, padding: "14px 16px", background: available ? "var(--site-card)" : "var(--site-border)", border: `1px solid ${available ? "var(--site-border)" : "var(--site-border)"}`, borderRadius: 12, cursor: available ? "pointer" : "default", transition: "all 0.15s" }}
+                      onMouseEnter={e => available && ((e.currentTarget as HTMLElement).style.background = "var(--site-card-2)", (e.currentTarget as HTMLElement).style.borderColor = "var(--site-border-strong)")}
+                      onMouseLeave={e => available && ((e.currentTarget as HTMLElement).style.background = "var(--site-card)", (e.currentTarget as HTMLElement).style.borderColor = "var(--site-border)")}>
                       {/* Number badge */}
-                      <div style={{ width: 38, height: 38, borderRadius: 10, flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 900, fontSize: 15, background: available ? "linear-gradient(135deg,#7c3aed,#6d28d9)" : "rgba(255,255,255,0.05)", color: available ? "#fff" : "rgba(255,255,255,0.2)" }}>
+                      <div style={{ width: 38, height: 38, borderRadius: 10, flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 900, fontSize: 15, background: available ? "var(--site-card-2)" : "var(--site-border)", color: available ? "var(--site-text)" : "var(--site-border-strong)" }}>
                         {n}
                       </div>
                       {/* Title */}
                       <div style={{ flex: 1, minWidth: 0 }}>
-                        <div style={{ fontSize: 13, fontWeight: 700, color: available ? "#e8eeff" : "rgba(255,255,255,0.25)", marginBottom: 2 }}>
+                        <div style={{ fontSize: 13, fontWeight: 700, color: available ? "var(--site-text)" : "var(--site-border-strong)", marginBottom: 2 }}>
                           Cambridge IELTS {n}
                         </div>
-                        <div style={{ fontSize: 11, color: available ? "rgba(255,255,255,0.4)" : "rgba(255,255,255,0.15)" }}>
+                        <div style={{ fontSize: 11, color: available ? "var(--site-text-muted)" : "var(--site-border-strong)" }}>
                           {available ? `${bookTests.length} ${typeFilter} test${bookTests.length !== 1 ? "s" : ""}` : "Coming soon"}
                         </div>
                       </div>
                       {/* Status / action */}
                       {available ? (
-                        <div style={{ display: "flex", alignItems: "center", gap: 5, fontSize: 12, fontWeight: 700, color: "#a78bfa", flexShrink: 0 }}>
+                        <div style={{ display: "flex", alignItems: "center", gap: 5, fontSize: 12, fontWeight: 700, color: "var(--site-text)", flexShrink: 0 }}>
                           Open <ChevronRight size={14} />
                         </div>
                       ) : (
-                        <Lock size={13} color="rgba(255,255,255,0.15)" style={{ flexShrink: 0 }} />
+                        <Lock size={13} color="var(--site-border-strong)" style={{ flexShrink: 0 }} />
                       )}
                     </div>
                   );
@@ -260,12 +335,12 @@ export default function StudentDashboard() {
               {/* Back + header */}
               <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 24 }}>
                 <button onClick={() => setSelectedBook(null)}
-                  style={{ display: "flex", alignItems: "center", gap: 6, padding: "7px 14px", background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.1)", borderRadius: 9, color: "rgba(255,255,255,0.6)", fontSize: 13, cursor: "pointer", fontWeight: 600 }}>
+                  style={{ display: "flex", alignItems: "center", gap: 6, padding: "7px 14px", background: "var(--site-border)", border: "1px solid var(--site-border)", borderRadius: 9, color: "var(--site-text-muted)", fontSize: 13, cursor: "pointer", fontWeight: 600 }}>
                   <ChevronLeft size={14} /> All Books
                 </button>
-                <div style={{ display: "flex", alignItems: "center", gap: 8, padding: "7px 16px", background: "rgba(124,58,237,0.15)", border: "1px solid rgba(124,58,237,0.3)", borderRadius: 10 }}>
-                  <BookOpen size={14} color="#a78bfa" />
-                  <span style={{ fontSize: 14, fontWeight: 700, color: "#c4b5fd" }}>Cambridge IELTS {selectedBook}</span>
+                <div style={{ display: "flex", alignItems: "center", gap: 8, padding: "7px 16px", background: "var(--site-border)", border: "1px solid var(--site-border-strong)", borderRadius: 10 }}>
+                  <BookOpen size={14} color="var(--site-text)" />
+                  <span style={{ fontSize: 14, fontWeight: 700, color: "var(--site-text)" }}>Cambridge IELTS {selectedBook}</span>
                 </div>
               </div>
 
@@ -274,7 +349,7 @@ export default function StudentDashboard() {
                 const bookTests = allTests.filter(t => t.bookNumber === selectedBook && t.type === typeFilter)
                   .sort((a, b) => a.testNumber - b.testNumber);
                 if (bookTests.length === 0) return (
-                  <p style={{ color: "rgba(255,255,255,0.3)", fontSize: 14 }}>No {typeFilter} tests available for this book yet.</p>
+                  <p style={{ color: "var(--site-text-sub)", fontSize: 14 }}>No {typeFilter} tests available for this book yet.</p>
                 );
                 return (
                   <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: 14 }}>
@@ -284,17 +359,17 @@ export default function StudentDashboard() {
                       const totalQ = test.sections.reduce((s, sec) => s + sec.questions.length, 0);
                       return (
                         <div key={test.id}
-                          style={{ background: "#140b35", border: "1px solid rgba(255,255,255,0.09)", borderRadius: 16, padding: 20, cursor: "pointer", transition: "all 0.2s" }}
-                          onMouseEnter={e => { (e.currentTarget as HTMLElement).style.borderColor = "rgba(124,58,237,0.5)"; (e.currentTarget as HTMLElement).style.transform = "translateY(-2px)"; }}
-                          onMouseLeave={e => { (e.currentTarget as HTMLElement).style.borderColor = "rgba(255,255,255,0.09)"; (e.currentTarget as HTMLElement).style.transform = "none"; }}
+                          style={{ background: "var(--site-card)", border: "1px solid var(--site-border)", borderRadius: 16, padding: 20, cursor: "pointer", transition: "all 0.2s" }}
+                          onMouseEnter={e => { (e.currentTarget as HTMLElement).style.borderColor = "var(--site-text-sub)"; (e.currentTarget as HTMLElement).style.transform = "translateY(-2px)"; }}
+                          onMouseLeave={e => { (e.currentTarget as HTMLElement).style.borderColor = "var(--site-border)"; (e.currentTarget as HTMLElement).style.transform = "none"; }}
                           onClick={() => router.push(`/student/test/${test.id}`)}>
                           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 12 }}>
                             <div>
-                              <div style={{ fontSize: 11, fontWeight: 600, color: "#7c3aed", marginBottom: 4, textTransform: "uppercase", letterSpacing: "0.05em" }}>
+                              <div style={{ fontSize: 11, fontWeight: 600, color: "var(--site-text)", marginBottom: 4, textTransform: "uppercase", letterSpacing: "0.05em" }}>
                                 Test {test.testNumber}
                               </div>
-                              <h3 style={{ fontSize: 14, fontWeight: 800, color: "#fff", marginBottom: 3 }}>{test.title}</h3>
-                              <p style={{ fontSize: 12, color: "rgba(255,255,255,0.4)" }}>
+                              <h3 style={{ fontSize: 14, fontWeight: 800, color: "var(--site-text)", marginBottom: 3 }}>{test.title}</h3>
+                              <p style={{ fontSize: 12, color: "var(--site-text-muted)" }}>
                                 {test.type === "listening" ? "Listening Test" : "Academic Reading"}
                               </p>
                             </div>
@@ -304,11 +379,11 @@ export default function StudentDashboard() {
                               </span>
                             )}
                           </div>
-                          <div style={{ display: "flex", gap: 14, marginBottom: 16, fontSize: 12, color: "rgba(255,255,255,0.4)" }}>
+                          <div style={{ display: "flex", gap: 14, marginBottom: 16, fontSize: 12, color: "var(--site-text-muted)" }}>
                             <span style={{ display: "flex", alignItems: "center", gap: 5 }}><Clock size={12} /> {test.durationMinutes} min{test.transferMinutes > 0 ? ` + ${test.transferMinutes} transfer` : ""}</span>
                             <span style={{ display: "flex", alignItems: "center", gap: 5 }}><BarChart3 size={12} /> {totalQ} questions</span>
                           </div>
-                          <button style={{ width: "100%", padding: "10px", background: "linear-gradient(135deg,#7c3aed,#6d28d9)", color: "#fff", fontWeight: 700, fontSize: 13, border: "none", borderRadius: 10, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", gap: 6 }}>
+                          <button style={{ width: "100%", padding: "10px", background: "var(--site-card-2)", color: "var(--site-text)", fontWeight: 700, fontSize: 13, border: "none", borderRadius: 10, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", gap: 6 }}>
                             Start practice <ChevronRight size={14} />
                           </button>
                         </div>
@@ -320,32 +395,35 @@ export default function StudentDashboard() {
             </>
           )}
 
-          {/* Recent attempts (hidden in history view) */}
-          {attempts.length > 0 && sidebarView !== "history" && (
+          {/* Recent attempts (hidden in profile view) */}
+          {attempts.length > 0 && sidebarView !== "profile" && (
             <div style={{ marginTop: 40 }}>
-              <h2 style={{ fontSize: 16, fontWeight: 700, color: "#fff", marginBottom: 16 }}>Recent Attempts</h2>
-              <div className="attempts-table-wrapper" style={{ background: "#140b35", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 16, overflow: "hidden" }}>
+              <h2 style={{ fontSize: 16, fontWeight: 700, color: "var(--site-text)", marginBottom: 16 }}>Recent Attempts</h2>
+              <div className="attempts-table-wrapper" style={{ background: "var(--site-card)", border: "1px solid var(--site-border)", borderRadius: 16, overflow: "hidden" }}>
                 <table style={{ width: "100%", borderCollapse: "collapse" }}>
                   <thead>
-                    <tr style={{ background: "rgba(255,255,255,0.04)" }}>
+                    <tr style={{ background: "var(--site-border)" }}>
                       {["Test", "Type", "Score", "IELTS Score", "Status", "Date"].map(h => (
-                        <th key={h} style={{ padding: "12px 16px", textAlign: "left", fontSize: 11, fontWeight: 700, color: "rgba(255,255,255,0.35)", textTransform: "uppercase", letterSpacing: "0.07em", borderBottom: "1px solid rgba(255,255,255,0.07)" }}>{h}</th>
+                        <th key={h} style={{ padding: "12px 16px", textAlign: "left", fontSize: 11, fontWeight: 700, color: "var(--site-text-sub)", textTransform: "uppercase", letterSpacing: "0.07em", borderBottom: "1px solid var(--site-border)" }}>{h}</th>
                       ))}
                     </tr>
                   </thead>
                   <tbody>
                     {[...attempts].reverse().slice(0, 8).map((a, i) => (
-                      <tr key={a.id} style={{ borderBottom: i < attempts.length - 1 ? "1px solid rgba(255,255,255,0.05)" : "none" }}>
-                        <td style={{ padding: "13px 16px", fontSize: 13, fontWeight: 600, color: "#e8eeff" }}>{a.testTitle}</td>
-                        <td style={{ padding: "13px 16px" }}>
-                          <span style={{ fontSize: 11, padding: "3px 9px", borderRadius: 10, fontWeight: 600, background: a.testType === "listening" ? "rgba(139,92,246,0.2)" : "rgba(124,58,237,0.2)", color: a.testType === "listening" ? "#c4b5fd" : "#c4b5fd" }}>{a.testType}</span>
+                      <tr key={a.id} style={{ borderBottom: i < attempts.length - 1 ? "1px solid var(--site-border)" : "none" }}>
+                        <td style={{ padding: "13px 16px", fontSize: 13, fontWeight: 600, color: "var(--site-text)" }}>
+                          {a.testTitle}
+                          {a.testType === "reading" && !/reading/i.test(a.testTitle) && " – Reading"}
                         </td>
-                        <td style={{ padding: "13px 16px", fontSize: 13, color: "rgba(255,255,255,0.55)" }}>{a.score}/{a.maxScore}</td>
-                        <td style={{ padding: "13px 16px", fontSize: 13, fontWeight: 700, color: "#a78bfa" }}>{a.bandScore}</td>
+                        <td style={{ padding: "13px 16px" }}>
+                          <span style={{ fontSize: 11, padding: "3px 9px", borderRadius: 10, fontWeight: 600, background: a.testType === "listening" ? "var(--site-border)" : "var(--site-border)", color: a.testType === "listening" ? "var(--site-text)" : "var(--site-text)" }}>{a.testType}</span>
+                        </td>
+                        <td style={{ padding: "13px 16px", fontSize: 13, color: "var(--site-text-muted)" }}>{a.score}/{a.maxScore}</td>
+                        <td style={{ padding: "13px 16px", fontSize: 13, fontWeight: 700, color: "var(--site-text)" }}>{a.bandScore}</td>
                         <td style={{ padding: "13px 16px" }}>
                           <span style={{ fontSize: 11, padding: "3px 9px", borderRadius: 10, fontWeight: 600, background: a.status === "completed" ? "rgba(16,185,129,0.15)" : "rgba(239,68,68,0.15)", color: a.status === "completed" ? "#34d399" : "#f87171" }}>{a.status}</span>
                         </td>
-                        <td style={{ padding: "13px 16px", fontSize: 12, color: "rgba(255,255,255,0.35)" }}>{new Date(a.submittedAt).toLocaleDateString()}</td>
+                        <td style={{ padding: "13px 16px", fontSize: 12, color: "var(--site-text-sub)" }}>{new Date(a.submittedAt).toLocaleDateString()}</td>
                       </tr>
                     ))}
                   </tbody>
@@ -356,5 +434,303 @@ export default function StudentDashboard() {
         </main>
       </div>
     </div>
+  );
+}
+
+// Account summary + statistics + password change, shown at the top of the
+// profile view. History section lives below it in the dashboard so the user
+// sees "who I am / how I'm doing / my past tests" in order.
+function ProfilePanel({
+  session, attempts, onSignOut,
+}: {
+  session: StudentSession;
+  attempts: AttemptData[];
+  onSignOut: () => void;
+}) {
+  const [showCurr, setShowCurr] = useState(false);
+  const [showNew, setShowNew] = useState(false);
+  const [curr, setCurr] = useState("");
+  const [next, setNext] = useState("");
+  const [pwMsg, setPwMsg] = useState<{ kind: "ok" | "err"; text: string } | null>(null);
+  const [saving, setSaving] = useState(false);
+
+  const completed = attempts.filter(a => a.status === "completed");
+  const reading = completed.filter(a => a.testType === "reading");
+  const listening = completed.filter(a => a.testType === "listening");
+  const avg = (arr: AttemptData[]) => arr.length ? (arr.reduce((s, a) => s + a.bandScore, 0) / arr.length).toFixed(1) : "—";
+  const best = (arr: AttemptData[]) => arr.length ? Math.max(...arr.map(a => a.bandScore)).toFixed(1) : "—";
+
+  // Daily streak: consecutive days ending today (or yesterday if nothing
+  // finished yet today) on which at least one test was submitted. The
+  // flame lights up ("active") when the streak extends through today.
+  const { streak, active: streakActive } = (() => {
+    if (completed.length === 0) return { streak: 0, active: false };
+    const days = new Set(
+      completed.map(a => {
+        const d = new Date(a.submittedAt);
+        return `${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`;
+      })
+    );
+    const key = (d: Date) => `${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`;
+    const today = new Date();
+    const yesterday = new Date(today); yesterday.setDate(today.getDate() - 1);
+    const hasToday = days.has(key(today));
+    // If they haven't trained today yet, count from yesterday so a
+    // streak isn't broken just because today hasn't ended.
+    if (!hasToday && !days.has(key(yesterday))) return { streak: 0, active: false };
+    let n = 0;
+    const cursor = new Date(hasToday ? today : yesterday);
+    while (days.has(key(cursor))) {
+      n++;
+      cursor.setDate(cursor.getDate() - 1);
+    }
+    return { streak: n, active: hasToday };
+  })();
+
+  const submitPw = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setPwMsg(null);
+    setSaving(true);
+    const res = await changeStudentOwnPassword(session.id, curr, next);
+    setSaving(false);
+    if (res.ok) {
+      setPwMsg({ kind: "ok", text: "Password updated." });
+      setCurr(""); setNext("");
+    } else {
+      setPwMsg({ kind: "err", text: res.error ?? "Couldn't update password." });
+    }
+  };
+
+  const fieldStyle: React.CSSProperties = {
+    width: "100%", padding: "10px 40px 10px 14px",
+    background: "var(--site-border)",
+    border: "1px solid var(--site-border)",
+    borderRadius: 10, color: "var(--site-text)", fontSize: 14, outline: "none",
+    fontFamily: "inherit",
+  };
+
+  return (
+    <div>
+      <h2 style={{ fontSize: 18, fontWeight: 800, color: "var(--site-text)", marginBottom: 4 }}>My Profile</h2>
+      <p style={{ fontSize: 13, color: "var(--site-text-muted)", marginBottom: 20 }}>
+        Your account, statistics, and settings.
+      </p>
+
+      {/* Identity card */}
+      <div style={{ padding: "18px 20px", background: "var(--site-card)", border: "1px solid var(--site-border)", borderRadius: 14, marginBottom: 16, display: "flex", alignItems: "center", gap: 16 }}>
+        <div style={{ width: 52, height: 52, borderRadius: "50%", background: "var(--site-card-2)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+          <User size={22} color="var(--site-text)" />
+        </div>
+        <div style={{ flex: 1, minWidth: 0 }}>
+          <div style={{ fontSize: 16, fontWeight: 700, color: "var(--site-text)" }}>{session.name} {session.surname}</div>
+          <div style={{ fontSize: 12, color: "var(--site-text-muted)", marginTop: 2 }}>
+            {session.username && <span>@{session.username} · </span>}
+            Group <span style={{ color: "var(--site-text)", fontWeight: 600 }}>{session.group_name}</span>
+          </div>
+        </div>
+      </div>
+
+      {/* Stats grid */}
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: 12, marginBottom: 24 }}>
+        <StatCard label="Reading" tests={reading.length} avg={avg(reading)} best={best(reading)} accent="var(--site-text)" />
+        <StatCard label="Listening" tests={listening.length} avg={avg(listening)} best={best(listening)} accent="#10b981" />
+        <div style={{ padding: "16px 18px", background: "var(--site-card)", border: "1px solid var(--site-border)", borderRadius: 14 }}>
+          <div style={{ fontSize: 11, fontWeight: 700, color: "var(--site-text-muted)", letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: 8 }}>Total completed</div>
+          <div style={{ fontSize: 30, fontWeight: 900, color: "var(--site-text)", lineHeight: 1 }}>{completed.length}</div>
+          <div style={{ fontSize: 12, color: "var(--site-text-sub)", marginTop: 6 }}>tests finished so far</div>
+        </div>
+
+        {/* Streak — flame lights up when today is part of the streak */}
+        <div style={{
+          padding: "16px 18px",
+          background: streakActive
+            ? "linear-gradient(135deg, rgba(251,146,60,0.15), rgba(239,68,68,0.1))"
+            : "var(--site-card)",
+          border: `1px solid ${streakActive ? "rgba(251,146,60,0.4)" : "var(--site-border)"}`,
+          borderRadius: 14,
+          boxShadow: streakActive ? "0 0 24px rgba(251,146,60,0.15)" : "none",
+          transition: "all 0.3s",
+          position: "relative", overflow: "hidden",
+        }}>
+          <div style={{ fontSize: 11, fontWeight: 700, color: "var(--site-text-muted)", letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: 8 }}>
+            Streak
+          </div>
+          <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+            <div className={streakActive ? "streak-flame-active" : ""} style={{
+              width: 46, height: 46, borderRadius: "50%",
+              display: "flex", alignItems: "center", justifyContent: "center",
+              background: streakActive ? "linear-gradient(135deg,#fb923c,#ef4444)" : "var(--site-border)",
+              boxShadow: streakActive ? "0 0 16px rgba(251,146,60,0.7)" : "none",
+              transition: "all 0.3s",
+            }}>
+              <Flame size={22} color={streakActive ? "var(--site-text)" : "var(--site-border-strong)"}
+                fill={streakActive ? "var(--site-text)" : "none"} />
+            </div>
+            <div>
+              <div style={{ fontSize: 30, fontWeight: 900, color: streakActive ? "var(--site-text)" : "var(--site-text-muted)", lineHeight: 1 }}>
+                {streak}
+              </div>
+              <div style={{ fontSize: 12, color: streakActive ? "var(--site-text-muted)" : "var(--site-text-sub)", marginTop: 6 }}>
+                {streak === 0 ? "start a streak today" : streak === 1 ? "day" : "days in a row"}
+              </div>
+            </div>
+          </div>
+          {streakActive && (
+            <style>{`
+              @keyframes streakPulse {
+                0%, 100% { transform: scale(1); box-shadow: 0 0 16px rgba(251,146,60,0.7); }
+                50% { transform: scale(1.06); box-shadow: 0 0 28px rgba(251,146,60,0.95); }
+              }
+              .streak-flame-active { animation: streakPulse 2s ease-in-out infinite; }
+            `}</style>
+          )}
+        </div>
+      </div>
+
+      {/* Change password */}
+      <div style={{ padding: "18px 20px", background: "var(--site-card)", border: "1px solid var(--site-border)", borderRadius: 14, marginBottom: 24 }}>
+        <h3 style={{ fontSize: 14, fontWeight: 700, color: "var(--site-text)", marginBottom: 14, display: "flex", alignItems: "center", gap: 8 }}>
+          <Lock size={14} color="var(--site-text)" /> Change password
+        </h3>
+        <form onSubmit={submitPw} style={{ display: "grid", gap: 10 }}>
+          <div style={{ position: "relative" }}>
+            <input
+              type={showCurr ? "text" : "password"}
+              autoComplete="current-password"
+              placeholder="Current password"
+              value={curr}
+              onChange={(e) => setCurr(e.target.value)}
+              style={fieldStyle}
+              onFocus={(e) => (e.currentTarget.style.borderColor = "var(--site-text)")}
+              onBlur={(e) => (e.currentTarget.style.borderColor = "var(--site-border)")}
+            />
+            <button type="button" onClick={() => setShowCurr(v => !v)}
+              style={{ position: "absolute", right: 8, top: "50%", transform: "translateY(-50%)", background: "none", border: "none", cursor: "pointer", color: "var(--site-text-muted)", padding: 6 }}>
+              {showCurr ? <EyeOff size={15} /> : <Eye size={15} />}
+            </button>
+          </div>
+          <div style={{ position: "relative" }}>
+            <input
+              type={showNew ? "text" : "password"}
+              autoComplete="new-password"
+              placeholder="New password (min 4 characters)"
+              value={next}
+              onChange={(e) => setNext(e.target.value)}
+              style={fieldStyle}
+              onFocus={(e) => (e.currentTarget.style.borderColor = "var(--site-text)")}
+              onBlur={(e) => (e.currentTarget.style.borderColor = "var(--site-border)")}
+            />
+            <button type="button" onClick={() => setShowNew(v => !v)}
+              style={{ position: "absolute", right: 8, top: "50%", transform: "translateY(-50%)", background: "none", border: "none", cursor: "pointer", color: "var(--site-text-muted)", padding: 6 }}>
+              {showNew ? <EyeOff size={15} /> : <Eye size={15} />}
+            </button>
+          </div>
+          {pwMsg && (
+            <div style={{
+              fontSize: 13, padding: "9px 12px", borderRadius: 9,
+              background: pwMsg.kind === "ok" ? "rgba(16,185,129,0.1)" : "rgba(239,68,68,0.1)",
+              border: `1px solid ${pwMsg.kind === "ok" ? "rgba(16,185,129,0.3)" : "rgba(239,68,68,0.3)"}`,
+              color: pwMsg.kind === "ok" ? "#6ee7b7" : "#fca5a5",
+            }}>{pwMsg.text}</div>
+          )}
+          <button type="submit" disabled={saving || !curr || !next}
+            style={{
+              justifySelf: "start",
+              padding: "10px 22px",
+              background: saving || !curr || !next ? "var(--site-border-strong)" : "var(--site-card-2)",
+              color: "var(--site-text)", fontWeight: 700, fontSize: 13, letterSpacing: "0.05em",
+              border: "none", borderRadius: 9,
+              cursor: saving || !curr || !next ? "not-allowed" : "pointer",
+            }}>
+            {saving ? "Updating…" : "Update password"}
+          </button>
+        </form>
+      </div>
+
+      {/* Sign out — lives inside My Profile rather than the top nav */}
+      <div style={{ display: "flex", justifyContent: "flex-start" }}>
+        <button onClick={onSignOut}
+          style={{
+            display: "inline-flex", alignItems: "center", gap: 8,
+            padding: "10px 20px",
+            background: "transparent",
+            border: "1px solid rgba(239,68,68,0.4)",
+            borderRadius: 10, color: "#fca5a5",
+            fontSize: 13, fontWeight: 600, cursor: "pointer",
+            transition: "background 0.15s",
+          }}
+          onMouseEnter={(e) => (e.currentTarget.style.background = "rgba(239,68,68,0.08)")}
+          onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
+        >
+          <LogOut size={14} /> Sign out
+        </button>
+      </div>
+    </div>
+  );
+}
+
+function StatCard({ label, tests, avg, best, accent }: { label: string; tests: number; avg: string; best: string; accent: string }) {
+  return (
+    <div style={{ padding: "16px 18px", background: "var(--site-card)", border: "1px solid var(--site-border)", borderRadius: 14 }}>
+      <div style={{ fontSize: 11, fontWeight: 700, color: "var(--site-text-muted)", letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: 10 }}>{label}</div>
+      <div style={{ display: "flex", gap: 18, alignItems: "flex-end" }}>
+        <div>
+          <div style={{ fontSize: 22, fontWeight: 900, color: "var(--site-text)", lineHeight: 1 }}>{tests}</div>
+          <div style={{ fontSize: 11, color: "var(--site-text-sub)", marginTop: 4 }}>tests</div>
+        </div>
+        <div>
+          <div style={{ fontSize: 22, fontWeight: 900, color: accent, lineHeight: 1 }}>{avg}</div>
+          <div style={{ fontSize: 11, color: "var(--site-text-sub)", marginTop: 4 }}>avg band</div>
+        </div>
+        <div>
+          <div style={{ fontSize: 22, fontWeight: 900, color: accent, lineHeight: 1 }}>{best}</div>
+          <div style={{ fontSize: 11, color: "var(--site-text-sub)", marginTop: 4 }}>best</div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// Sidebar link with a right-arrow that nudges on hover. Active items get
+// a left accent bar and a muted violet background.
+function SidebarLink({
+  icon: Icon, label, active = false, soon = false, onClick,
+}: {
+  icon: React.ComponentType<{ size?: number; color?: string }>;
+  label: string;
+  active?: boolean;
+  soon?: boolean;
+  onClick: () => void;
+}) {
+  return (
+    <button onClick={onClick}
+      className="sidebar-link"
+      style={{
+        display: "flex", alignItems: "center", gap: 10,
+        padding: "11px 14px", borderRadius: 11, border: "none", cursor: "pointer",
+        fontWeight: 600, fontSize: 14, textAlign: "left",
+        background: active ? "var(--site-border)" : "transparent",
+        color: active ? "var(--site-text)" : "var(--site-text-muted)",
+        borderLeft: active ? "2px solid #ffffff" : "2px solid transparent",
+        transition: "background 0.18s, color 0.18s",
+      }}
+      onMouseEnter={(e) => { if (!active) e.currentTarget.style.background = "var(--site-border)"; }}
+      onMouseLeave={(e) => { if (!active) e.currentTarget.style.background = "transparent"; }}
+    >
+      <Icon size={16} />
+      <span style={{ flex: 1 }}>{label}</span>
+      {soon && (
+        <span style={{
+          fontSize: 9, padding: "2px 6px", borderRadius: 999,
+          border: "1px solid var(--site-border-strong)",
+          color: "var(--site-text-muted)", letterSpacing: "0.08em",
+        }}>SOON</span>
+      )}
+      <ChevronRight size={14} color="var(--site-text-sub)" className="sidebar-link-arrow" />
+      <style>{`
+        .sidebar-link:hover .sidebar-link-arrow { transform: translateX(2px); transition: transform 0.18s; }
+        .sidebar-link .sidebar-link-arrow { transition: transform 0.18s; }
+      `}</style>
+    </button>
   );
 }

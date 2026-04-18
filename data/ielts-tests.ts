@@ -1,12 +1,25 @@
-import { cambridge10Tests } from "./cambridge10";
-import { cambridge11Tests } from "./cambridge11";
-import { cambridge12Tests } from "./cambridge12";
-import { cambridge13Tests } from "./cambridge13";
-import { cambridge14Tests } from "./cambridge14";
-import { cambridge15Tests } from "./cambridge15";
-import { cambridge16Tests } from "./cambridge16";
-import { cambridge17Tests } from "./cambridge17";
-import { cambridge18Tests } from "./cambridge18";
+import { cambridge10Tests } from "./cambridge10-reading";
+import { cambridge10ListeningTests } from "./cambridge10-listening";
+import { cambridge11Tests } from "./cambridge11-reading";
+import { cambridge11ListeningTests } from "./cambridge11-listening";
+import { cambridge12Tests } from "./cambridge12-reading";
+import { cambridge12ListeningTests } from "./cambridge12-listening";
+import { cambridge13Tests } from "./cambridge13-reading";
+import { cambridge13ListeningTests } from "./cambridge13-listening";
+import { cambridge14Tests } from "./cambridge14-reading";
+import { cambridge14ListeningTests } from "./cambridge14-listening";
+import { cambridge15Tests } from "./cambridge15-reading";
+import { cambridge15ListeningTests } from "./cambridge15-listening";
+import { cambridge16Tests } from "./cambridge16-reading";
+import { cambridge16ListeningTests } from "./cambridge16-listening";
+import { cambridge17Tests } from "./cambridge17-reading";
+import { cambridge17ListeningTests } from "./cambridge17-listening";
+import { cambridge18Tests } from "./cambridge18-reading";
+import { cambridge18ListeningTests } from "./cambridge18-listening";
+import { cambridge19Tests } from "./cambridge19-reading";
+import { cambridge19ListeningTests } from "./cambridge19-listening";
+import { cambridge20Tests } from "./cambridge20-reading";
+import { cambridge20ListeningTests } from "./cambridge20-listening";
 
 export type IELTSTest = {
   id: string;
@@ -17,6 +30,12 @@ export type IELTSTest = {
   level: "academic" | "general";
   durationMinutes: number;
   transferMinutes: number;
+  // Whole-test audio: one MP3 that plays continuously across all 4 parts,
+  // matching real IELTS where a single ~30 min recording contains every
+  // part and the narrator says "now look at Part 2" internally. If set,
+  // this takes precedence over per-section `audioUrl`.
+  audioUrl?: string;
+  audioDurationSeconds?: number;
   sections: IELTSSection[];
 };
 
@@ -1253,14 +1272,27 @@ Volunteer days: first __20__ of every month`,
 export const allTests: IELTSTest[] = [
   cambridge1_listening_test1,
   ...cambridge10Tests,
+  ...cambridge10ListeningTests,
   ...cambridge11Tests,
+  ...cambridge11ListeningTests,
   ...cambridge12Tests,
+  ...cambridge12ListeningTests,
   ...cambridge13Tests,
+  ...cambridge13ListeningTests,
   ...cambridge14Tests,
+  ...cambridge14ListeningTests,
   ...cambridge15Tests,
+  ...cambridge15ListeningTests,
   ...cambridge16Tests,
+  ...cambridge16ListeningTests,
   ...cambridge17Tests,
+  ...cambridge17ListeningTests,
   ...cambridge18Tests,
+  ...cambridge18ListeningTests,
+  ...cambridge19Tests,
+  ...cambridge19ListeningTests,
+  ...cambridge20Tests,
+  ...cambridge20ListeningTests,
 ];
 
 export function getTestById(id: string): IELTSTest | undefined {

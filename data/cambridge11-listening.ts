@@ -1,0 +1,1415 @@
+import type { IELTSTest } from "./ielts-tests";
+
+// Build the public Supabase Storage URL for a listening audio file.
+const audioUrl = (name: string) =>
+  `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/audio/${name}`;
+
+// Build the public Supabase Storage URL for a diagram / map image.
+const imageUrl = (name: string) =>
+  `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/images/${name}`;
+
+// ============================================================
+// CAMBRIDGE IELTS 11 – LISTENING TEST 1
+// Parts: 1) Hiring a public room (notes)
+//        2) Fiddy Working Heritage Farm — visitor advice + A–I
+//           map labelling
+//        3) Study on Gender in Physics — Akira Miyake (MCQ)
+//        4) Ocean Biodiversity (notes)
+// ============================================================
+export const cambridge11_listening_t1: IELTSTest = {
+  id: "cam11-listening-t1",
+  title: "Cambridge IELTS 11 – Listening Test 1",
+  bookNumber: 11,
+  testNumber: 1,
+  type: "listening",
+  level: "academic",
+  durationMinutes: 30,
+  transferMinutes: 2,
+  audioUrl: audioUrl("cam11-listening-t1.mp3"),
+  audioDurationSeconds: 1800,
+  sections: [
+    // ── PART 1 ─────────────────────────────────────────────
+    {
+      id: "cam11-l-t1-s1",
+      sectionNumber: 1,
+      title: "Part 1",
+      instructions: `Questions 1–10: Complete the notes below. Write ONE WORD AND/OR A NUMBER for each answer.`,
+      passageText: `HIRING A PUBLIC ROOM
+
+●  the Main Hall – seats 200
+
+Room and cost
+●  the 1 _______ Room – seats 100
+●  Cost of Main Hall for Saturday evening: £ 2 _______
+   + £250 deposit (3 _______ payment is required)
+●  Cost includes use of tables and chairs and also 4 _______
+●  Additional charge for use of the kitchen: £25
+
+Before the event
+●  Will need a 5 _______ licence
+●  Need to contact caretaker (Mr Evans) in advance to arrange 6 _______
+
+During the event
+●  The building is no smoking
+●  The band should use the 7 _______ door at the back
+●  Don't touch the system that controls the volume
+●  For microphones, contact the caretaker
+
+After the event
+●  Need to know the 8 _______ for the cleaning cupboard
+●  The 9 _______ must be washed and rubbish placed in black bags
+●  All 10 _______ must be taken down
+●  Chairs and tables must be piled up`,
+      questions: [
+        { id: "cam11-l-t1-s1-q1", number: 1, type: "note_completion", question: "1. the _______ Room – seats 100", correctAnswer: "Charlton", points: 1 },
+        { id: "cam11-l-t1-s1-q2", number: 2, type: "note_completion", question: "2. Cost of Main Hall for Saturday evening: £ _______", correctAnswer: "115", points: 1 },
+        { id: "cam11-l-t1-s1-q3", number: 3, type: "note_completion", question: "3. (_______ payment is required)", correctAnswer: "cash", points: 1 },
+        { id: "cam11-l-t1-s1-q4", number: 4, type: "note_completion", question: "4. use of tables and chairs and also _______", correctAnswer: "parking", points: 1 },
+        { id: "cam11-l-t1-s1-q5", number: 5, type: "note_completion", question: "5. Will need a _______ licence", correctAnswer: "music", points: 1 },
+        { id: "cam11-l-t1-s1-q6", number: 6, type: "note_completion", question: "6. contact caretaker in advance to arrange _______", correctAnswer: "entry", points: 1 },
+        { id: "cam11-l-t1-s1-q7", number: 7, type: "note_completion", question: "7. The band should use the _______ door at the back", correctAnswer: "stage", points: 1 },
+        { id: "cam11-l-t1-s1-q8", number: 8, type: "note_completion", question: "8. Need to know the _______ for the cleaning cupboard", correctAnswer: "code", points: 1 },
+        { id: "cam11-l-t1-s1-q9", number: 9, type: "note_completion", question: "9. The _______ must be washed", correctAnswer: "floor/floors", points: 1 },
+        { id: "cam11-l-t1-s1-q10", number: 10, type: "note_completion", question: "10. All _______ must be taken down", correctAnswer: "decoration/decorations", points: 1 },
+      ],
+    },
+    // ── PART 2 ─────────────────────────────────────────────
+    {
+      id: "cam11-l-t1-s2",
+      sectionNumber: 2,
+      title: "Part 2",
+      instructions: `Questions 11–14: Complete the notes below. Write ONE WORD for each answer.
+Questions 15–20: Label the map of Fiddy Working Heritage Farm below. Write the correct letter, A–I, next to each location.`,
+      passageTitle: "Fiddy Working Heritage Farm",
+      diagramUrl: imageUrl("cam11test1map.png"),
+      passageText: `Advice about visiting the farm
+
+Visitors should
+●  take care not to harm any 11 _______
+●  not touch any 12 _______
+●  wear 13 _______
+●  not bring 14 _______ into the farm, with certain exceptions.`,
+      questions: [
+        { id: "cam11-l-t1-s2-q11", number: 11, type: "note_completion", question: "11. take care not to harm any _______", correctAnswer: "animal/animals", points: 1 },
+        { id: "cam11-l-t1-s2-q12", number: 12, type: "note_completion", question: "12. not touch any _______", correctAnswer: "tool/tools", points: 1 },
+        { id: "cam11-l-t1-s2-q13", number: 13, type: "note_completion", question: "13. wear _______", correctAnswer: "shoes", points: 1 },
+        { id: "cam11-l-t1-s2-q14", number: 14, type: "note_completion", question: "14. not bring _______ into the farm", correctAnswer: "dog/dogs", points: 1 },
+        {
+          id: "cam11-l-t1-s2-q15", number: 15,
+          groupLabel: `Questions 15–20: Label the map of Fiddy Working Heritage Farm above. Write the correct letter, A–I, next to each location.`,
+          type: "matching", question: "15. Scarecrow",
+          options: [
+            { label: "A", value: "A" }, { label: "B", value: "B" }, { label: "C", value: "C" },
+            { label: "D", value: "D" }, { label: "E", value: "E" }, { label: "F", value: "F" },
+            { label: "G", value: "G" }, { label: "H", value: "H" }, { label: "I", value: "I" },
+          ],
+          correctAnswer: "F", points: 1,
+        },
+        {
+          id: "cam11-l-t1-s2-q16", number: 16, type: "matching", question: "16. Maze",
+          options: [
+            { label: "A", value: "A" }, { label: "B", value: "B" }, { label: "C", value: "C" },
+            { label: "D", value: "D" }, { label: "E", value: "E" }, { label: "F", value: "F" },
+            { label: "G", value: "G" }, { label: "H", value: "H" }, { label: "I", value: "I" },
+          ],
+          correctAnswer: "G", points: 1,
+        },
+        {
+          id: "cam11-l-t1-s2-q17", number: 17, type: "matching", question: "17. Café",
+          options: [
+            { label: "A", value: "A" }, { label: "B", value: "B" }, { label: "C", value: "C" },
+            { label: "D", value: "D" }, { label: "E", value: "E" }, { label: "F", value: "F" },
+            { label: "G", value: "G" }, { label: "H", value: "H" }, { label: "I", value: "I" },
+          ],
+          correctAnswer: "D", points: 1,
+        },
+        {
+          id: "cam11-l-t1-s2-q18", number: 18, type: "matching", question: "18. Black Barn",
+          options: [
+            { label: "A", value: "A" }, { label: "B", value: "B" }, { label: "C", value: "C" },
+            { label: "D", value: "D" }, { label: "E", value: "E" }, { label: "F", value: "F" },
+            { label: "G", value: "G" }, { label: "H", value: "H" }, { label: "I", value: "I" },
+          ],
+          correctAnswer: "H", points: 1,
+        },
+        {
+          id: "cam11-l-t1-s2-q19", number: 19, type: "matching", question: "19. Covered picnic area",
+          options: [
+            { label: "A", value: "A" }, { label: "B", value: "B" }, { label: "C", value: "C" },
+            { label: "D", value: "D" }, { label: "E", value: "E" }, { label: "F", value: "F" },
+            { label: "G", value: "G" }, { label: "H", value: "H" }, { label: "I", value: "I" },
+          ],
+          correctAnswer: "C", points: 1,
+        },
+        {
+          id: "cam11-l-t1-s2-q20", number: 20, type: "matching", question: "20. Fiddy House",
+          options: [
+            { label: "A", value: "A" }, { label: "B", value: "B" }, { label: "C", value: "C" },
+            { label: "D", value: "D" }, { label: "E", value: "E" }, { label: "F", value: "F" },
+            { label: "G", value: "G" }, { label: "H", value: "H" }, { label: "I", value: "I" },
+          ],
+          correctAnswer: "A", points: 1,
+        },
+      ],
+    },
+    // ── PART 3 ─────────────────────────────────────────────
+    {
+      id: "cam11-l-t1-s3",
+      sectionNumber: 3,
+      title: "Part 3",
+      instructions: `Questions 21–30: Choose the correct letter, A, B or C.`,
+      passageTitle: "Greg & Lisa — study on gender in physics",
+      questions: [
+        {
+          id: "cam11-l-t1-s3-q21", number: 21,
+          groupLabel: `Questions 21–30: Choose the correct letter, A, B or C.`,
+          type: "multiple_choice", question: "21. The students in Akira Miyake's study were all majoring in",
+          options: [
+            { label: "A  physics.", value: "A" },
+            { label: "B  psychology or physics.", value: "B" },
+            { label: "C  science, technology, engineering or mathematics.", value: "C" },
+          ],
+          correctAnswer: "C", points: 1,
+        },
+        {
+          id: "cam11-l-t1-s3-q22", number: 22, type: "multiple_choice",
+          question: "22. The aim of Miyake's study was to investigate",
+          options: [
+            { label: "A  what kind of women choose to study physics.", value: "A" },
+            { label: "B  a way of improving women's performance in physics.", value: "B" },
+            { label: "C  whether fewer women than men study physics at college.", value: "C" },
+          ],
+          correctAnswer: "B", points: 1,
+        },
+        {
+          id: "cam11-l-t1-s3-q23", number: 23, type: "multiple_choice",
+          question: "23. The female physics students were wrong to believe that",
+          options: [
+            { label: "A  the teachers marked them in an unfair way.", value: "A" },
+            { label: "B  the male students expected them to do badly.", value: "B" },
+            { label: "C  their test results were lower than the male students'.", value: "C" },
+          ],
+          correctAnswer: "B", points: 1,
+        },
+        {
+          id: "cam11-l-t1-s3-q24", number: 24, type: "multiple_choice",
+          question: "24. Miyake's team asked the students to write about",
+          options: [
+            { label: "A  what they enjoyed about studying physics.", value: "A" },
+            { label: "B  the successful experiences of other people.", value: "B" },
+            { label: "C  something that was important to them personally.", value: "C" },
+          ],
+          correctAnswer: "C", points: 1,
+        },
+        {
+          id: "cam11-l-t1-s3-q25", number: 25, type: "multiple_choice",
+          question: "25. What was the aim of the writing exercise done by the subjects?",
+          options: [
+            { label: "A  to reduce stress", value: "A" },
+            { label: "B  to strengthen verbal ability", value: "B" },
+            { label: "C  to encourage logical thinking", value: "C" },
+          ],
+          correctAnswer: "A", points: 1,
+        },
+        {
+          id: "cam11-l-t1-s3-q26", number: 26, type: "multiple_choice",
+          question: "26. What surprised the researchers about the study?",
+          options: [
+            { label: "A  how few students managed to get A grades", value: "A" },
+            { label: "B  the positive impact it had on physics results for women", value: "B" },
+            { label: "C  the difference between male and female performance", value: "C" },
+          ],
+          correctAnswer: "B", points: 1,
+        },
+        {
+          id: "cam11-l-t1-s3-q27", number: 27, type: "multiple_choice",
+          question: "27. Greg and Lisa think Miyake's results could have been affected by",
+          options: [
+            { label: "A  the length of the writing task.", value: "A" },
+            { label: "B  the number of students who took part.", value: "B" },
+            { label: "C  the information the students were given.", value: "C" },
+          ],
+          correctAnswer: "C", points: 1,
+        },
+        {
+          id: "cam11-l-t1-s3-q28", number: 28, type: "multiple_choice",
+          question: "28. Greg and Lisa decide that in their own project, they will compare the effects of",
+          options: [
+            { label: "A  two different writing tasks.", value: "A" },
+            { label: "B  a writing task with an oral task.", value: "B" },
+            { label: "C  two different oral tasks.", value: "C" },
+          ],
+          correctAnswer: "A", points: 1,
+        },
+        {
+          id: "cam11-l-t1-s3-q29", number: 29, type: "multiple_choice",
+          question: "29. The main finding of Smolinsky's research was that class teamwork activities",
+          options: [
+            { label: "A  were most effective when done by all-women groups.", value: "A" },
+            { label: "B  had no effect on the performance of men or women.", value: "B" },
+            { label: "C  improved the results of men more than of women.", value: "C" },
+          ],
+          correctAnswer: "B", points: 1,
+        },
+        {
+          id: "cam11-l-t1-s3-q30", number: 30, type: "multiple_choice",
+          question: "30. What will Lisa and Greg do next?",
+          options: [
+            { label: "A  talk to a professor", value: "A" },
+            { label: "B  observe a science class", value: "B" },
+            { label: "C  look at the science timetable", value: "C" },
+          ],
+          correctAnswer: "A", points: 1,
+        },
+      ],
+    },
+    // ── PART 4 ─────────────────────────────────────────────
+    {
+      id: "cam11-l-t1-s4",
+      sectionNumber: 4,
+      title: "Part 4",
+      instructions: `Questions 31–40: Complete the notes below. Write ONE WORD ONLY for each answer.`,
+      passageText: `Ocean Biodiversity
+
+Biodiversity hotspots
+●  areas containing many different species
+●  important for locating targets for 31 _______
+●  at first only identified on land
+
+Boris Worm, 2005
+●  identified hotspots for large ocean predators, e.g. sharks
+●  found the ocean hotspots:
+   –  were not always rich in 32 _______
+   –  had higher temperatures at the 33 _______
+   –  had sufficient 34 _______ in the water
+
+Lisa Ballance, 2007
+●  looked for hotspots for marine 35 _______
+●  found these were all located where ocean currents meet
+
+Census of Marine Life
+●  found new ocean species living:
+   –  under the 36 _______
+   –  near volcanoes on the ocean floor
+
+Global Marine Species Assessment
+●  want to list endangered ocean species, considering:
+   –  population size
+   –  geographical distribution
+   –  rate of 37 _______
+●  Aim: to assess 20,000 species and make a distribution 38 _______ for each one
+
+Recommendations to retain ocean biodiversity
+●  increase the number of ocean reserves
+●  establish 39 _______ corridors (e.g. for turtles)
+●  reduce fishing quotas
+●  catch fish only for the purpose of 40 _______`,
+      questions: [
+        { id: "cam11-l-t1-s4-q31", number: 31, type: "note_completion", question: "31. important for locating targets for _______", correctAnswer: "conservation", points: 1 },
+        { id: "cam11-l-t1-s4-q32", number: 32, type: "note_completion", question: "32. were not always rich in _______", correctAnswer: "food/foods", points: 1 },
+        { id: "cam11-l-t1-s4-q33", number: 33, type: "note_completion", question: "33. higher temperatures at the _______", correctAnswer: "surface", points: 1 },
+        { id: "cam11-l-t1-s4-q34", number: 34, type: "note_completion", question: "34. had sufficient _______ in the water", correctAnswer: "oxygen/O2", points: 1 },
+        { id: "cam11-l-t1-s4-q35", number: 35, type: "note_completion", question: "35. looked for hotspots for marine _______", correctAnswer: "mammals", points: 1 },
+        { id: "cam11-l-t1-s4-q36", number: 36, type: "note_completion", question: "36. found new ocean species living under the _______", correctAnswer: "ice", points: 1 },
+        { id: "cam11-l-t1-s4-q37", number: 37, type: "note_completion", question: "37. rate of _______", correctAnswer: "decline/declining/decrease", points: 1 },
+        { id: "cam11-l-t1-s4-q38", number: 38, type: "note_completion", question: "38. make a distribution _______ for each one", correctAnswer: "map", points: 1 },
+        { id: "cam11-l-t1-s4-q39", number: 39, type: "note_completion", question: "39. establish _______ corridors (e.g. for turtles)", correctAnswer: "migration", points: 1 },
+        { id: "cam11-l-t1-s4-q40", number: 40, type: "note_completion", question: "40. catch fish only for the purpose of _______", correctAnswer: "consumption", points: 1 },
+      ],
+    },
+  ],
+};
+
+// ============================================================
+// CAMBRIDGE IELTS 11 – LISTENING TEST 2
+// Parts: 1) Enquiry about joining Youth Council — Roger Brown
+//        2) New staff at theatre (three Choose-TWO + A–G plan
+//           labelling of the ground floor)
+//        3) Rocky Bay field trip (MCQ + two Choose-TWO on splash
+//           zone and error reasons)
+//        4) Designing the Taylor Concert Hall (notes)
+// ============================================================
+export const cambridge11_listening_t2: IELTSTest = {
+  id: "cam11-listening-t2",
+  title: "Cambridge IELTS 11 – Listening Test 2",
+  bookNumber: 11,
+  testNumber: 2,
+  type: "listening",
+  level: "academic",
+  durationMinutes: 30,
+  transferMinutes: 2,
+  audioUrl: audioUrl("cam11-listening-t2.mp3"),
+  audioDurationSeconds: 1800,
+  sections: [
+    // ── PART 1 ─────────────────────────────────────────────
+    {
+      id: "cam11-l-t2-s1",
+      sectionNumber: 1,
+      title: "Part 1",
+      instructions: `Questions 1–10: Complete the notes below. Write ONE WORD AND/OR A NUMBER for each answer.`,
+      passageText: `Enquiry about joining Youth Council
+
+Name: Roger Brown
+Age: 18
+Currently staying in a 1 _______ during the week
+Postal address: 17, 2 _______ Street, Stamford, Lincs
+Postcode: 3 _______
+Occupation: student and part-time job as a 4 _______
+Studying 5 _______ (major subject) and history (minor subject)
+Hobbies: does a lot of 6 _______, and is interested in the 7 _______
+On Youth Council, wants to work with young people who are 8 _______
+Will come to talk to the Elections Officer next Monday at 9 _______ p.m.
+Mobile number: 10 _______`,
+      questions: [
+        { id: "cam11-l-t2-s1-q1", number: 1, type: "note_completion", question: "1. Currently staying in a _______ during the week", correctAnswer: "hostel", points: 1 },
+        { id: "cam11-l-t2-s1-q2", number: 2, type: "note_completion", question: "2. 17, _______ Street, Stamford, Lincs", correctAnswer: "Buckleigh", points: 1 },
+        { id: "cam11-l-t2-s1-q3", number: 3, type: "note_completion", question: "3. Postcode: _______", correctAnswer: "PE9 7QT", points: 1 },
+        { id: "cam11-l-t2-s1-q4", number: 4, type: "note_completion", question: "4. part-time job as a _______", correctAnswer: "waiter", points: 1 },
+        { id: "cam11-l-t2-s1-q5", number: 5, type: "note_completion", question: "5. Studying _______ (major subject)", correctAnswer: "politics", points: 1 },
+        { id: "cam11-l-t2-s1-q6", number: 6, type: "note_completion", question: "6. does a lot of _______", correctAnswer: "cycling", points: 1 },
+        { id: "cam11-l-t2-s1-q7", number: 7, type: "note_completion", question: "7. is interested in the _______", correctAnswer: "cinema", points: 1 },
+        { id: "cam11-l-t2-s1-q8", number: 8, type: "note_completion", question: "8. wants to work with young people who are _______", correctAnswer: "disabled", points: 1 },
+        { id: "cam11-l-t2-s1-q9", number: 9, type: "note_completion", question: "9. next Monday at _______ p.m.", correctAnswer: "4.30/half past four", points: 1 },
+        { id: "cam11-l-t2-s1-q10", number: 10, type: "note_completion", question: "10. Mobile number: _______", correctAnswer: "07788 136711", points: 1 },
+      ],
+    },
+    // ── PART 2 ─────────────────────────────────────────────
+    {
+      id: "cam11-l-t2-s2",
+      sectionNumber: 2,
+      title: "Part 2",
+      instructions: `Questions 11 & 12: Choose TWO letters, A–E.
+Questions 13 & 14: Choose TWO letters, A–E.
+Questions 15 & 16: Choose TWO letters, A–E.
+Questions 17–20: Label the ground-floor plan of the theatre below. Write the correct letter, A–G, next to each area.`,
+      passageTitle: "New staff at theatre",
+      diagramUrl: imageUrl("cam11test2map.png"),
+      questions: [
+        {
+          id: "cam11-l-t2-s2-q11", number: 11,
+          groupLabel: `Questions 11 and 12: Choose TWO letters, A–E.\n\nWhich TWO changes have been made so far during the refurbishment of the theatre?\n\nA  Some rooms now have a different use.\nB  A different type of seating has been installed.\nC  An elevator has been installed.\nD  The outside of the building has been repaired.\nE  Extra seats have been added.\n\n(Answers are accepted in either order.)`,
+          type: "multiple_choice", question: "11. Choose TWO (first answer)",
+          options: [
+            { label: "A  Some rooms now have a different use.", value: "A" },
+            { label: "B  A different type of seating has been installed.", value: "B" },
+            { label: "C  An elevator has been installed.", value: "C" },
+            { label: "D  The outside of the building has been repaired.", value: "D" },
+            { label: "E  Extra seats have been added.", value: "E" },
+          ],
+          correctAnswer: "A/B", points: 1,
+        },
+        {
+          id: "cam11-l-t2-s2-q12", number: 12, type: "multiple_choice",
+          question: "12. Choose TWO (second answer)",
+          options: [
+            { label: "A  Some rooms now have a different use.", value: "A" },
+            { label: "B  A different type of seating has been installed.", value: "B" },
+            { label: "C  An elevator has been installed.", value: "C" },
+            { label: "D  The outside of the building has been repaired.", value: "D" },
+            { label: "E  Extra seats have been added.", value: "E" },
+          ],
+          correctAnswer: "A/B", points: 1,
+        },
+        {
+          id: "cam11-l-t2-s2-q13", number: 13,
+          groupLabel: `Questions 13 and 14: Choose TWO letters, A–E.\n\nWhich TWO facilities does the theatre currently offer to the public?\n\nA  rooms for hire\nB  backstage tours\nC  hire of costumes\nD  a bookshop\nE  a café\n\n(Answers are accepted in either order.)`,
+          type: "multiple_choice", question: "13. Choose TWO (first answer)",
+          options: [
+            { label: "A  rooms for hire", value: "A" },
+            { label: "B  backstage tours", value: "B" },
+            { label: "C  hire of costumes", value: "C" },
+            { label: "D  a bookshop", value: "D" },
+            { label: "E  a café", value: "E" },
+          ],
+          correctAnswer: "B/D", points: 1,
+        },
+        {
+          id: "cam11-l-t2-s2-q14", number: 14, type: "multiple_choice",
+          question: "14. Choose TWO (second answer)",
+          options: [
+            { label: "A  rooms for hire", value: "A" },
+            { label: "B  backstage tours", value: "B" },
+            { label: "C  hire of costumes", value: "C" },
+            { label: "D  a bookshop", value: "D" },
+            { label: "E  a café", value: "E" },
+          ],
+          correctAnswer: "B/D", points: 1,
+        },
+        {
+          id: "cam11-l-t2-s2-q15", number: 15,
+          groupLabel: `Questions 15 and 16: Choose TWO letters, A–E.\n\nWhich TWO workshops does the theatre currently offer?\n\nA  sound\nB  acting\nC  making puppets\nD  make-up\nE  lighting\n\n(Answers are accepted in either order.)`,
+          type: "multiple_choice", question: "15. Choose TWO (first answer)",
+          options: [
+            { label: "A  sound", value: "A" },
+            { label: "B  acting", value: "B" },
+            { label: "C  making puppets", value: "C" },
+            { label: "D  make-up", value: "D" },
+            { label: "E  lighting", value: "E" },
+          ],
+          correctAnswer: "C/E", points: 1,
+        },
+        {
+          id: "cam11-l-t2-s2-q16", number: 16, type: "multiple_choice",
+          question: "16. Choose TWO (second answer)",
+          options: [
+            { label: "A  sound", value: "A" },
+            { label: "B  acting", value: "B" },
+            { label: "C  making puppets", value: "C" },
+            { label: "D  make-up", value: "D" },
+            { label: "E  lighting", value: "E" },
+          ],
+          correctAnswer: "C/E", points: 1,
+        },
+        {
+          id: "cam11-l-t2-s2-q17", number: 17,
+          groupLabel: `Questions 17–20: Label the ground-floor plan of the theatre above. Write the correct letter, A–G, next to each area.`,
+          type: "matching", question: "17. box office",
+          options: [
+            { label: "A", value: "A" }, { label: "B", value: "B" }, { label: "C", value: "C" },
+            { label: "D", value: "D" }, { label: "E", value: "E" }, { label: "F", value: "F" },
+            { label: "G", value: "G" },
+          ],
+          correctAnswer: "G", points: 1,
+        },
+        {
+          id: "cam11-l-t2-s2-q18", number: 18, type: "matching", question: "18. theatre manager's office",
+          options: [
+            { label: "A", value: "A" }, { label: "B", value: "B" }, { label: "C", value: "C" },
+            { label: "D", value: "D" }, { label: "E", value: "E" }, { label: "F", value: "F" },
+            { label: "G", value: "G" },
+          ],
+          correctAnswer: "D", points: 1,
+        },
+        {
+          id: "cam11-l-t2-s2-q19", number: 19, type: "matching", question: "19. lighting box",
+          options: [
+            { label: "A", value: "A" }, { label: "B", value: "B" }, { label: "C", value: "C" },
+            { label: "D", value: "D" }, { label: "E", value: "E" }, { label: "F", value: "F" },
+            { label: "G", value: "G" },
+          ],
+          correctAnswer: "B", points: 1,
+        },
+        {
+          id: "cam11-l-t2-s2-q20", number: 20, type: "matching", question: "20. artistic director's offices",
+          options: [
+            { label: "A", value: "A" }, { label: "B", value: "B" }, { label: "C", value: "C" },
+            { label: "D", value: "D" }, { label: "E", value: "E" }, { label: "F", value: "F" },
+            { label: "G", value: "G" },
+          ],
+          correctAnswer: "F", points: 1,
+        },
+      ],
+    },
+    // ── PART 3 ─────────────────────────────────────────────
+    {
+      id: "cam11-l-t2-s3",
+      sectionNumber: 3,
+      title: "Part 3",
+      instructions: `Questions 21–26: Choose the correct letter, A, B or C.
+Questions 27 & 28: Choose TWO letters, A–E.
+Questions 29 & 30: Choose TWO letters, A–E.`,
+      passageTitle: "Helen & Colin — Rocky Bay field trip",
+      questions: [
+        {
+          id: "cam11-l-t2-s3-q21", number: 21,
+          groupLabel: `Questions 21–26: Choose the correct letter, A, B or C.`,
+          type: "multiple_choice", question: "21. What do the students agree should be included in their aims?",
+          options: [
+            { label: "A  factors affecting where organisms live", value: "A" },
+            { label: "B  the need to preserve endangered species", value: "B" },
+            { label: "C  techniques for classifying different organisms", value: "C" },
+          ],
+          correctAnswer: "A", points: 1,
+        },
+        {
+          id: "cam11-l-t2-s3-q22", number: 22, type: "multiple_choice",
+          question: "22. What equipment did they forget to take on the field trip?",
+          options: [
+            { label: "A  string", value: "A" },
+            { label: "B  a compass", value: "B" },
+            { label: "C  a ruler", value: "C" },
+          ],
+          correctAnswer: "A", points: 1,
+        },
+        {
+          id: "cam11-l-t2-s3-q23", number: 23, type: "multiple_choice",
+          question: "23. In Helen's procedure section, Colin suggests a change in",
+          options: [
+            { label: "A  the order in which information is given.", value: "A" },
+            { label: "B  the way the information is divided up.", value: "B" },
+            { label: "C  the amount of information provided.", value: "C" },
+          ],
+          correctAnswer: "C", points: 1,
+        },
+        {
+          id: "cam11-l-t2-s3-q24", number: 24, type: "multiple_choice",
+          question: "24. What do they say about the method they used to measure wave speed?",
+          options: [
+            { label: "A  It provided accurate results.", value: "A" },
+            { label: "B  It was simple to carry out.", value: "B" },
+            { label: "C  It required special equipment.", value: "C" },
+          ],
+          correctAnswer: "B", points: 1,
+        },
+        {
+          id: "cam11-l-t2-s3-q25", number: 25, type: "multiple_choice",
+          question: "25. What mistake did Helen make when first drawing the map?",
+          options: [
+            { label: "A  She chose the wrong scale.", value: "A" },
+            { label: "B  She stood in the wrong place.", value: "B" },
+            { label: "C  She did it at the wrong time.", value: "C" },
+          ],
+          correctAnswer: "B", points: 1,
+        },
+        {
+          id: "cam11-l-t2-s3-q26", number: 26, type: "multiple_choice",
+          question: "26. What do they decide to do next with their map?",
+          options: [
+            { label: "A  scan it onto a computer", value: "A" },
+            { label: "B  check it using photographs", value: "B" },
+            { label: "C  add information from the internet", value: "C" },
+          ],
+          correctAnswer: "B", points: 1,
+        },
+        {
+          id: "cam11-l-t2-s3-q27", number: 27,
+          groupLabel: `Questions 27 and 28: Choose TWO letters, A–E.\n\nWhich TWO problems affecting organisms in the splash zone are mentioned?\n\nA  lack of water\nB  strong winds\nC  lack of food\nD  high temperatures\nE  large waves\n\n(Answers are accepted in either order.)`,
+          type: "multiple_choice", question: "27. Choose TWO (first answer)",
+          options: [
+            { label: "A  lack of water", value: "A" },
+            { label: "B  strong winds", value: "B" },
+            { label: "C  lack of food", value: "C" },
+            { label: "D  high temperatures", value: "D" },
+            { label: "E  large waves", value: "E" },
+          ],
+          correctAnswer: "A/D", points: 1,
+        },
+        {
+          id: "cam11-l-t2-s3-q28", number: 28, type: "multiple_choice",
+          question: "28. Choose TWO (second answer)",
+          options: [
+            { label: "A  lack of water", value: "A" },
+            { label: "B  strong winds", value: "B" },
+            { label: "C  lack of food", value: "C" },
+            { label: "D  high temperatures", value: "D" },
+            { label: "E  large waves", value: "E" },
+          ],
+          correctAnswer: "A/D", points: 1,
+        },
+        {
+          id: "cam11-l-t2-s3-q29", number: 29,
+          groupLabel: `Questions 29 and 30: Choose TWO letters, A–E.\n\nWhich TWO reasons for possible error will they include in their report?\n\nA  inaccurate records of the habitat of organisms\nB  influence on behaviour of organisms by observer\nC  incorrect identification of some organisms\nD  making generalisations from a small sample\nE  missing some organisms when counting\n\n(Answers are accepted in either order.)`,
+          type: "multiple_choice", question: "29. Choose TWO (first answer)",
+          options: [
+            { label: "A  inaccurate records of the habitat of organisms", value: "A" },
+            { label: "B  influence on behaviour of organisms by observer", value: "B" },
+            { label: "C  incorrect identification of some organisms", value: "C" },
+            { label: "D  making generalisations from a small sample", value: "D" },
+            { label: "E  missing some organisms when counting", value: "E" },
+          ],
+          correctAnswer: "C/E", points: 1,
+        },
+        {
+          id: "cam11-l-t2-s3-q30", number: 30, type: "multiple_choice",
+          question: "30. Choose TWO (second answer)",
+          options: [
+            { label: "A  inaccurate records of the habitat of organisms", value: "A" },
+            { label: "B  influence on behaviour of organisms by observer", value: "B" },
+            { label: "C  incorrect identification of some organisms", value: "C" },
+            { label: "D  making generalisations from a small sample", value: "D" },
+            { label: "E  missing some organisms when counting", value: "E" },
+          ],
+          correctAnswer: "C/E", points: 1,
+        },
+      ],
+    },
+    // ── PART 4 ─────────────────────────────────────────────
+    {
+      id: "cam11-l-t2-s4",
+      sectionNumber: 4,
+      title: "Part 4",
+      instructions: `Questions 31–40: Complete the notes below. Write ONE WORD ONLY for each answer.`,
+      passageText: `DESIGNING A PUBLIC BUILDING: THE TAYLOR CONCERT HALL
+
+Introduction
+The designer of a public building may need to consider the building's
+●  function
+●  physical and 31 _______ context
+●  symbolic meaning
+
+Location and concept of the Concert Hall
+●  On the site of a disused 32 _______
+●  Beside a 33 _______
+●  The design is based on the concept of a mystery
+
+Building design
+●  It's approached by a 34 _______ for pedestrians
+●  The building is the shape of a 35 _______
+●  One exterior wall acts as a large 36 _______
+●  In the auditorium:
+   –  the floor is built on huge pads made of 37 _______
+   –  the walls are made of local wood and are 38 _______ in shape
+   –  ceiling panels and 39 _______ on walls allow adjustment of acoustics
+
+Evaluation
+Some critics say the 40 _______ style of the building is inappropriate`,
+      questions: [
+        { id: "cam11-l-t2-s4-q31", number: 31, type: "note_completion", question: "31. physical and _______ context", correctAnswer: "social", points: 1 },
+        { id: "cam11-l-t2-s4-q32", number: 32, type: "note_completion", question: "32. On the site of a disused _______", correctAnswer: "factory", points: 1 },
+        { id: "cam11-l-t2-s4-q33", number: 33, type: "note_completion", question: "33. Beside a _______", correctAnswer: "canal", points: 1 },
+        { id: "cam11-l-t2-s4-q34", number: 34, type: "note_completion", question: "34. approached by a _______ for pedestrians", correctAnswer: "bridge", points: 1 },
+        { id: "cam11-l-t2-s4-q35", number: 35, type: "note_completion", question: "35. shape of a _______", correctAnswer: "box", points: 1 },
+        { id: "cam11-l-t2-s4-q36", number: 36, type: "note_completion", question: "36. One exterior wall acts as a large _______", correctAnswer: "screen", points: 1 },
+        { id: "cam11-l-t2-s4-q37", number: 37, type: "note_completion", question: "37. huge pads made of _______", correctAnswer: "rubber", points: 1 },
+        { id: "cam11-l-t2-s4-q38", number: 38, type: "note_completion", question: "38. walls are _______ in shape", correctAnswer: "curved", points: 1 },
+        { id: "cam11-l-t2-s4-q39", number: 39, type: "note_completion", question: "39. ceiling panels and _______ on walls", correctAnswer: "curtains", points: 1 },
+        { id: "cam11-l-t2-s4-q40", number: 40, type: "note_completion", question: "40. the _______ style of the building is inappropriate", correctAnswer: "international", points: 1 },
+      ],
+    },
+  ],
+};
+
+// ============================================================
+// CAMBRIDGE IELTS 11 – LISTENING TEST 3
+// Parts: 1) Free activities in Burnham area (MCQ + sentence
+//           completion on Paxton Nature Reserve)
+//        2) Changes in Barford (MCQ + facility → plan matching A–G)
+//        3) Helen & Jeremy — children's book illustrations (table
+//           + report-section authorship A/B/C/D)
+//        4) Ethnography in Business (notes)
+// ============================================================
+export const cambridge11_listening_t3: IELTSTest = {
+  id: "cam11-listening-t3",
+  title: "Cambridge IELTS 11 – Listening Test 3",
+  bookNumber: 11,
+  testNumber: 3,
+  type: "listening",
+  level: "academic",
+  durationMinutes: 30,
+  transferMinutes: 2,
+  audioUrl: audioUrl("cam11-listening-t3.mp3"),
+  audioDurationSeconds: 1800,
+  sections: [
+    // ── PART 1 ─────────────────────────────────────────────
+    {
+      id: "cam11-l-t3-s1",
+      sectionNumber: 1,
+      title: "Part 1",
+      instructions: `Questions 1–6: Choose the correct letter, A, B or C.
+Questions 7–10: Complete the sentences below. Write ONE WORD ONLY for each answer.`,
+      passageTitle: "Free activities in the Burnham area",
+      passageText: `Paxton Nature Reserve
+
+7. Paxton is a good place for seeing rare _______ all year round.
+8. This is a particularly good time for seeing certain unusual _______.
+9. Visitors will be able to learn about _______ and then collect some.
+10. Part of the _______ has been made suitable for swimming.`,
+      questions: [
+        {
+          id: "cam11-l-t3-s1-q1", number: 1,
+          groupLabel: `Questions 1–6: Choose the correct letter, A, B or C.`,
+          type: "multiple_choice", question: "1. The 'Family Welcome' event in the art gallery begins at",
+          options: [
+            { label: "A  10 a.m.", value: "A" },
+            { label: "B  10.30 a.m.", value: "B" },
+            { label: "C  2 p.m.", value: "C" },
+          ],
+          correctAnswer: "B", points: 1,
+        },
+        {
+          id: "cam11-l-t3-s1-q2", number: 2, type: "multiple_choice",
+          question: "2. The film that is now shown in the 'Family Welcome' event is about",
+          options: [
+            { label: "A  sculpture.", value: "A" },
+            { label: "B  painting.", value: "B" },
+            { label: "C  ceramics.", value: "C" },
+          ],
+          correctAnswer: "C", points: 1,
+        },
+        {
+          id: "cam11-l-t3-s1-q3", number: 3, type: "multiple_choice",
+          question: "3. When do most of the free concerts take place?",
+          options: [
+            { label: "A  in the morning", value: "A" },
+            { label: "B  at lunchtime", value: "B" },
+            { label: "C  in the evening", value: "C" },
+          ],
+          correctAnswer: "B", points: 1,
+        },
+        {
+          id: "cam11-l-t3-s1-q4", number: 4, type: "multiple_choice",
+          question: "4. Where will the 4 p.m. concert of Latin American music take place?",
+          options: [
+            { label: "A  in a museum", value: "A" },
+            { label: "B  in a theatre", value: "B" },
+            { label: "C  in a library", value: "C" },
+          ],
+          correctAnswer: "A", points: 1,
+        },
+        {
+          id: "cam11-l-t3-s1-q5", number: 5, type: "multiple_choice",
+          question: "5. The boat race begins at",
+          options: [
+            { label: "A  Summer Pool.", value: "A" },
+            { label: "B  Charlesworth Bridge.", value: "B" },
+            { label: "C  Offord Marina.", value: "C" },
+          ],
+          correctAnswer: "C", points: 1,
+        },
+        {
+          id: "cam11-l-t3-s1-q6", number: 6, type: "multiple_choice",
+          question: "6. One of the boat race teams",
+          options: [
+            { label: "A  won a regional competition earlier this year.", value: "A" },
+            { label: "B  has represented the region in a national competition.", value: "B" },
+            { label: "C  has won several regional competitions.", value: "C" },
+          ],
+          correctAnswer: "A", points: 1,
+        },
+        { id: "cam11-l-t3-s1-q7", number: 7, type: "sentence_completion", question: "7. Paxton is a good place for seeing rare _______ all year round", correctAnswer: "birds", points: 1 },
+        { id: "cam11-l-t3-s1-q8", number: 8, type: "sentence_completion", question: "8. particularly good time for seeing certain unusual _______", correctAnswer: "flowers", points: 1 },
+        { id: "cam11-l-t3-s1-q9", number: 9, type: "sentence_completion", question: "9. learn about _______ and then collect some", correctAnswer: "mushrooms", points: 1 },
+        { id: "cam11-l-t3-s1-q10", number: 10, type: "sentence_completion", question: "10. Part of the _______ has been made suitable for swimming", correctAnswer: "river", points: 1 },
+      ],
+    },
+    // ── PART 2 ─────────────────────────────────────────────
+    {
+      id: "cam11-l-t3-s2",
+      sectionNumber: 2,
+      title: "Part 2",
+      instructions: `Questions 11–15: Choose the correct letter, A, B or C.
+Questions 16–20: Match each facility with its plan. Choose FIVE answers from the box (A–G).`,
+      passageTitle: "Changes in Barford over the last 50 years",
+      questions: [
+        {
+          id: "cam11-l-t3-s2-q11", number: 11,
+          groupLabel: `Questions 11–15: Choose the correct letter, A, B or C.`,
+          type: "multiple_choice", question: "11. In Shona's opinion, why do fewer people use buses in Barford these days?",
+          options: [
+            { label: "A  The buses are old and uncomfortable.", value: "A" },
+            { label: "B  Fares have gone up too much.", value: "B" },
+            { label: "C  There are not so many bus routes.", value: "C" },
+          ],
+          correctAnswer: "C", points: 1,
+        },
+        {
+          id: "cam11-l-t3-s2-q12", number: 12, type: "multiple_choice",
+          question: "12. What change in the road network is known to have benefited the town most?",
+          options: [
+            { label: "A  the construction of a bypass", value: "A" },
+            { label: "B  the development of cycle paths", value: "B" },
+            { label: "C  the banning of cars from certain streets", value: "C" },
+          ],
+          correctAnswer: "B", points: 1,
+        },
+        {
+          id: "cam11-l-t3-s2-q13", number: 13, type: "multiple_choice",
+          question: "13. What is the problem affecting shopping in the town centre?",
+          options: [
+            { label: "A  lack of parking spaces", value: "A" },
+            { label: "B  lack of major retailers", value: "B" },
+            { label: "C  lack of restaurants and cafés", value: "C" },
+          ],
+          correctAnswer: "B", points: 1,
+        },
+        {
+          id: "cam11-l-t3-s2-q14", number: 14, type: "multiple_choice",
+          question: "14. What does Shona say about medical facilities in Barford?",
+          options: [
+            { label: "A  There is no hospital.", value: "A" },
+            { label: "B  New medical practices are planned.", value: "B" },
+            { label: "C  The number of dentists is too low.", value: "C" },
+          ],
+          correctAnswer: "A", points: 1,
+        },
+        {
+          id: "cam11-l-t3-s2-q15", number: 15, type: "multiple_choice",
+          question: "15. The largest number of people are employed in",
+          options: [
+            { label: "A  manufacturing.", value: "A" },
+            { label: "B  services.", value: "B" },
+            { label: "C  education.", value: "C" },
+          ],
+          correctAnswer: "C", points: 1,
+        },
+        {
+          id: "cam11-l-t3-s2-q16", number: 16,
+          groupLabel: `Questions 16–20: What is planned for each of the following facilities? Choose FIVE answers from the box (A–G).\n\nA  It will move to a new location.\nB  It will have its opening hours extended.\nC  It will be refurbished.\nD  It will be used for a different purpose.\nE  It will have its opening hours reduced.\nF  It will have new management.\nG  It will be expanded.`,
+          type: "matching", question: "16. railway station car park",
+          options: [
+            { label: "A  It will move to a new location.", value: "A" },
+            { label: "B  It will have its opening hours extended.", value: "B" },
+            { label: "C  It will be refurbished.", value: "C" },
+            { label: "D  It will be used for a different purpose.", value: "D" },
+            { label: "E  It will have its opening hours reduced.", value: "E" },
+            { label: "F  It will have new management.", value: "F" },
+            { label: "G  It will be expanded.", value: "G" },
+          ],
+          correctAnswer: "G", points: 1,
+        },
+        {
+          id: "cam11-l-t3-s2-q17", number: 17, type: "matching", question: "17. cinema",
+          options: [
+            { label: "A  It will move to a new location.", value: "A" },
+            { label: "B  It will have its opening hours extended.", value: "B" },
+            { label: "C  It will be refurbished.", value: "C" },
+            { label: "D  It will be used for a different purpose.", value: "D" },
+            { label: "E  It will have its opening hours reduced.", value: "E" },
+            { label: "F  It will have new management.", value: "F" },
+            { label: "G  It will be expanded.", value: "G" },
+          ],
+          correctAnswer: "A", points: 1,
+        },
+        {
+          id: "cam11-l-t3-s2-q18", number: 18, type: "matching", question: "18. indoor market",
+          options: [
+            { label: "A  It will move to a new location.", value: "A" },
+            { label: "B  It will have its opening hours extended.", value: "B" },
+            { label: "C  It will be refurbished.", value: "C" },
+            { label: "D  It will be used for a different purpose.", value: "D" },
+            { label: "E  It will have its opening hours reduced.", value: "E" },
+            { label: "F  It will have new management.", value: "F" },
+            { label: "G  It will be expanded.", value: "G" },
+          ],
+          correctAnswer: "C", points: 1,
+        },
+        {
+          id: "cam11-l-t3-s2-q19", number: 19, type: "matching", question: "19. library",
+          options: [
+            { label: "A  It will move to a new location.", value: "A" },
+            { label: "B  It will have its opening hours extended.", value: "B" },
+            { label: "C  It will be refurbished.", value: "C" },
+            { label: "D  It will be used for a different purpose.", value: "D" },
+            { label: "E  It will have its opening hours reduced.", value: "E" },
+            { label: "F  It will have new management.", value: "F" },
+            { label: "G  It will be expanded.", value: "G" },
+          ],
+          correctAnswer: "B", points: 1,
+        },
+        {
+          id: "cam11-l-t3-s2-q20", number: 20, type: "matching", question: "20. nature reserve",
+          options: [
+            { label: "A  It will move to a new location.", value: "A" },
+            { label: "B  It will have its opening hours extended.", value: "B" },
+            { label: "C  It will be refurbished.", value: "C" },
+            { label: "D  It will be used for a different purpose.", value: "D" },
+            { label: "E  It will have its opening hours reduced.", value: "E" },
+            { label: "F  It will have new management.", value: "F" },
+            { label: "G  It will be expanded.", value: "G" },
+          ],
+          correctAnswer: "F", points: 1,
+        },
+      ],
+    },
+    // ── PART 3 ─────────────────────────────────────────────
+    {
+      id: "cam11-l-t3-s3",
+      sectionNumber: 3,
+      title: "Part 3",
+      instructions: `Questions 21–26: Complete the table below. Write ONE WORD ONLY for each answer.
+Questions 27–30: Who is going to write each part of the report? Write A, B, C or D next to each part.`,
+      passageTitle: "Helen & Jeremy — children's book project",
+      passageText: `Subject of drawing                                | Change to be made
+A 21 _______ surrounded by trees                 | Add Malcolm and a 22 _______ noticing him
+People who are 23 _______ outside the forest    | Add Malcolm sitting on a tree trunk and 24 _______
+Ice-skaters on 25 _______ covered with ice       | Add a 26 _______ for each person`,
+      questions: [
+        { id: "cam11-l-t3-s3-q21", number: 21, type: "table_completion", question: "21. A _______ surrounded by trees", correctAnswer: "cave", points: 1 },
+        { id: "cam11-l-t3-s3-q22", number: 22, type: "table_completion", question: "22. Add Malcolm and a _______ noticing him", correctAnswer: "tiger", points: 1 },
+        { id: "cam11-l-t3-s3-q23", number: 23, type: "table_completion", question: "23. People who are _______ outside the forest", correctAnswer: "dancing", points: 1 },
+        { id: "cam11-l-t3-s3-q24", number: 24, type: "table_completion", question: "24. Add Malcolm sitting on a tree trunk and _______", correctAnswer: "crying", points: 1 },
+        { id: "cam11-l-t3-s3-q25", number: 25, type: "table_completion", question: "25. Ice-skaters on _______ covered with ice", correctAnswer: "grass", points: 1 },
+        { id: "cam11-l-t3-s3-q26", number: 26, type: "table_completion", question: "26. Add a _______ for each person", correctAnswer: "scarf", points: 1 },
+        {
+          id: "cam11-l-t3-s3-q27", number: 27,
+          groupLabel: `Questions 27–30: Who is going to write each of the following parts of the report? Write the correct letter A, B, C or D next to each part.\n\nA  Helen only\nB  Jeremy only\nC  both Helen and Jeremy\nD  neither Helen nor Jeremy\n\n(Letters may be used more than once.)`,
+          type: "matching", question: "27. how they planned the project",
+          options: [
+            { label: "A  Helen only", value: "A" },
+            { label: "B  Jeremy only", value: "B" },
+            { label: "C  both Helen and Jeremy", value: "C" },
+            { label: "D  neither Helen nor Jeremy", value: "D" },
+          ],
+          correctAnswer: "A", points: 1,
+        },
+        {
+          id: "cam11-l-t3-s3-q28", number: 28, type: "matching", question: "28. how they had ideas for their stories",
+          options: [
+            { label: "A  Helen only", value: "A" },
+            { label: "B  Jeremy only", value: "B" },
+            { label: "C  both Helen and Jeremy", value: "C" },
+            { label: "D  neither Helen nor Jeremy", value: "D" },
+          ],
+          correctAnswer: "C", points: 1,
+        },
+        {
+          id: "cam11-l-t3-s3-q29", number: 29, type: "matching", question: "29. an interpretation of their stories",
+          options: [
+            { label: "A  Helen only", value: "A" },
+            { label: "B  Jeremy only", value: "B" },
+            { label: "C  both Helen and Jeremy", value: "C" },
+            { label: "D  neither Helen nor Jeremy", value: "D" },
+          ],
+          correctAnswer: "D", points: 1,
+        },
+        {
+          id: "cam11-l-t3-s3-q30", number: 30, type: "matching", question: "30. comments on the illustrations",
+          options: [
+            { label: "A  Helen only", value: "A" },
+            { label: "B  Jeremy only", value: "B" },
+            { label: "C  both Helen and Jeremy", value: "C" },
+            { label: "D  neither Helen nor Jeremy", value: "D" },
+          ],
+          correctAnswer: "B", points: 1,
+        },
+      ],
+    },
+    // ── PART 4 ─────────────────────────────────────────────
+    {
+      id: "cam11-l-t3-s4",
+      sectionNumber: 4,
+      title: "Part 4",
+      instructions: `Questions 31–40: Complete the notes below. Write ONE WORD ONLY for each answer.`,
+      passageText: `ETHNOGRAPHY IN BUSINESS
+
+Ethnography: research which explores human cultures
+
+It can be used in business:
+●  to investigate customer needs and 31 _______
+●  to help companies develop new designs
+
+Examples of ethnographic research in business
+
+Kitchen equipment
+●  Researchers found that cooks could not easily see the 32 _______ in measuring cups.
+
+Cell phones
+●  In Uganda, customers paid to use the cell phones of entrepreneurs.
+●  These customers wanted to check the 33 _______ used.
+
+Computer companies
+●  There was a need to develop 34 _______ to improve communication between system administrators and colleagues.
+
+Hospitals
+●  Nurses needed to access information about 35 _______ in different parts of the hospital.
+
+Airlines
+●  Respondents recorded information about their 36 _______ while travelling.
+
+Principles of ethnographic research in business
+●  The researcher does not start off with a hypothesis.
+●  Participants may be selected by criteria such as age, 37 _______ or product used.
+●  The participants must feel 38 _______ about taking part in the research.
+●  There is usually direct 39 _______ of the participants.
+●  The interview is guided by the participant.
+●  A lot of time is needed for the 40 _______ of the data.
+●  Researchers look for a meaningful pattern in the data.`,
+      questions: [
+        { id: "cam11-l-t3-s4-q31", number: 31, type: "note_completion", question: "31. customer needs and _______", correctAnswer: "attitude/attitudes", points: 1 },
+        { id: "cam11-l-t3-s4-q32", number: 32, type: "note_completion", question: "32. could not easily see the _______ in measuring cups", correctAnswer: "numbers", points: 1 },
+        { id: "cam11-l-t3-s4-q33", number: 33, type: "note_completion", question: "33. customers wanted to check the _______ used", correctAnswer: "time/minutes", points: 1 },
+        { id: "cam11-l-t3-s4-q34", number: 34, type: "note_completion", question: "34. need to develop _______ to improve communication", correctAnswer: "software", points: 1 },
+        { id: "cam11-l-t3-s4-q35", number: 35, type: "note_completion", question: "35. access information about _______ in different parts of the hospital", correctAnswer: "patients", points: 1 },
+        { id: "cam11-l-t3-s4-q36", number: 36, type: "note_completion", question: "36. recorded information about their _______ while travelling", correctAnswer: "emotions/feelings", points: 1 },
+        { id: "cam11-l-t3-s4-q37", number: 37, type: "note_completion", question: "37. selected by criteria such as age, _______ or product used", correctAnswer: "income", points: 1 },
+        { id: "cam11-l-t3-s4-q38", number: 38, type: "note_completion", question: "38. participants must feel _______ about taking part", correctAnswer: "comfortable", points: 1 },
+        { id: "cam11-l-t3-s4-q39", number: 39, type: "note_completion", question: "39. usually direct _______ of the participants", correctAnswer: "observation", points: 1 },
+        { id: "cam11-l-t3-s4-q40", number: 40, type: "note_completion", question: "40. time needed for the _______ of the data", correctAnswer: "analysis", points: 1 },
+      ],
+    },
+  ],
+};
+
+// ============================================================
+// CAMBRIDGE IELTS 11 – LISTENING TEST 4
+// Parts: 1) Festival events — jazz band, duck races, flower show,
+//           plays (table + audience matching A/B/C)
+//        2) Museum collections + basement plan (collection →
+//           comment matching A–G + A–H plan labelling)
+//        3) Joanna's psychology study on musicians' concert dress
+//           (three Choose-TWO + MCQ)
+//        4) Use of soil to reduce CO2 (notes — Rattan Lal,
+//           regenerative agriculture, California, Australia)
+// ============================================================
+export const cambridge11_listening_t4: IELTSTest = {
+  id: "cam11-listening-t4",
+  title: "Cambridge IELTS 11 – Listening Test 4",
+  bookNumber: 11,
+  testNumber: 4,
+  type: "listening",
+  level: "academic",
+  durationMinutes: 30,
+  transferMinutes: 2,
+  audioUrl: audioUrl("cam11-listening-t4.mp3"),
+  audioDurationSeconds: 1800,
+  sections: [
+    // ── PART 1 ─────────────────────────────────────────────
+    {
+      id: "cam11-l-t4-s1",
+      sectionNumber: 1,
+      title: "Part 1",
+      instructions: `Questions 1–7: Complete the table below. Write ONE WORD AND/OR A NUMBER for each answer.
+Questions 8–10: Who is each play suitable for? Write A, B or C next to each play.`,
+      passageText: `Festival events
+
+Event       | Cost                  | Venue           | Notes
+Jazz band   | Tickets £15           | The 1 _______   | Also appearing: Carolyn Hart
+            |                       | school          | (plays the 2 _______)
+Duck races  | £1 per duck           | Start behind    | Prize: tickets for 4 _______ held at the
+            |                       | the 3 _______   | end of the festival.
+            |                       |                 | Ducks can be bought in the 5 _______
+Flower show | Free                  | 6 _______ Hall  | Prizes presented at 5 p.m. by a
+            |                       |                 | well-known 7 _______`,
+      questions: [
+        { id: "cam11-l-t4-s1-q1", number: 1, type: "table_completion", question: "1. Jazz band venue: The _______ school", correctAnswer: "secondary", points: 1 },
+        { id: "cam11-l-t4-s1-q2", number: 2, type: "table_completion", question: "2. Carolyn Hart plays the _______", correctAnswer: "flute", points: 1 },
+        { id: "cam11-l-t4-s1-q3", number: 3, type: "table_completion", question: "3. Duck races start behind the _______", correctAnswer: "cinema", points: 1 },
+        { id: "cam11-l-t4-s1-q4", number: 4, type: "table_completion", question: "4. Prize: tickets for _______", correctAnswer: "concert", points: 1 },
+        { id: "cam11-l-t4-s1-q5", number: 5, type: "table_completion", question: "5. Ducks can be bought in the _______", correctAnswer: "market", points: 1 },
+        { id: "cam11-l-t4-s1-q6", number: 6, type: "table_completion", question: "6. Flower show venue: _______ Hall", correctAnswer: "Bythwaite", points: 1 },
+        { id: "cam11-l-t4-s1-q7", number: 7, type: "table_completion", question: "7. Prizes presented by a well-known _______", correctAnswer: "actor", points: 1 },
+        {
+          id: "cam11-l-t4-s1-q8", number: 8,
+          groupLabel: `Questions 8–10: Who is each play suitable for? Write the correct letter, A, B or C, next to each play.\n\nA  mainly for children\nB  mainly for adults\nC  suitable for people of all ages\n\n(Letters may be used more than once.)`,
+          type: "matching", question: "8. The Mystery of Muldoon",
+          options: [
+            { label: "A  mainly for children", value: "A" },
+            { label: "B  mainly for adults", value: "B" },
+            { label: "C  suitable for people of all ages", value: "C" },
+          ],
+          correctAnswer: "A", points: 1,
+        },
+        {
+          id: "cam11-l-t4-s1-q9", number: 9, type: "matching", question: "9. Fire and Flood",
+          options: [
+            { label: "A  mainly for children", value: "A" },
+            { label: "B  mainly for adults", value: "B" },
+            { label: "C  suitable for people of all ages", value: "C" },
+          ],
+          correctAnswer: "B", points: 1,
+        },
+        {
+          id: "cam11-l-t4-s1-q10", number: 10, type: "matching", question: "10. Silly Sailor",
+          options: [
+            { label: "A  mainly for children", value: "A" },
+            { label: "B  mainly for adults", value: "B" },
+            { label: "C  suitable for people of all ages", value: "C" },
+          ],
+          correctAnswer: "C", points: 1,
+        },
+      ],
+    },
+    // ── PART 2 ─────────────────────────────────────────────
+    {
+      id: "cam11-l-t4-s2",
+      sectionNumber: 2,
+      title: "Part 2",
+      instructions: `Questions 11–16: Match each museum collection with a comment. Choose SIX answers from the box (A–G).
+Questions 17–20: Label the plan of the museum basement below. Write the correct letter, A–H, next to each location.`,
+      passageTitle: "Museum tour",
+      diagramUrl: imageUrl("cam11test4map.png"),
+      questions: [
+        {
+          id: "cam11-l-t4-s2-q11", number: 11,
+          groupLabel: `Questions 11–16: What does the speaker say about each of the following collections? Choose SIX answers from the box (A–G).\n\nA  was given by one person\nB  was recently publicised in the media\nC  includes some items given by members of the public\nD  includes some items given by the artists\nE  includes the most popular exhibits in the museum\nF  is the largest of its kind in the country\nG  has had some of its contents relocated`,
+          type: "matching", question: "11. 20th- and 21st-century paintings",
+          options: [
+            { label: "A  was given by one person", value: "A" },
+            { label: "B  was recently publicised in the media", value: "B" },
+            { label: "C  includes some items given by members of the public", value: "C" },
+            { label: "D  includes some items given by the artists", value: "D" },
+            { label: "E  includes the most popular exhibits in the museum", value: "E" },
+            { label: "F  is the largest of its kind in the country", value: "F" },
+            { label: "G  has had some of its contents relocated", value: "G" },
+          ],
+          correctAnswer: "E", points: 1,
+        },
+        {
+          id: "cam11-l-t4-s2-q12", number: 12, type: "matching", question: "12. 19th-century paintings",
+          options: [
+            { label: "A  was given by one person", value: "A" },
+            { label: "B  was recently publicised in the media", value: "B" },
+            { label: "C  includes some items given by members of the public", value: "C" },
+            { label: "D  includes some items given by the artists", value: "D" },
+            { label: "E  includes the most popular exhibits in the museum", value: "E" },
+            { label: "F  is the largest of its kind in the country", value: "F" },
+            { label: "G  has had some of its contents relocated", value: "G" },
+          ],
+          correctAnswer: "D", points: 1,
+        },
+        {
+          id: "cam11-l-t4-s2-q13", number: 13, type: "matching", question: "13. Sculptures",
+          options: [
+            { label: "A  was given by one person", value: "A" },
+            { label: "B  was recently publicised in the media", value: "B" },
+            { label: "C  includes some items given by members of the public", value: "C" },
+            { label: "D  includes some items given by the artists", value: "D" },
+            { label: "E  includes the most popular exhibits in the museum", value: "E" },
+            { label: "F  is the largest of its kind in the country", value: "F" },
+            { label: "G  has had some of its contents relocated", value: "G" },
+          ],
+          correctAnswer: "G", points: 1,
+        },
+        {
+          id: "cam11-l-t4-s2-q14", number: 14, type: "matching", question: "14. 'Around the world' exhibition",
+          options: [
+            { label: "A  was given by one person", value: "A" },
+            { label: "B  was recently publicised in the media", value: "B" },
+            { label: "C  includes some items given by members of the public", value: "C" },
+            { label: "D  includes some items given by the artists", value: "D" },
+            { label: "E  includes the most popular exhibits in the museum", value: "E" },
+            { label: "F  is the largest of its kind in the country", value: "F" },
+            { label: "G  has had some of its contents relocated", value: "G" },
+          ],
+          correctAnswer: "B", points: 1,
+        },
+        {
+          id: "cam11-l-t4-s2-q15", number: 15, type: "matching", question: "15. Coins",
+          options: [
+            { label: "A  was given by one person", value: "A" },
+            { label: "B  was recently publicised in the media", value: "B" },
+            { label: "C  includes some items given by members of the public", value: "C" },
+            { label: "D  includes some items given by the artists", value: "D" },
+            { label: "E  includes the most popular exhibits in the museum", value: "E" },
+            { label: "F  is the largest of its kind in the country", value: "F" },
+            { label: "G  has had some of its contents relocated", value: "G" },
+          ],
+          correctAnswer: "C", points: 1,
+        },
+        {
+          id: "cam11-l-t4-s2-q16", number: 16, type: "matching", question: "16. Porcelain and glass",
+          options: [
+            { label: "A  was given by one person", value: "A" },
+            { label: "B  was recently publicised in the media", value: "B" },
+            { label: "C  includes some items given by members of the public", value: "C" },
+            { label: "D  includes some items given by the artists", value: "D" },
+            { label: "E  includes the most popular exhibits in the museum", value: "E" },
+            { label: "F  is the largest of its kind in the country", value: "F" },
+            { label: "G  has had some of its contents relocated", value: "G" },
+          ],
+          correctAnswer: "A", points: 1,
+        },
+        {
+          id: "cam11-l-t4-s2-q17", number: 17,
+          groupLabel: `Questions 17–20: Label the plan of the museum basement above. Write the correct letter, A–H, next to each location.`,
+          type: "matching", question: "17. restaurant",
+          options: [
+            { label: "A", value: "A" }, { label: "B", value: "B" }, { label: "C", value: "C" },
+            { label: "D", value: "D" }, { label: "E", value: "E" }, { label: "F", value: "F" },
+            { label: "G", value: "G" }, { label: "H", value: "H" },
+          ],
+          correctAnswer: "F", points: 1,
+        },
+        {
+          id: "cam11-l-t4-s2-q18", number: 18, type: "matching", question: "18. café",
+          options: [
+            { label: "A", value: "A" }, { label: "B", value: "B" }, { label: "C", value: "C" },
+            { label: "D", value: "D" }, { label: "E", value: "E" }, { label: "F", value: "F" },
+            { label: "G", value: "G" }, { label: "H", value: "H" },
+          ],
+          correctAnswer: "H", points: 1,
+        },
+        {
+          id: "cam11-l-t4-s2-q19", number: 19, type: "matching", question: "19. baby-changing facilities",
+          options: [
+            { label: "A", value: "A" }, { label: "B", value: "B" }, { label: "C", value: "C" },
+            { label: "D", value: "D" }, { label: "E", value: "E" }, { label: "F", value: "F" },
+            { label: "G", value: "G" }, { label: "H", value: "H" },
+          ],
+          correctAnswer: "C", points: 1,
+        },
+        {
+          id: "cam11-l-t4-s2-q20", number: 20, type: "matching", question: "20. cloakroom",
+          options: [
+            { label: "A", value: "A" }, { label: "B", value: "B" }, { label: "C", value: "C" },
+            { label: "D", value: "D" }, { label: "E", value: "E" }, { label: "F", value: "F" },
+            { label: "G", value: "G" }, { label: "H", value: "H" },
+          ],
+          correctAnswer: "B", points: 1,
+        },
+      ],
+    },
+    // ── PART 3 ─────────────────────────────────────────────
+    {
+      id: "cam11-l-t4-s3",
+      sectionNumber: 3,
+      title: "Part 3",
+      instructions: `Questions 21 & 22: Choose TWO letters, A–E.
+Questions 23 & 24: Choose TWO letters, A–E.
+Questions 25 & 26: Choose TWO letters, A–E.
+Questions 27–30: Choose the correct letter, A, B or C.`,
+      passageTitle: "Joanna — psychology study on musicians' concert dress",
+      questions: [
+        {
+          id: "cam11-l-t4-s3-q21", number: 21,
+          groupLabel: `Questions 21 and 22: Choose TWO letters, A–E.\n\nWhich TWO characteristics were shared by the subjects of Joanna's psychology study?\n\nA  They had all won prizes for their music.\nB  They had all made music recordings.\nC  They were all under 27 years old.\nD  They had all toured internationally.\nE  They all played a string instrument.\n\n(Answers are accepted in either order.)`,
+          type: "multiple_choice", question: "21. Choose TWO (first answer)",
+          options: [
+            { label: "A  They had all won prizes for their music.", value: "A" },
+            { label: "B  They had all made music recordings.", value: "B" },
+            { label: "C  They were all under 27 years old.", value: "C" },
+            { label: "D  They had all toured internationally.", value: "D" },
+            { label: "E  They all played a string instrument.", value: "E" },
+          ],
+          correctAnswer: "B/D", points: 1,
+        },
+        {
+          id: "cam11-l-t4-s3-q22", number: 22, type: "multiple_choice",
+          question: "22. Choose TWO (second answer)",
+          options: [
+            { label: "A  They had all won prizes for their music.", value: "A" },
+            { label: "B  They had all made music recordings.", value: "B" },
+            { label: "C  They were all under 27 years old.", value: "C" },
+            { label: "D  They had all toured internationally.", value: "D" },
+            { label: "E  They all played a string instrument.", value: "E" },
+          ],
+          correctAnswer: "B/D", points: 1,
+        },
+        {
+          id: "cam11-l-t4-s3-q23", number: 23,
+          groupLabel: `Questions 23 and 24: Choose TWO letters, A–E.\n\nWhich TWO points does Joanna make about her use of telephone interviews?\n\nA  It meant rich data could be collected.\nB  It allowed the involvement of top performers.\nC  It led to a stressful atmosphere at times.\nD  It meant interview times had to be limited.\nE  It caused some technical problems.\n\n(Answers are accepted in either order.)`,
+          type: "multiple_choice", question: "23. Choose TWO (first answer)",
+          options: [
+            { label: "A  It meant rich data could be collected.", value: "A" },
+            { label: "B  It allowed the involvement of top performers.", value: "B" },
+            { label: "C  It led to a stressful atmosphere at times.", value: "C" },
+            { label: "D  It meant interview times had to be limited.", value: "D" },
+            { label: "E  It caused some technical problems.", value: "E" },
+          ],
+          correctAnswer: "A/B", points: 1,
+        },
+        {
+          id: "cam11-l-t4-s3-q24", number: 24, type: "multiple_choice",
+          question: "24. Choose TWO (second answer)",
+          options: [
+            { label: "A  It meant rich data could be collected.", value: "A" },
+            { label: "B  It allowed the involvement of top performers.", value: "B" },
+            { label: "C  It led to a stressful atmosphere at times.", value: "C" },
+            { label: "D  It meant interview times had to be limited.", value: "D" },
+            { label: "E  It caused some technical problems.", value: "E" },
+          ],
+          correctAnswer: "A/B", points: 1,
+        },
+        {
+          id: "cam11-l-t4-s3-q25", number: 25,
+          groupLabel: `Questions 25 and 26: Choose TWO letters, A–E.\n\nWhich TWO topics did Joanna originally intend to investigate in her research?\n\nA  regulations concerning concert dress\nB  audience reactions to the dress of performers\nC  changes in performer attitudes to concert dress\nD  how choice of dress relates to performer roles\nE  links between musical instrument and dress choice\n\n(Answers are accepted in either order.)`,
+          type: "multiple_choice", question: "25. Choose TWO (first answer)",
+          options: [
+            { label: "A  regulations concerning concert dress", value: "A" },
+            { label: "B  audience reactions to the dress of performers", value: "B" },
+            { label: "C  changes in performer attitudes to concert dress", value: "C" },
+            { label: "D  how choice of dress relates to performer roles", value: "D" },
+            { label: "E  links between musical instrument and dress choice", value: "E" },
+          ],
+          correctAnswer: "B/E", points: 1,
+        },
+        {
+          id: "cam11-l-t4-s3-q26", number: 26, type: "multiple_choice",
+          question: "26. Choose TWO (second answer)",
+          options: [
+            { label: "A  regulations concerning concert dress", value: "A" },
+            { label: "B  audience reactions to the dress of performers", value: "B" },
+            { label: "C  changes in performer attitudes to concert dress", value: "C" },
+            { label: "D  how choice of dress relates to performer roles", value: "D" },
+            { label: "E  links between musical instrument and dress choice", value: "E" },
+          ],
+          correctAnswer: "B/E", points: 1,
+        },
+        {
+          id: "cam11-l-t4-s3-q27", number: 27,
+          groupLabel: `Questions 27–30: Choose the correct letter, A, B or C.`,
+          type: "multiple_choice", question: "27. Joanna concentrated on women performers because",
+          options: [
+            { label: "A  women are more influenced by fashion.", value: "A" },
+            { label: "B  women's dress has led to more controversy.", value: "B" },
+            { label: "C  women's code of dress is less strict than men's.", value: "C" },
+          ],
+          correctAnswer: "C", points: 1,
+        },
+        {
+          id: "cam11-l-t4-s3-q28", number: 28, type: "multiple_choice",
+          question: "28. Mike Frost's article suggests that in popular music, women's dress is affected by",
+          options: [
+            { label: "A  their wish to be taken seriously.", value: "A" },
+            { label: "B  their tendency to copy each other.", value: "B" },
+            { label: "C  their reaction to the masculine nature of the music.", value: "C" },
+          ],
+          correctAnswer: "A", points: 1,
+        },
+        {
+          id: "cam11-l-t4-s3-q29", number: 29, type: "multiple_choice",
+          question: "29. What did Joanna's subjects say about the audience at a performance?",
+          options: [
+            { label: "A  The musicians' choice of clothing is linked to respect for the audience.", value: "A" },
+            { label: "B  The clothing should not distract the audience from the music.", value: "B" },
+            { label: "C  The audience should make the effort to dress appropriately.", value: "C" },
+          ],
+          correctAnswer: "A", points: 1,
+        },
+        {
+          id: "cam11-l-t4-s3-q30", number: 30, type: "multiple_choice",
+          question: "30. According to the speakers, musicians could learn from sports scientists about",
+          options: [
+            { label: "A  the importance of clothing for physical freedom.", value: "A" },
+            { label: "B  the part played by clothing in improving performance.", value: "B" },
+            { label: "C  the way clothing may protect against physical injury.", value: "C" },
+          ],
+          correctAnswer: "C", points: 1,
+        },
+      ],
+    },
+    // ── PART 4 ─────────────────────────────────────────────
+    {
+      id: "cam11-l-t4-s4",
+      sectionNumber: 4,
+      title: "Part 4",
+      instructions: `Questions 31–40: Complete the notes below. Write ONE WORD ONLY for each answer.`,
+      passageText: `The use of soil to reduce carbon dioxide (CO2) in the atmosphere
+
+Rattan Lal:
+●  Claims that 13% of CO2 in the atmosphere could be absorbed by agricultural soils
+●  Erosion is more likely in soil that is 31 _______
+●  Lal found soil in Africa that was very 32 _______
+●  It was suggested that carbon from soil was entering the atmosphere
+
+Soil and carbon:
+●  plants turn CO2 from the air into carbon-based substances such as 33 _______
+●  some CO2 moves from the 34 _______ of plants to microbes in the soil
+●  carbon was lost from the soil when agriculture was invented
+
+Regenerative agriculture:
+●  uses established practices to make sure soil remains fertile and 35 _______
+●  e.g. through year-round planting and increasing the 36 _______ of plants that are grown
+
+California study:
+●  taking place on a big 37 _______ farm
+●  uses compost made from waste from agriculture and 38 _______
+
+Australia study:
+●  aims to increase soil carbon by using 39 _______ that are always green
+
+Future developments may include:
+●  reducing the amount of fertilizer used in farming
+●  giving farmers 40 _______ for carbon storage, as well as their produce`,
+      questions: [
+        { id: "cam11-l-t4-s4-q31", number: 31, type: "note_completion", question: "31. Erosion is more likely in soil that is _______", correctAnswer: "dry", points: 1 },
+        { id: "cam11-l-t4-s4-q32", number: 32, type: "note_completion", question: "32. soil in Africa that was very _______", correctAnswer: "hard", points: 1 },
+        { id: "cam11-l-t4-s4-q33", number: 33, type: "note_completion", question: "33. carbon-based substances such as _______", correctAnswer: "sugar/sugars", points: 1 },
+        { id: "cam11-l-t4-s4-q34", number: 34, type: "note_completion", question: "34. CO2 moves from the _______ of plants", correctAnswer: "roots", points: 1 },
+        { id: "cam11-l-t4-s4-q35", number: 35, type: "note_completion", question: "35. soil remains fertile and _______", correctAnswer: "moist/damp/wet", points: 1 },
+        { id: "cam11-l-t4-s4-q36", number: 36, type: "note_completion", question: "36. increasing the _______ of plants that are grown", correctAnswer: "variety", points: 1 },
+        { id: "cam11-l-t4-s4-q37", number: 37, type: "note_completion", question: "37. taking place on a big _______ farm", correctAnswer: "cattle", points: 1 },
+        { id: "cam11-l-t4-s4-q38", number: 38, type: "note_completion", question: "38. compost from waste from agriculture and _______", correctAnswer: "gardens/gardening", points: 1 },
+        { id: "cam11-l-t4-s4-q39", number: 39, type: "note_completion", question: "39. using _______ that are always green", correctAnswer: "grasses", points: 1 },
+        { id: "cam11-l-t4-s4-q40", number: 40, type: "note_completion", question: "40. giving farmers _______ for carbon storage", correctAnswer: "payment/payments/money", points: 1 },
+      ],
+    },
+  ],
+};
+
+export const cambridge11ListeningTests: IELTSTest[] = [
+  cambridge11_listening_t1,
+  cambridge11_listening_t2,
+  cambridge11_listening_t3,
+  cambridge11_listening_t4,
+];

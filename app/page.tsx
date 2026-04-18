@@ -1,142 +1,148 @@
 "use client";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { getSession } from "@/lib/store";
-import { motion } from "framer-motion";
-import { ChevronRight, BookOpen, Clock, Award, CheckCircle, Shield } from "lucide-react";
+import Brand from "@/components/Brand";
 import Link from "next/link";
+import { quotes, type Quote } from "@/lib/quotes";
+
+// Landing page: brand mark, tagline, sign in. Serif display type,
+// "London" white and "LC" light purple. All the section navigation
+// lives behind authentication.
+const DISPLAY_FONT = `"Fraunces", "Iowan Old Style", Georgia, serif`;
+const BODY_FONT = `"Inter", system-ui, sans-serif`;
+
 export default function HomePage() {
   const router = useRouter();
+  const [quote, setQuote] = useState<Quote | null>(null);
+
   useEffect(() => {
     const s = getSession();
     if (s) router.push(s.isAdmin ? "/admin/dashboard" : "/student/dashboard");
   }, [router]);
 
-  return (
-    <div style={{ minHeight: "100vh", background: "#0a051f", color: "#f0eaff", overflowX: "hidden", fontFamily: "Inter, system-ui, sans-serif" }}>
+  useEffect(() => {
+    if (quotes.length > 0) {
+      setQuote(quotes[Math.floor(Math.random() * quotes.length)]);
+    }
+  }, []);
 
-      {/* Nav */}
-      <nav style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 32px", height: 64, borderBottom: "1px solid rgba(255,255,255,0.07)", position: "sticky", top: 0, zIndex: 40, background: "rgba(10,5,31,0.92)", backdropFilter: "blur(12px)" }}>
-        <Link href="/" style={{ textDecoration: "none" }}>
-          <span style={{ fontWeight: 900, fontSize: 19, color: "#fff", letterSpacing: "-0.3px", fontFamily: "Inter, system-ui, sans-serif" }}>London <span style={{ color: "#a78bfa" }}>LC</span></span>
+  return (
+    <div style={{
+      minHeight: "100vh",
+      background: "var(--site-bg)",
+      color: "var(--site-text)",
+      fontFamily: BODY_FONT,
+      display: "flex", flexDirection: "column",
+    }}>
+      {/* Subtle glow */}
+      <div style={{
+        position: "fixed", inset: 0, pointerEvents: "none", zIndex: 0,
+        background: "radial-gradient(ellipse at 50% -10%, var(--site-glow-1) 0%, transparent 60%), radial-gradient(ellipse at 80% 110%, var(--site-glow-2) 0%, transparent 55%)",
+      }} />
+
+      <nav style={{
+        position: "relative", zIndex: 10,
+        display: "flex", alignItems: "center", justifyContent: "space-between",
+        padding: "22px 40px",
+        borderBottom: "1px solid var(--site-border)",
+      }}>
+        <Brand href="/" size={20} />
+        <Link href="/auth/login" style={{
+          padding: "8px 18px",
+          marginRight: 52, /* leave room for the floating theme toggle */
+          border: "1px solid var(--site-border-strong)",
+          borderRadius: 999, color: "var(--site-text)", fontSize: 13, fontWeight: 600,
+          textDecoration: "none", transition: "all 0.2s",
+          background: "transparent",
+        }}
+          onMouseEnter={(e) => { e.currentTarget.style.background = "var(--site-text)"; e.currentTarget.style.color = "var(--site-bg)"; }}
+          onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.color = "var(--site-text)"; }}
+        >
+          Sign in
         </Link>
-        <div className="home-nav-right" style={{ display: "flex", alignItems: "center", gap: 32 }}>
-          <nav className="home-nav-links" style={{ display: "flex", gap: 28 }}>
-            {["Features", "Tests", "FAQ", "Contact"].map(n => (
-              <span key={n} style={{ fontSize: 14, color: "rgba(255,255,255,0.6)", cursor: "pointer", transition: "color 0.2s" }}
-                onMouseEnter={e => (e.currentTarget.style.color = "#fff")}
-                onMouseLeave={e => (e.currentTarget.style.color = "rgba(255,255,255,0.6)")}
-              >{n}</span>
-            ))}
-          </nav>
-          <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-            <Link href="/auth/login" className="home-nav-signin" style={{ fontSize: 14, color: "rgba(255,255,255,0.7)", textDecoration: "none", padding: "8px 16px", border: "1px solid rgba(255,255,255,0.2)", borderRadius: 8 }}>
-              Sign In
-            </Link>
-          </div>
-        </div>
       </nav>
 
-      {/* Hero */}
-      <section style={{ textAlign: "center", padding: "96px 24px 80px", position: "relative" }}>
-        {/* Background glow */}
-        <div style={{ position: "absolute", top: 0, left: "50%", transform: "translateX(-50%)", width: 800, height: 500, background: "radial-gradient(ellipse at center, rgba(124,58,237,0.18) 0%, transparent 65%)", pointerEvents: "none" }} />
-
-        <motion.div initial={{ opacity: 0, y: 28 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.65 }} style={{ position: "relative", maxWidth: 720, margin: "0 auto" }}>
-          {/* Brand */}
-          <div style={{ marginBottom: 24 }}>
-            <span style={{ fontWeight: 900, fontSize: 34, color: "#fff", letterSpacing: "-1px", fontFamily: "Inter, system-ui, sans-serif" }}>London <span style={{ color: "#a78bfa" }}>LC</span></span>
-          </div>
-
-          <h1 style={{ fontSize: "clamp(2.4rem, 5.5vw, 3.8rem)", fontWeight: 900, lineHeight: 1.08, letterSpacing: "-1.5px", color: "#fff", marginBottom: 20 }}>
-            Master IELTS with{" "}
-            <span style={{ background: "linear-gradient(90deg, #a78bfa, #c4b5fd)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
-              Cambridge Practice
-            </span>
-          </h1>
-
-          <p style={{ fontSize: 18, color: "rgba(255,255,255,0.6)", lineHeight: 1.7, maxWidth: 540, margin: "0 auto 40px" }}>
-            Authentic IELTS Academic Reading tests from Cambridge Books 10–18.
-            Timed, monitored, and scored instantly using the official band conversion.
-          </p>
-
-          <div style={{ display: "flex", gap: 14, justifyContent: "center", flexWrap: "wrap", marginBottom: 36 }}>
-            <Link href="/auth/login" style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "14px 36px", background: "linear-gradient(135deg, #7c3aed, #6d28d9)", color: "#fff", fontWeight: 700, fontSize: 16, borderRadius: 50, textDecoration: "none", boxShadow: "0 6px 20px rgba(124,58,237,0.5)" }}>
-              Sign In <ChevronRight size={18} />
-            </Link>
-          </div>
-
-          {/* Trust badges */}
-          <div style={{ display: "flex", gap: 28, justifyContent: "center", flexWrap: "wrap" }}>
-            {["Cambridge IELTS Books 10–18", "Official Band Scoring", "Track Your Progress"].map(t => (
-              <div key={t} style={{ display: "flex", alignItems: "center", gap: 7, fontSize: 13, color: "rgba(255,255,255,0.55)" }}>
-                <CheckCircle size={14} color="#34d399" />
-                {t}
-              </div>
-            ))}
-          </div>
-        </motion.div>
-      </section>
-
-      {/* Features */}
-      <section id="features" style={{ padding: "80px 24px", background: "rgba(255,255,255,0.02)", borderTop: "1px solid rgba(255,255,255,0.06)" }}>
-        <div style={{ maxWidth: 1040, margin: "0 auto" }}>
-          <h2 style={{ textAlign: "center", fontSize: 30, fontWeight: 800, color: "#fff", marginBottom: 10 }}>Everything you need to score higher</h2>
-          <p style={{ textAlign: "center", color: "rgba(255,255,255,0.5)", marginBottom: 52, fontSize: 15 }}>Built for serious IELTS preparation</p>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: 18 }}>
-            {features.map((f, i) => (
-              <motion.div key={f.title} initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.08 }}
-                style={{ padding: "24px 22px", borderRadius: 16, background: "rgba(124,58,237,0.08)", border: "1px solid rgba(124,58,237,0.18)" }}>
-                <div style={{ width: 44, height: 44, borderRadius: 12, background: "rgba(124,58,237,0.2)", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 14 }}>
-                  <f.icon size={20} color="#a78bfa" />
-                </div>
-                <h3 style={{ fontWeight: 700, fontSize: 15, color: "#fff", marginBottom: 7 }}>{f.title}</h3>
-                <p style={{ fontSize: 13.5, lineHeight: 1.65, color: "rgba(255,255,255,0.5)" }}>{f.desc}</p>
-              </motion.div>
-            ))}
-          </div>
+      <main style={{
+        position: "relative", zIndex: 5,
+        flex: 1, display: "flex", flexDirection: "column",
+        alignItems: "center", justifyContent: "center",
+        padding: "60px 32px 80px", textAlign: "center",
+      }}>
+        {/* Big centered brand mark */}
+        <div style={{ marginBottom: 56 }}>
+          <Brand size={72} />
         </div>
-      </section>
 
-      {/* Stats */}
-      <section style={{ padding: "72px 24px" }}>
-        <div style={{ maxWidth: 800, margin: "0 auto", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", gap: 32, textAlign: "center" }}>
-          {stats.map(s => (
-            <div key={s.label}>
-              <div style={{ fontSize: 42, fontWeight: 900, background: "linear-gradient(90deg, #a78bfa, #c4b5fd)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text", lineHeight: 1, marginBottom: 6 }}>{s.value}</div>
-              <div style={{ fontSize: 13, color: "rgba(255,255,255,0.4)", fontWeight: 500 }}>{s.label}</div>
-            </div>
-          ))}
-        </div>
-      </section>
+        <h1 style={{
+          fontFamily: DISPLAY_FONT,
+          fontSize: "clamp(3rem, 7.5vw, 5.5rem)",
+          fontWeight: 300, letterSpacing: "-0.02em",
+          color: "var(--site-text)", lineHeight: 1.05, marginBottom: 48, maxWidth: 900,
+        }}>
+          You deserve{" "}
+          <em style={{ fontStyle: "italic", fontWeight: 300, color: "var(--site-text-muted)" }}>more.</em>
+        </h1>
 
-      {/* CTA */}
-      <section style={{ padding: "72px 24px", textAlign: "center", borderTop: "1px solid rgba(255,255,255,0.06)" }}>
-        <h2 style={{ fontSize: 30, fontWeight: 800, color: "#fff", marginBottom: 12 }}>Ready to start?</h2>
-        <p style={{ color: "rgba(255,255,255,0.5)", marginBottom: 32, fontSize: 15 }}>Sign in with your name and group code provided by your teacher.</p>
-        <Link href="/auth/login" style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "14px 44px", background: "linear-gradient(135deg, #7c3aed, #6d28d9)", color: "#fff", fontWeight: 700, fontSize: 16, borderRadius: 50, textDecoration: "none", boxShadow: "0 6px 20px rgba(124,58,237,0.5)" }}>
-          Get Started <ChevronRight size={18} />
+        {/* Rotating quote — picked client-side on mount */}
+        <figure style={{
+          margin: "0 0 48px",
+          maxWidth: 620,
+          minHeight: 72,
+          display: "flex", flexDirection: "column",
+          alignItems: "center", justifyContent: "center",
+          gap: 10,
+        }}>
+          {quote && (
+            <>
+              <blockquote style={{
+                margin: 0,
+                fontFamily: DISPLAY_FONT,
+                fontStyle: "italic",
+                fontWeight: 300,
+                fontSize: "clamp(0.95rem, 1.6vw, 1.1rem)",
+                lineHeight: 1.55,
+                color: "var(--site-text-muted)",
+              }}>
+                &ldquo;{quote.text}&rdquo;
+              </blockquote>
+              {quote.author && (
+                <figcaption style={{
+                  fontSize: 10.5,
+                  letterSpacing: "0.2em",
+                  textTransform: "uppercase",
+                  color: "var(--site-text-sub)",
+                }}>
+                  — {quote.author}
+                </figcaption>
+              )}
+            </>
+          )}
+        </figure>
+
+        <Link href="/auth/login" style={{
+          display: "inline-flex", alignItems: "center", gap: 10,
+          padding: "14px 36px",
+          background: "var(--site-text)", color: "var(--site-bg)",
+          borderRadius: 999, fontSize: 13, fontWeight: 600,
+          letterSpacing: "0.12em", textTransform: "uppercase",
+          textDecoration: "none", transition: "transform 0.15s",
+        }}
+          onMouseEnter={(e) => (e.currentTarget.style.transform = "translateY(-1px)")}
+          onMouseLeave={(e) => (e.currentTarget.style.transform = "translateY(0)")}
+        >
+          Sign in →
         </Link>
-      </section>
+      </main>
 
-      <footer style={{ padding: "24px", textAlign: "center", fontSize: 13, color: "rgba(255,255,255,0.25)", borderTop: "1px solid rgba(255,255,255,0.06)" }}>
-        © 2025 London Language Centre · IELTS Practice Platform
+      <footer style={{
+        position: "relative", zIndex: 5,
+        padding: "24px 40px", textAlign: "center",
+        fontSize: 12, letterSpacing: "0.1em", color: "var(--site-text-sub)",
+        borderTop: "1px solid var(--site-border)",
+      }}>
+        © {new Date().getFullYear()} London Language Centre
       </footer>
     </div>
   );
 }
-
-const features = [
-  { icon: BookOpen, title: "Reading Tests", desc: "Authentic Academic Reading passages with True/False/NG, multiple choice, fill in the blank, matching, and summary completion questions." },
-  { icon: Clock, title: "Timed & Monitored", desc: "Auto timer, fullscreen enforcement, tab-switch detection, and copy-paste blocking — built for real exam conditions." },
-  { icon: Award, title: "Instant Band Score", desc: "Your IELTS band score is calculated immediately using the official Cambridge conversion table." },
-  { icon: Shield, title: "Teacher Dashboard", desc: "Teachers can see every result, filter by group or test, and manage student accounts from one place." },
-  { icon: BookOpen, title: "Cambridge 10–18", desc: "Academic Reading tests from nine Cambridge IELTS books, with more on the way." },
-];
-
-const stats = [
-  { value: "9", label: "Cambridge Books" },
-  { value: "34", label: "Full Tests" },
-  { value: "1,300+", label: "Questions" },
-  { value: "9.0", label: "Max Band Score" },
-];

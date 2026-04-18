@@ -22,6 +22,9 @@ export type StudentAccount = {
   id: string;
   username: string;
   password: string;
+  // Plaintext password for admin recovery. Null for legacy rows created
+  // before plain-text storage was enabled.
+  plainPassword?: string | null;
   name: string;
   surname: string;
   group_name: string;
@@ -29,12 +32,17 @@ export type StudentAccount = {
   lastAccessedAt?: string;
   lastIp?: string;
   lastDeviceInfo?: { userAgent: string; platform: string; language: string };
+  // If true, the anti-cheat listeners (tab-hidden, blur, fullscreen-exit,
+  // screenshot) don't cancel this student's tests. Admin-managed exception
+  // for students who can't avoid focus loss during work hours.
+  anticheatBypass?: boolean;
 };
 
 export type TeacherAccount = {
   id: string;
   username: string;
   password: string;
+  plainPassword?: string | null;
   createdAt: string;
   lastAccessedAt?: string;
   lastIp?: string;
@@ -48,6 +56,7 @@ export type StudentSession = {
   group_name: string;
   isAdmin: boolean;
   username?: string;
+  anticheatBypass?: boolean;
 };
 
 export type DeviceInfo = {
@@ -101,10 +110,12 @@ export async function getStudentAccounts(): Promise<StudentAccount[]> {
   const { data } = await supabase.from("students").select("*").order("created_at", { ascending: false });
   return (data ?? []).map(r => ({
     id: r.id, username: r.username, password: r.password,
+    plainPassword: r.plain_password ?? null,
     name: r.name, surname: r.surname, group_name: r.group_name, createdAt: r.created_at,
     lastAccessedAt: r.last_accessed_at ?? undefined,
     lastIp: r.last_ip ?? undefined,
     lastDeviceInfo: r.last_device_info ?? undefined,
+    anticheatBypass: !!r.anticheat_bypass,
   }));
 }
 
@@ -116,7 +127,7 @@ export async function registerStudent(
   const id = `student-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
   const hashed = await hashPassword(password);
   await supabase.from("students").insert({
-    id, username, password: hashed,
+    id, username, password: hashed, plain_password: password,
     name: name.trim(), surname: surname.trim(), group_name: group.trim(),
   });
   // Return the plain password so the admin can share it with the student.
@@ -135,7 +146,7 @@ export async function loginStudent(username: string, password: string): Promise<
     const hashed = await hashPassword(password);
     await supabase.from("students").update({ password: hashed }).eq("id", data.id);
   }
-  return { id: data.id, username: data.username, password: data.password, name: data.name, surname: data.surname, group_name: data.group_name, createdAt: data.created_at };
+  return { id: data.id, username: data.username, password: data.password, name: data.name, surname: data.surname, group_name: data.group_name, createdAt: data.created_at, anticheatBypass: !!data.anticheat_bypass };
 }
 
 export async function deleteStudent(id: string): Promise<void> {
@@ -144,14 +155,19 @@ export async function deleteStudent(id: string): Promise<void> {
 
 export async function updateStudent(
   id: string,
-  fields: { name?: string; surname?: string; group_name?: string; username?: string; password?: string }
+  fields: { name?: string; surname?: string; group_name?: string; username?: string; password?: string; anticheatBypass?: boolean }
 ): Promise<{ ok: boolean; error?: string }> {
-  const update: Record<string, string> = {};
+  const update: Record<string, string | boolean> = {};
   if (fields.name !== undefined) update.name = fields.name.trim();
   if (fields.surname !== undefined) update.surname = fields.surname.trim();
   if (fields.group_name !== undefined) update.group_name = fields.group_name.trim();
   if (fields.username !== undefined) update.username = fields.username.trim();
-  if (fields.password !== undefined) update.password = await hashPassword(fields.password.trim());
+  if (fields.password !== undefined) {
+    const trimmed = fields.password.trim();
+    update.password = await hashPassword(trimmed);
+    update.plain_password = trimmed;
+  }
+  if (fields.anticheatBypass !== undefined) update.anticheat_bypass = fields.anticheatBypass;
   const { error } = await supabase.from("students").update(update).eq("id", id);
   if (error) {
     if (error.code === "23505") return { ok: false, error: "Username already exists" };
@@ -166,7 +182,9 @@ const ROOT_ID = "admin-root";
 export async function getTeachers(): Promise<TeacherAccount[]> {
   const { data } = await supabase.from("teachers").select("*").order("created_at", { ascending: true });
   return (data ?? []).map(r => ({
-    id: r.id, username: r.username, password: r.password, createdAt: r.created_at,
+    id: r.id, username: r.username, password: r.password,
+    plainPassword: r.plain_password ?? null,
+    createdAt: r.created_at,
     lastAccessedAt: r.last_accessed_at ?? undefined,
     lastIp: r.last_ip ?? undefined,
     lastDeviceInfo: r.last_device_info ?? undefined,
@@ -190,7 +208,7 @@ export async function findTeacher(username: string, password: string): Promise<T
 
 export async function addTeacher(username: string, password: string): Promise<{ ok: boolean; error?: string }> {
   const hashed = await hashPassword(password);
-  const { error } = await supabase.from("teachers").insert({ id: `teacher-${Date.now()}`, username, password: hashed });
+  const { error } = await supabase.from("teachers").insert({ id: `teacher-${Date.now()}`, username, password: hashed, plain_password: password });
   if (error) {
     if (error.code === "23505") return { ok: false, error: "Username already exists" };
     return { ok: false, error: error.message };
@@ -205,7 +223,47 @@ export async function deleteTeacher(id: string): Promise<void> {
 
 export async function updateTeacherPassword(id: string, newPassword: string): Promise<void> {
   const hashed = await hashPassword(newPassword);
-  await supabase.from("teachers").update({ password: hashed }).eq("id", id);
+  await supabase.from("teachers").update({ password: hashed, plain_password: newPassword }).eq("id", id);
+}
+
+// Save ONLY the plaintext (for admin Show). Does NOT touch the bcrypt hash, so
+// the user's login is unaffected — useful when the admin already knows the
+// existing password and just wants to make it visible via Show going forward.
+export async function setTeacherPlainPassword(id: string, plain: string): Promise<void> {
+  await supabase.from("teachers").update({ plain_password: plain }).eq("id", id);
+}
+
+export async function setStudentPlainPassword(id: string, plain: string): Promise<void> {
+  await supabase.from("students").update({ plain_password: plain }).eq("id", id);
+}
+
+// Student-initiated password change. Requires the current password to match
+// before updating. Returns an error tag the UI can show directly.
+export async function changeStudentOwnPassword(
+  id: string, currentPassword: string, newPassword: string,
+): Promise<{ ok: boolean; error?: string }> {
+  const { data } = await supabase.from("students").select("password").eq("id", id).maybeSingle();
+  if (!data) return { ok: false, error: "Account not found." };
+  const ok = await verifyPassword(currentPassword, data.password);
+  if (!ok) return { ok: false, error: "Current password is incorrect." };
+  if (newPassword.trim().length < 4) return { ok: false, error: "New password must be at least 4 characters." };
+  const hashed = await hashPassword(newPassword.trim());
+  await supabase.from("students").update({ password: hashed, plain_password: newPassword.trim() }).eq("id", id);
+  return { ok: true };
+}
+
+// Teacher-initiated password change (same rules as student).
+export async function changeTeacherOwnPassword(
+  id: string, currentPassword: string, newPassword: string,
+): Promise<{ ok: boolean; error?: string }> {
+  const { data } = await supabase.from("teachers").select("password").eq("id", id).maybeSingle();
+  if (!data) return { ok: false, error: "Account not found." };
+  const ok = await verifyPassword(currentPassword, data.password);
+  if (!ok) return { ok: false, error: "Current password is incorrect." };
+  if (newPassword.trim().length < 4) return { ok: false, error: "New password must be at least 4 characters." };
+  const hashed = await hashPassword(newPassword.trim());
+  await supabase.from("teachers").update({ password: hashed, plain_password: newPassword.trim() }).eq("id", id);
+  return { ok: true };
 }
 
 // ── Session (localStorage — intentionally per-device) ──────────────────

@@ -135,24 +135,24 @@ export default function TestPage() {
   // White/sepia = light; dark = always dark
   const effectiveTheme = pageMode === "dark" ? "dark" : "light";
 
-  // Theme-aware colours
+  // Theme-aware colours. Dark theme is pure black/grey (no purple tint).
   const T = effectiveTheme === "dark" ? {
-    bg: "#0a051f", nav: "#0e0828", card: "#140b35", passage: "#1a0e42",
-    text: "#f0eaff", textSub: "rgba(255,255,255,0.5)", textMuted: "rgba(255,255,255,0.35)",
-    border: "rgba(255,255,255,0.08)", accent: "#7c3aed", accentBtn: "linear-gradient(135deg,#6d28d9,#7c3aed)",
-    accentDim: "rgba(124,58,237,0.12)", accentBorder: "rgba(124,58,237,0.2)",
-    inputBg: "#0a051f", shadow: "rgba(0,0,0,0.6)",
+    bg: "#0a0a0a", nav: "#0d0d0d", card: "#151515", passage: "#111111",
+    text: "#f0f0f0", textSub: "rgba(255,255,255,0.5)", textMuted: "rgba(255,255,255,0.35)",
+    border: "rgba(255,255,255,0.08)", accent: "#ffffff", accentBtn: "#2a2a2a",
+    accentDim: "rgba(255,255,255,0.07)", accentBorder: "rgba(255,255,255,0.15)",
+    inputBg: "#151515", shadow: "rgba(0,0,0,0.6)",
   } : pageMode === "sepia" ? {
     bg: "#f4e8d0", nav: "#ecdfc4", card: "#f4e8d0", passage: "#efe2ca",
     text: "#3b2a14", textSub: "rgba(59,42,20,0.6)", textMuted: "rgba(59,42,20,0.45)",
-    border: "rgba(59,42,20,0.14)", accent: "#92400e", accentBtn: "linear-gradient(135deg,#92400e,#b45309)",
-    accentDim: "rgba(146,64,14,0.1)", accentBorder: "rgba(146,64,14,0.25)",
+    border: "rgba(59,42,20,0.14)", accent: "#3b2a14", accentBtn: "#3b2a14",
+    accentDim: "rgba(59,42,20,0.08)", accentBorder: "rgba(59,42,20,0.2)",
     inputBg: "#f4e8d0", shadow: "rgba(59,42,20,0.1)",
   } : {
     bg: "#faf8f4", nav: "#f0ede6", card: "#faf8f4", passage: "#f5f2ec",
     text: "#2c2416", textSub: "rgba(44,36,22,0.6)", textMuted: "rgba(44,36,22,0.45)",
-    border: "rgba(44,36,22,0.12)", accent: "#6d28d9", accentBtn: "linear-gradient(135deg,#6d28d9,#7c3aed)",
-    accentDim: "rgba(109,40,217,0.08)", accentBorder: "rgba(109,40,217,0.2)",
+    border: "rgba(44,36,22,0.12)", accent: "#2c2416", accentBtn: "#2c2416",
+    accentDim: "rgba(44,36,22,0.06)", accentBorder: "rgba(44,36,22,0.18)",
     inputBg: "#faf8f4", shadow: "rgba(44,36,22,0.08)",
   };
 
@@ -285,7 +285,7 @@ export default function TestPage() {
       .replace(/\n\n/g, "<br/><br/>")
       .replace(/\n/g, "<br/>");
 
-    const ulColor = effectiveTheme === "dark" ? "#c4b5fd" : "#7c3aed";
+    const ulColor = effectiveTheme === "dark" ? "#ffffff" : "#ffffff";
     const styleFor = (color: string) => color === "underline"
       ? `background:transparent;color:inherit;text-decoration:underline;text-decoration-color:${ulColor};text-decoration-thickness:2px;text-underline-offset:3px;cursor:pointer`
       : `background:${color};border-radius:3px;cursor:pointer;padding:0 1px`;
@@ -305,6 +305,7 @@ export default function TestPage() {
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const transferTimerRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const audioTimerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const audioElRef = useRef<HTMLAudioElement | null>(null);
   const violationRef = useRef(0);
   const cancelledRef = useRef(false);
   const anticheatActiveRef = useRef(false);
@@ -342,6 +343,8 @@ export default function TestPage() {
   // ── Anti-cheat: tab visibility + window focus + fullscreen ──────────
   useEffect(() => {
     if (isPracticeMode) return;
+    // Admin-granted exception: student can leave focus without cancelling.
+    if (session?.anticheatBypass) return;
     if (phase !== "test" && phase !== "audio_playing" && phase !== "transfer") return;
 
     anticheatActiveRef.current = false;
@@ -350,32 +353,59 @@ export default function TestPage() {
     }, 3000);
 
     const cancel = (reason: string) => cancelTestRef.current(reason);
-    const REASON = "You left the exam screen. Your test has been cancelled.";
-    const FS_REASON = "You exited fullscreen. Your test has been cancelled.";
+
+    // Reasons are intentionally specific so the student can see
+    // exactly what tripped the anti-cheat — vague "lost focus"
+    // messages are confusing when you're trying to figure out what
+    // went wrong.
+    const REASONS = {
+      tabHidden:
+        "Your test was cancelled because you switched away from this tab or minimised the window. Stay on this page and don't open other apps until the test ends.",
+      blur:
+        "Your test was cancelled because the exam window lost focus. This usually happens if you click outside the window, alt-tab to another app, or open a screen-capture tool (e.g. Win+Shift+S, the macOS snipping toolbar).",
+      fullscreen:
+        "Your test was cancelled because you exited fullscreen mode. Stay in fullscreen for the entire test and don't press Esc.",
+      screenshot:
+        "Your test was cancelled because you pressed the Print Screen key. Screenshots aren't allowed during the test.",
+    };
 
     const handleVisibility = () => {
-      if (document.hidden && anticheatActiveRef.current) cancel(REASON);
+      if (document.hidden && anticheatActiveRef.current) cancel(REASONS.tabHidden);
     };
 
     const handleBlur = () => {
-      if (anticheatActiveRef.current) cancel(REASON);
+      if (anticheatActiveRef.current) cancel(REASONS.blur);
     };
 
     const handleFullscreenChange = () => {
-      if (!document.fullscreenElement && anticheatActiveRef.current) cancel(FS_REASON);
+      if (!document.fullscreenElement && anticheatActiveRef.current) cancel(REASONS.fullscreen);
+    };
+
+    // Print Screen on Windows fires a keydown event we can intercept;
+    // catching it here means we can show the screenshot-specific reason
+    // before the subsequent blur/visibility events overwrite it. macOS
+    // and mobile screenshot gestures aren't catchable by browsers, so
+    // those will still surface as a blur or visibility change.
+    const handlePrintScreen = (e: KeyboardEvent) => {
+      if (e.key === "PrintScreen" && anticheatActiveRef.current) {
+        e.preventDefault();
+        cancel(REASONS.screenshot);
+      }
     };
 
     document.addEventListener("visibilitychange", handleVisibility);
     window.addEventListener("blur", handleBlur);
     document.addEventListener("fullscreenchange", handleFullscreenChange);
+    document.addEventListener("keydown", handlePrintScreen);
 
     return () => {
       clearTimeout(activateTimer);
       document.removeEventListener("visibilitychange", handleVisibility);
       window.removeEventListener("blur", handleBlur);
       document.removeEventListener("fullscreenchange", handleFullscreenChange);
+      document.removeEventListener("keydown", handlePrintScreen);
     };
-  }, [phase, isPracticeMode]);
+  }, [phase, isPracticeMode, session?.anticheatBypass]);
 
   // ── Anti-cheat: context menu + copy/paste ───────────────────────────
   useEffect(() => {
@@ -437,28 +467,103 @@ export default function TestPage() {
     return () => { if (transferTimerRef.current) clearInterval(transferTimerRef.current); };
   }, [phase]);
 
-  // ── Audio simulation (for listening tests) ─────────────────────────
+  // ── Audio playback (for listening tests) ───────────────────────────
+  // Two modes:
+  //   1) Whole-test audio: test.audioUrl points to a single ~30 min MP3
+  //      that plays continuously across all 4 parts (matches real IELTS).
+  //      startAudio is called ONCE when entering the test phase.
+  //   2) Per-section audio (legacy): each section has its own audioUrl and
+  //      the test auto-advances to the next section's audio when one ends.
+  //   3) No audioUrl at all: timed simulation fallback.
   const startAudio = useCallback(() => {
     if (!test) return;
+    // Whole-test audio: if already playing, don't restart it — just keep it.
+    const hasWholeTestAudio = !!(test as { audioUrl?: string }).audioUrl;
+    if (hasWholeTestAudio && audioElRef.current && !audioElRef.current.paused) {
+      setPhase("audio_playing");
+      return;
+    }
     if (audioTimerRef.current) clearInterval(audioTimerRef.current);
+    if (audioElRef.current) {
+      try { audioElRef.current.pause(); } catch {}
+      audioElRef.current = null;
+    }
     const sec = test.sections[audioCurrentSection];
-    const dur = sec.audioDurationSeconds || 300;
-    setAudioTotal(dur);
+    const fallbackDur = hasWholeTestAudio
+      ? ((test as { audioDurationSeconds?: number }).audioDurationSeconds || 1800)
+      : (sec.audioDurationSeconds || 300);
+    setAudioTotal(fallbackDur);
     setAudioProgress(0);
     setPhase("audio_playing");
 
+    const advance = () => {
+      if (hasWholeTestAudio) {
+        // Whole-test audio ended → straight to transfer phase.
+        setPhase("transfer");
+        return;
+      }
+      if (audioCurrentSection < test.sections.length - 1) {
+        setAudioCurrentSection((n) => n + 1);
+        // Only follow the audio with the visible-questions pane if the
+        // student hasn't manually navigated elsewhere. That way clicking
+        // P2/P3/P4 to look ahead is never yanked back.
+        setCurrentSection((cur) =>
+          cur === audioCurrentSection ? cur + 1 : cur
+        );
+        setPhase("test");
+      } else {
+        setPhase("transfer");
+      }
+    };
+
+    const url = hasWholeTestAudio
+      ? (test as { audioUrl?: string }).audioUrl
+      : (sec as { audioUrl?: string }).audioUrl;
+    if (url) {
+      // Real audio playback via HTMLAudioElement.
+      const audio = new Audio(url);
+      audio.preload = "auto";
+      audioElRef.current = audio;
+      audio.addEventListener("loadedmetadata", () => {
+        if (!isNaN(audio.duration) && isFinite(audio.duration)) {
+          setAudioTotal(Math.floor(audio.duration));
+        }
+      });
+      audio.addEventListener("timeupdate", () => {
+        setAudioProgress(Math.floor(audio.currentTime));
+      });
+      audio.addEventListener("ended", () => {
+        advance();
+      });
+      audio.addEventListener("error", () => {
+        // If the MP3 fails to load, fall back to the timed simulation so
+        // the student's test isn't blocked.
+        console.warn("Audio failed to load for", sec.id, "— falling back to timed simulation");
+        audioElRef.current = null;
+        audioTimerRef.current = setInterval(() => {
+          setAudioProgress((p) => {
+            if (p >= fallbackDur - 1) {
+              clearInterval(audioTimerRef.current!);
+              advance();
+              return fallbackDur;
+            }
+            return p + 1;
+          });
+        }, 1000);
+      });
+      audio.play().catch((err) => {
+        console.warn("Audio autoplay blocked:", err);
+      });
+      return;
+    }
+
+    // No audioUrl on this section — keep the original timed simulation.
     audioTimerRef.current = setInterval(() => {
       setAudioProgress((p) => {
-        if (p >= dur - 1) {
+        if (p >= fallbackDur - 1) {
           clearInterval(audioTimerRef.current!);
-          if (audioCurrentSection < test.sections.length - 1) {
-            setAudioCurrentSection((n) => n + 1);
-            setCurrentSection((n) => n + 1);
-            setPhase("test");
-          } else {
-            setPhase("transfer");
-          }
-          return dur;
+          advance();
+          return fallbackDur;
         }
         return p + 1;
       });
@@ -467,11 +572,54 @@ export default function TestPage() {
 
   // ── Auto-start audio for listening tests ────────────────────────────
   useEffect(() => {
-    if (phase === "test" && test?.type === "listening" && audioCurrentSection !== audioAutoStartedRef.current) {
+    if (phase !== "test" || test?.type !== "listening") return;
+    const hasWholeTestAudio = !!(test as { audioUrl?: string }).audioUrl;
+    if (hasWholeTestAudio) {
+      // Whole-test audio: start it ONCE (on first entry to test phase).
+      // Don't re-invoke on section changes — the MP3 keeps playing across
+      // P1/P2/P3/P4 and only advance() moves us to transfer when it ends.
+      if (audioAutoStartedRef.current === -1) {
+        audioAutoStartedRef.current = 0;
+        startAudio();
+      }
+      return;
+    }
+    // Per-section audio: start each section's audio when it becomes current.
+    if (audioCurrentSection !== audioAutoStartedRef.current) {
       audioAutoStartedRef.current = audioCurrentSection;
       startAudio();
     }
   }, [phase, audioCurrentSection, test, startAudio]);
+
+  // ── Stop audio on unmount (student navigates away / closes tab) ─────
+  useEffect(() => {
+    return () => {
+      if (audioElRef.current) {
+        try { audioElRef.current.pause(); } catch {}
+        audioElRef.current = null;
+      }
+      if (audioTimerRef.current) {
+        clearInterval(audioTimerRef.current);
+        audioTimerRef.current = null;
+      }
+    };
+  }, []);
+
+  // ── Stop audio when phase leaves a listening state ──────────────────
+  // Covers back-button / dashboard nav / anywhere `phase` changes away
+  // from an active listening phase without going through cancel/submit.
+  useEffect(() => {
+    if (phase !== "audio_playing" && phase !== "test") {
+      if (audioElRef.current) {
+        try { audioElRef.current.pause(); } catch {}
+        audioElRef.current = null;
+      }
+      if (audioTimerRef.current) {
+        clearInterval(audioTimerRef.current);
+        audioTimerRef.current = null;
+      }
+    }
+  }, [phase]);
 
   // ── IntersectionObserver: sync passage panel with question scroll ────
   useEffect(() => {
@@ -501,6 +649,10 @@ export default function TestPage() {
     [timerRef, transferTimerRef, audioTimerRef].forEach((r) => {
       if (r.current) clearInterval(r.current);
     });
+    if (audioElRef.current) {
+      try { audioElRef.current.pause(); } catch {}
+      audioElRef.current = null;
+    }
     const attempt = {
       id: `${session.id}-${test.id}-${Date.now()}`,
       studentId: session.id,
@@ -538,6 +690,10 @@ export default function TestPage() {
     [timerRef, transferTimerRef, audioTimerRef].forEach((r) => {
       if (r.current) clearInterval(r.current);
     });
+    if (audioElRef.current) {
+      try { audioElRef.current.pause(); } catch {}
+      audioElRef.current = null;
+    }
 
     let score = 0;
     let max = 0;
@@ -592,8 +748,15 @@ export default function TestPage() {
 
   // ============================================================
   // PHASE: Warning screen
+  // Skipped for teachers in practice mode — anti-cheat is off for
+  // them, so the "don't leave the exam screen" lecture is just noise.
+  // Their test starts the moment the component mounts.
   // ============================================================
   if (phase === "warning") {
+    if (isPracticeMode) {
+      setPhase("test");
+      return null;
+    }
     return <WarningScreen test={test} onAccept={() => {
       // Request fullscreen before starting — hides browser tabs and prevents easy alt-tabbing
       document.documentElement.requestFullscreen().catch(() => {/* user denied or not supported */});
@@ -610,7 +773,7 @@ export default function TestPage() {
   // ============================================================
   if (phase === "cancelled") {
     return (
-      <div style={{ minHeight: "100vh", background: "#0a051f", display: "flex", alignItems: "center", justifyContent: "center", padding: 24, fontFamily: "Inter, system-ui, sans-serif" }}>
+      <div style={{ minHeight: "100vh", background: "#0a0a0a", display: "flex", alignItems: "center", justifyContent: "center", padding: 24, fontFamily: "Inter, system-ui, sans-serif" }}>
         <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }}
           style={{ maxWidth: 420, width: "100%", textAlign: "center" }}>
           <div style={{ width: 72, height: 72, borderRadius: "50%", background: "rgba(239,68,68,0.15)", border: "2px solid rgba(239,68,68,0.35)", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 24px" }}>
@@ -622,7 +785,7 @@ export default function TestPage() {
           </p>
           <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
             <button onClick={() => { cancelledRef.current = false; window.location.reload(); }}
-              style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 8, padding: "13px", background: "linear-gradient(135deg,#7c3aed,#6d28d9)", color: "#fff", fontWeight: 700, fontSize: 15, border: "none", borderRadius: 12, cursor: "pointer", boxShadow: "0 4px 15px rgba(124,58,237,0.4)" }}>
+              style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 8, padding: "13px", background: "#2a2a2a", color: "#fff", fontWeight: 700, fontSize: 15, border: "none", borderRadius: 12, cursor: "pointer", boxShadow: "0 4px 15px rgba(255,255,255,0.25)" }}>
               Try Again
             </button>
             <button onClick={() => router.push(isPracticeMode ? "/admin/dashboard" : "/student/dashboard")}
@@ -644,31 +807,14 @@ export default function TestPage() {
   }
 
   // ============================================================
-  // PHASE: Transfer time (listening only)
+  // PHASE: Review time (listening only) — CD-IELTS style
+  // After the recording finishes, the student stays in the same test
+  // UI and gets `transferMinutes` (default 2 min) to check/edit their
+  // answers in place. No separate "answer sheet" — they already typed
+  // everything while the audio played.
+  // Rendered by falling through to the main test UI below, with a
+  // banner + the header timer swapped to `transferTimeLeft`.
   // ============================================================
-  if (phase === "transfer") {
-    return (
-      <div style={{ minHeight: "100vh", background: "#0a051f", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "24px", fontFamily: "Inter, system-ui, sans-serif" }}>
-        <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }}
-          style={{ textAlign: "center", maxWidth: 440, width: "100%" }}>
-          <div style={{ width: 64, height: 64, borderRadius: "50%", background: "rgba(124,58,237,0.15)", border: "2px solid rgba(124,58,237,0.3)", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 24px" }}>
-            <Clock size={28} color="#7c3aed" />
-          </div>
-          <h2 style={{ fontSize: 26, fontWeight: 800, color: "#e8eeff", marginBottom: 8 }}>Transfer Time</h2>
-          <p style={{ color: "rgba(255,255,255,0.5)", marginBottom: 28, lineHeight: 1.6 }}>
-            You now have <strong style={{ color: "#e8eeff" }}>10 minutes</strong> to review your answers.
-          </p>
-          <div style={{ fontSize: 60, fontWeight: 900, color: transferTimeLeft < 60 ? "#ef4444" : "#7c3aed", marginBottom: 32, fontFamily: "monospace" }}>
-            {formatTime(transferTimeLeft)}
-          </div>
-          <button onClick={submitTest}
-            style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "13px 28px", background: "linear-gradient(135deg,#6d28d9,#7c3aed)", color: "#fff", fontWeight: 700, fontSize: 15, border: "none", borderRadius: 12, cursor: "pointer" }}>
-            Submit Now <CheckCircle size={16} />
-          </button>
-        </motion.div>
-      </div>
-    );
-  }
 
   const section = test.sections[currentSection];
 
@@ -680,16 +826,19 @@ export default function TestPage() {
   })();
 
   // ============================================================
-  // PHASE: Test (reading or listening questions) + audio_playing
+  // PHASE: Test (reading/listening), audio_playing, and post-audio
+  // review — all share the same UI. The review phase just adds a
+  // banner at the top and swaps the header clock to `transferTimeLeft`.
   // ============================================================
-  if (phase !== "test" && phase !== "audio_playing") return null;
+  if (phase !== "test" && phase !== "audio_playing" && phase !== "transfer") return null;
+  const isReviewing = phase === "transfer";
 
   return (
     <div className="test-zone" style={{ height: "100svh", display: "flex", flexDirection: "column", background: T.bg, fontFamily: "Inter, system-ui, sans-serif", overflow: "hidden" }}>
       {/* Test header */}
-      <header style={{ position: "sticky", top: 0, zIndex: 20, display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 16px", height: 54, background: T.nav, borderBottom: `1px solid ${T.border}` }}>
-        {/* Left: test info */}
-        <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+      <header className="test-header" style={{ position: "sticky", top: 0, zIndex: 20, display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 12px", minHeight: 54, gap: 8, background: T.nav, borderBottom: `1px solid ${T.border}` }}>
+        {/* Left: test info — title hidden on mobile to make room for P1-P4 + Submit */}
+        <div className="test-header-info" style={{ display: "flex", alignItems: "center", gap: 10, minWidth: 0, flexShrink: 1 }}>
           <div style={{ width: 28, height: 28, borderRadius: 8, display: "flex", alignItems: "center", justifyContent: "center", background: T.accentDim }}>
             {test.type === "listening"
               ? <Headphones size={14} color={T.accent} />
@@ -710,21 +859,27 @@ export default function TestPage() {
                   const el = sectionRefs.current[i];
                   if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
                   setMobileView("questions");
+                } else {
+                  // Listening: just change which section's questions are shown.
+                  // Audio keeps playing whatever it was playing — students can
+                  // look ahead/back without disturbing playback.
+                  setCurrentSection(i);
+                  setMobileView("questions");
                 }
               }}
               title={s.title}
-              style={{ padding: "6px 14px", borderRadius: 8, border: "none", cursor: test.type === "reading" ? "pointer" : "default", fontWeight: 600, fontSize: 13, transition: "all 0.15s",
+              style={{ padding: "6px 14px", borderRadius: 8, border: "none", cursor: "pointer", fontWeight: 600, fontSize: 13, transition: "all 0.15s",
                 background: currentSection === i ? T.accent : "transparent",
-                color: currentSection === i ? "#fff" : T.textMuted }}>
+                color: currentSection === i ? (T.accent === "#ffffff" ? "#0a0a0a" : "#fff") : T.textMuted }}>
               P{i + 1}
             </button>
           ))}
         </div>
 
         {/* Right: controls + timer + submit */}
-        <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
-          {/* Font size */}
-          <div style={{ display: "flex", alignItems: "center", gap: 2, border: `1px solid ${T.border}`, borderRadius: 8, overflow: "hidden" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 6, flexShrink: 0 }}>
+          {/* Font size — hidden on mobile */}
+          <div className="test-header-font" style={{ display: "flex", alignItems: "center", gap: 2, border: `1px solid ${T.border}`, borderRadius: 8, overflow: "hidden" }}>
             <button onClick={() => setFontSize(s => Math.max(12, s - 1))} title="Decrease font size"
               style={{ padding: "5px 7px", background: "transparent", border: "none", cursor: "pointer", color: T.textMuted, display: "flex", alignItems: "center" }}>
               <Minus size={12} />
@@ -735,17 +890,34 @@ export default function TestPage() {
               <Plus size={12} />
             </button>
           </div>
-          {/* Theme cycle: dark → sepia → white → dark */}
+          {/* Theme cycle — hidden on small phones */}
           <button
             onClick={() => setPageMode(m => m === "dark" ? "sepia" : m === "sepia" ? "white" : "dark")}
             title={pageMode === "dark" ? "Switch to sepia" : pageMode === "sepia" ? "Switch to white" : "Switch to dark"}
+            className="test-header-theme"
             style={{ padding: "5px 10px", background: T.accentDim, border: `1px solid ${T.accentBorder}`, borderRadius: 8, cursor: "pointer", color: T.accent, display: "flex", alignItems: "center", gap: 4, fontSize: 13, fontWeight: 600 }}>
             {pageMode === "dark" ? <Sun size={14} /> : pageMode === "sepia" ? <Sun size={14} /> : <Moon size={14} />}
           </button>
-          <div style={{ display: "flex", alignItems: "center", gap: 6, padding: "6px 12px", borderRadius: 10, background: T.nav, border: `1px solid ${T.border}`, fontSize: 14, fontWeight: 700, color: timeLeft < 300 ? "#ef4444" : T.accent, fontFamily: "monospace" }}>
-            <Clock size={14} />
-            {formatTime(timeLeft)}
-          </div>
+          {(() => {
+            // Header clock visibility:
+            //   • Reading — always show `timeLeft` (60-min test countdown).
+            //   • Listening during audio — HIDE. The audio banner below
+            //     already shows elapsed/total and real audios aren't all
+            //     exactly 30 min, so a fixed countdown would mislead.
+            //   • Listening pre-audio — HIDE (audio auto-starts, phase is
+            //     instant so the clock would just flash).
+            //   • Listening review (post-audio) — show the 2-min review
+            //     countdown.
+            if (test.type === "listening" && !isReviewing) return null;
+            const displayTime = isReviewing ? transferTimeLeft : timeLeft;
+            const danger = isReviewing ? displayTime < 30 : displayTime < 300;
+            return (
+              <div style={{ display: "flex", alignItems: "center", gap: 6, padding: "6px 12px", borderRadius: 10, background: T.nav, border: `1px solid ${danger ? "#ef4444" : T.border}`, fontSize: 14, fontWeight: 700, color: danger ? "#ef4444" : T.accent, fontFamily: "monospace" }}>
+                <Clock size={14} />
+                {formatTime(displayTime)}
+              </div>
+            );
+          })()}
           <button onClick={() => { if (confirm("Are you sure you want to submit your test? This cannot be undone.")) submitTest(); }}
             style={{ display: "inline-flex", alignItems: "center", gap: 6, padding: "7px 16px", background: T.accentBtn, color: "#fff", fontWeight: 700, fontSize: 13, border: "none", borderRadius: 10, cursor: "pointer" }}>
             Submit <CheckCircle size={14} />
@@ -755,8 +927,22 @@ export default function TestPage() {
 
       {/* Progress bar */}
       <div style={{ height: 3, background: T.border, borderRadius: 0 }}>
-        <div style={{ height: "100%", background: "linear-gradient(90deg,#7c3aed,#b87fff)", borderRadius: 0, transition: "width 0.3s ease", width: `${readingProgressPct}%` }} />
+        <div style={{ height: "100%", background: "linear-gradient(90deg,#ffffff,#b87fff)", borderRadius: 0, transition: "width 0.3s ease", width: `${readingProgressPct}%` }} />
       </div>
+
+      {/* Review banner (listening – post audio, 2 min to check answers) */}
+      {isReviewing && (
+        <div style={{ background: "rgba(239,68,68,0.08)", borderBottom: `1px solid rgba(239,68,68,0.25)`, padding: "10px 20px", display: "flex", alignItems: "center", gap: 12 }}>
+          <Clock size={16} color="#ef4444" />
+          <div style={{ fontSize: 13, fontWeight: 600, color: T.text, lineHeight: 1.4 }}>
+            The recording has finished.{" "}
+            <span style={{ color: "#ef4444", fontWeight: 700 }}>
+              You now have 2 minutes to check your answers
+            </span>
+            {" "}before the test ends.
+          </div>
+        </div>
+      )}
 
       {/* Audio banner (listening – audio playing) */}
       {phase === "audio_playing" && (
@@ -768,7 +954,7 @@ export default function TestPage() {
             </span>
           </div>
           <div style={{ flex: 1, height: 6, background: T.accentDim, borderRadius: 3, overflow: "hidden" }}>
-            <div style={{ height: "100%", background: "linear-gradient(90deg,#7c3aed,#c4b5fd)", borderRadius: 3, width: `${audioTotal > 0 ? (audioProgress / audioTotal) * 100 : 0}%`, transition: "width 0.5s linear" }} />
+            <div style={{ height: "100%", background: "#ffffff", borderRadius: 3, width: `${audioTotal > 0 ? (audioProgress / audioTotal) * 100 : 0}%`, transition: "width 0.5s linear" }} />
           </div>
           <div style={{ display: "flex", gap: 8, alignItems: "center", flexShrink: 0 }}>
             <div style={{ display: "flex", gap: 2, alignItems: "center" }}>
@@ -784,15 +970,15 @@ export default function TestPage() {
         </div>
       )}
 
-      {/* Mobile toggle (reading only) */}
-      {test.type === "reading" && (
+      {/* Mobile toggle (reading only — listening is single column) */}
+      {test.type === "reading" && (section.passageText || section.diagramUrl) && (
         <div style={{ display: "flex", background: T.nav, borderBottom: `1px solid ${T.border}`, padding: "8px 16px", gap: 8 }} className="mobile-toggle-bar">
           {(["passage", "questions"] as const).map(v => (
             <button key={v} onClick={() => setMobileView(v)}
               style={{ flex: 1, padding: "8px", borderRadius: 8, border: "none", cursor: "pointer", fontWeight: 600, fontSize: 13, transition: "all 0.15s",
                 background: mobileView === v ? T.accent : "transparent",
                 color: mobileView === v ? "#fff" : T.textMuted }}>
-              {v === "passage" ? "Passage" : "Questions"}
+              {v === "passage" ? (test.type === "reading" ? "Passage" : section.diagramUrl ? "Map" : "Notes") : "Questions"}
             </button>
           ))}
         </div>
@@ -801,33 +987,46 @@ export default function TestPage() {
       {/* Content */}
       <div ref={contentAreaRef} style={{ flex: 1, display: "flex", flexDirection: "row", overflow: "hidden", minHeight: 0 }}>
 
-        {/* Left: Passage (reading) */}
-        {test.type === "reading" && section.passageText && (
+        {/* Left: Passage (reading only) / Notes or Map (listening stacks
+            everything inline in a single column, so no left pane for it). */}
+        {test.type === "reading" && (section.passageText || section.diagramUrl) && (
           <div className={`passage-panel ${mobileView === "passage" ? "panel-visible" : "panel-hidden"}`}
             style={{ width: `${passageWidthPct}%`, minWidth: 0, overflow: "hidden", transition: isResizingRef.current ? "none" : "width 0.22s ease", background: T.passage, position: "relative", display: "flex", flexDirection: "column", flexShrink: 0 }}>
-            {/* Passage header with highlight controls */}
-            <div style={{ padding: "10px 20px 0", display: "flex", alignItems: "center", justifyContent: "space-between", flexShrink: 0 }}>
-              <span style={{ fontSize: 11, color: T.textMuted, fontWeight: 600 }}>Select text to highlight · Click highlight to remove</span>
-              <div style={{ display: "flex", alignItems: "center", gap: 5 }}>
-                {HIGHLIGHT_COLORS.map(c => (
-                  <div key={c.bg} style={{ width: 14, height: 14, borderRadius: "50%", background: c.bg, border: "1.5px solid rgba(0,0,0,0.15)" }} title={c.label} />
-                ))}
-                {highlights.filter(h => h.sectionIdx === currentSection).length > 0 && (
-                  <button onClick={() => setHighlights(prev => prev.filter(h => h.sectionIdx !== currentSection))}
-                    style={{ marginLeft: 4, fontSize: 10, padding: "2px 7px", borderRadius: 6, border: `1px solid ${T.border}`, background: "transparent", color: T.textMuted, cursor: "pointer", fontWeight: 600 }}>
-                    Clear
-                  </button>
-                )}
+            {/* Passage header with highlight controls — shown only when there's selectable text */}
+            {section.passageText && (
+              <div style={{ padding: "10px 20px 0", display: "flex", alignItems: "center", justifyContent: "space-between", flexShrink: 0 }}>
+                <span style={{ fontSize: 11, color: T.textMuted, fontWeight: 600 }}>Select text to highlight · Click highlight to remove</span>
+                <div style={{ display: "flex", alignItems: "center", gap: 5 }}>
+                  {HIGHLIGHT_COLORS.map(c => (
+                    <div key={c.bg} style={{ width: 14, height: 14, borderRadius: "50%", background: c.bg, border: "1.5px solid rgba(0,0,0,0.15)" }} title={c.label} />
+                  ))}
+                  {highlights.filter(h => h.sectionIdx === currentSection).length > 0 && (
+                    <button onClick={() => setHighlights(prev => prev.filter(h => h.sectionIdx !== currentSection))}
+                      style={{ marginLeft: 4, fontSize: 10, padding: "2px 7px", borderRadius: 6, border: `1px solid ${T.border}`, background: "transparent", color: T.textMuted, cursor: "pointer", fontWeight: 600 }}>
+                      Clear
+                    </button>
+                  )}
+                </div>
               </div>
-            </div>
+            )}
             <div style={{ flex: 1, overflowY: "auto", padding: "16px 32px 28px", minHeight: 0 }}>
-              <h2 style={{ fontSize: 17, fontWeight: 800, color: T.text, marginBottom: 20 }}>{section.passageTitle}</h2>
-              <div
-                onMouseUp={(e) => handleTextMouseUp(e, "passage")}
-                onClick={handlePassageClick}
-                style={{ color: T.text, lineHeight: 1.9, fontSize: fontSize, userSelect: "text" }}
-                dangerouslySetInnerHTML={{ __html: buildAnnotatedHtml(section.passageText, currentSection, "passage") }}
-              />
+              {section.passageTitle && (
+                <h2 style={{ fontSize: 17, fontWeight: 800, color: T.text, marginBottom: 20 }}>{section.passageTitle}</h2>
+              )}
+              {section.passageText && (
+                <div
+                  onMouseUp={(e) => handleTextMouseUp(e, "passage")}
+                  onClick={handlePassageClick}
+                  style={{ color: T.text, lineHeight: 1.9, fontSize: fontSize, userSelect: "text" }}
+                  dangerouslySetInnerHTML={{ __html: buildAnnotatedHtml(section.passageText, currentSection, "passage") }}
+                />
+              )}
+              {section.diagramUrl && (
+                <div style={{ textAlign: "center", marginTop: section.passageText ? 20 : 0 }}>
+                  <img src={section.diagramUrl} alt="Diagram"
+                    style={{ maxWidth: "100%", borderRadius: 10, border: `1px solid ${T.border}`, background: "#fff" }} />
+                </div>
+              )}
             </div>
           </div>
         )}
@@ -836,7 +1035,7 @@ export default function TestPage() {
         {toolbarPos && (
           <div data-highlight-toolbar
             style={{ position: "fixed", left: Math.min(Math.max(toolbarPos.x, 100), window.innerWidth - 100), top: Math.max(toolbarPos.y, 8), transform: "translateX(-50%)", zIndex: 1000,
-              background: pageMode === "dark" ? "#1a0e42" : T.nav, border: `1px solid ${T.border}`, borderRadius: 10, padding: "6px 10px",
+              background: pageMode === "dark" ? "#111111" : T.nav, border: `1px solid ${T.border}`, borderRadius: 10, padding: "6px 10px",
               display: "flex", alignItems: "center", gap: 7, boxShadow: `0 6px 24px rgba(0,0,0,0.4)` }}>
             <span style={{ fontSize: 10, color: T.textMuted, marginRight: 2, whiteSpace: "nowrap" }}>
               {pendingSide === "passage" ? "Highlight:" : "Mark:"}
@@ -849,8 +1048,8 @@ export default function TestPage() {
               />
             ))}
             <button onClick={() => applyHighlight("underline")} title="Underline"
-              style={{ padding: "2px 7px", borderRadius: 6, background: "transparent", border: "2px solid #7c3aed", color: "#7c3aed", fontSize: 12, fontWeight: 800, cursor: "pointer", textDecoration: "underline", textUnderlineOffset: "2px" }}
-              onMouseEnter={e => (e.currentTarget.style.background = "rgba(124,58,237,0.12)")}
+              style={{ padding: "2px 7px", borderRadius: 6, background: "transparent", border: "2px solid #ffffff", color: "#ffffff", fontSize: 12, fontWeight: 800, cursor: "pointer", textDecoration: "underline", textUnderlineOffset: "2px" }}
+              onMouseEnter={e => (e.currentTarget.style.background = "rgba(255,255,255,0.07)")}
               onMouseLeave={e => (e.currentTarget.style.background = "transparent")}>
               U
             </button>
@@ -859,8 +1058,8 @@ export default function TestPage() {
           </div>
         )}
 
-        {/* Resizable divider (reading only, desktop) */}
-        {test.type === "reading" && (
+        {/* Resizable divider (reading only — listening is single-column) */}
+        {test.type === "reading" && (section.passageText || section.diagramUrl) && (
           <div className="divider-toggle"
             style={{ position: "relative", width: 10, display: "flex", alignItems: "center", justifyContent: "center", zIndex: 10, flexShrink: 0, cursor: "col-resize" }}
             onMouseDown={handleDividerMouseDown}>
@@ -874,7 +1073,7 @@ export default function TestPage() {
         )}
 
         {/* Right: Questions */}
-        <div className={`questions-panel ${test.type === "reading" && mobileView === "passage" ? "panel-hidden" : "panel-visible"}`}
+        <div className={`questions-panel ${test.type === "reading" && (section.passageText || section.diagramUrl) && mobileView === "passage" ? "panel-hidden" : "panel-visible"}`}
           style={{ flex: 1, minWidth: 0, minHeight: 0, display: "flex", flexDirection: "column", overflow: "hidden", background: T.bg }}>
         <div ref={questionsScrollRef} style={{ flex: 1, overflowY: "auto", padding: "24px 28px", minHeight: 0 }}
           onMouseUp={(e) => handleTextMouseUp(e, "questions")}>
@@ -896,34 +1095,60 @@ export default function TestPage() {
                     <span style={{ fontSize: 13, fontWeight: 600, color: T.textMuted }}>{sec.passageTitle}</span>
                   </div>
 
-                  <div style={{ fontSize: 13, marginBottom: 20, padding: "11px 14px", borderRadius: 10, background: T.accentDim, color: T.accent, border: `1px solid ${T.accentBorder}`, fontWeight: 500, lineHeight: 1.5, whiteSpace: "pre-line" }}>
-                    {sec.instructions}
-                  </div>
+                  {sec.instructions && !sec.questions.some(q => q.groupLabel) && (
+                    <div style={{ fontSize: 13, marginBottom: 20, padding: "11px 14px", borderRadius: 10, background: T.accentDim, color: T.accent, border: `1px solid ${T.accentBorder}`, fontWeight: 500, lineHeight: 1.5, whiteSpace: "pre-line" }}>
+                      {sec.instructions}
+                    </div>
+                  )}
 
-                  <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
-                    {sec.questions.map((q) => (
-                      <React.Fragment key={q.id}>
-                        {q.groupLabel && (
-                          <div style={{ fontSize: 13, padding: "10px 14px", borderRadius: 10, background: T.accentDim, color: T.accent, border: `1px solid ${T.accentBorder}`, fontWeight: 500, lineHeight: 1.6, whiteSpace: "pre-line" }}>
-                            {q.groupLabel.split(/\n(?=\d+[\s\.])/)[0].trim()}
-                          </div>
-                        )}
-                        {sec.diagramUrl && q.type === "diagram_labelling" &&
-                          sec.questions.findIndex(x => x.type === "diagram_labelling") === sec.questions.indexOf(q) && (
-                          <div style={{ textAlign: "center", margin: "8px 0 4px" }}>
-                            <img src={sec.diagramUrl} alt="Diagram" style={{ maxWidth: "100%", borderRadius: 10, border: `1px solid ${T.border}` }} />
-                          </div>
-                        )}
-                        <QuestionItem question={q}
-                          answer={answers[q.id] || ""}
-                          onAnswer={(val) => setAnswer(q.id, val)}
-                          T={T} fontSize={fontSize}
-                          questionHighlights={highlights.filter(h => h.sectionIdx === sIdx && h.side === "questions")}
-                          onRemoveHighlight={removeHighlight}
-                        />
-                      </React.Fragment>
-                    ))}
-                  </div>
+                  {(() => {
+                    // Collect every numbered blank that's present in any
+                    // groupLabel in this section — Q1-7 often have their
+                    // blanks shown inside a table in the group label
+                    // (e.g. "allowed businesses to 1……… regularly"). When
+                    // that blank becomes a real input above, the separate
+                    // question row below is redundant and should be hidden.
+                    const coveredInGroupLabels = new Set<number>();
+                    for (const q of sec.questions) {
+                      if (q.groupLabel) {
+                        passageBlankNumbers(q.groupLabel).forEach(n => coveredInGroupLabels.add(n));
+                      }
+                    }
+                    return (
+                      <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
+                        {sec.questions.map((q) => {
+                          const hasBlanksInLabel = !!q.groupLabel && passageBlankNumbers(q.groupLabel).size > 0;
+                          const skipQuestion = coveredInGroupLabels.has(q.number);
+                          return (
+                            <React.Fragment key={q.id}>
+                              {q.groupLabel && (
+                                <div style={{ fontSize: 13, padding: "10px 14px", borderRadius: 10, background: T.accentDim, color: T.accent, border: `1px solid ${T.accentBorder}`, fontWeight: 500, lineHeight: 1.6, whiteSpace: "pre-line" }}>
+                                  {hasBlanksInLabel
+                                    ? renderPassageWithInputs(q.groupLabel, sec.questions, answers, setAnswer, T)
+                                    : q.groupLabel.split(/\n(?=\d+[\s\.])/)[0].trim()}
+                                </div>
+                              )}
+                              {sec.diagramUrl && q.type === "diagram_labelling" &&
+                                sec.questions.findIndex(x => x.type === "diagram_labelling") === sec.questions.indexOf(q) && (
+                                <div style={{ textAlign: "center", margin: "8px 0 4px" }}>
+                                  <img src={sec.diagramUrl} alt="Diagram" style={{ maxWidth: "100%", borderRadius: 10, border: `1px solid ${T.border}` }} />
+                                </div>
+                              )}
+                              {!skipQuestion && (
+                                <QuestionItem question={q}
+                                  answer={answers[q.id] || ""}
+                                  onAnswer={(val) => setAnswer(q.id, val)}
+                                  T={T} fontSize={fontSize}
+                                  questionHighlights={highlights.filter(h => h.sectionIdx === sIdx && h.side === "questions")}
+                                  onRemoveHighlight={removeHighlight}
+                                />
+                              )}
+                            </React.Fragment>
+                          );
+                        })}
+                      </div>
+                    );
+                  })()}
                 </div>
               ))}
 
@@ -936,35 +1161,243 @@ export default function TestPage() {
               </div>
             </>
           ) : (
-            // ── Listening: single section (unchanged) ─────────────
+            // ── Listening: ONE PART AT A TIME (single column, no passage/
+            // questions split). Student navigates between parts via the
+            // P1/P2/P3/P4 tabs above OR the Next Part button at the bottom
+            // of each page. Audio keeps playing whatever it was playing.
             <>
-              {section.passageText && (
-                <div style={{ marginBottom: 20, padding: 16, borderRadius: 12, background: T.nav, border: `1px solid ${T.border}` }}>
-                  <pre style={{ whiteSpace: "pre-wrap", fontSize: 14, color: T.text, fontFamily: "Inter, system-ui, sans-serif", lineHeight: 1.7 }}>
-                    {section.passageText}
-                  </pre>
+              {[test.sections[currentSection]].filter(Boolean).map((sec) => { const sIdx = currentSection; return (
+                <div key={sec.id} ref={(el) => { sectionRefs.current[sIdx] = el; }} data-section-idx={sIdx}>
+                  {/* Part header */}
+                  <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 16, paddingBottom: 12, borderBottom: `2px solid ${T.accentBorder}` }}>
+                    <span style={{ padding: "3px 10px", borderRadius: 20, background: T.accent, color: T.accent === "#ffffff" ? "#0a0a0a" : "#fff", fontSize: 11, fontWeight: 700 }}>
+                      Part {sIdx + 1}
+                    </span>
+                    {/* Skip the secondary title if it's just "Part N" —
+                        the pill already says "Part N", no need to duplicate. */}
+                    {(() => {
+                      const subtitle = sec.passageTitle || sec.title;
+                      if (!subtitle || /^Part\s*\d+$/i.test(subtitle.trim())) return null;
+                      return <span style={{ fontSize: 13, fontWeight: 600, color: T.textMuted }}>{subtitle}</span>;
+                    })()}
+                  </div>
+
+                  {/* Diagram / map shown inline above instructions */}
+                  {sec.diagramUrl && (
+                    <div style={{ textAlign: "center", marginBottom: 20 }}>
+                      <img src={sec.diagramUrl} alt="Diagram" style={{ maxWidth: "100%", borderRadius: 10, border: `1px solid ${T.border}`, background: "#fff" }} />
+                    </div>
+                  )}
+
+                  {/* Instructions banner — like the real IELTS question paper.
+                      Suppressed when the section has per-group `groupLabel`s,
+                      since those already carry the same rubric per cluster
+                      and otherwise appear duplicated at the top. */}
+                  {sec.instructions && !sec.questions.some(q => q.groupLabel) && (
+                    <div style={{ fontSize: 13, marginBottom: 20, padding: "11px 14px", borderRadius: 10, background: T.accentDim, color: T.accent, border: `1px solid ${T.accentBorder}`, fontWeight: 500, lineHeight: 1.5, whiteSpace: "pre-line" }}>
+                      {sec.instructions}
+                    </div>
+                  )}
+
+                  {/* Notes text (for Parts 1 & 4) — numbered blanks like
+                      "1 _______" are replaced with actual input fields bound
+                      to the matching question. */}
+                  {sec.passageText && (
+                    <div style={{ marginBottom: 20, padding: "16px 20px", background: T.passage, border: `1px solid ${T.border}`, borderRadius: 12, color: T.text, lineHeight: 2.2, fontSize: fontSize - 1, whiteSpace: "pre-line" }}>
+                      {renderPassageWithInputs(sec.passageText, sec.questions, answers, setAnswer, T)}
+                    </div>
+                  )}
+
+                  {/* Questions — same merge (Choose TWO pairs) + matching + single logic as before */}
+                  <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
+                    {(() => {
+                      // Merge adjacent "Choose TWO" pairs into a single checkbox UI.
+                      // Detection: two consecutive multiple_choice questions share the
+                      // same correctAnswer string containing "/" and have equal option lists.
+                      // Also skip questions whose blank is already inline in the passage
+                      // (those get an inline input above — no need to repeat them below).
+                      const coveredInPassage = passageBlankNumbers(sec.passageText ?? "");
+                      const qs = sec.questions.filter((q) => !coveredInPassage.has(q.number));
+                  type Item = { kind: "single"; q: typeof qs[0] } | { kind: "pair"; q1: typeof qs[0]; q2: typeof qs[0] };
+                  const items: Item[] = [];
+                  for (let i = 0; i < qs.length; i++) {
+                    const q = qs[i];
+                    const nxt = qs[i + 1];
+                    const isPair = !!nxt
+                      && q.type === "multiple_choice"
+                      && nxt.type === "multiple_choice"
+                      && typeof q.correctAnswer === "string"
+                      && q.correctAnswer.includes("/")
+                      && nxt.correctAnswer === q.correctAnswer
+                      && !!q.options && !!nxt.options
+                      && q.options.length === nxt.options.length;
+                    if (isPair) {
+                      items.push({ kind: "pair", q1: q, q2: nxt });
+                      i++;
+                    } else {
+                      items.push({ kind: "single", q });
+                    }
+                  }
+                  return items.map((item) => {
+                    if (item.kind === "pair") {
+                      const { q1, q2 } = item;
+                      const a1 = answers[q1.id] || "";
+                      const a2 = answers[q2.id] || "";
+                      const selected: string[] = [];
+                      if (a1) selected.push(a1);
+                      if (a2 && a2 !== a1) selected.push(a2);
+                      const selectedSet = new Set(selected);
+                      const toggle = (value: string) => {
+                        let next: string[];
+                        if (selectedSet.has(value)) {
+                          next = selected.filter((v) => v !== value);
+                        } else {
+                          if (selected.length >= 2) return;
+                          next = [...selected, value];
+                        }
+                        setAnswer(q1.id, next[0] || "");
+                        setAnswer(q2.id, next[1] || "");
+                      };
+                      return (
+                        <React.Fragment key={`pair-${q1.id}-${q2.id}`}>
+                          {q1.groupLabel && (
+                            <div style={{ fontSize: 13, padding: "10px 14px", borderRadius: 10, background: T.accentDim, color: T.accent, border: `1px solid ${T.accentBorder}`, fontWeight: 500, lineHeight: 1.6, whiteSpace: "pre-line" }}>
+                              {/* For Choose TWO pairs, strip the A-E option lines from the
+                                  groupLabel — the checkboxes below repeat them visually.
+                                  Keep the question header and the parenthetical notes. */}
+                              {q1.groupLabel
+                                .split("\n")
+                                .filter((ln) => !/^[A-Za-z]\s{2,}/.test(ln))
+                                .join("\n")
+                                .trim()}
+                            </div>
+                          )}
+                          <div id={`question-${q1.id}`} style={{ paddingBottom: 24, borderBottom: `1px solid ${T.border}` }}>
+                            <div style={{ display: "flex", gap: 12, marginBottom: 12, alignItems: "center", flexWrap: "wrap" }}>
+                              <span style={{ flexShrink: 0, fontSize: 15, fontWeight: 800, color: T.text, fontFamily: "'IBM Plex Mono', 'Courier New', monospace", minWidth: 38 }}>
+                                {q1.number}&amp;{q2.number}
+                              </span>
+                              <span style={{ fontSize: fontSize - 1, color: T.text, fontWeight: 600 }}>
+                                Choose TWO answers ({selected.length}/2 selected)
+                              </span>
+                            </div>
+                            <div id={`question-${q2.id}`} style={{ marginLeft: 38, display: "flex", flexDirection: "column", gap: 8 }}>
+                              {q1.options!.map((opt) => {
+                                const isChecked = selectedSet.has(opt.value);
+                                const isDisabled = !isChecked && selected.length >= 2;
+                                return (
+                                  <div key={opt.value}
+                                    onClick={() => { if (!isDisabled) toggle(opt.value); }}
+                                    style={{ display: "flex", alignItems: "center", gap: 10, cursor: isDisabled ? "not-allowed" : "pointer", opacity: isDisabled ? 0.45 : 1, userSelect: "none", padding: "4px 0" }}>
+                                    <div
+                                      style={{ width: 18, height: 18, borderRadius: 4, border: `2px solid ${isChecked ? T.accent : T.border}`, background: isChecked ? T.accent : "transparent", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                                      {isChecked && (
+                                        <svg width="10" height="10" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                          <path d="M2 6.5L4.5 9L10 3" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                                        </svg>
+                                      )}
+                                    </div>
+                                    <span style={{ fontSize: fontSize - 1, color: T.text }}>{opt.label}</span>
+                                  </div>
+                                );
+                              })}
+                            </div>
+                          </div>
+                        </React.Fragment>
+                      );
+                    }
+                    const q = item.q;
+                    // Matching question: 5+ options and a single-letter
+                    // correctAnswer. Instead of repeating a giant radio list
+                    // for every item, render one compact "Q# activity [letter]"
+                    // line — the options box is already shown once above via
+                    // the groupLabel on the first matching question.
+                    const isMatching = q.type === "multiple_choice"
+                      && !!q.options
+                      && q.options.length >= 5
+                      && typeof q.correctAnswer === "string"
+                      && /^[A-Za-z]$/.test(q.correctAnswer.trim());
+                    if (isMatching) {
+                      const currentAnswer = answers[q.id] || "";
+                      const validLetters = q.options!.map((o) => o.value.toUpperCase());
+                      return (
+                        <React.Fragment key={q.id}>
+                          {q.groupLabel && (
+                            <div style={{ fontSize: 13, padding: "10px 14px", borderRadius: 10, background: T.accentDim, color: T.accent, border: `1px solid ${T.accentBorder}`, fontWeight: 500, lineHeight: 1.6, whiteSpace: "pre-line" }}>
+                              {q.groupLabel.trim()}
+                            </div>
+                          )}
+                          <div id={`question-${q.id}`} style={{ paddingBottom: 14, borderBottom: `1px solid ${T.border}` }}>
+                            <div style={{ display: "flex", gap: 12, alignItems: "center", flexWrap: "wrap" }}>
+                              <span style={{ flexShrink: 0, fontSize: 15, fontWeight: 800, color: T.text, fontFamily: "'IBM Plex Mono', 'Courier New', monospace", minWidth: 26, textAlign: "right" }}>
+                                {q.number}
+                              </span>
+                              <span style={{ fontSize: fontSize - 1, color: T.text, flex: 1, minWidth: 200 }}>
+                                {q.question.replace(/^\d+[\.\)]\s*/, "")}
+                              </span>
+                              <input type="text" value={currentAnswer} maxLength={1}
+                                onChange={(e) => {
+                                  const raw = e.target.value.toUpperCase().slice(-1);
+                                  if (raw === "" || validLetters.includes(raw)) setAnswer(q.id, raw);
+                                }}
+                                placeholder={`${validLetters[0]}–${validLetters[validLetters.length - 1]}`}
+                                style={{ width: 60, padding: "6px 10px", borderRadius: 6, background: T.inputBg, border: `1.5px solid ${T.border}`, color: T.text, outline: "none", fontSize: fontSize + 1, fontWeight: 700, textAlign: "center", fontFamily: "inherit", textTransform: "uppercase" }}
+                                onFocus={e => e.currentTarget.style.borderColor = T.accent}
+                                onBlur={e => e.currentTarget.style.borderColor = T.border}
+                              />
+                            </div>
+                          </div>
+                        </React.Fragment>
+                      );
+                    }
+                    const hasBlanksInLabel = !!q.groupLabel && passageBlankNumbers(q.groupLabel).size > 0;
+                    const skipQuestion = hasBlanksInLabel && passageBlankNumbers(q.groupLabel!).has(q.number);
+                    return (
+                      <React.Fragment key={q.id}>
+                        {q.groupLabel && (
+                          <div style={{ fontSize: 13, padding: "10px 14px", borderRadius: 10, background: T.accentDim, color: T.accent, border: `1px solid ${T.accentBorder}`, fontWeight: 500, lineHeight: 1.6, whiteSpace: "pre-line" }}>
+                            {hasBlanksInLabel
+                              ? renderPassageWithInputs(q.groupLabel, sec.questions, answers, setAnswer, T)
+                              : q.groupLabel.split(/\n(?=\d+[\s\.])/)[0].trim()}
+                          </div>
+                        )}
+                        {!skipQuestion && (
+                          <QuestionItem question={q}
+                            answer={answers[q.id] || ""}
+                            onAnswer={(val) => setAnswer(q.id, val)}
+                            T={T} fontSize={fontSize}
+                            questionHighlights={highlights.filter(h => h.sectionIdx === sIdx && h.side === "questions")}
+                            onRemoveHighlight={removeHighlight}
+                          />
+                        )}
+                      </React.Fragment>
+                    );
+                      });
+                    })()}
+                  </div>
                 </div>
-              )}
-              <div style={{ fontSize: 13, marginBottom: 20, padding: "11px 14px", borderRadius: 10, background: T.accentDim, color: T.accent, border: `1px solid ${T.accentBorder}`, fontWeight: 500, lineHeight: 1.5 }}>
-                {section.instructions}
-              </div>
-              <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
-                {section.questions.map((q) => (
-                  <React.Fragment key={q.id}>
-                    {q.groupLabel && (
-                      <div style={{ fontSize: 13, padding: "10px 14px", borderRadius: 10, background: T.accentDim, color: T.accent, border: `1px solid ${T.accentBorder}`, fontWeight: 500, lineHeight: 1.6, whiteSpace: "pre-line" }}>
-                        {q.groupLabel.split(/\n(?=\d+[\s\.])/)[0].trim()}
-                      </div>
-                    )}
-                    <QuestionItem question={q}
-                      answer={answers[q.id] || ""}
-                      onAnswer={(val) => setAnswer(q.id, val)}
-                      T={T} fontSize={fontSize}
-                      questionHighlights={highlights.filter(h => h.sectionIdx === currentSection && h.side === "questions")}
-                      onRemoveHighlight={removeHighlight}
-                    />
-                  </React.Fragment>
-                ))}
+              ); })}
+
+              {/* Navigation between parts + final Submit */}
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 12, marginTop: 36, paddingTop: 24, borderTop: `1px solid ${T.border}`, flexWrap: "wrap" }}>
+                <button
+                  disabled={currentSection === 0}
+                  onClick={() => currentSection > 0 && setCurrentSection((n) => n - 1)}
+                  style={{ display: "inline-flex", alignItems: "center", gap: 6, padding: "10px 18px", background: "transparent", color: currentSection === 0 ? T.textMuted : T.text, border: `1px solid ${T.border}`, borderRadius: 10, cursor: currentSection === 0 ? "not-allowed" : "pointer", fontWeight: 600, fontSize: 13, opacity: currentSection === 0 ? 0.4 : 1 }}>
+                  ← Previous Part
+                </button>
+                {currentSection < test.sections.length - 1 ? (
+                  <button
+                    onClick={() => setCurrentSection((n) => Math.min(test.sections.length - 1, n + 1))}
+                    style={{ display: "inline-flex", alignItems: "center", gap: 6, padding: "10px 22px", background: T.accent, color: T.accent === "#ffffff" ? "#0a0a0a" : "#fff", border: "none", borderRadius: 10, cursor: "pointer", fontWeight: 700, fontSize: 13 }}>
+                    Next Part →
+                  </button>
+                ) : (
+                  <button onClick={() => { if (confirm("Submit the test now?")) submitTest(); }}
+                    style={{ display: "inline-flex", alignItems: "center", gap: 6, padding: "10px 24px", background: T.accentBtn, color: "#fff", border: "none", borderRadius: 10, cursor: "pointer", fontWeight: 700, fontSize: 13 }}>
+                    Submit <CheckCircle size={14} />
+                  </button>
+                )}
               </div>
             </>
           )}
@@ -972,60 +1405,44 @@ export default function TestPage() {
 
         {/* Question progress tracker */}
         {(() => {
-          const allQuestions = test.type === "reading"
-            ? test.sections.flatMap(s => s.questions)
-            : section.questions;
+          // Listening is now all-parts-stacked too, so both types flatMap.
+          const allQuestions = test.sections.flatMap(s => s.questions);
           const totalQ = allQuestions.length;
           const answeredQ = allQuestions.filter(q => (answers[q.id] || "").trim()).length;
           const leftQ = totalQ - answeredQ;
           return (
             <div style={{ flexShrink: 0, borderTop: `1px solid ${T.border}`, background: T.nav, padding: "10px 16px" }}>
               <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 8 }}>
-                {test.type === "reading" ? (
-                  <div style={{ display: "flex", gap: 6 }}>
-                    {test.sections.map((s, i) => (
-                      <span key={s.id} style={{ fontSize: 11, fontWeight: 700, color: currentSection === i ? T.accent : T.textMuted }}>
-                        P{i + 1}
-                      </span>
-                    ))}
-                  </div>
-                ) : (
-                  <span style={{ fontSize: 12, fontWeight: 700, color: T.text }}>Part {currentSection + 1}</span>
-                )}
+                <div style={{ display: "flex", gap: 6 }}>
+                  {test.sections.map((s, i) => (
+                    <span key={s.id} style={{ fontSize: 11, fontWeight: 700, color: currentSection === i ? T.accent : T.textMuted }}>
+                      P{i + 1}
+                    </span>
+                  ))}
+                </div>
                 <div style={{ display: "flex", gap: 12 }}>
                   <span style={{ fontSize: 12, fontWeight: 700, color: "#10b981" }}>{answeredQ} answered</span>
                   <span style={{ fontSize: 12, fontWeight: 700, color: leftQ > 0 ? "#ef4444" : T.textMuted }}>{leftQ} left</span>
                 </div>
               </div>
               <div style={{ display: "flex", flexWrap: "wrap", gap: 5 }}>
-                {test.type === "reading" ? (
-                  test.sections.map((s, sIdx) => (
-                    <React.Fragment key={s.id}>
-                      {sIdx > 0 && <div style={{ width: "100%", height: 0 }} />}
-                      {s.questions.map((q) => {
-                        const done = !!(answers[q.id] || "").trim();
-                        return (
-                          <button key={q.id}
-                            onClick={() => document.getElementById(`question-${q.id}`)?.scrollIntoView({ behavior: "smooth", block: "center" })}
-                            style={{ width: 30, height: 30, borderRadius: 7, border: done ? "none" : `1px solid ${T.border}`, background: done ? "#10b981" : T.accentDim, color: done ? "#fff" : T.textMuted, fontSize: 11, fontWeight: 700, cursor: "pointer", transition: "all 0.15s" }}>
-                            {q.number}
-                          </button>
-                        );
-                      })}
-                    </React.Fragment>
-                  ))
-                ) : (
-                  section.questions.map((q) => {
-                    const done = !!(answers[q.id] || "").trim();
-                    return (
-                      <button key={q.id}
-                        onClick={() => document.getElementById(`question-${q.id}`)?.scrollIntoView({ behavior: "smooth", block: "center" })}
-                        style={{ width: 30, height: 30, borderRadius: 7, border: done ? "none" : `1px solid ${T.border}`, background: done ? "#10b981" : T.accentDim, color: done ? "#fff" : T.textMuted, fontSize: 11, fontWeight: 700, cursor: "pointer", transition: "all 0.15s" }}>
-                        {q.number}
-                      </button>
-                    );
-                  })
-                )}
+                {/* Same list for both test types now: every question in every part */}
+                {test.sections.map((s, sIdx) => (
+                  <React.Fragment key={s.id}>
+                    {/* No forced break between parts — the buttons flow in
+                        one row on wide screens, wrap naturally on narrow ones. */}
+                    {s.questions.map((q) => {
+                      const done = !!(answers[q.id] || "").trim();
+                      return (
+                        <button key={q.id}
+                          onClick={() => document.getElementById(`question-${q.id}`)?.scrollIntoView({ behavior: "smooth", block: "center" })}
+                          style={{ width: 30, height: 30, borderRadius: 7, border: done ? "none" : `1px solid ${T.border}`, background: done ? "#10b981" : T.accentDim, color: done ? "#fff" : T.textMuted, fontSize: 11, fontWeight: 700, cursor: "pointer", transition: "all 0.15s" }}>
+                          {q.number}
+                        </button>
+                      );
+                    })}
+                  </React.Fragment>
+                ))}
               </div>
             </div>
           );
@@ -1052,16 +1469,115 @@ export default function TestPage() {
           .panel-visible { display: flex !important; flex-direction: column !important; }
           /* Bigger tap targets on mobile */
           button { min-height: 36px; }
+          /* Test header: hide the title block and the secondary controls
+             so P1-P4, timer and Submit all fit on one row. */
+          .test-header-info { display: none !important; }
+          .test-header-font { display: none !important; }
+          .test-header-theme { display: none !important; }
+          .test-header { padding: 0 10px !important; gap: 6px !important; }
+          .test-header button { min-height: 34px; padding: 4px 10px !important; }
         }
       `}</style>
     </div>
   );
 }
 
+// ────────────────────────────────────────────────────────────
+// Inline-input rendering for listening notes and reading summaries.
+// Replaces "N _______" style blanks in the passage with real inputs
+// bound to the matching question by number. Non-matching text is
+// rendered as-is (so the structure / bullets / line-breaks are kept).
+// ────────────────────────────────────────────────────────────
+// Captures:
+//   group 1 — the question number
+//   group 2 — any intermediate chars between the number and the underscores
+//             (spaces, quotes, brackets, colon, dash, currency symbols etc.
+//             — e.g. "4 '_______" or "10 £ _______") so we can render them
+//             back before the input field.
+//   the blank itself — 3+ underscores OR 1+ ellipsis chars (…) OR 3+ dots.
+//             IELTS source material mixes all three conventions.
+const BLANK_PATTERN = /(\d+)(\s*['"‘’“”«»():–—\-£$€¥]*\s*)(?:_{3,}|…+|\.{3,})/g;
+
+function passageBlankNumbers(passage: string): Set<number> {
+  const set = new Set<number>();
+  const re = new RegExp(BLANK_PATTERN.source, "g");
+  let m: RegExpExecArray | null;
+  while ((m = re.exec(passage)) !== null) {
+    const n = parseInt(m[1], 10);
+    if (!isNaN(n)) set.add(n);
+  }
+  return set;
+}
+
+function renderPassageWithInputs(
+  passage: string,
+  questions: IELTSSection["questions"],
+  answers: Record<string, string>,
+  setAnswer: (id: string, v: string) => void,
+  T: { text: string; accent: string; border: string; inputBg: string; [k: string]: string },
+): React.ReactNode {
+  const byNumber = new Map<number, IELTSSection["questions"][0]>();
+  for (const q of questions) byNumber.set(q.number, q);
+
+  const nodes: React.ReactNode[] = [];
+  let lastIndex = 0;
+  let match: RegExpExecArray | null;
+  const re = new RegExp(BLANK_PATTERN.source, "g");
+
+  while ((match = re.exec(passage)) !== null) {
+    const num = parseInt(match[1], 10);
+    const between = match[2] || "";
+    const q = byNumber.get(num);
+    if (match.index > lastIndex) {
+      nodes.push(passage.slice(lastIndex, match.index));
+    }
+    if (q) {
+      nodes.push(
+        <React.Fragment key={`blank-${num}-${match.index}`}>
+          <strong style={{ fontFamily: "'IBM Plex Mono', 'Courier New', monospace", color: T.accent, fontWeight: 700, marginRight: 6 }}>
+            {num}
+          </strong>
+          {between && <span>{between}</span>}
+          <input
+            id={`question-${q.id}`}
+            type="text"
+            value={answers[q.id] || ""}
+            onChange={(e) => setAnswer(q.id, e.target.value)}
+            placeholder="…"
+            style={{
+              display: "inline-block",
+              padding: "2px 10px",
+              borderRadius: 5,
+              fontSize: "inherit",
+              background: T.inputBg,
+              border: `1.5px solid ${T.border}`,
+              color: T.text,
+              outline: "none",
+              minWidth: 110,
+              maxWidth: 200,
+              fontFamily: "inherit",
+              verticalAlign: "baseline",
+            } as React.CSSProperties}
+            onFocus={(e) => (e.currentTarget.style.borderColor = T.accent)}
+            onBlur={(e) => (e.currentTarget.style.borderColor = T.border)}
+          />
+        </React.Fragment>
+      );
+    } else {
+      nodes.push(match[0]);
+    }
+    lastIndex = match.index + match[0].length;
+  }
+  if (lastIndex < passage.length) {
+    nodes.push(passage.slice(lastIndex));
+  }
+  return nodes;
+}
+
 // ============================================================
 // Question Item Component
 // ============================================================
-function buildQuestionHtml(text: string, questionHighlights: Highlight[], questionId: string, ulColor = "#7c3aed"): string {
+function buildQuestionHtml(text: string, questionHighlights: Highlight[], questionId: string, ulColor = "#ffffff"): string {
   const active = questionHighlights.filter(h => h.questionId === questionId);
 
   type Pos = { start: number; end: number; id: string; color: string };
@@ -1102,7 +1618,9 @@ function QuestionItem({
   questionHighlights: Highlight[];
   onRemoveHighlight: (id: string) => void;
 }) {
-  const btnBase: React.CSSProperties = { padding: "8px 16px", borderRadius: 8, fontSize: 13, fontWeight: 600, cursor: "pointer", border: "1px solid", transition: "all 0.15s" };
+  // Button base — fontSize tracks the picker so True/False/NG, Y/N/NG
+  // and any other button-row options scale alongside the question text.
+  const btnBase: React.CSSProperties = { padding: "8px 16px", borderRadius: 8, fontSize: fontSize - 2, fontWeight: 600, cursor: "pointer", border: "1px solid", transition: "all 0.15s" };
 
   const handleQuestionClick = (e: React.MouseEvent) => {
     const el = e.target as HTMLElement;
@@ -1116,14 +1634,31 @@ function QuestionItem({
   const cleanQuestionText = question.question.replace(/^\d+[\.\)]\s*/, "");
   const hasInlineBlank = isGapFill && cleanQuestionText.includes("_______");
 
+  // For summary_completion and note_completion the full sentence already lives
+  // in the passage/notes block above — rendering it again on the right is
+  // noisy duplication. Show just "N [input]" for these types.
+  const isPassageCovered = question.type === "summary_completion" || question.type === "note_completion";
+
   return (
-    <div id={`question-${question.id}`} style={{ paddingBottom: 24, borderBottom: `1px solid ${T.border}` }}>
-      <div style={{ display: "flex", gap: 12, marginBottom: hasInlineBlank ? 0 : 12, alignItems: hasInlineBlank ? "center" : "flex-start", flexWrap: "wrap" }}>
-        <span style={{ flexShrink: 0, width: 26, height: 26, borderRadius: "50%", background: T.accent, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 11, fontWeight: 700, color: "#fff" }}>
+    <div id={`question-${question.id}`} style={{ paddingBottom: isPassageCovered ? 12 : 24, borderBottom: `1px solid ${T.border}` }}>
+      <div style={{ display: "flex", gap: 12, marginBottom: (hasInlineBlank || isPassageCovered) ? 0 : 12, alignItems: (hasInlineBlank || isPassageCovered) ? "center" : "flex-start", flexWrap: "wrap" }}>
+        <span style={{ flexShrink: 0, fontSize: 15, fontWeight: 800, color: T.text, fontFamily: "'IBM Plex Mono', 'Courier New', monospace", minWidth: 26, textAlign: "right" }}>
           {question.number}
         </span>
 
-        {hasInlineBlank ? (
+        {isPassageCovered ? (
+          // Compact: just the input. The numbered blank in the passage above
+          // provides all the context. No duplicate sentence on this side.
+          <input
+            type="text"
+            value={answer}
+            onChange={(e) => onAnswer(e.target.value)}
+            placeholder="..."
+            style={{ flex: 1, maxWidth: 260, padding: "6px 12px", borderRadius: 6, fontSize: fontSize - 1, background: T.inputBg, border: `1.5px solid ${T.border}`, color: T.text, outline: "none", fontFamily: "Inter, system-ui, sans-serif" }}
+            onFocus={e => e.currentTarget.style.borderColor = T.accent}
+            onBlur={e => e.currentTarget.style.borderColor = T.border}
+          />
+        ) : hasInlineBlank ? (
           // Inline gap fill: render text with input box inline
           <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: 4, fontSize: fontSize - 1, color: T.text, lineHeight: 2, flex: 1 }}>
             {cleanQuestionText.split("_______").map((part, i, arr) => (
@@ -1147,58 +1682,117 @@ function QuestionItem({
           <div onClick={handleQuestionClick}
             data-question-id={question.id}
             style={{ fontSize: fontSize - 1, color: T.text, lineHeight: 1.6, userSelect: "text", flex: 1 }}
-            dangerouslySetInnerHTML={{ __html: buildQuestionHtml(cleanQuestionText, questionHighlights, question.id, T.bg.startsWith("#0") ? "#c4b5fd" : "#7c3aed") }}
+            dangerouslySetInnerHTML={{ __html: buildQuestionHtml(cleanQuestionText, questionHighlights, question.id, T.bg.startsWith("#0") ? "#ffffff" : "#ffffff") }}
           />
         )}
       </div>
 
-      {!hasInlineBlank && (
+      {!hasInlineBlank && !isPassageCovered && (
         <div style={{ marginLeft: 38 }}>
-          {/* Multiple choice */}
-          {question.type === "multiple_choice" && question.options && (
-            <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-              {question.options.map((opt) => (
-                <label key={opt.value} style={{ display: "flex", alignItems: "center", gap: 10, cursor: "pointer" }}>
-                  <div style={{ width: 18, height: 18, borderRadius: "50%", border: `2px solid ${answer === opt.value ? T.accent : T.border}`, background: answer === opt.value ? T.accent : "transparent", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}
-                    onClick={() => onAnswer(opt.value)}>
-                    {answer === opt.value && <div style={{ width: 7, height: 7, borderRadius: "50%", background: "#fff" }} />}
-                  </div>
-                  <input type="radio" name={`q-${question.id}`} value={opt.value} checked={answer === opt.value} onChange={() => onAnswer(opt.value)} style={{ display: "none" }} />
-                  <span style={{ fontSize: 14, color: T.text }}>{opt.label}</span>
-                </label>
-              ))}
-            </div>
-          )}
+          {/* Multiple choice — compact matching UI if the question is a
+              'matching' (5+ options with short letter/roman-numeral answers
+              like i/ii/iii/A/B/C). The options box is shown once above via
+              the groupLabel, so the student just types the matching
+              identifier next to the item. */}
+          {question.type === "multiple_choice" && question.options && (() => {
+            const validIds = question.options!.map((o) => o.value);
+            const maxLen = Math.max(...validIds.map((v) => v.length));
+            const isMatchingUI = question.options!.length >= 5 && maxLen <= 5
+              && validIds.every((v) => /^[A-Za-z]+$/.test(v));
+            if (isMatchingUI) {
+              return (
+                <div style={{ display: "flex", alignItems: "center", gap: 12, paddingTop: 4 }}>
+                  <span style={{ fontSize: 13, color: T.textMuted }}>Your answer:</span>
+                  <input type="text" value={answer} maxLength={maxLen}
+                    onChange={(e) => {
+                      const raw = e.target.value.trim();
+                      // Accept only if it matches one of the option values (case-insensitive)
+                      const normalized = validIds.find((v) => v.toLowerCase() === raw.toLowerCase());
+                      if (raw === "" || normalized) onAnswer(normalized ?? raw);
+                    }}
+                    placeholder={validIds.length > 0 ? `${validIds[0]}–${validIds[validIds.length - 1]}` : ""}
+                    style={{ width: 80, padding: "8px 12px", borderRadius: 6, background: T.inputBg, border: `1.5px solid ${T.border}`, color: T.text, outline: "none", fontSize: fontSize + 1, fontWeight: 700, textAlign: "center", fontFamily: "'IBM Plex Mono', monospace" } as React.CSSProperties}
+                    onFocus={(e) => (e.currentTarget.style.borderColor = T.accent)}
+                    onBlur={(e) => (e.currentTarget.style.borderColor = T.border)}
+                  />
+                </div>
+              );
+            }
+            // Standard MCQ — radio-style buttons, one per line.
+            return (
+              <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+                {question.options!.map((opt) => (
+                  <label key={opt.value} style={{ display: "flex", alignItems: "center", gap: 10, cursor: "pointer" }}>
+                    <div style={{ width: 18, height: 18, borderRadius: "50%", border: `2px solid ${answer === opt.value ? T.accent : T.border}`, background: answer === opt.value ? T.accent : "transparent", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}
+                      onClick={() => onAnswer(opt.value)}>
+                      {answer === opt.value && <div style={{ width: 7, height: 7, borderRadius: "50%", background: "#fff" }} />}
+                    </div>
+                    <input type="radio" name={`q-${question.id}`} value={opt.value} checked={answer === opt.value} onChange={() => onAnswer(opt.value)} style={{ display: "none" }} />
+                    <span style={{ fontSize: fontSize - 1, color: T.text }}>{opt.label}</span>
+                  </label>
+                ))}
+              </div>
+            );
+          })()}
 
-          {/* True/False/NG */}
-          {question.type === "true_false_ng" && question.options && (
-            <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
-              {question.options.map((opt) => (
-                <button key={opt.value} onClick={() => onAnswer(opt.value)}
-                  style={{ ...btnBase, background: answer === opt.value ? T.accent : T.nav, color: answer === opt.value ? "#fff" : T.textSub, borderColor: answer === opt.value ? T.accent : T.border }}>
-                  {opt.label}
-                </button>
-              ))}
-            </div>
-          )}
+          {/* True/False/NG (or Yes/No/NG) — falls back to default buttons if options missing */}
+          {question.type === "true_false_ng" && (() => {
+            const defaultTFNG = [
+              { label: "TRUE", value: "TRUE" },
+              { label: "FALSE", value: "FALSE" },
+              { label: "NOT GIVEN", value: "NOT GIVEN" },
+            ];
+            const defaultYNG = [
+              { label: "YES", value: "YES" },
+              { label: "NO", value: "NO" },
+              { label: "NOT GIVEN", value: "NOT GIVEN" },
+            ];
+            const isYNG = question.correctAnswer === "YES" || question.correctAnswer === "NO";
+            const opts = question.options && question.options.length > 0
+              ? question.options
+              : (isYNG ? defaultYNG : defaultTFNG);
+            return (
+              <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+                {opts.map((opt) => (
+                  <button key={opt.value} onClick={() => onAnswer(opt.value)}
+                    style={{ ...btnBase, background: answer === opt.value ? T.accent : T.nav, color: answer === opt.value ? "#fff" : T.textSub, borderColor: answer === opt.value ? T.accent : T.border }}>
+                    {opt.label}
+                  </button>
+                ))}
+              </div>
+            );
+          })()}
 
-          {/* Matching */}
-          {question.type === "matching" && question.options && (
-            <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
-              {question.options.map((opt) => (
-                <button key={opt.value} onClick={() => onAnswer(opt.value)}
-                  style={{ ...btnBase, background: answer === opt.value ? T.accent : T.nav, color: answer === opt.value ? "#fff" : T.textSub, borderColor: answer === opt.value ? T.accent : T.border }}>
-                  {opt.label}
-                </button>
-              ))}
-            </div>
-          )}
+          {/* Matching — student types the letter (A, B, C…) next to the
+              item. Options are shown once in the group's groupLabel above,
+              exactly like the Cambridge paper format. */}
+          {question.type === "matching" && question.options && (() => {
+            const normalise = (v: string) => v.trim().toUpperCase().slice(0, 1);
+            return (
+              <input
+                type="text"
+                value={answer}
+                maxLength={1}
+                onChange={(e) => onAnswer(normalise(e.target.value))}
+                style={{
+                  padding: "9px 14px", borderRadius: 8, fontSize: fontSize,
+                  background: T.inputBg, border: `1.5px solid ${T.border}`,
+                  color: T.text, outline: "none", width: 72,
+                  textAlign: "center", textTransform: "uppercase",
+                  fontFamily: "'IBM Plex Mono', 'Courier New', monospace",
+                  fontWeight: 700,
+                } as React.CSSProperties}
+                onFocus={e => e.currentTarget.style.borderColor = T.accent}
+                onBlur={e => e.currentTarget.style.borderColor = T.border}
+              />
+            );
+          })()}
 
           {/* Fill blank / short answer fallback (no inline blank marker) */}
           {isGapFill && (
             <input type="text" value={answer} onChange={(e) => onAnswer(e.target.value)}
               placeholder="Write your answer here..."
-              style={{ padding: "9px 14px", borderRadius: 8, fontSize: 14, background: T.inputBg, border: `1.5px solid ${T.border}`, color: T.text, outline: "none", minWidth: 200, fontFamily: "Inter, system-ui, sans-serif", userSelect: "text", WebkitUserSelect: "text" } as React.CSSProperties}
+              style={{ padding: "9px 14px", borderRadius: 8, fontSize: fontSize - 1, background: T.inputBg, border: `1.5px solid ${T.border}`, color: T.text, outline: "none", minWidth: 200, fontFamily: "Inter, system-ui, sans-serif", userSelect: "text", WebkitUserSelect: "text" } as React.CSSProperties}
               onFocus={e => e.currentTarget.style.borderColor = T.accent}
               onBlur={e => e.currentTarget.style.borderColor = T.border}
             />
@@ -1229,9 +1823,9 @@ function WarningScreen({ test, onAccept }: { test: IELTSTest; onAccept: () => vo
   ];
 
   return (
-    <div style={{ minHeight: "100vh", background: "#0a051f", display: "flex", alignItems: "center", justifyContent: "center", padding: 24, fontFamily: "Inter, system-ui, sans-serif" }}>
+    <div style={{ minHeight: "100vh", background: "#0a0a0a", display: "flex", alignItems: "center", justifyContent: "center", padding: 24, fontFamily: "Inter, system-ui, sans-serif" }}>
       <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }}
-        style={{ maxWidth: 520, width: "100%", background: "#140b35", border: "1px solid rgba(255,255,255,0.1)", borderRadius: 24, padding: "36px 32px", boxShadow: "0 24px 64px rgba(0,0,0,0.6)" }}>
+        style={{ maxWidth: 520, width: "100%", background: "#151515", border: "1px solid rgba(255,255,255,0.1)", borderRadius: 24, padding: "36px 32px", boxShadow: "0 24px 64px rgba(0,0,0,0.6)" }}>
 
         <div style={{ width: 56, height: 56, borderRadius: 14, background: "#fef3c7", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 20px" }}>
           <AlertTriangle size={26} color="#d97706" />
@@ -1253,7 +1847,7 @@ function WarningScreen({ test, onAccept }: { test: IELTSTest; onAccept: () => vo
 
         <label style={{ display: "flex", alignItems: "flex-start", gap: 12, cursor: "pointer", marginBottom: 24 }}>
           <div onClick={() => setAgreed(!agreed)}
-            style={{ flexShrink: 0, width: 20, height: 20, borderRadius: 6, border: `2px solid ${agreed ? "#7c3aed" : "rgba(255,255,255,0.2)"}`, background: agreed ? "#7c3aed" : "transparent", display: "flex", alignItems: "center", justifyContent: "center", marginTop: 2, cursor: "pointer", transition: "all 0.15s" }}>
+            style={{ flexShrink: 0, width: 20, height: 20, borderRadius: 6, border: `2px solid ${agreed ? "#ffffff" : "rgba(255,255,255,0.2)"}`, background: agreed ? "#ffffff" : "transparent", display: "flex", alignItems: "center", justifyContent: "center", marginTop: 2, cursor: "pointer", transition: "all 0.15s" }}>
             {agreed && <CheckCircle size={13} color="#fff" />}
           </div>
           <span style={{ fontSize: 14, color: "rgba(255,255,255,0.65)", lineHeight: 1.5 }}>
@@ -1262,7 +1856,7 @@ function WarningScreen({ test, onAccept }: { test: IELTSTest; onAccept: () => vo
         </label>
 
         <button onClick={onAccept} disabled={!agreed}
-          style={{ width: "100%", display: "flex", alignItems: "center", justifyContent: "center", gap: 8, padding: "14px", background: agreed ? "linear-gradient(135deg,#6d28d9,#7c3aed)" : "rgba(124,58,237,0.3)", color: "#fff", fontWeight: 700, fontSize: 15, border: "none", borderRadius: 12, cursor: agreed ? "pointer" : "not-allowed", boxShadow: agreed ? "0 4px 15px rgba(37,99,235,0.4)" : "none", transition: "all 0.2s" }}>
+          style={{ width: "100%", display: "flex", alignItems: "center", justifyContent: "center", gap: 8, padding: "14px", background: agreed ? "#2a2a2a" : "rgba(255,255,255,0.15)", color: "#fff", fontWeight: 700, fontSize: 15, border: "none", borderRadius: 12, cursor: agreed ? "pointer" : "not-allowed", boxShadow: agreed ? "0 4px 15px rgba(37,99,235,0.4)" : "none", transition: "all 0.2s" }}>
           Start Test <ChevronRight size={16} />
         </button>
       </motion.div>
@@ -1305,18 +1899,18 @@ function ResultScreen({
   };
 
   return (
-    <div style={{ minHeight: "100vh", background: "#0a051f", fontFamily: "Inter, system-ui, sans-serif", overflowY: "auto" }}>
+    <div style={{ minHeight: "100vh", background: "#0a0a0a", fontFamily: "Inter, system-ui, sans-serif", overflowY: "auto" }}>
       <div style={{ display: "flex", alignItems: "center", justifyContent: "center", padding: 24 }}>
         <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }}
           style={{ maxWidth: 480, width: "100%", textAlign: "center" }}>
-          <div style={{ width: 80, height: 80, borderRadius: "50%", background: "linear-gradient(135deg,#6d28d9,#7c3aed)", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 20px" }}>
+          <div style={{ width: 80, height: 80, borderRadius: "50%", background: "#2a2a2a", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 20px" }}>
             <CheckCircle size={36} color="#fff" />
           </div>
           <h1 style={{ fontSize: 30, fontWeight: 900, color: "#e8eeff", marginBottom: 6 }}>Test Complete!</h1>
           <p style={{ color: "rgba(255,255,255,0.4)", marginBottom: 32 }}>Well done, {session.name}! Here are your results.</p>
 
-          <div style={{ background: "#140b35", border: "1px solid rgba(255,255,255,0.1)", borderRadius: 24, padding: "32px", marginBottom: 16 }}>
-            <div style={{ fontSize: 72, fontWeight: 900, color: "#7c3aed", lineHeight: 1, marginBottom: 4 }}>{result.band}</div>
+          <div style={{ background: "#151515", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 24, padding: "32px", marginBottom: 16 }}>
+            <div style={{ fontSize: 72, fontWeight: 900, color: "#ffffff", lineHeight: 1, marginBottom: 4 }}>{result.band}</div>
             <div style={{ fontSize: 13, fontWeight: 600, color: "rgba(255,255,255,0.4)", marginBottom: 24 }}>IELTS Score</div>
 
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginBottom: 20 }}>
@@ -1324,7 +1918,7 @@ function ResultScreen({
                 { label: "Raw Score", value: `${result.score}/${result.max}` },
                 { label: "Percentage", value: `${pct}%` },
               ].map(s => (
-                <div key={s.label} style={{ padding: 16, borderRadius: 14, background: "#0e0828", border: "1px solid rgba(255,255,255,0.08)" }}>
+                <div key={s.label} style={{ padding: 16, borderRadius: 14, background: "#0d0d0d", border: "1px solid rgba(255,255,255,0.08)" }}>
                   <div style={{ fontSize: 22, fontWeight: 700, color: "#e8eeff", marginBottom: 4 }}>{s.value}</div>
                   <div style={{ fontSize: 12, color: "rgba(255,255,255,0.35)" }}>{s.label}</div>
                 </div>
@@ -1332,18 +1926,18 @@ function ResultScreen({
             </div>
 
             <div style={{ height: 6, background: "rgba(255,255,255,0.07)", borderRadius: 3, marginBottom: 8 }}>
-              <div style={{ height: "100%", background: "linear-gradient(90deg,#7c3aed,#b87fff)", borderRadius: 3, width: `${pct}%`, transition: "width 0.5s ease" }} />
+              <div style={{ height: "100%", background: "linear-gradient(90deg,#ffffff,#b87fff)", borderRadius: 3, width: `${pct}%`, transition: "width 0.5s ease" }} />
             </div>
             <p style={{ fontSize: 13, color: "rgba(255,255,255,0.4)" }}>{msg}</p>
           </div>
 
           <div style={{ display: "flex", flexDirection: "column", gap: 10, marginBottom: 4 }}>
             <button onClick={() => setShowDetails(d => !d)}
-              style={{ width: "100%", display: "flex", alignItems: "center", justifyContent: "center", gap: 8, padding: "13px", background: showDetails ? "rgba(124,58,237,0.2)" : "rgba(255,255,255,0.06)", color: "#fff", fontWeight: 700, fontSize: 14, border: "1px solid rgba(255,255,255,0.12)", borderRadius: 12, cursor: "pointer" }}>
+              style={{ width: "100%", display: "flex", alignItems: "center", justifyContent: "center", gap: 8, padding: "13px", background: showDetails ? "rgba(255,255,255,0.1)" : "rgba(255,255,255,0.06)", color: "#fff", fontWeight: 700, fontSize: 14, border: "1px solid rgba(255,255,255,0.12)", borderRadius: 12, cursor: "pointer" }}>
               <List size={15} /> {showDetails ? "Hide Details" : "View Answer Details"}
             </button>
             <button onClick={onBack}
-              style={{ width: "100%", display: "flex", alignItems: "center", justifyContent: "center", gap: 8, padding: "14px", background: "linear-gradient(135deg,#6d28d9,#7c3aed)", color: "#fff", fontWeight: 700, fontSize: 15, border: "none", borderRadius: 12, cursor: "pointer", boxShadow: "0 4px 15px rgba(37,99,235,0.4)" }}>
+              style={{ width: "100%", display: "flex", alignItems: "center", justifyContent: "center", gap: 8, padding: "14px", background: "#2a2a2a", color: "#fff", fontWeight: 700, fontSize: 15, border: "none", borderRadius: 12, cursor: "pointer", boxShadow: "0 4px 15px rgba(37,99,235,0.4)" }}>
               Back to Dashboard <ChevronRight size={16} />
             </button>
           </div>
@@ -1377,13 +1971,13 @@ function ResultScreen({
                           Your answer: {answers[q.id] || "(no answer)"}
                         </span>
                         {!isCorrect && (
-                          <span style={{ fontSize: 12, padding: "3px 10px", borderRadius: 6, background: "rgba(124,58,237,0.15)", color: "#c4b5fd" }}>
+                          <span style={{ fontSize: 12, padding: "3px 10px", borderRadius: 6, background: "rgba(255,255,255,0.07)", color: "#ffffff" }}>
                             Correct: {q.correctAnswer}
                           </span>
                         )}
                       </div>
                       {excerpt && (
-                        <div style={{ marginTop: 8, marginLeft: 32, padding: "8px 12px", background: "rgba(255,255,255,0.04)", borderLeft: "3px solid rgba(124,58,237,0.5)", borderRadius: "0 6px 6px 0", fontSize: 12, color: "rgba(255,255,255,0.5)", lineHeight: 1.6, fontStyle: "italic" }}>
+                        <div style={{ marginTop: 8, marginLeft: 32, padding: "8px 12px", background: "rgba(255,255,255,0.04)", borderLeft: "3px solid rgba(255,255,255,0.3)", borderRadius: "0 6px 6px 0", fontSize: 12, color: "rgba(255,255,255,0.5)", lineHeight: 1.6, fontStyle: "italic" }}>
                           {excerpt}
                         </div>
                       )}

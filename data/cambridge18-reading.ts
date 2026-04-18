@@ -1100,17 +1100,31 @@ export const cambridge18_reading_t3: IELTSTest = {
       sectionNumber: 1,
       title: "Reading Passage 1",
       passageTitle: "Materials to take us beyond concrete",
-      passageText: `[PASTE PASSAGE 1 HERE — Cambridge 18 Test 3 "Materials to take us beyond concrete". The passage is divided into eight labelled paragraphs A–H. Keep the paragraph letters at the start of each paragraph so matching questions still work, e.g.:
-
-A
-
-<paragraph A text>
+      passageText: `A
+Concrete is the second most used substance in the global economy, after water – and one of the world's biggest single sources of greenhouse gas emissions. The chemical process by which cement, the key ingredient of concrete, is created results in large quantities of carbon dioxide. The UN estimates that there will be 9.8 billion people living on the planet by mid-century. They will need somewhere to live. If concrete is the only answer to the construction of new cities, then carbon emissions will soar, aggravating global warming. And so scientists have started innovating with other materials, in a scramble for alternatives to a universal commodity that has underpinned our modem life for many years.
 
 B
+The problem with replacing concrete is that it is so very good at what it does. Chris Cheeseman, an engineering professor at Imperial College London, says the key thing to consider is the extent to which concrete is used around the world, and is likely to continue to be used. 'Concrete is not a high-carbon product. Cement is high carbon, but concrete is not. But it is the scale on which it is used that makes it high carbon. The sheer scale of manufacture is so huge, that is the issue.'
 
-<paragraph B text>
+C
+Not only are the ingredients of concrete relatively cheap and found in abundance in most places around the globe, the stuff itself has marvellous properties: Portland cement, the vital component of concrete, is mouldable and pourable, but quickly sets hard. Cheeseman also notes another advantage: concrete and steel have similar thermal expansion properties, so steel can be used to reinforce concrete, making it far stronger and more flexible as a building material than it could be on its own. According to Cheeseman, all these factors together make concrete hard to beat. 'Concrete is amazing stuff. Making anything with similar properties is going to be very difficult.'
 
-… and so on through H.]`,
+D
+A possible alternative to concrete is wood. Making buildings from wood may seem like a rather medieval idea, but climate change is driving architects to turn to treated timber as a possible resource. Recent years have seen the emergence of tall buildings constructed almost entirely from timber. Vancouver, Vienna and Brumunddal in Norway are all home to constructed tall, wooden buildings.
+
+E
+Using wood to construct buildings, however, is not straightforward. Wood expands as it absorbs moisture from the air and is susceptible to pests, not to mention fire. But treating wood and combining it with other materials can improve its properties. Cross-laminated timber is engineered wood. An adhesive is used to stick layers of solid-sawn timber together, crosswise, to form building blocks. This material is light but has the strength of concrete and steel. Construction experts say that wooden buildings can be constructed at a greater speed than ones of concrete and steel and the process, it seems, is quieter.
+
+F
+Stora Enso is Europe's biggest supplier of cross-laminated timber, and its vice-president Markus Mannstrom reports that the company is seeing increasing demand globally for building in wood, with climate change concerns the key driver. Finland, with its large forests, where Stora Enso is based, has been leading the way, but the company is seeing a rise in demand for its timber products across the world, including in Asia. Of course, using timber in a building also locks away the carbon that it absorbed as it grew. But even treated wood has its limitations and only when a wider range of construction projects has been proven in practice will it be possible to see wood as a real alternative to concrete in constructing tall buildings.
+
+G
+Fly ash and slag from iron ore are possible alternatives to cement in a concrete mix. Fly ash, a byproduct of coal-burning power plants, can be incorporated into concrete mixes to make up as much as 15 to 30% of the cement, without harming the strength or durability of the resulting mix. Iron-ore slag, a byproduct of the iron-ore smelting process, can be used in a similar way. Their incorporation into concrete mixes has the potential to reduce greenhouse gas emissions.
+
+But Anna Surgenor, of the UK's Green Building Council, notes that although these waste products can save carbon in the concrete mix, their use is not always straightforward. 'It's possible to replace the cement content in concrete with waste products to lower the overall carbon impact. But there are several calculations that need to be considered across the entire life cycle of the building – these include factoring in where these materials are being shipped from. If they are transported over long distances, using fossil fuels, the use of alternative materials might not make sense from an overall carbon reduction perspective.'
+
+H
+While these technologies are all promising ideas, they are either unproven or based on materials that are not abundant. In their overview of innovation in the concrete industry, Felix Preston and Johanna Lehne of the UK's Royal Institute of International Affairs reached the conclusion that, 'Some novel cements have been discussed for more than a decade within the research community, without breaking through. At present, these alternatives are rarely as cost-effective as conventional cement, and they face raw-material shortages and resistance from customers.'`,
       instructions: `Questions 1–4: Matching information — which section A–H contains each piece of information?
 Questions 5–8: Summary completion — ONE WORD ONLY from the passage.
 Questions 9–13: Matching — match each statement to the correct person A–D.`,
@@ -1119,9 +1133,9 @@ Questions 9–13: Matching — match each statement to the correct person A–D.
         {
           id: "cam18-ra-t3-s1-q1",
           number: 1,
-          groupLabel: `Questions 1–4: Reading Passage 1 has eight sections, A–H. Which section contains the following information? Write the correct letter, A–H.\n\n[PASTE Q1–Q4 STATEMENTS HERE FROM THE BOOK — one short sentence each.]`,
+          groupLabel: `Questions 1–4: Reading Passage 1 has eight sections, A–H. Which section contains the following information? Write the correct letter, A–H.\n\n1   an explanation of the industrial processes that create potential raw materials for concrete\n2   a reference to the various locations where high-rise wooden buildings can be found\n3   an indication of how widely available the raw materials of concrete are\n4   the belief that more high-rise wooden buildings are needed before wood can be regarded as a viable construction material`,
           type: "matching",
-          question: "1. [Paste Q1 statement here]",
+          question: "1. an explanation of the industrial processes that create potential raw materials for concrete",
           options: [
             { label: "A", value: "A" }, { label: "B", value: "B" }, { label: "C", value: "C" },
             { label: "D", value: "D" }, { label: "E", value: "E" }, { label: "F", value: "F" },
@@ -1134,7 +1148,7 @@ Questions 9–13: Matching — match each statement to the correct person A–D.
           id: "cam18-ra-t3-s1-q2",
           number: 2,
           type: "matching",
-          question: "2. [Paste Q2 statement here]",
+          question: "2. a reference to the various locations where high-rise wooden buildings can be found",
           options: [
             { label: "A", value: "A" }, { label: "B", value: "B" }, { label: "C", value: "C" },
             { label: "D", value: "D" }, { label: "E", value: "E" }, { label: "F", value: "F" },
@@ -1147,7 +1161,7 @@ Questions 9–13: Matching — match each statement to the correct person A–D.
           id: "cam18-ra-t3-s1-q3",
           number: 3,
           type: "matching",
-          question: "3. [Paste Q3 statement here]",
+          question: "3. an indication of how widely available the raw materials of concrete are",
           options: [
             { label: "A", value: "A" }, { label: "B", value: "B" }, { label: "C", value: "C" },
             { label: "D", value: "D" }, { label: "E", value: "E" }, { label: "F", value: "F" },
@@ -1160,7 +1174,7 @@ Questions 9–13: Matching — match each statement to the correct person A–D.
           id: "cam18-ra-t3-s1-q4",
           number: 4,
           type: "matching",
-          question: "4. [Paste Q4 statement here]",
+          question: "4. the belief that more high-rise wooden buildings are needed before wood can be regarded as a viable construction material",
           options: [
             { label: "A", value: "A" }, { label: "B", value: "B" }, { label: "C", value: "C" },
             { label: "D", value: "D" }, { label: "E", value: "E" }, { label: "F", value: "F" },
@@ -1173,9 +1187,9 @@ Questions 9–13: Matching — match each statement to the correct person A–D.
         {
           id: "cam18-ra-t3-s1-q5",
           number: 5,
-          groupLabel: `Questions 5–8: Complete the summary below. Choose ONE WORD ONLY from the passage for each answer.\n\n[PASTE THE SUMMARY PARAGRAPH HERE — it contains gaps numbered 5, 6, 7, 8.]`,
+          groupLabel: `Questions 5–8: Complete the summary below. Choose ONE WORD ONLY from the passage for each answer.\n\nMaking buildings with wood\nWood is a traditional building material, but current environmental concerns are encouraging 5 _______ to use wood in modern construction projects. Using wood, however, has its challenges. For example, as 6 _______ in the atmosphere enters wood, it increases in size. In addition, wood is prone to pests and the risk of fire is greater. However, wood can be turned into a better construction material if it is treated and combined with other materials. In one process, 7 _______ of solid wood are glued together to create building blocks. These blocks are lighter than concrete and steel but equal them in strength. Experts say that wooden buildings are an improvement on those made of concrete and steel in terms of the 8 _______ with which they can be constructed and how much noise is generated by the process.`,
           type: "summary_completion",
-          question: "5. [first gap in the summary]",
+          question: "5. current environmental concerns are encouraging _______ to use wood in modern construction projects",
           correctAnswer: "architects",
           points: 1,
         },
@@ -1183,7 +1197,7 @@ Questions 9–13: Matching — match each statement to the correct person A–D.
           id: "cam18-ra-t3-s1-q6",
           number: 6,
           type: "summary_completion",
-          question: "6. [second gap in the summary]",
+          question: "6. as _______ in the atmosphere enters wood, it increases in size",
           correctAnswer: "moisture",
           points: 1,
         },
@@ -1191,7 +1205,7 @@ Questions 9–13: Matching — match each statement to the correct person A–D.
           id: "cam18-ra-t3-s1-q7",
           number: 7,
           type: "summary_completion",
-          question: "7. [third gap in the summary]",
+          question: "7. _______ of solid wood are glued together to create building blocks",
           correctAnswer: "layers",
           points: 1,
         },
@@ -1199,7 +1213,7 @@ Questions 9–13: Matching — match each statement to the correct person A–D.
           id: "cam18-ra-t3-s1-q8",
           number: 8,
           type: "summary_completion",
-          question: "8. [fourth gap in the summary]",
+          question: "8. wooden buildings are an improvement in terms of the _______ with which they can be constructed",
           correctAnswer: "speed",
           points: 1,
         },
@@ -1207,9 +1221,9 @@ Questions 9–13: Matching — match each statement to the correct person A–D.
         {
           id: "cam18-ra-t3-s1-q9",
           number: 9,
-          groupLabel: `Questions 9–13: Match each statement with the correct person, A–D. NB: You may use any letter more than once.\n\nA  Chris Cheeseman\nB  Markus Mannstrom\nC  Anna Surgenor\nD  Felix Preston and Johanna Lehne\n\n[PASTE Q9–Q13 STATEMENTS HERE.]`,
+          groupLabel: `Questions 9–13: Match each statement with the correct person, A–D.\nNB You may use any letter more than once.\n\n9   The environmental advantage of cement alternatives may not be as great as initially assumed.\n10  It would be hard to create a construction alternative to concrete that offers so many comparable benefits.\n11  Worries about the environment have led to increased interest in wood as a construction material.\n12  Expense has been a factor in the negative response to the development of new cements.\n13  The environmental damage caused by concrete is due to it being produced in large quantities.\n\nList of People\nA  Chris Cheeseman\nB  Markus Mannstrom\nC  Anna Surgenor\nD  Felix Preston and Johanna Lehne`,
           type: "matching",
-          question: "9. [Paste Q9 statement here]",
+          question: "9. The environmental advantage of cement alternatives may not be as great as initially assumed.",
           options: [
             { label: "A  Chris Cheeseman", value: "A" },
             { label: "B  Markus Mannstrom", value: "B" },
@@ -1223,7 +1237,7 @@ Questions 9–13: Matching — match each statement to the correct person A–D.
           id: "cam18-ra-t3-s1-q10",
           number: 10,
           type: "matching",
-          question: "10. [Paste Q10 statement here]",
+          question: "10. It would be hard to create a construction alternative to concrete that offers so many comparable benefits.",
           options: [
             { label: "A  Chris Cheeseman", value: "A" },
             { label: "B  Markus Mannstrom", value: "B" },
@@ -1237,7 +1251,7 @@ Questions 9–13: Matching — match each statement to the correct person A–D.
           id: "cam18-ra-t3-s1-q11",
           number: 11,
           type: "matching",
-          question: "11. [Paste Q11 statement here]",
+          question: "11. Worries about the environment have led to increased interest in wood as a construction material.",
           options: [
             { label: "A  Chris Cheeseman", value: "A" },
             { label: "B  Markus Mannstrom", value: "B" },
@@ -1251,7 +1265,7 @@ Questions 9–13: Matching — match each statement to the correct person A–D.
           id: "cam18-ra-t3-s1-q12",
           number: 12,
           type: "matching",
-          question: "12. [Paste Q12 statement here]",
+          question: "12. Expense has been a factor in the negative response to the development of new cements.",
           options: [
             { label: "A  Chris Cheeseman", value: "A" },
             { label: "B  Markus Mannstrom", value: "B" },
@@ -1265,7 +1279,7 @@ Questions 9–13: Matching — match each statement to the correct person A–D.
           id: "cam18-ra-t3-s1-q13",
           number: 13,
           type: "matching",
-          question: "13. [Paste Q13 statement here]",
+          question: "13. The environmental damage caused by concrete is due to it being produced in large quantities.",
           options: [
             { label: "A  Chris Cheeseman", value: "A" },
             { label: "B  Markus Mannstrom", value: "B" },
@@ -1283,17 +1297,26 @@ Questions 9–13: Matching — match each statement to the correct person A–D.
       sectionNumber: 2,
       title: "Reading Passage 2",
       passageTitle: "The steam car",
-      passageText: `[PASTE PASSAGE 2 HERE — Cambridge 18 Test 3 "The steam car". Keep the paragraph labels A–G at the start of each paragraph:
-
-A
-
-<paragraph A text>
+      passageText: `A
+When primitive automobiles first began to appear in the 1800s, their engines were based on steam power. Steam had already enjoyed a long and successful career in the railways, so it was only natural that the technology evolved into a miniaturized version which was separate from the trains. But these early cars inherited steam's weaknesses along with its strengths. The boilers had to be lit by hand, and they required about twenty minutes to build up pressure before they could be driven. Furthermore, their water reservoirs only lasted for about thirty miles before needing replenishment. Despite such shortcomings, these newly designed self-propelled carriages offered quick transportation, and by the early 1900s it was not uncommon to see such machines shuttling wealthy citizens around town.
 
 B
+But the glory days of steam cars were few. A new technology called the Internal Combustion Engine soon appeared, which offered the ability to drive down the road just moments after starting up. At first, these noisy gasoline cars were unpopular because they were more complicated to operate and they had difficult hand-crank starters, which were known to break arms when the engines backfired. But in 1912 General Motors introduced the electric starter, and over the following few years steam power was gradually phased out.
 
-<paragraph B text>
+C
+Even as the market was declining, four brothers made one last effort to rekindle the technology. Between 1906 and 1909, while still attending high school, Abner Doble and his three brothers built their first steam car in their parents' basement. It comprised parts taken from a wrecked early steam car but reconfigured to drive an engine of their own design. Though it did not run well, the Doble brothers went on to build a second and third prototype in the following years. Though the Doble boys' third prototype, nicknamed the Model B, still lacked the convenience of an internal combustion engine, it drew the attention of automobile trade magazines due to its numerous improvements over previous steam cars. The Model B proved to be superior to gasoline automobiles in many ways. Its high-pressure steam drove the engine pistons in virtual silence, in contrast to clattering gas engines which emitted the aroma of burned hydrocarbons. Perhaps most impressively, the Model B was amazingly swift. It could accelerate from zero to sixty miles per hour in just fifteen seconds, a feat described as 'remarkable acceleration' by Automobile magazine in 1914.
 
-… through G.]`,
+D
+The following year Abner Doble drove the Model B from Massachusetts to Detroit in order to seek investment in his automobile design, which he used to open the General Engineering Company. He and his brothers immediately began working on the Model C, which was intended to expand upon the innovations of the Model B. The brothers added features such as a key-based ignition in the cabin, eliminating the need for the operator to manually ignite the boiler. With these enhancements, the Dobles' new car company promised a steam vehicle which would provide all of the convenience of a gasoline car, but with much greater speed, much simpler driving controls, and a virtually silent powerplant. By the following April, the General Engineering Company had received 5,390 deposits for Doble Detroits, which were scheduled for delivery in early 1918.
+
+E
+Later that year Abner Doble delivered unhappy news to those eagerly awaiting the delivery of their modern new cars. Those buyers who received the handful of completed cars complained that the vehicles were sluggish and erratic, sometimes going in reverse when they should go forward. The new engine design, though innovative, was still plagued with serious glitches.
+
+F
+The brothers made one final attempt to produce a viable steam automobile. In early 1924, the Doble brothers shipped a Model E to New York City to be road-tested by the Automobile Club of America. After sitting overnight in freezing temperatures, the car was pushed out into the road and left to sit for over an hour in the frosty morning air. At the turn of the key, the boiler lit and reached its operating pressure inside of forty seconds. As they drove the test vehicle further, they found that its evenly distributed weight lent it surprisingly good handling, even though it was so heavy. As the new Doble steamer was further developed and tested, its maximum speed was pushed to over a hundred miles per hour, and it achieved about fifteen miles per gallon of kerosene with negligible emissions.
+
+G
+Sadly, the Dobles' brilliant steam car never was a financial success. Priced at around $18,000 in 1924, it was popular only among the very wealthy. Plus, it is said that no two Model Es were quite the same, because Abner Doble tinkered endlessly with the design. By the time the company folded in 1931, fewer than fifty of the amazing Model E steam cars had been produced. For his whole career, until his death in 1961, Abner Doble remained adamant that steam-powered automobiles were at least equal to gasoline cars, if not superior. Given the evidence, he may have been right. Many of the Model E Dobles which have survived are still in good working condition, some having been driven over half a million miles with only normal maintenance. Astonishingly, an unmodified Doble Model E runs clean enough to pass the emissions laws in California today, and they are pretty strict. It is true that the technology poses some difficult problems, but you cannot help but wonder how efficient a steam car might be with the benefit of modern materials and computers. Under the current pressure to improve automotive performance and reduce emissions, it is not unthinkable that the steam car may rise again.`,
       instructions: `Questions 14–20: Matching headings — choose the correct heading (i–viii) for each paragraph.
 Questions 21–23: Multiple choice — choose the correct letter A–D.
 Questions 24–26: Summary completion — ONE WORD AND/OR A NUMBER from the passage.`,
@@ -1397,12 +1420,12 @@ Questions 24–26: Summary completion — ONE WORD AND/OR A NUMBER from the pass
           number: 21,
           groupLabel: `Questions 21–23: Choose the correct letter, A, B, C or D.`,
           type: "multiple_choice",
-          question: "21. [Paste Q21 stem here — the question about Paragraph B]",
+          question: "21. What point does the writer make about the steam car in Paragraph B?",
           options: [
-            { label: "A  [paste option A]", value: "A" },
-            { label: "B  [paste option B]", value: "B" },
-            { label: "C  [paste option C]", value: "C" },
-            { label: "D  [paste option D]", value: "D" },
+            { label: "A  Its success was short-lived.", value: "A" },
+            { label: "B  Not enough cars were made.", value: "B" },
+            { label: "C  Car companies found them hard to sell.", value: "C" },
+            { label: "D  People found them hard to drive.", value: "D" },
           ],
           correctAnswer: "A",
           points: 1,
@@ -1411,12 +1434,12 @@ Questions 24–26: Summary completion — ONE WORD AND/OR A NUMBER from the pass
           id: "cam18-ra-t3-s2-q22",
           number: 22,
           type: "multiple_choice",
-          question: "22. [Paste Q22 stem here — about the Doble brothers' first steam car]",
+          question: "22. When building their first steam car, the Doble brothers",
           options: [
-            { label: "A  [paste option A]", value: "A" },
-            { label: "B  [paste option B]", value: "B" },
-            { label: "C  [paste option C]", value: "C" },
-            { label: "D  [paste option D]", value: "D" },
+            { label: "A  constructed all the parts themselves.", value: "A" },
+            { label: "B  made written notes at each stage of the construction.", value: "B" },
+            { label: "C  needed several attempts to achieve a competitive model.", value: "C" },
+            { label: "D  sought the advice of experienced people in the car industry.", value: "D" },
           ],
           correctAnswer: "C",
           points: 1,
@@ -1425,12 +1448,12 @@ Questions 24–26: Summary completion — ONE WORD AND/OR A NUMBER from the pass
           id: "cam18-ra-t3-s2-q23",
           number: 23,
           type: "multiple_choice",
-          question: "23. [Paste Q23 stem here — about producing the Model C]",
+          question: "23. In order to produce the Model C, the Doble brothers",
           options: [
-            { label: "A  [paste option A]", value: "A" },
-            { label: "B  [paste option B]", value: "B" },
-            { label: "C  [paste option C]", value: "C" },
-            { label: "D  [paste option D]", value: "D" },
+            { label: "A  moved production to a different city.", value: "A" },
+            { label: "B  raised financial capital.", value: "B" },
+            { label: "C  employed an additional worker.", value: "C" },
+            { label: "D  abandoned their earlier designs.", value: "D" },
           ],
           correctAnswer: "B",
           points: 1,
@@ -1439,9 +1462,9 @@ Questions 24–26: Summary completion — ONE WORD AND/OR A NUMBER from the pass
         {
           id: "cam18-ra-t3-s2-q24",
           number: 24,
-          groupLabel: `Questions 24–26: Complete the summary below. Choose ONE WORD AND/OR A NUMBER from the passage for each answer.\n\n[PASTE THE MODEL E SUMMARY PARAGRAPH HERE — it contains gaps numbered 24, 25, 26.]`,
+          groupLabel: `Questions 24–26: Complete the summary below. Choose ONE WORD AND/OR A NUMBER from the passage for each answer.\n\nThe Model E\nThe Model E was road-tested in 1924 by the Automobile Club of America. They found it easy to drive, despite its weight, and it impressed the spectators. A later version of the Model E raised its 24 _______, while keeping its emissions extremely low.\n\nThe steam car was too expensive for many people and its design was constantly being altered. Under 25 _______ cars were produced before the company went out of business. However, even today, there are Model Es on the road in the US. They are straightforward to maintain, and they satisfy California's 26 _______ emissions laws. Perhaps today's technology and materials would help us revive the steam car.`,
           type: "summary_completion",
-          question: "24. [first gap — about a later version of the Model E]",
+          question: "24. A later version of the Model E raised its _______, while keeping its emissions extremely low.",
           correctAnswer: "speed",
           points: 1,
         },
@@ -1449,7 +1472,7 @@ Questions 24–26: Summary completion — ONE WORD AND/OR A NUMBER from the pass
           id: "cam18-ra-t3-s2-q25",
           number: 25,
           type: "summary_completion",
-          question: "25. [second gap — number of cars produced before the company folded]",
+          question: "25. Under _______ cars were produced before the company went out of business.",
           correctAnswer: "fifty/50",
           points: 1,
         },
@@ -1457,7 +1480,7 @@ Questions 24–26: Summary completion — ONE WORD AND/OR A NUMBER from the pass
           id: "cam18-ra-t3-s2-q26",
           number: 26,
           type: "summary_completion",
-          question: "26. [third gap — describing California's emissions laws]",
+          question: "26. They satisfy California's _______ emissions laws.",
           correctAnswer: "strict",
           points: 1,
         },
@@ -1469,7 +1492,27 @@ Questions 24–26: Summary completion — ONE WORD AND/OR A NUMBER from the pass
       sectionNumber: 3,
       title: "Reading Passage 3",
       passageTitle: "The case for mixed-ability classes",
-      passageText: `[PASTE PASSAGE 3 HERE — Cambridge 18 Test 3 "The case for mixed-ability classes". This passage does NOT have labelled paragraphs A–H; it reads as continuous prose. Just paste it as-is.]`,
+      passageText: `Picture this scene. It's an English literature lesson in a UK school, and the teacher has just read an extract from Shakespeare's Romeo and Juliet with a class of 15-year-olds. He's given some of the students copies of No Fear Shakespeare, a kid-friendly translation of the original. For three students, even these literacy demands are beyond them. Another girl simply can't focus and he gives her pens and paper to draw with. The teacher can ask the No Fear group to identify the key characters and maybe provide a tentative plot summary. He can ask most of the class about character development, and five of them might be able to support their statements with textual evidence. Now two curious students are wondering whether Shakespeare advocates living a life of moderation or one of passionate engagement.
+
+As a teacher myself, I'd think my lesson would be going rather well if the discussion went as described above. But wouldn't this kind of class work better if there weren't such a huge gap between the top and the bottom? If we put all the kids who needed literacy support into one class, and all the students who want to discuss the virtue of moderation into another?
+
+The practice of 'streaming', or 'tracking', involves separating students into classes depending on their diagnosed levels of attainment. At a macro level, it requires the establishment of academically selective schools for the brightest students, and comprehensive schools for the rest. Within schools, it means selecting students into a 'stream' of general ability, or 'sets' of subject-specific ability. The practice is intuitively appealing to almost every stakeholder.
+
+I have heard the mixed-ability model attacked by way of analogy: a group hike. The fittest in the group take the lead and set a brisk pace, only to have to stop and wait every 20 minutes. This is frustrating, and their enthusiasm wanes. Meanwhile, the slowest ones are not only embarrassed but physically struggling to keep up. What's worse, they never get a long enough break. They honestly just want to quit. Hiking, they feel, is not for them.
+
+Mixed-ability classes bore students, frustrate parents and burn out teachers. The brightest ones will never summit Mount Qomolangma, and the stragglers won't enjoy the lovely stroll in the park they are perhaps more suited to. Individuals suffer at the demands of the collective, mediocrity prevails. So: is learning like hiking?
+
+The current pedagogical paradigm is arguably that of constructivism, which emerged out of the work of psychologist Lev Vygotsky. In the 1930s, Vygotsky emphasised the importance of targeting a student's specific 'zone of proximal development' (ZPD). This is the gap between what they can achieve only with support – teachers, textbooks, worked examples, parents and so on – and what they can achieve independently. The purpose of teaching is to provide and then gradually remove this 'scaffolding' until they are autonomous. If we accept this model, it follows that streaming students with similar ZPDs would be an efficient and effective solution. And that forcing everyone on the same hike – regardless of aptitude – would be madness.
+
+Despite all this, there is limited empirical evidence to suggest that streaming results in better outcomes for students. Professor John Hattie, director of the Melbourne Education Research Institute, notes that 'tracking has minimal effects on learning outcomes'. What is more, streaming appears to significantly – and negatively – affect those students assigned to the lowest sets. These students tend to have much higher representation of low socioeconomic class. Less significant is the small benefit for those lucky clever students in the higher sets. The overall result is that the smart stay smart and the dumb get dumber, further entrenching the social divide.
+
+In the latest update of Hattie's influential meta-analysis of factors influencing student achievement, one of the most significant factors is the teachers' estimate of achievement. Streaming students by diagnosed achievement automatically limits what the teacher feels the student is capable of. Meanwhile, in a mixed environment, teachers' estimates need to be more diverse and flexible.
+
+While streaming might seem to help teachers effectively target a student's ZPD, it can underestimate the importance of peer-to-peer learning. A crucial aspect of constructivist theory is the role of the MKO – 'more knowledgeable other' – in knowledge construction. While teachers are traditionally the MKOs in classrooms, the value of knowledgeable student peers must not go unrecognised either.
+
+I find it amazing to watch students get over an idea to their peers in ways that I would never think of. They operate with different language tools and different social tools from teachers and, having just learnt it themselves, they possess similar cognitive structures to their struggling classmates. There is also something exciting about passing on skills and knowledge that you yourself have just mastered – a certain pride and zeal, a certain freshness to the interaction between 'teacher' and 'learner' that is often lost by the expert for whom the steps are obvious and the joy of discovery forgotten.
+
+Having a variety of different abilities in a collaborative learning environment provides valuable resources for helping students meet their learning needs, not to mention improving their communication and social skills. And today, more than ever, we need the many to flourish – not suffer at the expense of a few bright stars. Once a year, I go on a hike with my class, a mixed bunch of students. It is challenging. The fittest students realise they need to encourage the reluctant. There are lookouts who report back, and extra items to carry for others. We make it – together.`,
       instructions: `Questions 27–30: Multiple choice — choose the correct letter A–D.
 Questions 31–35: Summary completion — choose the correct phrase A–I.
 Questions 36–40: Do the statements agree with the views of the writer? Write YES, NO, or NOT GIVEN.`,
@@ -1480,12 +1523,12 @@ Questions 36–40: Do the statements agree with the views of the writer? Write Y
           number: 27,
           groupLabel: `Questions 27–30: Choose the correct letter, A, B, C or D.`,
           type: "multiple_choice",
-          question: "27. [Paste Q27 stem — about the Romeo and Juliet lesson]",
+          question: "27. The writer describes the Romeo and Juliet lesson in order to demonstrate",
           options: [
-            { label: "A  [paste option A]", value: "A" },
-            { label: "B  [paste option B]", value: "B" },
-            { label: "C  [paste option C]", value: "C" },
-            { label: "D  [paste option D]", value: "D" },
+            { label: "A  how few students are interested in literature.", value: "A" },
+            { label: "B  how a teacher handles a range of learning needs.", value: "B" },
+            { label: "C  how unsuitable Shakespeare is for most teenagers.", value: "C" },
+            { label: "D  how weaker students can disrupt their classmates' learning.", value: "D" },
           ],
           correctAnswer: "B",
           points: 1,
@@ -1494,12 +1537,12 @@ Questions 36–40: Do the statements agree with the views of the writer? Write Y
           id: "cam18-ra-t3-s3-q28",
           number: 28,
           type: "multiple_choice",
-          question: "28. [Paste Q28 stem — what the writer says about streaming in the third paragraph]",
+          question: "28. What does the writer say about streaming in the third paragraph?",
           options: [
-            { label: "A  [paste option A]", value: "A" },
-            { label: "B  [paste option B]", value: "B" },
-            { label: "C  [paste option C]", value: "C" },
-            { label: "D  [paste option D]", value: "D" },
+            { label: "A  It has a very broad appeal.", value: "A" },
+            { label: "B  It favours cleverer students.", value: "B" },
+            { label: "C  It is relatively simple to implement.", value: "C" },
+            { label: "D  It works better in some schools than others.", value: "D" },
           ],
           correctAnswer: "A",
           points: 1,
@@ -1508,12 +1551,12 @@ Questions 36–40: Do the statements agree with the views of the writer? Write Y
           id: "cam18-ra-t3-s3-q29",
           number: 29,
           type: "multiple_choice",
-          question: "29. [Paste Q29 stem — the reference to Mount Qomolangma]",
+          question: "29. What idea is suggested by the reference to Mount Qomolangma in the fifth paragraph?",
           options: [
-            { label: "A  [paste option A]", value: "A" },
-            { label: "B  [paste option B]", value: "B" },
-            { label: "C  [paste option C]", value: "C" },
-            { label: "D  [paste option D]", value: "D" },
+            { label: "A  students following unsuitable paths", value: "A" },
+            { label: "B  students attempting interesting tasks", value: "B" },
+            { label: "C  students not achieving their full potential", value: "C" },
+            { label: "D  students not being aware of their limitations", value: "D" },
           ],
           correctAnswer: "C",
           points: 1,
@@ -1522,12 +1565,12 @@ Questions 36–40: Do the statements agree with the views of the writer? Write Y
           id: "cam18-ra-t3-s3-q30",
           number: 30,
           type: "multiple_choice",
-          question: "30. [Paste Q30 stem — what the word 'scaffolding' refers to]",
+          question: "30. What does the word 'scaffolding' in the sixth paragraph refer to?",
           options: [
-            { label: "A  [paste option A]", value: "A" },
-            { label: "B  [paste option B]", value: "B" },
-            { label: "C  [paste option C]", value: "C" },
-            { label: "D  [paste option D]", value: "D" },
+            { label: "A  the factors which prevent a student from learning effectively", value: "A" },
+            { label: "B  the environment where most of a student's learning takes place", value: "B" },
+            { label: "C  the assistance given to a student in their initial stages of learning", value: "C" },
+            { label: "D  the setting of appropriate learning targets for a student's aptitude", value: "D" },
           ],
           correctAnswer: "C",
           points: 1,
@@ -1536,9 +1579,9 @@ Questions 36–40: Do the statements agree with the views of the writer? Write Y
         {
           id: "cam18-ra-t3-s3-q31",
           number: 31,
-          groupLabel: `Questions 31–35: Complete the summary using the list of phrases, A–I, below.\n\nA  wrong classes\nB  lower expectations\nC  average learners\nD  bottom sets\nE  brightest pupils\nF  disadvantaged backgrounds\nG  weaker students\nH  higher achievements\nI  positive impressions\n\n[PASTE THE "Is streaming effective?" SUMMARY PARAGRAPH HERE — with gaps 31, 32, 33, 34, 35.]`,
+          groupLabel: `Questions 31–35: Complete the summary using the list of phrases, A–I, below.\n\nIs streaming effective?\nAccording to Professor John Hattie of the Melbourne Education Research Institute there is very little indication that streaming leads to 31 _______. He points out that, in schools which use streaming, the most significant impact is on those students placed in the 32 _______, especially where a large proportion of them have 33 _______. Meanwhile, for the 34 _______, there appears to be only minimal advantage. A further issue is that teachers tend to have 35 _______ of students in streamed groups.\n\nA  wrong classes\nB  lower expectations\nC  average learners\nD  bottom sets\nE  brightest pupils\nF  disadvantaged backgrounds\nG  weaker students\nH  higher achievements\nI  positive impressions`,
           type: "matching",
-          question: "31. [first gap in the streaming summary]",
+          question: "31. According to Hattie, there is very little indication that streaming leads to _______",
           options: [
             { label: "A  wrong classes", value: "A" },
             { label: "B  lower expectations", value: "B" },
@@ -1557,7 +1600,7 @@ Questions 36–40: Do the statements agree with the views of the writer? Write Y
           id: "cam18-ra-t3-s3-q32",
           number: 32,
           type: "matching",
-          question: "32. [second gap]",
+          question: "32. the most significant impact is on those students placed in the _______",
           options: [
             { label: "A  wrong classes", value: "A" },
             { label: "B  lower expectations", value: "B" },
@@ -1576,7 +1619,7 @@ Questions 36–40: Do the statements agree with the views of the writer? Write Y
           id: "cam18-ra-t3-s3-q33",
           number: 33,
           type: "matching",
-          question: "33. [third gap]",
+          question: "33. especially where a large proportion of them have _______",
           options: [
             { label: "A  wrong classes", value: "A" },
             { label: "B  lower expectations", value: "B" },
@@ -1595,7 +1638,7 @@ Questions 36–40: Do the statements agree with the views of the writer? Write Y
           id: "cam18-ra-t3-s3-q34",
           number: 34,
           type: "matching",
-          question: "34. [fourth gap]",
+          question: "34. Meanwhile, for the _______, there appears to be only minimal advantage",
           options: [
             { label: "A  wrong classes", value: "A" },
             { label: "B  lower expectations", value: "B" },
@@ -1614,7 +1657,7 @@ Questions 36–40: Do the statements agree with the views of the writer? Write Y
           id: "cam18-ra-t3-s3-q35",
           number: 35,
           type: "matching",
-          question: "35. [fifth gap]",
+          question: "35. teachers tend to have _______ of students in streamed groups",
           options: [
             { label: "A  wrong classes", value: "A" },
             { label: "B  lower expectations", value: "B" },
@@ -1635,7 +1678,7 @@ Questions 36–40: Do the statements agree with the views of the writer? Write Y
           number: 36,
           groupLabel: `Questions 36–40: Do the following statements agree with the views of the writer in Reading Passage 3?\nWrite YES if the statement agrees with the views of the writer.\nWrite NO if the statement contradicts the views of the writer.\nWrite NOT GIVEN if it is impossible to say what the writer thinks about this.`,
           type: "true_false_ng",
-          question: "36. [Paste Q36 statement — about Vygotsky model and mixed-ability classes]",
+          question: "36. The Vygotsky model of education supports the concept of a mixed-ability class.",
           options: [
             { label: "YES", value: "YES" },
             { label: "NO", value: "NO" },
@@ -1648,7 +1691,7 @@ Questions 36–40: Do the statements agree with the views of the writer? Write Y
           id: "cam18-ra-t3-s3-q37",
           number: 37,
           type: "true_false_ng",
-          question: "37. [Paste Q37 statement — about teachers allowing students to take on MKO roles]",
+          question: "37. Some teachers are uncertain about allowing students to take on MKO roles in the classroom.",
           options: [
             { label: "YES", value: "YES" },
             { label: "NO", value: "NO" },
@@ -1661,7 +1704,7 @@ Questions 36–40: Do the statements agree with the views of the writer? Write Y
           id: "cam18-ra-t3-s3-q38",
           number: 38,
           type: "true_false_ng",
-          question: "38. [Paste Q38 statement — about teaching recently acquired knowledge]",
+          question: "38. It can be rewarding to teach knowledge which you have only recently acquired.",
           options: [
             { label: "YES", value: "YES" },
             { label: "NO", value: "NO" },
@@ -1674,7 +1717,7 @@ Questions 36–40: Do the statements agree with the views of the writer? Write Y
           id: "cam18-ra-t3-s3-q39",
           number: 39,
           type: "true_false_ng",
-          question: "39. [Paste Q39 statement — about the priority for highest-achieving students]",
+          question: "39. The priority should be to ensure that the highest-achieving students attain their goals.",
           options: [
             { label: "YES", value: "YES" },
             { label: "NO", value: "NO" },
@@ -1687,7 +1730,7 @@ Questions 36–40: Do the statements agree with the views of the writer? Write Y
           id: "cam18-ra-t3-s3-q40",
           number: 40,
           type: "true_false_ng",
-          question: "40. [Paste Q40 statement — about collaborative outdoor activities]",
+          question: "40. Taking part in collaborative outdoor activities with teachers and classmates can improve student outcomes in the classroom.",
           options: [
             { label: "YES", value: "YES" },
             { label: "NO", value: "NO" },
@@ -1701,17 +1744,13 @@ Questions 36–40: Do the statements agree with the views of the writer? Write Y
   ],
 };
 
-
 // ============================================================
 // CAMBRIDGE IELTS 18 – TEST 4  (Academic Reading)
-// Passages: [TBD — paste titles from your copy of Cambridge 18 Test 4]
+// Passages: Green roofs /
+//           The growth mindset /
+//           Alfred Wegener: science, exploration and the
+//           theory of continental drift
 // ============================================================
-// NOTE: Passage titles, passage text, question wording AND answer keys
-// are all placeholders. Paste the real text and the real answer keys
-// from your copy of Cambridge IELTS 18 Test 4 into each marked spot
-// before using this test in production. Question numbers, question
-// types, and grouping follow a plausible Cambridge layout — adjust the
-// type of any group if your copy of the book uses different task types.
 export const cambridge18_reading_t4: IELTSTest = {
   id: "cam18-reading-academic-t4",
   title: "Cambridge IELTS 18 – Test 4",
@@ -1727,152 +1766,180 @@ export const cambridge18_reading_t4: IELTSTest = {
       id: "cam18-ra-t4-s1",
       sectionNumber: 1,
       title: "Reading Passage 1",
-      passageTitle: "[PASTE PASSAGE 1 TITLE]",
-      passageText: `[PASTE PASSAGE 1 HERE — Cambridge 18 Test 4, Reading Passage 1. Paste as continuous prose unless the source marks paragraphs A–H, in which case keep the paragraph letters at the start of each paragraph.]`,
-      instructions: `Questions 1–7: Do the statements agree with the information given in the passage? Write TRUE, FALSE or NOT GIVEN.
-Questions 8–13: Complete the sentences below — choose NO MORE THAN TWO WORDS from the passage for each answer.`,
+      passageTitle: "Green roofs",
+      passageText: `A
+Rooftops covered with grass, vegetable gardens and lush foliage are now a common sight in many cities around the world. More and more private companies and city authorities are investing in green roofs, drawn to their wide-ranging benefits. Among the benefits are saving on energy costs, mitigating the risk of floods, making habitats for urban wildlife, tackling air pollution and even growing food. These increasingly radical urban designs can help cities adapt to the monumental problems they face, such as access to resources and a lack of green space due to development. But the involvement of city authorities, businesses and other institutions is crucial to ensuring their success – as is research investigating different options to suit the variety of rooftop spaces found in cities. The UK is relatively new to developing green roofs, and local governments and institutions are playing a major role in spreading the practice. London is home to much of the UK's green roof market, mainly due to forward-thinking policies such as the London Plan, which has paved the way to more than doubling the area of green roofs in the capital.
+
+B
+Ongoing research is showcasing how green roofs in cities can integrate with 'living walls': environmentally friendly walls which are partially or completely covered with greenery, including a growing medium, such as soil or water. Research also indicates that green roofs can be integrated with drainage systems on the ground, such as street trees, so that the water is managed better and the built environment is made more sustainable. There is also evidence to demonstrate the social value of green roofs. Doctors are increasingly prescribing time spent gardening outdoors for patients dealing with anxiety and depression. And research has found that access to even the most basic green spaces can provide a better quality of life for dementia sufferers and help people avoid obesity.
+
+C
+In North America, green roofs have become mainstream, with a wide array of expansive, accessible and food-producing roofs installed in buildings. Again, city leaders and authorities have helped push the movement forward – only recently, San Francisco, USA, created a policy requiring new buildings to have green roofs. Toronto, Canada, has policies dating from the 1990s, encouraging the development of urban farms on rooftops. These countries also benefit from having newer buildings than in many parts of the world, which makes it easier to install green roofs. Being able to keep enough water at roof height and distribute it right across the rooftop is crucial to maintaining the plants on any green roof – especially on 'edible roofs' where fruit and vegetables are farmed. And it's much easier to do this in newer buildings, which can typically hold greater weight, than to retro-fit old ones. Having a stronger roof also makes it easier to grow a greater variety of plants, since the soil can be deeper.
+
+D
+For green roofs to become the norm for new developments, there needs to be support from public authorities and private investors. Those responsible for maintaining buildings may have to acquire new skills, such as landscaping, and in some cases, volunteers may be needed to help out. Other considerations include installing drainage paths, meeting health and safety requirements and perhaps allowing access for the public, as well as planning restrictions and disruption from regular activities in and around the buildings during installation. To convince investors and developers that installing green roofs is worthwhile, economic arguments are still the most important. The term 'natural capital' has been developed to explain the economic value of nature; for example, measuring the money saved by installing natural solutions to protect against flood damage, adapt to climate change or help people lead healthier and happier lives.
+
+E
+As the expertise about green roofs grows, official standards have been developed to ensure that they are designed, constructed and maintained properly, and function well. Improvements in the science and technology underpinning green roof development have also led to new variations in the concept. For example, 'blue roofs' enable buildings to hold water over longer periods of time, rather than draining it away quickly – crucial in times of heavier rainfall. There are also combinations of green roofs with solar panels, and 'brown roofs' which are wilder in nature and maximise biodiversity. If the trend continues, it could create new jobs and a more vibrant and sustainable local food economy – alongside many other benefits. There are still barriers to overcome, but the evidence so far indicates that green roofs have the potential to transform cities and help them function sustainably long into the future. The success stories need to be studied and replicated elsewhere, to make green, blue, brown and food-producing roofs the norm in cities around the world.`,
+      instructions: `Questions 1–5: Matching information — which paragraph A–E contains each piece of information? NB You may use any letter more than once.
+Questions 6–9: Summary completion — ONE WORD ONLY from the passage.
+Questions 10–11: Choose TWO letters, A–E (advantages of using newer buildings, Paragraph C).
+Questions 12–13: Choose TWO letters, A–E (aims of new variations on green roofs, Paragraph E).`,
       questions: [
-        // ── Q1–7: True / False / Not Given ────────────────────
         {
           id: "cam18-ra-t4-s1-q1",
           number: 1,
-          groupLabel: `Questions 1–7: Do the following statements agree with the information given in Reading Passage 1?\nWrite TRUE if the statement agrees with the information.\nWrite FALSE if the statement contradicts the information.\nWrite NOT GIVEN if there is no information on this.`,
-          type: "true_false_ng",
-          question: "1. [Paste Q1 statement here]",
+          groupLabel: `Questions 1–5: Reading Passage 1 has five paragraphs, A–E. Which paragraph contains the following information?\nNB You may use any letter more than once.\n\n1   mention of several challenges to be overcome before a green roof can be installed\n2   reference to a city where green roofs have been promoted for many years\n3   a belief that existing green roofs should be used as a model for new ones\n4   examples of how green roofs can work in combination with other green urban initiatives\n5   the need to make a persuasive argument for the financial benefits of green roofs`,
+          type: "matching",
+          question: "1. mention of several challenges to be overcome before a green roof can be installed",
           options: [
-            { label: "TRUE", value: "TRUE" },
-            { label: "FALSE", value: "FALSE" },
-            { label: "NOT GIVEN", value: "NOT GIVEN" },
+            { label: "A", value: "A" }, { label: "B", value: "B" }, { label: "C", value: "C" },
+            { label: "D", value: "D" }, { label: "E", value: "E" },
           ],
-          correctAnswer: "TRUE",
+          correctAnswer: "D",
           points: 1,
         },
         {
           id: "cam18-ra-t4-s1-q2",
           number: 2,
-          type: "true_false_ng",
-          question: "2. [Paste Q2 statement here]",
+          type: "matching",
+          question: "2. reference to a city where green roofs have been promoted for many years",
           options: [
-            { label: "TRUE", value: "TRUE" },
-            { label: "FALSE", value: "FALSE" },
-            { label: "NOT GIVEN", value: "NOT GIVEN" },
+            { label: "A", value: "A" }, { label: "B", value: "B" }, { label: "C", value: "C" },
+            { label: "D", value: "D" }, { label: "E", value: "E" },
           ],
-          correctAnswer: "FALSE",
+          correctAnswer: "C",
           points: 1,
         },
         {
           id: "cam18-ra-t4-s1-q3",
           number: 3,
-          type: "true_false_ng",
-          question: "3. [Paste Q3 statement here]",
+          type: "matching",
+          question: "3. a belief that existing green roofs should be used as a model for new ones",
           options: [
-            { label: "TRUE", value: "TRUE" },
-            { label: "FALSE", value: "FALSE" },
-            { label: "NOT GIVEN", value: "NOT GIVEN" },
+            { label: "A", value: "A" }, { label: "B", value: "B" }, { label: "C", value: "C" },
+            { label: "D", value: "D" }, { label: "E", value: "E" },
           ],
-          correctAnswer: "NOT GIVEN",
+          correctAnswer: "E",
           points: 1,
         },
         {
           id: "cam18-ra-t4-s1-q4",
           number: 4,
-          type: "true_false_ng",
-          question: "4. [Paste Q4 statement here]",
+          type: "matching",
+          question: "4. examples of how green roofs can work in combination with other green urban initiatives",
           options: [
-            { label: "TRUE", value: "TRUE" },
-            { label: "FALSE", value: "FALSE" },
-            { label: "NOT GIVEN", value: "NOT GIVEN" },
+            { label: "A", value: "A" }, { label: "B", value: "B" }, { label: "C", value: "C" },
+            { label: "D", value: "D" }, { label: "E", value: "E" },
           ],
-          correctAnswer: "TRUE",
+          correctAnswer: "B",
           points: 1,
         },
         {
           id: "cam18-ra-t4-s1-q5",
           number: 5,
-          type: "true_false_ng",
-          question: "5. [Paste Q5 statement here]",
+          type: "matching",
+          question: "5. the need to make a persuasive argument for the financial benefits of green roofs",
           options: [
-            { label: "TRUE", value: "TRUE" },
-            { label: "FALSE", value: "FALSE" },
-            { label: "NOT GIVEN", value: "NOT GIVEN" },
+            { label: "A", value: "A" }, { label: "B", value: "B" }, { label: "C", value: "C" },
+            { label: "D", value: "D" }, { label: "E", value: "E" },
           ],
-          correctAnswer: "FALSE",
+          correctAnswer: "D",
           points: 1,
         },
         {
           id: "cam18-ra-t4-s1-q6",
           number: 6,
-          type: "true_false_ng",
-          question: "6. [Paste Q6 statement here]",
-          options: [
-            { label: "TRUE", value: "TRUE" },
-            { label: "FALSE", value: "FALSE" },
-            { label: "NOT GIVEN", value: "NOT GIVEN" },
-          ],
-          correctAnswer: "NOT GIVEN",
+          groupLabel: `Questions 6–9: Complete the summary below. Choose ONE WORD ONLY from the passage for each answer.\n\nAdvantages of green roofs\nCity rooftops covered with greenery have many advantages. These include lessening the likelihood that floods will occur, reducing how much money is spent on 6 _______ and creating environments that are suitable for wildlife. In many cases, they can also be used for producing 7 _______.\n\nThere are also social benefits of green roofs. For example, the medical profession recommends 8 _______ as an activity to help people cope with mental health issues. Studies have also shown that the availability of green spaces can prevent physical problems such as 9 _______.`,
+          type: "summary_completion",
+          question: "6. reducing how much money is spent on _______",
+          correctAnswer: "energy",
           points: 1,
         },
         {
           id: "cam18-ra-t4-s1-q7",
           number: 7,
-          type: "true_false_ng",
-          question: "7. [Paste Q7 statement here]",
-          options: [
-            { label: "TRUE", value: "TRUE" },
-            { label: "FALSE", value: "FALSE" },
-            { label: "NOT GIVEN", value: "NOT GIVEN" },
-          ],
-          correctAnswer: "TRUE",
+          type: "summary_completion",
+          question: "7. they can also be used for producing _______",
+          correctAnswer: "food",
           points: 1,
         },
-        // ── Q8–13: Sentence completion (NO MORE THAN TWO WORDS) ─
         {
           id: "cam18-ra-t4-s1-q8",
           number: 8,
-          groupLabel: `Questions 8–13: Complete the sentences below. Choose NO MORE THAN TWO WORDS from the passage for each answer.\n\n[PASTE THE SIX SENTENCES HERE — each contains a gap numbered 8, 9, 10, 11, 12, 13.]`,
-          type: "sentence_completion",
-          question: "8. [first sentence with gap 8]",
-          correctAnswer: "[ANSWER 8]",
+          type: "summary_completion",
+          question: "8. the medical profession recommends _______ as an activity to help people cope with mental health issues",
+          correctAnswer: "gardening",
           points: 1,
         },
         {
           id: "cam18-ra-t4-s1-q9",
           number: 9,
-          type: "sentence_completion",
-          question: "9. [second sentence with gap 9]",
-          correctAnswer: "[ANSWER 9]",
+          type: "summary_completion",
+          question: "9. green spaces can prevent physical problems such as _______",
+          correctAnswer: "obesity",
           points: 1,
         },
         {
           id: "cam18-ra-t4-s1-q10",
           number: 10,
-          type: "sentence_completion",
-          question: "10. [third sentence with gap 10]",
-          correctAnswer: "[ANSWER 10]",
+          groupLabel: `Questions 10 and 11: Choose TWO letters, A–E.\n\nWhich TWO advantages of using newer buildings for green roofs are mentioned in Paragraph C of the passage?\n\nA  a longer growing season for edible produce\nB  more economical use of water\nC  greater water-storage capacity\nD  ability to cultivate more plant types\nE  a large surface area for growing plants`,
+          type: "multiple_choice",
+          question: "10. Choose TWO (first answer)",
+          options: [
+            { label: "A  a longer growing season for edible produce", value: "A" },
+            { label: "B  more economical use of water", value: "B" },
+            { label: "C  greater water-storage capacity", value: "C" },
+            { label: "D  ability to cultivate more plant types", value: "D" },
+            { label: "E  a large surface area for growing plants", value: "E" },
+          ],
+          correctAnswer: "C",
           points: 1,
         },
         {
           id: "cam18-ra-t4-s1-q11",
           number: 11,
-          type: "sentence_completion",
-          question: "11. [fourth sentence with gap 11]",
-          correctAnswer: "[ANSWER 11]",
+          type: "multiple_choice",
+          question: "11. Choose TWO (second answer)",
+          options: [
+            { label: "A  a longer growing season for edible produce", value: "A" },
+            { label: "B  more economical use of water", value: "B" },
+            { label: "C  greater water-storage capacity", value: "C" },
+            { label: "D  ability to cultivate more plant types", value: "D" },
+            { label: "E  a large surface area for growing plants", value: "E" },
+          ],
+          correctAnswer: "D",
           points: 1,
         },
         {
           id: "cam18-ra-t4-s1-q12",
           number: 12,
-          type: "sentence_completion",
-          question: "12. [fifth sentence with gap 12]",
-          correctAnswer: "[ANSWER 12]",
+          groupLabel: `Questions 12 and 13: Choose TWO letters, A–E.\n\nWhich TWO aims of new variations on the concept of green roofs are mentioned in Paragraph E of the passage?\n\nA  to provide habitats for a wide range of species\nB  to grow plants successfully even in the wettest climates\nC  to regulate the temperature of the immediate environment\nD  to generate power from a sustainable source\nE  to collect water to supply other buildings`,
+          type: "multiple_choice",
+          question: "12. Choose TWO (first answer)",
+          options: [
+            { label: "A  to provide habitats for a wide range of species", value: "A" },
+            { label: "B  to grow plants successfully even in the wettest climates", value: "B" },
+            { label: "C  to regulate the temperature of the immediate environment", value: "C" },
+            { label: "D  to generate power from a sustainable source", value: "D" },
+            { label: "E  to collect water to supply other buildings", value: "E" },
+          ],
+          correctAnswer: "A",
           points: 1,
         },
         {
           id: "cam18-ra-t4-s1-q13",
           number: 13,
-          type: "sentence_completion",
-          question: "13. [sixth sentence with gap 13]",
-          correctAnswer: "[ANSWER 13]",
+          type: "multiple_choice",
+          question: "13. Choose TWO (second answer)",
+          options: [
+            { label: "A  to provide habitats for a wide range of species", value: "A" },
+            { label: "B  to grow plants successfully even in the wettest climates", value: "B" },
+            { label: "C  to regulate the temperature of the immediate environment", value: "C" },
+            { label: "D  to generate power from a sustainable source", value: "D" },
+            { label: "E  to collect water to supply other buildings", value: "E" },
+          ],
+          correctAnswer: "D",
           points: 1,
         },
       ],
@@ -1882,318 +1949,170 @@ Questions 8–13: Complete the sentences below — choose NO MORE THAN TWO WORDS
       id: "cam18-ra-t4-s2",
       sectionNumber: 2,
       title: "Reading Passage 2",
-      passageTitle: "[PASTE PASSAGE 2 TITLE]",
-      passageText: `[PASTE PASSAGE 2 HERE — Cambridge 18 Test 4, Reading Passage 2. Keep the paragraph labels A–G (or A–H, whichever your copy uses) at the start of each paragraph so matching-headings questions still line up.]`,
-      instructions: `Questions 14–20: Matching headings — choose the correct heading (i–ix) for each paragraph.
-Questions 21–24: Matching features — match each statement with the correct option A–E.
-Questions 25–26: Complete the notes below — ONE WORD ONLY from the passage for each answer.`,
+      passageTitle: "The growth mindset",
+      passageText: `Over the past century, a powerful idea has taken root in the educational landscape. The concept of intelligence as something innate has been supplanted by the idea that intelligence is not fixed, and that, with the right training, we can be the authors of our own cognitive capabilities. Psychologist Alfred Binet, the developer of the first intelligence tests, was one of many 19th-century scientists who held that earlier view and sought to quantify cognitive ability. Then, in the early 20th century, progressive thinkers revolted against the notion that inherent ability is destiny. Instead, educators such as John Dewey argued that every child's intelligence could be developed, given the right environment.
+
+'Growth mindset theory' is a relatively new – and extremely popular – version of this idea. In many schools today you will see hallways covered in motivational posters and hear speeches on the mindset of great sporting heroes who simply believed their way to the top. A major focus of the growth mindset in schools is coaxing students away from seeing failure as an indication of their ability, and towards seeing it as a chance to improve that ability. As educationalist Jeff Howard noted several decades ago: 'Smart is not something that you just are, smart is something that you can get.'
+
+The idea of the growth mindset is based on the work of psychologist Carol Dweck in California in the 1990s. In one key experiment, Dweck divided a group of 10- to 12-year-olds into two groups. All were told that they had achieved a high score on a test but the first group were praised for their intelligence in achieving this, while the others were praised for their effort. The second group – those who had been instilled with a 'growth mindset' – were subsequently far more likely to put effort into future tasks. Meanwhile, the former took on only those tasks that would not risk their sense of worth. This group had inferred that success or failure is due to innate ability, and this 'fixed mindset' had led them to fear of failure and lack of effort. Praising ability actually made the students perform worse, while praising effort emphasised that change was possible.
+
+One of the greatest impediments to successfully implementing a growth mindset, however, is the education system itself: in many parts of the world, the school climate is obsessed with performance in the form of constant testing, analysing and ranking of students – a key characteristic of the fixed mindset. Nor is it unusual for schools to create a certain cognitive dissonance, when they applaud the benefits of a growth mindset but then hand out fixed target grades in lessons based on performance.
+
+Aside from the implementation problem, the original growth mindset research has also received harsh criticism. The statistician Andrew Gelman claims that 'their research designs have enough degrees of freedom that they could take their data to support just about any theory at all'. Professor of Psychology Timothy Bates, who has been trying to replicate Dweck's work, is finding that the results are repeatedly null. He notes that: 'People with a growth mindset don't cope any better with failure … Kids with the growth mindset aren't getting better grades, either before or after our intervention study.'
+
+Much of this criticism is not lost on Dweck, and she deserves great credit for responding to it and adapting her work accordingly. In fact, she argues that her work has been misunderstood and misapplied in a range of ways. She has also expressed concerns that her theories are being misappropriated in schools by being conflated with the self-esteem movement: 'For me the growth mindset is a tool for learning and improvement. It's not just a vehicle for making children feel good.'
+
+But there is another factor at work here. The failure to translate the growth mindset into the classroom might reflect a misunderstanding of the nature of teaching and learning itself. Growth mindset supporters David Yeager and Gregory Walton claim that interventions should be delivered in a subtle way to maximise their effectiveness. They say that if adolescents perceive a teacher's intervention as conveying that they are in need of help, this could undo its intended effects.
+
+A lot of what drives students is their innate beliefs and how they perceive themselves. There is a strong correlation between self-perception and achievement, but there is evidence to suggest that the actual effect of achievement on self-perception is stronger than the other way round. To stand up in a classroom and successfully deliver a good speech is a genuine achievement, and that is likely to be more powerfully motivating than vague notions of 'motivation' itself.
+
+Recent evidence would suggest that growth mindset interventions are not the elixir of student learning that its proponents claim it to be. The growth mindset appears to be a viable construct in the lab, which, when administered in the classroom via targeted interventions, doesn't seem to work. It is hard to dispute that having faith in the capacity to change is a good attribute for students. Paradoxically, however, that aspiration is not well served by direct interventions that try to instil it.
+
+Motivational posters and talks are often a waste of time, and might well give students a deluded notion of what success actually means. Teaching concrete skills such as how to write an effective introduction to an essay then praising students' effort in getting there is probably a far better way of improving confidence than telling them how unique they are, or indeed how capable they are of changing their own brains. Perhaps growth mindset works best as a philosophy and not an intervention.`,
+      instructions: `Questions 14–16: Multiple choice — choose the correct letter A–D.
+Questions 17–22: Matching statements with people A–E. NB You may use any letter more than once.
+Questions 23–26: Do the statements agree with the views of the writer? Write YES, NO, or NOT GIVEN.`,
       questions: [
-        // ── Q14–20: Matching headings ─────────────────────────
         {
           id: "cam18-ra-t4-s2-q14",
           number: 14,
-          groupLabel: `Questions 14–20: Reading Passage 2 has seven paragraphs, A–G. Choose the correct heading for each paragraph from the list of headings below. Write the correct number, i–ix.\n\ni   [Paste heading i]\nii  [Paste heading ii]\niii [Paste heading iii]\niv  [Paste heading iv]\nv   [Paste heading v]\nvi  [Paste heading vi]\nvii [Paste heading vii]\nviii[Paste heading viii]\nix  [Paste heading ix]`,
-          type: "matching",
-          question: "14. Paragraph A",
+          groupLabel: `Questions 14–16: Choose the correct letter, A, B, C or D.`,
+          type: "multiple_choice",
+          question: "14. What can we learn from the first paragraph?",
           options: [
-            { label: "i", value: "i" }, { label: "ii", value: "ii" }, { label: "iii", value: "iii" },
-            { label: "iv", value: "iv" }, { label: "v", value: "v" }, { label: "vi", value: "vi" },
-            { label: "vii", value: "vii" }, { label: "viii", value: "viii" }, { label: "ix", value: "ix" },
+            { label: "A  where the notion of innate intelligence first began", value: "A" },
+            { label: "B  when ideas about the nature of intelligence began to shift", value: "B" },
+            { label: "C  how scientists have responded to changing views of intelligence", value: "C" },
+            { label: "D  why thinkers turned away from the idea of intelligence being fixed", value: "D" },
           ],
-          correctAnswer: "i",
+          correctAnswer: "B",
           points: 1,
         },
         {
           id: "cam18-ra-t4-s2-q15",
           number: 15,
-          type: "matching",
-          question: "15. Paragraph B",
+          type: "multiple_choice",
+          question: "15. The second paragraph describes how schools encourage students to",
           options: [
-            { label: "i", value: "i" }, { label: "ii", value: "ii" }, { label: "iii", value: "iii" },
-            { label: "iv", value: "iv" }, { label: "v", value: "v" }, { label: "vi", value: "vi" },
-            { label: "vii", value: "vii" }, { label: "viii", value: "viii" }, { label: "ix", value: "ix" },
+            { label: "A  identify their personal ambitions.", value: "A" },
+            { label: "B  help each other to realise their goals.", value: "B" },
+            { label: "C  have confidence in their potential to succeed.", value: "C" },
+            { label: "D  concentrate on where their particular strengths lie.", value: "D" },
           ],
-          correctAnswer: "ii",
+          correctAnswer: "C",
           points: 1,
         },
         {
           id: "cam18-ra-t4-s2-q16",
           number: 16,
-          type: "matching",
-          question: "16. Paragraph C",
+          type: "multiple_choice",
+          question: "16. In the third paragraph, the writer suggests that students with a fixed mindset",
           options: [
-            { label: "i", value: "i" }, { label: "ii", value: "ii" }, { label: "iii", value: "iii" },
-            { label: "iv", value: "iv" }, { label: "v", value: "v" }, { label: "vi", value: "vi" },
-            { label: "vii", value: "vii" }, { label: "viii", value: "viii" }, { label: "ix", value: "ix" },
+            { label: "A  tend to be less competitive.", value: "A" },
+            { label: "B  generally have a low sense of self-esteem.", value: "B" },
+            { label: "C  will only work hard if they are given constant encouragement.", value: "C" },
+            { label: "D  are afraid to push themselves beyond what they see as their limitations.", value: "D" },
           ],
-          correctAnswer: "iii",
+          correctAnswer: "D",
           points: 1,
         },
         {
           id: "cam18-ra-t4-s2-q17",
           number: 17,
+          groupLabel: `Questions 17–22: Match each statement with the correct person or people, A–E.\nNB You may use any letter more than once.\n\nList of People\nA  Alfred Binet\nB  Carol Dweck\nC  Andrew Gelman\nD  Timothy Bates\nE  David Yeager and Gregory Walton`,
           type: "matching",
-          question: "17. Paragraph D",
+          question: "17. The methodology behind the growth mindset studies was not strict enough.",
           options: [
-            { label: "i", value: "i" }, { label: "ii", value: "ii" }, { label: "iii", value: "iii" },
-            { label: "iv", value: "iv" }, { label: "v", value: "v" }, { label: "vi", value: "vi" },
-            { label: "vii", value: "vii" }, { label: "viii", value: "viii" }, { label: "ix", value: "ix" },
+            { label: "A  Alfred Binet", value: "A" },
+            { label: "B  Carol Dweck", value: "B" },
+            { label: "C  Andrew Gelman", value: "C" },
+            { label: "D  Timothy Bates", value: "D" },
+            { label: "E  David Yeager and Gregory Walton", value: "E" },
           ],
-          correctAnswer: "iv",
+          correctAnswer: "C",
           points: 1,
         },
         {
           id: "cam18-ra-t4-s2-q18",
           number: 18,
           type: "matching",
-          question: "18. Paragraph E",
+          question: "18. The idea of the growth mindset has been incorrectly interpreted.",
           options: [
-            { label: "i", value: "i" }, { label: "ii", value: "ii" }, { label: "iii", value: "iii" },
-            { label: "iv", value: "iv" }, { label: "v", value: "v" }, { label: "vi", value: "vi" },
-            { label: "vii", value: "vii" }, { label: "viii", value: "viii" }, { label: "ix", value: "ix" },
+            { label: "A  Alfred Binet", value: "A" },
+            { label: "B  Carol Dweck", value: "B" },
+            { label: "C  Andrew Gelman", value: "C" },
+            { label: "D  Timothy Bates", value: "D" },
+            { label: "E  David Yeager and Gregory Walton", value: "E" },
           ],
-          correctAnswer: "v",
+          correctAnswer: "B",
           points: 1,
         },
         {
           id: "cam18-ra-t4-s2-q19",
           number: 19,
           type: "matching",
-          question: "19. Paragraph F",
+          question: "19. Intellectual ability is an unchangeable feature of each individual.",
           options: [
-            { label: "i", value: "i" }, { label: "ii", value: "ii" }, { label: "iii", value: "iii" },
-            { label: "iv", value: "iv" }, { label: "v", value: "v" }, { label: "vi", value: "vi" },
-            { label: "vii", value: "vii" }, { label: "viii", value: "viii" }, { label: "ix", value: "ix" },
+            { label: "A  Alfred Binet", value: "A" },
+            { label: "B  Carol Dweck", value: "B" },
+            { label: "C  Andrew Gelman", value: "C" },
+            { label: "D  Timothy Bates", value: "D" },
+            { label: "E  David Yeager and Gregory Walton", value: "E" },
           ],
-          correctAnswer: "vi",
+          correctAnswer: "A",
           points: 1,
         },
         {
           id: "cam18-ra-t4-s2-q20",
           number: 20,
           type: "matching",
-          question: "20. Paragraph G",
+          question: "20. The growth mindset should be promoted without students being aware of it.",
           options: [
-            { label: "i", value: "i" }, { label: "ii", value: "ii" }, { label: "iii", value: "iii" },
-            { label: "iv", value: "iv" }, { label: "v", value: "v" }, { label: "vi", value: "vi" },
-            { label: "vii", value: "vii" }, { label: "viii", value: "viii" }, { label: "ix", value: "ix" },
+            { label: "A  Alfred Binet", value: "A" },
+            { label: "B  Carol Dweck", value: "B" },
+            { label: "C  Andrew Gelman", value: "C" },
+            { label: "D  Timothy Bates", value: "D" },
+            { label: "E  David Yeager and Gregory Walton", value: "E" },
           ],
-          correctAnswer: "vii",
+          correctAnswer: "E",
           points: 1,
         },
-        // ── Q21–24: Matching features ─────────────────────────
         {
           id: "cam18-ra-t4-s2-q21",
           number: 21,
-          groupLabel: `Questions 21–24: Look at the following statements and the list of options below. Match each statement with the correct option, A–E. NB: You may use any letter more than once.\n\nA  [Paste option A]\nB  [Paste option B]\nC  [Paste option C]\nD  [Paste option D]\nE  [Paste option E]\n\n[PASTE Q21–Q24 STATEMENTS HERE.]`,
           type: "matching",
-          question: "21. [Paste Q21 statement here]",
+          question: "21. The growth mindset is not simply about boosting students' morale.",
           options: [
-            { label: "A", value: "A" }, { label: "B", value: "B" }, { label: "C", value: "C" },
-            { label: "D", value: "D" }, { label: "E", value: "E" },
+            { label: "A  Alfred Binet", value: "A" },
+            { label: "B  Carol Dweck", value: "B" },
+            { label: "C  Andrew Gelman", value: "C" },
+            { label: "D  Timothy Bates", value: "D" },
+            { label: "E  David Yeager and Gregory Walton", value: "E" },
           ],
-          correctAnswer: "A",
+          correctAnswer: "B",
           points: 1,
         },
         {
           id: "cam18-ra-t4-s2-q22",
           number: 22,
           type: "matching",
-          question: "22. [Paste Q22 statement here]",
+          question: "22. Research shows that the growth mindset has no effect on academic achievement.",
           options: [
-            { label: "A", value: "A" }, { label: "B", value: "B" }, { label: "C", value: "C" },
-            { label: "D", value: "D" }, { label: "E", value: "E" },
+            { label: "A  Alfred Binet", value: "A" },
+            { label: "B  Carol Dweck", value: "B" },
+            { label: "C  Andrew Gelman", value: "C" },
+            { label: "D  Timothy Bates", value: "D" },
+            { label: "E  David Yeager and Gregory Walton", value: "E" },
           ],
-          correctAnswer: "B",
+          correctAnswer: "D",
           points: 1,
         },
         {
           id: "cam18-ra-t4-s2-q23",
           number: 23,
-          type: "matching",
-          question: "23. [Paste Q23 statement here]",
-          options: [
-            { label: "A", value: "A" }, { label: "B", value: "B" }, { label: "C", value: "C" },
-            { label: "D", value: "D" }, { label: "E", value: "E" },
-          ],
-          correctAnswer: "C",
-          points: 1,
-        },
-        {
-          id: "cam18-ra-t4-s2-q24",
-          number: 24,
-          type: "matching",
-          question: "24. [Paste Q24 statement here]",
-          options: [
-            { label: "A", value: "A" }, { label: "B", value: "B" }, { label: "C", value: "C" },
-            { label: "D", value: "D" }, { label: "E", value: "E" },
-          ],
-          correctAnswer: "D",
-          points: 1,
-        },
-        // ── Q25–26: Note completion (ONE WORD ONLY) ───────────
-        {
-          id: "cam18-ra-t4-s2-q25",
-          number: 25,
-          groupLabel: `Questions 25–26: Complete the notes below. Choose ONE WORD ONLY from the passage for each answer.\n\n[PASTE THE NOTES PARAGRAPH HERE — it contains gaps numbered 25 and 26.]`,
-          type: "note_completion",
-          question: "25. [first gap in the notes]",
-          correctAnswer: "[ANSWER 25]",
-          points: 1,
-        },
-        {
-          id: "cam18-ra-t4-s2-q26",
-          number: 26,
-          type: "note_completion",
-          question: "26. [second gap in the notes]",
-          correctAnswer: "[ANSWER 26]",
-          points: 1,
-        },
-      ],
-    },
-    // ── PASSAGE 3 ─────────────────────────────────────────────
-    {
-      id: "cam18-ra-t4-s3",
-      sectionNumber: 3,
-      title: "Reading Passage 3",
-      passageTitle: "[PASTE PASSAGE 3 TITLE]",
-      passageText: `[PASTE PASSAGE 3 HERE — Cambridge 18 Test 4, Reading Passage 3. Paste as continuous prose.]`,
-      instructions: `Questions 27–30: Multiple choice — choose the correct letter A–D.
-Questions 31–35: Complete the summary below using the list of words/phrases A–I.
-Questions 36–40: Do the statements agree with the views of the writer? Write YES, NO or NOT GIVEN.`,
-      questions: [
-        // ── Q27–30: Multiple choice ───────────────────────────
-        {
-          id: "cam18-ra-t4-s3-q27",
-          number: 27,
-          groupLabel: `Questions 27–30: Choose the correct letter, A, B, C or D.`,
-          type: "multiple_choice",
-          question: "27. [Paste Q27 stem here]",
-          options: [
-            { label: "A  [paste option A]", value: "A" },
-            { label: "B  [paste option B]", value: "B" },
-            { label: "C  [paste option C]", value: "C" },
-            { label: "D  [paste option D]", value: "D" },
-          ],
-          correctAnswer: "A",
-          points: 1,
-        },
-        {
-          id: "cam18-ra-t4-s3-q28",
-          number: 28,
-          type: "multiple_choice",
-          question: "28. [Paste Q28 stem here]",
-          options: [
-            { label: "A  [paste option A]", value: "A" },
-            { label: "B  [paste option B]", value: "B" },
-            { label: "C  [paste option C]", value: "C" },
-            { label: "D  [paste option D]", value: "D" },
-          ],
-          correctAnswer: "B",
-          points: 1,
-        },
-        {
-          id: "cam18-ra-t4-s3-q29",
-          number: 29,
-          type: "multiple_choice",
-          question: "29. [Paste Q29 stem here]",
-          options: [
-            { label: "A  [paste option A]", value: "A" },
-            { label: "B  [paste option B]", value: "B" },
-            { label: "C  [paste option C]", value: "C" },
-            { label: "D  [paste option D]", value: "D" },
-          ],
-          correctAnswer: "C",
-          points: 1,
-        },
-        {
-          id: "cam18-ra-t4-s3-q30",
-          number: 30,
-          type: "multiple_choice",
-          question: "30. [Paste Q30 stem here]",
-          options: [
-            { label: "A  [paste option A]", value: "A" },
-            { label: "B  [paste option B]", value: "B" },
-            { label: "C  [paste option C]", value: "C" },
-            { label: "D  [paste option D]", value: "D" },
-          ],
-          correctAnswer: "D",
-          points: 1,
-        },
-        // ── Q31–35: Summary with list of words A–I ────────────
-        {
-          id: "cam18-ra-t4-s3-q31",
-          number: 31,
-          groupLabel: `Questions 31–35: Complete the summary below using the list of words/phrases, A–I, below.\n\nA  [paste option A]\nB  [paste option B]\nC  [paste option C]\nD  [paste option D]\nE  [paste option E]\nF  [paste option F]\nG  [paste option G]\nH  [paste option H]\nI  [paste option I]\n\n[PASTE THE SUMMARY PARAGRAPH HERE — with gaps 31, 32, 33, 34, 35.]`,
-          type: "matching",
-          question: "31. [first gap in the summary]",
-          options: [
-            { label: "A", value: "A" }, { label: "B", value: "B" }, { label: "C", value: "C" },
-            { label: "D", value: "D" }, { label: "E", value: "E" }, { label: "F", value: "F" },
-            { label: "G", value: "G" }, { label: "H", value: "H" }, { label: "I", value: "I" },
-          ],
-          correctAnswer: "A",
-          points: 1,
-        },
-        {
-          id: "cam18-ra-t4-s3-q32",
-          number: 32,
-          type: "matching",
-          question: "32. [second gap]",
-          options: [
-            { label: "A", value: "A" }, { label: "B", value: "B" }, { label: "C", value: "C" },
-            { label: "D", value: "D" }, { label: "E", value: "E" }, { label: "F", value: "F" },
-            { label: "G", value: "G" }, { label: "H", value: "H" }, { label: "I", value: "I" },
-          ],
-          correctAnswer: "B",
-          points: 1,
-        },
-        {
-          id: "cam18-ra-t4-s3-q33",
-          number: 33,
-          type: "matching",
-          question: "33. [third gap]",
-          options: [
-            { label: "A", value: "A" }, { label: "B", value: "B" }, { label: "C", value: "C" },
-            { label: "D", value: "D" }, { label: "E", value: "E" }, { label: "F", value: "F" },
-            { label: "G", value: "G" }, { label: "H", value: "H" }, { label: "I", value: "I" },
-          ],
-          correctAnswer: "C",
-          points: 1,
-        },
-        {
-          id: "cam18-ra-t4-s3-q34",
-          number: 34,
-          type: "matching",
-          question: "34. [fourth gap]",
-          options: [
-            { label: "A", value: "A" }, { label: "B", value: "B" }, { label: "C", value: "C" },
-            { label: "D", value: "D" }, { label: "E", value: "E" }, { label: "F", value: "F" },
-            { label: "G", value: "G" }, { label: "H", value: "H" }, { label: "I", value: "I" },
-          ],
-          correctAnswer: "D",
-          points: 1,
-        },
-        {
-          id: "cam18-ra-t4-s3-q35",
-          number: 35,
-          type: "matching",
-          question: "35. [fifth gap]",
-          options: [
-            { label: "A", value: "A" }, { label: "B", value: "B" }, { label: "C", value: "C" },
-            { label: "D", value: "D" }, { label: "E", value: "E" }, { label: "F", value: "F" },
-            { label: "G", value: "G" }, { label: "H", value: "H" }, { label: "I", value: "I" },
-          ],
-          correctAnswer: "E",
-          points: 1,
-        },
-        // ── Q36–40: Yes / No / Not Given ──────────────────────
-        {
-          id: "cam18-ra-t4-s3-q36",
-          number: 36,
-          groupLabel: `Questions 36–40: Do the following statements agree with the views of the writer in Reading Passage 3?\nWrite YES if the statement agrees with the views of the writer.\nWrite NO if the statement contradicts the views of the writer.\nWrite NOT GIVEN if it is impossible to say what the writer thinks about this.`,
+          groupLabel: `Questions 23–26: Do the following statements agree with the views of the writer in Reading Passage 2?\nWrite YES if the statement agrees with the views of the writer.\nWrite NO if the statement contradicts the views of the writer.\nWrite NOT GIVEN if it is impossible to say what the writer thinks about this.`,
           type: "true_false_ng",
-          question: "36. [Paste Q36 statement here]",
+          question: "23. Dweck has handled criticisms of her work in an admirable way.",
           options: [
             { label: "YES", value: "YES" },
             { label: "NO", value: "NO" },
@@ -2203,10 +2122,10 @@ Questions 36–40: Do the statements agree with the views of the writer? Write Y
           points: 1,
         },
         {
-          id: "cam18-ra-t4-s3-q37",
-          number: 37,
+          id: "cam18-ra-t4-s2-q24",
+          number: 24,
           type: "true_false_ng",
-          question: "37. [Paste Q37 statement here]",
+          question: "24. Students' self-perception is a more effective driver of self-confidence than actual achievement is.",
           options: [
             { label: "YES", value: "YES" },
             { label: "NO", value: "NO" },
@@ -2216,10 +2135,10 @@ Questions 36–40: Do the statements agree with the views of the writer? Write Y
           points: 1,
         },
         {
-          id: "cam18-ra-t4-s3-q38",
-          number: 38,
+          id: "cam18-ra-t4-s2-q25",
+          number: 25,
           type: "true_false_ng",
-          question: "38. [Paste Q38 statement here]",
+          question: "25. Recent evidence about growth mindset interventions has attracted unfair coverage in the media.",
           options: [
             { label: "YES", value: "YES" },
             { label: "NO", value: "NO" },
@@ -2229,10 +2148,57 @@ Questions 36–40: Do the statements agree with the views of the writer? Write Y
           points: 1,
         },
         {
-          id: "cam18-ra-t4-s3-q39",
-          number: 39,
+          id: "cam18-ra-t4-s2-q26",
+          number: 26,
           type: "true_false_ng",
-          question: "39. [Paste Q39 statement here]",
+          question: "26. Deliberate attempts to encourage students to strive for high achievement may have a negative effect.",
+          options: [
+            { label: "YES", value: "YES" },
+            { label: "NO", value: "NO" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "YES",
+          points: 1,
+        },
+      ],
+    },
+    // ── PASSAGE 3 ─────────────────────────────────────────────
+    {
+      id: "cam18-ra-t4-s3",
+      sectionNumber: 3,
+      title: "Reading Passage 3",
+      passageTitle: "Alfred Wegener: science, exploration and the theory of continental drift",
+      passageText: `by Mott T Greene
+
+Introduction
+
+This is a book about the life and scientific work of Alfred Wegener, whose reputation today rests with his theory of continental displacements, better known as 'continental drift'. Wegener proposed this theory in 1912 and developed it extensively for nearly 20 years. His book on the subject, The Origin of Continents and Oceans, went through four editions and was the focus of an international controversy in his lifetime and for some years after his death.
+
+Wegener's basic idea was that many mysteries about the Earth's history could be solved if one supposed that the continents moved laterally, rather than supposing that they remained fixed in place. Wegener showed in great detail how such continental movements were plausible and how they worked, using evidence from a large number of sciences including geology, geophysics, paleontology, and climatology. Wegener's idea – that the continents move – is at the heart of the theory that guides Earth sciences today: namely plate tectonics. Plate tectonics is in many respects quite different from Wegener's proposal, in the same way that modern evolutionary theory is very different from the ideas Charles Darwin proposed in the 1850s about biological evolution. Yet plate tectonics is a descendant of Alfred Wegener's theory of continental drift, in quite the same way that modern evolutionary theory is a descendant of Darwin's theory of natural selection.
+
+When I started writing about Wegener's life and work, one of the most intriguing things about him for me was that, although he came up with a theory on continental drift, he was not a geologist. He trained as an astronomer and pursued a career in atmospheric physics. When he proposed the theory of continental displacements in 1912, he was a lecturer in physics and astronomy at the University of Marburg, in southern Germany. However, he was not an 'unknown'. In 1906 he had set a world record (with his brother Kurt) for time aloft in a hot-air balloon: 52 hours. Between 1906 and 1908 he had taken part in a highly publicized and extremely dangerous expedition to the coast of northeast Greenland. He had also made a name for himself amongst a small circle of meteorologists and atmospheric physicists in Germany as the author of a textbook, Thermodynamics of the Atmosphere (1911), and of a number of interesting scientific papers.
+
+As important as Wegener's work on continental drift has turned out to be, it was largely a sideline to his interest in atmospheric physics, geophysics, and paleoclimatology*, and thus I have been at great pains to put Wegener's work on continental drift in the larger context of his other scientific work, and in the even larger context of atmospheric sciences in his lifetime. This is a 'continental drift book' only to the extent that Wegener was interested in that topic and later became famous for it. My treatment of his other scientific work is no less detailed, though I certainly have devoted more attention to the reception of his ideas on continental displacement, as they were much more controversial than his other work.
+
+Readers interested in the specific detail of Wegener's career will see that he often stopped pursuing a given line of investigation (sometimes for years on end), only to pick it up later. I have tried to provide guideposts to his rapidly shifting interests by characterizing different phases of his life as careers in different sciences, which is reflected in the titles of the chapters. Thus, the index should be a sufficient guide for those interested in a particular aspect of Wegener's life but perhaps not all of it. My own feeling, however, is that the parts do not make as much sense on their own as do all of his activities taken together. In this respect I urge readers to try to experience Wegener's life as he lived it, with all the interruptions, changes of mind, and renewed efforts this entailed.
+
+Wegener left behind a few published works but, as was standard practice, these reported the results of his work – not the journey he took to reach that point. Only a few hundred of the many thousands of letters he wrote and received in his lifetime have survived and he didn't keep notebooks or diaries that recorded his life and activities. He was not active (with a few exceptions) in scientific societies, and did not seek to find influence or advance his ideas through professional contacts and politics, spending most of his time at home in his study reading and writing, or in the field collecting observations.
+
+Some famous scientists, such as Newton, Darwin, and Einstein, left mountains of written material behind, hundreds of notebooks and letters numbering in the tens of thousands. Others, like Michael Faraday, left extensive journals of their thoughts and speculations, parallel to their scientific notebooks. The more such material a scientist leaves behind, the better chance a biographer has of forming an accurate picture of how a scientist's ideas took shape and evolved.
+
+I am firmly of the opinion that most of us, Wegener included, are not in any real sense the authors of our own lives. We plan, think, and act, often with apparent freedom, but most of the time our lives 'happen to us', and we only retrospectively turn this happenstance into a coherent narrative of fulfilled intentions. This book, therefore, is a story both of the life and scientific work that Alfred Wegener planned and intended and of the life and scientific work that actually 'happened to him'. These are, as I think you will soon see, not always the same thing.
+
+* Paleoclimatology – The study of past climates`,
+      instructions: `Questions 27–30: Do the statements agree with the claims of the writer? Write YES, NO, or NOT GIVEN.
+Questions 31–36: Complete the summary using the list of phrases A–J.
+Questions 37–40: Multiple choice — choose the correct letter A–D.`,
+      questions: [
+        {
+          id: "cam18-ra-t4-s3-q27",
+          number: 27,
+          groupLabel: `Questions 27–30: Do the following statements agree with the claims of the writer in Reading Passage 3?\nWrite YES if the statement agrees with the claims of the writer.\nWrite NO if the statement contradicts the claims of the writer.\nWrite NOT GIVEN if it is impossible to say what the writer thinks about this.`,
+          type: "true_false_ng",
+          question: "27. Wegener's ideas about continental drift were widely disputed while he was alive.",
           options: [
             { label: "YES", value: "YES" },
             { label: "NO", value: "NO" },
@@ -2242,16 +2208,220 @@ Questions 36–40: Do the statements agree with the views of the writer? Write Y
           points: 1,
         },
         {
-          id: "cam18-ra-t4-s3-q40",
-          number: 40,
+          id: "cam18-ra-t4-s3-q28",
+          number: 28,
           type: "true_false_ng",
-          question: "40. [Paste Q40 statement here]",
+          question: "28. The idea that the continents remained fixed in place was defended in a number of respected scientific publications.",
+          options: [
+            { label: "YES", value: "YES" },
+            { label: "NO", value: "NO" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "NOT GIVEN",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t4-s3-q29",
+          number: 29,
+          type: "true_false_ng",
+          question: "29. Wegener relied on a limited range of scientific fields to support his theory of continental drift.",
           options: [
             { label: "YES", value: "YES" },
             { label: "NO", value: "NO" },
             { label: "NOT GIVEN", value: "NOT GIVEN" },
           ],
           correctAnswer: "NO",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t4-s3-q30",
+          number: 30,
+          type: "true_false_ng",
+          question: "30. The similarities between Wegener's theory of continental drift and modern-day plate tectonics are enormous.",
+          options: [
+            { label: "YES", value: "YES" },
+            { label: "NO", value: "NO" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "NO",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t4-s3-q31",
+          number: 31,
+          groupLabel: `Questions 31–36: Complete the summary using the list of phrases, A–J, below.\n\nWegener's life and work\nOne of the remarkable things about Wegener from a 31 _______ is that although he proposed a theory of continental drift, he was not a geologist. His 32 _______ were limited to atmospheric physics. However, at the time he proposed his theory of continental drift in 1912, he was already a person of 33 _______. Six years previously, there had been his 34 _______ of 52 hours in a hot-air balloon, followed by his well-publicised but 35 _______ of Greenland's coast. With the publication of his textbook on thermodynamics, he had also come to the attention of a 36 _______ of German scientists.\n\nA  modest fame\nB  vast range\nC  record-breaking achievement\nD  research methods\nE  select group\nF  professional interests\nG  scientific debate\nH  hazardous exploration\nI  biographer's perspective\nJ  narrow investigation`,
+          type: "matching",
+          question: "31. One of the remarkable things about Wegener from a _______",
+          options: [
+            { label: "A  modest fame", value: "A" },
+            { label: "B  vast range", value: "B" },
+            { label: "C  record-breaking achievement", value: "C" },
+            { label: "D  research methods", value: "D" },
+            { label: "E  select group", value: "E" },
+            { label: "F  professional interests", value: "F" },
+            { label: "G  scientific debate", value: "G" },
+            { label: "H  hazardous exploration", value: "H" },
+            { label: "I  biographer's perspective", value: "I" },
+            { label: "J  narrow investigation", value: "J" },
+          ],
+          correctAnswer: "I",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t4-s3-q32",
+          number: 32,
+          type: "matching",
+          question: "32. His _______ were limited to atmospheric physics.",
+          options: [
+            { label: "A  modest fame", value: "A" },
+            { label: "B  vast range", value: "B" },
+            { label: "C  record-breaking achievement", value: "C" },
+            { label: "D  research methods", value: "D" },
+            { label: "E  select group", value: "E" },
+            { label: "F  professional interests", value: "F" },
+            { label: "G  scientific debate", value: "G" },
+            { label: "H  hazardous exploration", value: "H" },
+            { label: "I  biographer's perspective", value: "I" },
+            { label: "J  narrow investigation", value: "J" },
+          ],
+          correctAnswer: "F",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t4-s3-q33",
+          number: 33,
+          type: "matching",
+          question: "33. he was already a person of _______",
+          options: [
+            { label: "A  modest fame", value: "A" },
+            { label: "B  vast range", value: "B" },
+            { label: "C  record-breaking achievement", value: "C" },
+            { label: "D  research methods", value: "D" },
+            { label: "E  select group", value: "E" },
+            { label: "F  professional interests", value: "F" },
+            { label: "G  scientific debate", value: "G" },
+            { label: "H  hazardous exploration", value: "H" },
+            { label: "I  biographer's perspective", value: "I" },
+            { label: "J  narrow investigation", value: "J" },
+          ],
+          correctAnswer: "A",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t4-s3-q34",
+          number: 34,
+          type: "matching",
+          question: "34. there had been his _______ of 52 hours in a hot-air balloon",
+          options: [
+            { label: "A  modest fame", value: "A" },
+            { label: "B  vast range", value: "B" },
+            { label: "C  record-breaking achievement", value: "C" },
+            { label: "D  research methods", value: "D" },
+            { label: "E  select group", value: "E" },
+            { label: "F  professional interests", value: "F" },
+            { label: "G  scientific debate", value: "G" },
+            { label: "H  hazardous exploration", value: "H" },
+            { label: "I  biographer's perspective", value: "I" },
+            { label: "J  narrow investigation", value: "J" },
+          ],
+          correctAnswer: "C",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t4-s3-q35",
+          number: 35,
+          type: "matching",
+          question: "35. followed by his well-publicised but _______ of Greenland's coast",
+          options: [
+            { label: "A  modest fame", value: "A" },
+            { label: "B  vast range", value: "B" },
+            { label: "C  record-breaking achievement", value: "C" },
+            { label: "D  research methods", value: "D" },
+            { label: "E  select group", value: "E" },
+            { label: "F  professional interests", value: "F" },
+            { label: "G  scientific debate", value: "G" },
+            { label: "H  hazardous exploration", value: "H" },
+            { label: "I  biographer's perspective", value: "I" },
+            { label: "J  narrow investigation", value: "J" },
+          ],
+          correctAnswer: "H",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t4-s3-q36",
+          number: 36,
+          type: "matching",
+          question: "36. he had also come to the attention of a _______ of German scientists",
+          options: [
+            { label: "A  modest fame", value: "A" },
+            { label: "B  vast range", value: "B" },
+            { label: "C  record-breaking achievement", value: "C" },
+            { label: "D  research methods", value: "D" },
+            { label: "E  select group", value: "E" },
+            { label: "F  professional interests", value: "F" },
+            { label: "G  scientific debate", value: "G" },
+            { label: "H  hazardous exploration", value: "H" },
+            { label: "I  biographer's perspective", value: "I" },
+            { label: "J  narrow investigation", value: "J" },
+          ],
+          correctAnswer: "E",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t4-s3-q37",
+          number: 37,
+          groupLabel: `Questions 37–40: Choose the correct letter, A, B, C or D.`,
+          type: "multiple_choice",
+          question: "37. What is Mott T Greene doing in the fifth paragraph?",
+          options: [
+            { label: "A  describing what motivated him to write the book", value: "A" },
+            { label: "B  explaining why it is desirable to read the whole book", value: "B" },
+            { label: "C  suggesting why Wegener pursued so many different careers", value: "C" },
+            { label: "D  indicating what aspects of Wegener's life interested him most", value: "D" },
+          ],
+          correctAnswer: "B",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t4-s3-q38",
+          number: 38,
+          type: "multiple_choice",
+          question: "38. What is said about Wegener in the sixth paragraph?",
+          options: [
+            { label: "A  He was not a particularly ambitious person.", value: "A" },
+            { label: "B  He kept a record of all his scientific observations.", value: "B" },
+            { label: "C  He did not adopt many of the scientific practices of the time.", value: "C" },
+            { label: "D  He enjoyed discussing new discoveries with other scientists.", value: "D" },
+          ],
+          correctAnswer: "A",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t4-s3-q39",
+          number: 39,
+          type: "multiple_choice",
+          question: "39. What does Greene say about some other famous scientists?",
+          options: [
+            { label: "A  Their published works had a greater impact than Wegener's did.", value: "A" },
+            { label: "B  They had fewer doubts about their scientific ideas than Wegener did.", value: "B" },
+            { label: "C  Their scientific ideas were more controversial than Wegener's.", value: "C" },
+            { label: "D  They are easier subjects to write about than Wegener.", value: "D" },
+          ],
+          correctAnswer: "D",
+          points: 1,
+        },
+        {
+          id: "cam18-ra-t4-s3-q40",
+          number: 40,
+          type: "multiple_choice",
+          question: "40. What is Greene's main point in the final paragraph?",
+          options: [
+            { label: "A  It is not enough in life to have good intentions.", value: "A" },
+            { label: "B  People need to plan carefully if they want to succeed.", value: "B" },
+            { label: "C  People have little control over many aspects of their lives.", value: "C" },
+            { label: "D  It is important that people ensure they have the freedom to act.", value: "D" },
+          ],
+          correctAnswer: "C",
           points: 1,
         },
       ],

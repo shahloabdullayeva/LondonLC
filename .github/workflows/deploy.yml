@@ -36,9 +36,11 @@ jobs:
       - name: Build
         # Supabase URL and anon key come from repository secrets. Add them under
         # Settings → Secrets and variables → Actions → New repository secret.
+        # NEXT_PUBLIC_BASE_PATH is empty because the site is now served
+        # from the custom domain (londonielts.uz) at the root.
         run: npm run build
         env:
-          NEXT_PUBLIC_BASE_PATH: /LondonLC
+          NEXT_PUBLIC_BASE_PATH: ""
           NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
           NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
 
