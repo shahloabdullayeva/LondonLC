@@ -42,10 +42,11 @@ export default function ArticlesPage() {
     [category, source]
   );
 
-  const [featured] = useState(() => {
-    const withImages = starterArticles.filter(a => a.image);
-    return withImages[Math.floor(Math.random() * withImages.length)] || starterArticles[0];
-  });
+  const featuredPick = useMemo(() => {
+    const pool = list.filter(a => a.image);
+    return pool.length > 0 ? pool[Math.floor(Math.random() * pool.length)] : list[0];
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [source, category]);
   const selected = selectedId ? starterArticles.find(a => a.id === selectedId) : null;
 
   if (selected) {
@@ -169,11 +170,11 @@ export default function ArticlesPage() {
         ))}
       </div>
 
-      {/* Editor's pick — only shown on "All" */}
-      {category === "All" && featured && (
+      {/* Editor's pick — random from the current filtered list */}
+      {featuredPick && (
         <div
           className="card flush"
-          onClick={() => setSelectedId(featured.id)}
+          onClick={() => setSelectedId(featuredPick.id)}
           role="button"
           tabIndex={0}
           style={{ marginBottom: 28, cursor: "pointer" }}
@@ -181,24 +182,24 @@ export default function ArticlesPage() {
           <div style={{ display: "grid", gridTemplateColumns: "1.2fr 1fr", gap: 0 }}>
             <div style={{
               minHeight: 320,
-              background: featured.image
-                ? `url(${featured.image}) center / cover`
+              background: featuredPick.image
+                ? `url(${featuredPick.image}) center / cover`
                 : "repeating-linear-gradient(135deg, var(--line-2) 0 1px, transparent 1px 11px), var(--surface-2)",
               display: "grid", placeItems: "center",
             }} />
             <div style={{ padding: 40, display: "flex", flexDirection: "column", justifyContent: "center" }}>
               <div style={{ fontFamily: "var(--ff-mono)", fontSize: 10, letterSpacing: "0.14em", textTransform: "uppercase", color: "var(--accent)", marginBottom: 16 }}>
-                Editor&apos;s pick · {featured.category}
+                Editor&apos;s pick · {featuredPick.category}
               </div>
               <h2 style={{ fontFamily: DISPLAY_FONT, fontSize: 32, fontWeight: 500, letterSpacing: "-0.015em", lineHeight: 1.15, margin: "0 0 16px", color: "var(--text)" }}>
-                {featured.title}
+                {featuredPick.title}
               </h2>
               <div style={{ fontFamily: "var(--ff-mono)", fontSize: 10.5, color: "var(--text-3)", letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: 20, display: "flex", gap: 12, flexWrap: "wrap" }}>
-                <span>{featured.author}</span>
+                <span>{featuredPick.author}</span>
                 <span>·</span>
-                <span>{featured.readingTime} min read</span>
+                <span>{featuredPick.readingTime} min read</span>
               </div>
-              <button className="btn primary" style={{ alignSelf: "flex-start" }} onClick={e => { e.stopPropagation(); setSelectedId(featured.id); }}>
+              <button className="btn primary" style={{ alignSelf: "flex-start" }} onClick={e => { e.stopPropagation(); setSelectedId(featuredPick.id); }}>
                 Read article →
               </button>
             </div>
@@ -208,7 +209,7 @@ export default function ArticlesPage() {
 
       {/* Grid */}
       <div className="grid cols-3">
-        {list.filter(a => category !== "All" || a.id !== featured?.id).map(a => (
+        {list.filter(a => a.id !== featuredPick?.id).map(a => (
           <div key={a.id} className="media-card" onClick={() => setSelectedId(a.id)} role="button" tabIndex={0}>
             <div
               className="thumb"
