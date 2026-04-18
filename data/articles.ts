@@ -959,6 +959,56 @@ AI's current level of sophistication means it is really producing composites of 
 "It's literally happening under our noses," warns Davies. "We should be so much more concerned than we are."`,
   },
   {
+    id: "adam-peaty-goat-breaststroke",
+    title: "Supercharged GOAT-level swim-genius Adam Ramsay-Peaty is the Messi of breaststroke",
+    author: "Barney Ronay, The Guardian",
+    source: "The Guardian",
+    category: "Sport",
+    readingTime: 10,
+    image: "https://i.guim.co.uk/img/media/ad42bafe3e545d0b95aeec720ffe609fb79b7ee5/0_0_2067_1653/master/2067.jpg?width=1020&dpr=1&s=none&crop=none",
+    content: `The three-time Olympic champion is brilliant, charismatic, relatable, basically the best British athlete of all-time. But he's also a victim of the decline of minority sports
+
+The Austrian philosopher and novelist Robert Musil once wrote a lengthy meditation on human capacity based around seeing the phrase "a racehorse of genius" in a newspaper sports section. Musil was disturbed by this idea. His basic question was: can a horse really be a genius?
+
+If we are to ascribe the label of genius to a horse, based on its ability to run fast and successfully eat oats, where does this leave the unmapped capacities of the actual human genius? What is consciousness? What is a human? Should the question in fact be: will there ever be a human of sufficient genius they are able to actually perceive the genius of a horse?
+
+As a small contribution to this discourse, I would suggest that if there really is such a genius among us they are unlikely, from my own lived experience, to be a sports writer. Also, horses are nice.
+
+The reason for mentioning this here is that I don't think you really appreciate how good Adam Ramsay-Peaty is at the breaststroke. You might have an idea of him, a peacocking, thrillingly coiled figure, who is clearly pretty good at the breaststroke. But do you know how good he really is? Which is very, very, very good.
+
+Ramsay-Peaty is the GOAT. He's the Messi, the Bolt, the Socrates of breaststroke, an athlete who proves beyond doubt that you can be a genius at something this highly specialised. Which is, with all due respect to the mind-bending physical capacities and the endlessly complex biomechanics, basically swimming like a frog.
+
+Ramsay-Peaty is 31 now. He's an eight-time world champion and a paradigm-shifting world record-holder at both 50m and 100m. In fact, he holds the top 14 fastest times ever in the 100 and the top six in the 50. He is, under the rule that you can only annihilate what's in front of you, the greatest British athlete of all time, prove me wrong and no darts isn't it.
+
+As of this week Ramsay-Peaty is also back. On Wednesday he returned to elite competition, winning the GB swimming championships 100m title in London. His time of 58.97sec was described as "astonishing" by the BBC commentator, and brilliantly so, voice breaking to a shrill squeak, a sonic throwback to men in brown suits and thick glasses doing this through a fug of smoke and whisky.
+
+The wider story is that Ramsay-Peaty is one big step closer to competing at a fourth Olympic Games in Los Angeles, having almost quit the sport before and also after Paris. He's a bit like this, one of those athletes who seems simultaneously hyper-committed and on the verge of walking away, like Ronnie O'Sullivan yawning and doing the ironing at the world championship final then reeling off a 147 with his left foot.
+
+Personally I really want him to be there. In part because he was second by a hair in the 100m in Paris, then tested positive for coronavirus, which is no way for the GOAT to go out. But also to bring his very moreish kind of heat.
+
+"The next two years are probably going to be the hardest of my career," he said this week, and you wanted to punch the air and leap around like a NuMetal frontman, because he needs to say things like this. Ramsay-Peaty is one of those guys who just lives the grind, the pain, the fear. In fact he's one better than a breaststroke genius. He's a tortured breaststroke genius.
+
+Nothing wrong with that. It's better than being tortured and not very good at anything, which is most of us. But it is also an unusual thing to be a tortured genius at, bobbing along out there ahead of the human race, alone with his clock, existentially heroic. But also, and this is unavoidable, doing breaststroke.
+
+This is an odd event. Most disciplines of this type replicate some form of military display, or at least a useful physical attribute. The hurdles: yes. Humans jump over stuff. The triple jump? Not so much. You need to leap a fast running stream? You're not going to triple-jump it. The breaststroke is bordering on this. You're in the water in Jaws, gasping, shouting, Nemesis closing in. Chief Brody isn't breaststroking towards the shore.
+
+Useless he's being played by Adam Ramsay-Peaty, who is perfectly adapted to this set of physical movements: the unusually large feet and hands, the double-jointed elbows, the basic way his body works. He is the breaststroke, an all-time genius in an event that basically exists by accident, like being really good at running backwards in a zig-zag. Best of all, he's a normal kind of likable and fascinating bloke who just happens to have abnormal talent. Famously he was so afraid of water as a child his family would apologise to the neighbours for all the shouting at bath-time. He went to his first swimming lesson aged four and was so-so at it until the lightbulb moment where he switched to breaststroke.
+
+He had a regular adolescence, noticed people he'd swum up with excelling at London 2012, then got serious. Rio 2016 made him. He won 100m gold and broke the world record. Since then it has been a mix of glide, grace, brilliance and what he describes as "an incredibly lonely journey".
+
+Seven thousand calories a day bookended by a 16-hour fast. Obsessive training ("The sword is most deadly when it's sharp"). Gladiator mindset. Self-loathing in victory. Ramsay-Peaty is also a survivor, menaced at times by addiction and depression. "The devil on my shoulder says: 'You're missing out on life, you're not good enough, you need a drink, you can't have what you want, you can't be happy,'" he has said. You don't have to be a supercharged all-time swim-genius to feel any of this.
+
+The other thing with late, GOAT-level Ramsay-Peaty, he really should be massively famous. He's brilliant, charismatic, relatable. But he's also a victim of the decline of minority sports. He's a victim of algorithm life, of our unceasing mono-culture, the noise that drowns everything out.
+
+Previously we consumed our athletes centrally. In those times Ramsay-Peaty would have been a Lester Piggott, a Duncan Goodhew, a Daley Thompson. These days football will swallow all the air in the room. Noni Madueke, for example, is quite a good player at elite level. He's also mind-bendingly rich and has nearly two million Instagram followers. Adam Ramsay-Peaty is the unchallenged GOAT in an all-consuming discipline. Few people would even recognise him.
+
+There is an oddity here. Celebrity has come for Ramsay-Peaty from a different angle, one that also seems to mock the Spartan deprivations of elite sport. Last year he married the daughter of A-list aura-dad Gordon Ramsay, and is now a regular in the gossip sidebars, the putting-on-a-leggy-display zone.
+
+His wedding was massive in the tabloids, in part because, sadly, his own family was almost entirely absent. It is to be hoped his new family brings him happiness, and that he can be reconciled with his old one, too. Who knows, maybe he can also become a niche genius at making in-laws get on, although, again, this would be pushing human capacities to previously unseen limits.
+
+Either way I'm desperate to see him in Los Angeles, that bobbing head still parting the waters, our own niche, oddly everyday racehorse genius.`,
+  },
+  {
     id: "theatre-choreographers-awards",
     title: "Give theatre choreographers and movement directors their own awards, says union group",
     author: "The Guardian",
