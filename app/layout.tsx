@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Script from "next/script";
 import "./globals.css";
 import ThemeToggle from "@/components/ThemeToggle";
+import Sidebar from "@/components/Sidebar";
 
 export const metadata: Metadata = {
   title: "London LC – IELTS Practice Platform",
@@ -36,9 +37,7 @@ export default function RootLayout({
       </head>
       <body>
         {children}
-        {/* Global floating theme picker — top-right on every page.
-            The component hides itself on routes that have their own
-            in-test theme controls. */}
+        <Sidebar />
         <ThemeToggle variant="floating" />
       </body>
     </html>
