@@ -795,6 +795,48 @@ Rivas Hernandez's brother, Matthew, told NBCLA in September that before going mi
 Authorities have not commented on the nature of the relationship between the pair.`,
   },
   {
+    id: "universal-music-takeover-offer",
+    title: "Universal Music, home to Taylor Swift and Drake, receives €55bn takeover offer",
+    author: "The Guardian",
+    source: "The Guardian",
+    category: "Business",
+    readingTime: 6,
+    image: "https://i.guim.co.uk/img/media/8b79eda14305b5f09d4e78de5a39dc7fcf61432c/408_0_2656_2126/master/2656.jpg?width=620&dpr=1&s=none&crop=none",
+    content: `Bill Ackman's Pershing Square claims world's biggest music company has suffered because of delay of US listing
+
+Billionaire Bill Ackman's hedge fund has offered to buy Universal Music Group (UMG) in a deal that values the world's biggest music company at about €55bn (£48bn).
+
+Pershing Square, the New-York based hedge fund, has made a bid for the business, which is home to artists including Taylor Swift and Elton John, with a cash and stock deal that would move its stock market listing from Amsterdam to New York.
+
+Ackman said in a statement that while the company, which is led by the British-born Sir Lucian Grainge, had done "an excellent job nurturing and continuing to build a world-class artist roster and generating strong business performance", its share price had lagged owing to issues "unrelated to the performance of its music business".
+
+Shares in UMG, which have been listed in Amsterdam since 2021, had lost more than a quarter of their value in the past year alone. Pershing's offer triggered a sharp rise, with the price up by 13% on the previous trading day when the Amsterdam Euronext exchange closed on Tuesday.
+
+The company is one of the "big three" record labels, alongside Sony Music Entertainment and Warner Music Group. Its roster ranges from classical musicians to stars such as Adele, Drake and Ariana Grande.
+
+Ackman blamed its previous poor share price performance partly on the delay of UMG's listing in the US, underutilisation of its balance sheet and uncertainty around the French conglomerate Bolloré Group's 18% stake in the company.
+
+The French billionaire Vincent Bolloré and his family are the biggest single shareholders in the business, holding a further 10% via his Vivendi media conglomerate. Bolloré orchestrated the listing of UMG in Amsterdam in 2021, spinning the company out of the most valuable part of Vivendi.
+
+On a call with investors on Tuesday, Ackman said he had spoken to Bolloré and his investment group and claimed that they were "intrigued" with the proposal. Pershing Square is "confident that this is a transaction that addresses everyone's concerns", he said.
+
+Ackman also cited a "lack of investor credit" in the company's valuation of its €2.7bn stake in the music streaming service Spotify.
+
+Pershing Square, which Ackman set up in 2004, controls more than $26bn in assets. The fund bought a 10% stake in UMG in 2021, though Ackman resigned from its board of directors last year, citing other commitments.
+
+Dan Coatsworth, the head of markets at AJ Bell, said Ackman would need "a full-on charm offensive" to win over UMG's major shareholders.
+
+"Bill Ackman has long admired Warren Buffett's style of finding good companies going cheap and buying them outright. Ackman has now gone full-on Buffett with a takeover offer for Universal Music Group (UMG) via one of his Pershing Square investment vehicles," Coatsworth said.
+
+While Ackman said Grainge and his management team had done an "excellent job" at the company, as part of the proposed deal the hedge fund would add Michael Ovitz, a veteran talent agent, as chair, as well as two representatives from Pershing Square to the company's board.
+
+The deal would also be subject to a "new employment contract and compensation arrangement for Sir Lucian Grainge", Ackman said in a letter to the board of directors at UMG.
+
+Grainge was paid more than €41m last year, in a package that included a €4.4m base salary and more than €30m in bonuses.
+
+Under the proposed deal, UMG would merge with a blank-cheque company set up by Pershing Square, and then list on the New York Stock Exchange. Shareholders would receive a total of €9.4bn in cash and 0.77 shares in the new company for every Universal share they own. Together, that would represent a 78% premium compared with the company's closing share price on Thursday, Pershing said.`,
+  },
+  {
     id: "theatre-choreographers-awards",
     title: "Give theatre choreographers and movement directors their own awards, says union group",
     author: "The Guardian",
