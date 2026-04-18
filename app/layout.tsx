@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Script from "next/script";
 import "./globals.css";
 import ThemeToggle from "@/components/ThemeToggle";
 import Sidebar from "@/components/Sidebar";
@@ -30,10 +29,8 @@ export default function RootLayout({
           rel="stylesheet"
         />
         <script dangerouslySetInnerHTML={{ __html: noFlashScript }} />
-        <Script src="https://www.googletagmanager.com/gtag/js?id=G-ZR8XWQZF8P" strategy="afterInteractive" />
-        <Script id="gtag-init" strategy="afterInteractive">
-          {`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-ZR8XWQZF8P');`}
-        </Script>
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZR8XWQZF8P" />
+        <script dangerouslySetInnerHTML={{ __html: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-ZR8XWQZF8P');` }} />
       </head>
       <body>
         {children}
