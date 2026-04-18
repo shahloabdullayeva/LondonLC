@@ -703,6 +703,34 @@ They were also interested in the impulses that lead us to create; that affirming
 When we chose the subject of our opening exhibition, The Music is Black: A British Story, we wanted to select a topic that would allow us to showcase compelling stories of making and creativity. The exhibition platforms hundreds of creatives from Samuel Coleridge-Taylor to Little Simz, telling their stories in compelling ways.`,
   },
   {
+    id: "the-stranger-review-ozon-camus",
+    title: "The Stranger review – lustrously beautiful and superbly realised modern take on the Camus classic",
+    author: "The Guardian",
+    source: "The Guardian",
+    category: "Culture",
+    readingTime: 8,
+    image: "https://i.guim.co.uk/img/media/3bcedacf568ae5e842375f897c12a0b979dc9d76/409_0_2156_1725/master/2156.jpg?width=620&dpr=1&s=none&crop=none",
+    content: `François Ozon's adaptation of the 1942 novella L'Etranger passionately honours the original text while bringing a contemporary perspective to its themes of empire and race
+
+A heatstricken reverie of violence and mystery unfolds in this film, a numb ecstasy of the inexplicable, as experienced by a sensitive white European under the unbearable noonday sun. Set in 1940s French Algeria (and filmed in Morocco), François Ozon's lustrously beautiful and superbly realised monochrome version of Albert Camus's novella L'Etranger has an almost supernaturally detailed sense of period and place. It amounts to a passionate act of ancestor worship in honour of a renowned French artwork, though by making changes that bring a contemporary perspective on the book's themes of empire and race – changes that include a critique of the original text – this adaptation perhaps loses some of its source material's brutal, heartless power and arguably some of the title's meaning.
+
+An archive reel introduces us briskly to Algiers and its casbah, with a hint of Julien Duvivier's Pépé Le Moko; then we are shown our antihero Meursault, remanded there on trial for the capital crime of murder, played with many an unreadable moue of listless unconcern by Benjamin Voisin. Flashbacks show us his dull office job in Algiers, where he turns down a promotion and transfer to Paris, one of his many shrugging gestures of indifference to his own interests.
+
+We also see his blank, undemonstrative reaction to news that his mother, whom he placed in a state care home many miles away, has died, apparently of old age (she was 60). Meursault goes to the funeral, where like all the other mourners, he has to follow her coffin to the church on foot in the blazing heat and is blankly unmoved by the sight of his late mother's gentleman admirer and fellow care home resident fainting just before the service from grief and heat exhaustion.
+
+Back in Algiers, he pursues a relationship with the beautiful Marie (Rebecca Marder); they go swimming together and see a movie starring the goofy, horse-faced comedian Fernandel (the French equivalent of George Formby). These are apparently unbecomingly frivolous activities for someone who has just lost his mother, and held against him at his trial. We see his acquaintance with a cantankerous old neighbour Salamano (Denis Lavant), who beats his dog, and with the seedy Raymond (Pierre Lottin), who beats his girlfriend. Meursault is unmoved by these equivalent cruelties.
+
+The odious Raymond's girlfriend is an Algerian woman called Djemila (Hajar Bouzaouit), who has long been abused and exploited by him, though Meursault finds himself too apathetic to resist being drawn into Raymond's orbit. When Djemila's vengeful brother and another Algerian man follow Meursault and Raymond to the beach one boiling-hot day, Meursault later encounters the brother on the seashore alone, and shoots him.
+
+Why? He is not scared or outraged or in any way emotionally engaged. You may see it as an acte gratuit, an existential gesture of defiance in the face of an absurd universe. Yet restoring the context obviously shows that it is not a gratuitous act, but a racist act, or at least the act of someone subconsciously aware that as a white man he is likely to get away with it – that's if he plays along with the system, and perhaps not going along with the system is in fact the acte gratuit. But not as much as shooting a white man or white woman – that really would be an acte gratuit. The prosecuting authorities are exasperated and offended by Meursault's refusal to make the standard exculpatory moves; ie not claiming self-defence, or temporary insanity through grief, or mouthing religious pieties about remorse he doesn't feel. All the testimony about his behaviour becomes incriminating. When pressed for a motive, he says: "C'était à cause du soleil" – "It was because of the sun".
+
+In the novel, the nameless victim is simply "the Arab" – the other, the stranger, whose own alienation is of course more burdensome than Meursault's. In the book, his sister is anonymous too, but the movie gives them both names, Moussa and Djemila, and invents some dialogue between Djemila and Marie about the trial's racial injustice. But, as in the book, the victim is not named in court, and neither Djemila nor the second Algerian man are called as witnesses in the trial, despite their obvious relevance.
+
+If Camus's L'Etranger can be said to have participated in the bigotry by simply calling the dead man "the Arab", as well as representing it, then this movie softens that argument, and Meursault is, after all, condemned to death; a truly racist system would not allow that. The French authorities were certainly amenable to a claim of extenuating circumstances, though had to be aware of pacifying the Indigenous population. Ozon also retains Meursault's inability or refusal to explain, and to show any interest in the Algerian people, or anyone or anything else. He emerges from this movie as the logical or illogical extension of the educated overclass; he is the violent endpoint of imperialism, whose administrators do not, in their cynical hearts, feel troubled with any great compassion.
+
+Perhaps what motivates Meursault is not his mother's death, or any feelings of self-preservation contingent on a married future with Marie, but simply the realisation that he is supposed to react to these things, supposed to care about them, supposed to be complicit in the cause-and-effect pantomime of existence. He is a kind of martyr, who finally demonstrates some rhetoric in the movie's final moments, but Ozon shows that it is his martyrdom which is absurd.`,
+  },
+  {
     id: "theatre-choreographers-awards",
     title: "Give theatre choreographers and movement directors their own awards, says union group",
     author: "The Guardian",
