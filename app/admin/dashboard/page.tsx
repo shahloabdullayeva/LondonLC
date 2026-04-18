@@ -10,7 +10,7 @@ import {
 
 const ROOT_ADMIN_ID = "admin-root";
 const ADMIN_USERNAME = "SarvarxonP";
-import { getSession, clearSession, getAttempts, getTeachers, addTeacher, deleteTeacher, updateTeacherPassword, setTeacherPlainPassword, setStudentPlainPassword, changeTeacherOwnPassword, registerStudent, getStudentAccounts, deleteStudent, updateStudent, getBlockedIPs, blockIP, unblockIP, recordTeacherAccess, type AttemptData, type TeacherAccount, type StudentAccount } from "@/lib/store";
+import { getSession, clearSession, getAttempts, getTeachers, addTeacher, deleteTeacher, updateTeacherPassword, setTeacherPlainPassword, setStudentPlainPassword, changeTeacherOwnPassword, registerStudent, getStudentAccounts, deleteStudent, updateStudent, getBlockedIPs, blockIP, unblockIP, recordTeacherAccess, getAllSubmissions, type AttemptData, type TeacherAccount, type StudentAccount, type WritingSubmission } from "@/lib/store";
 import { getTestById } from "@/data/ielts-tests";
 import { allTests } from "@/data/ielts-tests";
 import { quotes, type Quote } from "@/lib/quotes";
@@ -404,19 +404,12 @@ export default function AdminDashboard() {
               </button>
             );
           })}
-          {([
-            { id: "writing"  as const, Icon: PenLine,  label: "Writing",  soon: true },
-          ]).map(({ id, Icon, label, soon }) => (
-            <button key={id} onClick={() => setActiveTab(id)}
-              style={{ display: "flex", alignItems: "center", gap: 10, width: "100%", padding: "10px 12px", borderRadius: 10, background: activeTab === id ? C.accentLight : "transparent", border: "none", cursor: "pointer", fontWeight: 500, fontSize: 13.5, textAlign: "left", marginBottom: 2, color: activeTab === id ? C.accent : C.muted }}>
-              <Icon size={15} />
-              <span style={{ flex: 1 }}>{label}</span>
-              {soon && (
-                <span style={{ fontSize: 9, padding: "2px 6px", borderRadius: 999, border: `1px solid ${C.border}`, color: C.muted, letterSpacing: "0.08em" }}>SOON</span>
-              )}
-              <ChevronRight size={13} />
-            </button>
-          ))}
+          <button onClick={() => setActiveTab("writing")}
+            style={{ display: "flex", alignItems: "center", gap: 10, width: "100%", padding: "10px 12px", borderRadius: 10, background: activeTab === "writing" ? C.accentLight : "transparent", border: "none", cursor: "pointer", fontWeight: 500, fontSize: 13.5, textAlign: "left", marginBottom: 2, color: activeTab === "writing" ? C.accent : C.muted }}>
+            <PenLine size={15} />
+            <span style={{ flex: 1 }}>Writing</span>
+            <ChevronRight size={13} />
+          </button>
           {/* Articles, Podcasts + Music have their own pages. */}
           <button onClick={() => router.push("/articles")}
             style={{ display: "flex", alignItems: "center", gap: 10, width: "100%", padding: "10px 12px", borderRadius: 10, background: "transparent", border: "none", cursor: "pointer", fontWeight: 500, fontSize: 13.5, textAlign: "left", marginBottom: 2, color: C.muted }}>
@@ -1384,21 +1377,11 @@ export default function AdminDashboard() {
           );
         })()}
 
-        {/* ══════════════════ COMING-SOON SECTIONS ══════════════════ */}
+        {/* ══════════════════ WRITING SUBMISSIONS ══════════════════ */}
         {activeTab === "writing" && (
-          <div style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "60px 32px", textAlign: "center", minHeight: 480 }}>
-            <div style={{ fontSize: 11, letterSpacing: "0.3em", textTransform: "uppercase", color: C.muted, marginBottom: 24, fontWeight: 600 }}>
-              {activeTab === "writing" ? "IELTS" : activeTab === "articles" ? "Read" : "Listen"}
-            </div>
-            <h1 style={{ fontFamily: `"Fraunces", "Iowan Old Style", Georgia, serif`, fontSize: "clamp(3rem, 7vw, 5rem)", fontWeight: 300, letterSpacing: "-0.02em", color: "var(--site-text)", lineHeight: 1, marginBottom: 28, textTransform: "capitalize" }}>
-              {activeTab}
-            </h1>
-            <p style={{ fontSize: 15, color: C.muted, maxWidth: 480, lineHeight: 1.7, marginBottom: 40 }}>
-              {activeTab === "writing" && "Task 1 and Task 2 practice with model answers and feedback. Coming soon."}
-            </p>
-            <div style={{ fontSize: 11, letterSpacing: "0.25em", textTransform: "uppercase", color: C.muted, fontWeight: 600, border: `1px solid ${C.border}`, borderRadius: 999, padding: "8px 20px" }}>
-              In development
-            </div>
+          <div>
+            <TabHeader title="Writing Submissions" subtitle="Every essay students have submitted, sorted newest first." C={C} quote={quote} />
+            <WritingSubmissionsView C={C} />
           </div>
         )}
 
@@ -1571,6 +1554,123 @@ function TabHeader({ title, subtitle, C, quote }: {
           )}
         </figure>
       )}
+    </div>
+  );
+}
+
+
+function WritingSubmissionsView({ C }: {
+  C: { text: string; muted: string; sub: string; border: string; card: string; card2: string; [k: string]: string };
+}) {
+  const [subs, setSubs] = useState<(WritingSubmission & { studentName: string })[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [expanded, setExpanded] = useState<string | null>(null);
+
+  useEffect(() => {
+    getAllSubmissions()
+      .then(rows => setSubs(rows))
+      .finally(() => setLoading(false));
+  }, []);
+
+  if (loading) {
+    return <div style={{ padding: 40, color: C.muted, fontSize: 13 }}>Loading submissions…</div>;
+  }
+
+  if (subs.length === 0) {
+    return (
+      <div style={{ padding: "60px 32px", textAlign: "center", color: C.muted, border: `1px dashed ${C.border}`, borderRadius: 14 }}>
+        <p style={{ fontSize: 14 }}>No writing submissions yet.</p>
+        <p style={{ fontSize: 12, marginTop: 6 }}>Submissions appear here once students finish an essay.</p>
+      </div>
+    );
+  }
+
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+      {subs.map(s => {
+        const isOpen = expanded === s.id;
+        const date = new Date(s.createdAt).toLocaleString(undefined, {
+          month: "short", day: "numeric", hour: "2-digit", minute: "2-digit",
+        });
+        return (
+          <div key={s.id} style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 12 }}>
+            <button
+              onClick={() => setExpanded(isOpen ? null : s.id)}
+              style={{
+                width: "100%", padding: "14px 18px", display: "flex", alignItems: "center", gap: 16,
+                background: "transparent", border: "none", cursor: "pointer", textAlign: "left",
+                color: C.text, fontFamily: "inherit",
+              }}
+            >
+              <div style={{ flex: 1, minWidth: 0 }}>
+                <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 4 }}>{s.studentName}</div>
+                <div style={{ fontSize: 12, color: C.muted, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                  {s.prompt}
+                </div>
+              </div>
+              <div style={{ fontSize: 11, color: C.sub, fontFamily: "'JetBrains Mono', ui-monospace, monospace", letterSpacing: "0.04em" }}>
+                {s.wordCount} words
+              </div>
+              <div style={{
+                fontSize: 13, fontWeight: 700,
+                padding: "4px 12px", borderRadius: 999,
+                background: s.overallBand ? "rgba(16,185,129,0.15)" : "rgba(234,179,8,0.15)",
+                color: s.overallBand ? "#10b981" : "#eab308",
+                minWidth: 64, textAlign: "center",
+              }}>
+                {s.overallBand ? s.overallBand.toFixed(1) : "pending"}
+              </div>
+              <div style={{ fontSize: 11, color: C.muted, width: 110, textAlign: "right" }}>{date}</div>
+              {isOpen ? <ChevronUp size={16} color={C.muted} /> : <ChevronDown size={16} color={C.muted} />}
+            </button>
+
+            {isOpen && (
+              <div style={{ padding: "0 18px 18px", borderTop: `1px solid ${C.border}`, display: "flex", flexDirection: "column", gap: 18 }}>
+                <div style={{ paddingTop: 14 }}>
+                  <div style={{ fontSize: 10, letterSpacing: "0.14em", textTransform: "uppercase", color: C.muted, marginBottom: 8, fontFamily: "'JetBrains Mono', ui-monospace, monospace" }}>Prompt</div>
+                  <div style={{ fontSize: 13, color: C.text, lineHeight: 1.6 }}>{s.prompt}</div>
+                </div>
+
+                <div>
+                  <div style={{ fontSize: 10, letterSpacing: "0.14em", textTransform: "uppercase", color: C.muted, marginBottom: 8, fontFamily: "'JetBrains Mono', ui-monospace, monospace" }}>Essay</div>
+                  <div style={{ fontSize: 13, color: C.text, lineHeight: 1.7, whiteSpace: "pre-line", background: C.card2, border: `1px solid ${C.border}`, borderRadius: 10, padding: "14px 16px", maxHeight: 360, overflowY: "auto" }}>
+                    {s.essay}
+                  </div>
+                </div>
+
+                {s.overallBand && (
+                  <div>
+                    <div style={{ fontSize: 10, letterSpacing: "0.14em", textTransform: "uppercase", color: C.muted, marginBottom: 8, fontFamily: "'JetBrains Mono', ui-monospace, monospace" }}>AI Grading</div>
+                    <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 10, marginBottom: 14 }}>
+                      {[
+                        { label: "Task Response", val: s.taskResponse },
+                        { label: "Coherence", val: s.coherenceCohesion },
+                        { label: "Lexical", val: s.lexicalResource },
+                        { label: "Grammar", val: s.grammarAccuracy },
+                      ].map(k => (
+                        <div key={k.label} style={{ padding: "10px 12px", background: C.card2, border: `1px solid ${C.border}`, borderRadius: 8 }}>
+                          <div style={{ fontSize: 9, color: C.muted, letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: 4 }}>{k.label}</div>
+                          <div style={{ fontSize: 18, fontWeight: 600, color: C.text }}>{k.val?.toFixed(1) ?? "—"}</div>
+                        </div>
+                      ))}
+                    </div>
+                    {s.feedback && s.feedback.length > 0 && (
+                      <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+                        {s.feedback.map((f, i) => (
+                          <div key={i} style={{ padding: "12px 14px", background: C.card2, border: `1px solid ${C.border}`, borderRadius: 8 }}>
+                            <div style={{ fontSize: 10, color: C.muted, letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: 6, fontWeight: 600 }}>{f.criterion}</div>
+                            <div style={{ fontSize: 13, color: C.text, lineHeight: 1.6 }}>{f.comment}</div>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+        );
+      })}
     </div>
   );
 }

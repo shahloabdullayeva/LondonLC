@@ -434,6 +434,18 @@ export async function getSubmissions(studentId: string): Promise<WritingSubmissi
   return (data ?? []).map(mapSubmission);
 }
 
+export async function getAllSubmissions(): Promise<(WritingSubmission & { studentName: string })[]> {
+  const { data } = await supabase
+    .from("writing_submissions")
+    .select("*")
+    .order("created_at", { ascending: false });
+
+  return (data ?? []).map(r => ({
+    ...mapSubmission(r as Record<string, unknown>),
+    studentName: (r as Record<string, unknown>).student_name as string ?? "Unknown",
+  }));
+}
+
 function mapSubmission(r: Record<string, unknown>): WritingSubmission {
   return {
     id: r.id as string,
