@@ -6,6 +6,7 @@ on:
       - main
       - claude/general-session-xgznl
       - claude/general-session-xgznl-5PF7d
+      - claude/add-ielts-reading-test-A0WoA
   workflow_dispatch:
 
 permissions:
