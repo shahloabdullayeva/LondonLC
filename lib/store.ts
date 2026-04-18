@@ -392,3 +392,141 @@ export async function isIPBlocked(ip: string): Promise<boolean> {
   const { data } = await supabase.from("blocked_ips").select("ip").eq("ip", ip).maybeSingle();
   return !!data;
 }
+
+// ── Messaging ─────────────────────────────────────────────────────────
+
+export type Conversation = {
+  id: string;
+  type: "dm" | "group";
+  name: string | null;
+  participantIds: string[];
+  lastMessageAt: string | null;
+  lastMessagePreview: string | null;
+};
+
+export type Message = {
+  id: string;
+  conversationId: string;
+  senderId: string;
+  senderName: string;
+  content: string;
+  createdAt: string;
+};
+
+function dmConversationId(a: string, b: string): string {
+  return a < b ? `dm-${a}-${b}` : `dm-${b}-${a}`;
+}
+
+function groupConversationId(groupName: string): string {
+  return `group-${groupName.replace(/\s+/g, "-").toLowerCase()}`;
+}
+
+export async function ensureConversations(
+  userId: string,
+  userName: string,
+  groupName: string
+): Promise<Conversation[]> {
+  const { data: teachers } = await supabase
+    .from("teachers")
+    .select("id, username");
+
+  const convos: { id: string; type: "dm" | "group"; name: string; participantIds: string[] }[] = [];
+
+  for (const t of teachers ?? []) {
+    convos.push({
+      id: dmConversationId(userId, t.id),
+      type: "dm",
+      name: t.username,
+      participantIds: [userId, t.id],
+    });
+  }
+
+  convos.push({
+    id: groupConversationId(groupName),
+    type: "group",
+    name: `Study group · ${groupName}`,
+    participantIds: [userId],
+  });
+
+  for (const c of convos) {
+    await supabase.from("conversations").upsert(
+      {
+        id: c.id,
+        type: c.type,
+        name: c.name,
+        participant_ids: c.participantIds,
+      },
+      { onConflict: "id", ignoreDuplicates: true }
+    );
+  }
+
+  const { data: rows } = await supabase
+    .from("conversations")
+    .select("*")
+    .contains("participant_ids", [userId])
+    .order("last_message_at", { ascending: false, nullsFirst: false });
+
+  return (rows ?? []).map((r: Record<string, unknown>) => ({
+    id: r.id as string,
+    type: r.type as "dm" | "group",
+    name: r.name as string | null,
+    participantIds: r.participant_ids as string[],
+    lastMessageAt: r.last_message_at as string | null,
+    lastMessagePreview: r.last_message_preview as string | null,
+  }));
+}
+
+export async function getMessages(conversationId: string): Promise<Message[]> {
+  const { data } = await supabase
+    .from("messages")
+    .select("*")
+    .eq("conversation_id", conversationId)
+    .order("created_at", { ascending: true });
+
+  return (data ?? []).map((r: Record<string, unknown>) => ({
+    id: r.id as string,
+    conversationId: r.conversation_id as string,
+    senderId: r.sender_id as string,
+    senderName: r.sender_name as string,
+    content: r.content as string,
+    createdAt: r.created_at as string,
+  }));
+}
+
+export async function sendMessage(
+  conversationId: string,
+  senderId: string,
+  senderName: string,
+  content: string
+): Promise<Message | null> {
+  const id = `msg-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
+  const now = new Date().toISOString();
+
+  const { error } = await supabase.from("messages").insert({
+    id,
+    conversation_id: conversationId,
+    sender_id: senderId,
+    sender_name: senderName,
+    content,
+    created_at: now,
+  });
+
+  if (error) return null;
+
+  await supabase
+    .from("conversations")
+    .update({
+      last_message_at: now,
+      last_message_preview: content.slice(0, 100),
+    })
+    .eq("id", conversationId);
+
+  return {
+    id,
+    conversationId,
+    senderId,
+    senderName,
+    content,
+    createdAt: now,
+  };
+}

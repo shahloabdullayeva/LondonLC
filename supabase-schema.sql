@@ -137,6 +137,49 @@ create policy "blocked_ips_select" on blocked_ips for select using (true);
 create policy "blocked_ips_insert" on blocked_ips for insert with check (true);
 create policy "blocked_ips_delete" on blocked_ips for delete using (true);
 
+-- ── Messages table ────────────────────────────────────────────────────
+-- Real-time messaging between students ↔ teachers and group chats.
+-- conversation_id is deterministic:
+--   DMs:    dm-<min(id1,id2)>-<max(id1,id2)>
+--   Groups: group-<group_name>
+create table if not exists conversations (
+  id text primary key,
+  type text not null default 'dm' check (type in ('dm', 'group')),
+  name text,
+  participant_ids text[] not null default '{}',
+  last_message_at timestamptz,
+  last_message_preview text,
+  created_at timestamptz default now()
+);
+
+create table if not exists messages (
+  id text primary key default gen_random_uuid()::text,
+  conversation_id text not null references conversations(id),
+  sender_id text not null,
+  sender_name text not null,
+  content text not null,
+  created_at timestamptz default now()
+);
+
+alter table conversations enable row level security;
+alter table messages      enable row level security;
+
+drop policy if exists "conversations_select" on conversations;
+drop policy if exists "conversations_insert" on conversations;
+drop policy if exists "conversations_update" on conversations;
+drop policy if exists "messages_select"      on messages;
+drop policy if exists "messages_insert"      on messages;
+
+create policy "conversations_select" on conversations for select using (true);
+create policy "conversations_insert" on conversations for insert with check (true);
+create policy "conversations_update" on conversations for update using (true) with check (true);
+create policy "messages_select"      on messages for select using (true);
+create policy "messages_insert"      on messages for insert with check (true);
+
+create index if not exists messages_conversation_id_idx on messages(conversation_id);
+create index if not exists messages_created_at_idx      on messages(created_at);
+create index if not exists conversations_participant_idx on conversations using gin(participant_ids);
+
 -- ── Indexes ───────────────────────────────────────────────────────────
 create index if not exists attempts_student_id_idx   on attempts(student_id);
 create index if not exists attempts_group_name_idx   on attempts(group_name);
