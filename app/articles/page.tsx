@@ -46,55 +46,57 @@ export default function ArticlesPage() {
   const selected = selectedId ? starterArticles.find(a => a.id === selectedId) : null;
 
   if (selected) {
+    const heroImg = selected.image?.replace(/width=\d+/, "width=1200");
     return (
       <StudentShell>
-        <button
-          onClick={() => setSelectedId(null)}
-          className="btn ghost sm"
-          style={{ marginBottom: 24 }}
-        >
-          <ArrowLeft size={14} /> All articles
-        </button>
+        <div style={{ maxWidth: 760, margin: "0 auto" }}>
+          <button
+            onClick={() => setSelectedId(null)}
+            className="btn ghost sm"
+            style={{ marginBottom: 24 }}
+          >
+            <ArrowLeft size={14} /> All articles
+          </button>
 
-        {selected.image && (
-          <div style={{ marginBottom: 24, borderRadius: 10, overflow: "hidden", border: "1px solid var(--line)" }}>
-            <img src={selected.image} alt="" style={{ width: "100%", height: "auto", maxHeight: 520, objectFit: "cover", display: "block" }} />
+          {heroImg && (
+            <div style={{ marginBottom: 28, borderRadius: 10, overflow: "hidden", border: "1px solid var(--line)" }}>
+              <img src={heroImg} alt="" style={{ width: "100%", height: "auto", maxHeight: 440, objectFit: "cover", objectPosition: "center 20%", display: "block" }} />
+            </div>
+          )}
+
+          <p className="eyebrow" style={{ marginBottom: 12 }}>
+            <span>{selected.category}</span>
+            <span className="rule" />
+            <span>{selected.readingTime} min read</span>
+          </p>
+          <h1 className="h1" style={{ marginBottom: 16, fontSize: "clamp(28px, 4vw, 44px)" }}>{selected.title}</h1>
+          <div style={{ display: "flex", alignItems: "center", gap: 12, flexWrap: "wrap", fontFamily: "var(--ff-mono)", fontSize: 11, color: "var(--text-3)", letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: 28, paddingBottom: 20, borderBottom: "1px solid var(--line)" }}>
+            <span>{selected.author}</span>
+            <span>·</span>
+            <span>{selected.source}</span>
+            <span style={{ display: "flex", alignItems: "center", gap: 4 }}>
+              <Clock size={12} /> {selected.readingTime} min
+            </span>
+            <div style={{ display: "flex", alignItems: "center", gap: 4, marginLeft: "auto" }}>
+              <button onClick={() => setFontSize(s => Math.max(13, s - 1))}
+                className="btn ghost sm"
+                style={{ padding: "4px 8px" }}
+                aria-label="Smaller text">
+                <Minus size={12} />
+              </button>
+              <span style={{ minWidth: 22, textAlign: "center" }}>{fontSize}</span>
+              <button onClick={() => setFontSize(s => Math.min(24, s + 1))}
+                className="btn ghost sm"
+                style={{ padding: "4px 8px" }}
+                aria-label="Bigger text">
+                <Plus size={12} />
+              </button>
+            </div>
           </div>
-        )}
 
-        <p className="eyebrow" style={{ marginBottom: 12 }}>
-          <span>{selected.category}</span>
-          <span className="rule" />
-          <span>{selected.readingTime} min read</span>
-        </p>
-        <h1 className="h1" style={{ marginBottom: 16 }}>{selected.title}</h1>
-        <div style={{ display: "flex", alignItems: "center", gap: 16, fontFamily: "var(--ff-mono)", fontSize: 11, color: "var(--text-3)", letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: 28, paddingBottom: 20, borderBottom: "1px solid var(--line)" }}>
-          <span>{selected.author}</span>
-          <span>·</span>
-          <span>{selected.source}</span>
-          <span style={{ display: "flex", alignItems: "center", gap: 4 }}>
-            <Clock size={12} /> {selected.readingTime} min
-          </span>
-          <div style={{ display: "flex", alignItems: "center", gap: 4, marginLeft: "auto" }}>
-            <button onClick={() => setFontSize(s => Math.max(13, s - 1))}
-              className="btn ghost sm"
-              style={{ padding: "4px 8px" }}
-              aria-label="Smaller text">
-              <Minus size={12} />
-            </button>
-            <span style={{ minWidth: 22, textAlign: "center" }}>{fontSize}</span>
-            <button onClick={() => setFontSize(s => Math.min(24, s + 1))}
-              className="btn ghost sm"
-              style={{ padding: "4px 8px" }}
-              aria-label="Bigger text">
-              <Plus size={12} />
-            </button>
-          </div>
-        </div>
-
-        <div style={{
-          fontSize, lineHeight: 1.85, color: "var(--text)",
-          fontFamily: DISPLAY_FONT, maxWidth: 720,
+          <div style={{
+            fontSize, lineHeight: 1.85, color: "var(--text)",
+            fontFamily: DISPLAY_FONT,
         }}>
           {selected.content.split(/(\[CHART:[^\]]+\]|\[IMG:[^\]]+\])/).map((part, i) => {
             const chartMatch = part.match(/^\[CHART:([^\]]+)\]$/);
@@ -117,10 +119,11 @@ export default function ArticlesPage() {
           <div style={{ clear: "both" }} />
         </div>
 
-        <div style={{ marginTop: 48, paddingTop: 24, borderTop: "1px solid var(--line)" }}>
-          <button onClick={() => setSelectedId(null)} className="btn ghost">
-            ← Back to all articles
-          </button>
+          <div style={{ marginTop: 48, paddingTop: 24, borderTop: "1px solid var(--line)" }}>
+            <button onClick={() => setSelectedId(null)} className="btn ghost">
+              ← Back to all articles
+            </button>
+          </div>
         </div>
       </StudentShell>
     );
