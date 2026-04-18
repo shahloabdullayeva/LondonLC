@@ -120,7 +120,7 @@ export default function StudentShell({ children, wide }: { children: ReactNode; 
       ? (session.username ?? "Admin")
       : `${session.name} ${session.surname}`
     : "Student";
-  const group = isAdmin ? "Admin · LC" : (session?.group_name ?? "London · LC");
+  const group = isAdmin ? "Administrator" : (session?.group_name ?? "London · LC");
 
   return (
     <div className="student-shell" data-student-theme={studentTheme}>
