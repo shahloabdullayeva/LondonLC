@@ -1009,6 +1009,38 @@ His wedding was massive in the tabloids, in part because, sadly, his own family 
 Either way I'm desperate to see him in Los Angeles, that bobbing head still parting the waters, our own niche, oddly everyday racehorse genius.`,
   },
   {
+    id: "artemis-ii-case-for-astronauts-shrinking",
+    title: "Congratulations to the Artemis II crew – but the case for sending astronauts into space is rapidly shrinking",
+    author: "Martin Rees and Donald Goldsmith, The Guardian",
+    source: "The Guardian",
+    category: "Science",
+    readingTime: 8,
+    image: "https://i.guim.co.uk/img/media/b24913b41fc995bb7393939810ae917eb07cef06/305_0_3333_2667/master/3333.jpg?width=620&dpr=1&s=none&crop=none",
+    content: `Soon, thanks to the advance of robots, the only reason left to send humans to the moon will be as an ultra-expensive sport
+
+The 2020s has seen a revival of the "Apollo spirit". The US and China are seemingly in a race to send humans to the moon by the end of the decade – and thereafter, perhaps, even to Mars. Nasa astronauts have just returned from a 10-day journey looping around the moon. Although they arrived back safely, Nasa accepts that the lack of data makes it impossible to quantify the risks involved – this represents only the second launch for the Artemis system and the first to carry astronauts.
+
+To date, estimated expenditures on the Artemis programme are close to $100bn (£75bn). The "one big beautiful bill" that the US Congress passed in July 2025 allocates $9.9bn for the Artemis IV and V missions. Still greater expenditures are envisioned for a well-developed lunar base.
+
+The benefits of going to the moon are clear. Detailed exploration will give us important clues about the formation of the solar system, and by implication about the history of exoplanets orbiting other stars throughout the cosmos. In addition, the moon offers a stable observing platform for all types of telescopes, including giant arrays of radio antennas. These can profit from their location on the lunar far side, which is shielded from the light and other radiation that our terrestrial civilisation constantly radiates into space.
+
+But are "on-site" humans needed for any of this? Today, astronauts could still prove useful, despite the difficulties of keeping them alive and productive. But a decade from now, the advantage could swing towards robots: able to work around the clock, comparatively inexpensive, and not requiring replacement for many years or even decades.
+
+Robots on Mars such as Curiosity and Perseverance (and their Chinese counterparts) have performed almost flawlessly for many years. These marvellous machines steadily improve their capabilities, while humans, who demand oxygen, food and shelter, do not. What cost, including possible tragedy, should be imposed for the greater inspiration that astronauts offer? And, we may reasonably ask, how much inspiration would astronauts on the moon now provide given that humans achieved the basic goal more than half a century ago?
+
+As ever, space exploration has a political dimension, as well as a scientific one, with sending astronauts an eye-catching achievement. The Chinese government's plans show a determination to increase China's prestige and influence through space exploration. The Chinese have excelled in lunar research. After two robots orbited the moon, three more made soft landings there. Each of those deployed a robotic explorer, and in 2024 the third of these brought the first soil samples from the lunar far side back to Earth. The next Chinese lunar mission, scheduled for launch this August, will examine the south pole region with an orbiter, a lander and a "mini-hopper" probe. In 2028, the Chinese government plans to send equipment to investigate construction of a lunar base, including an enclosed ecosystem to rest on the moon's surface. And there is every expectation that the Chinese will aim to match the US by sending humans.
+
+But the most relevant difference between the Apollo era and the mid-2020s is the amazing improvement in our ability to create, launch and guide robotic explorers. Furthermore, improvements in sensors and in artificial intelligence (AI) will enable the robots themselves to identify particularly interesting sites from which to gather samples for return to Earth. Within 10 or 20 years, robotic exploration of the lunar surface could be almost autonomous, with little advantage to be gained by a human presence. Similarly, engineering projects might no longer require human intervention, but could instead be done by robotic fabricators. The same is true for the mining of rare minerals. The practical case for human spaceflight gets ever weaker with each advance in robots and miniaturisation.
+
+Humans have, of course, been crucial in assembling or repairing spacecraft orbiting the Earth. For example, after the Hubble space telescope (HST) was launched in 1990, its mirror turned out to be poorly aligned. But astronauts undertook a "rescue" mission in the shuttle to make adjustments – and later made further visits to upgrade the instruments. This has always been adduced as evidence of the key role of humans in space. But Riccardo Giacconi, who led the project to launch the first X-ray telescopes into space and was later in charge of the Hubble telescope, once told me that if the human element had been removed, several copies of the HST could have been built and launched with the money saved.
+
+In December 2021, the vastly more elaborate James Webb space telescope (JWST) was launched. The stakes were high because there would have been no prospect of a repair mission. The HST had been launched into a low (and accessible) orbit: in contrast, the JWST's orbit, several times farther away than the moon, is far beyond the routine reach of astronauts. The JWST is a sterling example of the complex missions that can be undertaken without space crews.
+
+Indeed, as robotics and miniaturisation improve, the practical and scientific case for any human spaceflight weakens. Its prime motive now is simply as an adventure – an ultra-expensive sport that should be left to billionaires and private sponsorship.
+
+We may envy the crew of Artemis who, while orbiting the moon, experienced the awe of the pioneer Apollo 8 astronaut Bill Anders in his iconic image Earthrise, depicting the Earthly home that we must cherish. But we do not need to send astronauts to the moon, or beyond, to bring the benefits of space exploration to humanity.`,
+  },
+  {
     id: "theatre-choreographers-awards",
     title: "Give theatre choreographers and movement directors their own awards, says union group",
     author: "The Guardian",
