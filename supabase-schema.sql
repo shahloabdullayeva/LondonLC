@@ -137,6 +137,36 @@ create policy "blocked_ips_select" on blocked_ips for select using (true);
 create policy "blocked_ips_insert" on blocked_ips for insert with check (true);
 create policy "blocked_ips_delete" on blocked_ips for delete using (true);
 
+-- ── Writing submissions table ─────────────────────────────────────────
+-- Stores student essays + AI-generated IELTS scores and feedback.
+create table if not exists writing_submissions (
+  id text primary key,
+  student_id text not null,
+  student_name text not null,
+  prompt text not null,
+  essay text not null,
+  word_count integer not null,
+  -- AI grading results (null until graded)
+  task_response numeric(2,1),
+  coherence_cohesion numeric(2,1),
+  lexical_resource numeric(2,1),
+  grammar_accuracy numeric(2,1),
+  overall_band numeric(2,1),
+  feedback jsonb,            -- array of {criterion, comment} objects
+  graded_at timestamptz,
+  created_at timestamptz default now()
+);
+
+alter table writing_submissions enable row level security;
+drop policy if exists "writing_select" on writing_submissions;
+drop policy if exists "writing_insert" on writing_submissions;
+drop policy if exists "writing_update" on writing_submissions;
+create policy "writing_select" on writing_submissions for select using (true);
+create policy "writing_insert" on writing_submissions for insert with check (true);
+create policy "writing_update" on writing_submissions for update using (true) with check (true);
+
+create index if not exists writing_student_id_idx on writing_submissions(student_id);
+
 -- ── Messages table ────────────────────────────────────────────────────
 -- Real-time messaging between students ↔ teachers and group chats.
 -- conversation_id is deterministic:

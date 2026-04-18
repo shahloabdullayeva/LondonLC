@@ -1,29 +1,19 @@
 "use client";
-// /student/writing — Task 2 essay editor with word count, last-score
-// card, and teacher comments panel. No backend yet: drafts save to
-// localStorage, "Submit for review" is a placeholder.
 import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
-import { Send } from "lucide-react";
+import { Send, Loader2 } from "lucide-react";
 import StudentShell from "@/components/StudentShell";
-import { getSession, type StudentSession } from "@/lib/store";
+import {
+  getSession,
+  getLastSubmission,
+  submitEssay,
+  gradeEssayWithAI,
+  type StudentSession,
+  type WritingSubmission,
+} from "@/lib/store";
 
 const DRAFT_KEY = "llc.writing.draft.v1";
 const PROMPT = `"Many companies now allow their employees to work remotely. Do you think the advantages of remote work outweigh the disadvantages? Discuss both views and give your own opinion."`;
-
-type Criterion = { k: string; v: number };
-const CRITERIA: Criterion[] = [
-  { k: "Task response", v: 7.0 },
-  { k: "Coherence & cohesion", v: 6.5 },
-  { k: "Lexical resource", v: 6.0 },
-  { k: "Grammar range & accuracy", v: 6.5 },
-];
-
-const COMMENTS = [
-  { tag: "Lexical", loc: "Para 2", body: <>&ldquo;Flexibility&rdquo; appears three times in this paragraph. Try: <em>latitude, autonomy, discretion.</em></> },
-  { tag: "Cohesion", loc: "Para 3", body: <>Strong contrast move here — try opening with a signposting phrase like <em>&ldquo;That said…&rdquo;</em> or <em>&ldquo;On the other hand,&rdquo;</em> to make the shift explicit.</> },
-  { tag: "Task response", loc: "Overall", body: <>Your position is clear from paragraph 1, which is rare — well done. Missing: a concrete example in para 3 to back the &ldquo;loneliness&rdquo; claim.</> },
-];
 
 function ScoreRing({ value, max = 9 }: { value: number; max?: number }) {
   const r = 40;
@@ -44,21 +34,25 @@ function ScoreRing({ value, max = 9 }: { value: number; max?: number }) {
   );
 }
 
+type GradingStatus = "idle" | "submitting" | "grading" | "done" | "error";
+
 export default function WritingPage() {
   const router = useRouter();
   const [session, setSession] = useState<StudentSession | null>(null);
   const [text, setText] = useState("");
   const [savedAt, setSavedAt] = useState<string | null>(null);
-  const [submitted, setSubmitted] = useState(false);
+  const [status, setStatus] = useState<GradingStatus>("idle");
+  const [errorMsg, setErrorMsg] = useState("");
+  const [lastSub, setLastSub] = useState<WritingSubmission | null>(null);
 
   useEffect(() => {
     const s = getSession();
     if (!s || s.isAdmin) { router.push("/auth/login"); return; }
     setSession(s);
     try { setText(localStorage.getItem(DRAFT_KEY) || ""); } catch {}
+    getLastSubmission(s.id).then(setLastSub);
   }, [router]);
 
-  // Auto-save to localStorage, debounced by a short timeout.
   useEffect(() => {
     if (!session) return;
     const id = window.setTimeout(() => {
@@ -72,17 +66,62 @@ export default function WritingPage() {
   const chars = text.length;
   const targetHit = words >= 250;
 
+  const handleSubmit = async () => {
+    if (!session || !targetHit || status === "submitting" || status === "grading") return;
+
+    setStatus("submitting");
+    setErrorMsg("");
+
+    const sub = await submitEssay(session.id, `${session.name} ${session.surname}`, PROMPT, text);
+    if (!sub) {
+      setStatus("error");
+      setErrorMsg("Failed to save essay. Check your connection.");
+      return;
+    }
+
+    setStatus("grading");
+    setLastSub(sub);
+
+    const grading = await gradeEssayWithAI(sub.id, PROMPT, text);
+    if (!grading) {
+      setStatus("error");
+      setErrorMsg("Essay saved but AI grading failed. Your teacher can still review it manually.");
+      return;
+    }
+
+    setLastSub(prev => prev ? {
+      ...prev,
+      taskResponse: grading.taskResponse,
+      coherenceCohesion: grading.coherenceCohesion,
+      lexicalResource: grading.lexicalResource,
+      grammarAccuracy: grading.grammarAccuracy,
+      overallBand: grading.overallBand,
+      feedback: grading.feedback,
+      gradedAt: new Date().toISOString(),
+    } : null);
+
+    setStatus("done");
+    try { localStorage.removeItem(DRAFT_KEY); } catch {}
+    setText("");
+  };
+
   if (!session) return null;
 
-  const lastBand = CRITERIA.reduce((s, c) => s + c.v, 0) / CRITERIA.length;
+  const hasScore = lastSub?.overallBand != null;
+  const criteria = hasScore ? [
+    { k: "Task response", v: lastSub!.taskResponse! },
+    { k: "Coherence & cohesion", v: lastSub!.coherenceCohesion! },
+    { k: "Lexical resource", v: lastSub!.lexicalResource! },
+    { k: "Grammar range & accuracy", v: lastSub!.grammarAccuracy! },
+  ] : [];
 
   return (
     <StudentShell>
       <p className="eyebrow">Writing · Task 2</p>
       <h1 className="h1"><em>Writing</em> feedback</h1>
       <p className="lede" style={{ marginTop: 16, marginBottom: 32 }}>
-        Write your essay, submit for review, then get line-by-line feedback scored on the four
-        official IELTS criteria. Draft auto-saves locally.
+        Write your essay, submit for AI review, then get scored on the four
+        official IELTS criteria with specific feedback. Draft auto-saves locally.
       </p>
 
       <div className="writing-grid" style={{ display: "grid", gridTemplateColumns: "1.2fr 1fr", gap: 24 }}>
@@ -107,6 +146,7 @@ export default function WritingPage() {
               value={text}
               onChange={e => setText(e.target.value)}
               placeholder="Start writing…"
+              disabled={status === "submitting" || status === "grading"}
               style={{
                 width: "100%", display: "block", resize: "vertical",
                 background: "transparent", border: "none",
@@ -116,48 +156,82 @@ export default function WritingPage() {
               }}
             />
             <div className="hd" style={{ borderTop: "1px solid var(--line)", borderBottom: 0 }}>
-              <span>Ms. Shahlo · typically replies within 24h</span>
+              <span style={{ fontSize: 11, color: "var(--text-3)" }}>
+                {status === "grading" ? "Claude is reading your essay…" : "Graded by Claude Opus 4.6"}
+              </span>
               <button
                 className="btn primary sm"
-                disabled={!targetHit || submitted}
-                onClick={() => { if (targetHit) setSubmitted(true); }}
+                disabled={!targetHit || status === "submitting" || status === "grading"}
+                onClick={handleSubmit}
               >
-                {submitted ? "Submitted ✓" : <>Submit for review <Send size={12} /></>}
+                {status === "submitting" ? (
+                  <><Loader2 size={12} className="spin" /> Saving…</>
+                ) : status === "grading" ? (
+                  <><Loader2 size={12} className="spin" /> Grading…</>
+                ) : status === "done" ? (
+                  <>Submit another <Send size={12} /></>
+                ) : (
+                  <>Submit for AI review <Send size={12} /></>
+                )}
               </button>
             </div>
           </div>
+
+          {errorMsg && (
+            <div style={{ marginTop: 12, padding: "10px 14px", borderRadius: 8, background: "rgba(239,68,68,0.1)", border: "1px solid rgba(239,68,68,0.3)", color: "#fca5a5", fontSize: 13 }}>
+              {errorMsg}
+            </div>
+          )}
         </div>
 
         <div>
-          <div className="card" style={{ marginBottom: 20 }}>
-            <div className="flex jcb aic" style={{ marginBottom: 20 }}>
-              <div>
-                <p className="eyebrow" style={{ margin: 0 }}>Your last score</p>
-                <h3 className="h2" style={{ margin: "6px 0 0" }}>Band {lastBand.toFixed(1)}</h3>
-              </div>
-              <ScoreRing value={lastBand} />
-            </div>
-
-            {CRITERIA.map(c => (
-              <div key={c.k} style={{ marginBottom: 12 }}>
-                <div className="flex jcb" style={{ fontSize: 13, marginBottom: 4, color: "var(--text-2)" }}>
-                  <span>{c.k}</span>
-                  <span style={{ fontFamily: "var(--ff-mono)", color: "var(--text)" }}>{c.v.toFixed(1)}</span>
+          {hasScore ? (
+            <>
+              <div className="card" style={{ marginBottom: 20 }}>
+                <div className="flex jcb aic" style={{ marginBottom: 20 }}>
+                  <div>
+                    <p className="eyebrow" style={{ margin: 0 }}>Your last score</p>
+                    <h3 className="h2" style={{ margin: "6px 0 0" }}>Band {lastSub!.overallBand!.toFixed(1)}</h3>
+                  </div>
+                  <ScoreRing value={lastSub!.overallBand!} />
                 </div>
-                <div className="bar"><span style={{ width: `${(c.v / 9) * 100}%` }} /></div>
-              </div>
-            ))}
-          </div>
 
-          <div className="card">
-            <p className="eyebrow" style={{ margin: 0, marginBottom: 14 }}>Teacher comments · in-line</p>
-            {COMMENTS.map((c, i) => (
-              <div key={i} className="comment">
-                <div className="hd"><b>{c.tag}</b><span>{c.loc}</span></div>
-                <div className="txt">{c.body}</div>
+                {criteria.map(c => (
+                  <div key={c.k} style={{ marginBottom: 12 }}>
+                    <div className="flex jcb" style={{ fontSize: 13, marginBottom: 4, color: "var(--text-2)" }}>
+                      <span>{c.k}</span>
+                      <span style={{ fontFamily: "var(--ff-mono)", color: "var(--text)" }}>{c.v.toFixed(1)}</span>
+                    </div>
+                    <div className="bar"><span style={{ width: `${(c.v / 9) * 100}%` }} /></div>
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
+
+              {lastSub!.feedback && lastSub!.feedback.length > 0 && (
+                <div className="card">
+                  <p className="eyebrow" style={{ margin: 0, marginBottom: 14 }}>AI feedback · Claude Opus 4.6</p>
+                  {lastSub!.feedback.map((f, i) => (
+                    <div key={i} className="comment">
+                      <div className="hd"><b>{f.criterion}</b></div>
+                      <div className="txt">{f.comment}</div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </>
+          ) : (
+            <div className="card" style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "60px 32px", textAlign: "center" }}>
+              <div style={{ width: 64, height: 64, borderRadius: "50%", background: "var(--surface-2)", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 20 }}>
+                <Send size={24} style={{ color: "var(--text-3)" }} />
+              </div>
+              <h3 style={{ fontFamily: "var(--ff-serif)", fontSize: 18, fontWeight: 500, color: "var(--text)", marginBottom: 8 }}>
+                No scores yet
+              </h3>
+              <p style={{ fontSize: 13, color: "var(--text-2)", lineHeight: 1.6, maxWidth: 280 }}>
+                Write at least 250 words and submit your essay. Claude will score it on the four IELTS criteria and give you specific feedback.
+              </p>
+            </div>
+          )}
         </div>
       </div>
 
@@ -165,6 +239,8 @@ export default function WritingPage() {
         @media (max-width: 900px) {
           .writing-grid { grid-template-columns: 1fr !important; }
         }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .spin { animation: spin 1s linear infinite; }
       `}</style>
     </StudentShell>
   );

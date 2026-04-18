@@ -393,6 +393,147 @@ export async function isIPBlocked(ip: string): Promise<boolean> {
   return !!data;
 }
 
+// ── Writing submissions ───────────────────────────────────────────────
+
+export type WritingSubmission = {
+  id: string;
+  studentId: string;
+  prompt: string;
+  essay: string;
+  wordCount: number;
+  taskResponse: number | null;
+  coherenceCohesion: number | null;
+  lexicalResource: number | null;
+  grammarAccuracy: number | null;
+  overallBand: number | null;
+  feedback: { criterion: string; comment: string }[] | null;
+  gradedAt: string | null;
+  createdAt: string;
+};
+
+export async function getLastSubmission(studentId: string): Promise<WritingSubmission | null> {
+  const { data } = await supabase
+    .from("writing_submissions")
+    .select("*")
+    .eq("student_id", studentId)
+    .order("created_at", { ascending: false })
+    .limit(1)
+    .maybeSingle();
+
+  if (!data) return null;
+  return mapSubmission(data);
+}
+
+export async function getSubmissions(studentId: string): Promise<WritingSubmission[]> {
+  const { data } = await supabase
+    .from("writing_submissions")
+    .select("*")
+    .eq("student_id", studentId)
+    .order("created_at", { ascending: false });
+
+  return (data ?? []).map(mapSubmission);
+}
+
+function mapSubmission(r: Record<string, unknown>): WritingSubmission {
+  return {
+    id: r.id as string,
+    studentId: r.student_id as string,
+    prompt: r.prompt as string,
+    essay: r.essay as string,
+    wordCount: r.word_count as number,
+    taskResponse: r.task_response as number | null,
+    coherenceCohesion: r.coherence_cohesion as number | null,
+    lexicalResource: r.lexical_resource as number | null,
+    grammarAccuracy: r.grammar_accuracy as number | null,
+    overallBand: r.overall_band as number | null,
+    feedback: r.feedback as { criterion: string; comment: string }[] | null,
+    gradedAt: r.graded_at as string | null,
+    createdAt: r.created_at as string,
+  };
+}
+
+export async function submitEssay(
+  studentId: string,
+  studentName: string,
+  prompt: string,
+  essay: string,
+): Promise<WritingSubmission | null> {
+  const id = `ws-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
+  const wordCount = essay.trim().split(/\s+/).filter(Boolean).length;
+
+  const { error } = await supabase.from("writing_submissions").insert({
+    id,
+    student_id: studentId,
+    student_name: studentName,
+    prompt,
+    essay,
+    word_count: wordCount,
+  });
+
+  if (error) return null;
+  return {
+    id, studentId, prompt, essay, wordCount,
+    taskResponse: null, coherenceCohesion: null,
+    lexicalResource: null, grammarAccuracy: null,
+    overallBand: null, feedback: null, gradedAt: null,
+    createdAt: new Date().toISOString(),
+  };
+}
+
+export async function gradeEssayWithAI(
+  submissionId: string,
+  prompt: string,
+  essay: string,
+): Promise<{
+  taskResponse: number;
+  coherenceCohesion: number;
+  lexicalResource: number;
+  grammarAccuracy: number;
+  overallBand: number;
+  feedback: { criterion: string; comment: string }[];
+} | null> {
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  if (!supabaseUrl || !anonKey) return null;
+
+  const res = await fetch(`${supabaseUrl}/functions/v1/grade-essay`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${anonKey}`,
+    },
+    body: JSON.stringify({ prompt, essay }),
+  });
+
+  if (!res.ok) return null;
+
+  const grading = await res.json();
+  if (!grading.task_response) return null;
+
+  const now = new Date().toISOString();
+  await supabase
+    .from("writing_submissions")
+    .update({
+      task_response: grading.task_response,
+      coherence_cohesion: grading.coherence_cohesion,
+      lexical_resource: grading.lexical_resource,
+      grammar_accuracy: grading.grammar_accuracy,
+      overall_band: grading.overall_band,
+      feedback: grading.feedback,
+      graded_at: now,
+    })
+    .eq("id", submissionId);
+
+  return {
+    taskResponse: grading.task_response,
+    coherenceCohesion: grading.coherence_cohesion,
+    lexicalResource: grading.lexical_resource,
+    grammarAccuracy: grading.grammar_accuracy,
+    overallBand: grading.overall_band,
+    feedback: grading.feedback,
+  };
+}
+
 // ── Messaging ─────────────────────────────────────────────────────────
 
 export type Conversation = {
