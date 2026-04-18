@@ -28,6 +28,11 @@ export default function Sidebar() {
 
   return (
     <>
+      {/* Nudge nav bars right so the toggle doesn't cover the logo */}
+      <style>{`
+        body nav { padding-left: 60px !important; }
+      `}</style>
+
       {/* Toggle button — always visible */}
       <button
         onClick={() => setOpen(o => !o)}
