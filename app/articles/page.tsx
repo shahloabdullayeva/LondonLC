@@ -42,7 +42,10 @@ export default function ArticlesPage() {
     [category, source]
   );
 
-  const featured = starterArticles[0];
+  const [featured] = useState(() => {
+    const withImages = starterArticles.filter(a => a.image);
+    return withImages[Math.floor(Math.random() * withImages.length)] || starterArticles[0];
+  });
   const selected = selectedId ? starterArticles.find(a => a.id === selectedId) : null;
 
   if (selected) {
