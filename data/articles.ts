@@ -749,6 +749,52 @@ Drop Dead contains a casual flex alluding to her friendship with Smith: "You kno
 If anything, Drop Dead sounds quite a bit like Chappell Roan, with whom Rodrigo shares a producer in Dan Nigro: a whack of strings so maximalist it's one bauble short of festive; Rodrigo hanging out in her highest vocal register for the entire chorus, anticipation incarnate. (Some of the melodic vocal bends are also undeniably Swiftian.) It's so good it doesn't really matter, and comes with its own beguiling in-built sense of collapse, hurtling towards the wreckage on wild, whitewater drums and a powerpop guitar solo that gleams like a skateboarder gliding down a rail – but then unravels. There's a sense that all this obsession begets an ending a lot messier and more confusing than cleanly dropping dead, a fantasy just as soothing as happily ever after.`,
   },
   {
+    id: "d4vd-arrested-killing-teen",
+    title: "D4vd arrested on suspicion of killing teen girl whose body was found in his Tesla",
+    author: "The Guardian",
+    source: "The Guardian",
+    category: "News",
+    readingTime: 5,
+    image: "https://i.guim.co.uk/img/media/b23347dabd29c37af8c81a842289125e7a87f95f/300_0_3001_2400/master/3001.jpg?width=620&dpr=1&s=none&crop=none",
+    content: `Musician, born David Anthony Burke, arrested in Los Angeles over the death of Celeste Rivas Hernandez, who went missing in 2024
+
+R&B singer D4vd has been arrested in connection with the killing of a teenage girl whose severely decomposed body was found in his Tesla, Los Angeles police said on Thursday.
+
+The 21-year-old musician, who was born David Anthony Burke, is being held without bail, according to city authorities.
+
+In September, LAPD detectives were called to a tow yard in Hollywood, after receiving reports of a foul odor emitting from an impounded car that was registered to Burke. The car had been towed from the Hollywood Hills, after appearing to be abandoned.
+
+Authorities found a dismembered body that was later identified as 14-year-old Celeste Rivas Hernandez. She had been reported missing in 2024, and was last seen in Lake Elsinore, approximately 60 miles south-east of downtown Los Angeles.
+
+Los Angeles's medical examiner's office determined that Rivas Hernandez had been deceased in the vehicle for "an extended period of time before being found".
+
+Police said Burke's case will be presented to the district attorney's office on Monday.
+
+In a statement to the New York Times on Thursday, the Los Angeles County District Attorney's Office acknowledged the arrest and said it expected the case to be presented to the Major Crimes Division.
+
+"Prosecutors will review the facts and evidence to determine whether there is sufficient evidence to file charges," according to the statement.
+
+The arrest comes as Burke was facing a grand jury investigation related to Rivas Hernandez's death.
+
+In September, a spokesperson for the singer told NBC News that Burke was "fully cooperating with the authorities."
+
+That month, police obtained a search warrant for a home Burke had been staying at in Hollywood Hills, ABC News reported. Detectives took a computer, among other items, into custody.
+
+In a statement to the Guardian the singer's legal team, Blair Berk, Marilyn Bednarski and Regina Peter, maintained his innocence.
+
+"There has been no indictment returned by any grand jury in this case and no criminal complaint filed. David has only been detained under suspicion," the lawyers said. "The actual evidence in this case will show that David Burke did not murder Celeste Rivas Hernandez and he was not the cause of her death."
+
+Burke, who was raised in Houston, became a breakout star around 2022 after a string of viral TikTok hits, including Romantic Homicide, which has seen renewed scrutiny over lyrics about death.
+
+His internet popularity led to collaborations with stars SZA and Kali Uchis. When Hernandez's body was discovered, Burke was on a tour, which was later cancelled.
+
+As questions swirl around the circumstances of Rivas Hernandez's death, the case has activated internet sleuths who have searched for clues connecting her to Burke.
+
+Rivas Hernandez's brother, Matthew, told NBCLA in September that before going missing, his sister said she was on her way to watch a movie with Burke.
+
+Authorities have not commented on the nature of the relationship between the pair.`,
+  },
+  {
     id: "theatre-choreographers-awards",
     title: "Give theatre choreographers and movement directors their own awards, says union group",
     author: "The Guardian",
