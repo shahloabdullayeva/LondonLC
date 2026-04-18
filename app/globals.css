@@ -564,41 +564,12 @@ html[data-site-theme="dusk"] {
 }
 
 :root {
-  --font-inter: 'Inter', system-ui, sans-serif;
-
-  /* Light theme — clean white with purple accents */
-  --bg-primary: #ffffff;
-  --bg-secondary: #f4f0ff;
-  --bg-card: #ffffff;
-  --text-primary: #1a0040;
-  --text-secondary: #4c1d95;
-  --text-muted: #7c5fad;
-  --border: #ddd0f8;
-  --accent: #6d28d9;
-  --accent-light: #ede9ff;
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-serif: 'Fraunces', Georgia, serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
   --success: #10b981;
   --warning: #f59e0b;
   --danger: #ef4444;
-  --shadow: 0 4px 24px rgba(109, 40, 217, 0.10);
-  --shadow-lg: 0 10px 40px rgba(109, 40, 217, 0.15);
-}
-
-.dark {
-  /* Dark theme — deep purple-black */
-  --bg-primary: #0a051f;
-  --bg-secondary: #0e0828;
-  --bg-card: #140b35;
-  --text-primary: #f0eaff;
-  --text-secondary: #c4aff5;
-  --text-muted: #7c5fad;
-  --border: #2a1a55;
-  --accent: #7c3aed;
-  --accent-light: #1e1050;
-  --success: #10b981;
-  --warning: #f59e0b;
-  --danger: #ef4444;
-  --shadow: 0 4px 24px rgba(0, 0, 0, 0.6);
-  --shadow-lg: 0 10px 40px rgba(0, 0, 0, 0.7);
 }
 
 * {
@@ -612,10 +583,9 @@ html {
 }
 
 body {
-  font-family: var(--font-inter);
-  background-color: var(--bg-primary);
-  color: var(--text-primary);
-  transition: background-color 0.3s ease, color 0.3s ease;
+  font-family: var(--font-sans);
+  background-color: var(--site-bg);
+  color: var(--site-text);
   min-height: 100vh;
   line-height: 1.6;
 }
@@ -665,7 +635,7 @@ body {
 .passage-text {
   font-size: 0.9375rem;
   line-height: 1.75;
-  color: var(--text-primary);
+  color: inherit;
 }
 
 .passage-text p {
@@ -751,32 +721,32 @@ body {
 /* Input styles */
 .input-field {
   @apply w-full px-4 py-3 rounded-xl text-sm font-medium outline-none transition-all duration-200;
-  background: var(--bg-secondary);
-  border: 1.5px solid var(--border);
-  color: var(--text-primary);
+  background: var(--site-card);
+  border: 1.5px solid var(--site-border-strong);
+  color: var(--site-text);
 }
 
 .input-field:focus {
-  border-color: var(--accent);
-  box-shadow: 0 0 0 3px rgba(109, 40, 217, 0.12);
+  border-color: var(--site-accent);
+  box-shadow: 0 0 0 3px rgba(111, 228, 165, 0.12);
 }
 
 .input-field::placeholder {
-  color: var(--text-muted);
+  color: var(--site-text-sub);
 }
 
 /* Answer input in tests */
 .answer-input {
   @apply px-3 py-2 rounded-lg text-sm outline-none transition-all duration-200;
-  background: var(--bg-primary);
-  border: 1.5px solid var(--border);
-  color: var(--text-primary);
+  background: var(--site-bg);
+  border: 1.5px solid var(--site-border-strong);
+  color: var(--site-text);
   min-width: 150px;
 }
 
 .answer-input:focus {
-  border-color: var(--accent);
-  box-shadow: 0 0 0 3px rgba(109, 40, 217, 0.1);
+  border-color: var(--site-accent);
+  box-shadow: 0 0 0 3px rgba(111, 228, 165, 0.1);
 }
 
 /* Section tabs */
