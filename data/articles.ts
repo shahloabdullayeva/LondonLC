@@ -735,7 +735,7 @@ Perhaps what motivates Meursault is not his mother's death, or any feelings of s
     title: "Olivia Rodrigo: Drop Dead review – a maximalist rush of infatuation that's just a bauble short of festive",
     author: "The Guardian",
     source: "The Guardian",
-    category: "Culture",
+    category: "Music",
     readingTime: 6,
     image: "https://i.guim.co.uk/img/media/875fd114b2c1bb10bc2a29511efd8a9dbbebd0bf/0_0_3000_2400/master/3000.jpg?width=620&dpr=1&s=none&crop=none",
     content: `On this giddy first taste of the US pop star's third album, she sets aside her rock bona fides to revel in the opulent flush of a crush-come-true. But why does it seem so doomed?
@@ -799,7 +799,7 @@ Authorities have not commented on the nature of the relationship between the pai
     title: "Universal Music, home to Taylor Swift and Drake, receives €55bn takeover offer",
     author: "The Guardian",
     source: "The Guardian",
-    category: "Business",
+    category: "Music",
     readingTime: 6,
     image: "https://i.guim.co.uk/img/media/8b79eda14305b5f09d4e78de5a39dc7fcf61432c/408_0_2656_2126/master/2656.jpg?width=620&dpr=1&s=none&crop=none",
     content: `Bill Ackman's Pershing Square claims world's biggest music company has suffered because of delay of US listing
