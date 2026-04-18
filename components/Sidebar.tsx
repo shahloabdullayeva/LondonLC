@@ -17,7 +17,14 @@ function isActive(path: string, link: typeof links[0]) {
   return path === link.href || path.startsWith(link.href + "/");
 }
 
-const HIDE_ON = [/^\/$/, /^\/auth\//, /^\/student\/test\//, /^\/admin\/practice\//, /^\/admin\/dashboard/];
+const HIDE_ON = [
+  /^\/$/,
+  /^\/auth\//,
+  /^\/student\/test\//,
+  /^\/admin\/practice\//,
+  /^\/admin\/dashboard/,
+  /^\/student\/dashboard/,
+];
 
 export default function Sidebar() {
   const [open, setOpen] = useState(false);
@@ -28,26 +35,26 @@ export default function Sidebar() {
 
   return (
     <>
-      {/* Nudge nav bars right so the toggle doesn't cover the logo */}
+      {/* Nudge nav bars right so the toggle sits before the logo */}
       <style>{`
-        body nav { padding-left: 60px !important; }
+        body nav { padding-left: 72px !important; }
       `}</style>
 
-      {/* Toggle button — always visible */}
+      {/* Toggle button — sits just before the London LC brand */}
       <button
         onClick={() => setOpen(o => !o)}
         aria-label={open ? "Close menu" : "Open menu"}
         style={{
-          position: "fixed", top: 14, left: 14, zIndex: 10001,
-          width: 34, height: 34, borderRadius: 8,
-          background: "var(--site-card)", border: "1px solid var(--site-border)",
+          position: "fixed", top: 20, left: 24, zIndex: 10001,
+          width: 32, height: 32, borderRadius: 8,
+          background: "transparent", border: "1px solid var(--site-border)",
           cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center",
-          color: "var(--site-text-muted)", transition: "background 0.15s",
+          color: "var(--site-text-muted)", transition: "background 0.15s, color 0.15s",
         }}
-        onMouseEnter={e => { e.currentTarget.style.background = "var(--site-card-2)"; }}
-        onMouseLeave={e => { e.currentTarget.style.background = "var(--site-card)"; }}
+        onMouseEnter={e => { e.currentTarget.style.background = "var(--site-card)"; e.currentTarget.style.color = "var(--site-text)"; }}
+        onMouseLeave={e => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.color = "var(--site-text-muted)"; }}
       >
-        {open ? <PanelLeftClose size={16} /> : <PanelLeftOpen size={16} />}
+        {open ? <PanelLeftClose size={15} /> : <PanelLeftOpen size={15} />}
       </button>
 
       {/* Overlay (mobile & desktop) */}
