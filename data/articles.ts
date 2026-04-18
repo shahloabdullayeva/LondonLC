@@ -702,4 +702,32 @@ They were also interested in the impulses that lead us to create; that affirming
 
 When we chose the subject of our opening exhibition, The Music is Black: A British Story, we wanted to select a topic that would allow us to showcase compelling stories of making and creativity. The exhibition platforms hundreds of creatives from Samuel Coleridge-Taylor to Little Simz, telling their stories in compelling ways.`,
   },
+  {
+    id: "theatre-choreographers-awards",
+    title: "Give theatre choreographers and movement directors their own awards, says union group",
+    author: "The Guardian",
+    source: "The Guardian",
+    category: "Culture",
+    readingTime: 5,
+    image: "https://i.guim.co.uk/img/media/a8bda7e3bd7e917dcc0c28b06d9a71ecfbc27f44/498_604_2900_2320/master/2900.jpg?width=620&dpr=1&s=none&crop=none",
+    content: `'If we celebrate the impact of physical storytelling, we must acknowledge the artists behind it,' says Equity body, calling out the lack of movement categories in major awards
+
+Choreographers and movement directors in theatre are undervalued by awards ceremonies and deserve greater acknowledgment, says the Equity group representing both disciplines.
+
+At last weekend's Oliviers ceremony, the award for best theatre choreographer went to Fabian Aloise for Evita at the London Palladium. In a statement, Equity's Choreographers and Movement Directors Network (CMDN) said it was "brilliant to see choreography recognised on major stages like the Olivier awards" but drew attention to the movement directors who worked on nominated productions yet went unrecognised with their own category. The ceremony "opens up a bigger conversation about what language we use to describe how theatre is made, and questions who gets named in that process – especially when it comes to movement and choreography", said the CMDN.
+
+"We want to spotlight the movement directors whose work has been integral to some of the year's most powerful productions: Leanne Pinder for Punch, Sarah Golding for Kenrex, Imogen Knight for the opera Dead Man Walking, Jenny Ogilvie for Into the Woods, Sung Im Her for The Glass Menagerie, Lucy Hind for Inter Alia and Kloé Dean for The Boy at the Back of the Class."
+
+[IMG:https://i.guim.co.uk/img/media/d29ff2969178b07d6d193ca16f675fa373917595/0_0_5000_3333/master/5000.jpg?width=620&dpr=1&s=none&crop=none]
+
+While theatre choreography usually refers to dance sequences, movement direction is integral to creating the physical language of an entire production, enhancing storytelling, characterisation and drama. Many choreographers also work as movement directors, but productions often use different individuals in each role.
+
+"Movement direction sits in a nuanced space: not always 'dance', not always credited as choreography, yet essential to how a show lives and breathes," said the CMDN. "If we celebrate the impact of physical storytelling, we must also evolve how we acknowledge the artists behind it."
+
+The network praised the Black British theatre awards for expanding their choreography category in 2022 to include movement direction. But it highlighted that the UK Theatre awards typically has no dedicated choreography or movement category and neither does the Critics' Circle theatre awards.
+
+Movement director and choreographer Polly Bennett established the CMDN in 2023 for her professions "to be seen, recognised and respected". The network has more than 200 members. In 2025, steering group member Ellen Kane – who works for the screen as well as the stage – asked in an interview with the Guardian: "Why aren't there Oscars for choreography? Why aren't there Baftas? Why aren't we being credited?"
+
+Last month, professionals from across the theatre industry signed a petition for the Oliviers to include a video design category to "enhance the inclusivity of the Olivier awards, further reflecting the diverse and evolving nature of the performing arts". Under the current system, video designers share eligibility with other disciplines. This year, the Olivier award for best set design went to Tom Pye (set) and Ash J Woodward (video) for Paddington: The Musical while best lighting design went to Aideen Malone (lighting) and Roland Horvath (video) for Into the Woods.`,
+  },
 ];
