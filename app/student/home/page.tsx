@@ -243,9 +243,9 @@ export default function StudentHomePage() {
           </span>
           <span className="trend">sessions completed</span>
         </div>
-        <div className="stat" style={streakActive ? { background: "linear-gradient(135deg, rgba(251,146,60,0.12), rgba(239,68,68,0.08))", borderColor: "rgba(251,146,60,0.3)" } : undefined}>
-          <span className="lab">Study Streak {streakActive ? "🔥" : ""}</span>
-          <span className="val" style={streakActive ? { color: "#fb923c" } : undefined}>
+        <div className={`stat${streakActive ? " fire" : ""}`}>
+          <span className="lab">{streakActive ? "🔥 " : ""}Study Streak</span>
+          <span className="val">
             {streak}<span style={{ fontSize: 20, color: streakActive ? "#fdba74" : "var(--text-3)", marginLeft: 4 }}>{streak === 1 ? "day" : "days"}</span>
           </span>
           <span className={`trend${streakActive ? " up" : ""}`}>

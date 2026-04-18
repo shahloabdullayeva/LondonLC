@@ -276,6 +276,17 @@
 .student-shell .stat .trend { font-family: var(--ff-mono); font-size: 11px; color: var(--text-2); }
 .student-shell .stat .trend.up { color: var(--accent); }
 .student-shell .stat .trend.down { color: var(--danger); }
+.student-shell .stat.fire {
+  background: linear-gradient(135deg, rgba(251,146,60,0.12), rgba(239,68,68,0.08));
+  border-color: rgba(251,146,60,0.3);
+  animation: stat-fire-pulse 2.5s ease-in-out infinite;
+}
+.student-shell .stat.fire .val { color: #fb923c; }
+.student-shell .stat.fire .trend { color: #fdba74; }
+@keyframes stat-fire-pulse {
+  0%, 100% { box-shadow: 0 0 12px rgba(251,146,60,0.15); }
+  50% { box-shadow: 0 0 28px rgba(251,146,60,0.35); }
+}
 
 /* ===== Bar / progress ===== */
 .student-shell .bar { height: 4px; background: var(--line-2); border-radius: 999px; overflow: hidden; }

@@ -9,6 +9,7 @@ import {
   MessageCircle, LogOut, Menu, X,
 } from "lucide-react";
 import { getSession, clearSession, type StudentSession } from "@/lib/store";
+import { useSiteTheme } from "@/lib/site-theme";
 
 type NavItem = {
   label: string;
@@ -66,6 +67,8 @@ export default function StudentShell({ children, wide }: { children: ReactNode; 
   const router = useRouter();
   const [session, setSession] = useState<StudentSession | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const { theme } = useSiteTheme();
+  const studentTheme = theme.kind === "preset" ? theme.name : "terminal";
 
   useEffect(() => {
     const s = getSession();
@@ -83,7 +86,7 @@ export default function StudentShell({ children, wide }: { children: ReactNode; 
   const group = session?.group_name ?? "London · LC";
 
   return (
-    <div className="student-shell" data-student-theme="terminal">
+    <div className="student-shell" data-student-theme={studentTheme}>
       <div className="sh-app">
         {/* Mobile overlay */}
         {mobileOpen && (
