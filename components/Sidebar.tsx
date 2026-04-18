@@ -20,10 +20,9 @@ function isActive(path: string, link: typeof links[0]) {
 const HIDE_ON = [
   /^\/$/,
   /^\/auth\//,
-  /^\/student\/test\//,
+  /^\/student\//,
   /^\/admin\/practice\//,
   /^\/admin\/dashboard/,
-  /^\/student\/dashboard/,
 ];
 
 export default function Sidebar() {

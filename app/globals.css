@@ -1,5 +1,317 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Fraunces:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=JetBrains+Mono:wght@400;500;600&display=swap');
 @import "tailwindcss";
+
+/* ─────────────────────────────────────────────────────────────
+   Student shell design tokens — scoped to .student-shell so
+   they don't leak into landing / admin / auth pages. Matches
+   the handoff spec (design_handoff/.../styles.css).
+   Three themes via data-student-theme on the shell root.
+   Default = terminal.
+   ───────────────────────────────────────────────────────────── */
+.student-shell {
+  --bg: #0a0c0a;
+  --bg-2: #0f1210;
+  --surface: #12171380;
+  --surface-2: #151b16;
+  --line: #ffffff10;
+  --line-2: #ffffff1e;
+  --text: #e4e9e2;
+  --text-2: #8a938a;
+  --text-3: #5c635c;
+  --accent: #6fe4a5;
+  --accent-ink: #0a0c0a;
+  --warn: #e8b86d;
+  --danger: #e87a6d;
+
+  --ff-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --ff-serif: 'Fraunces', Georgia, serif;
+  --ff-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+  --radius: 6px;
+  --radius-lg: 10px;
+  --pad: 32px;
+  --pad-lg: 56px;
+  --gap: 24px;
+
+  --sidebar-w: 232px;
+  --maxw: 1360px;
+
+  color-scheme: dark;
+  background:
+    radial-gradient(1400px 600px at 100% 0%, #0f1e14 0%, transparent 60%),
+    radial-gradient(1000px 500px at 0% 80%, #0f1812 0%, transparent 50%),
+    var(--bg);
+  color: var(--text);
+  font-family: var(--ff-sans);
+  font-feature-settings: 'ss01', 'cv11';
+  min-height: 100vh;
+}
+.student-shell[data-student-theme="academy"] {
+  --bg: #f5f1e8; --bg-2: #efe9dc;
+  --surface: #fbf8f0; --surface-2: #fffdf7;
+  --line: #2a26180f; --line-2: #2a261820;
+  --text: #1f1b10; --text-2: #5c5338; --text-3: #8b7e5e;
+  --accent: #8b4513; --accent-ink: #fffdf7;
+  --warn: #b77b2b; --danger: #a33a2a;
+  color-scheme: light;
+  background:
+    radial-gradient(1200px 600px at 80% -10%, #e8dcc0 0%, transparent 60%),
+    radial-gradient(900px 500px at 0% 100%, #ebd9b5 0%, transparent 50%),
+    var(--bg);
+}
+.student-shell[data-student-theme="dusk"] {
+  --bg: #151124; --bg-2: #1a1530;
+  --surface: #221c3a80; --surface-2: #2a2344;
+  --line: #ffffff12; --line-2: #ffffff1e;
+  --text: #ece8f7; --text-2: #a99fc4; --text-3: #756b8c;
+  --accent: #c9a0ff; --accent-ink: #151124;
+  --warn: #f0b4c8; --danger: #ff8fa0;
+  color-scheme: dark;
+  background:
+    radial-gradient(900px 700px at 90% 0%, #3b2658 0%, transparent 60%),
+    radial-gradient(800px 600px at -10% 80%, #2a1f4a 0%, transparent 55%),
+    var(--bg);
+}
+
+/* ===== Student shell layout ===== */
+.student-shell .sh-app {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: var(--sidebar-w) 1fr;
+}
+.student-shell[data-sidebar="icon"] .sh-app { --sidebar-w: 64px; }
+
+/* ===== Sidebar ===== */
+.student-shell .sb {
+  border-right: 1px solid var(--line);
+  background: var(--bg-2);
+  position: sticky; top: 0;
+  height: 100vh;
+  display: flex; flex-direction: column;
+  padding: 20px 14px; gap: 6px;
+  overflow: hidden;
+}
+.student-shell .sb-brand {
+  display: flex; align-items: baseline; gap: 6px;
+  padding: 6px 10px 22px;
+  font-family: var(--ff-serif);
+  font-size: 22px; font-weight: 500; letter-spacing: -0.01em;
+  color: var(--text);
+}
+.student-shell .sb-brand .dot { width: 4px; height: 4px; border-radius: 50%; background: var(--text-3); align-self: center; margin: 0 4px; }
+.student-shell .sb-brand .lc { font-family: var(--ff-mono); font-size: 13px; letter-spacing: 0.04em; color: var(--text-2); text-transform: uppercase; }
+
+.student-shell .sb-me {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px; margin-bottom: 16px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+.student-shell .sb-me .av {
+  width: 28px; height: 28px; border-radius: 50%;
+  background: var(--accent); color: var(--accent-ink);
+  display: grid; place-items: center;
+  font-family: var(--ff-mono); font-weight: 600; font-size: 12px;
+  flex-shrink: 0;
+}
+.student-shell .sb-me .nm { font-size: 13px; font-weight: 500; color: var(--text); }
+.student-shell .sb-me .gp { font-family: var(--ff-mono); font-size: 10px; color: var(--text-3); letter-spacing: 0.04em; text-transform: uppercase; }
+
+.student-shell .sb-section {
+  font-family: var(--ff-mono);
+  font-size: 10px; letter-spacing: 0.12em;
+  color: var(--text-3); text-transform: uppercase;
+  padding: 14px 10px 6px;
+}
+
+.student-shell .sb-link {
+  display: flex; align-items: center; gap: 12px;
+  padding: 9px 10px;
+  border-radius: var(--radius);
+  font-size: 13.5px;
+  color: var(--text-2);
+  position: relative; cursor: pointer;
+  transition: background 140ms, color 140ms;
+  background: transparent; border: 0; width: 100%;
+  text-align: left; font-family: inherit;
+}
+.student-shell .sb-link:hover { background: var(--surface); color: var(--text); }
+.student-shell .sb-link.active { background: var(--surface-2); color: var(--text); }
+.student-shell .sb-link.active::before {
+  content: ''; position: absolute; left: -14px; top: 10px; bottom: 10px;
+  width: 2px; background: var(--accent);
+}
+.student-shell .sb-link .ico { width: 16px; height: 16px; flex-shrink: 0; opacity: 0.9; }
+.student-shell .sb-link .lab { flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.student-shell .sb-link .chev { opacity: 0.35; font-family: var(--ff-mono); font-size: 11px; }
+.student-shell .sb-link .pill {
+  font-family: var(--ff-mono); font-size: 9px; letter-spacing: 0.1em;
+  padding: 1px 5px; border: 1px solid var(--line-2); border-radius: 3px;
+  color: var(--text-3);
+}
+.student-shell .sb-foot { margin-top: auto; }
+
+/* ===== Main ===== */
+.student-shell .sh-main { min-width: 0; }
+.student-shell .topbar {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 20px var(--pad-lg) 0;
+  max-width: var(--maxw);
+}
+.student-shell .topbar .crumbs {
+  font-family: var(--ff-mono);
+  font-size: 11px; color: var(--text-3);
+  letter-spacing: 0.05em; text-transform: uppercase;
+}
+.student-shell .topbar .crumbs b { color: var(--text-2); font-weight: 500; }
+.student-shell .topbar .tools { display: flex; gap: 10px; align-items: center; }
+.student-shell .page {
+  padding: 32px var(--pad-lg) 80px;
+  max-width: var(--maxw);
+  animation: sh-fadeIn 320ms ease-out;
+}
+@keyframes sh-fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+
+/* ===== Typography ===== */
+.student-shell .h1 {
+  font-family: var(--ff-serif); font-weight: 400;
+  font-size: clamp(40px, 5vw, 64px);
+  line-height: 1; letter-spacing: -0.02em; margin: 0;
+  color: var(--text);
+}
+.student-shell .h1 em { font-style: italic; color: var(--text-2); font-weight: 400; }
+.student-shell .h1 .amp { font-family: var(--ff-serif); font-style: italic; color: var(--accent); }
+.student-shell .h2 {
+  font-family: var(--ff-serif); font-weight: 500;
+  font-size: 28px; letter-spacing: -0.01em; margin: 0 0 16px; color: var(--text);
+}
+.student-shell .eyebrow {
+  font-family: var(--ff-mono); font-size: 10.5px;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--text-3); margin: 0 0 10px;
+  display: flex; align-items: center; gap: 10px;
+}
+.student-shell .eyebrow .rule { flex: 1; height: 1px; background: var(--line); }
+.student-shell .lede { font-size: 17px; color: var(--text-2); max-width: 64ch; line-height: 1.55; }
+
+/* ===== Card ===== */
+.student-shell .card {
+  border: 1px solid var(--line);
+  background: var(--surface);
+  border-radius: var(--radius-lg);
+  padding: var(--pad);
+  backdrop-filter: blur(6px);
+}
+.student-shell .card.flush { padding: 0; overflow: hidden; }
+.student-shell .card-hd { padding: var(--pad) var(--pad) 14px; display: flex; align-items: baseline; justify-content: space-between; gap: 16px; }
+.student-shell .card-hd .ttl { font-family: var(--ff-serif); font-size: 22px; font-weight: 500; letter-spacing: -0.01em; }
+.student-shell .card-hd .sub { font-family: var(--ff-mono); font-size: 11px; color: var(--text-3); letter-spacing: 0.06em; text-transform: uppercase; }
+
+/* ===== Buttons ===== */
+.student-shell .btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 9px 14px;
+  border: 1px solid var(--line-2);
+  border-radius: var(--radius);
+  font-size: 13px; font-weight: 500;
+  background: var(--surface);
+  color: var(--text);
+  transition: all 140ms;
+  font-family: inherit; cursor: pointer;
+}
+.student-shell .btn:hover { border-color: var(--text-3); background: var(--surface-2); }
+.student-shell .btn.primary {
+  background: var(--accent); color: var(--accent-ink);
+  border-color: var(--accent); font-weight: 600;
+}
+.student-shell .btn.primary:hover { filter: brightness(1.08); }
+.student-shell .btn.ghost { background: transparent; border-color: var(--line); }
+.student-shell .btn.sm { padding: 6px 10px; font-size: 12px; }
+.student-shell .btn.icon { padding: 8px; }
+
+/* ===== Chips ===== */
+.student-shell .chip {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 4px 10px;
+  border: 1px solid var(--line-2);
+  border-radius: 999px;
+  font-family: var(--ff-mono);
+  font-size: 10.5px; letter-spacing: 0.05em;
+  text-transform: uppercase; color: var(--text-2);
+}
+.student-shell .chip.on { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.student-shell .chip.warn { color: var(--warn); border-color: var(--warn); }
+.student-shell .chip.danger { color: var(--danger); border-color: var(--danger); }
+
+/* ===== Grid helpers ===== */
+.student-shell .grid { display: grid; gap: var(--gap); }
+.student-shell .cols-2 { grid-template-columns: 1fr 1fr; }
+.student-shell .cols-3 { grid-template-columns: repeat(3, 1fr); }
+.student-shell .cols-4 { grid-template-columns: repeat(4, 1fr); }
+.student-shell .cols-12 { grid-template-columns: repeat(12, 1fr); }
+.student-shell .span-4 { grid-column: span 4; }
+.student-shell .span-5 { grid-column: span 5; }
+.student-shell .span-6 { grid-column: span 6; }
+.student-shell .span-7 { grid-column: span 7; }
+.student-shell .span-8 { grid-column: span 8; }
+.student-shell .span-12 { grid-column: span 12; }
+@media (max-width: 980px) {
+  .student-shell .cols-2, .student-shell .cols-3, .student-shell .cols-4 { grid-template-columns: 1fr; }
+  .student-shell .span-4, .student-shell .span-5, .student-shell .span-6, .student-shell .span-7, .student-shell .span-8, .student-shell .span-12 { grid-column: span 12; }
+}
+
+/* ===== Stat cards ===== */
+.student-shell .stat {
+  display: flex; flex-direction: column; gap: 6px;
+  padding: 20px 22px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  border-radius: var(--radius-lg);
+}
+.student-shell .stat .lab { font-family: var(--ff-mono); font-size: 10.5px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-3); }
+.student-shell .stat .val { font-family: var(--ff-serif); font-size: 40px; font-weight: 500; letter-spacing: -0.02em; line-height: 1; color: var(--text); }
+.student-shell .stat .trend { font-family: var(--ff-mono); font-size: 11px; color: var(--text-2); }
+.student-shell .stat .trend.up { color: var(--accent); }
+.student-shell .stat .trend.down { color: var(--danger); }
+
+/* ===== Bar / progress ===== */
+.student-shell .bar { height: 4px; background: var(--line-2); border-radius: 999px; overflow: hidden; }
+.student-shell .bar > span { display: block; height: 100%; background: var(--accent); border-radius: 999px; transition: width 400ms; }
+
+/* ===== Quote ===== */
+.student-shell .pullquote {
+  font-family: var(--ff-serif); font-style: italic;
+  font-weight: 400; font-size: 22px; line-height: 1.35;
+  letter-spacing: -0.005em; color: var(--text); max-width: 34ch;
+}
+.student-shell .pullquote cite {
+  display: block; margin-top: 12px;
+  font-family: var(--ff-mono); font-style: normal;
+  font-size: 10.5px; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--text-3);
+}
+
+/* ===== Util ===== */
+.student-shell .flex { display: flex; }
+.student-shell .aic { align-items: center; }
+.student-shell .jcb { justify-content: space-between; }
+.student-shell .g4 { gap: 4px; } .student-shell .g8 { gap: 8px; }
+.student-shell .g12 { gap: 12px; } .student-shell .g16 { gap: 16px; }
+.student-shell .g24 { gap: 24px; }
+.student-shell .divider {
+  display: flex; align-items: center; gap: 14px;
+  font-family: var(--ff-mono); font-size: 10.5px;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--text-3); margin: 36px 0 20px;
+}
+.student-shell .divider::before, .student-shell .divider::after { content: ''; flex: 1; height: 1px; background: var(--line); }
+
+/* Responsive: stack sidebar on mobile */
+@media (max-width: 768px) {
+  .student-shell .sh-app { grid-template-columns: 1fr; }
+  .student-shell .sb { position: static; height: auto; }
+}
 
 /* ─────────────────────────────────────────────────────────────
    Site-wide theme tokens — chrome only (landing, dashboards,
