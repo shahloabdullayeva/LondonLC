@@ -7,12 +7,13 @@ export type Article = {
   id: string;
   title: string;
   author: string;
+  source: string;
   category: string;
   /** Reading time in minutes. */
   readingTime: number;
-  /** Optional image — Supabase images bucket filename. */
+  /** Optional image — Supabase images bucket filename or full URL. */
   image?: string;
-  /** The article body — plain text with line breaks. */
+  /** The article body — plain text with line breaks. Supports [IMG:url] for inline images. */
   content: string;
 };
 
@@ -24,6 +25,7 @@ export const starterArticles: Article[] = [
     id: "how-young-use-ai",
     title: "How the young use AI matters more than for how long",
     author: "Sema Sgaier, The Economist",
+    source: "The Economist",
     category: "Technology",
     readingTime: 6,
     image: imageUrl("HowtheyounguseAI.png"),
@@ -55,6 +57,7 @@ In short, the debate needs to shift. Instead of asking only how much time the yo
     id: "america-wakes-up-ai",
     title: "America wakes up to AI's dangerous power",
     author: "The Economist",
+    source: "The Economist",
     category: "Technology",
     readingTime: 7,
     image: imageUrl("Americawakesup.png"),
@@ -96,6 +99,7 @@ Moreover, the Mythos approach can be only half the solution. AI safety cannot be
     id: "how-to-end-war-iran",
     title: "How to end the war in Iran",
     author: "The Economist",
+    source: "The Economist",
     category: "Geopolitics",
     readingTime: 6,
     image: imageUrl("howtoendwarinIran.png"),
@@ -129,6 +133,7 @@ Before America and Israel started bombing, a decent agreement may already have b
     id: "hungary-lead-fight-illiberalism",
     title: "How Hungary can now lead the fight against illiberalism",
     author: "The Economist",
+    source: "The Economist",
     category: "Geopolitics",
     readingTime: 6,
     image: imageUrl("HowHungarycannowlead.png"),
@@ -160,6 +165,7 @@ The world will be watching. Mr Orban led the campaign to install an "illiberal d
     id: "vance-theory-trumpism",
     title: "J.D. Vance's theory of Trumpism is no match for the practice",
     author: "The Economist",
+    source: "The Economist",
     category: "Politics",
     readingTime: 6,
     image: imageUrl("trumpism.png"),
@@ -187,6 +193,7 @@ On the other hand, Mr Vance, a reformed blogger, has asserted so many provocativ
     id: "putin-propaganda",
     title: "How Vladimir Putin's propaganda works",
     author: "The Economist",
+    source: "The Economist",
     category: "Politics",
     readingTime: 7,
     image: imageUrl("putin.png"),
@@ -230,6 +237,7 @@ Some Russians still see hope. One who defected to join the Ukrainian army sugges
     id: "japan-carmakers-trouble",
     title: "Japan's mighty carmakers are in serious trouble",
     author: "The Economist",
+    source: "The Economist",
     category: "Business",
     readingTime: 7,
     image: imageUrl("japancarmakers.png"),
@@ -263,6 +271,7 @@ In lieu of mergers, Japanese carmakers are finding other ways to collaborate. Iv
     id: "american-luxury-booming",
     title: "From Ralph Lauren to The Row, American luxury is booming",
     author: "The Economist",
+    source: "The Economist",
     category: "Business",
     readingTime: 6,
     image: imageUrl("ralphlauren.png"),
@@ -292,6 +301,7 @@ For their part, European labels are doing everything they can to revive sales. M
     id: "how-dangerous-mythos",
     title: "How dangerous is Mythos, Anthropic's new AI model?",
     author: "The Economist",
+    source: "The Economist",
     category: "Technology",
     readingTime: 5,
     image: imageUrl("mythosclaude.png"),
@@ -321,6 +331,7 @@ That would surely enrage Pete Hegseth, America's defence secretary, who labelled
     id: "global-imbalances-back",
     title: "Global imbalances are back. Who's to blame?",
     author: "The Economist",
+    source: "The Economist",
     category: "Economics",
     readingTime: 7,
     image: imageUrl("globalimbalance.png"),
@@ -354,6 +365,7 @@ The causes of global imbalances are not, then, as clear as some commentators all
     id: "pakistan-diplomacy-blessing-curse",
     title: "Pakistan's deft diplomacy is an economic blessing. And a curse",
     author: "The Economist",
+    source: "The Economist",
     category: "Economics",
     readingTime: 7,
     image: imageUrl("pakistan.png"),
@@ -381,6 +393,7 @@ Pakistanis have been the victims. In 1995 Pakistan's GDP per person was around 4
     id: "gulf-war-asia-crisis",
     title: "How the Gulf's war is becoming Asia's crisis too",
     author: "The Economist",
+    source: "The Economist",
     category: "Geopolitics",
     readingTime: 8,
     image: imageUrl("gulfswar.png"),
@@ -414,6 +427,7 @@ The push towards coal is driven by concerns about political stability. Asians ar
     id: "gulf-war-uneasy-limbo",
     title: "The Gulf war has settled into an uneasy limbo",
     author: "The Economist",
+    source: "The Economist",
     category: "Geopolitics",
     readingTime: 8,
     image: imageUrl("hormuzisshut.png"),
@@ -455,6 +469,7 @@ That would fall short of the permanent peace sought by Iran's leaders and the la
     id: "crispr-gene-editing-promise",
     title: "Can gene editing deliver on its promise?",
     author: "Ida Emilie Steinmark, The Economist",
+    source: "The Economist",
     category: "Science",
     readingTime: 7,
     image: imageUrl("theageofCRISPR.png"),
@@ -481,6 +496,7 @@ Everything about the technology screams "world-changing". CRISPR offers ways to 
     id: "africa-social-change-no-economic",
     title: "Africa is undergoing social change without economic transformation",
     author: "The Economist",
+    source: "The Economist",
     category: "Economics",
     readingTime: 10,
     image: imageUrl("theafricagap.png"),
@@ -540,6 +556,7 @@ The fact that Africa is following an idiosyncratic path does not mean it is head
     id: "gulf-6trn-treasure-chest",
     title: "War will drain the Gulf's $6trn treasure chest",
     author: "The Economist",
+    source: "The Economist",
     category: "Economics",
     readingTime: 8,
     image: imageUrl("treasure.png"),
@@ -585,6 +602,7 @@ The truth probably lies in between. The Gulf's treasure chest is not about to di
     id: "tax-revolt-america",
     title: "A tax revolt is under way in America",
     author: "The Economist",
+    source: "The Economist",
     category: "Politics",
     readingTime: 8,
     image: imageUrl("taxrevolt.png"),
@@ -628,6 +646,7 @@ Doubtless, the more politically successful of these ideas will enter the nationa
     id: "guardiola-last-city-season",
     title: "If this is Guardiola's last City season he will be as hard to replace as Ferguson at United",
     author: "Jamie Jackson, The Guardian",
+    source: "The Guardian",
     category: "Sport",
     readingTime: 6,
     image: "https://i.guim.co.uk/img/media/5e9e8a366d7b5dbc4a104c1e0db1bc816e7e919f/29_60_1020_816/master/1020.jpg?width=620&dpr=1&s=none&crop=none",
@@ -650,5 +669,37 @@ The caveat here is that Guardiola can be emotional, and that his decision to sig
 Mubarak maintains Guardiola, or any manager, can never be more important than the club's best-in-class structure. So whoever takes the hotseat next would walk into an elite culture on and off the field, and a squad repurposed by Guardiola since last season's nadir. "Apart from Arsenal away [1-1] and Old Trafford [losing 2-0], most of the games that we played we played much better than our opponents," he said. "Three or four games we weren't but the rest have been good. Considering new players and many things, we work a lot and make them understand what is required at the club so I'm satisfied."
 
 Beyond all the silverware and records, this may be the greatest legacy of Guardiola's glittering 10 years in east Manchester.`,
+  },
+  {
+    id: "museums-duty-inspire-creatives",
+    title: "Museums have a duty to inspire the creatives of the future. At V&A East, I've made that my mission",
+    author: "Gus Casely-Hayford",
+    source: "The Guardian",
+    category: "Culture",
+    readingTime: 7,
+    image: "https://i.guim.co.uk/img/media/18eff26728711a7930dccfed06ddc8cfdb4aaa26/79_0_3335_2668/master/3335.jpg?width=620&dpr=1&s=none&crop=none",
+    content: `It breaks my heart to see young people disengaged when so much inspiration is within reach. I want our new museum to bridge that gap
+
+One of the most affecting of the many artist commissions that have found a home in the circulation spaces of the new V&A East museum is an exquisite indigo, cobalt blue and cyan stained-glass window, Towards a Civic Museum.
+
+Part of our series of New Work commissions, it was created by the Cuban artist Tania Bruguera in extended consultation with a dozen young east Londoners from our V&A East Youth Collective. It is an unusual piece of stained glass, at once a map of the four boroughs that bound our site on the Olympic Park and a list of wishes, a contract between east London and V&A East. Created in the post-pandemic period, it advances aspirations, something I imagine that all reasonable museum professionals would wish for our sector: that we are open, accessible, useful, relevant and engaged. That we care for and reflect the needs of the communities we serve. That we are transparent, encourage advocacy, demonstrate generosity, equity, accountability, sustainability and – critically – a willingness to collaborate.
+
+When I first saw the work, I came away thinking that these are the right institutional aims, in spirit timely, but simultaneously timeless. The idea of wanting to make a meaningful difference to young people's lives was a core aspiration of Henry Cole, the 19th-century founder of the V&A. But as Bruguera and her cohort of young consultants agreed, the somewhat patrician Victorian vision of how to achieve that no longer sits comfortably with what many want from museums. We want public institutions that inspire and reflect us, all of us; institutions that are not just made for us, but that are created with and by us, too.
+
+[IMG:https://i.guim.co.uk/img/media/179b01f000f1f6214fe22b71969c71146d9b6eb1/0_0_4000_2668/master/4000.jpg?width=380&dpr=1&s=none&crop=none]
+
+Many of my earliest memories are museum memories: the fossilised remains of dinosaurs at the Natural History Museum, the galleries dedicated to the Egyptian afterlife at the British Museum, the interactive exhibits at the Science Museum. I remember a childhood of being excited by museums: those big guns at the Imperial War Museum, Holbein's drawings in the royal collection, Millais's Ophelia at the Tate. As much as the memory of objects, it was the pleasure of spending time in close proximity to so many incredible things, all free at the point of access.
+
+But something happens in adolescence. So many young people lose that awe and wonder. My heart often sinks when I visit museums to see whole classes of young people sitting on stairs focused on mobile devices metres away from glorious things. It breaks my heart that many simply will not visit free museums of their own volition. We all know it is not that they are incurious or unenthusiastic about culture – these are the years when we become infatuated with the world, when we fall in love, when we discover our passions. So we, in the cultural sector, must do all that we can to reignite that zeal in young people, and get them to view our institutions as a creative home for them.
+
+At V&A East, we have created a new national museum that I hope everyone will want to visit, but that I particularly hope younger visitors will find compelling, as we have created it with and for them. I hope they will see their concerns and worldview reflected in our spaces. V&A East museum is an institution that has been created in consultation with a generation. We have spoken to more than 30,000 young people and consulted them on every area of presentation and operational delivery. I have personally engaged in the humbling but deeply affirming process of visiting 100 secondary schools; to speak to thousands of young east Londoners about V&A East, but more importantly to listen to their hopes and dreams – and to hear first-hand their frustrations and concerns.
+
+[IMG:https://i.guim.co.uk/img/media/ebc256c9a55529ad892d7c3f1e70e67268693342/0_0_8192_5464/master/8192.jpg?width=620&dpr=1&s=none&crop=none]
+
+They have helped us to think about how we might reconsider a museum, how we might present our permanent collections through the lens of their priorities. During our many consultation sessions, our young audiences shared the things that mattered most to them – from representation, identity and health and wellbeing, to social justice and environmental action, and how we can create a better world for both people and planet.
+
+They were also interested in the impulses that lead us to create; that affirming drive defines humanity. We shaped our institution around these concerns, from our New Work commissions – including work by Bruguera and the V&A East Youth Collective, Carrie Mae Weems and Rene Matić – to the design and content of our Why We Make galleries. These offer a new and topical way into the V&A's historic and contemporary collection of art, design, fashion and performance.
+
+When we chose the subject of our opening exhibition, The Music is Black: A British Story, we wanted to select a topic that would allow us to showcase compelling stories of making and creativity. The exhibition platforms hundreds of creatives from Samuel Coleridge-Taylor to Little Simz, telling their stories in compelling ways.`,
   },
 ];

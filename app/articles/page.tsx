@@ -17,6 +17,7 @@ export default function ArticlesPage() {
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [fontSize, setFontSize] = useState(17);
   const [category, setCategory] = useState<string>("All");
+  const [source, setSource] = useState<string>("All");
 
   useEffect(() => {
     const s = getSession();
@@ -28,9 +29,17 @@ export default function ArticlesPage() {
     return ["All", ...Array.from(set)];
   }, []);
 
+  const sources = useMemo(() => {
+    const set = new Set(starterArticles.map(a => a.source));
+    return ["All", ...Array.from(set)];
+  }, []);
+
   const list = useMemo(
-    () => category === "All" ? starterArticles : starterArticles.filter(a => a.category === category),
-    [category]
+    () => starterArticles.filter(a =>
+      (category === "All" || a.category === category) &&
+      (source === "All" || a.source === source)
+    ),
+    [category, source]
   );
 
   const featured = starterArticles[0];
@@ -61,6 +70,8 @@ export default function ArticlesPage() {
         <h1 className="h1" style={{ marginBottom: 16 }}>{selected.title}</h1>
         <div style={{ display: "flex", alignItems: "center", gap: 16, fontFamily: "var(--ff-mono)", fontSize: 11, color: "var(--text-3)", letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: 28, paddingBottom: 20, borderBottom: "1px solid var(--line)" }}>
           <span>{selected.author}</span>
+          <span>·</span>
+          <span>{selected.source}</span>
           <span style={{ display: "flex", alignItems: "center", gap: 4 }}>
             <Clock size={12} /> {selected.readingTime} min
           </span>
@@ -85,13 +96,20 @@ export default function ArticlesPage() {
           fontSize, lineHeight: 1.85, color: "var(--text)",
           fontFamily: DISPLAY_FONT, maxWidth: 720,
         }}>
-          {selected.content.split(/(\[CHART:[^\]]+\])/).map((part, i) => {
-            const m = part.match(/^\[CHART:([^\]]+)\]$/);
-            if (m) {
-              const src = `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/images/${m[1]}`;
+          {selected.content.split(/(\[CHART:[^\]]+\]|\[IMG:[^\]]+\])/).map((part, i) => {
+            const chartMatch = part.match(/^\[CHART:([^\]]+)\]$/);
+            if (chartMatch) {
+              const src = `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/images/${chartMatch[1]}`;
               return (
                 <img key={i} src={src} alt="Chart"
                   style={{ float: "left", width: "min(340px, 50%)", margin: "8px 20px 12px 0", borderRadius: 6, border: "1px solid var(--line)" }} />
+              );
+            }
+            const imgMatch = part.match(/^\[IMG:([^\]]+)\]$/);
+            if (imgMatch) {
+              return (
+                <img key={i} src={imgMatch[1]} alt=""
+                  style={{ width: "100%", maxWidth: 620, margin: "20px 0", borderRadius: 8, border: "1px solid var(--line)", display: "block" }} />
               );
             }
             return <span key={i} style={{ whiteSpace: "pre-line" }}>{part}</span>;
@@ -119,7 +137,20 @@ export default function ArticlesPage() {
         with an estimated reading time.
       </p>
 
-      {/* Filter chips */}
+      {/* Source filter */}
+      <div className="flex g8" style={{ flexWrap: "wrap", marginBottom: 12 }}>
+        {sources.map(s => (
+          <button
+            key={s}
+            className={`chip${source === s ? " on" : ""}`}
+            onClick={() => setSource(s)}
+          >
+            {s}
+          </button>
+        ))}
+      </div>
+
+      {/* Category filter */}
       <div className="flex g8" style={{ flexWrap: "wrap", marginBottom: 28 }}>
         {categories.map(c => (
           <button
