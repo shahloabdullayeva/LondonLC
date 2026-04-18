@@ -624,4 +624,31 @@ A wave of localities is pushing through property-tax exemptions for retirees. Fl
 
 Doubtless, the more politically successful of these ideas will enter the national debate. Politicians of both parties seem increasingly inclined to indulge a public that is souring on taxation. Yet with a gaping budget deficit and an ever heavier debt burden, America can ill afford a new tax revolt.`,
   },
+  {
+    id: "guardiola-last-city-season",
+    title: "If this is Guardiola's last City season he will be as hard to replace as Ferguson at United",
+    author: "Jamie Jackson, The Guardian",
+    category: "Sport",
+    readingTime: 6,
+    image: "https://i.guim.co.uk/img/media/5e9e8a366d7b5dbc4a104c1e0db1bc816e7e919f/29_60_1020_816/master/1020.jpg?width=620&dpr=1&s=none&crop=none",
+    content: `Manager goes into Sunday's showdown with Arsenal as a subplot bubbles regarding whether this is a farewell title tilt
+
+Manchester City versus Arsenal on Sunday is a showdown for the ages. Second hosting first at what is likely to be a febrile Etihad Stadium might well be scripted by a Hollywood studio. Enter Pep Guardiola and the box-office subplot of whether this could be his swansong season and, as such, a farewell tilt at the championship of an epoch-defining period piloting City.
+
+Lose to Arsenal and Guardiola's hope of a seventh crown will be all but extinguished. He would have "only" the FA Cup left to add to 16 major honours won while in charge at City, the last being last month's fifth League Cup triumph – over Arsenal. Defeat the visitors, however, and you would not bet against Guardiola leading his team home for a grandstand finish to the campaign – and his tenure. City would be only three points behind Arsenal with an extra match to play.
+
+Either scenario, though, may not affect Guardiola's future. The Catalan has a recently-signed contract until summer 2027, yet there are numerous signs he may exit 12 months early. Asked a fortnight ago whether City's hierarchy had asked him for clarification regarding his future, Guardiola stonewalled. "I spoke about that in the past many, many times," he said.
+
+Except the question was purposely phrased differently to previous inquiries. Previous ones wondered if the chair, Khaldoon al-Mubarak, and the rest of the executive had, unsolicited, been informed by Guardiola that he would see out the full length of his deal. This one asked if Mubarak et al had approached him. A nuance, maybe, but a prescient one given the international break was in late March, two months before the end of the season and a summer when a new manager has to be hired if the 55-year-old does indeed leave. Put simply: surely the club would need to know by then so succession plans could be put in place.
+
+Rewind, too, to Guardiola's celebrations after City defeated Arsenal at Wembley in the Carabao Cup final. Was there an extra joy and relief in his demeanour due to the triumph meaning he will leave in the close season as a winner, whatever occurs in the league and FA Cup, in which City face Southampton in next Saturday's semi-final? If there is an element here of reading the runes, the talk at the Etihad Campus is also that of Guardiola signing off in May.
+
+When Guardiola signed his current terms in November 2024, during the worst slump of his City incumbency, he told the club's website: "I have a really special feeling for this football club." But to the media he was more candid: "I want to be honest, I thought this [season] should be the last one. But the problems we had in the last month, I felt now was not the right time to leave. I didn't want to let the club down. I felt I could not leave now, simple as that." That followed an off-the-cuff remark to reporters three years ago, during the victorious Club World Cup campaign in Saudi Arabia, that he had "completed" City, this coming six months after the treble had been claimed.
+
+The caveat here is that Guardiola can be emotional, and that his decision to sign his last two contracts contradicted what those close to him believed he would do at those junctures: walk away. If Guardiola does leave, however, replacing him will be a challenge for the hierarchy as difficult as Manchester United's when replacing Sir Alex Ferguson in May 2013. The Scot's successor, David Moyes, was sacked 34 league games into a six-year contract, and the club has had five more managers, with Michael Carrick the sixth temporary appointment. Unlike United, a club that 13 years later still has shaky foundations, City are a slickly-run organisation.
+
+Mubarak maintains Guardiola, or any manager, can never be more important than the club's best-in-class structure. So whoever takes the hotseat next would walk into an elite culture on and off the field, and a squad repurposed by Guardiola since last season's nadir. "Apart from Arsenal away [1-1] and Old Trafford [losing 2-0], most of the games that we played we played much better than our opponents," he said. "Three or four games we weren't but the rest have been good. Considering new players and many things, we work a lot and make them understand what is required at the club so I'm satisfied."
+
+Beyond all the silverware and records, this may be the greatest legacy of Guardiola's glittering 10 years in east Manchester.`,
+  },
 ];
