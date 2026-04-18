@@ -581,4 +581,47 @@ Others take a more sanguine view. The Gulf has weathered wars before. Oil prices
 
 The truth probably lies in between. The Gulf's treasure chest is not about to disappear. But it is being reshaped by forces its custodians cannot fully control. The funds will continue to shape global markets, but they will do so from a position that is both more powerful and more constrained than before. The era of easy, quiet, patient capital may be drawing to a close. What replaces it will depend on how the region, and the world, navigates the years ahead.`,
   },
+  {
+    id: "tax-revolt-america",
+    title: "A tax revolt is under way in America",
+    author: "The Economist",
+    category: "Politics",
+    readingTime: 8,
+    image: imageUrl("taxrevolt.png"),
+    content: `Americans are taught that their country was founded in revolt against unfair taxes. (Historians usually argue it was more complicated.) That idea hits harder around April 15th, the deadline for filing tax returns. This year it feels especially apt. If the mantra of the Boston Tea Party was "no taxation without representation", the current mood in American politics might be summed up by dropping the second half of that slogan.
+
+Democrats and Republicans alike seem to be concluding that swathes of Americans should pay almost no income tax at all. To fund the state, many on the left would squeeze the richest few, while many on the right would hit foreigners with tariffs. Neither revenue pool is likely to cover America's expenses, so the result would be even larger budget deficits.
+
+Republicans' dislike of taxes is longer-standing and better known. Last year's One Big Beautiful Bill extended expiring tax cuts from Donald Trump's first term and added more giveaways, including the enormously popular "no tax on tips" provision. That will cost several trillion dollars over the next decade. Meanwhile, Mr Trump has cut around 25,000 employees from the Internal Revenue Service, making it easier for the rich to dodge taxes.
+
+Lately Democrats have begun to respond in kind. Senators Cory Booker and Chris Van Hollen unveiled tax plans last month. Each would sharply increase the number of Americans paying no federal income tax.
+
+[CHART:taxchart1.png]Mr Booker's plan more than doubles the tax-free standard deduction, to $37,500 for single filers and $75,000 for married couples—a benefit that extends up the income scale to the well-off. He also proposes a range of tax credits aimed at poorer Americans, alongside higher rates on top earners to help pay for them (see chart 1). Even after those offsets, independent scorekeepers put the cost at $5trn-7trn over the next decade, roughly double that of Mr Trump's effort. (Mr Booker insists he would find the rest of the money by closing loopholes and taxing corporations more.)
+
+Mr Van Hollen's plan has a similar shape, but a less eye-popping price tag. He would eliminate income taxes for singles earning below $46,000 and couples earning below $92,000, before phasing those giveaways out for higher earners. His plan is roughly deficit-neutral, as those tax cuts are paired with hefty surtaxes on those earning more than $1m a year.
+
+Neither proposal has a realistic chance of becoming law any time soon: Democrats control no branch of the federal government. But they do indicate the party's direction of travel. Messrs Booker and Van Hollen are both not-so-subtle presidential aspirants. Mr Van Hollen's plan in particular, with its less fantastical numbers, has attracted a broad set of co-sponsors from both the left and centre of the party.
+
+If Democrats did regain control of both Congress and the White House in 2028, even Mr Van Hollen's tax cuts would sit uneasily with the party's other priorities. His $1.5trn in progressive tax rises might pay for those cuts, but would leave little for anything else—such as undoing cuts to health and food assistance in Mr Trump's tax bill (which would cost a similar amount) or paring back tariffs (which could cost even more). Democrats might have to ditch much of their spending agenda—or turn to more radical options, such as wealth taxes. Mr Van Hollen backs the latter. He is a co-sponsor of a bill from Elizabeth Warren, another Democratic senator, that would impose a 2% annual tax on fortunes over $50m.
+
+Don't tread on me
+
+From one angle, these proposals do not differ much from classic Democratic offerings: they redistribute from the wealthy to the rest and add a dollop of deficit spending. But there is a difference. When Joe Biden had the chance to spend big, he directed money towards social programmes and industrial policy. Cutting taxes instead is a departure. Grover Norquist, a Republican campaigner and America's arch-tax-cutter, evinces a certain smugness about the shift, calling Democrats' new enthusiasm for tax cuts "a sign of weakness" in their worldview. What has changed?
+
+Democrats in Washington usually point to two things: the "affordability crisis" and the immense popularity of "no tax on tips". Voters, they argue, are desperate for help with the cost of living, even though wage growth has kept pace with prices. The simplicity of a "no tax" message helps reach even sceptics. With Mr Trump causing daily chaos in the White House, this is no time to sniff at big, bold, popular ideas. Still, "no tax on tips" is a relatively cheap policy—there is not that much income in tips. Extending that logic to every dollar earned has a whiff of "nerds copying the jocks", as one Democratic fiscal wonk puts it.
+
+A more cynical explanation is that, as the Democrats' base has grown richer, it has become harder to reach with most forms of social spending. Mr Booker's plan offers an appreciable income boost to those in the top fifth of the income scale, and even the top tenth. The very richest, of course, are still squeezed.
+
+[CHART:taxchart2.png]On a deeper level, Democrats' support for tax cuts reflects a recognition that distrust in government is widespread. Elon Musk's DOGE may have been a Republican project, but anxieties that tax dollars are being wasted, that the rich are getting off scot-free, and that the wrong people are in charge are common on the left, too.
+
+It is no surprise that virtually any proposal to lower taxes polls well. A recent Economist/YouGov survey found that two-thirds of the public favour the core components of Mr Booker's plan. More notable is the breakdown in social consent for taxation. The share of Americans who think the income taxes they pay are fair is near the lowest on record, according to Gallup, which has asked the question since 1997 (see chart 2). The only comparable period was at the end of Bill Clinton's presidency, when America was running a budget surplus and arguably did have room for tax cuts. Today's fiscal environment could hardly be more different.
+
+This discontent is remarkably broad-based. Democrats and Republicans alike think they are overtaxed, as do both rich and poor. YouGov's polling finds that around 60% of Americans at every income level think they are taxed too much—despite being taxed at very different rates.
+
+[CHART:taxchart3.png]Statehouses are hearing this, too. Many, citing strong economic growth, have cut taxes in recent years (see chart 3). Enthusiasm is building to go further and faster, leaving some observers wary. "Most have done so responsibly thus far," says Jared Walczak of the Tax Foundation, a think-tank. "But they now risk overreaching and making reductions they cannot afford."
+
+A wave of localities is pushing through property-tax exemptions for retirees. Florida is flirting with abolishing non-school property taxes altogether. Ohio has a possible ballot initiative to scrap them in all forms. Keisha Lance Bottoms, a Democratic candidate for governor in Georgia, has backed eliminating income taxes for teachers. California is mulling a "one-time" 5% wealth tax on billionaires.
+
+Doubtless, the more politically successful of these ideas will enter the national debate. Politicians of both parties seem increasingly inclined to indulge a public that is souring on taxation. Yet with a gaping budget deficit and an ever heavier debt burden, America can ill afford a new tax revolt.`,
+  },
 ];
