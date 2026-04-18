@@ -196,7 +196,7 @@ export default function StudentHomePage() {
           <h1 className="h1">
             {greeting()}, <em>{session.name}.</em>
             {streak > 0 ? (
-              <> <br />You&apos;re on a <span className="amp">{streak}-day</span> streak.</>
+              <> <br />You&apos;re on a <span className="amp">{streak}-day</span> streak {streakActive ? "🔥" : ""}</>
             ) : (
               <> <br />Ready for <span className="amp">today&apos;s</span> session?</>
             )}
@@ -243,13 +243,13 @@ export default function StudentHomePage() {
           </span>
           <span className="trend">sessions completed</span>
         </div>
-        <div className="stat">
-          <span className="lab">Study Streak</span>
-          <span className="val">
-            {streak}<span style={{ fontSize: 20, color: "var(--text-3)", marginLeft: 4 }}>{streak === 1 ? "day" : "days"}</span>
+        <div className="stat" style={streakActive ? { background: "linear-gradient(135deg, rgba(251,146,60,0.12), rgba(239,68,68,0.08))", borderColor: "rgba(251,146,60,0.3)" } : undefined}>
+          <span className="lab">Study Streak {streakActive ? "🔥" : ""}</span>
+          <span className="val" style={streakActive ? { color: "#fb923c" } : undefined}>
+            {streak}<span style={{ fontSize: 20, color: streakActive ? "#fdba74" : "var(--text-3)", marginLeft: 4 }}>{streak === 1 ? "day" : "days"}</span>
           </span>
           <span className={`trend${streakActive ? " up" : ""}`}>
-            {streakActive ? "active today" : streak > 0 ? "train today to keep it" : "start one today"}
+            {streakActive ? "🔥 on fire!" : streak > 0 ? "train today to keep it" : "start one today"}
           </span>
         </div>
         <div className="stat">
