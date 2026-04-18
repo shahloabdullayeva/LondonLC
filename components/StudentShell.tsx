@@ -64,7 +64,7 @@ function crumbLabel(path: string): string {
   return hit?.label ?? "Dashboard";
 }
 
-export default function StudentShell({ children }: { children: ReactNode }) {
+export default function StudentShell({ children, wide }: { children: ReactNode; wide?: boolean }) {
   const path = usePathname();
   const router = useRouter();
   const [session, setSession] = useState<StudentSession | null>(null);
@@ -134,7 +134,7 @@ export default function StudentShell({ children }: { children: ReactNode }) {
             </div>
             <div className="tools" />
           </div>
-          <div className="page">{children}</div>
+          <div className={`page${wide ? " wide" : ""}`}>{children}</div>
         </main>
       </div>
     </div>

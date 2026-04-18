@@ -108,7 +108,7 @@ function LoginContent() {
             fontWeight: 200, letterSpacing: "-0.015em",
             color: "var(--site-text)", lineHeight: 1.1, marginBottom: 40,
           }}>
-            Sign <em style={{ fontStyle: "italic", fontWeight: 300, color: "rgba(255,255,255,0.75)" }}>in.</em>
+            Sign <em style={{ fontStyle: "italic", fontWeight: 300, color: "var(--site-text-muted)" }}>in.</em>
           </h1>
 
           {/* Role toggle */}

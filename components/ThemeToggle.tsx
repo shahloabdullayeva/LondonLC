@@ -28,10 +28,10 @@ type Props = {
   variant?: "floating" | "inline";
 };
 
-const PRESETS: { name: PresetName; label: string; swatch: string[] }[] = [
-  { name: "dark",  label: "Dark",   swatch: ["#0a0a0a", "#151515", "#c4b5fd"] },
-  { name: "sepia", label: "Sepia",  swatch: ["#f5ecdb", "#ede2cc", "#8b5a3c"] },
-  { name: "slate", label: "Slate",  swatch: ["#e7edf3", "#dce5ef", "#4c5f7f"] },
+const PRESETS: { name: PresetName; label: string; swatch: string[]; dark: boolean }[] = [
+  { name: "terminal", label: "Terminal", swatch: ["#0a0c0a", "#121712", "#6fe4a5"], dark: true },
+  { name: "academy",  label: "Academy",  swatch: ["#f5f1e8", "#fbf8f0", "#8b4513"], dark: false },
+  { name: "dusk",     label: "Dusk",     swatch: ["#151124", "#221c3a", "#c9a0ff"], dark: true },
 ];
 
 // Paths where the floating toggle should NOT appear — test views
@@ -144,7 +144,7 @@ export default function ThemeToggle({ size = 16, align = "right", variant = "inl
                   background: p.swatch[1],
                   border: `2px solid ${activePreset === p.name ? "var(--site-accent)" : "transparent"}`,
                   cursor: "pointer",
-                  color: p.swatch[0] === "#0a0a0a" ? "#fff" : "#111",
+                  color: p.dark ? "#fff" : "#111",
                   fontSize: 11,
                   fontWeight: 600,
                 }}

@@ -125,7 +125,6 @@ export default function ArticlesPage() {
           <button
             key={c}
             className={`chip${category === c ? " on" : ""}`}
-            style={{ cursor: "pointer", background: "transparent", fontFamily: "inherit" }}
             onClick={() => setCategory(c)}
           >
             {c}

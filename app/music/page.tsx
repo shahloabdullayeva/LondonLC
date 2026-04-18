@@ -61,7 +61,7 @@ export default function MusicPage() {
   const selected = songs.find(s => s.id === selectedId) || songs[0];
 
   return (
-    <StudentShell>
+    <StudentShell wide>
       <p className="eyebrow">Library · Study Sounds · via YouTube</p>
       <h1 className="h1"><em>Music</em> for studying</h1>
       <p className="lede" style={{ marginTop: 16, marginBottom: 32 }}>
@@ -93,7 +93,7 @@ export default function MusicPage() {
         </aside>
 
         {/* Player — fills the remaining width */}
-        <main style={{ flex: 1, minWidth: 0, display: "flex", justifyContent: "stretch" }}>
+        <main style={{ flex: 1, minWidth: 0, display: "flex" }}>
           {selected && <LyricsPlayer key={selected.id} song={selected} isAdmin={isAdmin} />}
         </main>
       </div>

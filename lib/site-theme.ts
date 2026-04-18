@@ -12,14 +12,14 @@
 "use client";
 import { useEffect, useSyncExternalStore } from "react";
 
-export type PresetName = "dark" | "sepia" | "slate";
+export type PresetName = "terminal" | "academy" | "dusk";
 export type ThemeChoice =
   | { kind: "preset"; name: PresetName }
   | { kind: "custom"; bg: string; text?: string; accent?: string };
 
 const STORAGE_KEY = "london-lc.site-theme";
-const DEFAULT: ThemeChoice = { kind: "preset", name: "dark" };
-const ORDER: PresetName[] = ["dark", "sepia", "slate"];
+const DEFAULT: ThemeChoice = { kind: "preset", name: "terminal" };
+const ORDER: PresetName[] = ["terminal", "academy", "dusk"];
 
 // ── Persistence ──────────────────────────────────────────────────────
 function parseStored(): ThemeChoice {
@@ -27,9 +27,13 @@ function parseStored(): ThemeChoice {
   const raw = window.localStorage.getItem(STORAGE_KEY);
   if (!raw) return DEFAULT;
   // Legacy (v1): plain preset name stored as a bare string.
-  if (raw === "dark" || raw === "sepia" || raw === "slate") {
+  if (raw === "terminal" || raw === "academy" || raw === "dusk") {
     return { kind: "preset", name: raw };
   }
+  // Migration from old preset names.
+  if (raw === "dark") return { kind: "preset", name: "terminal" };
+  if (raw === "sepia") return { kind: "preset", name: "academy" };
+  if (raw === "slate") return { kind: "preset", name: "dusk" };
   // v2: JSON-serialised ThemeChoice.
   try {
     const parsed = JSON.parse(raw) as ThemeChoice;
@@ -196,7 +200,7 @@ export function useSiteTheme(): {
   };
 
   const cyclePreset = () => {
-    const current = theme.kind === "preset" ? theme.name : "dark";
+    const current = theme.kind === "preset" ? theme.name : "terminal";
     const i = ORDER.indexOf(current);
     setTheme({ kind: "preset", name: ORDER[(i + 1) % ORDER.length] });
   };
