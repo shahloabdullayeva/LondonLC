@@ -213,9 +213,13 @@ export default function ArticlesPage() {
           <div style={{ display: "grid", gridTemplateColumns: "1.2fr 1fr", gap: 0 }}>
             <div style={{
               minHeight: 320,
-              background: featuredPick.image
-                ? `url(${featuredPick.image}) center / cover`
-                : "repeating-linear-gradient(135deg, var(--line-2) 0 1px, transparent 1px 11px), var(--surface-2)",
+              backgroundColor: "var(--surface-2)",
+              backgroundImage: featuredPick.image
+                ? `url(${featuredPick.image})`
+                : "repeating-linear-gradient(135deg, var(--line-2) 0 1px, transparent 1px 11px)",
+              backgroundSize: featuredPick.image ? "contain" : "auto",
+              backgroundRepeat: "no-repeat",
+              backgroundPosition: "center",
               display: "grid", placeItems: "center",
             }} />
             <div style={{ padding: 40, display: "flex", flexDirection: "column", justifyContent: "center" }}>
