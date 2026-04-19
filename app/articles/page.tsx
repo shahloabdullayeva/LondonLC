@@ -102,7 +102,7 @@ export default function ArticlesPage() {
             fontSize, lineHeight: 1.85, color: "var(--text)",
             fontFamily: DISPLAY_FONT,
         }}>
-          {selected.content.split(/(\[CHART:[^\]]+\]|\[IMG:[^\]]+\])/).map((part, i) => {
+          {selected.content.split(/(\[CHART:[^\]]+\]|\[IMG:[^\]]+\]|\[CAP:[^\]]+\])/).map((part, i) => {
             const chartMatch = part.match(/^\[CHART:([^\]]+)\]$/);
             if (chartMatch) {
               const src = `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/images/${chartMatch[1]}`;
@@ -115,7 +115,16 @@ export default function ArticlesPage() {
             if (imgMatch) {
               return (
                 <img key={i} src={imgMatch[1]} alt=""
-                  style={{ width: "100%", maxWidth: 620, margin: "20px 0", borderRadius: 8, border: "1px solid var(--line)", display: "block" }} />
+                  style={{ width: "100%", maxWidth: 620, margin: "20px 0 6px", borderRadius: 8, border: "1px solid var(--line)", display: "block" }} />
+              );
+            }
+            const capMatch = part.match(/^\[CAP:([^\]]+)\]$/);
+            if (capMatch) {
+              return (
+                <div key={i}
+                  style={{ maxWidth: 620, fontSize: "0.78em", lineHeight: 1.5, opacity: 0.72, fontStyle: "italic", margin: "0 0 20px" }}>
+                  {capMatch[1]}
+                </div>
               );
             }
             return <span key={i} style={{ whiteSpace: "pre-line" }}>{part}</span>;
