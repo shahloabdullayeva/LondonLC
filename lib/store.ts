@@ -508,7 +508,7 @@ export async function gradeEssayWithAI(
   const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
   if (!supabaseUrl || !anonKey) return null;
 
-  const res = await fetch(`${supabaseUrl}/functions/v1/grade-essay`, {
+  const res = await fetch(`${supabaseUrl}/functions/v1/hyper-task`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
