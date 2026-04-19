@@ -313,7 +313,7 @@ export default function WritingPage() {
         official IELTS criteria with specific feedback. Draft auto-saves locally.
       </p>
 
-      <div className="writing-grid" style={{ display: "grid", gridTemplateColumns: "1.2fr 1fr", gap: 24 }}>
+      <div className="writing-grid" style={{ display: "grid", gridTemplateColumns: hasScore ? "1.2fr 1fr" : "1fr", gap: 24 }}>
         <div>
           <div className="card" style={{ marginBottom: 20 }}>
             <div className="flex jcb aic" style={{ marginBottom: 12, gap: 12, flexWrap: "wrap" }}>
@@ -505,8 +505,8 @@ export default function WritingPage() {
           )}
         </div>
 
-        <div>
-          {hasScore ? (
+        {hasScore && (
+          <div>
             <div className="card">
               <div className="flex jcb aic" style={{ marginBottom: 20 }}>
                 <div>
@@ -534,20 +534,8 @@ export default function WritingPage() {
                 <Download size={12} /> Download PDF report
               </button>
             </div>
-          ) : (
-            <div className="card" style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "60px 32px", textAlign: "center" }}>
-              <div style={{ width: 64, height: 64, borderRadius: "50%", background: "var(--surface-2)", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 20 }}>
-                <Send size={24} style={{ color: "var(--text-3)" }} />
-              </div>
-              <h3 style={{ fontFamily: "var(--ff-serif)", fontSize: 18, fontWeight: 500, color: "var(--text)", marginBottom: 8 }}>
-                No scores yet
-              </h3>
-              <p style={{ fontSize: 13, color: "var(--text-2)", lineHeight: 1.6, maxWidth: 280 }}>
-                Write at least 250 words and submit your essay. Claude will score it on the four IELTS criteria and give you specific feedback.
-              </p>
-            </div>
-          )}
-        </div>
+          </div>
+        )}
       </div>
 
       {hasScore && (
