@@ -7,7 +7,7 @@ import {
   BookOpen, Headphones, PenLine,
   FileText, Mic, Music,
   MessageCircle, LogOut, Menu, X,
-  Users, Shield, UserCircle2,
+  Users, Shield, UserCircle2, Sparkles,
 } from "lucide-react";
 import { getSession, clearSession, type StudentSession } from "@/lib/store";
 import { useSiteTheme } from "@/lib/site-theme";
@@ -35,6 +35,7 @@ const STUDENT_SECTIONS: { title: string; items: NavItem[] }[] = [
       { label: "Reading", href: "/student/reading", icon: BookOpen, chev: true },
       { label: "Listening", href: "/student/listening", icon: Headphones, chev: true },
       { label: "Writing", href: "/student/writing", icon: PenLine, chev: true },
+      { label: "Vocabulary", href: "/student/vocab", icon: Sparkles, pill: "Soon" },
     ],
   },
   {
