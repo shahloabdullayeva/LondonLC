@@ -395,6 +395,13 @@ export async function isIPBlocked(ip: string): Promise<boolean> {
 
 // ── Writing submissions ───────────────────────────────────────────────
 
+export type Correction = {
+  type: "grammar" | "vocabulary" | "cohesion" | "style" | "spelling" | "punctuation";
+  original: string;
+  suggestion: string;
+  explanation: string;
+};
+
 export type WritingSubmission = {
   id: string;
   studentId: string;
@@ -407,6 +414,9 @@ export type WritingSubmission = {
   grammarAccuracy: number | null;
   overallBand: number | null;
   feedback: { criterion: string; comment: string }[] | null;
+  corrections: Correction[] | null;
+  strengths: string[] | null;
+  nextSteps: string[] | null;
   gradedAt: string | null;
   createdAt: string;
 };
@@ -459,6 +469,9 @@ function mapSubmission(r: Record<string, unknown>): WritingSubmission {
     grammarAccuracy: r.grammar_accuracy as number | null,
     overallBand: r.overall_band as number | null,
     feedback: r.feedback as { criterion: string; comment: string }[] | null,
+    corrections: r.corrections as Correction[] | null,
+    strengths: r.strengths as string[] | null,
+    nextSteps: r.next_steps as string[] | null,
     gradedAt: r.graded_at as string | null,
     createdAt: r.created_at as string,
   };
@@ -487,7 +500,9 @@ export async function submitEssay(
     id, studentId, prompt, essay, wordCount,
     taskResponse: null, coherenceCohesion: null,
     lexicalResource: null, grammarAccuracy: null,
-    overallBand: null, feedback: null, gradedAt: null,
+    overallBand: null, feedback: null,
+    corrections: null, strengths: null, nextSteps: null,
+    gradedAt: null,
     createdAt: new Date().toISOString(),
   };
 }
@@ -503,6 +518,9 @@ export async function gradeEssayWithAI(
   grammarAccuracy: number;
   overallBand: number;
   feedback: { criterion: string; comment: string }[];
+  corrections: Correction[];
+  strengths: string[];
+  nextSteps: string[];
 } | null> {
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
@@ -522,6 +540,10 @@ export async function gradeEssayWithAI(
   const grading = await res.json();
   if (!grading.task_response) return null;
 
+  const corrections: Correction[] = Array.isArray(grading.corrections) ? grading.corrections : [];
+  const strengths: string[] = Array.isArray(grading.strengths) ? grading.strengths : [];
+  const nextSteps: string[] = Array.isArray(grading.next_steps) ? grading.next_steps : [];
+
   const now = new Date().toISOString();
   await supabase
     .from("writing_submissions")
@@ -532,6 +554,9 @@ export async function gradeEssayWithAI(
       grammar_accuracy: grading.grammar_accuracy,
       overall_band: grading.overall_band,
       feedback: grading.feedback,
+      corrections,
+      strengths,
+      next_steps: nextSteps,
       graded_at: now,
     })
     .eq("id", submissionId);
@@ -543,6 +568,9 @@ export async function gradeEssayWithAI(
     grammarAccuracy: grading.grammar_accuracy,
     overallBand: grading.overall_band,
     feedback: grading.feedback,
+    corrections,
+    strengths,
+    nextSteps,
   };
 }
 

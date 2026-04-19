@@ -48,6 +48,16 @@ Band scoring rules:
 - A typical B2 learner's 250-word essay scores 6.0–6.5. Only award 7.0+ for genuinely strong work with few errors and sophisticated control. Award 5.0 or below when meaning is frequently obscured.
 - Penalise plagiarism, bullet points, or note-form responses.
 
+FEEDBACK REQUIREMENTS — be highly specific and forensic:
+- For each criterion, write 4–6 sentences. Quote exact phrases from the essay (verbatim, in double quotes). Identify what works, what doesn't, and WHY, tied to the band descriptors.
+- In addition to the per-criterion prose feedback, produce a "corrections" array with AT LEAST 8 items (12–20 is ideal for a full 250–300 word essay). Every correction must:
+  * quote the EXACT original phrase or sentence from the essay (copy-paste, do not paraphrase),
+  * give a clearly improved rewrite,
+  * briefly explain why the change is better,
+  * be tagged by type: "grammar" | "vocabulary" | "cohesion" | "style" | "spelling" | "punctuation".
+- Corrections must span the whole essay (don't cluster only in the first paragraph) and cover a mix of types.
+- Also produce a short "strengths" array (3 bullet points) and "next_steps" array (3 bullet points, each an actionable instruction the student should practise next).
+
 Return ONLY valid JSON in this exact format — no markdown, no prose wrapper:
 {
   "task_response": <number>,
@@ -56,11 +66,21 @@ Return ONLY valid JSON in this exact format — no markdown, no prose wrapper:
   "grammar_accuracy": <number>,
   "overall_band": <number>,
   "feedback": [
-    {"criterion": "Task response", "comment": "<2-3 sentences. Cite exact phrases from the essay.>"},
-    {"criterion": "Coherence & cohesion", "comment": "<2-3 sentences. Comment on paragraphing and linkers.>"},
-    {"criterion": "Lexical resource", "comment": "<2-3 sentences. Suggest specific upgrades to word choice.>"},
-    {"criterion": "Grammar range & accuracy", "comment": "<2-3 sentences. Quote 1-2 errors and correct them.>"}
-  ]
+    {"criterion": "Task response", "comment": "<4-6 sentences. Cite exact phrases from the essay.>"},
+    {"criterion": "Coherence & cohesion", "comment": "<4-6 sentences. Comment on paragraphing, linkers, reference.>"},
+    {"criterion": "Lexical resource", "comment": "<4-6 sentences. Identify specific word-choice issues and upgrades.>"},
+    {"criterion": "Grammar range & accuracy", "comment": "<4-6 sentences. Quote errors and describe the pattern.>"}
+  ],
+  "corrections": [
+    {
+      "type": "grammar" | "vocabulary" | "cohesion" | "style" | "spelling" | "punctuation",
+      "original": "<exact quote from essay>",
+      "suggestion": "<rewritten version>",
+      "explanation": "<1-2 sentences explaining why the fix is better>"
+    }
+  ],
+  "strengths": ["<bullet 1>", "<bullet 2>", "<bullet 3>"],
+  "next_steps": ["<actionable 1>", "<actionable 2>", "<actionable 3>"]
 }`;
 
 serve(async (req: Request) => {
@@ -96,7 +116,7 @@ serve(async (req: Request) => {
       },
       body: JSON.stringify({
         model: "claude-opus-4-7",
-        max_tokens: 1500,
+        max_tokens: 4000,
         system: SYSTEM_PROMPT,
         messages: [{ role: "user", content: userMessage }],
       }),

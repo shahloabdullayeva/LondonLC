@@ -10,7 +10,7 @@ import {
 
 const ROOT_ADMIN_ID = "admin-root";
 const ADMIN_USERNAME = "SarvarxonP";
-import { getSession, clearSession, getAttempts, getTeachers, addTeacher, deleteTeacher, updateTeacherPassword, setTeacherPlainPassword, setStudentPlainPassword, changeTeacherOwnPassword, registerStudent, getStudentAccounts, deleteStudent, updateStudent, getBlockedIPs, blockIP, unblockIP, recordTeacherAccess, getAllSubmissions, type AttemptData, type TeacherAccount, type StudentAccount, type WritingSubmission } from "@/lib/store";
+import { getSession, clearSession, getAttempts, getTeachers, addTeacher, deleteTeacher, updateTeacherPassword, setTeacherPlainPassword, setStudentPlainPassword, changeTeacherOwnPassword, registerStudent, getStudentAccounts, deleteStudent, updateStudent, getBlockedIPs, blockIP, unblockIP, recordTeacherAccess, getAllSubmissions, type AttemptData, type TeacherAccount, type StudentAccount, type WritingSubmission, type Correction } from "@/lib/store";
 import { getTestById } from "@/data/ielts-tests";
 import { allTests } from "@/data/ielts-tests";
 import { quotes, type Quote } from "@/lib/quotes";
@@ -1559,6 +1559,84 @@ function TabHeader({ title, subtitle, C, quote }: {
 }
 
 
+const CORRECTION_TAGS: Record<Correction["type"], { bg: string; fg: string; label: string }> = {
+  grammar:     { bg: "rgba(239,68,68,0.15)",  fg: "#fca5a5", label: "Grammar" },
+  vocabulary:  { bg: "rgba(59,130,246,0.15)", fg: "#93c5fd", label: "Vocabulary" },
+  cohesion:    { bg: "rgba(168,85,247,0.15)", fg: "#d8b4fe", label: "Cohesion" },
+  style:       { bg: "rgba(16,185,129,0.15)", fg: "#6ee7b7", label: "Style" },
+  spelling:    { bg: "rgba(234,179,8,0.15)",  fg: "#fde047", label: "Spelling" },
+  punctuation: { bg: "rgba(236,72,153,0.15)", fg: "#f9a8d4", label: "Punctuation" },
+};
+
+function openSubmissionPDF(s: WritingSubmission & { studentName: string }) {
+  if (typeof window === "undefined") return;
+  const w = window.open("", "_blank", "width=900,height=1100");
+  if (!w) return;
+  const esc = (x: string) =>
+    x.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+  const scores = [
+    { k: "Task response", v: s.taskResponse },
+    { k: "Coherence & cohesion", v: s.coherenceCohesion },
+    { k: "Lexical resource", v: s.lexicalResource },
+    { k: "Grammar range & accuracy", v: s.grammarAccuracy },
+  ];
+  const corrections = s.corrections ?? [];
+  const feedback = s.feedback ?? [];
+  const strengths = s.strengths ?? [];
+  const nextSteps = s.nextSteps ?? [];
+  const graded = s.gradedAt ? new Date(s.gradedAt) : new Date(s.createdAt);
+  w.document.write(`<!doctype html>
+<html><head><meta charset="utf-8"><title>${esc(s.studentName)} — Band ${s.overallBand?.toFixed(1) ?? "—"}</title>
+<style>
+  @page { margin: 14mm 14mm 16mm; }
+  body { font-family: "Iowan Old Style", Georgia, serif; color: #111; font-size: 11.5pt; line-height: 1.55; padding: 20pt 24pt; }
+  header { display: flex; justify-content: space-between; border-bottom: 1px solid #333; padding-bottom: 10pt; margin-bottom: 14pt; }
+  .brand { font-family: ui-monospace, monospace; font-size: 10pt; letter-spacing: 0.14em; text-transform: uppercase; }
+  .meta { font-size: 9.5pt; text-align: right; color: #333; }
+  h1 { font-size: 22pt; font-weight: 600; margin: 0 0 18pt; letter-spacing: -0.01em; }
+  h2 { font-size: 12pt; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; margin: 16pt 0 6pt; color: #222; border-bottom: 1px solid #ccc; padding-bottom: 3pt; }
+  h3 { font-size: 11pt; margin: 8pt 0 3pt; }
+  section { margin-bottom: 10pt; page-break-inside: avoid; }
+  table { width: 100%; border-collapse: collapse; font-size: 11pt; }
+  td { padding: 4pt 0; border-bottom: 1px solid #eee; }
+  td:last-child { text-align: right; font-family: ui-monospace, monospace; }
+  .essay { white-space: pre-wrap; }
+  .corr { margin: 6pt 0; padding: 6pt 0; border-bottom: 1px dashed #ccc; page-break-inside: avoid; }
+  .tag { display: inline-block; font-size: 8.5pt; font-family: ui-monospace, monospace; letter-spacing: 0.1em; text-transform: uppercase; color: #555; border: 1px solid #999; padding: 1pt 6pt; border-radius: 999px; margin-bottom: 4pt; }
+  .orig { color: #a00; font-size: 10.5pt; }
+  .sugg { color: #070; font-size: 10.5pt; font-weight: 600; margin: 2pt 0; }
+  .expl { color: #444; font-size: 10pt; font-style: italic; }
+  ul { padding-left: 16pt; }
+  footer { margin-top: 16pt; padding-top: 8pt; border-top: 1px solid #ccc; font-family: ui-monospace, monospace; font-size: 8.5pt; letter-spacing: 0.1em; text-transform: uppercase; color: #666; text-align: center; }
+</style></head><body>
+<header>
+  <div class="brand">London · LC</div>
+  <div class="meta">
+    <div><b>${esc(s.studentName)}</b></div>
+    <div>${graded.toLocaleString()}</div>
+    <div>${s.wordCount} words</div>
+  </div>
+</header>
+<h1>IELTS Writing Task 2 — Band ${s.overallBand?.toFixed(1) ?? "—"}</h1>
+<section><h2>Prompt</h2><p>${esc(s.prompt)}</p></section>
+<section><h2>Essay</h2><p class="essay">${esc(s.essay)}</p></section>
+<section><h2>Scores</h2><table><tbody>
+  ${scores.map(c => `<tr><td>${esc(c.k)}</td><td>${c.v?.toFixed(1) ?? "—"}</td></tr>`).join("")}
+  <tr><td><b>Overall</b></td><td><b>${s.overallBand?.toFixed(1) ?? "—"}</b></td></tr>
+</tbody></table></section>
+${feedback.length ? `<section><h2>Examiner feedback</h2>${feedback.map(f => `<div><h3>${esc(f.criterion)}</h3><p>${esc(f.comment)}</p></div>`).join("")}</section>` : ""}
+${corrections.length ? `<section><h2>Corrections (${corrections.length})</h2>${corrections.map(c => {
+  const tag = (CORRECTION_TAGS[c.type] ?? CORRECTION_TAGS.style).label;
+  return `<div class="corr"><div class="tag">${esc(tag)}</div><div class="orig">Original: &ldquo;${esc(c.original)}&rdquo;</div><div class="sugg">Suggested: &ldquo;${esc(c.suggestion)}&rdquo;</div><div class="expl">${esc(c.explanation)}</div></div>`;
+}).join("")}</section>` : ""}
+${strengths.length ? `<section><h2>What's working</h2><ul>${strengths.map(x => `<li>${esc(x)}</li>`).join("")}</ul></section>` : ""}
+${nextSteps.length ? `<section><h2>Next steps</h2><ul>${nextSteps.map(x => `<li>${esc(x)}</li>`).join("")}</ul></section>` : ""}
+<footer>Generated by London LC · Graded by Claude Opus 4.7</footer>
+<script>window.addEventListener('load', () => setTimeout(() => window.print(), 250));</script>
+</body></html>`);
+  w.document.close();
+}
+
 function WritingSubmissionsView({ C }: {
   C: { text: string; muted: string; sub: string; border: string; card: string; card2: string; [k: string]: string };
 }) {
@@ -1592,6 +1670,7 @@ function WritingSubmissionsView({ C }: {
         const date = new Date(s.createdAt).toLocaleString(undefined, {
           month: "short", day: "numeric", hour: "2-digit", minute: "2-digit",
         });
+        const corrections = s.corrections ?? [];
         return (
           <div key={s.id} style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 12 }}>
             <button
@@ -1626,7 +1705,23 @@ function WritingSubmissionsView({ C }: {
 
             {isOpen && (
               <div style={{ padding: "0 18px 18px", borderTop: `1px solid ${C.border}`, display: "flex", flexDirection: "column", gap: 18 }}>
-                <div style={{ paddingTop: 14 }}>
+                <div style={{ paddingTop: 14, display: "flex", justifyContent: "flex-end" }}>
+                  {s.overallBand && (
+                    <button
+                      onClick={() => openSubmissionPDF(s)}
+                      style={{
+                        display: "inline-flex", alignItems: "center", gap: 6,
+                        padding: "6px 12px", fontSize: 12, fontWeight: 500,
+                        background: C.card2, border: `1px solid ${C.border}`, borderRadius: 8,
+                        color: C.text, cursor: "pointer", fontFamily: "inherit",
+                      }}
+                    >
+                      <Download size={12} /> Download PDF
+                    </button>
+                  )}
+                </div>
+
+                <div>
                   <div style={{ fontSize: 10, letterSpacing: "0.14em", textTransform: "uppercase", color: C.muted, marginBottom: 8, fontFamily: "'JetBrains Mono', ui-monospace, monospace" }}>Prompt</div>
                   <div style={{ fontSize: 13, color: C.text, lineHeight: 1.6 }}>{s.prompt}</div>
                 </div>
@@ -1666,6 +1761,60 @@ function WritingSubmissionsView({ C }: {
                     )}
                   </div>
                 )}
+
+                {corrections.length > 0 && (
+                  <div>
+                    <div style={{ fontSize: 10, letterSpacing: "0.14em", textTransform: "uppercase", color: C.muted, marginBottom: 8, fontFamily: "'JetBrains Mono', ui-monospace, monospace" }}>
+                      Line-by-line corrections · {corrections.length}
+                    </div>
+                    <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+                      {corrections.map((c, i) => {
+                        const tag = CORRECTION_TAGS[c.type] ?? CORRECTION_TAGS.style;
+                        return (
+                          <div key={i} style={{ padding: "12px 14px", background: C.card2, border: `1px solid ${C.border}`, borderRadius: 8 }}>
+                            <div style={{
+                              display: "inline-block",
+                              fontSize: 9, letterSpacing: "0.12em", textTransform: "uppercase",
+                              padding: "2px 8px", borderRadius: 999,
+                              background: tag.bg, color: tag.fg, marginBottom: 8,
+                              fontFamily: "'JetBrains Mono', ui-monospace, monospace",
+                            }}>{tag.label}</div>
+                            <div style={{ fontSize: 13, color: C.muted, lineHeight: 1.55, marginBottom: 4, textDecoration: "line-through" }}>
+                              {c.original}
+                            </div>
+                            <div style={{ fontSize: 13, color: C.text, lineHeight: 1.55, fontWeight: 500, marginBottom: 6 }}>
+                              → {c.suggestion}
+                            </div>
+                            <div style={{ fontSize: 12, color: C.sub, lineHeight: 1.55, fontStyle: "italic" }}>
+                              {c.explanation}
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                )}
+
+                {(s.strengths?.length || s.nextSteps?.length) ? (
+                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+                    {s.strengths && s.strengths.length > 0 && (
+                      <div style={{ padding: "12px 14px", background: C.card2, border: `1px solid ${C.border}`, borderRadius: 8 }}>
+                        <div style={{ fontSize: 10, letterSpacing: "0.12em", textTransform: "uppercase", color: C.muted, marginBottom: 8, fontFamily: "'JetBrains Mono', ui-monospace, monospace" }}>What's working</div>
+                        <ul style={{ margin: 0, paddingLeft: 16, fontSize: 13, color: C.text, lineHeight: 1.6 }}>
+                          {s.strengths.map((x, i) => <li key={i}>{x}</li>)}
+                        </ul>
+                      </div>
+                    )}
+                    {s.nextSteps && s.nextSteps.length > 0 && (
+                      <div style={{ padding: "12px 14px", background: C.card2, border: `1px solid ${C.border}`, borderRadius: 8 }}>
+                        <div style={{ fontSize: 10, letterSpacing: "0.12em", textTransform: "uppercase", color: C.muted, marginBottom: 8, fontFamily: "'JetBrains Mono', ui-monospace, monospace" }}>Next steps</div>
+                        <ul style={{ margin: 0, paddingLeft: 16, fontSize: 13, color: C.text, lineHeight: 1.6 }}>
+                          {s.nextSteps.map((x, i) => <li key={i}>{x}</li>)}
+                        </ul>
+                      </div>
+                    )}
+                  </div>
+                ) : null}
               </div>
             )}
           </div>
