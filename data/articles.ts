@@ -1136,6 +1136,7 @@ So far, the released vultures are thriving. Two of the birds have even paired wi
     category: "Arts & Culture",
     readingTime: 4,
     curated: true,
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Betty_Boop_patent.jpg/440px-Betty_Boop_patent.jpg",
     content: `Every January 1st, copyright law lets a new wave of creative works slip out of private ownership and into the public domain — meaning anyone can share, perform, adapt or build on them, free of charge. In 2026, a new batch of iconic works from 1930 joined the roster in the United States, including the original Betty Boop cartoons, Walt Disney's first Pluto shorts, the first four Nancy Drew mystery novels, and Greta Garbo's first "talkie", Anna Christie.
 
 US copyright for works published in 1930 expired after the standard 95-year term. For many educators and creators, the annual public-domain release is a small cultural holiday: teachers can freely stream the films in class, indie game developers can remix the characters, and publishers can reissue books without paying a licensing fee.
@@ -1162,6 +1163,7 @@ Summary based on public reporting by NPR, the Center for the Study of the Public
     category: "Politics & Culture",
     readingTime: 6,
     curated: true,
+    image: "https://www.economist.com/cdn-cgi/image/width=960,quality=80,format=auto/content-assets/images/1843_20260205_1843_Kennedy_Centre_01.jpg",
     content: `In December 2025, President Donald Trump took to the stage in black tie to host the 48th Kennedy Centre Honours — the first time a sitting US president had served as master of ceremonies at the arts venue's annual awards. Just two months later, he announced on his social-media platform that the centre would close for "approximately" two years for a complete rebuild, describing the existing building as "tired, broken, and dilapidated".
 
 The announcement marked a low point in a chaotic year for what is often called America's "palace of culture". The Kennedy Centre, a marble-clad venue on the banks of the Potomac, opened in 1971 as a living memorial to President John F. Kennedy. It has historically been funded by a mix of federal money and private donations, and its board has traditionally drawn trustees from both political parties.
@@ -1188,6 +1190,7 @@ Summary based on reporting by The Economist's 1843 magazine (Charlie McCann), th
     category: "Science",
     readingTime: 6,
     curated: true,
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Kuru_brain_pathology.jpg/640px-Kuru_brain_pathology.jpg",
     content: `In the highlands of Papua New Guinea, in the middle of the 20th century, a small group of villagers began to stumble when they walked. Some trembled uncontrollably. Others laughed at nothing in particular. Within a year or two of the first symptoms, nearly all of them were dead. The Fore people, the community affected, called the illness "kuru", which means "to shake" in their language. Most of the victims were women and children.
 
 When Australian doctors reached the Fore valleys in the late 1950s, kuru seemed impossible to explain. It was clearly a neurological disease: autopsies showed that victims' brains were riddled with tiny holes, like a sponge. But it did not behave like any infection they knew. It was not caused by a virus, a bacterium or a parasite. There were no fevers, no inflammation, no immune response — and yet it seemed to spread inside families.
@@ -1215,6 +1218,7 @@ Summary based on the Wikipedia article on kuru, peer-reviewed reviews on PubMed 
     source: "London LC Digest",
     category: "Politics",
     readingTime: 7,
+    image: "https://upload.wikimedia.org/wikipedia/commons/d/d4/Karl_Marx_001.jpg",
     curated: true,
     content: `Few thinkers have been buried as often, and as loudly, as Karl Marx. Every time an economic crisis passes or a communist regime falls, commentators announce the definitive end of Marxism. And yet, more than 140 years after Marx's death in London in 1883, university reading lists, political parties, protest movements and even parts of mainstream economics keep returning to his ideas. Understanding what they are — and what they are not — is useful for any serious reader of modern history.
 
@@ -1241,6 +1245,7 @@ Summary based on entries in the Stanford Encyclopedia of Philosophy, The Economi
     source: "London LC Digest",
     category: "Sport",
     readingTime: 11,
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/2022_Winter_Olympics_-_Kamila_Valieva.jpg/640px-2022_Winter_Olympics_-_Kamila_Valieva.jpg",
     curated: true,
     content: `When Kamila Valieva took the ice at the 2022 Beijing Olympics, she was fifteen years old, a child and a phenomenon. Ninety-odd pounds of her could do things no other woman in the history of figure skating had ever done in competition: quadruple jumps with textbook rotations, triple axels dropped into her free programme as if they were an afterthought, spins and transitions so precise that judges seemed embarrassed to mark her anywhere short of perfect. By the time she landed in China she had already broken multiple world records. Her coaches, and much of the skating world, expected her to win the gold medal by a margin so large that the silver would be a footnote.
 
