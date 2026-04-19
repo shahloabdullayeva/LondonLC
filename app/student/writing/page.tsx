@@ -507,131 +507,33 @@ export default function WritingPage() {
 
         <div>
           {hasScore ? (
-            <>
-              <div className="card" style={{ marginBottom: 20 }}>
-                <div className="flex jcb aic" style={{ marginBottom: 20 }}>
-                  <div>
-                    <p className="eyebrow" style={{ margin: 0 }}>Your last score</p>
-                    <h3 className="h2" style={{ margin: "6px 0 0" }}>Band {lastSub!.overallBand!.toFixed(1)}</h3>
-                  </div>
-                  <ScoreRing value={lastSub!.overallBand!} />
+            <div className="card">
+              <div className="flex jcb aic" style={{ marginBottom: 20 }}>
+                <div>
+                  <p className="eyebrow" style={{ margin: 0 }}>Your last score</p>
+                  <h3 className="h2" style={{ margin: "6px 0 0" }}>Band {lastSub!.overallBand!.toFixed(1)}</h3>
                 </div>
-
-                {criteria.map(c => (
-                  <div key={c.k} style={{ marginBottom: 12 }}>
-                    <div className="flex jcb" style={{ fontSize: 13, marginBottom: 4, color: "var(--text-2)" }}>
-                      <span>{c.k}</span>
-                      <span style={{ fontFamily: "var(--ff-mono)", color: "var(--text)" }}>{c.v.toFixed(1)}</span>
-                    </div>
-                    <div className="bar"><span style={{ width: `${(c.v / 9) * 100}%` }} /></div>
-                  </div>
-                ))}
-
-                <button
-                  className="btn primary sm"
-                  onClick={handleDownloadCurrent}
-                  style={{ marginTop: 16, width: "100%", justifyContent: "center" }}
-                >
-                  <Download size={12} /> Download PDF report
-                </button>
+                <ScoreRing value={lastSub!.overallBand!} />
               </div>
 
-              {lastSub!.feedback && lastSub!.feedback.length > 0 && (
-                <div className="card" style={{ marginBottom: 20 }}>
-                  <p className="eyebrow" style={{ margin: 0, marginBottom: 14 }}>Examiner feedback · Claude Opus 4.7</p>
-                  {lastSub!.feedback.map((f, i) => (
-                    <div key={i} className="comment">
-                      <div className="hd"><b>{f.criterion}</b></div>
-                      <div className="txt">{f.comment}</div>
-                    </div>
-                  ))}
-                </div>
-              )}
-
-              {allCorrections.length > 0 && (
-                <div className="card" style={{ marginBottom: 20 }}>
-                  <div className="flex jcb aic" style={{ marginBottom: 14 }}>
-                    <p className="eyebrow" style={{ margin: 0 }}>Line-by-line corrections · {allCorrections.length}</p>
+              {criteria.map(c => (
+                <div key={c.k} style={{ marginBottom: 12 }}>
+                  <div className="flex jcb" style={{ fontSize: 13, marginBottom: 4, color: "var(--text-2)" }}>
+                    <span>{c.k}</span>
+                    <span style={{ fontFamily: "var(--ff-mono)", color: "var(--text)" }}>{c.v.toFixed(1)}</span>
                   </div>
-                  <div style={{ display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 14 }}>
-                    <button
-                      onClick={() => setFilter("all")}
-                      className="chip"
-                      data-active={filter === "all"}
-                    >
-                      All · {allCorrections.length}
-                    </button>
-                    {(Object.keys(CORRECTION_COLORS) as Correction["type"][]).map(t => {
-                      const n = typeCounts[t] ?? 0;
-                      if (n === 0) return null;
-                      return (
-                        <button
-                          key={t}
-                          onClick={() => setFilter(t)}
-                          className="chip"
-                          data-active={filter === t}
-                          style={{ color: CORRECTION_COLORS[t].fg, background: filter === t ? CORRECTION_COLORS[t].bg : undefined }}
-                        >
-                          {CORRECTION_COLORS[t].label} · {n}
-                        </button>
-                      );
-                    })}
-                  </div>
-
-                  <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-                    {visibleCorrections.map((c, i) => {
-                      const col = CORRECTION_COLORS[c.type] ?? CORRECTION_COLORS.style;
-                      return (
-                        <div key={i} style={{
-                          border: "1px solid var(--line)", borderRadius: 10,
-                          padding: "12px 14px", background: "var(--surface-2)",
-                        }}>
-                          <div style={{
-                            display: "inline-block",
-                            fontSize: 10, letterSpacing: "0.1em", textTransform: "uppercase",
-                            padding: "3px 8px", borderRadius: 999,
-                            background: col.bg, color: col.fg, marginBottom: 8,
-                            fontFamily: "var(--ff-mono)",
-                          }}>
-                            {col.label}
-                          </div>
-                          <div style={{ fontSize: 13, color: "var(--text-2)", lineHeight: 1.55, marginBottom: 6 }}>
-                            <span style={{ textDecoration: "line-through", opacity: 0.7 }}>{c.original}</span>
-                          </div>
-                          <div style={{ fontSize: 13, color: "var(--text)", lineHeight: 1.55, marginBottom: 8, fontWeight: 500 }}>
-                            → {c.suggestion}
-                          </div>
-                          <div style={{ fontSize: 12, color: "var(--text-3)", lineHeight: 1.55 }}>
-                            {c.explanation}
-                          </div>
-                        </div>
-                      );
-                    })}
-                  </div>
+                  <div className="bar"><span style={{ width: `${(c.v / 9) * 100}%` }} /></div>
                 </div>
-              )}
+              ))}
 
-              {(lastSub!.strengths?.length || lastSub!.nextSteps?.length) ? (
-                <div className="card">
-                  {lastSub!.strengths && lastSub!.strengths.length > 0 && (
-                    <div style={{ marginBottom: 18 }}>
-                      <p className="eyebrow" style={{ margin: 0, marginBottom: 10 }}>What's working</p>
-                      <ul style={{ margin: 0, paddingLeft: 18, fontSize: 13, color: "var(--text-2)", lineHeight: 1.7 }}>
-                        {lastSub!.strengths.map((s, i) => <li key={i}>{s}</li>)}
-                      </ul>
-                    </div>
-                  )}
-                  {lastSub!.nextSteps && lastSub!.nextSteps.length > 0 && (
-                    <div>
-                      <p className="eyebrow" style={{ margin: 0, marginBottom: 10 }}>Next steps</p>
-                      <ul style={{ margin: 0, paddingLeft: 18, fontSize: 13, color: "var(--text-2)", lineHeight: 1.7 }}>
-                        {lastSub!.nextSteps.map((s, i) => <li key={i}>{s}</li>)}
-                      </ul>
-                    </div>
-                  )}
-                </div>
-              ) : null}
-            </>
+              <button
+                className="btn primary sm"
+                onClick={handleDownloadCurrent}
+                style={{ marginTop: 16, width: "100%", justifyContent: "center" }}
+              >
+                <Download size={12} /> Download PDF report
+              </button>
+            </div>
           ) : (
             <div className="card" style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "60px 32px", textAlign: "center" }}>
               <div style={{ width: 64, height: 64, borderRadius: "50%", background: "var(--surface-2)", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 20 }}>
@@ -647,6 +549,117 @@ export default function WritingPage() {
           )}
         </div>
       </div>
+
+      {hasScore && (
+        <div style={{ marginTop: 28, display: "flex", flexDirection: "column", gap: 20 }}>
+          {lastSub!.feedback && lastSub!.feedback.length > 0 && (
+            <div className="card">
+              <p className="eyebrow" style={{ margin: 0, marginBottom: 16 }}>Examiner feedback · Claude Opus 4.7</p>
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: 16 }}>
+                {lastSub!.feedback.map((f, i) => (
+                  <div key={i} style={{
+                    padding: "14px 16px",
+                    background: "var(--surface-2)",
+                    border: "1px solid var(--line)",
+                    borderRadius: 10,
+                  }}>
+                    <div style={{ fontSize: 11, fontWeight: 600, color: "var(--accent)", marginBottom: 8, fontFamily: "var(--ff-mono)", letterSpacing: "0.08em", textTransform: "uppercase" }}>
+                      {f.criterion}
+                    </div>
+                    <div style={{ fontSize: 14, lineHeight: 1.65, color: "var(--text-2)" }}>{f.comment}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {allCorrections.length > 0 && (
+            <div className="card">
+              <div className="flex jcb aic" style={{ marginBottom: 16, flexWrap: "wrap", gap: 12 }}>
+                <p className="eyebrow" style={{ margin: 0 }}>Line-by-line corrections · {allCorrections.length}</p>
+                <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
+                  <button
+                    onClick={() => setFilter("all")}
+                    className="chip"
+                    data-active={filter === "all"}
+                  >
+                    All · {allCorrections.length}
+                  </button>
+                  {(Object.keys(CORRECTION_COLORS) as Correction["type"][]).map(t => {
+                    const n = typeCounts[t] ?? 0;
+                    if (n === 0) return null;
+                    return (
+                      <button
+                        key={t}
+                        onClick={() => setFilter(t)}
+                        className="chip"
+                        data-active={filter === t}
+                        style={{ color: CORRECTION_COLORS[t].fg, background: filter === t ? CORRECTION_COLORS[t].bg : undefined }}
+                      >
+                        {CORRECTION_COLORS[t].label} · {n}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(380px, 1fr))", gap: 12 }}>
+                {visibleCorrections.map((c, i) => {
+                  const col = CORRECTION_COLORS[c.type] ?? CORRECTION_COLORS.style;
+                  return (
+                    <div key={i} style={{
+                      border: "1px solid var(--line)", borderRadius: 10,
+                      padding: "14px 16px", background: "var(--surface-2)",
+                    }}>
+                      <div style={{
+                        display: "inline-block",
+                        fontSize: 10, letterSpacing: "0.1em", textTransform: "uppercase",
+                        padding: "3px 8px", borderRadius: 999,
+                        background: col.bg, color: col.fg, marginBottom: 10,
+                        fontFamily: "var(--ff-mono)",
+                      }}>
+                        {col.label}
+                      </div>
+                      <div style={{ fontSize: 14, color: "var(--text-2)", lineHeight: 1.6, marginBottom: 8 }}>
+                        <span style={{ textDecoration: "line-through", opacity: 0.7 }}>{c.original}</span>
+                      </div>
+                      <div style={{ fontSize: 14, color: "var(--text)", lineHeight: 1.6, marginBottom: 10, fontWeight: 500 }}>
+                        → {c.suggestion}
+                      </div>
+                      <div style={{ fontSize: 12.5, color: "var(--text-3)", lineHeight: 1.6 }}>
+                        {c.explanation}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+
+          {(lastSub!.strengths?.length || lastSub!.nextSteps?.length) ? (
+            <div className="card">
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: 24 }}>
+                {lastSub!.strengths && lastSub!.strengths.length > 0 && (
+                  <div>
+                    <p className="eyebrow" style={{ margin: 0, marginBottom: 12 }}>What's working</p>
+                    <ul style={{ margin: 0, paddingLeft: 18, fontSize: 14, color: "var(--text-2)", lineHeight: 1.7 }}>
+                      {lastSub!.strengths.map((s, i) => <li key={i} style={{ marginBottom: 6 }}>{s}</li>)}
+                    </ul>
+                  </div>
+                )}
+                {lastSub!.nextSteps && lastSub!.nextSteps.length > 0 && (
+                  <div>
+                    <p className="eyebrow" style={{ margin: 0, marginBottom: 12 }}>Next steps</p>
+                    <ul style={{ margin: 0, paddingLeft: 18, fontSize: 14, color: "var(--text-2)", lineHeight: 1.7 }}>
+                      {lastSub!.nextSteps.map((s, i) => <li key={i} style={{ marginBottom: 6 }}>{s}</li>)}
+                    </ul>
+                  </div>
+                )}
+              </div>
+            </div>
+          ) : null}
+        </div>
+      )}
 
       <style>{`
         @media (max-width: 900px) {
