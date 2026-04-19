@@ -1180,4 +1180,32 @@ The two-year closure, which begins on July 4th 2026, is officially billed as a r
 
 Summary based on reporting by The Economist's 1843 magazine (Charlie McCann), the Washington Post and PBS.`,
   },
+  {
+    id: "kuru-cannibalism-science",
+    title: "How a cannibal funeral ritual helped win two Nobel prizes",
+    author: "London LC Digest",
+    source: "London LC Digest",
+    category: "Science",
+    readingTime: 6,
+    curated: true,
+    content: `In the highlands of Papua New Guinea, in the middle of the 20th century, a small group of villagers began to stumble when they walked. Some trembled uncontrollably. Others laughed at nothing in particular. Within a year or two of the first symptoms, nearly all of them were dead. The Fore people, the community affected, called the illness "kuru", which means "to shake" in their language. Most of the victims were women and children.
+
+When Australian doctors reached the Fore valleys in the late 1950s, kuru seemed impossible to explain. It was clearly a neurological disease: autopsies showed that victims' brains were riddled with tiny holes, like a sponge. But it did not behave like any infection they knew. It was not caused by a virus, a bacterium or a parasite. There were no fevers, no inflammation, no immune response — and yet it seemed to spread inside families.
+
+The breakthrough came from an unexpected source: anthropology. In 1961, Shirley Lindenbaum, an anthropologist, arrived in the highlands to live among the Fore. She carefully documented their funeral customs. Traditionally, when a relative died, the women and children of the extended family would eat parts of the body, including the brain. The Fore regarded this as a loving act that returned the deceased's "life force" to their community. Lindenbaum, along with her colleague Robert Glasse, proposed a simple but shocking hypothesis: kuru was being transmitted by this ritual cannibalism.
+
+Many scientists were sceptical. But the medical researcher Carleton Gajdusek was able to prove them right in a roundabout way. He injected brain tissue from kuru victims into laboratory chimpanzees, and years later the animals developed the same spongy brain lesions. Kuru, it turned out, was infectious — but by a biological agent unlike anything in textbooks. For this work, Gajdusek received the Nobel Prize in Medicine in 1976.
+
+The story did not end there. Another researcher, the American biochemist Stanley Prusiner, spent years trying to identify exactly what kuru and similar diseases — such as scrapie in sheep and, later, BSE or "mad cow disease" in cattle — were actually made of. Every suspected microbe came up empty. In 1982 Prusiner proposed something radical: the infectious agent was not a living organism at all, but a misshapen protein he called a "prion". Prions, he argued, could convert normal versions of the same protein in the brain into the same twisted shape, causing a chain reaction. For describing this new class of disease, Prusiner won the Nobel Prize in Medicine in 1997.
+
+The Fore stopped the funeral practice in the late 1950s, as Australian authorities discouraged it. But kuru has an extremely long incubation period — sometimes more than 50 years — and new cases continued to appear for decades. The last confirmed patient died in 2009.
+
+The kuru story is now considered a milestone in modern medicine. It helped scientists understand mad-cow disease and its human equivalent, variant Creutzfeldt-Jakob disease, which killed hundreds of people in Britain in the 1990s. It also raised intriguing questions about human prehistory: a 2003 study found that many populations around the world carry a genetic variant that appears to protect against prion disease, hinting that ritual cannibalism may have been more widespread in deep history than we like to admit.
+
+What began as a tragedy for a handful of villages in the Papuan highlands ended up reshaping our understanding of how life itself can go wrong. It is one of the rare cases in which careful anthropology, field medicine and molecular biology each played an essential part — and it all started with a question that only people willing to sit with the Fore could answer: what exactly had been happening at the funerals?
+
+— — —
+
+Summary based on the Wikipedia article on kuru, peer-reviewed reviews on PubMed Central (Liberski et al. 2019; Collinge et al. 2016) and the Nobel Prize committee's published prize motivations.`,
+  },
 ];
