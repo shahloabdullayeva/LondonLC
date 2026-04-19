@@ -1,17 +1,40 @@
 "use client";
 import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
-import { Send, Loader2, Download } from "lucide-react";
+import { Send, Loader2, Download, ChevronDown, ChevronUp, RefreshCw, Pencil, Clock } from "lucide-react";
 import StudentShell from "@/components/StudentShell";
 import {
   getSession,
-  getLastSubmission,
+  getSubmissions,
   submitEssay,
   gradeEssayWithAI,
   type StudentSession,
   type WritingSubmission,
   type Correction,
 } from "@/lib/store";
+
+const ANTI_PASTE_ENABLED = false;
+
+const PROMPTS = [
+  `Some people think that governments should invest more money in public transport. Others think that building more roads for cars is the better option. Discuss both views and give your own opinion.`,
+  `Many companies now allow their employees to work remotely. Do you think the advantages of remote work outweigh the disadvantages? Discuss both views and give your own opinion.`,
+  `In many countries, the gap between the rich and the poor is increasing. What problems does this cause and what solutions can be proposed?`,
+  `Some people believe that university education should be free for everyone, while others think students should pay for their own education. Discuss both views and give your opinion.`,
+  `Nowadays many people choose to be self-employed rather than work for a company or organisation. Why might this be the case? What could be the disadvantages of being self-employed?`,
+  `Some people think that the best way to reduce crime is to give longer prison sentences. Others think there are better alternative ways of reducing crime. Discuss both views and give your opinion.`,
+  `In some countries, young people are encouraged to work or travel for a year between finishing school and starting university. Discuss the advantages and disadvantages for young people who do this.`,
+  `Some people say that advertising is extremely successful at persuading us to buy things. Others say that advertising is so common that we no longer pay attention to it. Discuss both views and give your own opinion.`,
+  `Many people believe that social media has had a negative effect on both individuals and society. To what extent do you agree or disagree?`,
+  `Some people think that children should begin their formal education at a very early age and should spend most of their time on school studies. Others believe that young children should spend most of their time playing. Discuss both views and give your opinion.`,
+  `The internet has transformed the way information is shared and consumed, but it has also created problems that did not exist before. What are the most serious problems associated with the internet and what solutions can you suggest?`,
+  `In the future, nobody will buy printed newspapers or books because they will be able to read everything they want online for free. To what extent do you agree or disagree with this statement?`,
+  `Some people think that the increasing use of computers and mobile phones for communication has had a negative effect on young people's reading and writing skills. To what extent do you agree or disagree?`,
+  `Environmental problems should be solved by governments rather than by individuals. To what extent do you agree or disagree?`,
+  `In many cities, the use of video cameras in public places is being increased in order to reduce crime, but some people believe that these measures restrict our individual freedom. Do the benefits of increased security outweigh the drawbacks?`,
+  `Some experts believe that it is better for children to begin learning a foreign language at primary school rather than secondary school. Do the advantages of this outweigh the disadvantages?`,
+  `It is sometimes argued that too many students go to university, while others claim that a university education should be a universal right. Discuss both sides of this argument and give your own opinion.`,
+  `People now have the freedom to work and live anywhere in the world due to the development of communication technology and transportation. Do the advantages of this development outweigh the disadvantages?`,
+];
 
 const CORRECTION_COLORS: Record<Correction["type"], { bg: string; fg: string; label: string }> = {
   grammar:     { bg: "rgba(239,68,68,0.14)",  fg: "#fca5a5", label: "Grammar" },
@@ -23,7 +46,7 @@ const CORRECTION_COLORS: Record<Correction["type"], { bg: string; fg: string; la
 };
 
 const DRAFT_KEY = "llc.writing.draft.v1";
-const PROMPT = `"Many companies now allow their employees to work remotely. Do you think the advantages of remote work outweigh the disadvantages? Discuss both views and give your own opinion."`;
+const PROMPT_KEY = "llc.writing.prompt.v1";
 
 function ScoreRing({ value, max = 9 }: { value: number; max?: number }) {
   const r = 40;
@@ -46,6 +69,94 @@ function ScoreRing({ value, max = 9 }: { value: number; max?: number }) {
 
 type GradingStatus = "idle" | "submitting" | "grading" | "done" | "error";
 
+function pickRandomPrompt(exclude?: string): string {
+  const pool = exclude ? PROMPTS.filter(p => p !== exclude) : PROMPTS;
+  return pool[Math.floor(Math.random() * pool.length)];
+}
+
+function promptSlug(prompt: string): string {
+  return prompt
+    .replace(/[^a-zA-Z0-9 ]/g, "")
+    .trim()
+    .split(/\s+/)
+    .slice(0, 6)
+    .join("-")
+    .toLowerCase() || "essay";
+}
+
+function downloadSubmissionPDF(s: WritingSubmission, studentName: string) {
+  if (typeof window === "undefined") return;
+  const w = window.open("", "_blank", "width=900,height=1100");
+  if (!w) return;
+  const esc = (x: string) =>
+    x.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+  const scores = [
+    { k: "Task response", v: s.taskResponse },
+    { k: "Coherence & cohesion", v: s.coherenceCohesion },
+    { k: "Lexical resource", v: s.lexicalResource },
+    { k: "Grammar range & accuracy", v: s.grammarAccuracy },
+  ];
+  const corrections = s.corrections ?? [];
+  const feedback = s.feedback ?? [];
+  const strengths = s.strengths ?? [];
+  const nextSteps = s.nextSteps ?? [];
+  const graded = s.gradedAt ? new Date(s.gradedAt) : new Date(s.createdAt);
+  const filename = `${promptSlug(s.prompt)}-band-${s.overallBand?.toFixed(1) ?? "draft"}`;
+  w.document.write(`<!doctype html>
+<html><head><meta charset="utf-8"><title>${esc(filename)}</title>
+<style>
+  @page { margin: 14mm 14mm 16mm; }
+  body { font-family: "Iowan Old Style", Georgia, serif; color: #111; font-size: 11.5pt; line-height: 1.55; padding: 20pt 24pt; }
+  header { display: flex; justify-content: space-between; border-bottom: 1px solid #333; padding-bottom: 10pt; margin-bottom: 14pt; }
+  .brand { font-family: ui-monospace, monospace; font-size: 10pt; letter-spacing: 0.14em; text-transform: uppercase; }
+  .meta { font-size: 9.5pt; text-align: right; color: #333; }
+  h1 { font-size: 22pt; font-weight: 600; margin: 0 0 18pt; letter-spacing: -0.01em; }
+  h2 { font-size: 12pt; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; margin: 16pt 0 6pt; color: #222; border-bottom: 1px solid #ccc; padding-bottom: 3pt; }
+  h3 { font-size: 11pt; margin: 8pt 0 3pt; }
+  section { margin-bottom: 10pt; page-break-inside: avoid; }
+  table { width: 100%; border-collapse: collapse; font-size: 11pt; }
+  td { padding: 4pt 0; border-bottom: 1px solid #eee; }
+  td:last-child { text-align: right; font-family: ui-monospace, monospace; }
+  .essay { white-space: pre-wrap; }
+  .corr { margin: 6pt 0; padding: 6pt 0; border-bottom: 1px dashed #ccc; page-break-inside: avoid; }
+  .tag { display: inline-block; font-size: 8.5pt; font-family: ui-monospace, monospace; letter-spacing: 0.1em; text-transform: uppercase; color: #555; border: 1px solid #999; padding: 1pt 6pt; border-radius: 999px; margin-bottom: 4pt; }
+  .orig { color: #a00; font-size: 10.5pt; }
+  .sugg { color: #070; font-size: 10.5pt; font-weight: 600; margin: 2pt 0; }
+  .expl { color: #444; font-size: 10pt; font-style: italic; }
+  ul { padding-left: 16pt; }
+  footer { margin-top: 16pt; padding-top: 8pt; border-top: 1px solid #ccc; font-family: ui-monospace, monospace; font-size: 8.5pt; letter-spacing: 0.1em; text-transform: uppercase; color: #666; text-align: center; }
+</style></head><body>
+<header>
+  <div class="brand">London · LC</div>
+  <div class="meta">
+    <div><b>${esc(studentName)}</b></div>
+    <div>${graded.toLocaleString()}</div>
+    <div>${s.wordCount} words</div>
+  </div>
+</header>
+<h1>IELTS Writing Task 2 — Band ${s.overallBand?.toFixed(1) ?? "—"}</h1>
+<section><h2>Prompt</h2><p>${esc(s.prompt)}</p></section>
+<section><h2>Essay</h2><p class="essay">${esc(s.essay)}</p></section>
+<section><h2>Scores</h2><table><tbody>
+  ${scores.map(c => `<tr><td>${esc(c.k)}</td><td>${c.v?.toFixed(1) ?? "—"}</td></tr>`).join("")}
+  <tr><td><b>Overall</b></td><td><b>${s.overallBand?.toFixed(1) ?? "—"}</b></td></tr>
+</tbody></table></section>
+${feedback.length ? `<section><h2>Examiner feedback</h2>${feedback.map(f => `<div><h3>${esc(f.criterion)}</h3><p>${esc(f.comment)}</p></div>`).join("")}</section>` : ""}
+${corrections.length ? `<section><h2>Corrections (${corrections.length})</h2>${corrections.map(c => {
+  const tag = (CORRECTION_COLORS[c.type] ?? CORRECTION_COLORS.style).label;
+  return `<div class="corr"><div class="tag">${esc(tag)}</div><div class="orig">Original: &ldquo;${esc(c.original)}&rdquo;</div><div class="sugg">Suggested: &ldquo;${esc(c.suggestion)}&rdquo;</div><div class="expl">${esc(c.explanation)}</div></div>`;
+}).join("")}</section>` : ""}
+${strengths.length ? `<section><h2>What's working</h2><ul>${strengths.map(x => `<li>${esc(x)}</li>`).join("")}</ul></section>` : ""}
+${nextSteps.length ? `<section><h2>Next steps</h2><ul>${nextSteps.map(x => `<li>${esc(x)}</li>`).join("")}</ul></section>` : ""}
+<footer>Generated by London LC · Graded by Claude Opus 4.7</footer>
+<script>
+  document.title = ${JSON.stringify(filename)};
+  window.addEventListener('load', () => setTimeout(() => window.print(), 250));
+</script>
+</body></html>`);
+  w.document.close();
+}
+
 export default function WritingPage() {
   const router = useRouter();
   const [session, setSession] = useState<StudentSession | null>(null);
@@ -55,13 +166,31 @@ export default function WritingPage() {
   const [errorMsg, setErrorMsg] = useState("");
   const [lastSub, setLastSub] = useState<WritingSubmission | null>(null);
   const [filter, setFilter] = useState<"all" | Correction["type"]>("all");
+  const [prompt, setPrompt] = useState<string>(PROMPTS[0]);
+  const [customMode, setCustomMode] = useState(false);
+  const [customDraft, setCustomDraft] = useState("");
+  const [history, setHistory] = useState<WritingSubmission[]>([]);
+  const [historyOpen, setHistoryOpen] = useState<string | null>(null);
 
   useEffect(() => {
     const s = getSession();
     if (!s || s.isAdmin) { router.push("/auth/login"); return; }
     setSession(s);
-    try { setText(localStorage.getItem(DRAFT_KEY) || ""); } catch {}
-    getLastSubmission(s.id).then(setLastSub);
+
+    let storedPrompt: string | null = null;
+    try {
+      storedPrompt = sessionStorage.getItem(PROMPT_KEY);
+      setText(localStorage.getItem(DRAFT_KEY) || "");
+    } catch {}
+
+    const next = storedPrompt && storedPrompt.trim() ? storedPrompt : pickRandomPrompt();
+    setPrompt(next);
+    try { sessionStorage.setItem(PROMPT_KEY, next); } catch {}
+
+    getSubmissions(s.id).then(rows => {
+      setHistory(rows);
+      if (rows[0]) setLastSub(rows[0]);
+    });
   }, [router]);
 
   useEffect(() => {
@@ -77,13 +206,39 @@ export default function WritingPage() {
   const chars = text.length;
   const targetHit = words >= 250;
 
+  const shufflePrompt = () => {
+    if (status === "submitting" || status === "grading") return;
+    const next = pickRandomPrompt(prompt);
+    setPrompt(next);
+    setCustomMode(false);
+    try { sessionStorage.setItem(PROMPT_KEY, next); } catch {}
+  };
+
+  const openCustom = () => {
+    if (status === "submitting" || status === "grading") return;
+    setCustomDraft(prompt);
+    setCustomMode(true);
+  };
+
+  const saveCustom = () => {
+    const trimmed = customDraft.trim();
+    if (trimmed.length < 20) {
+      setErrorMsg("Custom topic must be at least 20 characters.");
+      return;
+    }
+    setErrorMsg("");
+    setPrompt(trimmed);
+    setCustomMode(false);
+    try { sessionStorage.setItem(PROMPT_KEY, trimmed); } catch {}
+  };
+
   const handleSubmit = async () => {
     if (!session || !targetHit || status === "submitting" || status === "grading") return;
 
     setStatus("submitting");
     setErrorMsg("");
 
-    const sub = await submitEssay(session.id, `${session.name} ${session.surname}`, PROMPT, text);
+    const sub = await submitEssay(session.id, `${session.name} ${session.surname}`, prompt, text);
     if (!sub) {
       setStatus("error");
       setErrorMsg("Failed to save essay. Check your connection.");
@@ -93,15 +248,15 @@ export default function WritingPage() {
     setStatus("grading");
     setLastSub(sub);
 
-    const grading = await gradeEssayWithAI(sub.id, PROMPT, text);
+    const grading = await gradeEssayWithAI(sub.id, prompt, text);
     if (!grading) {
       setStatus("error");
       setErrorMsg("Essay saved but AI grading failed. Your teacher can still review it manually.");
       return;
     }
 
-    setLastSub(prev => prev ? {
-      ...prev,
+    const updated: WritingSubmission = {
+      ...sub,
       taskResponse: grading.taskResponse,
       coherenceCohesion: grading.coherenceCohesion,
       lexicalResource: grading.lexicalResource,
@@ -112,15 +267,24 @@ export default function WritingPage() {
       strengths: grading.strengths,
       nextSteps: grading.nextSteps,
       gradedAt: new Date().toISOString(),
-    } : null);
+    };
+    setLastSub(updated);
+    setHistory(prev => [updated, ...prev.filter(h => h.id !== updated.id)]);
 
     setStatus("done");
     try { localStorage.removeItem(DRAFT_KEY); } catch {}
     setText("");
   };
 
+  const handlePaste = (e: React.ClipboardEvent<HTMLTextAreaElement>) => {
+    if (!ANTI_PASTE_ENABLED) return;
+    e.preventDefault();
+    setErrorMsg("Pasting is disabled. Please type your essay yourself.");
+  };
+
   if (!session) return null;
 
+  const studentName = `${session.name} ${session.surname}`;
   const hasScore = lastSub?.overallBand != null;
   const criteria = hasScore ? [
     { k: "Task response", v: lastSub!.taskResponse! },
@@ -137,8 +301,8 @@ export default function WritingPage() {
     return acc;
   }, {});
 
-  const handleDownload = () => {
-    if (typeof window !== "undefined") window.print();
+  const handleDownloadCurrent = () => {
+    if (lastSub) downloadSubmissionPDF(lastSub, studentName);
   };
 
   return (
@@ -153,10 +317,54 @@ export default function WritingPage() {
       <div className="writing-grid" style={{ display: "grid", gridTemplateColumns: "1.2fr 1fr", gap: 24 }}>
         <div>
           <div className="card" style={{ marginBottom: 20 }}>
-            <p className="eyebrow" style={{ margin: 0 }}>Prompt · 40 minutes · minimum 250 words</p>
-            <p style={{ fontFamily: "var(--ff-serif)", fontSize: 18, lineHeight: 1.5, margin: "12px 0 0", color: "var(--text)" }}>
-              {PROMPT}
-            </p>
+            <div className="flex jcb aic" style={{ marginBottom: 12, gap: 12, flexWrap: "wrap" }}>
+              <p className="eyebrow" style={{ margin: 0 }}>Prompt · 40 minutes · minimum 250 words</p>
+              <div style={{ display: "flex", gap: 6 }}>
+                <button
+                  className="chip"
+                  onClick={shufflePrompt}
+                  disabled={status === "submitting" || status === "grading"}
+                  title="Get a new random topic"
+                >
+                  <RefreshCw size={11} style={{ marginRight: 4, verticalAlign: -1 }} /> Shuffle
+                </button>
+                <button
+                  className="chip"
+                  onClick={openCustom}
+                  disabled={status === "submitting" || status === "grading"}
+                  title="Write your own topic"
+                >
+                  <Pencil size={11} style={{ marginRight: 4, verticalAlign: -1 }} /> Custom
+                </button>
+              </div>
+            </div>
+
+            {customMode ? (
+              <>
+                <textarea
+                  value={customDraft}
+                  onChange={e => setCustomDraft(e.target.value)}
+                  placeholder="Type your own IELTS Task 2 question…"
+                  rows={4}
+                  style={{
+                    width: "100%", display: "block", resize: "vertical",
+                    background: "var(--surface-2)",
+                    border: "1px solid var(--line)", borderRadius: 8,
+                    color: "var(--text)", fontFamily: "var(--ff-serif)",
+                    fontSize: 16, lineHeight: 1.5,
+                    padding: "12px 14px", outline: "none",
+                  }}
+                />
+                <div style={{ display: "flex", gap: 8, marginTop: 10, justifyContent: "flex-end" }}>
+                  <button className="chip" onClick={() => setCustomMode(false)}>Cancel</button>
+                  <button className="btn primary sm" onClick={saveCustom}>Use this topic</button>
+                </div>
+              </>
+            ) : (
+              <p style={{ fontFamily: "var(--ff-serif)", fontSize: 18, lineHeight: 1.5, margin: "0", color: "var(--text)" }}>
+                &ldquo;{prompt}&rdquo;
+              </p>
+            )}
           </div>
 
           <div className="editor">
@@ -171,6 +379,7 @@ export default function WritingPage() {
               className="area"
               value={text}
               onChange={e => setText(e.target.value)}
+              onPaste={handlePaste}
               placeholder="Start writing…"
               disabled={status === "submitting" || status === "grading"}
               style={{
@@ -183,7 +392,7 @@ export default function WritingPage() {
             />
             <div className="hd" style={{ borderTop: "1px solid var(--line)", borderBottom: 0 }}>
               <span style={{ fontSize: 11, color: "var(--text-3)" }}>
-                {status === "grading" ? "Claude is reading your essay…" : "Graded by Claude Opus 4.6"}
+                {status === "grading" ? "Claude is reading your essay…" : "Graded by Claude Opus 4.7"}
               </span>
               <button
                 className="btn primary sm"
@@ -206,6 +415,93 @@ export default function WritingPage() {
           {errorMsg && (
             <div style={{ marginTop: 12, padding: "10px 14px", borderRadius: 8, background: "rgba(239,68,68,0.1)", border: "1px solid rgba(239,68,68,0.3)", color: "#fca5a5", fontSize: 13 }}>
               {errorMsg}
+            </div>
+          )}
+
+          {history.length > 0 && (
+            <div className="card" style={{ marginTop: 20 }}>
+              <div className="flex jcb aic" style={{ marginBottom: 14 }}>
+                <p className="eyebrow" style={{ margin: 0 }}>
+                  <Clock size={11} style={{ verticalAlign: -1, marginRight: 6 }} />
+                  Your history · {history.length}
+                </p>
+              </div>
+              <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+                {history.map(h => {
+                  const isOpen = historyOpen === h.id;
+                  const date = new Date(h.createdAt).toLocaleString(undefined, {
+                    month: "short", day: "numeric", year: "numeric", hour: "2-digit", minute: "2-digit",
+                  });
+                  return (
+                    <div key={h.id} style={{ border: "1px solid var(--line)", borderRadius: 10, background: "var(--surface-2)" }}>
+                      <button
+                        onClick={() => setHistoryOpen(isOpen ? null : h.id)}
+                        style={{
+                          width: "100%", padding: "12px 14px",
+                          display: "flex", alignItems: "center", gap: 12,
+                          background: "transparent", border: "none", cursor: "pointer",
+                          color: "var(--text)", fontFamily: "inherit", textAlign: "left",
+                        }}
+                      >
+                        <div style={{
+                          fontSize: 12, fontWeight: 700,
+                          padding: "3px 10px", borderRadius: 999, minWidth: 52, textAlign: "center",
+                          background: h.overallBand ? "rgba(16,185,129,0.15)" : "rgba(234,179,8,0.15)",
+                          color: h.overallBand ? "#10b981" : "#eab308",
+                          fontFamily: "var(--ff-mono)",
+                        }}>
+                          {h.overallBand ? h.overallBand.toFixed(1) : "···"}
+                        </div>
+                        <div style={{ flex: 1, minWidth: 0 }}>
+                          <div style={{ fontSize: 13, color: "var(--text)", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                            {h.prompt}
+                          </div>
+                          <div style={{ fontSize: 11, color: "var(--text-3)", marginTop: 2, fontFamily: "var(--ff-mono)" }}>
+                            {date} · {h.wordCount} words
+                          </div>
+                        </div>
+                        {isOpen ? <ChevronUp size={14} color="var(--text-3)" /> : <ChevronDown size={14} color="var(--text-3)" />}
+                      </button>
+
+                      {isOpen && (
+                        <div style={{ padding: "0 14px 14px", borderTop: "1px solid var(--line)" }}>
+                          <div style={{ display: "flex", justifyContent: "flex-end", paddingTop: 10 }}>
+                            {h.overallBand != null && (
+                              <button
+                                className="chip"
+                                onClick={() => downloadSubmissionPDF(h, studentName)}
+                              >
+                                <Download size={11} style={{ verticalAlign: -1, marginRight: 4 }} /> Download PDF
+                              </button>
+                            )}
+                          </div>
+                          <div style={{ marginTop: 10 }}>
+                            <div style={{ fontSize: 10, letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--text-3)", marginBottom: 6, fontFamily: "var(--ff-mono)" }}>Essay</div>
+                            <div style={{ fontSize: 13, color: "var(--text-2)", lineHeight: 1.65, whiteSpace: "pre-line", maxHeight: 240, overflowY: "auto", padding: "10px 12px", background: "var(--surface)", border: "1px solid var(--line)", borderRadius: 8 }}>
+                              {h.essay}
+                            </div>
+                          </div>
+                          {h.overallBand != null && (
+                            <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 8, marginTop: 12 }}>
+                              {[
+                                { label: "TR", val: h.taskResponse },
+                                { label: "CC", val: h.coherenceCohesion },
+                                { label: "LR", val: h.lexicalResource },
+                                { label: "GRA", val: h.grammarAccuracy },
+                              ].map(k => (
+                                <div key={k.label} style={{ padding: "8px 10px", background: "var(--surface)", border: "1px solid var(--line)", borderRadius: 6 }}>
+                                  <div style={{ fontSize: 9, color: "var(--text-3)", letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: 2, fontFamily: "var(--ff-mono)" }}>{k.label}</div>
+                                  <div style={{ fontSize: 14, fontWeight: 600, color: "var(--text)" }}>{k.val?.toFixed(1) ?? "—"}</div>
+                                </div>
+                              ))}
+                            </div>
+                          )}
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
             </div>
           )}
         </div>
@@ -234,7 +530,7 @@ export default function WritingPage() {
 
                 <button
                   className="btn primary sm"
-                  onClick={handleDownload}
+                  onClick={handleDownloadCurrent}
                   style={{ marginTop: 16, width: "100%", justifyContent: "center" }}
                 >
                   <Download size={12} /> Download PDF report
@@ -353,76 +649,6 @@ export default function WritingPage() {
         </div>
       </div>
 
-      {hasScore && (
-        <div className="print-report" aria-hidden>
-          <header>
-            <div className="brand">London · LC</div>
-            <div className="meta">
-              <div><b>{session.name} {session.surname}</b></div>
-              <div>{new Date(lastSub!.gradedAt ?? lastSub!.createdAt).toLocaleString()}</div>
-              <div>{lastSub!.wordCount} words</div>
-            </div>
-          </header>
-          <h1>IELTS Writing Task 2 — Band {lastSub!.overallBand!.toFixed(1)}</h1>
-          <section>
-            <h2>Prompt</h2>
-            <p>{lastSub!.prompt}</p>
-          </section>
-          <section>
-            <h2>Essay</h2>
-            <p style={{ whiteSpace: "pre-wrap" }}>{lastSub!.essay}</p>
-          </section>
-          <section>
-            <h2>Scores</h2>
-            <table>
-              <tbody>
-                {criteria.map(c => (
-                  <tr key={c.k}><td>{c.k}</td><td>{c.v.toFixed(1)}</td></tr>
-                ))}
-                <tr><td><b>Overall</b></td><td><b>{lastSub!.overallBand!.toFixed(1)}</b></td></tr>
-              </tbody>
-            </table>
-          </section>
-          {lastSub!.feedback && lastSub!.feedback.length > 0 && (
-            <section>
-              <h2>Examiner feedback</h2>
-              {lastSub!.feedback.map((f, i) => (
-                <div key={i} className="fb">
-                  <h3>{f.criterion}</h3>
-                  <p>{f.comment}</p>
-                </div>
-              ))}
-            </section>
-          )}
-          {allCorrections.length > 0 && (
-            <section>
-              <h2>Corrections ({allCorrections.length})</h2>
-              {allCorrections.map((c, i) => (
-                <div key={i} className="corr">
-                  <div className="tag">{(CORRECTION_COLORS[c.type] ?? CORRECTION_COLORS.style).label}</div>
-                  <div className="orig">Original: “{c.original}”</div>
-                  <div className="sugg">Suggested: “{c.suggestion}”</div>
-                  <div className="expl">{c.explanation}</div>
-                </div>
-              ))}
-            </section>
-          )}
-          {lastSub!.strengths && lastSub!.strengths.length > 0 && (
-            <section>
-              <h2>What's working</h2>
-              <ul>{lastSub!.strengths.map((s, i) => <li key={i}>{s}</li>)}</ul>
-            </section>
-          )}
-          {lastSub!.nextSteps && lastSub!.nextSteps.length > 0 && (
-            <section>
-              <h2>Next steps</h2>
-              <ul>{lastSub!.nextSteps.map((s, i) => <li key={i}>{s}</li>)}</ul>
-            </section>
-          )}
-          <footer>Generated by London LC · Graded by Claude Opus 4.7</footer>
-        </div>
-      )}
-
       <style>{`
         @media (max-width: 900px) {
           .writing-grid { grid-template-columns: 1fr !important; }
@@ -444,74 +670,8 @@ export default function WritingPage() {
           transition: background 0.15s, color 0.15s, border-color 0.15s;
         }
         .chip:hover { border-color: var(--line-2); color: var(--text); }
+        .chip:disabled { opacity: 0.5; cursor: not-allowed; }
         .chip[data-active="true"] { background: var(--accent); color: var(--bg); border-color: var(--accent); }
-
-        .print-report { display: none; }
-
-        @media print {
-          @page { margin: 14mm 14mm 16mm; }
-          body { background: #fff !important; }
-          .student-shell .sh-app .sb,
-          .student-shell .sh-app .topbar,
-          .writing-grid,
-          .eyebrow,
-          .btn { display: none !important; }
-          .student-shell .sh-main { margin: 0 !important; padding: 0 !important; }
-          .student-shell .page { padding: 0 !important; max-width: none !important; }
-
-          .print-report {
-            display: block !important;
-            color: #111;
-            font-family: "Iowan Old Style", "Fraunces", Georgia, serif;
-            font-size: 11.5pt;
-            line-height: 1.55;
-          }
-          .print-report header {
-            display: flex; justify-content: space-between; align-items: flex-start;
-            border-bottom: 1px solid #333; padding-bottom: 10pt; margin-bottom: 14pt;
-          }
-          .print-report .brand {
-            font-family: "JetBrains Mono", ui-monospace, monospace;
-            font-size: 10pt; letter-spacing: 0.14em; text-transform: uppercase;
-          }
-          .print-report .meta { font-size: 9.5pt; text-align: right; color: #333; }
-          .print-report h1 {
-            font-size: 22pt; font-weight: 600; margin: 0 0 18pt;
-            letter-spacing: -0.01em;
-          }
-          .print-report h2 {
-            font-size: 12pt; font-weight: 700;
-            text-transform: uppercase; letter-spacing: 0.12em;
-            margin: 16pt 0 6pt; color: #222;
-            border-bottom: 1px solid #ccc; padding-bottom: 3pt;
-          }
-          .print-report h3 { font-size: 11pt; margin: 8pt 0 3pt; }
-          .print-report p { margin: 0 0 6pt; }
-          .print-report section { margin-bottom: 10pt; page-break-inside: avoid; }
-          .print-report table { width: 100%; border-collapse: collapse; font-size: 11pt; }
-          .print-report table td { padding: 4pt 0; border-bottom: 1px solid #eee; }
-          .print-report table td:last-child { text-align: right; font-family: "JetBrains Mono", ui-monospace, monospace; }
-          .print-report .fb { margin-bottom: 8pt; page-break-inside: avoid; }
-          .print-report .corr {
-            margin: 6pt 0; padding: 6pt 0; border-bottom: 1px dashed #ccc;
-            page-break-inside: avoid;
-          }
-          .print-report .corr .tag {
-            display: inline-block; font-size: 8.5pt; font-family: "JetBrains Mono", ui-monospace, monospace;
-            letter-spacing: 0.1em; text-transform: uppercase; color: #555;
-            border: 1px solid #999; padding: 1pt 6pt; border-radius: 999px; margin-bottom: 4pt;
-          }
-          .print-report .corr .orig { color: #a00; font-size: 10.5pt; }
-          .print-report .corr .sugg { color: #070; font-size: 10.5pt; font-weight: 600; margin: 2pt 0; }
-          .print-report .corr .expl { color: #444; font-size: 10pt; font-style: italic; }
-          .print-report ul { padding-left: 16pt; }
-          .print-report footer {
-            margin-top: 16pt; padding-top: 8pt; border-top: 1px solid #ccc;
-            font-family: "JetBrains Mono", ui-monospace, monospace;
-            font-size: 8.5pt; letter-spacing: 0.1em; text-transform: uppercase;
-            color: #666; text-align: center;
-          }
-        }
       `}</style>
     </StudentShell>
   );
