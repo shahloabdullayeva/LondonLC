@@ -1136,7 +1136,7 @@ So far, the released vultures are thriving. Two of the birds have even paired wi
     category: "Arts & Culture",
     readingTime: 4,
     curated: true,
-    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Betty_Boop_patent.jpg/440px-Betty_Boop_patent.jpg",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRfjXkwU6ZrpG087fxOBV457LrKp99PcvfBPA&s",
     content: `Every January 1st, copyright law lets a new wave of creative works slip out of private ownership and into the public domain — meaning anyone can share, perform, adapt or build on them, free of charge. In 2026, a new batch of iconic works from 1930 joined the roster in the United States, including the original Betty Boop cartoons, Walt Disney's first Pluto shorts, the first four Nancy Drew mystery novels, and Greta Garbo's first "talkie", Anna Christie.
 
 US copyright for works published in 1930 expired after the standard 95-year term. For many educators and creators, the annual public-domain release is a small cultural holiday: teachers can freely stream the films in class, indie game developers can remix the characters, and publishers can reissue books without paying a licensing fee.
@@ -1190,7 +1190,7 @@ Summary based on reporting by The Economist's 1843 magazine (Charlie McCann), th
     category: "Science",
     readingTime: 6,
     curated: true,
-    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Kuru_brain_pathology.jpg/640px-Kuru_brain_pathology.jpg",
+    image: "https://www.thetimes.com/imageserver/image/%2Fmethode%2Ftimes%2Fprod%2Fweb%2Fbin%2F106d0064-62df-11ee-92b7-341e89720b32.jpg?crop=1120%2C630%2C7%2C84",
     content: `In the highlands of Papua New Guinea, in the middle of the 20th century, a small group of villagers began to stumble when they walked. Some trembled uncontrollably. Others laughed at nothing in particular. Within a year or two of the first symptoms, nearly all of them were dead. The Fore people, the community affected, called the illness "kuru", which means "to shake" in their language. Most of the victims were women and children.
 
 When Australian doctors reached the Fore valleys in the late 1950s, kuru seemed impossible to explain. It was clearly a neurological disease: autopsies showed that victims' brains were riddled with tiny holes, like a sponge. But it did not behave like any infection they knew. It was not caused by a virus, a bacterium or a parasite. There were no fevers, no inflammation, no immune response — and yet it seemed to spread inside families.
@@ -1284,5 +1284,40 @@ Kamila Valieva's ban expired in December 2025. She is now twenty years old, a yo
 — — —
 
 Summary based on reporting by CNN, NPR, the Washington Post, NBC Olympics, Olympics.com, the official CAS ruling (January 2024), ISU scoring protocols, and features on the Eteri Tutberidze school by The Guardian, the New York Times, Classic FM and Russian-language outlet Match TV.`,
+  },
+  {
+    id: "beethoven-ninth-symphony",
+    title: "The deaf composer who wrote Europe's anthem: two centuries of Beethoven's Ninth",
+    author: "London LC Digest",
+    source: "London LC Digest",
+    category: "Arts & Culture",
+    readingTime: 8,
+    curated: true,
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Beethoven.jpg/640px-Beethoven.jpg",
+    content: `On the evening of 7 May 1824, an audience filed into Vienna's Kärntnertortheater to hear a new symphony by a man who could no longer hear his own music. Ludwig van Beethoven was fifty-three, almost completely deaf, and had not presented a major public premiere in a decade. The piece he was about to unveil — Symphony No. 9 in D minor, Op. 125 — ran to over an hour, used an unprecedented four vocal soloists and a full chorus in the final movement, and set to music a poem by Friedrich Schiller called "An die Freude" — "Ode to Joy". It was a structural and philosophical experiment unlike anything European audiences had encountered.
+
+Beethoven stood on stage beside the official conductor, Michael Umlauf, beating time for his own work even though he could not follow it by ear. When the symphony ended, the audience erupted. According to the contralto Caroline Unger, who sang one of the solo parts, the composer was still facing the orchestra, unaware of the applause behind him. Unger gently turned him around so he could see the crowd on their feet. It is one of the most quoted scenes in the history of Western music — although, like many famous anecdotes, some details vary between eyewitness accounts.
+
+Two hundred years later, the Ninth has become something far larger than a symphony. The "Ode to Joy" melody is the official anthem of the European Union, adopted in 1985. It was performed at the reunification of Germany on Christmas Day 1989, conducted by Leonard Bernstein, who replaced the word "Freude" (joy) with "Freiheit" (freedom) for that single occasion. It is played every year in Japan during the end-of-year concert season — a tradition that began with prisoners of war in 1918 and now draws tens of thousands of singers into massed performances of the final chorus. In 2001, UNESCO added the original manuscript to its Memory of the World register, making it one of the few musical scores with that status.
+
+Understanding why the Ninth had such a long afterlife requires looking at what Beethoven actually did in the score. Symphonies before 1824 were almost always purely instrumental. By putting a chorus inside a symphony — and by giving them words about universal human brotherhood — Beethoven fused two previously separate genres: the symphony and the oratorio. Composers from Berlioz to Mahler to Shostakovich would later follow him, writing symphonies with voices, but Beethoven's was the first.
+
+The work's structure is also unusual. It lasts roughly seventy minutes, which at the time was extraordinarily long; most symphonies before it ran to twenty-five or thirty. The first movement, marked Allegro ma non troppo, un poco maestoso, opens with a famous "open fifth" — a bare, almost primal interval that musicologists have described as sounding like the tuning of the world itself. The scherzo that follows is in an aggressive triple time, famously using timpani tuned an octave apart, a detail Beethoven wrote into the score with almost childlike enthusiasm. The slow movement is a long, tender Adagio in two alternating themes, often cited as one of the most emotionally mature pieces he ever wrote.
+
+Then comes the finale. It begins with a chaotic orchestral outburst — Wagner called it the "Schreckensfanfare" or "terror fanfare" — followed by a bass soloist singing the startling line "O Freunde, nicht diese Töne!" ("Oh friends, not these sounds!"). These words are not from Schiller. Beethoven wrote them himself. It is as if the composer is pushing the previous three movements aside and demanding a different kind of music. The chorus then enters with the famous theme, a deliberately simple melody Beethoven constructed so that ordinary people could sing it — and they have, for two centuries.
+
+Beethoven's deafness is central to the mythology of the Ninth, but it is worth being precise. He began losing his hearing around 1798, when he was in his late twenties. By 1814 he was using conversation books — notebooks in which visitors wrote down their side of a dialogue — and by the time of the Ninth's premiere, he was profoundly deaf. Modern medical historians have debated the cause for decades. Lead poisoning, otosclerosis, and various autoimmune conditions have all been proposed. A lock of the composer's hair, analysed in 2023 using whole-genome sequencing by an international team led by the University of Cambridge, confirmed very high lead levels and a genetic predisposition to liver disease, without settling the exact cause of the hearing loss.
+
+What the Ninth demonstrates is that deafness did not stop Beethoven composing — it changed how he composed. He worked increasingly from inner ear, sketching and revising for years. The Ninth occupied him, on and off, for nearly a decade. His sketchbooks show the "Ode to Joy" theme evolving through dozens of drafts, slowly being simplified until it reached the singable form we know.
+
+For IELTS-level English learners, the vocabulary of the Ninth is a small world in itself: premiere, oratorio, chorus, soloist, tempo, movement, score, premiere, manuscript. The work's reception history is also a useful case study in how art acquires meaning over time. In 1824 it was admired but controversial. By the mid-nineteenth century, Wagner and others had made it the central text of a whole musical philosophy. By the twentieth century it had become propaganda — used by the Nazi regime at party rallies, by the Allies in victory concerts, and by the Japanese orchestra tradition as a year-end ritual. The same seventy minutes of music have meant radically different things to radically different societies.
+
+The anniversary year of 2024 saw new performances and new controversies. Several German orchestras used the 200th anniversary to reconsider the piece's uncomplicated embrace of universal brotherhood, noting that Schiller's text speaks of "all men becoming brothers" in a language that excludes half the human race. Some conductors commissioned companion pieces by women composers to be performed alongside it. Others argued that the Ninth's universality is precisely what allows it to be re-read. The Kyiv Symphony Orchestra performed it in Lviv in February 2024, two years into Russia's full-scale invasion of Ukraine, specifically to reclaim the words "all men become brothers" as an act of hope rather than irony.
+
+Two hundred years on, the Ninth remains a puzzle: a piece written by a man who could not hear, setting words written by a man who died in 1805, performed by orchestras using instruments the composer never imagined, in halls wired for sound he would never have accepted. And yet every year, new listeners — including language students encountering it in anthologies and film scores — hear the same tune emerge from the orchestra, and recognise it immediately. That recognition is not an accident. Beethoven designed a melody that a non-musician could sing after one hearing. He knew, even when he could no longer hear it himself, that music this plain and this open would survive.
+
+— — —
+
+Summary based on reporting by BBC Music Magazine, Gramophone, Deutsche Welle, The New York Times, the Beethoven-Haus Bonn (which holds the original manuscript), UNESCO's Memory of the World register entry, and the 2023 Cambridge/Max Planck study on Beethoven's DNA published in Current Biology.`,
   },
 ];
