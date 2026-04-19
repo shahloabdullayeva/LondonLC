@@ -169,13 +169,9 @@ export const starterSongs: Song[] = [
   { id: "alan-walker-sing-me-to-sleep", title: "Sing Me to Sleep", artist: "Alan Walker", youtubeId: "2i2khp_npdE", duration: 207 },
 
   // ═══════════════════════════════════════════════════════════
-  // Kelly Boesch
+  // Marshmello
   // ═══════════════════════════════════════════════════════════
-  { id: "kelly-boesch-little-alien", title: "Little Alien", artist: "Kelly Boesch", youtubeId: "OmG5cT5Wlm4", duration: 180 },
-  { id: "kelly-boesch-bite-my-lip", title: "Bite My Lip", artist: "Kelly Boesch", youtubeId: "j_2_-4dFZ8k", duration: 185 },
-  { id: "kelly-boesch-you-dont-fool-me", title: "You Don't Fool Me", artist: "Kelly Boesch", youtubeId: "q-P4l7Q6y3Q", duration: 190 },
-  { id: "kelly-boesch-indigo-sun", title: "Indigo Sun", artist: "Kelly Boesch", youtubeId: "ZJDx1qGKf3c", duration: 200 },
-  { id: "kelly-boesch-into-the-mist", title: "Into the Mist", artist: "Kelly Boesch", youtubeId: "8AvqT3PVfIc", duration: 195 },
+  { id: "marshmello-alone", title: "Alone", artist: "Marshmello", youtubeId: "ALZHF5UqnU4", duration: 275 },
 
   // ═══════════════════════════════════════════════════════════
   // Stephen Sanchez
