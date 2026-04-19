@@ -1154,4 +1154,30 @@ Copyright rules vary by country. In the UK and the EU, works generally enter the
 
 Summary based on public reporting by NPR, the Center for the Study of the Public Domain at Duke University, and Reuters.`,
   },
+  {
+    id: "kennedy-centre-closure-2026",
+    title: "Inside the crisis at the Kennedy Centre",
+    author: "London LC Digest",
+    source: "London LC Digest",
+    category: "Politics & Culture",
+    readingTime: 6,
+    curated: true,
+    content: `In December 2025, President Donald Trump took to the stage in black tie to host the 48th Kennedy Centre Honours — the first time a sitting US president had served as master of ceremonies at the arts venue's annual awards. Just two months later, he announced on his social-media platform that the centre would close for "approximately" two years for a complete rebuild, describing the existing building as "tired, broken, and dilapidated".
+
+The announcement marked a low point in a chaotic year for what is often called America's "palace of culture". The Kennedy Centre, a marble-clad venue on the banks of the Potomac, opened in 1971 as a living memorial to President John F. Kennedy. It has historically been funded by a mix of federal money and private donations, and its board has traditionally drawn trustees from both political parties.
+
+That changed in February 2025, when Trump replaced the sitting trustees with his own supporters, who then installed him as chairman. The head of the centre was replaced by Richard Grenell, a Trump loyalist and former ambassador to Germany with no background in the arts. On Truth Social, Trump vowed to make the Kennedy Centre "GREAT AGAIN" by stripping out what he called "wokery" and drag performances.
+
+What followed was a dramatic reshaping of the institution. The new management dismantled the centre's social-impact programme, dismissed about 20 people from the fundraising department on a single day — dubbed "Bloody Friday" by staff — and launched a new faith-and-family strand of programming that included a Christian-themed Christmas show featuring the Republican speaker of the House reading from the New Testament.
+
+Artists began pulling out. Philip Glass, the composer, withdrew a new symphony about Abraham Lincoln, saying the centre's values now conflicted with the work's message. The Washington National Opera, the centre's resident opera company, severed its ties. Productions of Hamilton and several Broadway musicals were cancelled. An analysis by the Washington Post found that ticket sales in autumn 2025 were the worst they had been since the pandemic.
+
+Grenell, for his part, has rejected accusations of mismanagement. He told PBS that the centre was "in great financial shape" since Trump's takeover and had raised more than $130m in donations. But a congressional investigation led by Senator Sheldon Whitehouse has begun examining the centre's spending and contracts, including a free three-week booking granted to FIFA for the 2026 World Cup draw that reportedly cost the venue more than $5m in lost revenue.
+
+The two-year closure, which begins on July 4th 2026, is officially billed as a renovation. Critics argue it is also a way of covering up plunging attendance and a boycott by artists. "He will actually plan to tear it down, turn it into the Trump Centre," said Chellie Pingree, the Democratic congresswoman who sits on the committee that oversees the centre's federal funding. Whether the venue reopens in 2028, and what it will look like if it does, remains an open question.
+
+— — —
+
+Summary based on reporting by The Economist's 1843 magazine (Charlie McCann), the Washington Post and PBS.`,
+  },
 ];
