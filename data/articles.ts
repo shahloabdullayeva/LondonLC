@@ -15,6 +15,8 @@ export type Article = {
   image?: string;
   /** The article body — plain text with line breaks. Supports [IMG:url] for inline images. */
   content: string;
+  /** If true, shows an "AI-summarised" badge (article was curated from other reporting). */
+  curated?: boolean;
 };
 
 const imageUrl = (name: string) =>
@@ -1125,5 +1127,31 @@ A week after I left Pinjore, the chief minister of Haryana found space in his di
 After all the pomp and preparation, the release itself was anti-climactic. The chief minister pulled a rope to hoist the pulley gate of the aviary. For half an hour, a knot of politicians, bureaucrats and conservationists watched as nothing happened. Eventually, an inquisitive bird waddled out of the aviary and lumbered about outside before flying back in. It took days for all 25 of the white-rumped vultures to fly away—by which point the VIPs had long dispersed.
 
 So far, the released vultures are thriving. Two of the birds have even paired with wild vultures, and the staff are looking forward to the eggs hatching. As Lalit Sharma, the technician, told me, "God willing, we shall see many more vultures in the sky in the next few years."`,
+  },
+  {
+    id: "public-domain-2026",
+    title: "Betty Boop, Pluto and the works entering the public domain in 2026",
+    author: "London LC Digest",
+    source: "London LC Digest",
+    category: "Arts & Culture",
+    readingTime: 4,
+    curated: true,
+    content: `Every January 1st, copyright law lets a new wave of creative works slip out of private ownership and into the public domain — meaning anyone can share, perform, adapt or build on them, free of charge. In 2026, a new batch of iconic works from 1930 joined the roster in the United States, including the original Betty Boop cartoons, Walt Disney's first Pluto shorts, the first four Nancy Drew mystery novels, and Greta Garbo's first "talkie", Anna Christie.
+
+US copyright for works published in 1930 expired after the standard 95-year term. For many educators and creators, the annual public-domain release is a small cultural holiday: teachers can freely stream the films in class, indie game developers can remix the characters, and publishers can reissue books without paying a licensing fee.
+
+Betty Boop is arguably the headline act. Created by the Fleischer Studios animator Max Fleischer, Betty first appeared in Dizzy Dishes in August 1930 as a flirtatious, jazz-age caricature. Over the following decade she would be softened and eventually censored by the Hays Code, which policed moral content in American film. Her original, rougher incarnation is now fair game — although the later, tamer version of the character remains under trademark protection, which is different from copyright and can last indefinitely.
+
+Disney's Pluto is another milestone. The yellow bloodhound first appeared as a nameless tracker in The Chain Gang, a 1930 Mickey Mouse short. He would not become "Pluto the pup" until the following year, meaning only his earliest appearance has entered the public domain. Disney has long been associated with lobbying to extend US copyright terms — the 1998 "Sonny Bono" Copyright Term Extension Act is nicknamed the "Mickey Mouse Protection Act" — so each January release edges closer to the company's core characters.
+
+The Nancy Drew series, written under the pseudonym Carolyn Keene, also became freely available. The first four titles — The Secret of the Old Clock, The Hidden Staircase, The Bungalow Mystery, and The Mystery at Lilac Inn — launched one of the most enduring franchises in young-adult fiction.
+
+Beyond cartoons and crime novels, the 2026 batch includes compositions by George Gershwin and Cole Porter, early works by William Faulkner and Agatha Christie, and dozens of films. For learners of English, the public domain is a quietly generous resource: it is the legal basis on which Project Gutenberg distributes free classics, and why so many Hollywood film schools can assign classic shorts without clearing rights.
+
+Copyright rules vary by country. In the UK and the EU, works generally enter the public domain 70 years after the author's death, not 95 years after publication, so the lists look different. But the underlying idea is the same: creativity eventually becomes a shared inheritance.
+
+— — —
+
+Summary based on public reporting by NPR, the Center for the Study of the Public Domain at Duke University, and Reuters.`,
   },
 ];

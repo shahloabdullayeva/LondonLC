@@ -74,6 +74,28 @@ export default function ArticlesPage() {
             <span>{selected.readingTime} min read</span>
           </p>
           <h1 className="h1" style={{ marginBottom: 16, fontSize: "clamp(28px, 4vw, 44px)" }}>{selected.title}</h1>
+          {selected.curated && (
+            <div
+              title="This article was summarised by AI from publicly available reporting. Links to the original sources are at the bottom."
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 6,
+                padding: "4px 10px",
+                borderRadius: 999,
+                fontFamily: "var(--ff-mono)",
+                fontSize: 10.5,
+                letterSpacing: "0.08em",
+                textTransform: "uppercase",
+                background: "rgba(120, 160, 255, 0.12)",
+                color: "#9bb5ff",
+                border: "1px solid rgba(120, 160, 255, 0.35)",
+                marginBottom: 14,
+              }}
+            >
+              ✦ AI-summarised
+            </div>
+          )}
           <div style={{ display: "flex", alignItems: "center", gap: 12, flexWrap: "wrap", fontFamily: "var(--ff-mono)", fontSize: 11, color: "var(--text-3)", letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: 28, paddingBottom: 20, borderBottom: "1px solid var(--line)" }}>
             <span>{selected.author}</span>
             <span>·</span>
