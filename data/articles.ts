@@ -1234,4 +1234,40 @@ Whether you end up convinced or sceptical, Marxism is hard to ignore. Its vocabu
 
 Summary based on entries in the Stanford Encyclopedia of Philosophy, The Economist's 200-year retrospective on Marx (2018), a 2026 essay in the New Statesman, and contemporary debates in Science & Society and the Journal of Contemporary Asia.`,
   },
+  {
+    id: "kamila-valieva-eteri-girls",
+    title: "Kamila Valieva and the Eteri girls: the price of being the best",
+    author: "London LC Digest",
+    source: "London LC Digest",
+    category: "Sport",
+    readingTime: 11,
+    curated: true,
+    content: `When Kamila Valieva took the ice at the 2022 Beijing Olympics, she was fifteen years old, a child and a phenomenon. Ninety-odd pounds of her could do things no other woman in the history of figure skating had ever done in competition: quadruple jumps with textbook rotations, triple axels dropped into her free programme as if they were an afterthought, spins and transitions so precise that judges seemed embarrassed to mark her anywhere short of perfect. By the time she landed in China she had already broken multiple world records. Her coaches, and much of the skating world, expected her to win the gold medal by a margin so large that the silver would be a footnote.
+
+Instead, Beijing turned her into one of the most tragic figures modern sport has produced — and cast a harsh spotlight on the Russian coaching system that had made her. To understand why the Valieva saga still matters in 2026, you have to look past the headlines of the scandal and at the generation of "Eteri girls" she belonged to.
+
+Eteri Tutberidze is a coach at Moscow's Sambo-70 sports complex. Together with her partners Sergei Dudakov and Daniil Gleikhengauz, she has produced, for more than a decade, a line of teenage female figure skaters who have dominated the sport with almost mechanical consistency. Evgenia Medvedeva won two world titles before the age of eighteen. Alina Zagitova won Olympic gold in 2018 at fifteen, beating Medvedeva in the process. Alexandra Trusova became the first woman to land a quadruple flip in competition. Anna Shcherbakova won the Olympic title in 2022 with clean, pressed-glass consistency. Before all of them came Yulia Lipnitskaya, whose folded-body spirals at the 2014 Sochi Olympics, aged 15, seemed to pre-programme the whole aesthetic that would follow.
+
+The formula, in brutal summary, was this: take a girl of around 12, train her through an extreme growth-suppressing regime of diet, fitness and repetition, and compete her to the limit of her body's window as a pre-pubescent jumper. Most of these skaters had only two or three years at the top. When their bodies matured, their injuries accumulated, or their triple axels stopped landing, new fifteen-year-olds were already on the way up. Medvedeva has spoken publicly about the pressure to restrict food and weight. Trusova walked off the Olympic podium in tears in 2022 saying "I hate skating, I hate it, I won't ever go on the ice again". Even insiders who admire Tutberidze's technical brilliance acknowledge that the system treats young athletes as disposable.
+
+Of all of them, many close observers believed Kamila Valieva was the best. She combined Medvedeva's expressiveness with Trusova's jumping, Zagitova's tactical instinct with Shcherbakova's consistency. Her free programmes were built on three quadruple jumps, a triple axel and a musicality that rarely fitted the stereotype of a teenage Russian quad-jumper. She was, before Beijing, the defending European champion, the Russian national champion, and the uncontested favourite for Olympic gold.
+
+Then came the news. On February 8th 2022 — in the days after the team event but before the individual competition began — the International Testing Agency confirmed that a sample Kamila had given at the Russian Nationals in December 2021 had tested positive for trimetazidine, a heart medication on the banned list. The laboratory handling her sample, in Stockholm, had taken weeks to report the result. That lag was itself strange; Russian anti-doping authorities had sent the sample in before Kamila flew to Beijing.
+
+What followed was two weeks of live-broadcast cruelty. A hastily assembled arbitration panel at Beijing allowed Kamila to continue competing in the individual event, on the grounds that she was a "protected person" under the World Anti-Doping Code — meaning a minor, for whom a provisional suspension could be waived. The ruling was controversial. The International Olympic Committee responded by announcing that, if Kamila finished in the top three, no medal ceremony would take place. Faced with that pressure, and an entire stadium watching for every flaw, Kamila skated what was arguably the worst free programme of her career, falling on jump after jump before leaving the ice in tears. Eteri Tutberidze's first words to her, captured on television, were not "it's all right" but "why did you let it go?"
+
+She finished fourth. The gold went to her teammate Anna Shcherbakova, who said afterward that she felt "an emptiness inside".
+
+Two years later, on January 29th 2024, the Court of Arbitration for Sport in Lausanne finally issued its ruling. It concluded that Kamila had, indeed, committed an anti-doping violation, imposed a four-year ban backdated to December 2021, and disqualified all her results from that date onwards — including the 2022 European title and the Russian team's gold medal in the Olympic team event. The United States, which had finished second in that team event, was later awarded gold.
+
+Commentary on the ruling has divided sharply, but even those who believe Kamila's sample was genuinely contaminated — her defence was that her grandfather's heart medication had got into hers — point out one striking feature of the judgment. The CAS panel explicitly said that her age at the time, fifteen, "could not be used to reduce her sanction". It is hard to think of another area of law in which a minor would be judged exactly as an adult, with no reduction for the fact that she had no real control over what went into her food or her water bottle. Her coaches, doctors, nutritionists and federation officials — the adults whose job it was to keep banned substances away from a fifteen-year-old — received no sanction. WADA itself publicly complained that this was unfair. No investigation of Tutberidze's staff has ever been announced by the Russian authorities.
+
+Kamila's ban runs through December 2025. She is now twenty, a young adult who spent her entire adolescence inside a system that demanded everything and protected almost nothing. Her two most famous programmes — to Ravel's Bolero and to the soundtrack of the film Schindler's List — have together been watched tens of millions of times on YouTube. Both are by any reasonable measure among the greatest figure-skating performances of the 21st century. They were skated by a child. The unfairness of her case has less to do with whether a trace of trimetazidine should disqualify an Olympic medal, and more with the fact that the sport, her country and her coaches were willing to put a child in that position in the first place.
+
+The Eteri girls will keep coming. There is already talk in Russian media of a new fifteen-year-old with a clean triple axel. Kamila, the best of them, may yet return to competition as the rules around her ban allow. But even if she does, the skater who took the ice in Beijing — quick, weightless, perfect — belongs now to the history of the sport, and to a very particular kind of sadness.
+
+— — —
+
+Summary based on reporting by CNN, NPR, the Washington Post, the official CAS ruling (January 2024), and features on the Eteri Tutberidze school by The Guardian, the New York Times and Russian-language outlet Match TV.`,
+  },
 ];
