@@ -189,7 +189,6 @@ export default function WritingPage() {
 
     getSubmissions(s.id).then(rows => {
       setHistory(rows);
-      if (rows[0]) setLastSub(rows[0]);
     });
   }, [router]);
 
