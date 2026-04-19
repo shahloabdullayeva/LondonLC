@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
-import { Send, Loader2, Download, ChevronDown, ChevronUp, RefreshCw, Pencil, Clock } from "lucide-react";
+import { Send, Loader2, Download, ChevronDown, ChevronUp, RefreshCw, Pencil, Clock, PenLine } from "lucide-react";
 import StudentShell from "@/components/StudentShell";
 import {
   getSession,
@@ -313,7 +313,33 @@ export default function WritingPage() {
         official IELTS criteria with specific feedback. Draft auto-saves locally.
       </p>
 
-      <div className="writing-grid" style={{ display: "grid", gridTemplateColumns: hasScore ? "1.2fr 1fr" : "1fr", gap: 24 }}>
+      {hasScore && (
+        <div style={{ marginBottom: 24, display: "flex", justifyContent: "space-between", alignItems: "center", gap: 16, flexWrap: "wrap" }}>
+          <div>
+            <p className="eyebrow" style={{ margin: 0 }}>Essay graded</p>
+            <p style={{ fontSize: 14, color: "var(--text-2)", margin: "4px 0 0", maxWidth: 640 }}>
+              &ldquo;{lastSub!.prompt.length > 120 ? lastSub!.prompt.slice(0, 117) + "…" : lastSub!.prompt}&rdquo;
+            </p>
+          </div>
+          <button
+            className="btn primary sm"
+            onClick={() => {
+              setLastSub(null);
+              setStatus("idle");
+              setText("");
+              setFilter("all");
+              const next = pickRandomPrompt(prompt);
+              setPrompt(next);
+              try { sessionStorage.setItem(PROMPT_KEY, next); } catch {}
+            }}
+          >
+            <PenLine size={12} /> Write a new essay
+          </button>
+        </div>
+      )}
+
+      <div className="writing-grid" style={{ display: "grid", gridTemplateColumns: hasScore ? "1fr" : "1fr", gap: 24 }}>
+        {!hasScore && (
         <div>
           <div className="card" style={{ marginBottom: 20 }}>
             <div className="flex jcb aic" style={{ marginBottom: 12, gap: 12, flexWrap: "wrap" }}>
@@ -416,123 +442,37 @@ export default function WritingPage() {
               {errorMsg}
             </div>
           )}
-
-          {history.length > 0 && (
-            <div className="card" style={{ marginTop: 20 }}>
-              <div className="flex jcb aic" style={{ marginBottom: 14 }}>
-                <p className="eyebrow" style={{ margin: 0 }}>
-                  <Clock size={11} style={{ verticalAlign: -1, marginRight: 6 }} />
-                  Your history · {history.length}
-                </p>
-              </div>
-              <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-                {history.map(h => {
-                  const isOpen = historyOpen === h.id;
-                  const date = new Date(h.createdAt).toLocaleString(undefined, {
-                    month: "short", day: "numeric", year: "numeric", hour: "2-digit", minute: "2-digit",
-                  });
-                  return (
-                    <div key={h.id} style={{ border: "1px solid var(--line)", borderRadius: 10, background: "var(--surface-2)" }}>
-                      <button
-                        onClick={() => setHistoryOpen(isOpen ? null : h.id)}
-                        style={{
-                          width: "100%", padding: "12px 14px",
-                          display: "flex", alignItems: "center", gap: 12,
-                          background: "transparent", border: "none", cursor: "pointer",
-                          color: "var(--text)", fontFamily: "inherit", textAlign: "left",
-                        }}
-                      >
-                        <div style={{
-                          fontSize: 12, fontWeight: 700,
-                          padding: "3px 10px", borderRadius: 999, minWidth: 52, textAlign: "center",
-                          background: h.overallBand ? "rgba(16,185,129,0.15)" : "rgba(234,179,8,0.15)",
-                          color: h.overallBand ? "#10b981" : "#eab308",
-                          fontFamily: "var(--ff-mono)",
-                        }}>
-                          {h.overallBand ? h.overallBand.toFixed(1) : "···"}
-                        </div>
-                        <div style={{ flex: 1, minWidth: 0 }}>
-                          <div style={{ fontSize: 13, color: "var(--text)", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
-                            {h.prompt}
-                          </div>
-                          <div style={{ fontSize: 11, color: "var(--text-3)", marginTop: 2, fontFamily: "var(--ff-mono)" }}>
-                            {date} · {h.wordCount} words
-                          </div>
-                        </div>
-                        {isOpen ? <ChevronUp size={14} color="var(--text-3)" /> : <ChevronDown size={14} color="var(--text-3)" />}
-                      </button>
-
-                      {isOpen && (
-                        <div style={{ padding: "0 14px 14px", borderTop: "1px solid var(--line)" }}>
-                          <div style={{ display: "flex", justifyContent: "flex-end", paddingTop: 10 }}>
-                            {h.overallBand != null && (
-                              <button
-                                className="chip"
-                                onClick={() => downloadSubmissionPDF(h, studentName)}
-                              >
-                                <Download size={11} style={{ verticalAlign: -1, marginRight: 4 }} /> Download PDF
-                              </button>
-                            )}
-                          </div>
-                          <div style={{ marginTop: 10 }}>
-                            <div style={{ fontSize: 10, letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--text-3)", marginBottom: 6, fontFamily: "var(--ff-mono)" }}>Essay</div>
-                            <div style={{ fontSize: 13, color: "var(--text-2)", lineHeight: 1.65, whiteSpace: "pre-line", maxHeight: 240, overflowY: "auto", padding: "10px 12px", background: "var(--surface)", border: "1px solid var(--line)", borderRadius: 8 }}>
-                              {h.essay}
-                            </div>
-                          </div>
-                          {h.overallBand != null && (
-                            <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 8, marginTop: 12 }}>
-                              {[
-                                { label: "TR", val: h.taskResponse },
-                                { label: "CC", val: h.coherenceCohesion },
-                                { label: "LR", val: h.lexicalResource },
-                                { label: "GRA", val: h.grammarAccuracy },
-                              ].map(k => (
-                                <div key={k.label} style={{ padding: "8px 10px", background: "var(--surface)", border: "1px solid var(--line)", borderRadius: 6 }}>
-                                  <div style={{ fontSize: 9, color: "var(--text-3)", letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: 2, fontFamily: "var(--ff-mono)" }}>{k.label}</div>
-                                  <div style={{ fontSize: 14, fontWeight: 600, color: "var(--text)" }}>{k.val?.toFixed(1) ?? "—"}</div>
-                                </div>
-                              ))}
-                            </div>
-                          )}
-                        </div>
-                      )}
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-          )}
         </div>
+        )}
 
         {hasScore && (
-          <div>
-            <div className="card">
-              <div className="flex jcb aic" style={{ marginBottom: 20 }}>
-                <div>
-                  <p className="eyebrow" style={{ margin: 0 }}>Your last score</p>
-                  <h3 className="h2" style={{ margin: "6px 0 0" }}>Band {lastSub!.overallBand!.toFixed(1)}</h3>
-                </div>
+          <div className="card score-hero">
+            <div className="score-hero-top">
+              <div style={{ display: "flex", alignItems: "center", gap: 24 }}>
                 <ScoreRing value={lastSub!.overallBand!} />
+                <div>
+                  <p className="eyebrow" style={{ margin: 0 }}>Overall band</p>
+                  <h3 className="h2" style={{ margin: "6px 0 0", fontSize: 36 }}>Band {lastSub!.overallBand!.toFixed(1)}</h3>
+                </div>
               </div>
+              <button
+                className="btn primary sm"
+                onClick={handleDownloadCurrent}
+              >
+                <Download size={12} /> Download PDF report
+              </button>
+            </div>
 
+            <div className="score-hero-grid">
               {criteria.map(c => (
-                <div key={c.k} style={{ marginBottom: 12 }}>
-                  <div className="flex jcb" style={{ fontSize: 13, marginBottom: 4, color: "var(--text-2)" }}>
+                <div key={c.k}>
+                  <div className="flex jcb" style={{ fontSize: 13, marginBottom: 6, color: "var(--text-2)" }}>
                     <span>{c.k}</span>
-                    <span style={{ fontFamily: "var(--ff-mono)", color: "var(--text)" }}>{c.v.toFixed(1)}</span>
+                    <span style={{ fontFamily: "var(--ff-mono)", color: "var(--text)", fontWeight: 600 }}>{c.v.toFixed(1)}</span>
                   </div>
                   <div className="bar"><span style={{ width: `${(c.v / 9) * 100}%` }} /></div>
                 </div>
               ))}
-
-              <button
-                className="btn primary sm"
-                onClick={handleDownloadCurrent}
-                style={{ marginTop: 16, width: "100%", justifyContent: "center" }}
-              >
-                <Download size={12} /> Download PDF report
-              </button>
             </div>
           </div>
         )}
@@ -649,6 +589,93 @@ export default function WritingPage() {
         </div>
       )}
 
+      {history.length > 0 && (
+        <div className="card" style={{ marginTop: 28 }}>
+          <div className="flex jcb aic" style={{ marginBottom: 14 }}>
+            <p className="eyebrow" style={{ margin: 0 }}>
+              <Clock size={11} style={{ verticalAlign: -1, marginRight: 6 }} />
+              Your history · {history.length}
+            </p>
+          </div>
+          <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+            {history.map(h => {
+              const isOpen = historyOpen === h.id;
+              const date = new Date(h.createdAt).toLocaleString(undefined, {
+                month: "short", day: "numeric", year: "numeric", hour: "2-digit", minute: "2-digit",
+              });
+              return (
+                <div key={h.id} style={{ border: "1px solid var(--line)", borderRadius: 10, background: "var(--surface-2)" }}>
+                  <button
+                    onClick={() => setHistoryOpen(isOpen ? null : h.id)}
+                    style={{
+                      width: "100%", padding: "12px 14px",
+                      display: "flex", alignItems: "center", gap: 12,
+                      background: "transparent", border: "none", cursor: "pointer",
+                      color: "var(--text)", fontFamily: "inherit", textAlign: "left",
+                    }}
+                  >
+                    <div style={{
+                      fontSize: 12, fontWeight: 700,
+                      padding: "3px 10px", borderRadius: 999, minWidth: 52, textAlign: "center",
+                      background: h.overallBand ? "rgba(16,185,129,0.15)" : "rgba(234,179,8,0.15)",
+                      color: h.overallBand ? "#10b981" : "#eab308",
+                      fontFamily: "var(--ff-mono)",
+                    }}>
+                      {h.overallBand ? h.overallBand.toFixed(1) : "···"}
+                    </div>
+                    <div style={{ flex: 1, minWidth: 0 }}>
+                      <div style={{ fontSize: 13, color: "var(--text)", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                        {h.prompt}
+                      </div>
+                      <div style={{ fontSize: 11, color: "var(--text-3)", marginTop: 2, fontFamily: "var(--ff-mono)" }}>
+                        {date} · {h.wordCount} words
+                      </div>
+                    </div>
+                    {isOpen ? <ChevronUp size={14} color="var(--text-3)" /> : <ChevronDown size={14} color="var(--text-3)" />}
+                  </button>
+
+                  {isOpen && (
+                    <div style={{ padding: "0 14px 14px", borderTop: "1px solid var(--line)" }}>
+                      <div style={{ display: "flex", justifyContent: "flex-end", paddingTop: 10 }}>
+                        {h.overallBand != null && (
+                          <button
+                            className="chip"
+                            onClick={() => downloadSubmissionPDF(h, studentName)}
+                          >
+                            <Download size={11} style={{ verticalAlign: -1, marginRight: 4 }} /> Download PDF
+                          </button>
+                        )}
+                      </div>
+                      <div style={{ marginTop: 10 }}>
+                        <div style={{ fontSize: 10, letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--text-3)", marginBottom: 6, fontFamily: "var(--ff-mono)" }}>Essay</div>
+                        <div style={{ fontSize: 13, color: "var(--text-2)", lineHeight: 1.65, whiteSpace: "pre-line", maxHeight: 240, overflowY: "auto", padding: "10px 12px", background: "var(--surface)", border: "1px solid var(--line)", borderRadius: 8 }}>
+                          {h.essay}
+                        </div>
+                      </div>
+                      {h.overallBand != null && (
+                        <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 8, marginTop: 12 }}>
+                          {[
+                            { label: "TR", val: h.taskResponse },
+                            { label: "CC", val: h.coherenceCohesion },
+                            { label: "LR", val: h.lexicalResource },
+                            { label: "GRA", val: h.grammarAccuracy },
+                          ].map(k => (
+                            <div key={k.label} style={{ padding: "8px 10px", background: "var(--surface)", border: "1px solid var(--line)", borderRadius: 6 }}>
+                              <div style={{ fontSize: 9, color: "var(--text-3)", letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: 2, fontFamily: "var(--ff-mono)" }}>{k.label}</div>
+                              <div style={{ fontSize: 14, fontWeight: 600, color: "var(--text)" }}>{k.val?.toFixed(1) ?? "—"}</div>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      )}
+
       <style>{`
         @media (max-width: 900px) {
           .writing-grid { grid-template-columns: 1fr !important; }
@@ -672,6 +699,19 @@ export default function WritingPage() {
         .chip:hover { border-color: var(--line-2); color: var(--text); }
         .chip:disabled { opacity: 0.5; cursor: not-allowed; }
         .chip[data-active="true"] { background: var(--accent); color: var(--bg); border-color: var(--accent); }
+
+        .score-hero-top {
+          display: flex; align-items: center; justify-content: space-between;
+          gap: 16px; margin-bottom: 24px; flex-wrap: wrap;
+        }
+        .score-hero-grid {
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
+          gap: 24px;
+        }
+        @media (max-width: 720px) {
+          .score-hero-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+        }
       `}</style>
     </StudentShell>
   );
