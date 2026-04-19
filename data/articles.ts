@@ -1208,4 +1208,30 @@ What began as a tragedy for a handful of villages in the Papuan highlands ended 
 
 Summary based on the Wikipedia article on kuru, peer-reviewed reviews on PubMed Central (Liberski et al. 2019; Collinge et al. 2016) and the Nobel Prize committee's published prize motivations.`,
   },
+  {
+    id: "marxism-explained",
+    title: "Marxism, in brief: the idea that wouldn't go away",
+    author: "London LC Digest",
+    source: "London LC Digest",
+    category: "Politics",
+    readingTime: 7,
+    curated: true,
+    content: `Few thinkers have been buried as often, and as loudly, as Karl Marx. Every time an economic crisis passes or a communist regime falls, commentators announce the definitive end of Marxism. And yet, more than 140 years after Marx's death in London in 1883, university reading lists, political parties, protest movements and even parts of mainstream economics keep returning to his ideas. Understanding what they are — and what they are not — is useful for any serious reader of modern history.
+
+Marxism began as an attempt to answer a single, urgent question: why does a system as productive as industrial capitalism generate such extreme inequality? Marx and his lifelong collaborator, the German factory-owner's son Friedrich Engels, grew up alongside the first full wave of industrialisation in Europe. They saw huge new factories producing more wealth than humans had ever seen, while the workers inside them lived in slums, worked fourteen-hour days and could be fired at a moment's notice. Marx's answer, developed in books such as The Communist Manifesto (1848) and Capital (first volume, 1867), was that capitalism was not just unfair but systematically so.
+
+At the centre of Marxism are three main ideas. The first is the labour theory of value — the claim that the value of a product ultimately comes from the human labour that went into making it, and that profit under capitalism represents the portion of this value that the worker produces but does not receive. The second is class struggle — the idea that every historical society has been divided into groups with opposing economic interests, and that modern capitalism boils this down to a conflict between a small class of owners (the "bourgeoisie") and a large class of workers (the "proletariat"). The third is historical materialism — the view that the material conditions of a society, especially how it produces its food, goods and technology, largely shape its politics, laws and even its culture.
+
+Marx expected that capitalism would eventually collapse under its own contradictions, replaced by a socialist society in which the means of production would be collectively owned. Whether that prediction has been refuted, or merely delayed, remains one of the great debates of political philosophy. In the 20th century, self-described Marxist parties took power in Russia, China, Cuba, Vietnam and elsewhere. Their record is deeply mixed: rapid industrialisation and mass literacy in some cases; famine, censorship and political violence in others. Most Western left-wing parties, by contrast, moved towards a democratic socialism that accepted markets and elections but sought to soften capitalism's edges through taxes, public services and regulation.
+
+After the fall of the Soviet Union in 1991, many academics declared Marxism obsolete. But the 2008 financial crisis, followed by more than a decade of rising inequality, stagnating wages and growing climate anxiety, pushed Marx back onto bookshop tables. A 2026 New Statesman essay argued that "Marxism can still change the world" by providing a framework for analysing digital labour, platform monopolies and ecological breakdown — even where few readers want to bring back five-year plans.
+
+Critics remain numerous. Some argue that Marx's economics was empirically wrong, that his labour theory of value cannot compete with modern marginalist economics, and that his political predictions have simply not come true. Others point out that 20th-century Marxist states produced some of the most brutal regimes in history and that any revival of his ideas should carry a very heavy warning label. Defenders reply that Marx was a critic of actually existing capitalism, not a blueprint for utopia, and that his tools for analysing power, class and crisis remain indispensable, whatever one does with the conclusions.
+
+Whether you end up convinced or sceptical, Marxism is hard to ignore. Its vocabulary — class, capital, alienation, ideology, commodification — has leaked into everyday political speech far beyond the people who would call themselves Marxists. For a language learner aiming at IELTS Band 7 or higher, these are also some of the most productive words in academic English.
+
+— — —
+
+Summary based on entries in the Stanford Encyclopedia of Philosophy, The Economist's 200-year retrospective on Marx (2018), a 2026 essay in the New Statesman, and contemporary debates in Science & Society and the Journal of Contemporary Asia.`,
+  },
 ];
