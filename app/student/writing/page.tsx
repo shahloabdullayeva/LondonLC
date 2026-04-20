@@ -312,6 +312,29 @@ export default function WritingPage() {
         <Link href="/student/writing/task1" className="chip" style={{ textDecoration: "none" }}>Task 1</Link>
       </div>
 
+      <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}>
+        <span
+          style={{
+            fontFamily: "var(--ff-mono)", fontSize: 10, letterSpacing: "0.08em",
+            textTransform: "uppercase", padding: "5px 10px", borderRadius: 999,
+            background: "var(--accent)", color: "var(--bg)", borderColor: "var(--accent)",
+            border: "1px solid var(--accent)",
+          }}
+        >
+          Task 2
+        </span>
+        <Link
+          href="/student/writing/task1"
+          style={{
+            fontFamily: "var(--ff-mono)", fontSize: 10, letterSpacing: "0.08em",
+            textTransform: "uppercase", padding: "5px 10px", borderRadius: 999,
+            background: "transparent", color: "var(--text-2)",
+            border: "1px solid var(--line)", textDecoration: "none",
+          }}
+        >
+          Task 1
+        </Link>
+      </div>
       <p className="eyebrow">Writing · Task 2</p>
       <h1 className="h1"><em>Writing</em> feedback</h1>
       <p className="lede" style={{ marginTop: 16, marginBottom: 32 }}>

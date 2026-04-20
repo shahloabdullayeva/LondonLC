@@ -122,11 +122,12 @@ For the "next_steps" array:
 OUTPUT FORMAT — return ONLY valid JSON. No markdown, no code fences, no prose wrapper.
 
 {
-  "task_response": <number 0.0–9.0 in 0.5 steps>,
+  "task_achievement": <number 0.0–9.0 in 0.5 steps>,
   "coherence_cohesion": <number 0.0–9.0 in 0.5 steps>,
   "lexical_resource": <number 0.0–9.0 in 0.5 steps>,
   "grammar_accuracy": <number 0.0–9.0 in 0.5 steps>,
   "overall_band": <number 0.0–9.0 in 0.5 steps>,
+  "visual_type": "<one of: bar chart | line graph | pie chart | table | mixed chart | map | process diagram | flow chart | letter>",
   "feedback": [
     {"criterion": "Task achievement", "comment": "<4-6 sentences, cite exact phrases, note data-reading accuracy>"},
     {"criterion": "Coherence & cohesion", "comment": "<4-6 sentences>"},
@@ -143,9 +144,7 @@ OUTPUT FORMAT — return ONLY valid JSON. No markdown, no code fences, no prose 
   ],
   "strengths": ["<quoted example>", "<quoted example>", "<quoted example>"],
   "next_steps": ["<actionable instruction>", "<actionable instruction>", "<actionable instruction>"]
-}
-
-Note: the JSON key "task_response" is used for Task Achievement to keep the schema identical to Task 2 — do not rename it.`;
+}`;
 
 serve(async (req: Request) => {
   if (req.method === "OPTIONS") {
@@ -161,10 +160,10 @@ serve(async (req: Request) => {
 
   try {
     const body = await req.json();
-    const { image_base64, media_type, task_prompt, essay } = body as {
+    const { image_base64, media_type, prompt_description, essay } = body as {
       image_base64?: string;
       media_type?: string;
-      task_prompt?: string;
+      prompt_description?: string;
       essay?: string;
     };
 
@@ -185,8 +184,8 @@ serve(async (req: Request) => {
     const allowed = new Set(["image/png", "image/jpeg", "image/webp", "image/gif"]);
     const mediaType = allowed.has(media_type ?? "") ? media_type! : "image/png";
 
-    const instruction = task_prompt && task_prompt.trim()
-      ? `IELTS Writing Task 1 instruction:\n${task_prompt.trim()}`
+    const instruction = prompt_description && prompt_description.trim()
+      ? `IELTS Writing Task 1 instruction:\n${prompt_description.trim()}`
       : `IELTS Writing Task 1. Look at the visual above and grade the student's 150+ word summary of it.`;
 
     const userContent = [

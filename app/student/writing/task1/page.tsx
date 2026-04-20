@@ -2,7 +2,7 @@
 import { useEffect, useMemo, useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { Send, Loader2, Download, ImagePlus, X, Clock, PenLine } from "lucide-react";
+import { Send, Loader2, ImagePlus, X, PenLine } from "lucide-react";
 import StudentShell from "@/components/StudentShell";
 import {
   getSession,
