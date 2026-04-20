@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { Send, Loader2, Download, ChevronDown, ChevronUp, RefreshCw, Pencil, Clock, PenLine } from "lucide-react";
 import StudentShell from "@/components/StudentShell";
 import {
@@ -306,6 +307,11 @@ export default function WritingPage() {
 
   return (
     <StudentShell>
+      <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}>
+        <span className="chip" style={{ background: "var(--accent)", color: "var(--bg)", borderColor: "var(--accent)" }}>Task 2</span>
+        <Link href="/student/writing/task1" className="chip" style={{ textDecoration: "none" }}>Task 1</Link>
+      </div>
+
       <p className="eyebrow">Writing · Task 2</p>
       <h1 className="h1"><em>Writing</em> feedback</h1>
       <p className="lede" style={{ marginTop: 16, marginBottom: 32 }}>

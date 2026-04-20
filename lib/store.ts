@@ -574,6 +574,84 @@ export async function gradeEssayWithAI(
   };
 }
 
+// ── Writing Task 1 grading ────────────────────────────────────────────
+
+export async function gradeTask1WithAI(
+  submissionId: string,
+  imageBase64: string,
+  mediaType: string,
+  promptDescription: string,
+  essay: string,
+): Promise<{
+  taskAchievement: number;
+  coherenceCohesion: number;
+  lexicalResource: number;
+  grammarAccuracy: number;
+  overallBand: number;
+  visualType: string;
+  feedback: { criterion: string; comment: string }[];
+  corrections: Correction[];
+  strengths: string[];
+  nextSteps: string[];
+} | null> {
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  if (!supabaseUrl || !anonKey) return null;
+
+  const res = await fetch(`${supabaseUrl}/functions/v1/grade-task1`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${anonKey}`,
+    },
+    body: JSON.stringify({
+      image_base64: imageBase64,
+      media_type: mediaType,
+      prompt_description: promptDescription,
+      essay,
+    }),
+  });
+
+  if (!res.ok) return null;
+
+  const grading = await res.json();
+  if (!grading.task_achievement) return null;
+
+  const corrections: Correction[] = Array.isArray(grading.corrections) ? grading.corrections : [];
+  const strengths: string[] = Array.isArray(grading.strengths) ? grading.strengths : [];
+  const nextSteps: string[] = Array.isArray(grading.next_steps) ? grading.next_steps : [];
+
+  const now = new Date().toISOString();
+  await supabase
+    .from("writing_submissions")
+    .update({
+      task_response: grading.task_achievement,
+      coherence_cohesion: grading.coherence_cohesion,
+      lexical_resource: grading.lexical_resource,
+      grammar_accuracy: grading.grammar_accuracy,
+      overall_band: grading.overall_band,
+      feedback: grading.feedback,
+      corrections,
+      strengths,
+      next_steps: nextSteps,
+      graded_at: now,
+    })
+    .eq("id", submissionId);
+
+  return {
+    taskAchievement: grading.task_achievement,
+    coherenceCohesion: grading.coherence_cohesion,
+    lexicalResource: grading.lexical_resource,
+    grammarAccuracy: grading.grammar_accuracy,
+    overallBand: grading.overall_band,
+    visualType: grading.visual_type ?? "unknown",
+    feedback: grading.feedback,
+    corrections,
+    strengths,
+    nextSteps,
+  };
+}
+
 // ── Messaging ─────────────────────────────────────────────────────────
 
 export type Conversation = {
