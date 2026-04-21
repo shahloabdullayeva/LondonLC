@@ -17,10 +17,10 @@ type Phase = "warning" | "test" | "audio_playing" | "transfer" | "submitted" | "
 type Highlight = { id: string; text: string; color: string; sectionIdx: number; side: "passage" | "questions"; rawStart: number; rawEnd: number; questionId?: string };
 
 const HIGHLIGHT_COLORS = [
-  { bg: "#fde68a", label: "Yellow" },
-  { bg: "#bbf7d0", label: "Green" },
-  { bg: "#bae6fd", label: "Blue" },
-  { bg: "#fecdd3", label: "Pink" },
+  { bg: "#fde047", label: "Yellow" },
+  { bg: "#86efac", label: "Green" },
+  { bg: "#7dd3fc", label: "Blue" },
+  { bg: "#f9a8d4", label: "Pink" },
   { bg: "underline", label: "Underline" },
 ];
 
@@ -110,6 +110,7 @@ export default function TestPage() {
   const isResizingRef = useRef(false);
   const [theme, setTheme] = useState<"dark" | "light">("dark");
   const [highlights, setHighlights] = useState<Highlight[]>([]);
+  const [activeHighlighter, setActiveHighlighter] = useState<string | null>(null);
   const [toolbarPos, setToolbarPos] = useState<{ x: number; y: number } | null>(null);
   // showViolationWarning replaced by phase === "cancelled"
   const [pendingText, setPendingText] = useState("");
@@ -211,6 +212,23 @@ export default function TestPage() {
 
     if (rawStart < 0 || rawEnd <= rawStart) return;
 
+    // Instant-highlight mode: if the user has armed a colour, apply it
+    // directly without opening the floating toolbar.
+    if (activeHighlighter) {
+      setHighlights(prev => [...prev, {
+        id: `h-${Date.now()}`,
+        text,
+        color: activeHighlighter,
+        sectionIdx: currentSection,
+        side,
+        rawStart,
+        rawEnd,
+        questionId,
+      }]);
+      window.getSelection()?.removeAllRanges();
+      return;
+    }
+
     setPendingText(text);
     setPendingRawStart(rawStart);
     setPendingRawEnd(rawEnd);
@@ -285,10 +303,10 @@ export default function TestPage() {
       .replace(/\n\n/g, "<br/><br/>")
       .replace(/\n/g, "<br/>");
 
-    const ulColor = effectiveTheme === "dark" ? "#ffffff" : "#ffffff";
+    const ulColor = effectiveTheme === "dark" ? "#ffffff" : "#111111";
     const styleFor = (color: string) => color === "underline"
       ? `background:transparent;color:inherit;text-decoration:underline;text-decoration-color:${ulColor};text-decoration-thickness:2px;text-underline-offset:3px;cursor:pointer`
-      : `background:${color};border-radius:3px;cursor:pointer;padding:0 1px`;
+      : `background:${color};color:#111111;border-radius:3px;cursor:pointer;padding:0 1px`;
 
     let html = "";
     let pos = 0;
@@ -898,6 +916,26 @@ export default function TestPage() {
             style={{ padding: "5px 10px", background: T.accentDim, border: `1px solid ${T.accentBorder}`, borderRadius: 8, cursor: "pointer", color: T.accent, display: "flex", alignItems: "center", gap: 4, fontSize: 13, fontWeight: 600 }}>
             {pageMode === "dark" ? <Sun size={14} /> : pageMode === "sepia" ? <Sun size={14} /> : <Moon size={14} />}
           </button>
+          {/* Persistent highlighter — click a colour to arm, click again to disarm.
+              Any text you then select is highlighted instantly (no popup). */}
+          <div className="test-header-hl" style={{ display: "flex", alignItems: "center", gap: 4, padding: "4px 6px", border: `1px solid ${T.border}`, borderRadius: 8 }}>
+            {HIGHLIGHT_COLORS.filter(c => c.bg !== "underline").map(c => (
+              <button
+                key={c.bg}
+                onClick={() => setActiveHighlighter(prev => prev === c.bg ? null : c.bg)}
+                title={activeHighlighter === c.bg ? `${c.label} highlighter on — click to turn off` : `Arm ${c.label} highlighter`}
+                style={{
+                  width: 16, height: 16, borderRadius: "50%",
+                  background: c.bg,
+                  border: activeHighlighter === c.bg ? `2px solid ${T.text}` : "2px solid rgba(0,0,0,0.15)",
+                  cursor: "pointer",
+                  padding: 0,
+                  boxShadow: activeHighlighter === c.bg ? `0 0 0 2px ${T.bg}, 0 0 0 4px ${T.text}` : "none",
+                  transition: "box-shadow 0.1s",
+                }}
+              />
+            ))}
+          </div>
           {(() => {
             // Header clock visibility:
             //   • Reading — always show `timeLeft` (60-min test countdown).
@@ -1048,8 +1086,8 @@ export default function TestPage() {
               />
             ))}
             <button onClick={() => applyHighlight("underline")} title="Underline"
-              style={{ padding: "2px 7px", borderRadius: 6, background: "transparent", border: "2px solid #ffffff", color: "#ffffff", fontSize: 12, fontWeight: 800, cursor: "pointer", textDecoration: "underline", textUnderlineOffset: "2px" }}
-              onMouseEnter={e => (e.currentTarget.style.background = "rgba(255,255,255,0.07)")}
+              style={{ padding: "2px 7px", borderRadius: 6, background: "transparent", border: `2px solid ${T.text}`, color: T.text, fontSize: 12, fontWeight: 800, cursor: "pointer", textDecoration: "underline", textUnderlineOffset: "2px" }}
+              onMouseEnter={e => (e.currentTarget.style.background = pageMode === "dark" ? "rgba(255,255,255,0.07)" : "rgba(0,0,0,0.06)")}
               onMouseLeave={e => (e.currentTarget.style.background = "transparent")}>
               U
             </button>
