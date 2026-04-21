@@ -76,9 +76,7 @@ export default function WritingTask1Page() {
   const [imageBase64, setImageBase64] = useState<string | null>(null);
   const [imageMediaType, setImageMediaType] = useState<string>("image/png");
   const [dragOver, setDragOver] = useState(false);
-  const [taskDescription, setTaskDescription] = useState(
-    "Summarise the information by selecting and reporting the main features, and make comparisons where relevant."
-  );
+  const [taskDescription, setTaskDescription] = useState("");
 
   const [history, setHistory] = useState<WritingSubmission[]>([]);
 
@@ -311,13 +309,14 @@ export default function WritingTask1Page() {
             )}
           </div>
 
-          {/* Task description */}
+          {/* Question prompt */}
           <div className="card" style={{ marginBottom: 20 }}>
-            <p className="eyebrow" style={{ margin: "0 0 8px" }}>Task instruction</p>
+            <p className="eyebrow" style={{ margin: "0 0 8px" }}>Question prompt</p>
             <textarea
               value={taskDescription}
               onChange={e => setTaskDescription(e.target.value)}
-              rows={2}
+              rows={3}
+              placeholder="e.g. The table below shows the population of three countries between 2000 and 2020. Summarise the information by selecting and reporting the main features, and make comparisons where relevant."
               style={{
                 width: "100%", display: "block", resize: "vertical",
                 background: "var(--surface-2)",
@@ -328,7 +327,7 @@ export default function WritingTask1Page() {
               }}
             />
             <p style={{ fontSize: 11, color: "var(--text-3)", margin: "6px 0 0" }}>
-              You can edit this to match the exact wording on your test paper.
+              Paste the exact question from your test paper (the line that starts with &ldquo;The chart/table/diagram below shows…&rdquo;).
             </p>
           </div>
 
