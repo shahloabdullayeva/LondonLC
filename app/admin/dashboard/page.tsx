@@ -10,7 +10,7 @@ import {
 
 const ROOT_ADMIN_ID = "admin-root";
 const ADMIN_USERNAME = "SarvarxonP";
-import { getSession, clearSession, getAttempts, getTeachers, addTeacher, deleteTeacher, updateTeacherPassword, setTeacherPlainPassword, setStudentPlainPassword, changeTeacherOwnPassword, registerStudent, getStudentAccounts, deleteStudent, updateStudent, getBlockedIPs, blockIP, unblockIP, recordTeacherAccess, getAllSubmissions, getPremiumRequests, reviewPremiumRequest, type AttemptData, type TeacherAccount, type StudentAccount, type WritingSubmission, type Correction, type PremiumRequest } from "@/lib/store";
+import { getSession, clearSession, getAttempts, getTeachers, addTeacher, deleteTeacher, updateTeacherPassword, setTeacherPlainPassword, setStudentPlainPassword, changeTeacherOwnPassword, registerStudent, getStudentAccounts, deleteStudent, updateStudent, addGradingCredits, getBlockedIPs, blockIP, unblockIP, recordTeacherAccess, getAllSubmissions, getPremiumRequests, reviewPremiumRequest, type AttemptData, type TeacherAccount, type StudentAccount, type WritingSubmission, type Correction, type PremiumRequest } from "@/lib/store";
 import { getTestById } from "@/data/ielts-tests";
 import { allTests } from "@/data/ielts-tests";
 import { quotes, type Quote } from "@/lib/quotes";
@@ -207,11 +207,12 @@ export default function AdminDashboard() {
     setStudents(await getStudentAccounts());
   };
 
-  const handleTogglePremium = async (id: string, current: boolean) => {
-    const next = !current;
-    const label = next ? "Enable" : "Disable";
-    if (!confirm(`${label} Premium for this student?\n\nPremium gives unlimited AI writing gradings (Task 1 & Task 2). Free accounts get 2 gradings.`)) return;
-    await updateStudent(id, { isPremium: next });
+  const handleAddCredits = async (id: string, currentCredits: number) => {
+    const input = prompt(`Add essay credits for this student.\nCurrent credits: ${currentCredits}\n\nEnter number to add (e.g. 10, 30, 50):`);
+    if (!input) return;
+    const num = parseInt(input, 10);
+    if (isNaN(num) || num < 1) { alert("Please enter a valid number."); return; }
+    await addGradingCredits(id, num);
     setStudents(await getStudentAccounts());
   };
 
@@ -1121,17 +1122,15 @@ export default function AdminDashboard() {
                                   fontSize: 12, fontWeight: 600, cursor: "pointer" }}>
                                 <Shield size={12} /> {s.anticheatBypass ? "Bypass ON" : "Bypass"}
                               </button>
-                              <button onClick={() => handleTogglePremium(s.id, !!s.isPremium)}
-                                title={s.isPremium
-                                  ? "Premium ON — unlimited AI writing gradings. Click to revoke."
-                                  : "Grant Premium — unlimited AI writing gradings (Task 1 & 2)."}
+                              <button onClick={() => handleAddCredits(s.id, s.gradingCredits ?? 0)}
+                                title={`${(s.gradingCredits ?? 0) + 2} total essays (${s.gradingCredits ?? 0} purchased + 2 free). Click to add more.`}
                                 style={{ display: "flex", alignItems: "center", gap: 4, padding: "7px 12px",
-                                  background: s.isPremium ? "rgba(34,197,94,0.12)" : "rgba(100,116,139,0.08)",
-                                  border: `1px solid ${s.isPremium ? "rgba(34,197,94,0.45)" : "var(--site-border-strong)"}`,
+                                  background: (s.gradingCredits ?? 0) > 0 ? "rgba(34,197,94,0.12)" : "rgba(100,116,139,0.08)",
+                                  border: `1px solid ${(s.gradingCredits ?? 0) > 0 ? "rgba(34,197,94,0.45)" : "var(--site-border-strong)"}`,
                                   borderRadius: 8,
-                                  color: s.isPremium ? "#22c55e" : C.muted,
+                                  color: (s.gradingCredits ?? 0) > 0 ? "#22c55e" : C.muted,
                                   fontSize: 12, fontWeight: 600, cursor: "pointer" }}>
-                                ★ {s.isPremium ? "Premium" : (s.gradingCredits ?? 0) > 0 ? `${s.gradingCredits} credits` : "Free"}
+                                ✎ {(s.gradingCredits ?? 0) > 0 ? `${s.gradingCredits} credits` : "Add credits"}
                               </button>
                               <button onClick={() => handleDeleteStudent(s.id)}
                                 style={{ display: "flex", alignItems: "center", gap: 4, padding: "7px 12px", background: "rgba(239,68,68,0.08)", border: `1px solid rgba(239,68,68,0.3)`, borderRadius: 8, color: C.danger, fontSize: 12, fontWeight: 600, cursor: "pointer" }}>

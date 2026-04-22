@@ -666,6 +666,13 @@ export async function gradeTask1WithAI(
   };
 }
 
+export async function addGradingCredits(studentId: string, count: number): Promise<boolean> {
+  const { data } = await supabase.from("students").select("grading_credits").eq("id", studentId).maybeSingle();
+  const current = data?.grading_credits ?? 0;
+  const { error } = await supabase.from("students").update({ grading_credits: current + count }).eq("id", studentId);
+  return !error;
+}
+
 // ── Premium requests ──────────────────────────────────────────────────
 
 export type PremiumRequest = {

@@ -210,11 +210,10 @@ export default function WritingTask1Page() {
   const words = useMemo(() => text.trim().split(/\s+/).filter(Boolean).length, [text]);
   const chars = text.length;
   const targetHit = words >= 150;
-  const isPremium = session?.isPremium === true;
   const extraCredits = session?.gradingCredits ?? 0;
   const gradedCount = history.filter(h => h.overallBand != null).length;
   const totalAllowed = FREE_GRADING_LIMIT + extraCredits;
-  const canGrade = isPremium || gradedCount < totalAllowed;
+  const canGrade = gradedCount < totalAllowed;
   const remaining = Math.max(0, totalAllowed - gradedCount);
 
   const handleImageFile = useCallback(async (file: File) => {
@@ -357,17 +356,12 @@ export default function WritingTask1Page() {
         Upload a chart, graph, diagram or map, write your response (minimum 150 words),
         and get scored on the four official IELTS criteria with specific feedback.
       </p>
-      {!isPremium && canGrade && (
+      {canGrade && (
         <p style={{ fontSize: 12, color: "var(--text-3)", marginBottom: 28, fontFamily: "var(--ff-mono)" }}>
           Gradings remaining: {remaining} of {totalAllowed}
         </p>
       )}
-      {isPremium && (
-        <p style={{ fontSize: 12, color: "var(--accent)", marginBottom: 28, fontFamily: "var(--ff-mono)" }}>
-          ★ Premium — unlimited gradings
-        </p>
-      )}
-      {!isPremium && !canGrade && <div style={{ marginBottom: 28 }} />}
+      {!canGrade && <div style={{ marginBottom: 28 }} />}
 
       {hasScore && (
         <div style={{ marginBottom: 24, display: "flex", justifyContent: "space-between", alignItems: "center", gap: 16, flexWrap: "wrap" }}>
