@@ -69,6 +69,7 @@ const ADMIN_SECTIONS: { title: string; items: NavItem[] }[] = [
       { label: "Reading", href: "/admin/dashboard?tab=tests&type=reading", icon: BookOpen, chev: true },
       { label: "Listening", href: "/admin/dashboard?tab=tests&type=listening", icon: Headphones, chev: true },
       { label: "Writing", href: "/admin/dashboard?tab=writing", icon: PenLine, chev: true },
+      { label: "Vocabulary", href: "/student/vocab", icon: Sparkles },
       { label: "Articles", href: "/articles", icon: FileText },
       { label: "Podcasts", href: "/podcasts", icon: Mic },
       { label: "Music", href: "/music", icon: Music },
