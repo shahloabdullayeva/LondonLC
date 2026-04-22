@@ -120,6 +120,7 @@ function ScoreRing({ value, max = 9 }: { value: number; max?: number }) {
 
 type GradingStatus = "idle" | "submitting" | "grading" | "done" | "error";
 
+const FREE_GRADING_LIMIT = 2;
 const MAX_IMG_WIDTH = 1200;
 
 function fileToBase64(file: File): Promise<{ data: string; mediaType: string }> {
@@ -188,6 +189,9 @@ export default function WritingTask1Page() {
   const words = useMemo(() => text.trim().split(/\s+/).filter(Boolean).length, [text]);
   const chars = text.length;
   const targetHit = words >= 150;
+  const isPremium = session?.isPremium === true;
+  const gradedCount = history.filter(h => h.overallBand != null).length;
+  const canGrade = isPremium || gradedCount < FREE_GRADING_LIMIT;
 
   const handleImageFile = useCallback(async (file: File) => {
     if (!file.type.startsWith("image/")) {
@@ -325,10 +329,21 @@ export default function WritingTask1Page() {
 
       <p className="eyebrow">Writing · Task 1 · Academic</p>
       <h1 className="h1"><em>Describe</em> the visual</h1>
-      <p className="lede" style={{ marginTop: 16, marginBottom: 32 }}>
+      <p className="lede" style={{ marginTop: 16, marginBottom: 12 }}>
         Upload a chart, graph, diagram or map, write your response (minimum 150 words),
         and get scored on the four official IELTS criteria with specific feedback.
       </p>
+      {!isPremium && canGrade && (
+        <p style={{ fontSize: 12, color: "var(--text-3)", marginBottom: 28, fontFamily: "var(--ff-mono)" }}>
+          Free gradings remaining: {FREE_GRADING_LIMIT - gradedCount} of {FREE_GRADING_LIMIT}
+        </p>
+      )}
+      {isPremium && (
+        <p style={{ fontSize: 12, color: "var(--accent)", marginBottom: 28, fontFamily: "var(--ff-mono)" }}>
+          ★ Premium — unlimited gradings
+        </p>
+      )}
+      {!isPremium && !canGrade && <div style={{ marginBottom: 28 }} />}
 
       {hasScore && (
         <div style={{ marginBottom: 24, display: "flex", justifyContent: "space-between", alignItems: "center", gap: 16, flexWrap: "wrap" }}>
@@ -355,7 +370,21 @@ export default function WritingTask1Page() {
         </div>
       )}
 
-      {!hasScore && (
+      {!canGrade && !hasScore && (
+        <div className="card" style={{ textAlign: "center", padding: "48px 24px", marginBottom: 24 }}>
+          <div style={{ fontSize: 36, marginBottom: 12 }}>&#128274;</div>
+          <h2 style={{ fontSize: 22, fontWeight: 700, marginBottom: 8 }}>Free samples used</h2>
+          <p style={{ color: "var(--text-2)", maxWidth: 480, margin: "0 auto 20px", lineHeight: 1.6 }}>
+            You&apos;ve used your {FREE_GRADING_LIMIT} free AI gradings. Upgrade to Premium for unlimited
+            Writing Task 1 and Task 2 feedback with detailed corrections.
+          </p>
+          <p style={{ fontSize: 13, color: "var(--text-3)" }}>
+            Ask your teacher to enable Premium on your account.
+          </p>
+        </div>
+      )}
+
+      {!hasScore && canGrade && (
         <div>
           {/* Image upload */}
           <div className="card" style={{ marginBottom: 20 }}>

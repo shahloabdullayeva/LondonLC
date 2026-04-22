@@ -205,6 +205,14 @@ export default function AdminDashboard() {
     setStudents(await getStudentAccounts());
   };
 
+  const handleTogglePremium = async (id: string, current: boolean) => {
+    const next = !current;
+    const label = next ? "Enable" : "Disable";
+    if (!confirm(`${label} Premium for this student?\n\nPremium gives unlimited AI writing gradings (Task 1 & Task 2). Free accounts get 2 gradings.`)) return;
+    await updateStudent(id, { isPremium: next });
+    setStudents(await getStudentAccounts());
+  };
+
   const startEditStudent = (s: StudentAccount) => {
     setEditingStudentId(s.id);
     setEditStudentForm({ name: s.name, surname: s.surname, group_name: s.group_name, username: s.username, password: "", passwordIsExisting: false });
@@ -1045,6 +1053,18 @@ export default function AdminDashboard() {
                                   color: s.anticheatBypass ? "#fb923c" : C.muted,
                                   fontSize: 12, fontWeight: 600, cursor: "pointer" }}>
                                 <Shield size={12} /> {s.anticheatBypass ? "Bypass ON" : "Bypass"}
+                              </button>
+                              <button onClick={() => handleTogglePremium(s.id, !!s.isPremium)}
+                                title={s.isPremium
+                                  ? "Premium ON — unlimited AI writing gradings. Click to revoke."
+                                  : "Grant Premium — unlimited AI writing gradings (Task 1 & 2)."}
+                                style={{ display: "flex", alignItems: "center", gap: 4, padding: "7px 12px",
+                                  background: s.isPremium ? "rgba(34,197,94,0.12)" : "rgba(100,116,139,0.08)",
+                                  border: `1px solid ${s.isPremium ? "rgba(34,197,94,0.45)" : "var(--site-border-strong)"}`,
+                                  borderRadius: 8,
+                                  color: s.isPremium ? "#22c55e" : C.muted,
+                                  fontSize: 12, fontWeight: 600, cursor: "pointer" }}>
+                                ★ {s.isPremium ? "Premium" : "Free"}
                               </button>
                               <button onClick={() => handleDeleteStudent(s.id)}
                                 style={{ display: "flex", alignItems: "center", gap: 4, padding: "7px 12px", background: "rgba(239,68,68,0.08)", border: `1px solid rgba(239,68,68,0.3)`, borderRadius: 8, color: C.danger, fontSize: 12, fontWeight: 600, cursor: "pointer" }}>

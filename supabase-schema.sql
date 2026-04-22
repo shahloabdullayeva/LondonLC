@@ -50,6 +50,7 @@ create table if not exists students (
   last_device_info jsonb
 );
 alter table students add column if not exists plain_password text;
+alter table students add column if not exists is_premium boolean default false;
 
 -- ── Attempts table ────────────────────────────────────────────────────
 create table if not exists attempts (
