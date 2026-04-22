@@ -256,6 +256,45 @@ export default function TestPage() {
 
   const removeHighlight = (id: string) => setHighlights(prev => prev.filter(h => h.id !== id));
 
+  const handleDirectHighlight = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    const sel = window.getSelection();
+    if (!sel || sel.isCollapsed || sel.rangeCount === 0) return;
+    const text = sel.toString().trim();
+    if (text.length < 2) return;
+    const color = activeHighlighter || HIGHLIGHT_COLORS[0].bg;
+    try {
+      const range = sel.getRangeAt(0);
+      if (range.startContainer === range.endContainer || range.commonAncestorContainer.nodeType === Node.TEXT_NODE) {
+        const mark = document.createElement("mark");
+        mark.style.background = color === "underline" ? "transparent" : color;
+        mark.style.color = color === "underline" ? "inherit" : "#111111";
+        mark.style.borderRadius = "3px";
+        mark.style.padding = "0 1px";
+        mark.style.cursor = "pointer";
+        if (color === "underline") {
+          mark.style.textDecoration = "underline";
+          mark.style.textDecorationThickness = "2px";
+          mark.style.textUnderlineOffset = "3px";
+        }
+        mark.title = "Click to remove";
+        mark.addEventListener("click", () => {
+          const parent = mark.parentNode;
+          if (parent) {
+            while (mark.firstChild) parent.insertBefore(mark.firstChild, mark);
+            parent.removeChild(mark);
+          }
+        });
+        range.surroundContents(mark);
+      }
+    } catch {}
+    sel.removeAllRanges();
+    if (!activeHighlighter) {
+      setToolbarPos(null);
+      setPendingText("");
+    }
+  };
+
   const handlePassageClick = (e: React.MouseEvent) => {
     const el = e.target as HTMLElement;
     if (el.tagName === "MARK" && el.dataset.hid) removeHighlight(el.dataset.hid);
@@ -1242,15 +1281,14 @@ export default function TestPage() {
                       to the matching question. */}
                   {sec.passageText && (
                     <div
-                      onMouseUp={(e) => handleTextMouseUp(e, "passage")}
-                      onClick={handlePassageClick}
+                      onMouseUp={handleDirectHighlight}
                       style={{ marginBottom: 20, padding: "16px 20px", background: T.passage, border: `1px solid ${T.border}`, borderRadius: 12, color: T.text, lineHeight: 2.2, fontSize: fontSize - 1, whiteSpace: "pre-line", userSelect: "text" }}>
                       {renderPassageWithInputs(sec.passageText, sec.questions, answers, setAnswer, T)}
                     </div>
                   )}
 
                   {/* Questions — same merge (Choose TWO pairs) + matching + single logic as before */}
-                  <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
+                  <div onMouseUp={handleDirectHighlight} style={{ display: "flex", flexDirection: "column", gap: 24 }}>
                     {(() => {
                       // Merge adjacent "Choose TWO" pairs into a single checkbox UI.
                       // Detection: two consecutive multiple_choice questions share the
