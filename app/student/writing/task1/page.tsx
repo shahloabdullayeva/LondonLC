@@ -141,7 +141,7 @@ export default function WritingTask1Page() {
     setStatus("submitting");
     setErrorMsg("");
 
-    const promptLabel = `[Task 1] ${taskDescription}`;
+    const promptLabel = taskDescription.trim() ? `[Task 1] ${taskDescription}` : "[Task 1] Describe the visual";
     const sub = await submitEssay(session.id, `${session.name} ${session.surname}`, promptLabel, text);
     if (!sub) {
       setStatus("error");

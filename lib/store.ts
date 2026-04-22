@@ -612,10 +612,17 @@ export async function gradeTask1WithAI(
     }),
   });
 
-  if (!res.ok) return null;
+  if (!res.ok) {
+    console.error("[grade-task1] HTTP error", res.status, await res.text().catch(() => ""));
+    return null;
+  }
 
   const grading = await res.json();
-  if (!grading.task_achievement) return null;
+  const ta = grading.task_achievement ?? grading.task_response;
+  if (ta == null) {
+    console.error("[grade-task1] Missing task_achievement in response", grading);
+    return null;
+  }
 
   const corrections: Correction[] = Array.isArray(grading.corrections) ? grading.corrections : [];
   const strengths: string[] = Array.isArray(grading.strengths) ? grading.strengths : [];
@@ -625,7 +632,7 @@ export async function gradeTask1WithAI(
   await supabase
     .from("writing_submissions")
     .update({
-      task_response: grading.task_achievement,
+      task_response: ta,
       coherence_cohesion: grading.coherence_cohesion,
       lexical_resource: grading.lexical_resource,
       grammar_accuracy: grading.grammar_accuracy,
@@ -639,7 +646,7 @@ export async function gradeTask1WithAI(
     .eq("id", submissionId);
 
   return {
-    taskAchievement: grading.task_achievement,
+    taskAchievement: ta,
     coherenceCohesion: grading.coherence_cohesion,
     lexicalResource: grading.lexical_resource,
     grammarAccuracy: grading.grammar_accuracy,
