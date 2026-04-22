@@ -51,6 +51,22 @@ create table if not exists students (
 );
 alter table students add column if not exists plain_password text;
 alter table students add column if not exists is_premium boolean default false;
+alter table students add column if not exists grading_credits integer default 0;
+
+-- ── Premium requests table ───────────────────────────────────────────
+create table if not exists premium_requests (
+  id text primary key,
+  student_id text not null,
+  student_name text not null,
+  requested_credits integer not null default 10,
+  status text not null default 'pending',
+  created_at timestamptz default now(),
+  reviewed_at timestamptz
+);
+alter table premium_requests enable row level security;
+create policy "premium_requests_select" on premium_requests for select using (true);
+create policy "premium_requests_insert" on premium_requests for insert with check (true);
+create policy "premium_requests_update" on premium_requests for update using (true) with check (true);
 
 -- ── Attempts table ────────────────────────────────────────────────────
 create table if not exists attempts (

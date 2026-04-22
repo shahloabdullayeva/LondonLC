@@ -37,6 +37,7 @@ export type StudentAccount = {
   // for students who can't avoid focus loss during work hours.
   anticheatBypass?: boolean;
   isPremium?: boolean;
+  gradingCredits?: number;
 };
 
 export type TeacherAccount = {
@@ -59,6 +60,7 @@ export type StudentSession = {
   username?: string;
   anticheatBypass?: boolean;
   isPremium?: boolean;
+  gradingCredits?: number;
 };
 
 export type DeviceInfo = {
@@ -119,6 +121,7 @@ export async function getStudentAccounts(): Promise<StudentAccount[]> {
     lastDeviceInfo: r.last_device_info ?? undefined,
     anticheatBypass: !!r.anticheat_bypass,
     isPremium: !!r.is_premium,
+    gradingCredits: r.grading_credits ?? 0,
   }));
 }
 
@@ -149,7 +152,7 @@ export async function loginStudent(username: string, password: string): Promise<
     const hashed = await hashPassword(password);
     await supabase.from("students").update({ password: hashed }).eq("id", data.id);
   }
-  return { id: data.id, username: data.username, password: data.password, name: data.name, surname: data.surname, group_name: data.group_name, createdAt: data.created_at, anticheatBypass: !!data.anticheat_bypass, isPremium: !!data.is_premium };
+  return { id: data.id, username: data.username, password: data.password, name: data.name, surname: data.surname, group_name: data.group_name, createdAt: data.created_at, anticheatBypass: !!data.anticheat_bypass, isPremium: !!data.is_premium, gradingCredits: data.grading_credits ?? 0 };
 }
 
 export async function deleteStudent(id: string): Promise<void> {
@@ -661,6 +664,79 @@ export async function gradeTask1WithAI(
     strengths,
     nextSteps,
   };
+}
+
+// ── Premium requests ──────────────────────────────────────────────────
+
+export type PremiumRequest = {
+  id: string;
+  studentId: string;
+  studentName: string;
+  requestedCredits: number;
+  status: "pending" | "approved" | "rejected";
+  createdAt: string;
+  reviewedAt: string | null;
+};
+
+export async function createPremiumRequest(studentId: string, studentName: string, credits: number = 10): Promise<boolean> {
+  const existing = await supabase
+    .from("premium_requests")
+    .select("id")
+    .eq("student_id", studentId)
+    .eq("status", "pending")
+    .maybeSingle();
+  if (existing.data) return true;
+
+  const id = `pr-${Date.now()}-${Math.random().toString(36).slice(2, 6)}`;
+  const { error } = await supabase.from("premium_requests").insert({
+    id, student_id: studentId, student_name: studentName, status: "pending", requested_credits: credits,
+  });
+  return !error;
+}
+
+export async function getPremiumRequests(): Promise<PremiumRequest[]> {
+  const { data } = await supabase
+    .from("premium_requests")
+    .select("*")
+    .order("created_at", { ascending: false });
+  return (data ?? []).map(r => ({
+    id: r.id,
+    studentId: r.student_id,
+    studentName: r.student_name,
+    requestedCredits: r.requested_credits ?? 10,
+    status: r.status,
+    createdAt: r.created_at,
+    reviewedAt: r.reviewed_at ?? null,
+  }));
+}
+
+export async function getStudentPremiumRequest(studentId: string): Promise<PremiumRequest | null> {
+  const { data } = await supabase
+    .from("premium_requests")
+    .select("*")
+    .eq("student_id", studentId)
+    .eq("status", "pending")
+    .maybeSingle();
+  if (!data) return null;
+  return {
+    id: data.id, studentId: data.student_id, studentName: data.student_name,
+    requestedCredits: data.requested_credits ?? 10,
+    status: data.status, createdAt: data.created_at, reviewedAt: data.reviewed_at ?? null,
+  };
+}
+
+export async function reviewPremiumRequest(requestId: string, studentId: string, credits: number, approve: boolean): Promise<boolean> {
+  const { error } = await supabase.from("premium_requests").update({
+    status: approve ? "approved" : "rejected",
+    reviewed_at: new Date().toISOString(),
+  }).eq("id", requestId);
+  if (error) return false;
+  if (approve) {
+    const { data: student } = await supabase.from("students").select("grading_credits").eq("id", studentId).maybeSingle();
+    const current = student?.grading_credits ?? 0;
+    await supabase.from("students").update({ grading_credits: current + credits }).eq("id", studentId);
+  }
+  return true;
 }
 
 // ── Messaging ─────────────────────────────────────────────────────────

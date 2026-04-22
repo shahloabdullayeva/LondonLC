@@ -9,6 +9,8 @@ import {
   getSubmissions,
   submitEssay,
   gradeEssayWithAI,
+  createPremiumRequest,
+  getStudentPremiumRequest,
   type StudentSession,
   type WritingSubmission,
   type Correction,
@@ -177,6 +179,9 @@ export default function WritingPage() {
   const [history, setHistory] = useState<WritingSubmission[]>([]);
   const [historyOpen, setHistoryOpen] = useState<string | null>(null);
   const [violations, setViolations] = useState(0);
+  const [paymentRequested, setPaymentRequested] = useState(false);
+  const [requestSending, setRequestSending] = useState(false);
+  const [selectedTier, setSelectedTier] = useState(10);
 
   useEffect(() => {
     const s = getSession();
@@ -193,6 +198,7 @@ export default function WritingPage() {
     setPrompt(next);
     try { sessionStorage.setItem(PROMPT_KEY, next); } catch {}
 
+    getStudentPremiumRequest(s.id).then(r => { if (r) setPaymentRequested(true); });
     getSubmissions(s.id).then(rows => {
       setHistory(rows);
     });
@@ -225,8 +231,11 @@ export default function WritingPage() {
   const chars = text.length;
   const targetHit = words >= 250;
   const isPremium = session?.isPremium === true;
+  const extraCredits = session?.gradingCredits ?? 0;
   const gradedCount = history.filter(h => h.overallBand != null).length;
-  const canGrade = isPremium || gradedCount < FREE_GRADING_LIMIT;
+  const totalAllowed = FREE_GRADING_LIMIT + extraCredits;
+  const canGrade = isPremium || gradedCount < totalAllowed;
+  const remaining = Math.max(0, totalAllowed - gradedCount);
 
   const shufflePrompt = () => {
     if (status === "submitting" || status === "grading") return;
@@ -372,7 +381,7 @@ export default function WritingPage() {
       </p>
       {!isPremium && canGrade && (
         <p style={{ fontSize: 12, color: "var(--text-3)", marginBottom: 28, fontFamily: "var(--ff-mono)" }}>
-          Free gradings remaining: {FREE_GRADING_LIMIT - gradedCount} of {FREE_GRADING_LIMIT}
+          Gradings remaining: {remaining} of {totalAllowed}
         </p>
       )}
       {isPremium && (
@@ -414,15 +423,65 @@ export default function WritingPage() {
 
       {!canGrade && !hasScore && (
         <div className="card" style={{ textAlign: "center", padding: "48px 24px", marginBottom: 24 }}>
-          <div style={{ fontSize: 36, marginBottom: 12 }}>&#128274;</div>
-          <h2 style={{ fontSize: 22, fontWeight: 700, marginBottom: 8 }}>Free samples used</h2>
-          <p style={{ color: "var(--text-2)", maxWidth: 480, margin: "0 auto 20px", lineHeight: 1.6 }}>
-            You&apos;ve used your {FREE_GRADING_LIMIT} free AI gradings. Upgrade to Premium for unlimited
-            Writing Task 1 and Task 2 feedback with detailed corrections.
+          <div style={{ fontSize: 36, marginBottom: 12 }}>&#11088;</div>
+          <h2 style={{ fontSize: 22, fontWeight: 700, marginBottom: 8 }}>Get more essays</h2>
+          <p style={{ color: "var(--text-2)", maxWidth: 480, margin: "0 auto 24px", lineHeight: 1.6 }}>
+            You&apos;ve used all your AI gradings. Buy more to keep getting detailed feedback,
+            corrections, strengths, and personalised next steps for Task 1 and Task 2.
           </p>
-          <p style={{ fontSize: 13, color: "var(--text-3)" }}>
-            Ask your teacher to enable Premium on your account.
-          </p>
+
+          <div style={{ display: "flex", justifyContent: "center", gap: 12, marginBottom: 24, flexWrap: "wrap" }}>
+            {[
+              { n: 10, price: "30,000" },
+              { n: 30, price: "75,000" },
+              { n: 50, price: "100,000" },
+            ].map(t => (
+              <button
+                key={t.n}
+                onClick={() => setSelectedTier(t.n)}
+                style={{
+                  padding: "16px 20px", borderRadius: 12, cursor: "pointer",
+                  border: selectedTier === t.n ? "2px solid var(--accent)" : "2px solid var(--line)",
+                  background: selectedTier === t.n ? "rgba(120,160,255,0.08)" : "var(--surface-2)",
+                  textAlign: "center", minWidth: 120, transition: "all 0.15s",
+                }}
+              >
+                <div style={{ fontSize: 24, fontWeight: 800, color: "var(--text)" }}>{t.n}</div>
+                <div style={{ fontSize: 11, color: "var(--text-3)", marginBottom: 4 }}>essays</div>
+                <div style={{ fontSize: 14, fontWeight: 700, color: "var(--accent)" }}>{t.price} UZS</div>
+              </button>
+            ))}
+          </div>
+
+          <div style={{ maxWidth: 400, margin: "0 auto 20px", padding: "16px 24px", background: "var(--surface-2)", border: "1px solid var(--line)", borderRadius: 12, textAlign: "left" }}>
+            <p style={{ fontSize: 13, fontWeight: 600, color: "var(--text)", marginBottom: 8 }}>
+              Send payment to:
+            </p>
+            <div style={{ fontFamily: "var(--ff-mono)", fontSize: 18, fontWeight: 700, color: "var(--text)", letterSpacing: "0.05em", marginBottom: 4 }}>
+              9860 3501 4244 8355
+            </div>
+            <p style={{ fontSize: 12, color: "var(--text-3)", margin: 0 }}>Uzcard · London LC</p>
+          </div>
+
+          {paymentRequested ? (
+            <div style={{ padding: "12px 20px", borderRadius: 10, background: "rgba(34,197,94,0.1)", border: "1px solid rgba(34,197,94,0.3)", color: "#22c55e", fontSize: 14, fontWeight: 600 }}>
+              &#10003; Payment request sent for {selectedTier} essays — waiting for approval
+            </div>
+          ) : (
+            <button
+              className="btn primary"
+              disabled={requestSending}
+              onClick={async () => {
+                if (!session) return;
+                setRequestSending(true);
+                await createPremiumRequest(session.id, `${session.name} ${session.surname}`, selectedTier);
+                setPaymentRequested(true);
+                setRequestSending(false);
+              }}
+            >
+              {requestSending ? "Sending…" : `I've sent payment for ${selectedTier} essays`}
+            </button>
+          )}
         </div>
       )}
 
