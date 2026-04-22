@@ -267,7 +267,169 @@ Bloodthirsty predators that they are, dragonflies and damselflies are prey for o
         },
       ],
     },
-    // Passages 2 and 3 will be added below
+    // ── PASSAGE 2 ──────────────────────────────────────────────
+    {
+      id: "barrons-ra-t1-s2",
+      sectionNumber: 2,
+      title: "Reading Passage 2",
+      passageTitle: "History of Fire Fighting and Prevention",
+      passageText: `More than two thousand years ago, Roman emperor Augustus organized a group of watchmen whose job was mainly to look out for fires and sound an alarm in the event of one. For many centuries that followed, fire equipment was limited to buckets of water that got passed from person to person. The ax was later found to be a useful tool both for removing fuel in large fires and for opening holes to allow smoke and flames to escape from burning buildings. Watchmen also learned to create firebreaks with long hooked poles and ropes in order to pull down structures that provided fuel for a fire. In 1066, in order to reduce the risk of fire in thatched-roof houses, King William the Conqueror made a ruling: Citizens had to extinguish their cooking fires at night. His term couvre-feu, meaning "cover fire," is the origin of the modern day term curfew, which no longer carries a literal translation.
+
+The event that had the largest influence in the history of fire fighting was the Great Fire of London in 1666. The devastating blaze originated at the King's Bakery near the London Bridge. At the onset, Lord Mayor Bludworth showed little concern for the fire, assuming it would extinguish itself before he could organize a group of men to attend to it. However, the summer of 1666 had been uncharacteristically hot and dry, and the wooden houses nearby caught fire quickly. Within a short time, the wind had carried the fire across the city, burning down over 300 houses in its path. Although the procedure of pulling down buildings to prevent a fire from spreading was standard in Britain, the mayor grew concerned over the cost it would involve to rebuild the city and ordered that the surrounding structures be left intact. By the time the king ordered the destruction of buildings in the fire's path, the fire was too large to control. It was not until the Duke of York ordered the Paper House to be destroyed in order to create a crucial firebreak that the London fire finally began to lose its fuel.
+
+When it became clear that four-fifths of the city had been destroyed by the fire, drastic measures were taken in London to create a system of organized fire prevention. At the hands of architects such as Christopher Wren, most of London was rebuilt using stone and brick, materials that were far less flammable than wood and straw. Because of the long history of fires in London, those who could afford to build new homes and businesses began to seek insurance for their properties. As insurance became a profitable business, companies soon realized the monetary benefits of hiring men to extinguish fires. In the early years of insurance companies, all insured properties were marked with an insurance company's name or logo. If a fire broke out and a building did not contain the insurance mark, the fire brigades were called away and the building was left to burn.
+
+The British insurance companies were largely responsible for employing people to develop new technology for extinguishing fires. The first fire engines were simple tubs on wheels that were pulled to the location of the fire, with water being supplied by a bucket brigade. Eventually, a hand pump was designed to push the water out of the tub into a hose with a nozzle. The pump allowed for a steady stream of water to shoot through a hose directly at the fire source. Before long, companies began to utilize water pipes made from hollowed tree trunks that were built under the roadway. By digging down into the road, firemen could insert a hole into the tree-trunk pipe and access the water to feed into the pump.
+
+Fire fighting became a competitive business, as companies fought to be the first to arrive at a scene to access the water pipes. After a series of fires destroyed parts of London, fire-fighting companies were forced to reconsider their intentions. By the eighteenth century, fire brigades began to join forces, and in 1833 the Sun Insurance Company along with ten other London companies created the London Fire Engine Establishment. In 1865, the government became involved, bringing standards to both fire prevention and fire fighting and establishing London's Metropolitan Fire Brigade. Though the firemen were well paid, they were constantly on duty and thus obliged to call their fire station home for both themselves and their families.
+
+New technology for fighting fires continued to develop in both Europe and the New World. Leather hoses with couplings that joined the lengths together were hand-sewn in the Netherlands and used until the late 1800s, when rubber hoses became available. The technology for steam engine fire trucks was available in Britain and America in 1829, but most brigades were hesitant to use them until the 1850s. It was the public that eventually forced the brigades into putting the more efficient equipment to use. In the early 1900s, when the internal-combustion engine was developed, the trucks became motorized. This was a timely advancement in fire-fighting history, as World War I put added pressure on brigades throughout the world.`,
+      instructions:
+        "Questions 14-20: Complete the chart. Use NO MORE THAN THREE WORDS.\n\nQuestions 21-23: Choose the correct letter A-C.\n\nQuestions 24-26: Do the statements agree with the passage? Write YES, NO, or NOT GIVEN.",
+      questions: [
+        // ── Q14–20: Fill in the blanks ────────────────────────────
+        {
+          id: "barrons-ra-t1-s2-q14",
+          number: 14,
+          type: "fill_blank",
+          groupLabel:
+            "Complete the cause-and-effect chart. Use NO MORE THAN THREE WORDS from the text.\n\nCause → Effect\nMen used poles and ropes to pull down buildings near a fire → The fire did not have (14)___\nThatched-roof houses burn down easily → The King ordered people to (15)___ their fires nightly\nAt the time of the Great Fire, the weather was (16)___ → The fire spread quickly\nThe Mayor thought it would be too expensive to (17)___ → He told people not to pull down buildings\nThe Great Fire destroyed most of London → People built new buildings out of (18)___\nThere had been many (19)___ in London over time → People started to buy insurance\nInsurance companies did not want to pay for rebuilding → Insurance companies hired men to (20)___",
+          question: "The fire did not have ___",
+          correctAnswer: "fuel",
+          points: 1,
+        },
+        {
+          id: "barrons-ra-t1-s2-q15",
+          number: 15,
+          type: "fill_blank",
+          question: "The King ordered people to ___ their fires nightly",
+          correctAnswer: "extinguish",
+          points: 1,
+        },
+        {
+          id: "barrons-ra-t1-s2-q16",
+          number: 16,
+          type: "fill_blank",
+          question: "The weather was ___",
+          correctAnswer: "hot and dry",
+          points: 1,
+        },
+        {
+          id: "barrons-ra-t1-s2-q17",
+          number: 17,
+          type: "fill_blank",
+          question: "It would be too expensive to ___",
+          correctAnswer: "rebuild the city",
+          points: 1,
+        },
+        {
+          id: "barrons-ra-t1-s2-q18",
+          number: 18,
+          type: "fill_blank",
+          question: "People built new buildings out of ___",
+          correctAnswer: "stone and brick",
+          points: 1,
+        },
+        {
+          id: "barrons-ra-t1-s2-q19",
+          number: 19,
+          type: "fill_blank",
+          question: "There had been many ___ in London over time",
+          correctAnswer: "fires",
+          points: 1,
+        },
+        {
+          id: "barrons-ra-t1-s2-q20",
+          number: 20,
+          type: "fill_blank",
+          question: "Insurance companies hired men to ___",
+          correctAnswer: "extinguish fires",
+          points: 1,
+        },
+        // ── Q21–23: Multiple choice ───────────────────────────────
+        {
+          id: "barrons-ra-t1-s2-q21",
+          number: 21,
+          type: "multiple_choice",
+          question: "The first fire engines",
+          options: [
+            { label: "A", value: "A" },
+            { label: "B", value: "B" },
+            { label: "C", value: "C" },
+          ],
+          correctAnswer: "A",
+          points: 1,
+        },
+        {
+          id: "barrons-ra-t1-s2-q22",
+          number: 22,
+          type: "multiple_choice",
+          question: "In 1865,",
+          options: [
+            { label: "A", value: "A" },
+            { label: "B", value: "B" },
+            { label: "C", value: "C" },
+          ],
+          correctAnswer: "C",
+          points: 1,
+        },
+        {
+          id: "barrons-ra-t1-s2-q23",
+          number: 23,
+          type: "multiple_choice",
+          question: "Firemen who worked for the Metropolitan Fire Brigade",
+          options: [
+            { label: "A", value: "A" },
+            { label: "B", value: "B" },
+            { label: "C", value: "C" },
+          ],
+          correctAnswer: "B",
+          points: 1,
+        },
+        // ── Q24–26: Yes / No / Not Given ──────────────────────────
+        {
+          id: "barrons-ra-t1-s2-q24",
+          number: 24,
+          type: "true_false_ng",
+          question: "Leather hoses for fire fighting were made by machine.",
+          options: [
+            { label: "YES", value: "YES" },
+            { label: "NO", value: "NO" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "NO",
+          points: 1,
+        },
+        {
+          id: "barrons-ra-t1-s2-q25",
+          number: 25,
+          type: "true_false_ng",
+          question: "Steam engine fire trucks were used until the early 1900s.",
+          options: [
+            { label: "YES", value: "YES" },
+            { label: "NO", value: "NO" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "YES",
+          points: 1,
+        },
+        {
+          id: "barrons-ra-t1-s2-q26",
+          number: 26,
+          type: "true_false_ng",
+          question:
+            "Fires caused a great deal of damage in London during World War I.",
+          options: [
+            { label: "YES", value: "YES" },
+            { label: "NO", value: "NO" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "NOT GIVEN",
+          points: 1,
+        },
+      ],
+    },
+    // Passage 3 will be added below
   ],
 };
 
