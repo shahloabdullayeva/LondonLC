@@ -7,8 +7,8 @@ import { useRouter } from "next/navigation";
 import { Check, X } from "lucide-react";
 import StudentShell from "@/components/StudentShell";
 import {
-  getSession, clearSession, getAttempts, changeStudentOwnPassword,
-  type StudentSession, type AttemptData,
+  getSession, clearSession, getAttempts, changeStudentOwnPassword, getSubmissions,
+  type StudentSession, type AttemptData, type WritingSubmission,
 } from "@/lib/store";
 
 function computeStreak(attempts: AttemptData[]) {
@@ -47,6 +47,7 @@ export default function ProfilePage() {
   const router = useRouter();
   const [session, setSession] = useState<StudentSession | null>(null);
   const [attempts, setAttempts] = useState<AttemptData[]>([]);
+  const [writingSubs, setWritingSubs] = useState<WritingSubmission[]>([]);
   const [curr, setCurr] = useState("");
   const [next, setNext] = useState("");
   const [pwMsg, setPwMsg] = useState<{ kind: "ok" | "err"; text: string } | null>(null);
@@ -58,6 +59,7 @@ export default function ProfilePage() {
     if (!s || s.isAdmin) { router.push("/auth/login"); return; }
     setSession(s);
     getAttempts().then(all => setAttempts(all.filter(a => a.studentId === s.id)));
+    getSubmissions(s.id).then(setWritingSubs);
   }, [router]);
 
   const completed = useMemo(() => attempts.filter(a => a.status === "completed"), [attempts]);
@@ -75,13 +77,16 @@ export default function ProfilePage() {
       if (list.length === 0) return null;
       return list.reduce((s, a) => s + a.bandScore, 0) / list.length;
     };
+    const gradedWriting = writingSubs.filter(w => w.overallBand != null);
+    const writingAvg = gradedWriting.length > 0
+      ? gradedWriting.reduce((s, w) => s + (w.overallBand ?? 0), 0) / gradedWriting.length
+      : null;
     return [
       { k: "Reading", v: avg("reading") },
       { k: "Listening", v: avg("listening") },
-      { k: "Writing", v: null },   // no writing backend yet
-      { k: "Speaking", v: null },  // same
+      { k: "Writing", v: writingAvg },
     ];
-  }, [completed]);
+  }, [completed, writingSubs]);
 
   const hoursThisMonth = useMemo(() => {
     const monthStart = new Date();
