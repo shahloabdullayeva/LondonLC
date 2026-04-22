@@ -46,19 +46,31 @@ function ScoreRing({ value, max = 9 }: { value: number; max?: number }) {
 
 type GradingStatus = "idle" | "submitting" | "grading" | "done" | "error";
 
+const MAX_IMG_WIDTH = 1200;
+
 function fileToBase64(file: File): Promise<{ data: string; mediaType: string }> {
   return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onload = () => {
-      const result = reader.result as string;
-      const commaIdx = result.indexOf(",");
+    const img = new Image();
+    img.onload = () => {
+      let { width, height } = img;
+      if (width > MAX_IMG_WIDTH) {
+        height = Math.round(height * (MAX_IMG_WIDTH / width));
+        width = MAX_IMG_WIDTH;
+      }
+      const canvas = document.createElement("canvas");
+      canvas.width = width;
+      canvas.height = height;
+      const ctx = canvas.getContext("2d")!;
+      ctx.drawImage(img, 0, 0, width, height);
+      const dataUrl = canvas.toDataURL("image/jpeg", 0.85);
       resolve({
-        data: result.slice(commaIdx + 1),
-        mediaType: file.type || "image/png",
+        data: dataUrl.slice(dataUrl.indexOf(",") + 1),
+        mediaType: "image/jpeg",
       });
+      URL.revokeObjectURL(img.src);
     };
-    reader.onerror = reject;
-    reader.readAsDataURL(file);
+    img.onerror = reject;
+    img.src = URL.createObjectURL(file);
   });
 }
 
