@@ -165,6 +165,8 @@ export default function WritingPage() {
   const [savedAt, setSavedAt] = useState<string | null>(null);
   const [status, setStatus] = useState<GradingStatus>("idle");
   const [errorMsg, setErrorMsg] = useState("");
+  const [gradingProgress, setGradingProgress] = useState(0);
+  const [gradingStage, setGradingStage] = useState("");
   const [lastSub, setLastSub] = useState<WritingSubmission | null>(null);
   const [filter, setFilter] = useState<"all" | Correction["type"]>("all");
   const [prompt, setPrompt] = useState<string>(PROMPTS[0]);
@@ -237,23 +239,53 @@ export default function WritingPage() {
 
     setStatus("submitting");
     setErrorMsg("");
+    setGradingProgress(5);
+    setGradingStage("Saving your essay…");
 
     const sub = await submitEssay(session.id, `${session.name} ${session.surname}`, prompt, text);
     if (!sub) {
       setStatus("error");
+      setGradingProgress(0);
       setErrorMsg("Failed to save essay. Check your connection.");
       return;
     }
 
     setStatus("grading");
     setLastSub(sub);
+    setGradingProgress(15);
+    setGradingStage("Sending to examiner…");
+
+    const progressTimer = setInterval(() => {
+      setGradingProgress(prev => {
+        if (prev < 35) return prev + 2;
+        if (prev < 60) return prev + 1.5;
+        if (prev < 80) return prev + 0.8;
+        if (prev < 92) return prev + 0.3;
+        return prev;
+      });
+    }, 1000);
+
+    const stageTimer = setTimeout(() => {
+      setGradingStage("Reading your essay…");
+      setTimeout(() => setGradingStage("Grading against IELTS criteria…"), 4000);
+      setTimeout(() => setGradingStage("Writing detailed feedback…"), 10000);
+      setTimeout(() => setGradingStage("Generating corrections…"), 18000);
+      setTimeout(() => setGradingStage("Almost done…"), 28000);
+    }, 2000);
 
     const grading = await gradeEssayWithAI(sub.id, prompt, text);
+    clearInterval(progressTimer);
+    clearTimeout(stageTimer);
+
     if (!grading) {
       setStatus("error");
+      setGradingProgress(0);
       setErrorMsg("Essay saved but AI grading failed. Your teacher can still review it manually.");
       return;
     }
+
+    setGradingProgress(100);
+    setGradingStage("Done!");
 
     const updated: WritingSubmission = {
       ...sub,
@@ -426,9 +458,20 @@ export default function WritingPage() {
                 padding: "32px 36px", minHeight: 340, outline: "none",
               }}
             />
+            {(status === "submitting" || status === "grading") && (
+              <div style={{ padding: "16px 36px 0" }}>
+                <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 8 }}>
+                  <span style={{ fontSize: 12, color: "var(--text-2)", fontWeight: 500 }}>{gradingStage}</span>
+                  <span style={{ fontSize: 12, color: "var(--text-3)", fontFamily: "var(--ff-mono)" }}>{Math.round(gradingProgress)}%</span>
+                </div>
+                <div style={{ height: 4, background: "var(--line)", borderRadius: 4, overflow: "hidden" }}>
+                  <div style={{ height: "100%", background: "var(--accent)", borderRadius: 4, transition: "width 0.8s ease", width: `${gradingProgress}%` }} />
+                </div>
+              </div>
+            )}
             <div className="hd" style={{ borderTop: "1px solid var(--line)", borderBottom: 0 }}>
               <span style={{ fontSize: 11, color: "var(--text-3)" }}>
-                {status === "grading" ? "Claude is reading your essay…" : "Graded by Claude Opus 4.7"}
+                {status === "grading" ? gradingStage : "Graded by Claude Opus 4.7"}
               </span>
               <button
                 className="btn primary sm"

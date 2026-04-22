@@ -81,6 +81,8 @@ export default function WritingTask1Page() {
   const [savedAt, setSavedAt] = useState<string | null>(null);
   const [status, setStatus] = useState<GradingStatus>("idle");
   const [errorMsg, setErrorMsg] = useState("");
+  const [gradingProgress, setGradingProgress] = useState(0);
+  const [gradingStage, setGradingStage] = useState("");
   const [lastSub, setLastSub] = useState<WritingSubmission | null>(null);
   const [filter, setFilter] = useState<"all" | Correction["type"]>("all");
 
@@ -152,24 +154,53 @@ export default function WritingTask1Page() {
 
     setStatus("submitting");
     setErrorMsg("");
+    setGradingProgress(5);
+    setGradingStage("Saving your response…");
 
     const promptLabel = taskDescription.trim() ? `[Task 1] ${taskDescription}` : "[Task 1] Describe the visual";
     const sub = await submitEssay(session.id, `${session.name} ${session.surname}`, promptLabel, text);
     if (!sub) {
       setStatus("error");
+      setGradingProgress(0);
       setErrorMsg("Failed to save response. Check your connection.");
       return;
     }
 
     setStatus("grading");
     setLastSub(sub);
+    setGradingProgress(15);
+    setGradingStage("Uploading image to examiner…");
+
+    const progressTimer = setInterval(() => {
+      setGradingProgress(prev => {
+        if (prev < 30) return prev + 2;
+        if (prev < 55) return prev + 1.5;
+        if (prev < 75) return prev + 0.8;
+        if (prev < 90) return prev + 0.3;
+        return prev;
+      });
+    }, 1000);
+
+    const stageTimer = setTimeout(() => {
+      setGradingStage("Reading your response…");
+      setTimeout(() => setGradingStage("Grading against IELTS criteria…"), 5000);
+      setTimeout(() => setGradingStage("Writing detailed feedback…"), 12000);
+      setTimeout(() => setGradingStage("Almost done…"), 22000);
+    }, 3000);
 
     const grading = await gradeTask1WithAI(sub.id, imageBase64, imageMediaType, taskDescription, text);
+    clearInterval(progressTimer);
+    clearTimeout(stageTimer);
+
     if (!grading) {
       setStatus("error");
+      setGradingProgress(0);
       setErrorMsg("Response saved but AI grading failed. Your teacher can still review it manually.");
       return;
     }
+
+    setGradingProgress(100);
+    setGradingStage("Done!");
 
     const updated: WritingSubmission = {
       ...sub,
@@ -366,9 +397,20 @@ export default function WritingTask1Page() {
                 padding: "32px 36px", minHeight: 260, outline: "none",
               }}
             />
+            {(status === "submitting" || status === "grading") && (
+              <div style={{ padding: "16px 36px 0" }}>
+                <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 8 }}>
+                  <span style={{ fontSize: 12, color: "var(--text-2)", fontWeight: 500 }}>{gradingStage}</span>
+                  <span style={{ fontSize: 12, color: "var(--text-3)", fontFamily: "var(--ff-mono)" }}>{Math.round(gradingProgress)}%</span>
+                </div>
+                <div style={{ height: 4, background: "var(--line)", borderRadius: 4, overflow: "hidden" }}>
+                  <div style={{ height: "100%", background: "var(--accent)", borderRadius: 4, transition: "width 0.8s ease", width: `${gradingProgress}%` }} />
+                </div>
+              </div>
+            )}
             <div className="hd" style={{ borderTop: "1px solid var(--line)", borderBottom: 0 }}>
               <span style={{ fontSize: 11, color: "var(--text-3)" }}>
-                {status === "grading" ? "Claude is reading your response…" : "Graded by Claude Opus 4.7"}
+                {status === "grading" ? gradingStage : "Graded by Claude Sonnet 4.6"}
               </span>
               <button
                 className="btn primary sm"
