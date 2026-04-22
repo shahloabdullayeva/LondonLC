@@ -2300,4 +2300,280 @@ It has become practically a hallmark of the research on black holes that with ea
   ],
 };
 
-export const barronsReadingTests: IELTSTest[] = [barrons_reading_t1, barrons_reading_t2, barrons_reading_t3];
+// ============================================================
+// BARRON'S IELTS – PRACTICE TEST 4  (Academic Reading)
+// ============================================================
+const barrons_reading_t4: IELTSTest = {
+  id: "barrons-reading-academic-t4",
+  title: "Barron's IELTS – Practice Test 4",
+  bookNumber: 100,
+  testNumber: 4,
+  type: "reading",
+  level: "academic",
+  durationMinutes: 60,
+  transferMinutes: 0,
+  sections: [
+    // ── PASSAGE 1 ──────────────────────────────────────────────
+    {
+      id: "barrons-ra-t4-s1",
+      sectionNumber: 1,
+      title: "Reading Passage 1",
+      passageTitle: "The Gulf Stream and Global Warming",
+      passageText: `Labrador and London lie at about the same latitude, but Labrador is frigid and has only 30 miles of paved roads while London is one of the major centers of civilization. Why do two places, equidistant from the Arctic Circle, have such disparate climates? The Gulf Stream that flows by the British Isles makes all the difference: Its warm waters make northwestern Europe so abundant with life that palm trees can actually grow on the southern shores of England.
+
+This life-giving Gulf Stream is warm, salty water, which travels along the surface of the Atlantic Ocean from the Caribbean, along the east coast of the United States, and then veers toward Europe. In the tropics, this water is warmed by the sun and becomes saltier because of the higher rate of evaporation in the heat. The Gulf Stream divides as it travels, but the majority of the stream moves north and east. As it travels past Europe, the Gulf Stream warms the atmosphere, and the prevailing westerly winds bring the warmed air to all of northwestern Europe, making the area suitable for intense agriculture. The Gulf Stream makes it possible for Europe to feed an increasingly large population.
+
+After the Gulf Stream reaches southeast Greenland and western Iceland, much of the heat of the stream is gone, and the colder, denser water then sinks. The bulk of the Gulf Stream is carried down toward the ocean floor into as many as seven large vortices, called chimneys. They suck the Gulf Stream waters down over a mile deep, where the water is then drawn into another dynamic ocean current. Almost 2 miles below the surface, this cold water current flows in reverse, from the north southward. When this cold water nears the equator, it is again pulled up from the bottom of the ocean as the surface water is heated and starts its journey north. This upwelling brings with it minerals and food from the detritus at the bottom of the ocean to refresh food supplies for fish and other marine creatures.
+
+This stream of water — the warm water traveling north along the surface and the cold water traveling south along the floor — has become known as the Great Ocean Conveyor Belt. This flow of ocean currents has been extremely important in regulating the temperature of the globe and in making life possible. These currents in the North Atlantic are part of the Great Conveyor Belt that flows through all the oceans of the world. The least stable section of this global current is in the North Atlantic. The Gulf Stream is the most unstable of all.
+
+Predictions of the effects of global warming on the Gulf Stream are based on computer models, which differ to some extent. But several important facts are known. South of Greenland, there used to be as many as seven chimneys that pulled water from the Gulf Stream down toward the ocean floor. In the last several years, only one remained, and then, in 2007, that one disappeared. The causes for the demise of the chimneys may include the increase in fresh water from glacial melt. In recent winters, glacial melt has released record amounts of fresh water into the oceans. As the North Atlantic waters, including fresh water from rivers as well as the increased amount of glacial melt, mix with the Gulf Stream, the salt water is diluted. Because fresh water is not as dense as salt water, it does not sink, which impairs the natural mechanism for forming the chimneys. As the chimneys have disappeared, the Gulf Stream has slowed. About 30 percent of the water from the Gulf Stream that used to reach Europe travels elsewhere or is lost in the disintegration of the current, a loss of over six million tons of water flow every second. Without a strong Gulf Stream, the slow, cold water of the lower part of the conveyor belt fails to rise, which reduces the circulation of nutrients for marine life. The problem of warming then worsens: As less surface water, which is full of carbon dioxide from the atmosphere, siphons into the depths of the ocean, less carbon dioxide is removed from the atmosphere, thus increasing global warming.
+
+Ocean sediments and glacial cores show that there have been global swings in temperature in the past. The last Ice Age, when much of North America and northern Europe were covered in glaciers 2 miles thick, occurred when the average temperature dropped about 5 degrees Celsius. That ice age ended about 20,000 years ago. The last 'Little Ice Age,' when the average temperature dropped only 1 to 2 degrees Celsius, occurred in the sixteenth and seventeenth centuries, hitting Europe hardest. At that time, the Gulf Stream had slowed to about half its usual rate.
+
+Core samples also show that the changes in temperature have been abrupt, not gradual. There would be little time to prepare for the devastating changes resulting from the weakening of the Gulf Stream. The good news is that in the winters of 2008 and 2009, one of the chimneys off southeastern Greenland suddenly burst into action again, bringing the Gulf Stream waters down deep enough to be caught in the conveyor and to keep the ocean currents in the North Atlantic flowing.`,
+      instructions:
+        "Questions 1-7: Choose the correct letter A, B, or C.\n\nQuestions 8-13: Complete the flow chart using the list of words A-L.",
+      questions: [
+        // ── Q1–7: Multiple Choice A-C ─────────────────────────
+        {
+          id: "barrons-ra-t4-s1-q1",
+          number: 1,
+          type: "multiple_choice",
+          groupLabel: "Choose the correct letter A, B, or C.",
+          question:
+            "Labrador and London are similar in:\nA  climate.\nB  distance from the North Pole.\nC  abundance of wildlife.",
+          options: [
+            { label: "A", value: "A" },
+            { label: "B", value: "B" },
+            { label: "C", value: "C" },
+          ],
+          correctAnswer: "B",
+          points: 1,
+        },
+        {
+          id: "barrons-ra-t4-s1-q2",
+          number: 2,
+          type: "multiple_choice",
+          question:
+            "Europe can support a large population because:\nA  it has a lot of fresh water.\nB  it is at the proper latitude.\nC  it has a good climate for farming.",
+          options: [
+            { label: "A", value: "A" },
+            { label: "B", value: "B" },
+            { label: "C", value: "C" },
+          ],
+          correctAnswer: "C",
+          points: 1,
+        },
+        {
+          id: "barrons-ra-t4-s1-q3",
+          number: 3,
+          type: "multiple_choice",
+          question:
+            "When the Gulf Stream reaches the North Atlantic, it sinks because:\nA  it has become colder.\nB  it has become less salty.\nC  it is blown by the winds.",
+          options: [
+            { label: "A", value: "A" },
+            { label: "B", value: "B" },
+            { label: "C", value: "C" },
+          ],
+          correctAnswer: "A",
+          points: 1,
+        },
+        {
+          id: "barrons-ra-t4-s1-q4",
+          number: 4,
+          type: "multiple_choice",
+          question:
+            "Ocean currents help make life on Earth possible because they:\nA  enable marine life to travel.\nB  maintain suitable temperatures.\nC  regulate glacial melt.",
+          options: [
+            { label: "A", value: "A" },
+            { label: "B", value: "B" },
+            { label: "C", value: "C" },
+          ],
+          correctAnswer: "B",
+          points: 1,
+        },
+        {
+          id: "barrons-ra-t4-s1-q5",
+          number: 5,
+          type: "multiple_choice",
+          question:
+            "In 2007, the number of chimneys pulling Gulf Stream waters down was:\nA  zero.\nB  one.\nC  seven.",
+          options: [
+            { label: "A", value: "A" },
+            { label: "B", value: "B" },
+            { label: "C", value: "C" },
+          ],
+          correctAnswer: "A",
+          points: 1,
+        },
+        {
+          id: "barrons-ra-t4-s1-q6",
+          number: 6,
+          type: "multiple_choice",
+          question:
+            "During the most recent Little Ice Age:\nA  the Gulf Stream slowed down significantly.\nB  Europe was affected only slightly.\nC  glaciers covered much of North America.",
+          options: [
+            { label: "A", value: "A" },
+            { label: "B", value: "B" },
+            { label: "C", value: "C" },
+          ],
+          correctAnswer: "A",
+          points: 1,
+        },
+        {
+          id: "barrons-ra-t4-s1-q7",
+          number: 7,
+          type: "multiple_choice",
+          question:
+            "In the past, climate change has happened:\nA  at regular intervals.\nB  gradually over time.\nC  very quickly.",
+          options: [
+            { label: "A", value: "A" },
+            { label: "B", value: "B" },
+            { label: "C", value: "C" },
+          ],
+          correctAnswer: "C",
+          points: 1,
+        },
+        // ── Q8–13: Flow Chart A-L ─────────────────────────────
+        {
+          id: "barrons-ra-t4-s1-q8",
+          number: 8,
+          type: "multiple_choice",
+          groupLabel:
+            "Complete the flow chart showing a possible effect of global warming on the Gulf Stream.\n\nA  less salty\nB  colder\nC  warmer\nD  sink\nE  rise\nF  weakened\nG  strengthened\nH  heated\nI  food\nJ  melt\nK  air\nL  form\n\nFlow chart:\nGlaciers (8)___\n↓\nThe ocean becomes (9)___\n↓\nThe water doesn't (10)___\n↓\nThe Gulf Stream current is (11)___\n↓\nThe colder water at the southern end doesn't (12)___\n↓\nThere is less (13)___ available for sea life",
+          question: "Glaciers ___",
+          options: [
+            { label: "A", value: "A" },
+            { label: "B", value: "B" },
+            { label: "C", value: "C" },
+            { label: "D", value: "D" },
+            { label: "E", value: "E" },
+            { label: "F", value: "F" },
+            { label: "G", value: "G" },
+            { label: "H", value: "H" },
+            { label: "I", value: "I" },
+            { label: "J", value: "J" },
+            { label: "K", value: "K" },
+            { label: "L", value: "L" },
+          ],
+          correctAnswer: "J",
+          points: 1,
+        },
+        {
+          id: "barrons-ra-t4-s1-q9",
+          number: 9,
+          type: "multiple_choice",
+          question: "The ocean becomes ___",
+          options: [
+            { label: "A", value: "A" },
+            { label: "B", value: "B" },
+            { label: "C", value: "C" },
+            { label: "D", value: "D" },
+            { label: "E", value: "E" },
+            { label: "F", value: "F" },
+            { label: "G", value: "G" },
+            { label: "H", value: "H" },
+            { label: "I", value: "I" },
+            { label: "J", value: "J" },
+            { label: "K", value: "K" },
+            { label: "L", value: "L" },
+          ],
+          correctAnswer: "A",
+          points: 1,
+        },
+        {
+          id: "barrons-ra-t4-s1-q10",
+          number: 10,
+          type: "multiple_choice",
+          question: "The water doesn't ___",
+          options: [
+            { label: "A", value: "A" },
+            { label: "B", value: "B" },
+            { label: "C", value: "C" },
+            { label: "D", value: "D" },
+            { label: "E", value: "E" },
+            { label: "F", value: "F" },
+            { label: "G", value: "G" },
+            { label: "H", value: "H" },
+            { label: "I", value: "I" },
+            { label: "J", value: "J" },
+            { label: "K", value: "K" },
+            { label: "L", value: "L" },
+          ],
+          correctAnswer: "D",
+          points: 1,
+        },
+        {
+          id: "barrons-ra-t4-s1-q11",
+          number: 11,
+          type: "multiple_choice",
+          question: "The Gulf Stream current is ___",
+          options: [
+            { label: "A", value: "A" },
+            { label: "B", value: "B" },
+            { label: "C", value: "C" },
+            { label: "D", value: "D" },
+            { label: "E", value: "E" },
+            { label: "F", value: "F" },
+            { label: "G", value: "G" },
+            { label: "H", value: "H" },
+            { label: "I", value: "I" },
+            { label: "J", value: "J" },
+            { label: "K", value: "K" },
+            { label: "L", value: "L" },
+          ],
+          correctAnswer: "F",
+          points: 1,
+        },
+        {
+          id: "barrons-ra-t4-s1-q12",
+          number: 12,
+          type: "multiple_choice",
+          question: "The colder water at the southern end doesn't ___",
+          options: [
+            { label: "A", value: "A" },
+            { label: "B", value: "B" },
+            { label: "C", value: "C" },
+            { label: "D", value: "D" },
+            { label: "E", value: "E" },
+            { label: "F", value: "F" },
+            { label: "G", value: "G" },
+            { label: "H", value: "H" },
+            { label: "I", value: "I" },
+            { label: "J", value: "J" },
+            { label: "K", value: "K" },
+            { label: "L", value: "L" },
+          ],
+          correctAnswer: "E",
+          points: 1,
+        },
+        {
+          id: "barrons-ra-t4-s1-q13",
+          number: 13,
+          type: "multiple_choice",
+          question: "There is less ___ available for sea life",
+          options: [
+            { label: "A", value: "A" },
+            { label: "B", value: "B" },
+            { label: "C", value: "C" },
+            { label: "D", value: "D" },
+            { label: "E", value: "E" },
+            { label: "F", value: "F" },
+            { label: "G", value: "G" },
+            { label: "H", value: "H" },
+            { label: "I", value: "I" },
+            { label: "J", value: "J" },
+            { label: "K", value: "K" },
+            { label: "L", value: "L" },
+          ],
+          correctAnswer: "I",
+          points: 1,
+        },
+      ],
+    },
+    // Section 2 will be added below
+  ],
+};
+
+export const barronsReadingTests: IELTSTest[] = [barrons_reading_t1, barrons_reading_t2, barrons_reading_t3, barrons_reading_t4];
