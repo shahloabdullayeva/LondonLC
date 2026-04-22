@@ -168,6 +168,7 @@ export default function WritingTask1Page() {
   const [taskDescription, setTaskDescription] = useState("");
 
   const [history, setHistory] = useState<WritingSubmission[]>([]);
+  const [violations, setViolations] = useState(0);
 
   useEffect(() => {
     const s = getSession();
@@ -185,6 +186,20 @@ export default function WritingTask1Page() {
     }, 500);
     return () => window.clearTimeout(id);
   }, [text, session]);
+
+  useEffect(() => {
+    if (!session || session.anticheatBypass) return;
+    const handleVisibility = () => {
+      if (document.hidden) setViolations(v => v + 1);
+    };
+    const handleBlur = () => setViolations(v => v + 1);
+    document.addEventListener("visibilitychange", handleVisibility);
+    window.addEventListener("blur", handleBlur);
+    return () => {
+      document.removeEventListener("visibilitychange", handleVisibility);
+      window.removeEventListener("blur", handleBlur);
+    };
+  }, [session]);
 
   const words = useMemo(() => text.trim().split(/\s+/).filter(Boolean).length, [text]);
   const chars = text.length;
@@ -495,6 +510,7 @@ export default function WritingTask1Page() {
               className="area"
               value={text}
               onChange={e => setText(e.target.value)}
+              onPaste={e => { if (!session?.anticheatBypass) { e.preventDefault(); setErrorMsg("Pasting is disabled. Please type your response yourself."); } }}
               placeholder="Write your response here…"
               disabled={status === "submitting" || status === "grading"}
               style={{
@@ -546,6 +562,13 @@ export default function WritingTask1Page() {
           {errorMsg && (
             <div style={{ marginTop: 12, padding: "10px 14px", borderRadius: 8, background: "rgba(239,68,68,0.1)", border: "1px solid rgba(239,68,68,0.3)", color: "#fca5a5", fontSize: 13 }}>
               {errorMsg}
+            </div>
+          )}
+
+          {violations > 0 && !session?.anticheatBypass && (
+            <div style={{ marginTop: 12, padding: "10px 14px", borderRadius: 8, background: "rgba(239,68,68,0.08)", border: "1px solid rgba(239,68,68,0.25)", color: "#fca5a5", fontSize: 13, display: "flex", alignItems: "center", gap: 8 }}>
+              <span style={{ fontSize: 16 }}>&#9888;</span>
+              You left this page {violations} time{violations > 1 ? "s" : ""}. This is recorded and visible to your teacher.
             </div>
           )}
         </div>
