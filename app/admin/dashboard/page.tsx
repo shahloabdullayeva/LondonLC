@@ -10,7 +10,7 @@ import {
 
 const ROOT_ADMIN_ID = "admin-root";
 const ADMIN_USERNAME = "SarvarxonP";
-import { getSession, clearSession, getAttempts, getTeachers, addTeacher, deleteTeacher, updateTeacherPassword, setTeacherPlainPassword, setStudentPlainPassword, changeTeacherOwnPassword, registerStudent, getStudentAccounts, deleteStudent, updateStudent, getBlockedIPs, blockIP, unblockIP, recordTeacherAccess, getAllSubmissions, type AttemptData, type TeacherAccount, type StudentAccount, type WritingSubmission, type Correction } from "@/lib/store";
+import { getSession, clearSession, getAttempts, getTeachers, addTeacher, deleteTeacher, updateTeacherPassword, setTeacherPlainPassword, setStudentPlainPassword, changeTeacherOwnPassword, registerStudent, getStudentAccounts, deleteStudent, updateStudent, getBlockedIPs, blockIP, unblockIP, recordTeacherAccess, getAllSubmissions, getPremiumRequests, reviewPremiumRequest, type AttemptData, type TeacherAccount, type StudentAccount, type WritingSubmission, type Correction, type PremiumRequest } from "@/lib/store";
 import { getTestById } from "@/data/ielts-tests";
 import { allTests } from "@/data/ielts-tests";
 import { quotes, type Quote } from "@/lib/quotes";
@@ -117,6 +117,7 @@ export default function AdminDashboard() {
   const [teacherError, setTeacherError] = useState("");
   const [teacherSuccess, setTeacherSuccess] = useState("");
   const [students, setStudents] = useState<StudentAccount[]>([]);
+  const [premiumRequests, setPremiumRequests] = useState<PremiumRequest[]>([]);
   const [newStudentName, setNewStudentName] = useState("");
   const [newStudentSurname, setNewStudentSurname] = useState("");
   const [newStudentGroup, setNewStudentGroup] = useState("");
@@ -133,13 +134,14 @@ export default function AdminDashboard() {
   const [expandedAccessInfoFor, setExpandedAccessInfoFor] = useState<string | null>(null);
 
   const refreshData = async (teacherId?: string) => {
-    const [all, teacherList, studentList, ips] = await Promise.all([
-      getAttempts(), getTeachers(), getStudentAccounts(), getBlockedIPs(),
+    const [all, teacherList, studentList, ips, prReqs] = await Promise.all([
+      getAttempts(), getTeachers(), getStudentAccounts(), getBlockedIPs(), getPremiumRequests(),
     ]);
     setAttempts(all);
     setTeachers(teacherList);
     setStudents(studentList);
     setBlockedIPs(ips);
+    setPremiumRequests(prReqs);
     if (teacherId) setMyPracticeAttempts(all.filter(a => a.isTeacherAttempt && a.teacherId === teacherId));
   };
 
@@ -211,6 +213,14 @@ export default function AdminDashboard() {
     if (!confirm(`${label} Premium for this student?\n\nPremium gives unlimited AI writing gradings (Task 1 & Task 2). Free accounts get 2 gradings.`)) return;
     await updateStudent(id, { isPremium: next });
     setStudents(await getStudentAccounts());
+  };
+
+  const handleReviewRequest = async (req: PremiumRequest, approve: boolean) => {
+    const label = approve ? "Approve" : "Reject";
+    if (!confirm(`${label} payment request from ${req.studentName} for ${req.requestedCredits} essays?`)) return;
+    await reviewPremiumRequest(req.id, req.studentId, req.requestedCredits, approve);
+    setPremiumRequests(await getPremiumRequests());
+    if (approve) setStudents(await getStudentAccounts());
   };
 
   const startEditStudent = (s: StudentAccount) => {
@@ -927,6 +937,39 @@ export default function AdminDashboard() {
           <div style={{ display: "flex", flexDirection: "column", height: "100%", minHeight: 0 }}>
             <TabHeader title="Student Accounts" subtitle="Create and manage student login credentials." C={C} quote={quote} />
 
+            {/* Pending payment requests */}
+            {premiumRequests.filter(r => r.status === "pending").length > 0 && (
+              <div style={{ background: "rgba(234,179,8,0.06)", border: "1px solid rgba(234,179,8,0.3)", borderRadius: 14, padding: "18px 22px", marginBottom: 20 }}>
+                <p style={{ fontSize: 11, fontWeight: 700, color: "#fde047", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 12 }}>
+                  &#128176; Payment Requests ({premiumRequests.filter(r => r.status === "pending").length} pending)
+                </p>
+                <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+                  {premiumRequests.filter(r => r.status === "pending").map(req => (
+                    <div key={req.id} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12, padding: "10px 14px", background: C.card, border: `1px solid ${C.border}`, borderRadius: 10, flexWrap: "wrap" }}>
+                      <div>
+                        <span style={{ fontWeight: 700, color: C.text }}>{req.studentName}</span>
+                        <span style={{ color: C.muted, fontSize: 13 }}> requested </span>
+                        <span style={{ fontWeight: 700, color: "#22c55e" }}>{req.requestedCredits} essays</span>
+                        <span style={{ color: C.muted, fontSize: 12, marginLeft: 8 }}>
+                          {new Date(req.createdAt).toLocaleDateString("en-GB", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" })}
+                        </span>
+                      </div>
+                      <div style={{ display: "flex", gap: 6 }}>
+                        <button onClick={() => handleReviewRequest(req, true)}
+                          style={{ padding: "6px 14px", borderRadius: 8, border: "none", background: "#22c55e", color: "#fff", fontSize: 12, fontWeight: 700, cursor: "pointer" }}>
+                          &#10003; Approve
+                        </button>
+                        <button onClick={() => handleReviewRequest(req, false)}
+                          style={{ padding: "6px 14px", borderRadius: 8, border: `1px solid ${C.border}`, background: "transparent", color: C.muted, fontSize: 12, fontWeight: 600, cursor: "pointer" }}>
+                          Reject
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
             {/* Add student form */}
             <div style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 14, padding: "22px", marginBottom: 24 }}>
               <p style={{ fontSize: 11, fontWeight: 700, color: C.muted, textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 14 }}>Add New Student</p>
@@ -1064,7 +1107,7 @@ export default function AdminDashboard() {
                                   borderRadius: 8,
                                   color: s.isPremium ? "#22c55e" : C.muted,
                                   fontSize: 12, fontWeight: 600, cursor: "pointer" }}>
-                                ★ {s.isPremium ? "Premium" : "Free"}
+                                ★ {s.isPremium ? "Premium" : (s.gradingCredits ?? 0) > 0 ? `${s.gradingCredits} credits` : "Free"}
                               </button>
                               <button onClick={() => handleDeleteStudent(s.id)}
                                 style={{ display: "flex", alignItems: "center", gap: 4, padding: "7px 12px", background: "rgba(239,68,68,0.08)", border: `1px solid rgba(239,68,68,0.3)`, borderRadius: 8, color: C.danger, fontSize: 12, fontWeight: 600, cursor: "pointer" }}>
