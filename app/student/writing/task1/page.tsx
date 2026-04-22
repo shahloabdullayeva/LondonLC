@@ -405,9 +405,9 @@ export default function WritingTask1Page() {
 
           <div style={{ display: "flex", justifyContent: "center", gap: 12, marginBottom: 24, flexWrap: "wrap" }}>
             {[
-              { n: 10, price: "30,000" },
-              { n: 30, price: "75,000" },
-              { n: 50, price: "100,000" },
+              { n: 10, price: "20,000" },
+              { n: 30, price: "40,000" },
+              { n: 50, price: "65,000" },
             ].map(t => (
               <button
                 key={t.n}
