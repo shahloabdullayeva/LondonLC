@@ -2,7 +2,7 @@
 import { useEffect, useMemo, useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { Send, Loader2, ImagePlus, X, PenLine } from "lucide-react";
+import { Send, Loader2, ImagePlus, X, PenLine, Download } from "lucide-react";
 import StudentShell from "@/components/StudentShell";
 import {
   getSession,
@@ -24,6 +24,80 @@ const CORRECTION_COLORS: Record<Correction["type"], { bg: string; fg: string; la
 };
 
 const DRAFT_KEY = "llc.writing.task1.draft.v1";
+
+function downloadTask1PDF(s: WritingSubmission, studentName: string) {
+  if (typeof window === "undefined") return;
+  const w = window.open("", "_blank", "width=900,height=1100");
+  if (!w) return;
+  const esc = (x: string) =>
+    x.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+  const scores = [
+    { k: "Task achievement", v: s.taskResponse },
+    { k: "Coherence & cohesion", v: s.coherenceCohesion },
+    { k: "Lexical resource", v: s.lexicalResource },
+    { k: "Grammar range & accuracy", v: s.grammarAccuracy },
+  ];
+  const corrections = s.corrections ?? [];
+  const feedback = s.feedback ?? [];
+  const strengths = s.strengths ?? [];
+  const nextSteps = s.nextSteps ?? [];
+  const graded = s.gradedAt ? new Date(s.gradedAt) : new Date(s.createdAt);
+  const slug = s.prompt.replace(/[^a-zA-Z0-9 ]/g, "").trim().split(/\s+/).slice(0, 6).join("-").toLowerCase() || "task1";
+  const filename = `${slug}-band-${s.overallBand?.toFixed(1) ?? "draft"}`;
+  w.document.write(`<!doctype html>
+<html><head><meta charset="utf-8"><title>${esc(filename)}</title>
+<style>
+  @page { margin: 14mm 14mm 16mm; }
+  body { font-family: "Iowan Old Style", Georgia, serif; color: #111; font-size: 11.5pt; line-height: 1.55; padding: 20pt 24pt; }
+  header { display: flex; justify-content: space-between; border-bottom: 1px solid #333; padding-bottom: 10pt; margin-bottom: 14pt; }
+  .brand { font-family: ui-monospace, monospace; font-size: 10pt; letter-spacing: 0.14em; text-transform: uppercase; }
+  .meta { font-size: 9.5pt; text-align: right; color: #333; }
+  h1 { font-size: 22pt; font-weight: 600; margin: 0 0 18pt; letter-spacing: -0.01em; }
+  h2 { font-size: 12pt; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; margin: 16pt 0 6pt; color: #222; border-bottom: 1px solid #ccc; padding-bottom: 3pt; }
+  h3 { font-size: 11pt; margin: 8pt 0 3pt; }
+  section { margin-bottom: 10pt; page-break-inside: avoid; }
+  table { width: 100%; border-collapse: collapse; font-size: 11pt; }
+  td { padding: 4pt 0; border-bottom: 1px solid #eee; }
+  td:last-child { text-align: right; font-family: ui-monospace, monospace; }
+  .essay { white-space: pre-wrap; }
+  .corr { margin: 6pt 0; padding: 6pt 0; border-bottom: 1px dashed #ccc; page-break-inside: avoid; }
+  .tag { display: inline-block; font-size: 8.5pt; font-family: ui-monospace, monospace; letter-spacing: 0.1em; text-transform: uppercase; color: #555; border: 1px solid #999; padding: 1pt 6pt; border-radius: 999px; margin-bottom: 4pt; }
+  .orig { color: #a00; font-size: 10.5pt; }
+  .sugg { color: #070; font-size: 10.5pt; font-weight: 600; margin: 2pt 0; }
+  .expl { color: #444; font-size: 10pt; font-style: italic; }
+  ul { padding-left: 16pt; }
+  footer { margin-top: 16pt; padding-top: 8pt; border-top: 1px solid #ccc; font-family: ui-monospace, monospace; font-size: 8.5pt; letter-spacing: 0.1em; text-transform: uppercase; color: #666; text-align: center; }
+</style></head><body>
+<header>
+  <div class="brand">London · LC</div>
+  <div class="meta">
+    <div><b>${esc(studentName)}</b></div>
+    <div>${graded.toLocaleString()}</div>
+    <div>${s.wordCount} words</div>
+  </div>
+</header>
+<h1>IELTS Writing Task 1 — Band ${s.overallBand?.toFixed(1) ?? "—"}</h1>
+<section><h2>Question</h2><p>${esc(s.prompt)}</p></section>
+<section><h2>Response</h2><p class="essay">${esc(s.essay)}</p></section>
+<section><h2>Scores</h2><table><tbody>
+  ${scores.map(c => `<tr><td>${esc(c.k)}</td><td>${c.v?.toFixed(1) ?? "—"}</td></tr>`).join("")}
+  <tr><td><b>Overall</b></td><td><b>${s.overallBand?.toFixed(1) ?? "—"}</b></td></tr>
+</tbody></table></section>
+${feedback.length ? `<section><h2>Examiner feedback</h2>${feedback.map(f => `<div><h3>${esc(f.criterion)}</h3><p>${esc(f.comment)}</p></div>`).join("")}</section>` : ""}
+${corrections.length ? `<section><h2>Corrections (${corrections.length})</h2>${corrections.map(c => {
+  const tag = (CORRECTION_COLORS[c.type] ?? CORRECTION_COLORS.style).label;
+  return `<div class="corr"><div class="tag">${esc(tag)}</div><div class="orig">Original: &ldquo;${esc(c.original)}&rdquo;</div><div class="sugg">Suggested: &ldquo;${esc(c.suggestion)}&rdquo;</div><div class="expl">${esc(c.explanation)}</div></div>`;
+}).join("")}</section>` : ""}
+${strengths.length ? `<section><h2>What's working</h2><ul>${strengths.map(x => `<li>${esc(x)}</li>`).join("")}</ul></section>` : ""}
+${nextSteps.length ? `<section><h2>Next steps</h2><ul>${nextSteps.map(x => `<li>${esc(x)}</li>`).join("")}</ul></section>` : ""}
+<footer>Generated by London LC · Graded by Claude Sonnet 4.6</footer>
+<script>
+  document.title = ${JSON.stringify(filename)};
+  window.addEventListener('load', () => setTimeout(() => window.print(), 250));
+</script>
+</body></html>`);
+  w.document.close();
+}
 
 function ScoreRing({ value, max = 9 }: { value: number; max?: number }) {
   const r = 40;
@@ -261,18 +335,23 @@ export default function WritingTask1Page() {
           <div>
             <p className="eyebrow" style={{ margin: 0 }}>Response graded</p>
           </div>
-          <button
-            className="btn primary sm"
-            onClick={() => {
-              setLastSub(null);
-              setStatus("idle");
-              setText("");
-              setFilter("all");
-              clearImage();
-            }}
-          >
-            <PenLine size={12} /> Write a new response
-          </button>
+          <div style={{ display: "flex", gap: 8 }}>
+            <button className="btn ghost sm" onClick={() => lastSub && downloadTask1PDF(lastSub, studentName)}>
+              <Download size={12} /> Download PDF
+            </button>
+            <button
+              className="btn primary sm"
+              onClick={() => {
+                setLastSub(null);
+                setStatus("idle");
+                setText("");
+                setFilter("all");
+                clearImage();
+              }}
+            >
+              <PenLine size={12} /> Write a new response
+            </button>
+          </div>
         </div>
       )}
 
