@@ -688,4 +688,310 @@ The Luddites were short-lived, but they left an impressive mark. They were respo
   ],
 };
 
-export const barronsReadingTests: IELTSTest[] = [barrons_reading_t1];
+// ============================================================
+// BARRON'S IELTS – PRACTICE TEST 2  (Academic Reading)
+// ============================================================
+const barrons_reading_t2: IELTSTest = {
+  id: "barrons-reading-academic-t2",
+  title: "Barron's IELTS – Practice Test 2",
+  bookNumber: 100,
+  testNumber: 2,
+  type: "reading",
+  level: "academic",
+  durationMinutes: 60,
+  transferMinutes: 0,
+  sections: [
+    // ── Section 1: The Vikings' Wayfaring Ways ────────────────
+    {
+      id: "barrons-ra-t2-s1",
+      sectionNumber: 1,
+      title: "Reading Passage 1",
+      passageTitle: "The Vikings' Wayfaring Ways",
+      instructions:
+        "Questions 1-5: Answer the questions. Choose ONE NUMBER ONLY from the text.\n\nQuestions 6-13: Complete the summary using the list of words A-O.",
+      passageText: `Perhaps best known as fierce warriors, the Vikings were also the most far-ranging of peoples. In fact, the term Viking, in Old Norse, means 'to go on an expedition.' From the late 700s until the eleventh century, Viking explorers journeyed from their native Norway, Denmark, and Sweden to many distant lands. They traveled as far west as Newfoundland in present-day Canada, and as far east as Baghdad.
+
+Those from Norway sailed west to the British Isles, and eventually across the Atlantic Ocean. During their first expedition, in 793, a force of Viking warriors sacked the famed abbey at Lindisfarne, on England's northeast coast. In the 800s, groups of raiders went on to occupy the Shetland Islands, north of the British Isles and west of Norway, and the Orkney Islands off northern Scotland.
+
+By 870, the Vikings were settling Iceland. In 980, an Icelandic assembly found a man named Eric 'the Red' Ericson guilty of murder and sent him into exile. Eric the Red responded by sailing to a large island to the west, which he called 'Greenland.' An Icelandic saga mentions that people would be attracted to go to Greenland if it had a favorable name. Around 998, Eric the Red's son, Leif 'the Lucky' Ericson, and a small Viking fleet sailed west to North America. There they established the first European settlement in the New World, called 'Vinland.'
+
+Vikings from Denmark, meanwhile, ravaged large swaths of England and France. In 866, a Viking 'Great Army' landed in England, occupying much of the country's north and east. They forced the English king to acknowledge their control of much of England under the so-called Danelaw. To the west, they conquered coastal portions of Ireland, and in 841 founded Dublin, today a major Irish city, but originally a Viking fort. The Vikings remained a major power in Ireland until the early eleventh century.
+
+To the south, the Vikings conquered France, moving swiftly up rivers in long boats, powered by oar and sail. From 845 to 886, they surged up the Seine to attack Paris three times. To stop the raids, French King Charles III the Simple in 911 offered the Viking chief Rollo territories in northwest France, called Normandy, after the Normans or 'Northmen.' There they set up a powerful kingdom and, in 1066, under William, Duke of Normandy, defeated King Harold at the battle of Hastings in England.
+
+Farther south, in 844, the Vikings had raided Portugal and Spain, then largely controlled by Arab Moors. A fleet of 100 Viking ships seized Lisbon and boldly sailed up the Guadalquivir River to occupy Seville. However, the Moors dealt them a rare defeat. The Moors catapulted flaming projectiles onto the Viking vessels, forcing a retreat.
+
+Still other Vikings sailed much farther, to raid Morocco, then to the eastern Mediterranean and beyond. Many of these Vikings enlisted with the military forces of the Byzantine Empire, the Greek-speaking successors to the Roman Empire. Vikings made up the Byzantine Emperor's elite Varangian Guard. In 902, hundreds of Varangians served as marines during a Byzantine naval assault on the island of Crete. Varangians battled Arab forces in Syria in 955, and even fought in Jerusalem. So many men left Scandinavia for the Byzantine Empire that, to stem the outflow, Sweden passed a law denying inherited property to anyone serving under the Byzantines.
+
+The Vikings of Sweden, meanwhile, were moving out of Scandinavia to the east and south. They journeyed through the Baltic Sea, then built inland trading posts in Germany and Poland. In time, they struck out across Central and Eastern Europe, down the Vistula River in Poland, and the Dnieper, Volga, and Don Rivers in Russia. Their vessel of choice was the 'knar,' a cargo ship with a deep draft and wide hull. Viking merchants on horseback penetrated far into the Asian heartland, trading with towns on the Caspian and Black seas.
+
+The most significant settlements were in Russia and Ukraine. In 862, Vikings settled in the town of Novgorod, in northwestern Russia. It became the capital of a country called Rus, after the Finnish name for the Swedes. Rus came from the word Rutosi, meaning 'rowers.' Rus formed the foundation of Russia, as the Russian and Viking leaders of Rus intermarried, converted to Christianity, and steadily expanded their territory. And after lucrative trade relations were established with the Byzantines and with Muslim lands, the Rus moved their capital southward to Kiev, later the capital of Ukraine.
+
+Another important Viking market town was Bulgar, on the Volga River. There, merchants peddled honey, wax, amber, and steel swords. The Viking's most common commodity may have been skins: they dealt in horse, beaver, rabbit, mink, ermine, and sable skins. They also traded hazelnuts, fish, cattle, and falcons. Another commodity was slaves, many of them Slavs from Eastern Europe. The merchants eagerly exchanged their goods for Arab silver coins. In Sweden, archeologists have excavated about 100,000 such coins, minted in such distant cities as Cairo and Tashkent.
+
+Like their Danish and Norwegian relatives, the Swedish Vikings traveled to the most exotic realms. They took part in the Silk Road trade with India and China. Archeological evidence shows that Viking traders even traveled by camel caravan to Baghdad.
+
+Given the wide-ranging travel of the Vikings, it is fitting the Anglo-Saxons gave them the nickname 'Frægenga' — 'Far Going.'`,
+      questions: [
+        // ── Q1–5: Answer the questions with a number ─────────────
+        {
+          id: "barrons-ra-t2-s1-q1",
+          number: 1,
+          type: "fill_blank",
+          groupLabel:
+            "Answer the questions. Choose ONE NUMBER ONLY from the text.",
+          question:
+            "When did Viking warriors raid an abbey on the coast of England?",
+          correctAnswer: "793",
+          points: 1,
+        },
+        {
+          id: "barrons-ra-t2-s1-q2",
+          number: 2,
+          type: "fill_blank",
+          question: "When was Eric the Red convicted of a crime?",
+          correctAnswer: "980",
+          points: 1,
+        },
+        {
+          id: "barrons-ra-t2-s1-q3",
+          number: 3,
+          type: "fill_blank",
+          question: "When did Vikings establish a fort in Ireland?",
+          correctAnswer: "841",
+          points: 1,
+        },
+        {
+          id: "barrons-ra-t2-s1-q4",
+          number: 4,
+          type: "fill_blank",
+          question: "When was a Viking chief granted lands by a king of France?",
+          correctAnswer: "911",
+          points: 1,
+        },
+        {
+          id: "barrons-ra-t2-s1-q5",
+          number: 5,
+          type: "fill_blank",
+          question: "When did Viking warriors defeat an English king?",
+          correctAnswer: "1066",
+          points: 1,
+        },
+        // ── Q6–13: Complete the summary with words A-O ──────────
+        {
+          id: "barrons-ra-t2-s1-q6",
+          number: 6,
+          type: "multiple_choice",
+          groupLabel:
+            "Complete the summary using the list of words A-O.\n\nA warriors\nB an attack\nC capital\nD explorers\nE trade with\nF conquered\nG burning objects\nH settled in\nI ship\nJ oars\nK market\nL a parade\nM archeologists\nN silver coins\nO horse\n\nThe people known as Vikings were given this name because they were (6)___. Groups of Vikings from Norway traveled west to Britain, Iceland, and beyond. They were the first Europeans who (7)___ North America. Groups from Denmark (8)___ large areas of England and France. Other groups of Vikings raided areas of Portugal and Spain. The Moors of Seville, Spain, drove the Vikings away by throwing (9)___ at them. Large numbers of Vikings left Scandinavia for the Byzantine Empire, and many of these joined the Byzantine military. At one point, they took part in (10)___ on the Greek island of Crete. Groups of Swedish Vikings crossed the Baltic Sea to explore the lands beyond. They traveled down Russian rivers, then journeyed deep into Asia by (11)___. After settling in northwest Russia, they expanded their territories toward the south. Kiev, Ukraine, eventually became the Vikings' territorial (12)___. The Vikings also had an important (13)___ in the town of Bulgar on the Volga River.",
+          question:
+            "The people known as Vikings were given this name because they were (6)___.",
+          options: [
+            { label: "A", value: "A" },
+            { label: "B", value: "B" },
+            { label: "C", value: "C" },
+            { label: "D", value: "D" },
+            { label: "E", value: "E" },
+            { label: "F", value: "F" },
+            { label: "G", value: "G" },
+            { label: "H", value: "H" },
+            { label: "I", value: "I" },
+            { label: "J", value: "J" },
+            { label: "K", value: "K" },
+            { label: "L", value: "L" },
+            { label: "M", value: "M" },
+            { label: "N", value: "N" },
+            { label: "O", value: "O" },
+          ],
+          correctAnswer: "D",
+          points: 1,
+        },
+        {
+          id: "barrons-ra-t2-s1-q7",
+          number: 7,
+          type: "multiple_choice",
+          question:
+            "They were the first Europeans who (7)___ North America.",
+          options: [
+            { label: "A", value: "A" },
+            { label: "B", value: "B" },
+            { label: "C", value: "C" },
+            { label: "D", value: "D" },
+            { label: "E", value: "E" },
+            { label: "F", value: "F" },
+            { label: "G", value: "G" },
+            { label: "H", value: "H" },
+            { label: "I", value: "I" },
+            { label: "J", value: "J" },
+            { label: "K", value: "K" },
+            { label: "L", value: "L" },
+            { label: "M", value: "M" },
+            { label: "N", value: "N" },
+            { label: "O", value: "O" },
+          ],
+          correctAnswer: "H",
+          points: 1,
+        },
+        {
+          id: "barrons-ra-t2-s1-q8",
+          number: 8,
+          type: "multiple_choice",
+          question:
+            "Groups from Denmark (8)___ large areas of England and France.",
+          options: [
+            { label: "A", value: "A" },
+            { label: "B", value: "B" },
+            { label: "C", value: "C" },
+            { label: "D", value: "D" },
+            { label: "E", value: "E" },
+            { label: "F", value: "F" },
+            { label: "G", value: "G" },
+            { label: "H", value: "H" },
+            { label: "I", value: "I" },
+            { label: "J", value: "J" },
+            { label: "K", value: "K" },
+            { label: "L", value: "L" },
+            { label: "M", value: "M" },
+            { label: "N", value: "N" },
+            { label: "O", value: "O" },
+          ],
+          correctAnswer: "F",
+          points: 1,
+        },
+        {
+          id: "barrons-ra-t2-s1-q9",
+          number: 9,
+          type: "multiple_choice",
+          question:
+            "The Moors of Seville, Spain, drove the Vikings away by throwing (9)___ at them.",
+          options: [
+            { label: "A", value: "A" },
+            { label: "B", value: "B" },
+            { label: "C", value: "C" },
+            { label: "D", value: "D" },
+            { label: "E", value: "E" },
+            { label: "F", value: "F" },
+            { label: "G", value: "G" },
+            { label: "H", value: "H" },
+            { label: "I", value: "I" },
+            { label: "J", value: "J" },
+            { label: "K", value: "K" },
+            { label: "L", value: "L" },
+            { label: "M", value: "M" },
+            { label: "N", value: "N" },
+            { label: "O", value: "O" },
+          ],
+          correctAnswer: "G",
+          points: 1,
+        },
+        {
+          id: "barrons-ra-t2-s1-q10",
+          number: 10,
+          type: "multiple_choice",
+          question:
+            "At one point, they took part in (10)___ on the Greek island of Crete.",
+          options: [
+            { label: "A", value: "A" },
+            { label: "B", value: "B" },
+            { label: "C", value: "C" },
+            { label: "D", value: "D" },
+            { label: "E", value: "E" },
+            { label: "F", value: "F" },
+            { label: "G", value: "G" },
+            { label: "H", value: "H" },
+            { label: "I", value: "I" },
+            { label: "J", value: "J" },
+            { label: "K", value: "K" },
+            { label: "L", value: "L" },
+            { label: "M", value: "M" },
+            { label: "N", value: "N" },
+            { label: "O", value: "O" },
+          ],
+          correctAnswer: "B",
+          points: 1,
+        },
+        {
+          id: "barrons-ra-t2-s1-q11",
+          number: 11,
+          type: "multiple_choice",
+          question:
+            "They traveled down Russian rivers, then journeyed deep into Asia by (11)___.",
+          options: [
+            { label: "A", value: "A" },
+            { label: "B", value: "B" },
+            { label: "C", value: "C" },
+            { label: "D", value: "D" },
+            { label: "E", value: "E" },
+            { label: "F", value: "F" },
+            { label: "G", value: "G" },
+            { label: "H", value: "H" },
+            { label: "I", value: "I" },
+            { label: "J", value: "J" },
+            { label: "K", value: "K" },
+            { label: "L", value: "L" },
+            { label: "M", value: "M" },
+            { label: "N", value: "N" },
+            { label: "O", value: "O" },
+          ],
+          correctAnswer: "O",
+          points: 1,
+        },
+        {
+          id: "barrons-ra-t2-s1-q12",
+          number: 12,
+          type: "multiple_choice",
+          question:
+            "Kiev, Ukraine, eventually became the Vikings' territorial (12)___.",
+          options: [
+            { label: "A", value: "A" },
+            { label: "B", value: "B" },
+            { label: "C", value: "C" },
+            { label: "D", value: "D" },
+            { label: "E", value: "E" },
+            { label: "F", value: "F" },
+            { label: "G", value: "G" },
+            { label: "H", value: "H" },
+            { label: "I", value: "I" },
+            { label: "J", value: "J" },
+            { label: "K", value: "K" },
+            { label: "L", value: "L" },
+            { label: "M", value: "M" },
+            { label: "N", value: "N" },
+            { label: "O", value: "O" },
+          ],
+          correctAnswer: "C",
+          points: 1,
+        },
+        {
+          id: "barrons-ra-t2-s1-q13",
+          number: 13,
+          type: "multiple_choice",
+          question:
+            "The Vikings also had an important (13)___ in the town of Bulgar on the Volga River.",
+          options: [
+            { label: "A", value: "A" },
+            { label: "B", value: "B" },
+            { label: "C", value: "C" },
+            { label: "D", value: "D" },
+            { label: "E", value: "E" },
+            { label: "F", value: "F" },
+            { label: "G", value: "G" },
+            { label: "H", value: "H" },
+            { label: "I", value: "I" },
+            { label: "J", value: "J" },
+            { label: "K", value: "K" },
+            { label: "L", value: "L" },
+            { label: "M", value: "M" },
+            { label: "N", value: "N" },
+            { label: "O", value: "O" },
+          ],
+          correctAnswer: "K",
+          points: 1,
+        },
+      ],
+    },
+    // Section 2 will be added below
+  ],
+};
+
+export const barronsReadingTests: IELTSTest[] = [barrons_reading_t1, barrons_reading_t2];

@@ -86,6 +86,56 @@ export default function ReadingPage() {
               );
             })}
           </div>
+
+          {/* ── Barron's (separate section) ────────────────── */}
+          {(() => {
+            const barronsTests = allTests.filter(t => t.bookNumber === 100 && t.type === TEST_TYPE)
+              .sort((a, b) => a.testNumber - b.testNumber);
+            if (barronsTests.length === 0) return null;
+            return (
+              <>
+                <div style={{ marginTop: 40, marginBottom: 20 }}>
+                  <h2 className="h2" style={{ marginBottom: 4 }}>Barron&apos;s IELTS</h2>
+                  <p style={{ fontSize: 13, color: "var(--text-2)" }}>Barron&apos;s IELTS Practice Exams · {barronsTests.length} test{barronsTests.length !== 1 ? "s" : ""} available</p>
+                </div>
+                <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: 14 }}>
+                  {barronsTests.map(test => {
+                    const myBest = attempts.filter(a => a.testId === test.id && a.status === "completed");
+                    const best = myBest.length ? Math.max(...myBest.map(a => a.bandScore)) : null;
+                    const totalQ = test.sections.reduce((s, sec) => s + sec.questions.length, 0);
+                    return (
+                      <div key={test.id} className="card" style={{ padding: 20, cursor: "pointer", transition: "border-color 0.15s, transform 0.15s" }}
+                        onClick={() => router.push(`/student/test/${test.id}`)}
+                        onMouseEnter={e => { e.currentTarget.style.borderColor = "var(--accent)"; e.currentTarget.style.transform = "translateY(-2px)"; }}
+                        onMouseLeave={e => { e.currentTarget.style.borderColor = "var(--line)"; e.currentTarget.style.transform = "none"; }}>
+                        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 12 }}>
+                          <div>
+                            <div style={{ fontFamily: "var(--ff-mono)", fontSize: 10, fontWeight: 600, color: "var(--text-3)", marginBottom: 4, textTransform: "uppercase", letterSpacing: "0.1em" }}>
+                              Practice Test {test.testNumber}
+                            </div>
+                            <h3 style={{ fontFamily: "var(--ff-serif)", fontSize: 16, fontWeight: 500, color: "var(--text)", marginBottom: 3 }}>{test.title}</h3>
+                            <p style={{ fontSize: 12, color: "var(--text-2)" }}>Academic Reading</p>
+                          </div>
+                          {best !== null && (
+                            <span className="chip" style={{ color: "#34d399", borderColor: "rgba(16,185,129,0.3)", fontSize: 11 }}>
+                              Best: {best}
+                            </span>
+                          )}
+                        </div>
+                        <div style={{ display: "flex", gap: 14, marginBottom: 16, fontSize: 12, color: "var(--text-2)" }}>
+                          <span style={{ display: "flex", alignItems: "center", gap: 5 }}><Clock size={12} /> {test.durationMinutes} min</span>
+                          <span style={{ display: "flex", alignItems: "center", gap: 5 }}><BarChart3 size={12} /> {totalQ} questions</span>
+                        </div>
+                        <button className="btn primary sm" style={{ width: "100%" }}>
+                          Start practice <ChevronRight size={14} />
+                        </button>
+                      </div>
+                    );
+                  })}
+                </div>
+              </>
+            );
+          })()}
         </>
       ) : (
         <>
