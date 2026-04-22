@@ -1509,4 +1509,290 @@ The earlier children are diagnosed with dyslexia, the more likely they are to ov
   ],
 };
 
-export const barronsReadingTests: IELTSTest[] = [barrons_reading_t1, barrons_reading_t2];
+// ============================================================
+// BARRON'S IELTS – PRACTICE TEST 3  (Academic Reading)
+// ============================================================
+const barrons_reading_t3: IELTSTest = {
+  id: "barrons-reading-academic-t3",
+  title: "Barron's IELTS – Practice Test 3",
+  bookNumber: 100,
+  testNumber: 3,
+  type: "reading",
+  level: "academic",
+  durationMinutes: 60,
+  transferMinutes: 0,
+  sections: [
+    // ── PASSAGE 1 ──────────────────────────────────────────────
+    {
+      id: "barrons-ra-t3-s1",
+      sectionNumber: 1,
+      title: "Reading Passage 1",
+      passageTitle: "The CT Scanner",
+      passageText: `[A] The computed tomography scanner, better known as the CT scanner, was originally designed to provide cross-sectional images of the brain. The word tomography comes from the Greek word tomos, meaning 'section,' and graphia, meaning 'picture.' Godfrey Hounsfield developed the technique in 1972 and was later knighted and awarded the Nobel Peace Prize for his contribution to the medical field. Within four years of this development, CT scans, also called CAT scans (computed axial tomography), were restructured, allowing technicians to scan the entire body for evidence of tumors, injuries, and other abnormalities. Rather than taking a single picture as in an X ray, a CT scanner sends several beams into an area and takes photographs from many different angles.
+
+[B] While the original CT scans took Hounsfield several hours to reconstruct into a useful image, today's machines can produce an in-depth image in a fraction of a second. Creating a scanner that could produce images at a faster rate was crucial in the development of tomography, as it reduced the degree of distortion in an image caused when patients breathed and moved. As well as providing images with better resolution, today's scanners also provide more comfort for the patient.
+
+[C] During a CT scan, a patient must lie still on a special table while the radiology technician locates the specific area that needs to be photographed. The table slides into a round tunnel (gantry), where it can be rotated or moved forward and backward in order to obtain the necessary view. Inside the donut-shaped machine, a number of X rays are taken, each producing a small slice of the image that doctors require. When passing through dense tissue such as a bone, the X-ray beams are weak and appear white in the CT images. Tissues such as those found in the brain are less dense and appear gray. Images that appear black denote organs such as lungs or others that can fill with air.
+
+[D] The CT scanner is made up of several computer systems, including the host computer, which organizes the entire process. One of the computers converts the raw data into an image, while another allows the technician to control the rotation of the gantry. After the information is processed, it is displayed on a monitor for radiologists and physicians to analyze. The information is also saved and printed to keep in a doctor's records and to share and discuss with patients and their family members.
+
+[E] Physicians order CT scans for a number of different reasons, including searching for and assessing tumors, cysts, kidney stones, and bone injuries. Without this technology, surgeons would have to perform many needless and costly operations. Brain, chest, and abdominal CT scans are the most common, though physicians also rely on the CT scanner to guide their needles while draining an abscess or performing a biopsy. Most emergency or shock-treatment centers contain a CT scanner in order to assess trauma victims. CT scans can pinpoint internal bleeding both in the brain and throughout the body.
+
+[F] In many cases, a patient must be given a contrast material before undergoing a CT scan. During 'dynamic CT scanning,' iodine dye is either injected into the blood or added to a drink that the patient must ingest approximately forty-five minutes before entering the scanner. The liquid X-ray dye makes it easier to see the organs and blood vessels when the pictures are developed. The intravenous contrast material is typically used for chest or pelvic scans, while oral-contrast material is used for abdominal scans. In some cases, physicians request that pictures be taken both before and after the contrast material enters the patient's body. Patients who receive contrast material in the arm often report feeling a warm sensation, and in rare cases an allergic reaction occurs. Contrast material causes water loss and is avoided when scanning patients who suffer from kidney failure.
+
+[G] The danger of radiation exposure caused by X-ray beams is generally considered minimal compared to the benefits that a CT scan can provide. In many cases, especially in the detection of tumors and internal bleeding, CT scans provide information that can save a person's life. Full-body scanning, which is saved for serious conditions such as coronary artery disease, remains a controversial procedure as prolonged exposure to radiation is linked to cancer. Pregnant women are excluded from receiving CT scans, as the X rays can be harmful to the fetus. When pregnant women require an evaluation, most physicians favor using other procedures such as an ultrasound or an MRI.`,
+      instructions:
+        "Questions 1-7: Match each section (A-G) with the correct heading (i-x).\n\nQuestions 8-10: Choose THREE facts about the original CT scanner.\n\nQuestions 11-13: Choose THREE facts about contrast materials.",
+      questions: [
+        // ── Q1–7: Matching headings ────────────────────────────
+        {
+          id: "barrons-ra-t3-s1-q1",
+          number: 1,
+          type: "multiple_choice",
+          groupLabel:
+            "Choose the correct heading for each section A-G from the list below.\n\ni  Scanning the Brain and Chest\nii  The Role of Computers\niii  The CT Scan Is Invented\niv  The High Cost of CT Scans\nv  Risks Associated with CT Scans\nvi  Emergency Room Care\nvii  Faster and More Comfortable\nviii  How Doctors Use CT Scans\nix  The Patient Is Photographed\nx  Enhancing Scan Images with Dyes",
+          question: "Section A",
+          options: [
+            { label: "i", value: "i" },
+            { label: "ii", value: "ii" },
+            { label: "iii", value: "iii" },
+            { label: "iv", value: "iv" },
+            { label: "v", value: "v" },
+            { label: "vi", value: "vi" },
+            { label: "vii", value: "vii" },
+            { label: "viii", value: "viii" },
+            { label: "ix", value: "ix" },
+            { label: "x", value: "x" },
+          ],
+          correctAnswer: "iii",
+          points: 1,
+        },
+        {
+          id: "barrons-ra-t3-s1-q2",
+          number: 2,
+          type: "multiple_choice",
+          question: "Section B",
+          options: [
+            { label: "i", value: "i" },
+            { label: "ii", value: "ii" },
+            { label: "iii", value: "iii" },
+            { label: "iv", value: "iv" },
+            { label: "v", value: "v" },
+            { label: "vi", value: "vi" },
+            { label: "vii", value: "vii" },
+            { label: "viii", value: "viii" },
+            { label: "ix", value: "ix" },
+            { label: "x", value: "x" },
+          ],
+          correctAnswer: "vii",
+          points: 1,
+        },
+        {
+          id: "barrons-ra-t3-s1-q3",
+          number: 3,
+          type: "multiple_choice",
+          question: "Section C",
+          options: [
+            { label: "i", value: "i" },
+            { label: "ii", value: "ii" },
+            { label: "iii", value: "iii" },
+            { label: "iv", value: "iv" },
+            { label: "v", value: "v" },
+            { label: "vi", value: "vi" },
+            { label: "vii", value: "vii" },
+            { label: "viii", value: "viii" },
+            { label: "ix", value: "ix" },
+            { label: "x", value: "x" },
+          ],
+          correctAnswer: "ix",
+          points: 1,
+        },
+        {
+          id: "barrons-ra-t3-s1-q4",
+          number: 4,
+          type: "multiple_choice",
+          question: "Section D",
+          options: [
+            { label: "i", value: "i" },
+            { label: "ii", value: "ii" },
+            { label: "iii", value: "iii" },
+            { label: "iv", value: "iv" },
+            { label: "v", value: "v" },
+            { label: "vi", value: "vi" },
+            { label: "vii", value: "vii" },
+            { label: "viii", value: "viii" },
+            { label: "ix", value: "ix" },
+            { label: "x", value: "x" },
+          ],
+          correctAnswer: "ii",
+          points: 1,
+        },
+        {
+          id: "barrons-ra-t3-s1-q5",
+          number: 5,
+          type: "multiple_choice",
+          question: "Section E",
+          options: [
+            { label: "i", value: "i" },
+            { label: "ii", value: "ii" },
+            { label: "iii", value: "iii" },
+            { label: "iv", value: "iv" },
+            { label: "v", value: "v" },
+            { label: "vi", value: "vi" },
+            { label: "vii", value: "vii" },
+            { label: "viii", value: "viii" },
+            { label: "ix", value: "ix" },
+            { label: "x", value: "x" },
+          ],
+          correctAnswer: "viii",
+          points: 1,
+        },
+        {
+          id: "barrons-ra-t3-s1-q6",
+          number: 6,
+          type: "multiple_choice",
+          question: "Section F",
+          options: [
+            { label: "i", value: "i" },
+            { label: "ii", value: "ii" },
+            { label: "iii", value: "iii" },
+            { label: "iv", value: "iv" },
+            { label: "v", value: "v" },
+            { label: "vi", value: "vi" },
+            { label: "vii", value: "vii" },
+            { label: "viii", value: "viii" },
+            { label: "ix", value: "ix" },
+            { label: "x", value: "x" },
+          ],
+          correctAnswer: "x",
+          points: 1,
+        },
+        {
+          id: "barrons-ra-t3-s1-q7",
+          number: 7,
+          type: "multiple_choice",
+          question: "Section G",
+          options: [
+            { label: "i", value: "i" },
+            { label: "ii", value: "ii" },
+            { label: "iii", value: "iii" },
+            { label: "iv", value: "iv" },
+            { label: "v", value: "v" },
+            { label: "vi", value: "vi" },
+            { label: "vii", value: "vii" },
+            { label: "viii", value: "viii" },
+            { label: "ix", value: "ix" },
+            { label: "x", value: "x" },
+          ],
+          correctAnswer: "v",
+          points: 1,
+        },
+        // ── Q8–10: Facts about original CT scanner ─────────────
+        {
+          id: "barrons-ra-t3-s1-q8",
+          number: 8,
+          type: "multiple_choice",
+          groupLabel:
+            "Which of the following are facts about the original CT scanner mentioned in the passage? Choose THREE answers.\n\nA  It made it difficult for patients to breathe.\nB  It was created to take pictures of the brain.\nC  It was much bigger than current CT scanners.\nD  It was developed in 1972.\nE  It took several hours to produce a completed image.\nF  It produced images in color.",
+          question: "Fact about original CT scanner (one of three)",
+          options: [
+            { label: "A", value: "A" },
+            { label: "B", value: "B" },
+            { label: "C", value: "C" },
+            { label: "D", value: "D" },
+            { label: "E", value: "E" },
+            { label: "F", value: "F" },
+          ],
+          correctAnswer: "B",
+          points: 1,
+        },
+        {
+          id: "barrons-ra-t3-s1-q9",
+          number: 9,
+          type: "multiple_choice",
+          question: "Fact about original CT scanner (one of three)",
+          options: [
+            { label: "A", value: "A" },
+            { label: "B", value: "B" },
+            { label: "C", value: "C" },
+            { label: "D", value: "D" },
+            { label: "E", value: "E" },
+            { label: "F", value: "F" },
+          ],
+          correctAnswer: "D",
+          points: 1,
+        },
+        {
+          id: "barrons-ra-t3-s1-q10",
+          number: 10,
+          type: "multiple_choice",
+          question: "Fact about original CT scanner (one of three)",
+          options: [
+            { label: "A", value: "A" },
+            { label: "B", value: "B" },
+            { label: "C", value: "C" },
+            { label: "D", value: "D" },
+            { label: "E", value: "E" },
+            { label: "F", value: "F" },
+          ],
+          correctAnswer: "E",
+          points: 1,
+        },
+        // ── Q11–13: Facts about contrast materials ─────────────
+        {
+          id: "barrons-ra-t3-s1-q11",
+          number: 11,
+          type: "multiple_choice",
+          groupLabel:
+            "Which of the following are facts about contrast materials used for CT scans? Choose THREE answers.\n\nA  They are bright in color.\nB  They can be given by injection.\nC  They have a bitter taste.\nD  They might cause a feeling of warmth in the arm.\nE  They are administered only by a specially trained technician.\nF  They may cause allergies in a few patients.",
+          question: "Fact about contrast materials (one of three)",
+          options: [
+            { label: "A", value: "A" },
+            { label: "B", value: "B" },
+            { label: "C", value: "C" },
+            { label: "D", value: "D" },
+            { label: "E", value: "E" },
+            { label: "F", value: "F" },
+          ],
+          correctAnswer: "B",
+          points: 1,
+        },
+        {
+          id: "barrons-ra-t3-s1-q12",
+          number: 12,
+          type: "multiple_choice",
+          question: "Fact about contrast materials (one of three)",
+          options: [
+            { label: "A", value: "A" },
+            { label: "B", value: "B" },
+            { label: "C", value: "C" },
+            { label: "D", value: "D" },
+            { label: "E", value: "E" },
+            { label: "F", value: "F" },
+          ],
+          correctAnswer: "D",
+          points: 1,
+        },
+        {
+          id: "barrons-ra-t3-s1-q13",
+          number: 13,
+          type: "multiple_choice",
+          question: "Fact about contrast materials (one of three)",
+          options: [
+            { label: "A", value: "A" },
+            { label: "B", value: "B" },
+            { label: "C", value: "C" },
+            { label: "D", value: "D" },
+            { label: "E", value: "E" },
+            { label: "F", value: "F" },
+          ],
+          correctAnswer: "F",
+          points: 1,
+        },
+      ],
+    },
+    // Section 2 will be added below
+  ],
+};
+
+export const barronsReadingTests: IELTSTest[] = [barrons_reading_t1, barrons_reading_t2, barrons_reading_t3];
