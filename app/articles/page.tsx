@@ -206,6 +206,7 @@ export default function ArticlesPage() {
         <div
           className="card flush"
           onClick={() => setSelectedId(featuredPick.id)}
+          onKeyDown={e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); setSelectedId(featuredPick.id); } }}
           role="button"
           tabIndex={0}
           style={{ marginBottom: 28, cursor: "pointer" }}
@@ -243,9 +244,14 @@ export default function ArticlesPage() {
       )}
 
       {/* Grid */}
+      {list.filter(a => a.id !== featuredPick?.id).length === 0 && !featuredPick && (
+        <p style={{ textAlign: "center", color: "var(--text-3)", padding: "40px 0" }}>
+          No articles match your filters. Try adjusting the source or category above.
+        </p>
+      )}
       <div className="grid cols-3">
         {list.filter(a => a.id !== featuredPick?.id).map(a => (
-          <div key={a.id} className="media-card" onClick={() => setSelectedId(a.id)} role="button" tabIndex={0}>
+          <div key={a.id} className="media-card" onClick={() => setSelectedId(a.id)} onKeyDown={e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); setSelectedId(a.id); } }} role="button" tabIndex={0}>
             <div
               className="thumb"
               style={a.image ? { background: `url(${a.image}) center / cover` } : undefined}

@@ -327,20 +327,25 @@ export default function WritingPage() {
               &ldquo;{lastSub!.prompt.length > 120 ? lastSub!.prompt.slice(0, 117) + "…" : lastSub!.prompt}&rdquo;
             </p>
           </div>
-          <button
-            className="btn primary sm"
-            onClick={() => {
-              setLastSub(null);
-              setStatus("idle");
-              setText("");
-              setFilter("all");
-              const next = pickRandomPrompt(prompt);
-              setPrompt(next);
-              try { sessionStorage.setItem(PROMPT_KEY, next); } catch {}
-            }}
-          >
+          <div style={{ display: "flex", gap: 8 }}>
+            <button className="btn ghost sm" onClick={handleDownloadCurrent}>
+              <Download size={12} /> Download PDF
+            </button>
+            <button
+              className="btn primary sm"
+              onClick={() => {
+                setLastSub(null);
+                setStatus("idle");
+                setText("");
+                setFilter("all");
+                const next = pickRandomPrompt(prompt);
+                setPrompt(next);
+                try { sessionStorage.setItem(PROMPT_KEY, next); } catch {}
+              }}
+            >
             <PenLine size={12} /> Write a new essay
-          </button>
+            </button>
+          </div>
         </div>
       )}
 
