@@ -345,7 +345,7 @@ export default function AdminDashboard() {
   // the tests tab with the matching type filter preset).
   const tabs = [
     { id: "results" as const, Icon: BarChart3, label: "Results" },
-    { id: "students" as const, Icon: Users, label: "Students" },
+    { id: "students" as const, Icon: Users, label: "Students", badge: premiumRequests.filter(r => r.status === "pending").length || undefined },
     ...(canManageTeachers ? [{ id: "teachers" as const, Icon: Shield, label: "Manage Teachers" }] : []),
   ];
 
@@ -393,13 +393,16 @@ export default function AdminDashboard() {
         {/* Nav items */}
         <nav style={{ flex: 1, overflowY: "auto", padding: "4px 10px" }}>
           <p style={{ fontFamily: `'JetBrains Mono', ui-monospace, monospace`, fontSize: 10, fontWeight: 500, color: C.muted, letterSpacing: "0.12em", textTransform: "uppercase", margin: "6px 10px 8px" }}>Admin</p>
-          {tabs.map(({ id, Icon, label }) => (
+          {tabs.map(({ id, Icon, label, badge }) => (
             <button key={id} onClick={() => setActiveTab(id)}
               style={{ display: "flex", alignItems: "center", gap: 10, width: "100%", padding: "10px 12px", borderRadius: 10, border: "none", cursor: "pointer", fontWeight: 500, fontSize: 13.5, textAlign: "left", marginBottom: 2, transition: "all 0.15s",
                 background: activeTab === id ? C.accentLight : "transparent",
                 color: activeTab === id ? C.accent : C.muted }}>
               <Icon size={15} />
               {label}
+              {badge ? (
+                <span style={{ marginLeft: "auto", background: "#ef4444", color: "#fff", fontSize: 10, fontWeight: 800, padding: "2px 7px", borderRadius: 999, minWidth: 18, textAlign: "center" }}>{badge}</span>
+              ) : null}
             </button>
           ))}
 
@@ -480,12 +483,15 @@ export default function AdminDashboard() {
         </div>
         {/* Mobile tab bar */}
         <div className="admin-mobile-header" style={{ display: "none", overflowX: "auto", background: C.card2, borderBottom: `1px solid ${C.border}`, padding: "8px 12px", gap: 6, flexShrink: 0 }}>
-          {tabs.map(({ id, Icon, label }) => (
+          {tabs.map(({ id, Icon, label, badge }) => (
             <button key={id} onClick={() => setActiveTab(id)}
-              style={{ display: "inline-flex", alignItems: "center", gap: 6, padding: "7px 12px", borderRadius: 8, border: "none", cursor: "pointer", fontWeight: 600, fontSize: 12, whiteSpace: "nowrap",
+              style={{ display: "inline-flex", alignItems: "center", gap: 6, padding: "7px 12px", borderRadius: 8, border: "none", cursor: "pointer", fontWeight: 600, fontSize: 12, whiteSpace: "nowrap", position: "relative",
                 background: activeTab === id ? C.accentLight : "transparent",
                 color: activeTab === id ? C.accent : C.muted }}>
               <Icon size={13} /> {label}
+              {badge ? (
+                <span style={{ background: "#ef4444", color: "#fff", fontSize: 9, fontWeight: 800, padding: "1px 5px", borderRadius: 999, marginLeft: 4 }}>{badge}</span>
+              ) : null}
             </button>
           ))}
           {/* Reading / Listening both drop into the Tests tab with the
@@ -510,6 +516,24 @@ export default function AdminDashboard() {
 
         {/* ══════════════════ RESULTS TAB ══════════════════ */}
         {activeTab === "results" && <>
+
+          {/* Pending payment requests — shown on results tab too */}
+          {premiumRequests.filter(r => r.status === "pending").length > 0 && (
+            <div style={{ background: "rgba(234,179,8,0.06)", border: "1px solid rgba(234,179,8,0.3)", borderRadius: 14, padding: "16px 22px", marginBottom: 20, cursor: "pointer" }}
+              onClick={() => setActiveTab("students")}>
+              <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                <span style={{ fontSize: 20 }}>&#128176;</span>
+                <div>
+                  <span style={{ fontWeight: 700, color: "#fde047", fontSize: 14 }}>
+                    {premiumRequests.filter(r => r.status === "pending").length} payment request{premiumRequests.filter(r => r.status === "pending").length > 1 ? "s" : ""} pending
+                  </span>
+                  <span style={{ color: C.muted, fontSize: 13, marginLeft: 8 }}>
+                    Click to review →
+                  </span>
+                </div>
+              </div>
+            </div>
+          )}
 
           {/* Title row — dashboard title on the left, rotating quote in
               the middle (fills the empty space), Export on the right.
