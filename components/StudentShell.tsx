@@ -35,7 +35,7 @@ const STUDENT_SECTIONS: { title: string; items: NavItem[] }[] = [
       { label: "Reading", href: "/student/reading", icon: BookOpen, chev: true },
       { label: "Listening", href: "/student/listening", icon: Headphones, chev: true },
       { label: "Writing", href: "/student/writing", icon: PenLine, chev: true },
-      { label: "Vocabulary", href: "/student/vocab", icon: Sparkles, pill: "Soon" },
+      { label: "Vocabulary", href: "/student/vocab", icon: Sparkles },
     ],
   },
   {
