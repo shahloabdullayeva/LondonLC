@@ -1241,7 +1241,10 @@ export default function TestPage() {
                       "1 _______" are replaced with actual input fields bound
                       to the matching question. */}
                   {sec.passageText && (
-                    <div style={{ marginBottom: 20, padding: "16px 20px", background: T.passage, border: `1px solid ${T.border}`, borderRadius: 12, color: T.text, lineHeight: 2.2, fontSize: fontSize - 1, whiteSpace: "pre-line" }}>
+                    <div
+                      onMouseUp={(e) => handleTextMouseUp(e, "passage")}
+                      onClick={handlePassageClick}
+                      style={{ marginBottom: 20, padding: "16px 20px", background: T.passage, border: `1px solid ${T.border}`, borderRadius: 12, color: T.text, lineHeight: 2.2, fontSize: fontSize - 1, whiteSpace: "pre-line", userSelect: "text" }}>
                       {renderPassageWithInputs(sec.passageText, sec.questions, answers, setAnswer, T)}
                     </div>
                   )}
@@ -1678,7 +1681,7 @@ function QuestionItem({
   const isPassageCovered = question.type === "summary_completion" || question.type === "note_completion";
 
   return (
-    <div id={`question-${question.id}`} style={{ paddingBottom: isPassageCovered ? 12 : 24, borderBottom: `1px solid ${T.border}` }}>
+    <div id={`question-${question.id}`} data-question-id={question.id} style={{ paddingBottom: isPassageCovered ? 12 : 24, borderBottom: `1px solid ${T.border}` }}>
       <div style={{ display: "flex", gap: 12, marginBottom: (hasInlineBlank || isPassageCovered) ? 0 : 12, alignItems: (hasInlineBlank || isPassageCovered) ? "center" : "flex-start", flexWrap: "wrap" }}>
         <span style={{ flexShrink: 0, fontSize: 15, fontWeight: 800, color: T.text, fontFamily: "'IBM Plex Mono', 'Courier New', monospace", minWidth: 26, textAlign: "right" }}>
           {question.number}
