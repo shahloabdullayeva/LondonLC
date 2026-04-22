@@ -3,7 +3,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Search, Volume2, X, Loader2 } from "lucide-react";
 import StudentShell from "@/components/StudentShell";
-import { VOCAB, VOCAB_SOURCES, type VocabEntry, type VocabLevel, type VocabSource } from "@/data/vocab";
+import { VOCAB, type VocabEntry, type VocabLevel, type VocabSource } from "@/data/vocab";
 import { getSession } from "@/lib/store";
 
 type DictResult = {
@@ -14,18 +14,23 @@ type DictResult = {
 };
 
 const CACHE_KEY = "llc.vocab.cache.v1";
+const VIEWED_KEY = "llc.vocab.viewed.v1";
 
 function loadCache(): Record<string, DictResult> {
   try { return JSON.parse(localStorage.getItem(CACHE_KEY) || "{}"); } catch { return {}; }
 }
-
 function saveCache(cache: Record<string, DictResult>) {
   try { localStorage.setItem(CACHE_KEY, JSON.stringify(cache)); } catch {}
 }
+function loadViewed(): string[] {
+  try { return JSON.parse(localStorage.getItem(VIEWED_KEY) || "[]"); } catch { return []; }
+}
+function saveViewed(viewed: string[]) {
+  try { localStorage.setItem(VIEWED_KEY, JSON.stringify(viewed)); } catch {}
+}
 
-const LEVEL_COLORS: Record<VocabLevel, string> = {
-  B1: "#22c55e", B2: "#3b82f6", C1: "#a855f7", C2: "#ef4444",
-};
+const LEVELS: (VocabLevel | "All")[] = ["All", "B1", "B2", "C1", "C2"];
+const SOURCES: (VocabSource | "All")[] = ["All", "AWL", "Oxford 3000", "Oxford 5000", "IELTS Common"];
 
 export default function VocabPage() {
   const router = useRouter();
@@ -36,11 +41,28 @@ export default function VocabPage() {
   const [dictResult, setDictResult] = useState<DictResult | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [viewed, setViewed] = useState<string[]>([]);
 
   useEffect(() => {
     const s = getSession();
     if (!s) router.push("/auth/login");
+    setViewed(loadViewed());
   }, [router]);
+
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      if (e.key === "/" && !(e.target instanceof HTMLInputElement)) {
+        e.preventDefault();
+        document.getElementById("vocab-search")?.focus();
+      }
+      if (e.key === "Escape" && selected) {
+        setSelected(null);
+        setDictResult(null);
+      }
+    };
+    window.addEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler);
+  }, [selected]);
 
   const filtered = useMemo(() => {
     let list = VOCAB;
@@ -53,10 +75,22 @@ export default function VocabPage() {
     return list;
   }, [search, levelFilter, sourceFilter]);
 
+  const grouped = useMemo(() => {
+    const byLevel: Record<VocabLevel, VocabEntry[]> = { B1: [], B2: [], C1: [], C2: [] };
+    for (const w of filtered) byLevel[w.level].push(w);
+    return byLevel;
+  }, [filtered]);
+
   const fetchDefinition = async (entry: VocabEntry) => {
     setSelected(entry);
     setDictResult(null);
     setError("");
+
+    if (!viewed.includes(entry.word)) {
+      const next = [...viewed, entry.word];
+      setViewed(next);
+      saveViewed(next);
+    }
 
     const cache = loadCache();
     if (cache[entry.word]) {
@@ -98,141 +132,207 @@ export default function VocabPage() {
     a.play().catch(() => {});
   };
 
+  const closeDetail = () => {
+    setSelected(null);
+    setDictResult(null);
+    setError("");
+  };
+
   return (
     <StudentShell>
-      <p className="eyebrow">Practice · Vocabulary</p>
-      <h1 className="h1"><em>Vocabulary</em> bank</h1>
-      <p className="lede" style={{ marginTop: 16, marginBottom: 24 }}>
-        {VOCAB.length} IELTS words across all band levels. Tap any word for its definition, pronunciation, and examples.
+      <p className="eyebrow">
+        <span>Practice · Vocabulary</span>
+        <span className="rule" />
+        <span>{VOCAB.length} words</span>
+      </p>
+      <h1 className="h1">Vocabulary <em>bank</em></h1>
+      <p className="lede" style={{ marginTop: 16, marginBottom: 32 }}>
+        IELTS words across all band levels. Tap any word for its definition, phonetic,
+        pronunciation, and examples.
       </p>
 
       {/* Search */}
       <div style={{ position: "relative", marginBottom: 16 }}>
-        <Search size={16} style={{ position: "absolute", left: 14, top: "50%", transform: "translateY(-50%)", color: "var(--text-3)" }} />
+        <Search size={16} style={{ position: "absolute", left: 16, top: "50%", transform: "translateY(-50%)", color: "var(--text-3)", pointerEvents: "none" }} />
         <input
+          id="vocab-search"
           type="text"
           value={search}
           onChange={e => setSearch(e.target.value)}
-          placeholder="Search words..."
+          placeholder="Search words…"
           style={{
-            width: "100%", padding: "12px 14px 12px 40px", borderRadius: 10,
-            border: "1px solid var(--line)", background: "var(--surface)",
+            width: "100%", padding: "14px 16px 14px 44px", borderRadius: "var(--radius)",
+            border: "1px solid var(--line-2)", background: "var(--surface)",
             color: "var(--text)", fontSize: 15, outline: "none",
+            fontFamily: "var(--ff-sans)",
           }}
         />
-        {search && (
-          <button onClick={() => setSearch("")} style={{ position: "absolute", right: 12, top: "50%", transform: "translateY(-50%)", background: "none", border: "none", color: "var(--text-3)", cursor: "pointer" }}>
+        {search ? (
+          <button onClick={() => setSearch("")} style={{ position: "absolute", right: 14, top: "50%", transform: "translateY(-50%)", color: "var(--text-3)" }}>
             <X size={16} />
           </button>
+        ) : (
+          <span className="kbd" style={{ position: "absolute", right: 14, top: "50%", transform: "translateY(-50%)" }}>/</span>
         )}
       </div>
 
       {/* Filters */}
-      <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 12 }}>
-        {(["All", "B1", "B2", "C1", "C2"] as const).map(l => (
-          <button key={l} onClick={() => setLevelFilter(l)}
-            className={`chip${levelFilter === l ? " on" : ""}`}
-            style={levelFilter === l && l !== "All" ? { background: LEVEL_COLORS[l as VocabLevel], color: "#fff", borderColor: LEVEL_COLORS[l as VocabLevel] } : undefined}>
+      <div className="flex g8 aic" style={{ flexWrap: "wrap", marginBottom: 10 }}>
+        <span style={{ fontFamily: "var(--ff-mono)", fontSize: 10, letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--text-3)", marginRight: 4 }}>Level</span>
+        {LEVELS.map(l => (
+          <button key={l} onClick={() => setLevelFilter(l)} className={`chip${levelFilter === l ? " on" : ""}`}>
             {l}
           </button>
         ))}
       </div>
-      <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 24 }}>
-        {(["All", ...Object.keys(VOCAB_SOURCES)] as const).map(s => (
-          <button key={s} onClick={() => setSourceFilter(s as VocabSource | "All")}
-            className={`chip${sourceFilter === s ? " on" : ""}`}>
+      <div className="flex g8 aic" style={{ flexWrap: "wrap", marginBottom: 24 }}>
+        <span style={{ fontFamily: "var(--ff-mono)", fontSize: 10, letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--text-3)", marginRight: 4 }}>Source</span>
+        {SOURCES.map(s => (
+          <button key={s} onClick={() => setSourceFilter(s)} className={`chip${sourceFilter === s ? " on" : ""}`}>
             {s === "All" ? "All sources" : s}
           </button>
         ))}
       </div>
 
-      <p style={{ fontSize: 12, color: "var(--text-3)", marginBottom: 16, fontFamily: "var(--ff-mono)" }}>
-        Showing {filtered.length} of {VOCAB.length} words
+      <p style={{ fontFamily: "var(--ff-mono)", fontSize: 11, color: "var(--text-3)", letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: 20 }}>
+        {filtered.length} of {VOCAB.length} words · {viewed.length} viewed
       </p>
 
-      {/* Word detail panel */}
+      {/* Word detail card */}
       {selected && (
-        <div className="card" style={{ marginBottom: 24, padding: 24 }}>
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 16 }}>
+        <div className="card" style={{ marginBottom: 32, padding: 0 }}>
+          <div style={{ padding: "32px 36px", borderBottom: "1px solid var(--line)", display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 24 }}>
             <div>
-              <h2 style={{ fontSize: 28, fontWeight: 700, fontFamily: "var(--ff-serif)", margin: 0 }}>{selected.word}</h2>
-              <div style={{ display: "flex", gap: 8, alignItems: "center", marginTop: 6 }}>
-                <span style={{ fontSize: 11, padding: "3px 8px", borderRadius: 999, background: LEVEL_COLORS[selected.level], color: "#fff", fontWeight: 700, fontFamily: "var(--ff-mono)" }}>
-                  {selected.level}
-                </span>
-                <span style={{ fontSize: 12, color: "var(--text-3)" }}>{selected.source}</span>
+              <div style={{ fontFamily: "var(--ff-mono)", fontSize: 10, letterSpacing: "0.14em", textTransform: "uppercase", color: "var(--text-3)", marginBottom: 12 }}>
+                {selected.level} · {selected.source}
+              </div>
+              <div style={{ display: "flex", alignItems: "baseline", gap: 16, flexWrap: "wrap" }}>
+                <h2 style={{ fontFamily: "var(--ff-serif)", fontSize: 56, fontWeight: 500, letterSpacing: "-0.02em", lineHeight: 1, margin: 0 }}>
+                  {selected.word}
+                </h2>
                 {dictResult?.phonetic && (
-                  <span style={{ fontSize: 14, color: "var(--text-2)", fontStyle: "italic" }}>{dictResult.phonetic}</span>
+                  <span style={{ fontFamily: "var(--ff-serif)", fontSize: 22, fontStyle: "italic", color: "var(--text-2)" }}>
+                    {dictResult.phonetic}
+                  </span>
                 )}
                 {dictResult?.audioUrl && (
-                  <button onClick={() => playAudio(dictResult.audioUrl!)}
-                    style={{ background: "none", border: "none", cursor: "pointer", color: "var(--accent)", display: "flex", alignItems: "center" }}>
-                    <Volume2 size={16} />
+                  <button onClick={() => playAudio(dictResult.audioUrl!)} className="btn sm" title="Play pronunciation">
+                    <Volume2 size={14} />
                   </button>
                 )}
               </div>
             </div>
-            <button onClick={() => { setSelected(null); setDictResult(null); setError(""); }}
-              style={{ background: "none", border: "none", cursor: "pointer", color: "var(--text-3)" }}>
-              <X size={18} />
+            <button onClick={closeDetail} className="btn icon ghost" title="Close (Esc)">
+              <X size={16} />
             </button>
           </div>
 
-          {loading && (
-            <div style={{ display: "flex", alignItems: "center", gap: 8, color: "var(--text-3)", fontSize: 14 }}>
-              <Loader2 size={14} className="spin" /> Fetching definition...
-            </div>
-          )}
-
-          {error && <p style={{ color: "var(--text-3)", fontSize: 14 }}>{error}</p>}
-
-          {dictResult && dictResult.meanings.map((m, i) => (
-            <div key={i} style={{ marginBottom: 16 }}>
-              <div style={{ fontSize: 11, fontWeight: 700, color: "var(--accent)", textTransform: "uppercase", letterSpacing: "0.08em", fontFamily: "var(--ff-mono)", marginBottom: 6 }}>
-                {m.partOfSpeech}
+          <div style={{ padding: "28px 36px 32px" }}>
+            {loading && (
+              <div style={{ display: "flex", alignItems: "center", gap: 10, color: "var(--text-3)", fontSize: 14 }}>
+                <Loader2 size={14} className="spin" /> Fetching definition…
               </div>
-              {m.definitions.map((d, j) => (
-                <div key={j} style={{ marginBottom: 10 }}>
-                  <p style={{ fontSize: 15, color: "var(--text)", lineHeight: 1.6, margin: 0 }}>
-                    {j + 1}. {d.definition}
-                  </p>
-                  {d.example && (
-                    <p style={{ fontSize: 13, color: "var(--text-3)", fontStyle: "italic", margin: "4px 0 0", lineHeight: 1.5 }}>
-                      &ldquo;{d.example}&rdquo;
-                    </p>
-                  )}
+            )}
+            {error && (
+              <p style={{ color: "var(--text-3)", fontSize: 14, margin: 0 }}>{error}</p>
+            )}
+            {dictResult && dictResult.meanings.map((m, i) => (
+              <div key={i} style={{ marginBottom: i === dictResult.meanings.length - 1 ? 0 : 24 }}>
+                <div className="eyebrow" style={{ marginBottom: 12, color: "var(--accent)" }}>
+                  <span>{m.partOfSpeech}</span>
+                  <span className="rule" style={{ opacity: 0.25 }} />
                 </div>
-              ))}
-            </div>
-          ))}
+                {m.definitions.map((d, j) => (
+                  <div key={j} style={{ marginBottom: 14 }}>
+                    <p style={{ fontFamily: "var(--ff-serif)", fontSize: 17, lineHeight: 1.55, color: "var(--text)", margin: 0 }}>
+                      <span style={{ fontFamily: "var(--ff-mono)", fontSize: 11, color: "var(--text-3)", marginRight: 10 }}>
+                        {String(j + 1).padStart(2, "0")}
+                      </span>
+                      {d.definition}
+                    </p>
+                    {d.example && (
+                      <p style={{ fontFamily: "var(--ff-serif)", fontSize: 15, color: "var(--text-2)", fontStyle: "italic", margin: "6px 0 0 32px", lineHeight: 1.5 }}>
+                        &ldquo;{d.example}&rdquo;
+                      </p>
+                    )}
+                  </div>
+                ))}
+              </div>
+            ))}
+          </div>
         </div>
       )}
 
-      {/* Word grid */}
-      <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
-        {filtered.map(entry => (
-          <button
-            key={`${entry.word}-${entry.source}`}
-            onClick={() => fetchDefinition(entry)}
-            style={{
-              padding: "8px 14px", borderRadius: 8, cursor: "pointer",
-              border: selected?.word === entry.word ? "1.5px solid var(--accent)" : "1px solid var(--line)",
-              background: selected?.word === entry.word ? "rgba(120,160,255,0.08)" : "var(--surface)",
-              color: "var(--text)", fontSize: 14, fontWeight: 500,
-              display: "flex", alignItems: "center", gap: 6,
-              transition: "all 0.12s",
-            }}
-          >
-            <span style={{ width: 6, height: 6, borderRadius: "50%", background: LEVEL_COLORS[entry.level], flexShrink: 0 }} />
-            {entry.word}
-          </button>
-        ))}
-      </div>
-
-      {filtered.length === 0 && (
-        <p style={{ textAlign: "center", color: "var(--text-3)", padding: "40px 0" }}>
-          No words match your search. Try a different term or clear the filters.
+      {/* Word list — grouped by level */}
+      {filtered.length === 0 ? (
+        <p style={{ textAlign: "center", color: "var(--text-3)", padding: "60px 0", fontSize: 15 }}>
+          No words match your filters. Try a different term or clear the filters.
         </p>
+      ) : (
+        (["B1", "B2", "C1", "C2"] as VocabLevel[]).map(level => {
+          const list = grouped[level];
+          if (list.length === 0) return null;
+          return (
+            <div key={level} style={{ marginBottom: 36 }}>
+              <div className="divider">
+                <span>{level} · {list.length} words</span>
+              </div>
+              <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+                {list.map(entry => {
+                  const isSeen = viewed.includes(entry.word);
+                  const isActive = selected?.word === entry.word;
+                  return (
+                    <button
+                      key={`${entry.word}-${entry.source}`}
+                      onClick={() => fetchDefinition(entry)}
+                      style={{
+                        padding: "10px 16px",
+                        borderRadius: "var(--radius)",
+                        border: isActive
+                          ? "1px solid var(--accent)"
+                          : "1px solid var(--line-2)",
+                        background: isActive
+                          ? "color-mix(in oklab, var(--accent) 12%, transparent)"
+                          : "var(--surface)",
+                        color: "var(--text)",
+                        fontFamily: "var(--ff-serif)",
+                        fontSize: 16,
+                        fontWeight: 500,
+                        letterSpacing: "-0.005em",
+                        cursor: "pointer",
+                        transition: "all 140ms",
+                        position: "relative",
+                      }}
+                      onMouseEnter={e => {
+                        if (!isActive) e.currentTarget.style.borderColor = "var(--text-3)";
+                      }}
+                      onMouseLeave={e => {
+                        if (!isActive) e.currentTarget.style.borderColor = "var(--line-2)";
+                      }}
+                    >
+                      {entry.word}
+                      {isSeen && !isActive && (
+                        <span
+                          title="You've seen this word"
+                          style={{
+                            position: "absolute",
+                            top: -3,
+                            right: -3,
+                            width: 7,
+                            height: 7,
+                            borderRadius: "50%",
+                            background: "var(--accent)",
+                            border: "2px solid var(--bg)",
+                          }}
+                        />
+                      )}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          );
+        })
       )}
 
       <style>{`
