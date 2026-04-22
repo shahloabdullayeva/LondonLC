@@ -2572,7 +2572,220 @@ Core samples also show that the changes in temperature have been abrupt, not gra
         },
       ],
     },
-    // Section 2 will be added below
+    // ── PASSAGE 2 ──────────────────────────────────────────────
+    {
+      id: "barrons-ra-t4-s2",
+      sectionNumber: 2,
+      title: "Reading Passage 2",
+      passageTitle: "Chocolate — Food of the Gods",
+      instructions:
+        "Questions 14-18: Do the statements agree with the information? Write TRUE, FALSE, or NOT GIVEN.\n\nQuestions 19-25: Which civilization does each phrase describe — Olmec (A), Mayan (B), or both (C)?\n\nQuestions 26-27: Choose the correct letter A, B, or C.",
+      passageText: `The cacao plant is believed to have evolved at least 4,000 years ago. It is a small evergreen tree, 15-25 feet high, which grows in the tropical forest understory, where it is protected by the shade of larger trees. The scientific name for the cacao plant is Theobroma, which means 'food of the gods.' Native to the Amazon and Orinoco River basins, it requires a humid climate and regular rainfall. Small pink flowers grow directly on the trunk and older branches. The fruit, a cacao pod, is melon shaped and weighs roughly 1 pound when fully ripened. A mature tree may have as many as 6,000 flowers but will only produce about twenty pods. Each pod contains between twenty and sixty seeds, called beans. The beans have a 40-50 percent fat content, referred to as cocoa butter. (Cacao is the plant; cocoa is the edible derivative and the primary ingredient in chocolate.)
+
+Chemical analysis of pottery vessels unearthed in Puerto Escondido, Honduras, and dating from around 3,100 years ago show traces of a compound that is found exclusively in the cacao plant. At that time, the plant was already being used as a beverage ingredient. However, it was not the cacao beans that were first used. Instead, the first cacao-based drink was probably produced by fermenting the pulp in the cacao pods to yield a beerlike beverage. Researchers speculate that the chocolate drink made from the cacao beans and known later throughout Mesoamerica may have arisen as an accidental by-product of the brewing process. In all, ten small, beautifully crafted drinking vessels were found at the Puerto Escondido site, suggesting that even then the cacao brew was not consumed on a frequent basis but was reserved for important feasts or ceremonial events.
+
+The villagers of Puerto Escondido had likely been influenced by the great Olmec civilization, which flourished for about 800 years beginning 3,200-2,400 years ago in the southern Gulf of Mexico region. Although centered in the modern Mexican states of Tabasco and Veracruz, Olmec influence reached as far south as El Salvador and Honduras. A majority of scholars concur that the Olmec people created the first civilization in the western hemisphere. They built large cities with significant architecture and established commerce extending over hundreds of miles. Relatively little is known about Olmec society because very little archeological evidence has survived the damp climate of the Gulf of Mexico. What is known, however, is that the later Mayan peoples, who did leave behind a great deal of cultural evidence, based much of their high culture on earlier Olmec traditions.
+
+Mayan civilization flourished in southern Mexico and Central America from around 500 B.C.E. to around 1500, and the word cacao comes from the Mayan word Ka'kau'. However, this is not a native Mayan word but is derived from the Olmec language. To the Mayans, the cacao pod symbolized life and fertility. Many of the bas-reliefs carved on their palaces and temples show cacao pods. It is believed that the Mayans took the cacao tree from its native rain forest and began to cultivate it in plantations. After harvesting the seed pods, they scooped out the contents — the cacao beans embedded in a sticky, white flesh — and allowed it all to ferment until the seeds turned dark brown. The seeds were then roasted and ground into a thick chocolate paste.
+
+From the paste, the Mayans made a hot chocolate drink. However, it was very different from contemporary hot chocolate. The basic drink was made by mixing the paste with water, chili powder, cornmeal, and other ingredients and heating it. Then the liquid was poured back and forth from one vessel held at arm's height to another resting on the ground. This created a chocolate drink with a thick head of dark foam — considered the best part of the drink. Among the Mayans, as the chocolate drink grew more popular and the ingredients more readily available, people from all levels of society enjoyed it at least on occasion.
+
+The Maya preserved their knowledge of cacao use through stone carvings, some in jade and obsidian, pottery decorations, and written documents that detailed the use of cacao, described in Mayan as 'food of the gods.' Cacao was used in ceremonies, medical treatments, and daily life centuries before the discovery of the New World by Europeans. Certain recipes for cacao drinks included vanilla, nuts, honey from native bees, and various flowers.
+
+Ek Chuah (meaning 'black star' in Yucatec Maya) was the patron god of merchants and commerce. Because cacao seeds were light in weight, easily transported, and of great value, they were used as currency throughout Mesoamerica. Thus Ek Chuah also became the patron god of cacao. Each April, the Maya held a festival to honor this deity. The celebration included offerings of cacao, feathers, and incense, the sacrifice of a dog with cacao-colored markings, other animal sacrifices, and an exchange of gifts. Given that the chocolate drink could be made only through the direct destruction of currency, one can understand why it was called the 'food of gods.' The immortals could easily afford it, while for humans it was a precious commodity indeed.`,
+      questions: [
+        // ── Q14–18: True / False / Not Given ──────────────────────
+        {
+          id: "barrons-ra-t4-s2-q14",
+          number: 14,
+          type: "true_false_ng",
+          groupLabel:
+            "Do the following statements agree with the information in the passage?\n\nTRUE — agrees with the information\nFALSE — contradicts the information\nNOT GIVEN — no information on this",
+          question: "The mature cacao plant produces about 6,000 pods.",
+          options: [
+            { label: "TRUE", value: "TRUE" },
+            { label: "FALSE", value: "FALSE" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "FALSE",
+          points: 1,
+        },
+        {
+          id: "barrons-ra-t4-s2-q15",
+          number: 15,
+          type: "true_false_ng",
+          question: "The cacao plant prefers wet weather.",
+          options: [
+            { label: "TRUE", value: "TRUE" },
+            { label: "FALSE", value: "FALSE" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "TRUE",
+          points: 1,
+        },
+        {
+          id: "barrons-ra-t4-s2-q16",
+          number: 16,
+          type: "true_false_ng",
+          question: "Each flower on the cacao plant produces twenty pods.",
+          options: [
+            { label: "TRUE", value: "TRUE" },
+            { label: "FALSE", value: "FALSE" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "FALSE",
+          points: 1,
+        },
+        {
+          id: "barrons-ra-t4-s2-q17",
+          number: 17,
+          type: "true_false_ng",
+          question: "Cacao drinks were originally made using the pulp from the pod.",
+          options: [
+            { label: "TRUE", value: "TRUE" },
+            { label: "FALSE", value: "FALSE" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "TRUE",
+          points: 1,
+        },
+        {
+          id: "barrons-ra-t4-s2-q18",
+          number: 18,
+          type: "true_false_ng",
+          question: "In ancient Puerto Escondido, cacao drinks were served hot.",
+          options: [
+            { label: "TRUE", value: "TRUE" },
+            { label: "FALSE", value: "FALSE" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "NOT GIVEN",
+          points: 1,
+        },
+        // ── Q19–25: Classification (Olmec / Mayan / both) ─────────
+        {
+          id: "barrons-ra-t4-s2-q19",
+          number: 19,
+          type: "multiple_choice",
+          groupLabel:
+            "Which ancient civilization does each phrase describe?\n\nA  Olmec civilization only\nB  Mayan civilization only\nC  both Olmec and Mayan civilizations",
+          question: "collapsed around 2,400 years ago",
+          options: [
+            { label: "A", value: "A" },
+            { label: "B", value: "B" },
+            { label: "C", value: "C" },
+          ],
+          correctAnswer: "A",
+          points: 1,
+        },
+        {
+          id: "barrons-ra-t4-s2-q20",
+          number: 20,
+          type: "multiple_choice",
+          question: "was located in Mexico",
+          options: [
+            { label: "A", value: "A" },
+            { label: "B", value: "B" },
+            { label: "C", value: "C" },
+          ],
+          correctAnswer: "C",
+          points: 1,
+        },
+        {
+          id: "barrons-ra-t4-s2-q21",
+          number: 21,
+          type: "multiple_choice",
+          question: "grew cacao on large farms",
+          options: [
+            { label: "A", value: "A" },
+            { label: "B", value: "B" },
+            { label: "C", value: "C" },
+          ],
+          correctAnswer: "B",
+          points: 1,
+        },
+        {
+          id: "barrons-ra-t4-s2-q22",
+          number: 22,
+          type: "multiple_choice",
+          question: "left behind little concrete evidence of their culture",
+          options: [
+            { label: "A", value: "A" },
+            { label: "B", value: "B" },
+            { label: "C", value: "C" },
+          ],
+          correctAnswer: "A",
+          points: 1,
+        },
+        {
+          id: "barrons-ra-t4-s2-q23",
+          number: 23,
+          type: "multiple_choice",
+          question: "influenced the ancient inhabitants of Puerto Escondido",
+          options: [
+            { label: "A", value: "A" },
+            { label: "B", value: "B" },
+            { label: "C", value: "C" },
+          ],
+          correctAnswer: "A",
+          points: 1,
+        },
+        {
+          id: "barrons-ra-t4-s2-q24",
+          number: 24,
+          type: "multiple_choice",
+          question: "carved images of cacao pods",
+          options: [
+            { label: "A", value: "A" },
+            { label: "B", value: "B" },
+            { label: "C", value: "C" },
+          ],
+          correctAnswer: "B",
+          points: 1,
+        },
+        {
+          id: "barrons-ra-t4-s2-q25",
+          number: 25,
+          type: "multiple_choice",
+          question: "made a drink by mixing cacao with chili powder and cornmeal",
+          options: [
+            { label: "A", value: "A" },
+            { label: "B", value: "B" },
+            { label: "C", value: "C" },
+          ],
+          correctAnswer: "B",
+          points: 1,
+        },
+        // ── Q26–27: Multiple choice ───────────────────────────────
+        {
+          id: "barrons-ra-t4-s2-q26",
+          number: 26,
+          type: "multiple_choice",
+          question: "The ancient Maya used cacao seeds as:\nA  decorations.\nB  a dye.\nC  money.",
+          options: [
+            { label: "A", value: "A" },
+            { label: "B", value: "B" },
+            { label: "C", value: "C" },
+          ],
+          correctAnswer: "C",
+          points: 1,
+        },
+        {
+          id: "barrons-ra-t4-s2-q27",
+          number: 27,
+          type: "multiple_choice",
+          question: "In April, the ancient Maya celebrated:\nA  dogs.\nB  a god.\nC  stars.",
+          options: [
+            { label: "A", value: "A" },
+            { label: "B", value: "B" },
+            { label: "C", value: "C" },
+          ],
+          correctAnswer: "B",
+          points: 1,
+        },
+      ],
+    },
+    // Section 3 will be added below
   ],
 };
 
