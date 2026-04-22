@@ -429,7 +429,262 @@ New technology for fighting fires continued to develop in both Europe and the Ne
         },
       ],
     },
-    // Passage 3 will be added below
+    // ── PASSAGE 3 ──────────────────────────────────────────────
+    {
+      id: "barrons-ra-t1-s3",
+      sectionNumber: 3,
+      title: "Reading Passage 3",
+      passageTitle: "The Luddites",
+      passageText: `The term Luddite is used to refer to a person who is opposed to new technology. The word derives from the name Ned Ludd, a man who may or may not have actually existed. The original Luddites were textile workers in early nineteenth-century England who protested changes brought on by the industrial revolution. These weavers made lace and stockings by hand, carrying out their craft independently in their homes according to traditional methods. In the 1800s, automated power looms and stocking frames were introduced, radically changing the traditional work system. Weavers' work was moved from individual homes to factories; individuals could not afford to buy the new machines for themselves. The new machines were not difficult to run. They could be operated by unskilled workers and turned out an inferior product, but they produced large quantities cheaply, which was the aim of the new factory owners. The makers of finely crafted, handmade textiles could not compete with the new machines. Instead of continuing their tradition as skilled, independent workers, they would have to go to work in factories for low wages.
+
+The industrial revolution was happening everywhere. In the textile-producing towns of England, workers focused on the new weaving machines as the source of their troubles. The height of Luddite activity occurred in the years 1811-1812. Groups of men, often in disguise, would arrive at a factory and make demands for higher wages and better working conditions. If these demands were not met, the group retaliated by smashing the factory machines. These groups often claimed that they were working under the command of General Ned Ludd, and thus came to be called Luddites.
+
+Who was Ned Ludd? Rumors about this mysterious person abounded. He came to be associated with that traditional champion of the poor, Robin Hood. The original Luddite activity was centered around Nottingham, and many said that Ned Ludd hid out in nearby Sherwood Forest, just as the legendary Robin Hood had. According to another tradition, Ned Ludd was a weaver who had accidentally broken two stocking frames, and from that, came to be the one blamed any time an expensive piece of weaving equipment was damaged. Whoever Ned Ludd may or may not have been, riots protesting the new factories were carried out in his name throughout England's textile-producing region.
+
+Workers' families suffered as wages fell and food prices rose. There were food riots in several towns, and Luddite activity spread. In the winter of 1812, the Frame-Breaking Act was passed, making the destruction of factory equipment a crime punishable by death. The government sent thousands of troops into areas affected by the riots. In the spring of that year, several factory owners were killed during Luddite riots, and a number of textile workers died as well. Following one of the largest incidents, when rioters set fire to a mill in Westhoughton, four rioters, including a young boy, were executed. In another incident that spring, a group of over a thousand workers attacked a mill in Lancashire with sticks and rocks. When they were beaten back by armed guards protecting the mill, they moved to the mill owner's house and burned it down. The wave of violence resulted in a crackdown by the government. Suspected Luddites were arrested and imprisoned, and many of them were hanged.
+
+By the summer of 1812, Luddite activity had begun to die down, although there continued to be sporadic incidents over the next several years. In 1816, a bad harvest and economic downturn led to a small revival of rioting. In June of that year, workers attacked two mills, smashing equipment and causing thousands of dollars worth of damage. Government troops were brought in to stop the violence. In the end, six of the rioters were executed for their participation. However, rioting never again reached the levels it had in 1811 and 1812.
+
+The Luddites were short-lived, but they left an impressive mark. They were responsible for destroying close to one thousand weaving machines during the height of their activity in 1811-1812, as well as burning down several factories. Beyond the physical damage, however, they left their mark in people's minds. The famed English novelist Charlotte Bronte set her novel Shirley in Yorkshire at the time of the riots. This novel is still widely read today. In our present time of rapid technological change, people who are concerned about the pace of technological advance often call themselves Neo-Luddites. Although the responses to it may differ, concern about the changes brought on by technology continues.`,
+      instructions:
+        "Questions 27-32: Match each cause with its effect. Choose from A-J.\n\nQuestions 33-40: Do the following statements agree with the information? Write TRUE, FALSE, or NOT GIVEN.",
+      questions: [
+        // ── Q27–32: Cause / Effect matching ─────────────────────
+        {
+          id: "barrons-ra-t1-s3-q27",
+          number: 27,
+          type: "multiple_choice",
+          groupLabel:
+            "Match each cause in the left column with its effect. Choose from options A-J.\n\nA  Troops were sent into the area.\nB  Weavers stopped working at home and went to work in factories.\nC  Rioters often wore disguises.\nD  Workers destroyed factory equipment.\nE  Many rioters were hanged.\nF  Charlotte Bronte wrote a novel about the Luddites.\nG  Prices went up, and salaries went down.\nH  Factory owners did not need to hire skilled weavers.\nI  Luddite rioting started again.\nJ  People compared Ned Ludd to Robin Hood.",
+          question: "The new weaving machines were expensive to buy.",
+          options: [
+            { label: "A", value: "A" },
+            { label: "B", value: "B" },
+            { label: "C", value: "C" },
+            { label: "D", value: "D" },
+            { label: "E", value: "E" },
+            { label: "F", value: "F" },
+            { label: "G", value: "G" },
+            { label: "H", value: "H" },
+            { label: "I", value: "I" },
+            { label: "J", value: "J" },
+          ],
+          correctAnswer: "B",
+          points: 1,
+        },
+        {
+          id: "barrons-ra-t1-s3-q28",
+          number: 28,
+          type: "multiple_choice",
+          question: "The new weaving machines were easy to operate.",
+          options: [
+            { label: "A", value: "A" },
+            { label: "B", value: "B" },
+            { label: "C", value: "C" },
+            { label: "D", value: "D" },
+            { label: "E", value: "E" },
+            { label: "F", value: "F" },
+            { label: "G", value: "G" },
+            { label: "H", value: "H" },
+            { label: "I", value: "I" },
+            { label: "J", value: "J" },
+          ],
+          correctAnswer: "H",
+          points: 1,
+        },
+        {
+          id: "barrons-ra-t1-s3-q29",
+          number: 29,
+          type: "multiple_choice",
+          question: "Workers' demands for better pay and conditions were not met.",
+          options: [
+            { label: "A", value: "A" },
+            { label: "B", value: "B" },
+            { label: "C", value: "C" },
+            { label: "D", value: "D" },
+            { label: "E", value: "E" },
+            { label: "F", value: "F" },
+            { label: "G", value: "G" },
+            { label: "H", value: "H" },
+            { label: "I", value: "I" },
+            { label: "J", value: "J" },
+          ],
+          correctAnswer: "D",
+          points: 1,
+        },
+        {
+          id: "barrons-ra-t1-s3-q30",
+          number: 30,
+          type: "multiple_choice",
+          question: "Rioting spread to many towns.",
+          options: [
+            { label: "A", value: "A" },
+            { label: "B", value: "B" },
+            { label: "C", value: "C" },
+            { label: "D", value: "D" },
+            { label: "E", value: "E" },
+            { label: "F", value: "F" },
+            { label: "G", value: "G" },
+            { label: "H", value: "H" },
+            { label: "I", value: "I" },
+            { label: "J", value: "J" },
+          ],
+          correctAnswer: "A",
+          points: 1,
+        },
+        {
+          id: "barrons-ra-t1-s3-q31",
+          number: 31,
+          type: "multiple_choice",
+          question:
+            "A law was passed against destroying factory equipment.",
+          options: [
+            { label: "A", value: "A" },
+            { label: "B", value: "B" },
+            { label: "C", value: "C" },
+            { label: "D", value: "D" },
+            { label: "E", value: "E" },
+            { label: "F", value: "F" },
+            { label: "G", value: "G" },
+            { label: "H", value: "H" },
+            { label: "I", value: "I" },
+            { label: "J", value: "J" },
+          ],
+          correctAnswer: "E",
+          points: 1,
+        },
+        {
+          id: "barrons-ra-t1-s3-q32",
+          number: 32,
+          type: "multiple_choice",
+          question: "Economic conditions worsened in 1816.",
+          options: [
+            { label: "A", value: "A" },
+            { label: "B", value: "B" },
+            { label: "C", value: "C" },
+            { label: "D", value: "D" },
+            { label: "E", value: "E" },
+            { label: "F", value: "F" },
+            { label: "G", value: "G" },
+            { label: "H", value: "H" },
+            { label: "I", value: "I" },
+            { label: "J", value: "J" },
+          ],
+          correctAnswer: "I",
+          points: 1,
+        },
+        // ── Q33–40: True / False / Not Given ────────────────────
+        {
+          id: "barrons-ra-t1-s3-q33",
+          number: 33,
+          type: "true_false_ng",
+          question: "A Luddite is a person who resists new technology.",
+          options: [
+            { label: "TRUE", value: "TRUE" },
+            { label: "FALSE", value: "FALSE" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "TRUE",
+          points: 1,
+        },
+        {
+          id: "barrons-ra-t1-s3-q34",
+          number: 34,
+          type: "true_false_ng",
+          question:
+            "Before the nineteenth century, weavers made lace by hand.",
+          options: [
+            { label: "TRUE", value: "TRUE" },
+            { label: "FALSE", value: "FALSE" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "TRUE",
+          points: 1,
+        },
+        {
+          id: "barrons-ra-t1-s3-q35",
+          number: 35,
+          type: "true_false_ng",
+          question:
+            "Factory owners as well as workers died as a result of Luddite rioting.",
+          options: [
+            { label: "TRUE", value: "TRUE" },
+            { label: "FALSE", value: "FALSE" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "TRUE",
+          points: 1,
+        },
+        {
+          id: "barrons-ra-t1-s3-q36",
+          number: 36,
+          type: "true_false_ng",
+          question:
+            "The Luddite movement did not spread beyond England.",
+          options: [
+            { label: "TRUE", value: "TRUE" },
+            { label: "FALSE", value: "FALSE" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "NOT GIVEN",
+          points: 1,
+        },
+        {
+          id: "barrons-ra-t1-s3-q37",
+          number: 37,
+          type: "true_false_ng",
+          question:
+            "Nobody knows for certain who Ned Ludd was.",
+          options: [
+            { label: "TRUE", value: "TRUE" },
+            { label: "FALSE", value: "FALSE" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "TRUE",
+          points: 1,
+        },
+        {
+          id: "barrons-ra-t1-s3-q38",
+          number: 38,
+          type: "true_false_ng",
+          question:
+            "Worker protests during the economic downturn of 1816 were nonviolent.",
+          options: [
+            { label: "TRUE", value: "TRUE" },
+            { label: "FALSE", value: "FALSE" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "FALSE",
+          points: 1,
+        },
+        {
+          id: "barrons-ra-t1-s3-q39",
+          number: 39,
+          type: "true_false_ng",
+          question: "Luddite activity lasted for many years.",
+          options: [
+            { label: "TRUE", value: "TRUE" },
+            { label: "FALSE", value: "FALSE" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "FALSE",
+          points: 1,
+        },
+        {
+          id: "barrons-ra-t1-s3-q40",
+          number: 40,
+          type: "true_false_ng",
+          question: "Neo-Luddites do not use computers.",
+          options: [
+            { label: "TRUE", value: "TRUE" },
+            { label: "FALSE", value: "FALSE" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "NOT GIVEN",
+          points: 1,
+        },
+      ],
+    },
   ],
 };
 

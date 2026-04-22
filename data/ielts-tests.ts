@@ -20,6 +20,7 @@ import { cambridge19Tests } from "./cambridge19-reading";
 import { cambridge19ListeningTests } from "./cambridge19-listening";
 import { cambridge20Tests } from "./cambridge20-reading";
 import { cambridge20ListeningTests } from "./cambridge20-listening";
+import { barronsReadingTests } from "./barrons-reading";
 
 export type IELTSTest = {
   id: string;
@@ -1293,6 +1294,8 @@ export const allTests: IELTSTest[] = [
   ...cambridge19ListeningTests,
   ...cambridge20Tests,
   ...cambridge20ListeningTests,
+  // ── Barron's ──────────────────────────────────────────────
+  ...barronsReadingTests,
 ];
 
 export function getTestById(id: string): IELTSTest | undefined {
