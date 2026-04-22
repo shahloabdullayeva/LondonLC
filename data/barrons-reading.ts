@@ -1791,7 +1791,230 @@ const barrons_reading_t3: IELTSTest = {
         },
       ],
     },
-    // Section 2 will be added below
+    // ── PASSAGE 2 ──────────────────────────────────────────────
+    {
+      id: "barrons-ra-t3-s2",
+      sectionNumber: 2,
+      title: "Reading Passage 2",
+      passageTitle: "Nineteenth-Century Paperback Literature",
+      instructions:
+        "Questions 14-19: Does each characteristic describe penny bloods (A), dime novels (B), or both (C)?\n\nQuestions 20-23: Match each year to an event A-F.\n\nQuestions 24-27: Do the statements agree with the passage? Write YES, NO, or NOT GIVEN.",
+      passageText: `A publishing craze that hit both America and England from the mid- to late nineteenth century attracted the readership of the semiliterate working class. In America, dime novels typically centered on tales of the American Revolution and the Wild West, while British penny bloods (later called penny dreadfuls) told serial tales of horror or fictionalized versions of true crimes. These paperback novels were sold at newsstands and dry goods stores and succeeded in opening up the publishing market for both writers and readers. The industrial revolution facilitated the growth of literacy, making it easier to print and transport publications in large quantities, thus providing inexpensive entertainment for the masses.
+
+Though Johann Gutenberg's printing press was designed in the fifteenth century, it was not until after the first newspapers began circulating in the eighteenth century that it became a profitable invention. Throughout the nineteenth century, commoners in England were becoming educated through normal schools, church schools, and mutual instruction classes, and by the 1830s, approximately 75 percent of the working class had learned to read. In 1870, the Forster Education Act made elementary education mandatory for all children. Though few children's books were available, penny dreadfuls were highly accessible, especially to male youths who created clubs in order to pool their money and start their own libraries. Similar to reading a newspaper, dime novels and penny dreadfuls were meant to be read quickly and discarded, unlike the hardbound high literature that was written in volumes and published for the elite. Struggling authors, many of whom had limited writing and storytelling skills, suddenly found an audience desperate to read their work. When the first typewriter became available in the 1870s, authors were able to maximize their output. Successful authors, some of whom wrote over 50,000 words a month, were able to earn a decent living at a penny per word.
+
+From the 1830s to 1850s, penny bloods featured tales of gore that often depicted the upper class as corrupt. One of the most beloved characters from the penny blood serials was Sweeney Todd. In the original story, String of Pearls: A Romance, published in 1846, Sweeney Todd was a demon barber who used his razor to torture his victims before turning them into meat pies. In 1847, hack-playwright George Dibdin Pitt adapted Thomas Prest's story for the stage, renaming it The String of Pearls: The Fiend of Fleet Street. With no copyright laws, authors were always at risk of having their ideas pilfered. Pitt's play was released again one year later at one of London's 'bloodbath' theaters under the name Founded on Fact. The Sweeney Todd story also made its way into musicals and comedies. Controversy still exists over whether Thomas Prest's character was based on a real person. No records of a barber shop on Fleet Street, or a barber named Sweeney Todd have been found, though Thomas Prest was known for getting his inspiration from 'The Old Bailey' of the London Times, a section devoted to real-life horror stories.
+
+Despite the warning from Lord Shaftsbury that the paperback literature was seducing middle-class society into an unproductive life of evil, the penny bloods grew in popularity. They provided a literary voice for commoners at an affordable price. Eventually, penny bloods became known as penny dreadfuls and began to focus more on adventure than horror.
+
+In 1860, Beadle and Adams was the first firm in the United States to publish a title that would be categorized as a dime novel. Malaeska: The Indian Wife of the White Hunter, by Anne Stephens, had originally been published twenty years earlier as a series in a magazine. In novel form, approximately 300,000 copies of the story were sold in the first year, paving the way for the new fad in America. Many dime novels were written as serials with recurring characters, such as Deadwood Dick, Commander Cody, and Wild Bill. Originally, the paperbacks were intended for railroad travelers; however, during the Civil War, soldiers quickly became the most avid dime novel readers. Beadle dime novels became so popular that the company had to build a factory of hack writers to mass produce them. As urbanization spread, stories of the Wild West were in less demand, and tales of urban outlaws became popular. At that time, dime novels were chosen for their illustrated covers rather than their sensational stories and characters. Despite their popularity, by the late 1880s dry goods stores were so full of unsold books that prices dropped to less than five cents per copy. Many titles that could still not sell were given away or destroyed. The International Copyright Law, passed by Congress in 1890, required publishers to pay royalties to foreign authors. Selling at less than five cents a copy, the paperback industry was doomed until the arrival of pulp paper.`,
+      questions: [
+        // ── Q14–19: Classification (A/B/C) ─────────────────────
+        {
+          id: "barrons-ra-t3-s2-q14",
+          number: 14,
+          type: "multiple_choice",
+          groupLabel:
+            "Which type of literature has each characteristic?\n\nA  penny bloods only\nB  dime novels only\nC  both penny bloods and dime novels",
+          question: "They were popular in America.",
+          options: [
+            { label: "A", value: "A" },
+            { label: "B", value: "B" },
+            { label: "C", value: "C" },
+          ],
+          correctAnswer: "B",
+          points: 1,
+        },
+        {
+          id: "barrons-ra-t3-s2-q15",
+          number: 15,
+          type: "multiple_choice",
+          question: "They were popular in Britain.",
+          options: [
+            { label: "A", value: "A" },
+            { label: "B", value: "B" },
+            { label: "C", value: "C" },
+          ],
+          correctAnswer: "A",
+          points: 1,
+        },
+        {
+          id: "barrons-ra-t3-s2-q16",
+          number: 16,
+          type: "multiple_choice",
+          question: "They showed members of the upper class as corrupt.",
+          options: [
+            { label: "A", value: "A" },
+            { label: "B", value: "B" },
+            { label: "C", value: "C" },
+          ],
+          correctAnswer: "A",
+          points: 1,
+        },
+        {
+          id: "barrons-ra-t3-s2-q17",
+          number: 17,
+          type: "multiple_choice",
+          question: "They were inexpensive.",
+          options: [
+            { label: "A", value: "A" },
+            { label: "B", value: "B" },
+            { label: "C", value: "C" },
+          ],
+          correctAnswer: "C",
+          points: 1,
+        },
+        {
+          id: "barrons-ra-t3-s2-q18",
+          number: 18,
+          type: "multiple_choice",
+          question: "They featured tales of the Wild West.",
+          options: [
+            { label: "A", value: "A" },
+            { label: "B", value: "B" },
+            { label: "C", value: "C" },
+          ],
+          correctAnswer: "B",
+          points: 1,
+        },
+        {
+          id: "barrons-ra-t3-s2-q19",
+          number: 19,
+          type: "multiple_choice",
+          question: "They were popular among members of the working class.",
+          options: [
+            { label: "A", value: "A" },
+            { label: "B", value: "B" },
+            { label: "C", value: "C" },
+          ],
+          correctAnswer: "C",
+          points: 1,
+        },
+        // ── Q20–23: Matching years to events ───────────────────
+        {
+          id: "barrons-ra-t3-s2-q20",
+          number: 20,
+          type: "multiple_choice",
+          groupLabel:
+            "Match each year with the event that occurred during that year. Choose from:\n\nA  The first dime novel was published in the United States.\nB  Lord Shaftsbury warned people about the dangers of penny bloods.\nC  The price of dime novels fell.\nD  Elementary education became compulsory in England.\nE  A law about copyrights was passed.\nF  The first Sweeney Todd story was published.",
+          question: "1870",
+          options: [
+            { label: "A", value: "A" },
+            { label: "B", value: "B" },
+            { label: "C", value: "C" },
+            { label: "D", value: "D" },
+            { label: "E", value: "E" },
+            { label: "F", value: "F" },
+          ],
+          correctAnswer: "D",
+          points: 1,
+        },
+        {
+          id: "barrons-ra-t3-s2-q21",
+          number: 21,
+          type: "multiple_choice",
+          question: "1846",
+          options: [
+            { label: "A", value: "A" },
+            { label: "B", value: "B" },
+            { label: "C", value: "C" },
+            { label: "D", value: "D" },
+            { label: "E", value: "E" },
+            { label: "F", value: "F" },
+          ],
+          correctAnswer: "F",
+          points: 1,
+        },
+        {
+          id: "barrons-ra-t3-s2-q22",
+          number: 22,
+          type: "multiple_choice",
+          question: "1860",
+          options: [
+            { label: "A", value: "A" },
+            { label: "B", value: "B" },
+            { label: "C", value: "C" },
+            { label: "D", value: "D" },
+            { label: "E", value: "E" },
+            { label: "F", value: "F" },
+          ],
+          correctAnswer: "A",
+          points: 1,
+        },
+        {
+          id: "barrons-ra-t3-s2-q23",
+          number: 23,
+          type: "multiple_choice",
+          question: "1890",
+          options: [
+            { label: "A", value: "A" },
+            { label: "B", value: "B" },
+            { label: "C", value: "C" },
+            { label: "D", value: "D" },
+            { label: "E", value: "E" },
+            { label: "F", value: "F" },
+          ],
+          correctAnswer: "E",
+          points: 1,
+        },
+        // ── Q24–27: YES / NO / NOT GIVEN ───────────────────────
+        {
+          id: "barrons-ra-t3-s2-q24",
+          number: 24,
+          type: "true_false_ng",
+          groupLabel:
+            "Do the statements agree with the information in the reading passage?\n\nYES — agrees with the views of the writer\nNO — disagrees with the views of the writer\nNOT GIVEN — no information on this in the passage",
+          question: "The literacy rate in England rose in the nineteenth century.",
+          options: [
+            { label: "YES", value: "YES" },
+            { label: "NO", value: "NO" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "YES",
+          points: 1,
+        },
+        {
+          id: "barrons-ra-t3-s2-q25",
+          number: 25,
+          type: "true_false_ng",
+          question: "Children's books were popular in the nineteenth century.",
+          options: [
+            { label: "YES", value: "YES" },
+            { label: "NO", value: "NO" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "NO",
+          points: 1,
+        },
+        {
+          id: "barrons-ra-t3-s2-q26",
+          number: 26,
+          type: "true_false_ng",
+          question: "Most people agree that Sweeney Todd was based on a real person.",
+          options: [
+            { label: "YES", value: "YES" },
+            { label: "NO", value: "NO" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "NO",
+          points: 1,
+        },
+        {
+          id: "barrons-ra-t3-s2-q27",
+          number: 27,
+          type: "true_false_ng",
+          question: "Dime novels were popular among Civil War soldiers.",
+          options: [
+            { label: "YES", value: "YES" },
+            { label: "NO", value: "NO" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "YES",
+          points: 1,
+        },
+      ],
+    },
+    // Section 3 will be added below
   ],
 };
 
