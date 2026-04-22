@@ -990,7 +990,230 @@ Given the wide-ranging travel of the Vikings, it is fitting the Anglo-Saxons gav
         },
       ],
     },
-    // Section 2 will be added below
+    // ── Section 2: Dyslexia ──────────────────────────────────
+    {
+      id: "barrons-ra-t2-s2",
+      sectionNumber: 2,
+      title: "Reading Passage 2",
+      passageTitle: "Dyslexia",
+      instructions:
+        "Questions 14-20: Do the statements agree with the passage? Write YES, NO, or NOT GIVEN.\n\nQuestions 21-23: Choose THREE answers. Which of the following are signs of dyslexia?\n\nQuestions 24-26: Choose THREE answers. Which of the following are treatments for dyslexia?",
+      passageText: `Dyslexia, also referred to as 'specific reading disability,' predominantly affects a person's ability to read and write. Dyslexics have difficulty connecting visual symbols (i.e., letters) with their corresponding sounds. Many people who suffer from dyslexia also have trouble with enunciation, organization, and short-term memory. Dyslexia is the most common learning disability in children. It is not related to intellectual ability, vision, or access to education. Approximately 5-10 percent of school-age children in North America suffer from the condition, with each case varying in severity. Children are generally diagnosed with dyslexia during the elementary school years when they are learning how to read and spell.
+
+Determining the definite cause of dyslexia is a difficult task since studies of the morphology of the brain are generally conducted in an autopsy. One hypothesis suggests that dyslexic children suffer from 'strabismus,' the tendency of the eyes to focus on two different points. When reading, for example, one eye focuses on the beginning of the word and the other focuses on the end. This theory could explain why dyslexics have difficulty reading. Many dyslexic children read letters and words backwards, often mistaking ab for ad or reading was instead of saw. These reversals are normal for children under the age of six, but indicate a problem if they persist beyond the early elementary grades. Neurological research points to tiny flaws in the dyslexic brain called ectopias and microgyria. These flaws alter the structure of the cortex, the area of the brain that is responsible for connecting visual and audio processing. Genetic research, often in the form of twins studies, shows that dyslexia may be passed on in families.
+
+Though most children are not diagnosed with dyslexia until they enter the school system, there are some early signs of the disability. Toddlers who talk much later than average, have difficulty learning new words, or do not understand the concept of rhyming may develop other dyslexic symptoms. As children begin school, teachers are trained to look for warning signs, such as an inability to recognize letters or spaces between words on a page or difficulty following instructions given with more than one command at a time. Properly screening children for dyslexia is important since other factors can limit reading abilities, including vision or hearing impairment, anxiety, or other neurological problems.
+
+Dyslexia is a type of learning disorder that can often be compensated for with therapy and motivational techniques. Phonological training, which involves identifying and separating sound patterns, is the most common form of therapy used in the school system. Depending on the severity of the disorder, dyslexic children are pulled from regular classroom activities in order to work one-on-one with a language specialist. Studies have shown that activity in the right temporoparietal cortex tends to increase after sufficient phonological training. Improvements in visual focus can sometimes be achieved when students are given an eye patch to wear while they learn to read. Encouraging children to use many senses while reading also has proven benefits. Some teachers find that having students listen to a book on tape before reading the text can help with information processing as well.
+
+Though it is properly classified as a learning disability, dyslexia is commonly mistaken for a behavioral disorder. Dyslexic children often exhibit behavior that seems abnormal but is caused by frustration at their own inability to perform at the same level as their peers. Some studies show that attention deficit disorder co-occurs with dyslexia in up to 50 percent of cases. In general, behavioral problems decline as dyslexic students are diagnosed and begin to receive treatment.
+
+Other learning disabilities are neurologically linked to dyslexia, including dyscalculia, dysgraphia, and dyspraxia. People who suffer from dyscalculia can usually perform difficult mathematical tasks, but have trouble with formulas or basic addition and subtraction. Dysgraphia prevents people from writing in an organized manner. Dyspraxia impedes the performance of routine tasks that involve balance and fine motor skills.
+
+The earlier children are diagnosed with dyslexia, the more likely they are to overcome their disabilities and progress to adult reading levels. Many studies show that children who are diagnosed after grade three have a much lower chance of eliminating the symptoms of dyslexia. Some dyslexics, especially those who are not diagnosed as children, naturally develop their own coping mechanisms such as an increased visual memory. In some instances, dyslexics develop keen spatial and visual abilities that prepare them for very specialized careers.`,
+      questions: [
+        // ── Q14–20: Yes / No / Not Given ──────────────────────────
+        {
+          id: "barrons-ra-t2-s2-q14",
+          number: 14,
+          type: "true_false_ng",
+          groupLabel:
+            "Do the following statements agree with the information in the reading passage?\n\nYES — if the statement agrees with the views of the writer\nNO — if the statement disagrees with the views of the writer\nNOT GIVEN — if there is no information on this in the passage",
+          question: "Dyslexia is a disorder related to intelligence.",
+          options: [
+            { label: "YES", value: "YES" },
+            { label: "NO", value: "NO" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "NO",
+          points: 1,
+        },
+        {
+          id: "barrons-ra-t2-s2-q15",
+          number: 15,
+          type: "true_false_ng",
+          question:
+            "Dyslexia is usually diagnosed during a child's first years of school.",
+          options: [
+            { label: "YES", value: "YES" },
+            { label: "NO", value: "NO" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "YES",
+          points: 1,
+        },
+        {
+          id: "barrons-ra-t2-s2-q16",
+          number: 16,
+          type: "true_false_ng",
+          question: "People with dyslexia often read in reverse.",
+          options: [
+            { label: "YES", value: "YES" },
+            { label: "NO", value: "NO" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "YES",
+          points: 1,
+        },
+        {
+          id: "barrons-ra-t2-s2-q17",
+          number: 17,
+          type: "true_false_ng",
+          question:
+            "Children with dyslexia learn to speak at a younger than average age.",
+          options: [
+            { label: "YES", value: "YES" },
+            { label: "NO", value: "NO" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "NO",
+          points: 1,
+        },
+        {
+          id: "barrons-ra-t2-s2-q18",
+          number: 18,
+          type: "true_false_ng",
+          question: "Scientists are looking for a drug treatment for dyslexia.",
+          options: [
+            { label: "YES", value: "YES" },
+            { label: "NO", value: "NO" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "NOT GIVEN",
+          points: 1,
+        },
+        {
+          id: "barrons-ra-t2-s2-q19",
+          number: 19,
+          type: "true_false_ng",
+          question:
+            "Dyslexia in children is often accompanied by behavioral problems.",
+          options: [
+            { label: "YES", value: "YES" },
+            { label: "NO", value: "NO" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "YES",
+          points: 1,
+        },
+        {
+          id: "barrons-ra-t2-s2-q20",
+          number: 20,
+          type: "true_false_ng",
+          question: "People with dysgraphia have difficulty with math.",
+          options: [
+            { label: "YES", value: "YES" },
+            { label: "NO", value: "NO" },
+            { label: "NOT GIVEN", value: "NOT GIVEN" },
+          ],
+          correctAnswer: "NO",
+          points: 1,
+        },
+        // ── Q21–23: Signs of dyslexia (choose THREE) ──────────────
+        {
+          id: "barrons-ra-t2-s2-q21",
+          number: 21,
+          type: "multiple_choice",
+          groupLabel:
+            "Which of the following are signs of dyslexia mentioned in the passage? Choose THREE answers from the list below.\n\nA  learning to talk at a later than normal age\nB  trouble with new vocabulary\nC  leaving big spaces between words\nD  problems following directions\nE  difficulty turning the pages of a book\nF  inability to give commands",
+          question: "Sign of dyslexia (one of three)",
+          options: [
+            { label: "A", value: "A" },
+            { label: "B", value: "B" },
+            { label: "C", value: "C" },
+            { label: "D", value: "D" },
+            { label: "E", value: "E" },
+            { label: "F", value: "F" },
+          ],
+          correctAnswer: "A",
+          points: 1,
+        },
+        {
+          id: "barrons-ra-t2-s2-q22",
+          number: 22,
+          type: "multiple_choice",
+          question: "Sign of dyslexia (one of three)",
+          options: [
+            { label: "A", value: "A" },
+            { label: "B", value: "B" },
+            { label: "C", value: "C" },
+            { label: "D", value: "D" },
+            { label: "E", value: "E" },
+            { label: "F", value: "F" },
+          ],
+          correctAnswer: "B",
+          points: 1,
+        },
+        {
+          id: "barrons-ra-t2-s2-q23",
+          number: 23,
+          type: "multiple_choice",
+          question: "Sign of dyslexia (one of three)",
+          options: [
+            { label: "A", value: "A" },
+            { label: "B", value: "B" },
+            { label: "C", value: "C" },
+            { label: "D", value: "D" },
+            { label: "E", value: "E" },
+            { label: "F", value: "F" },
+          ],
+          correctAnswer: "D",
+          points: 1,
+        },
+        // ── Q24–26: Treatments for dyslexia (choose THREE) ────────
+        {
+          id: "barrons-ra-t2-s2-q24",
+          number: 24,
+          type: "multiple_choice",
+          groupLabel:
+            "Which of the following are treatments for dyslexia mentioned in the passage? Choose THREE answers from the list below.\n\nA  using special computers\nB  learning to identify sounds\nC  wearing eyeglasses\nD  attending a special school\nE  covering one eye while reading\nF  listening to tapes",
+          question: "Treatment for dyslexia (one of three)",
+          options: [
+            { label: "A", value: "A" },
+            { label: "B", value: "B" },
+            { label: "C", value: "C" },
+            { label: "D", value: "D" },
+            { label: "E", value: "E" },
+            { label: "F", value: "F" },
+          ],
+          correctAnswer: "B",
+          points: 1,
+        },
+        {
+          id: "barrons-ra-t2-s2-q25",
+          number: 25,
+          type: "multiple_choice",
+          question: "Treatment for dyslexia (one of three)",
+          options: [
+            { label: "A", value: "A" },
+            { label: "B", value: "B" },
+            { label: "C", value: "C" },
+            { label: "D", value: "D" },
+            { label: "E", value: "E" },
+            { label: "F", value: "F" },
+          ],
+          correctAnswer: "E",
+          points: 1,
+        },
+        {
+          id: "barrons-ra-t2-s2-q26",
+          number: 26,
+          type: "multiple_choice",
+          question: "Treatment for dyslexia (one of three)",
+          options: [
+            { label: "A", value: "A" },
+            { label: "B", value: "B" },
+            { label: "C", value: "C" },
+            { label: "D", value: "D" },
+            { label: "E", value: "E" },
+            { label: "F", value: "F" },
+          ],
+          correctAnswer: "F",
+          points: 1,
+        },
+      ],
+    },
+    // Section 3 will be added below
   ],
 };
 
