@@ -46,12 +46,6 @@ const STUDENT_SECTIONS: { title: string; items: NavItem[] }[] = [
       { label: "Music", href: "/music", icon: Music },
     ],
   },
-  {
-    title: "Connect",
-    items: [
-      { label: "Messages", href: "/student/messages", icon: MessageCircle },
-    ],
-  },
 ];
 
 const ADMIN_SECTIONS: { title: string; items: NavItem[] }[] = [

@@ -666,6 +666,11 @@ export async function gradeTask1WithAI(
   };
 }
 
+export async function getStudentCredits(studentId: string): Promise<number> {
+  const { data } = await supabase.from("students").select("grading_credits").eq("id", studentId).maybeSingle();
+  return data?.grading_credits ?? 0;
+}
+
 export async function addGradingCredits(studentId: string, count: number): Promise<boolean> {
   const { data } = await supabase.from("students").select("grading_credits").eq("id", studentId).maybeSingle();
   const current = data?.grading_credits ?? 0;

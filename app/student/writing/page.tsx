@@ -7,6 +7,7 @@ import StudentShell from "@/components/StudentShell";
 import {
   getSession,
   getSubmissions,
+  getStudentCredits,
   submitEssay,
   gradeEssayWithAI,
   createPremiumRequest,
@@ -177,6 +178,7 @@ export default function WritingPage() {
   const [customMode, setCustomMode] = useState(false);
   const [customDraft, setCustomDraft] = useState("");
   const [history, setHistory] = useState<WritingSubmission[]>([]);
+  const [freshCredits, setFreshCredits] = useState<number | null>(null);
   const [historyOpen, setHistoryOpen] = useState<string | null>(null);
   const [violations, setViolations] = useState(0);
   const [paymentRequested, setPaymentRequested] = useState(false);
@@ -199,6 +201,7 @@ export default function WritingPage() {
     try { sessionStorage.setItem(PROMPT_KEY, next); } catch {}
 
     getStudentPremiumRequest(s.id).then(r => { if (r) setPaymentRequested(true); });
+    getStudentCredits(s.id).then(setFreshCredits);
     getSubmissions(s.id).then(rows => {
       setHistory(rows);
     });
@@ -230,7 +233,7 @@ export default function WritingPage() {
   const words = useMemo(() => text.trim().split(/\s+/).filter(Boolean).length, [text]);
   const chars = text.length;
   const targetHit = words >= 250;
-  const extraCredits = session?.gradingCredits ?? 0;
+  const extraCredits = freshCredits ?? session?.gradingCredits ?? 0;
   const gradedCount = history.filter(h => h.overallBand != null).length;
   const totalAllowed = FREE_GRADING_LIMIT + extraCredits;
   const canGrade = gradedCount < totalAllowed;
@@ -454,7 +457,7 @@ export default function WritingPage() {
             <div style={{ fontFamily: "var(--ff-mono)", fontSize: 18, fontWeight: 700, color: "var(--text)", letterSpacing: "0.05em", marginBottom: 4 }}>
               9860 3501 4244 8355
             </div>
-            <p style={{ fontSize: 12, color: "var(--text-3)", margin: 0 }}>Uzcard · London LC</p>
+            <p style={{ fontSize: 12, color: "var(--text-3)", margin: 0 }}>Humo · London LC</p>
           </div>
 
           {paymentRequested ? (
