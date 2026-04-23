@@ -49,6 +49,7 @@ export type TeacherAccount = {
   lastAccessedAt?: string;
   lastIp?: string;
   lastDeviceInfo?: { userAgent: string; platform: string; language: string };
+  isRoot?: boolean;
 };
 
 export type StudentSession = {
@@ -184,7 +185,6 @@ export async function updateStudent(
 }
 
 // ── Teacher accounts ───────────────────────────────────────────────────
-const ROOT_ID = "admin-root";
 
 export async function getTeachers(): Promise<TeacherAccount[]> {
   const { data } = await supabase.from("teachers").select("*").order("created_at", { ascending: true });
@@ -195,6 +195,7 @@ export async function getTeachers(): Promise<TeacherAccount[]> {
     lastAccessedAt: r.last_accessed_at ?? undefined,
     lastIp: r.last_ip ?? undefined,
     lastDeviceInfo: r.last_device_info ?? undefined,
+    isRoot: !!r.is_root,
   }));
 }
 
@@ -224,7 +225,8 @@ export async function addTeacher(username: string, password: string): Promise<{ 
 }
 
 export async function deleteTeacher(id: string): Promise<void> {
-  if (id === ROOT_ID) return;
+  const { data } = await supabase.from("teachers").select("is_root").eq("id", id).maybeSingle();
+  if (data?.is_root) return;
   await supabase.from("teachers").delete().eq("id", id);
 }
 

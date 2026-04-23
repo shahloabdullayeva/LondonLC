@@ -25,6 +25,7 @@ create table if not exists teachers (
 );
 -- Additive migration for existing databases (safe to re-run):
 alter table teachers add column if not exists plain_password text;
+alter table teachers add column if not exists is_root boolean default false;
 
 -- NOTE: The root admin account is NOT seeded here. Create it once from the Supabase
 -- SQL editor with a bcrypt hash (or let the first login flow you run in the app upsert

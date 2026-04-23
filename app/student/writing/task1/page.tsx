@@ -661,7 +661,7 @@ export default function WritingTask1Page() {
         <div style={{ marginTop: 28, display: "flex", flexDirection: "column", gap: 20 }}>
           {lastSub!.feedback && lastSub!.feedback.length > 0 && (
             <div className="card">
-              <p className="eyebrow" style={{ margin: 0, marginBottom: 16 }}>Examiner feedback · Claude Opus 4.7</p>
+              <p className="eyebrow" style={{ margin: 0, marginBottom: 16 }}>Examiner feedback · Claude AI</p>
               <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: 16 }}>
                 {lastSub!.feedback.map((f, i) => (
                   <div key={i} style={{
