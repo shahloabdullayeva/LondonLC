@@ -79,6 +79,13 @@ export default function LandingPage() {
         <p style={{ fontFamily: MONO, fontSize: 11, color: "#5c635c", marginTop: 16, letterSpacing: "0.06em" }}>
           No credit card required · 2 free AI writing reviews included
         </p>
+
+        <div style={{ marginTop: 48, padding: "20px 28px", border: "1px solid #ffffff12", borderRadius: 10, background: "#12171380", display: "inline-flex", alignItems: "center", gap: 16, flexWrap: "wrap", justifyContent: "center" }}>
+          <span style={{ fontSize: 14, color: "#8a938a" }}>Already a London LC student?</span>
+          <Link href="/auth/login" style={{ display: "inline-flex", alignItems: "center", gap: 8, padding: "8px 20px", border: "1px solid #ffffff1e", borderRadius: 8, color: "#e4e9e2", fontSize: 13, fontWeight: 600, textDecoration: "none" }}>
+            Sign in to your account →
+          </Link>
+        </div>
       </section>
 
       {/* Features */}
