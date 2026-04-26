@@ -5,7 +5,15 @@ import ThemeToggle from "@/components/ThemeToggle";
 
 export const metadata: Metadata = {
   title: "London LC – IELTS Practice Platform",
-  description: "Authentic IELTS Reading and Listening practice for London Language Centre students.",
+  description: "Practice IELTS Reading, Listening, and Writing with 44+ mock tests and AI-powered essay feedback. Free to start. Built for students in Tashkent, Uzbekistan.",
+  keywords: ["IELTS", "IELTS practice", "IELTS test", "IELTS writing", "IELTS reading", "IELTS Tashkent", "IELTS Uzbekistan", "London LC", "London Language Centre", "IELTS online"],
+  openGraph: {
+    title: "London LC – IELTS Practice Platform",
+    description: "44+ mock tests, AI writing feedback, 1000+ vocabulary words. Start practising IELTS for free.",
+    type: "website",
+    locale: "en_US",
+    siteName: "London LC",
+  },
 };
 
 export default function RootLayout({
