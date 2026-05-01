@@ -57,33 +57,16 @@ export default function LandingPage() {
           )}
         </figure>
 
-        <div style={{ display: "flex", flexDirection: "column", gap: 16, alignItems: "center", width: "100%", maxWidth: 360 }}>
-          <Link href="/auth/login" style={{
-            display: "flex", alignItems: "center", justifyContent: "center", gap: 10,
-            width: "100%", padding: "13px 24px",
-            background: "#e4e9e2", color: "#0a0c0a",
-            borderRadius: 10, fontSize: 14, fontWeight: 600,
-            textDecoration: "none",
-          }}>
-            Sign in
-          </Link>
-          <Link href="/auth/signup" style={{
-            display: "flex", alignItems: "center", justifyContent: "center", gap: 10,
-            width: "100%", padding: "13px 24px",
-            background: "#6fe4a5", color: "#0a0c0a",
-            borderRadius: 10, fontSize: 14, fontWeight: 600,
-            textDecoration: "none",
-          }}>
-            Create an account
-          </Link>
-        </div>
-
-        <div style={{ marginTop: 32, padding: "16px 24px", border: "1px solid #ffffff12", borderRadius: 10, background: "#12171380", display: "inline-flex", alignItems: "center", gap: 12, flexWrap: "wrap", justifyContent: "center" }}>
-          <span style={{ fontSize: 13, color: "#5c635c" }}>London LC student?</span>
-          <Link href="/auth/login" style={{ fontSize: 13, fontWeight: 600, color: "#6fe4a5", textDecoration: "none" }}>
-            Sign in with your student account →
-          </Link>
-        </div>
+        <Link href="/auth/login" style={{
+          display: "inline-flex", alignItems: "center", gap: 10,
+          padding: "14px 36px",
+          background: "#e4e9e2", color: "#0a0c0a",
+          borderRadius: 999, fontSize: 13, fontWeight: 600,
+          letterSpacing: "0.12em", textTransform: "uppercase",
+          textDecoration: "none",
+        }}>
+          Sign in →
+        </Link>
       </main>
 
       <footer style={{ position: "relative", zIndex: 5, padding: "24px 40px", textAlign: "center", fontSize: 12, letterSpacing: "0.1em", color: "var(--site-text-sub)", borderTop: "1px solid #ffffff10" }}>
