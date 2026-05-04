@@ -9,9 +9,6 @@ import {
   submitEssay,
   gradeTask1WithAI,
   getSubmissions,
-  getStudentCredits,
-  createPremiumRequest,
-  getStudentPremiumRequest,
   type StudentSession,
   type WritingSubmission,
   type Correction,
@@ -123,7 +120,6 @@ function ScoreRing({ value, max = 9 }: { value: number; max?: number }) {
 
 type GradingStatus = "idle" | "submitting" | "grading" | "done" | "error";
 
-const FREE_GRADING_LIMIT = 2;
 const MAX_IMG_WIDTH = 1200;
 
 function fileToBase64(file: File): Promise<{ data: string; mediaType: string }> {
@@ -171,11 +167,7 @@ export default function WritingTask1Page() {
   const [taskDescription, setTaskDescription] = useState("");
 
   const [history, setHistory] = useState<WritingSubmission[]>([]);
-  const [freshCredits, setFreshCredits] = useState<number | null>(null);
   const [violations, setViolations] = useState(0);
-  const [paymentRequested, setPaymentRequested] = useState(false);
-  const [requestSending, setRequestSending] = useState(false);
-  const [selectedTier, setSelectedTier] = useState(10);
 
   useEffect(() => {
     const s = getSession();
@@ -183,8 +175,6 @@ export default function WritingTask1Page() {
     setSession(s);
     try { setText(localStorage.getItem(DRAFT_KEY) || ""); } catch {}
     getSubmissions(s.id).then(rows => setHistory(rows));
-    getStudentCredits(s.id).then(setFreshCredits);
-    getStudentPremiumRequest(s.id).then(r => { if (r) setPaymentRequested(true); });
   }, [router]);
 
   useEffect(() => {
@@ -213,12 +203,6 @@ export default function WritingTask1Page() {
   const words = useMemo(() => text.trim().split(/\s+/).filter(Boolean).length, [text]);
   const chars = text.length;
   const targetHit = words >= 150;
-  const extraCredits = freshCredits ?? session?.gradingCredits ?? 0;
-  const gradedCount = history.filter(h => h.overallBand != null).length;
-  const totalAllowed = FREE_GRADING_LIMIT + extraCredits;
-  const canGrade = gradedCount < totalAllowed;
-  const remaining = Math.max(0, totalAllowed - gradedCount);
-
   const handleImageFile = useCallback(async (file: File) => {
     if (!file.type.startsWith("image/")) {
       setErrorMsg("Please upload an image file (PNG, JPG, etc.).");
@@ -359,12 +343,6 @@ export default function WritingTask1Page() {
         Upload a chart, graph, diagram or map, write your response (minimum 150 words),
         and get scored on the four official IELTS criteria with specific feedback.
       </p>
-      {canGrade && (
-        <p style={{ fontSize: 12, color: "var(--text-3)", marginBottom: 28, fontFamily: "var(--ff-mono)" }}>
-          Gradings remaining: {remaining} of {totalAllowed}
-        </p>
-      )}
-      {!canGrade && <div style={{ marginBottom: 28 }} />}
 
       {hasScore && (
         <div style={{ marginBottom: 24, display: "flex", justifyContent: "space-between", alignItems: "center", gap: 16, flexWrap: "wrap" }}>
@@ -391,71 +369,7 @@ export default function WritingTask1Page() {
         </div>
       )}
 
-      {!canGrade && !hasScore && (
-        <div className="card" style={{ textAlign: "center", padding: "48px 24px", marginBottom: 24 }}>
-          <div style={{ fontSize: 36, marginBottom: 12 }}>&#11088;</div>
-          <h2 style={{ fontSize: 22, fontWeight: 700, marginBottom: 8 }}>Get more essays</h2>
-          <p style={{ color: "var(--text-2)", maxWidth: 480, margin: "0 auto 24px", lineHeight: 1.6 }}>
-            You&apos;ve used all your AI gradings. Buy more to keep getting detailed feedback,
-            corrections, strengths, and personalised next steps for Task 1 and Task 2.
-          </p>
-
-          <div style={{ display: "flex", justifyContent: "center", gap: 12, marginBottom: 24, flexWrap: "wrap" }}>
-            {[
-              { n: 10, price: "20,000" },
-              { n: 30, price: "40,000" },
-              { n: 50, price: "65,000" },
-            ].map(t => (
-              <button
-                key={t.n}
-                onClick={() => setSelectedTier(t.n)}
-                style={{
-                  padding: "16px 20px", borderRadius: 12, cursor: "pointer",
-                  border: selectedTier === t.n ? "2px solid var(--accent)" : "2px solid var(--line)",
-                  background: selectedTier === t.n ? "rgba(120,160,255,0.08)" : "var(--surface-2)",
-                  textAlign: "center", minWidth: 120, transition: "all 0.15s",
-                }}
-              >
-                <div style={{ fontSize: 24, fontWeight: 800, color: "var(--text)" }}>{t.n}</div>
-                <div style={{ fontSize: 11, color: "var(--text-3)", marginBottom: 4 }}>essays</div>
-                <div style={{ fontSize: 14, fontWeight: 700, color: "var(--accent)" }}>{t.price} UZS</div>
-              </button>
-            ))}
-          </div>
-
-          <div style={{ maxWidth: 400, margin: "0 auto 20px", padding: "16px 24px", background: "var(--surface-2)", border: "1px solid var(--line)", borderRadius: 12, textAlign: "left" }}>
-            <p style={{ fontSize: 13, fontWeight: 600, color: "var(--text)", marginBottom: 8 }}>
-              Send payment to:
-            </p>
-            <div style={{ fontFamily: "var(--ff-mono)", fontSize: 18, fontWeight: 700, color: "var(--text)", letterSpacing: "0.05em", marginBottom: 4 }}>
-              9860 3501 4244 8355
-            </div>
-            <p style={{ fontSize: 12, color: "var(--text-3)", margin: 0 }}>Humo · London LC</p>
-          </div>
-
-          {paymentRequested ? (
-            <div style={{ padding: "12px 20px", borderRadius: 10, background: "rgba(34,197,94,0.1)", border: "1px solid rgba(34,197,94,0.3)", color: "#22c55e", fontSize: 14, fontWeight: 600 }}>
-              &#10003; Payment request sent for {selectedTier} essays — waiting for approval
-            </div>
-          ) : (
-            <button
-              className="btn primary"
-              disabled={requestSending}
-              onClick={async () => {
-                if (!session) return;
-                setRequestSending(true);
-                await createPremiumRequest(session.id, `${session.name} ${session.surname}`, selectedTier);
-                setPaymentRequested(true);
-                setRequestSending(false);
-              }}
-            >
-              {requestSending ? "Sending…" : `I’ve sent payment for ${selectedTier} essays`}
-            </button>
-          )}
-        </div>
-      )}
-
-      {!hasScore && canGrade && (
+      {!hasScore && (
         <div>
           {/* Image upload */}
           <div className="card" style={{ marginBottom: 20 }}>
