@@ -360,10 +360,6 @@ export default function WritingPage() {
 
       <p className="eyebrow">Writing · Task 2</p>
       <h1 className="h1"><em>Writing</em> feedback</h1>
-      <p className="lede" style={{ marginTop: 16, marginBottom: 12 }}>
-        Write your essay, submit for AI review, then get scored on the four
-        official IELTS criteria with specific feedback. Draft auto-saves locally.
-      </p>
 
       {hasScore && (
         <div style={{ marginBottom: 24, display: "flex", justifyContent: "space-between", alignItems: "center", gap: 16, flexWrap: "wrap" }}>

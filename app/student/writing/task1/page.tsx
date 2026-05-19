@@ -339,10 +339,6 @@ export default function WritingTask1Page() {
 
       <p className="eyebrow">Writing · Task 1 · Academic</p>
       <h1 className="h1"><em>Describe</em> the visual</h1>
-      <p className="lede" style={{ marginTop: 16, marginBottom: 12 }}>
-        Upload a chart, graph, diagram or map, write your response (minimum 150 words),
-        and get scored on the four official IELTS criteria with specific feedback.
-      </p>
 
       {hasScore && (
         <div style={{ marginBottom: 24, display: "flex", justifyContent: "space-between", alignItems: "center", gap: 16, flexWrap: "wrap" }}>

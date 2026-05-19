@@ -146,10 +146,6 @@ export default function VocabPage() {
         <span>{VOCAB.length} words</span>
       </p>
       <h1 className="h1">Vocabulary <em>bank</em></h1>
-      <p className="lede" style={{ marginTop: 16, marginBottom: 32 }}>
-        IELTS words across all band levels. Tap any word for its definition, phonetic,
-        pronunciation, and examples.
-      </p>
 
       {/* Search */}
       <div style={{ position: "relative", marginBottom: 16 }}>

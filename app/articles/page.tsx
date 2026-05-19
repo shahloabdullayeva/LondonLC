@@ -170,10 +170,6 @@ export default function ArticlesPage() {
       <h1 className="h1">
         Articles <em>& guides</em>
       </h1>
-      <p className="lede" style={{ marginTop: 16, marginBottom: 28 }}>
-        Selected reading for band 6.5 and above. Every article is tagged by topic and comes
-        with an estimated reading time.
-      </p>
 
       {/* Source filter */}
       <div className="flex g8" style={{ flexWrap: "wrap", marginBottom: 12 }}>

@@ -197,11 +197,6 @@ function LoginContent() {
             </button>
           </form>
 
-          {!isAdmin && (
-            <p style={{ marginTop: 28, textAlign: "center", fontSize: 12, color: "var(--site-text-sub)" }}>
-              Your teacher will provide your username and password.
-            </p>
-          )}
         </div>
       </main>
 

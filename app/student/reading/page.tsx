@@ -32,9 +32,6 @@ export default function ReadingPage() {
     <StudentShell>
       <p className="eyebrow">Practice · Academic Reading</p>
       <h1 className="h1"><em>Reading</em> tests</h1>
-      <p className="lede" style={{ marginTop: 16, marginBottom: 32 }}>
-        Pick a Cambridge IELTS book and start a timed reading practice. Your scores are tracked automatically.
-      </p>
 
       <div className="grid cols-4" style={{ marginBottom: 32 }}>
         <div className="stat">

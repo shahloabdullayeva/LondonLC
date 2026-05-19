@@ -67,7 +67,7 @@ const sel: React.CSSProperties = {
   fontWeight: 500,
   outline: "none",
   cursor: "pointer",
-  fontFamily: "Inter, system-ui, sans-serif",
+  fontFamily: "var(--ff-sans, Inter, system-ui, sans-serif)",
   width: "100%",
 };
 
@@ -352,7 +352,7 @@ export default function AdminDashboard() {
   ];
 
   return (
-    <div style={{ height: "100vh", display: "flex", flexDirection: "row", overflow: "hidden", background: C.bg, fontFamily: "Inter, system-ui, sans-serif", color: C.text }}>
+    <div style={{ height: "100vh", display: "flex", flexDirection: "row", overflow: "hidden", background: C.bg, fontFamily: "var(--ff-sans, Inter, system-ui, sans-serif)", color: C.text }}>
 
       {/* ── Sidebar ──────────────────────────────── */}
       <aside style={{ width: 220, flexShrink: 0, background: C.card2, borderRight: `1px solid ${C.border}`, display: "flex", flexDirection: "column", overflow: "hidden" }}>
@@ -961,7 +961,7 @@ export default function AdminDashboard() {
         {/* ══════════════════ STUDENTS TAB ══════════════════ */}
         {activeTab === "students" && (
           <div style={{ display: "flex", flexDirection: "column", height: "100%", minHeight: 0 }}>
-            <TabHeader title="Student Accounts" subtitle="Create and manage student login credentials." C={C} quote={quote} />
+            <TabHeader title="Student Accounts" subtitle="" C={C} quote={quote} />
 
             {/* Pending payment requests */}
             {premiumRequests.filter(r => r.status === "pending").length > 0 && (
@@ -1278,7 +1278,7 @@ export default function AdminDashboard() {
           }
           return (
             <div>
-              <TabHeader title="Tests" subtitle="Browse available tests, view answer keys, or take them in practice mode." C={C} quote={quote} />
+              <TabHeader title="Tests" subtitle="" C={C} quote={quote} />
               <div style={{ display: "flex", gap: 8, marginBottom: 24 }}>
                 {[{ t: "reading" as const, Icon: BookOpen, label: "Reading" }, { t: "listening" as const, Icon: Headphones, label: "Listening" }].map(({ t, Icon, label }) => (
                   <button key={t} onClick={() => { setTestsTypeFilter(t); setTestsSelectedBook(null); }}
@@ -1401,7 +1401,7 @@ export default function AdminDashboard() {
           };
           return (
             <div style={{ maxWidth: 640 }}>
-              <TabHeader title="My Profile" subtitle="Your account and settings." C={C} quote={quote} />
+              <TabHeader title="My Profile" subtitle="" C={C} quote={quote} />
 
               {/* Identity */}
               <div style={{ padding: "18px 20px", background: C.card, border: `1px solid ${C.border}`, borderRadius: 14, marginBottom: 16, display: "flex", alignItems: "center", gap: 16 }}>
@@ -1467,7 +1467,7 @@ export default function AdminDashboard() {
         {/* ══════════════════ WRITING SUBMISSIONS ══════════════════ */}
         {activeTab === "writing" && (
           <div>
-            <TabHeader title="Writing Submissions" subtitle="Every essay students have submitted, sorted newest first." C={C} quote={quote} />
+            <TabHeader title="Writing Submissions" subtitle="" C={C} quote={quote} />
             <WritingSubmissionsView C={C} />
           </div>
         )}
@@ -1475,7 +1475,7 @@ export default function AdminDashboard() {
         {/* ══════════════════ TEACHERS TAB ══════════════════ */}
         {activeTab === "teachers" && canManageTeachers && (
           <div style={{ maxWidth: 900 }}>
-            <TabHeader title="Manage Teachers" subtitle="Add or remove teacher login accounts." C={C} quote={quote} />
+            <TabHeader title="Manage Teachers" subtitle="" C={C} quote={quote} />
 
             {/* Add form */}
             <div style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 14, padding: "22px", marginBottom: 24 }}>

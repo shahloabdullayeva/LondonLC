@@ -29,9 +29,6 @@ export default function ResultsPage() {
     <StudentShell>
       <p className="eyebrow">Overview · Performance</p>
       <h1 className="h1"><em>My</em> results</h1>
-      <p className="lede" style={{ marginTop: 16, marginBottom: 32 }}>
-        All your completed and cancelled tests with full answer details.
-      </p>
 
       <div className="grid cols-3" style={{ marginBottom: 32 }}>
         <div className="stat">
