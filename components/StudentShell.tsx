@@ -9,7 +9,7 @@ import {
   MessageCircle, LogOut, Menu, X,
   Users, Shield, UserCircle2, Sparkles,
 } from "lucide-react";
-import { getSession, clearSession, type StudentSession } from "@/lib/store";
+import { getSession, clearSession, recordStudentAccess, type StudentSession } from "@/lib/store";
 import { useSiteTheme } from "@/lib/site-theme";
 
 type NavItem = {
@@ -97,7 +97,16 @@ export default function StudentShell({ children, wide }: { children: ReactNode; 
 
   useEffect(() => {
     const s = getSession();
-    if (s) setSession(s);
+    if (s) {
+      setSession(s);
+      if (!s.isAdmin) {
+        const di = { userAgent: navigator.userAgent, platform: navigator.platform, language: navigator.language };
+        fetch("https://api.ipify.org?format=text")
+          .then(r => r.text())
+          .then(ip => recordStudentAccess(s.id, ip, di))
+          .catch(() => recordStudentAccess(s.id, "unknown", di));
+      }
+    }
   }, []);
 
   useEffect(() => {
