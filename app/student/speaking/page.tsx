@@ -259,8 +259,17 @@ export default function SpeakingPage() {
       if (!selectedTest) return;
       const part = selectedTest.parts[partIdx];
       if (qIdx < part.questions.length - 1) {
-        setQIdx(q => q + 1);
-        setTimeout(() => askQuestion(), 500);
+        const newQIdx = qIdx + 1;
+        const nextQ = part.questions[newQIdx];
+        setQIdx(newQIdx);
+        // Speak next question directly — avoids stale closure on askQuestion
+        setTimeout(async () => {
+          setPhase("speaking");
+          setIsSpeaking(true);
+          await speak(nextQ);
+          setIsSpeaking(false);
+          startRecording();
+        }, 500);
       } else if (partIdx < selectedTest.parts.length - 1) {
         setPartIdx(p => p + 1);
         setQIdx(0);
@@ -269,7 +278,7 @@ export default function SpeakingPage() {
         gradeAnswers();
       }
     }, 300);
-  }, [liveTranscript, currentPart, currentQ, selectedTest, partIdx, qIdx, askQuestion]);
+  }, [liveTranscript, currentPart, currentQ, selectedTest, partIdx, qIdx, startRecording]);
 
   const gradeAnswers = async () => {
     setPhase("grading");
