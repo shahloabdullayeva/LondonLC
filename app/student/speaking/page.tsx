@@ -211,18 +211,18 @@ export default function SpeakingPage() {
     setPhase("recording");
   }, []);
 
-  const stopRecording = useCallback(() => {
+  const stopListening = useCallback(() => {
     const rec = recognitionRef.current as any;
     if (rec) { rec.stop(); recognitionRef.current = null; }
     setIsListening(false);
-    if (currentPart && currentQ && liveTranscript.trim()) {
-      setAnswers(prev => [...prev, { part: currentPart.part, question: currentQ, transcript: liveTranscript.trim() }]);
-    }
-    setLiveTranscript("");
-  }, [currentPart, currentQ, liveTranscript]);
+  }, []);
 
   const askQuestion = useCallback(async () => {
     if (!currentQ) return;
+    // Stop any active recording before examiner speaks
+    const rec = recognitionRef.current as any;
+    if (rec) { rec.stop(); recognitionRef.current = null; }
+    setIsListening(false);
     setPhase("speaking");
     setIsSpeaking(true);
     await speak(currentQ);
@@ -247,7 +247,15 @@ export default function SpeakingPage() {
   }, [prepTimer, phase, currentPart, isListening, isSpeaking, startRecording, answers.length, qIdx]);
 
   const nextQuestion = useCallback(() => {
-    stopRecording();
+    // Capture transcript now before stopping clears anything
+    const transcript = liveTranscript.trim();
+    const rec = recognitionRef.current as any;
+    if (rec) { rec.stop(); recognitionRef.current = null; }
+    setIsListening(false);
+    if (currentPart && currentQ && transcript) {
+      setAnswers(prev => [...prev, { part: currentPart.part, question: currentQ, transcript }]);
+    }
+    setLiveTranscript("");
     setTimeout(() => {
       if (!selectedTest) return;
       const part = selectedTest.parts[partIdx];
@@ -262,7 +270,7 @@ export default function SpeakingPage() {
         gradeAnswers();
       }
     }, 300);
-  }, [stopRecording, selectedTest, partIdx, qIdx, askQuestion]);
+  }, [liveTranscript, currentPart, currentQ, selectedTest, partIdx, qIdx, askQuestion]);
 
   const gradeAnswers = async () => {
     setPhase("grading");
@@ -300,7 +308,7 @@ export default function SpeakingPage() {
   const reset = () => {
     window.speechSynthesis?.cancel();
     const rec = recognitionRef.current as any;
-    if (rec) rec.stop();
+    if (rec) { rec.stop(); recognitionRef.current = null; }
     setSelectedTest(null);
     setPhase("select");
     setAnswers([]);
@@ -491,7 +499,10 @@ export default function SpeakingPage() {
                 </button>
               )}
               {isListening && (
-                <button className="btn" onClick={stopRecording} style={{ background: "rgba(239,68,68,0.12)", borderColor: "rgba(239,68,68,0.3)", color: "#fca5a5" }}>
+                <button className="btn" onClick={() => {
+                  stopListening();
+                  if (!liveTranscript.trim()) setPhase("speaking");
+                }} style={{ background: "rgba(239,68,68,0.12)", borderColor: "rgba(239,68,68,0.3)", color: "#fca5a5" }}>
                   <MicOff size={14} /> Stop
                 </button>
               )}
