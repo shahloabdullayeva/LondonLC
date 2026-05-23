@@ -4,7 +4,6 @@ import { useRouter } from "next/navigation";
 import { Mic, MicOff, Play, SkipForward, BarChart3, RotateCcw, Volume2 } from "lucide-react";
 import StudentShell from "@/components/StudentShell";
 import { getSession, type StudentSession } from "@/lib/store";
-import { supabase } from "@/lib/supabase";
 
 const DISPLAY = `"Fraunces", "Iowan Old Style", Georgia, serif`;
 
