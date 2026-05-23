@@ -186,7 +186,8 @@ export default function SpeakingPage() {
   const answeredCount = answers.length;
 
   const startRecording = useCallback(() => {
-    const W = window as unknown as { webkitSpeechRecognition?: new () => SpeechRecognition; SpeechRecognition?: new () => SpeechRecognition };
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const W = window as any;
     const SR = W.SpeechRecognition || W.webkitSpeechRecognition;
     if (!SR) { alert("Your browser does not support speech recognition. Please use Chrome or Edge."); return; }
     const rec = new SR();
@@ -194,7 +195,7 @@ export default function SpeakingPage() {
     rec.interimResults = true;
     rec.lang = "en-US";
     let final = "";
-    rec.onresult = (e: SpeechRecognitionEvent) => {
+    rec.onresult = (e: any) => {
       let interim = "";
       for (let i = e.resultIndex; i < e.results.length; i++) {
         if (e.results[i].isFinal) final += e.results[i][0].transcript + " ";
@@ -211,7 +212,7 @@ export default function SpeakingPage() {
   }, []);
 
   const stopRecording = useCallback(() => {
-    const rec = recognitionRef.current as SpeechRecognition | null;
+    const rec = recognitionRef.current as any;
     if (rec) { rec.stop(); recognitionRef.current = null; }
     setIsListening(false);
     if (currentPart && currentQ && liveTranscript.trim()) {
@@ -298,7 +299,7 @@ export default function SpeakingPage() {
 
   const reset = () => {
     window.speechSynthesis?.cancel();
-    const rec = recognitionRef.current as SpeechRecognition | null;
+    const rec = recognitionRef.current as any;
     if (rec) rec.stop();
     setSelectedTest(null);
     setPhase("select");
