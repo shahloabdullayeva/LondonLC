@@ -124,11 +124,39 @@ type GradingResult = {
   feedback: { criterion: string; comment: string }[];
 };
 
-function speak(text: string): Promise<void> {
+async function speak(text: string): Promise<void> {
+  const plain = text.replace(/[•\n]/g, " ").replace(/\s+/g, " ").trim();
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+
+  // Try ElevenLabs via edge function
+  if (supabaseUrl && anonKey) {
+    try {
+      const res = await fetch(`${supabaseUrl}/functions/v1/speak-question`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Authorization: `Bearer ${anonKey}` },
+        body: JSON.stringify({ text: plain }),
+      });
+      if (res.ok) {
+        const blob = await res.blob();
+        const url = URL.createObjectURL(blob);
+        await new Promise<void>((resolve) => {
+          const audio = new Audio(url);
+          audio.onended = () => { URL.revokeObjectURL(url); resolve(); };
+          audio.onerror = () => { URL.revokeObjectURL(url); resolve(); };
+          audio.play().catch(() => resolve());
+        });
+        return;
+      }
+    } catch {
+      // fall through to browser TTS
+    }
+  }
+
+  // Fallback: browser Web Speech API
   return new Promise(resolve => {
     if (typeof window === "undefined" || !window.speechSynthesis) { resolve(); return; }
     window.speechSynthesis.cancel();
-    const plain = text.replace(/[•\n]/g, " ").replace(/\s+/g, " ").trim();
     const utt = new SpeechSynthesisUtterance(plain);
     utt.rate = 0.92;
     utt.pitch = 1.0;
