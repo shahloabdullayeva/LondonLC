@@ -75,10 +75,28 @@ these as **repository secrets** under
 
 The build output goes to `./out` and is published to GitHub Pages.
 
-The AI Writing and Speaking features call Supabase Edge Functions in
-`supabase/functions/`. Deploy them with the Supabase CLI and set their secrets
-(`ANTHROPIC_API_KEY`, `ELEVENLABS_API_KEY`) with `supabase secrets set` — these
-are never stored in the repo.
+### Edge Functions
+
+The app uses Supabase Edge Functions in `supabase/functions/`. Deploy them with
+the Supabase CLI and set their secrets with `supabase secrets set` (never stored
+in the repo):
+
+- `login` — verifies credentials server-side and issues a signed session token.
+  **Required for sign-in.** Needs `AUTH_JWT_SECRET`:
+  ```
+  supabase functions deploy login
+  supabase secrets set AUTH_JWT_SECRET="$(openssl rand -hex 32)"
+  ```
+- `grade-essay`, `grade-task1`, `grade-speaking` — AI Writing/Speaking grading
+  (`ANTHROPIC_API_KEY`).
+- `speak-question` — examiner text-to-speech (`ELEVENLABS_API_KEY`).
+
+`SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY` are injected into Edge Functions
+automatically. For local development, run `supabase functions serve` (or deploy
+the functions) so sign-in can reach the `login` function.
+
+See `docs/security-hardening-plan.md` for the staged plan to lock the database
+down behind these functions.
 
 ## Project layout
 

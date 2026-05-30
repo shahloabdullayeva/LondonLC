@@ -17,6 +17,55 @@ async function verifyPassword(plain: string, stored: string): Promise<boolean> {
   return plain === stored;
 }
 
+// ── Edge Function auth ─────────────────────────────────────────────────
+// Login is verified server-side by the `login` Edge Function (it holds the
+// service-role key); the browser never reads the accounts tables to log in.
+const FUNCTIONS_URL = process.env.NEXT_PUBLIC_SUPABASE_URL
+  ? `${process.env.NEXT_PUBLIC_SUPABASE_URL}/functions/v1`
+  : "";
+const ANON_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? "";
+const TOKEN_KEY = "llc_token";
+
+// Signed session token returned by the login function (used by later phases to
+// authorize data Edge Functions).
+export function getToken(): string | null {
+  if (typeof window === "undefined") return null;
+  return localStorage.getItem(TOKEN_KEY);
+}
+function setToken(token: string) {
+  if (typeof window !== "undefined") localStorage.setItem(TOKEN_KEY, token);
+}
+
+async function postLogin(
+  role: "student" | "teacher", username: string, password: string,
+): Promise<{ token: string; user: Record<string, unknown> } | null> {
+  if (!FUNCTIONS_URL) return null;
+  try {
+    const res = await fetch(`${FUNCTIONS_URL}/login`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json", Authorization: `Bearer ${ANON_KEY}` },
+      body: JSON.stringify({ username, password, role }),
+    });
+    if (!res.ok) return null;
+    return await res.json();
+  } catch {
+    return null;
+  }
+}
+
+export type AuthedStudent = {
+  id: string;
+  username: string;
+  name: string;
+  surname: string;
+  group_name: string;
+  anticheatBypass: boolean;
+  isPremium: boolean;
+  gradingCredits: number;
+};
+
+export type AuthedTeacher = { id: string; username: string };
+
 // ── Types ──────────────────────────────────────────────────────────────
 export type StudentAccount = {
   id: string;
@@ -137,18 +186,11 @@ export async function registerStudent(
   return { username, password, id };
 }
 
-export async function loginStudent(username: string, password: string): Promise<StudentAccount | null> {
-  const { data } = await supabase.from("students")
-    .select("*").eq("username", username).maybeSingle();
-  if (!data) return null;
-  const valid = await verifyPassword(password, data.password);
-  if (!valid) return null;
-  // Auto-upgrade legacy plaintext passwords to bcrypt on first login.
-  if (!data.password.startsWith("$2")) {
-    const hashed = await hashPassword(password);
-    await supabase.from("students").update({ password: hashed }).eq("id", data.id);
-  }
-  return { id: data.id, username: data.username, password: data.password, name: data.name, surname: data.surname, group_name: data.group_name, createdAt: data.created_at, anticheatBypass: !!data.anticheat_bypass, isPremium: !!data.is_premium, gradingCredits: data.grading_credits ?? 0 };
+export async function loginStudent(username: string, password: string): Promise<AuthedStudent | null> {
+  const result = await postLogin("student", username, password);
+  if (!result) return null;
+  setToken(result.token);
+  return result.user as unknown as AuthedStudent;
 }
 
 export async function deleteStudent(id: string): Promise<void> {
@@ -191,19 +233,11 @@ export async function getTeachers(): Promise<TeacherAccount[]> {
   }));
 }
 
-export async function findTeacher(username: string, password: string): Promise<TeacherAccount | null> {
-  const { data } = await supabase.from("teachers")
-    .select("*").eq("username", username).maybeSingle();
-  if (!data) return null;
-  const valid = await verifyPassword(password, data.password);
-  if (!valid) return null;
-  // Auto-upgrade legacy plaintext passwords to bcrypt on first login.
-  if (!data.password.startsWith("$2")) {
-    const hashed = await hashPassword(password);
-    await supabase.from("teachers").update({ password: hashed }).eq("id", data.id);
-  }
-  return { id: data.id, username: data.username, password: data.password, createdAt: data.created_at,
-    lastAccessedAt: data.last_accessed_at ?? undefined, lastIp: data.last_ip ?? undefined, lastDeviceInfo: data.last_device_info ?? undefined };
+export async function findTeacher(username: string, password: string): Promise<AuthedTeacher | null> {
+  const result = await postLogin("teacher", username, password);
+  if (!result) return null;
+  setToken(result.token);
+  return result.user as unknown as AuthedTeacher;
 }
 
 export async function addTeacher(username: string, password: string): Promise<{ ok: boolean; error?: string }> {
@@ -288,7 +322,10 @@ export function getSession(): StudentSession | null {
 }
 
 export function clearSession() {
-  if (typeof window !== "undefined") localStorage.removeItem(SESSION_KEY);
+  if (typeof window !== "undefined") {
+    localStorage.removeItem(SESSION_KEY);
+    localStorage.removeItem(TOKEN_KEY);
+  }
 }
 
 // ── Attempts ───────────────────────────────────────────────────────────

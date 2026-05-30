@@ -39,7 +39,7 @@ Edge Functions (service_role)  ──► Postgres (RLS: anon denied)
    - enforce per-row authorization
 ```
 
-## Phase 0 — Stop storing plaintext passwords (quick win, ~0.5 day)
+## Phase 0 — Stop storing plaintext passwords (quick win) ✅ DONE
 
 Smallest change with the biggest payoff: even while RLS stays open, a breach then
 leaks only bcrypt hashes, not usable passwords.
@@ -55,18 +55,26 @@ leaks only bcrypt hashes, not usable passwords.
 > Trade-off: admins can no longer view a student's existing password, only reset
 > it. This is the standard, safe pattern.
 
-## Phase 1 — Auth Edge Function + session tokens (~2–3 days)
+## Phase 1 — Auth Edge Function + session tokens ✅ DONE (code; deploy required)
 
-- Add a `login` Edge Function: looks up the user with `service_role`, bcrypt-
-  verifies, and returns a short-lived **signed JWT** carrying `{ sub: id, role:
-  "student" | "teacher", group }`. Move `loginStudent` / `findTeacher` logic here
-  (browser no longer reads the `teachers`/`students` table to log in).
-- Frontend stores the JWT and sends it as `Authorization: Bearer …` to all data
-  Edge Functions. Keep `lib/store.ts` as the single call site, swapping its
-  bodies from `supabase.from(...)` to `fetch(<edge-fn>)`.
-- Decide on one auth system: either this custom JWT, or finish the migration to
-  Supabase Auth (usernames mapped to `username@londonlc.local`) so RLS can use
-  `auth.uid()` directly. Custom JWT is less work given the current username model.
+- Added the `login` Edge Function (`supabase/functions/login/index.ts`): it looks
+  up the user with the service-role key, bcrypt-verifies (and upgrades any legacy
+  plaintext row), and returns a short-lived **signed JWT** `{ sub, role,
+  username, exp }` plus the user profile.
+- `loginStudent` / `findTeacher` in `lib/store.ts` now call that function instead
+  of reading the `students` / `teachers` tables. The token is stored in
+  `localStorage` (`getToken()`) and cleared on sign-out, ready for Phase 2.
+- Auth model is the custom username/password JWT (teacher-provisioned accounts),
+  not Supabase Auth.
+
+> **Deploy before this works.** Login fails until the function is live:
+> ```
+> supabase functions deploy login
+> supabase secrets set AUTH_JWT_SECRET="$(openssl rand -hex 32)"
+> ```
+> `SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY` are injected automatically.
+> For local dev, run `supabase functions serve` (or deploy) so `/auth/login`
+> can reach the function.
 
 ## Phase 2 — Route data access through Edge Functions (~3–5 days)
 
