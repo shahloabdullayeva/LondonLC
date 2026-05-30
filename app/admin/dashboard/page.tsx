@@ -5,10 +5,10 @@ import {
   BookOpen, LogOut, Users, Award, BarChart3, Search,
   Download, CheckCircle, X, Shield, Plus, Trash2, Eye, EyeOff,
   Monitor, Ban, Headphones, ChevronRight, ChevronDown, ChevronUp, Pencil, Save,
-  PenLine, FileText, Mic, Music, UserCircle2, Lock,
+  PenLine, FileText, Mic, Music, UserCircle2, Lock, KeyRound, Copy,
 } from "lucide-react";
 
-import { getSession, clearSession, getAttempts, getTeachers, addTeacher, deleteTeacher, updateTeacherPassword, setTeacherPlainPassword, setStudentPlainPassword, changeTeacherOwnPassword, registerStudent, getStudentAccounts, deleteStudent, updateStudent, addGradingCredits, getBlockedIPs, blockIP, unblockIP, recordTeacherAccess, getAllSubmissions, getPremiumRequests, reviewPremiumRequest, type AttemptData, type TeacherAccount, type StudentAccount, type WritingSubmission, type Correction, type PremiumRequest } from "@/lib/store";
+import { getSession, clearSession, getAttempts, getTeachers, addTeacher, deleteTeacher, updateTeacherPassword, resetStudentPassword, resetTeacherPassword, changeTeacherOwnPassword, registerStudent, getStudentAccounts, deleteStudent, updateStudent, addGradingCredits, getBlockedIPs, blockIP, unblockIP, recordTeacherAccess, getAllSubmissions, getPremiumRequests, reviewPremiumRequest, type AttemptData, type TeacherAccount, type StudentAccount, type WritingSubmission, type Correction, type PremiumRequest } from "@/lib/store";
 import { getTestById } from "@/data/ielts-tests";
 import { allTests } from "@/data/ielts-tests";
 import { quotes, type Quote } from "@/lib/quotes";
@@ -122,12 +122,12 @@ export default function AdminDashboard() {
   const [studentError, setStudentError] = useState("");
   const [createdStudent, setCreatedStudent] = useState<{ username: string; password: string; name: string; surname: string } | null>(null);
   const [studentSearch, setStudentSearch] = useState("");
-  const [showPasswordFor, setShowPasswordFor] = useState<string | null>(null);
+  // The freshly-reset password for one account, shown once after a reset.
+  const [resetResult, setResetResult] = useState<{ id: string; password: string } | null>(null);
   const [editingPasswordFor, setEditingPasswordFor] = useState<string | null>(null);
   const [editPasswordValue, setEditPasswordValue] = useState("");
   const [editingStudentId, setEditingStudentId] = useState<string | null>(null);
-  const [editStudentForm, setEditStudentForm] = useState({ name: "", surname: "", group_name: "", username: "", password: "", passwordIsExisting: false });
-  const [showStudentPasswordFor, setShowStudentPasswordFor] = useState<string | null>(null);
+  const [editStudentForm, setEditStudentForm] = useState({ name: "", surname: "", group_name: "", username: "", password: "" });
   const [studentEditError, setStudentEditError] = useState("");
   const [expandedAccessInfoFor, setExpandedAccessInfoFor] = useState<string | null>(null);
 
@@ -227,7 +227,7 @@ export default function AdminDashboard() {
 
   const startEditStudent = (s: StudentAccount) => {
     setEditingStudentId(s.id);
-    setEditStudentForm({ name: s.name, surname: s.surname, group_name: s.group_name, username: s.username, password: "", passwordIsExisting: false });
+    setEditStudentForm({ name: s.name, surname: s.surname, group_name: s.group_name, username: s.username, password: "" });
     setStudentEditError("");
   };
 
@@ -242,11 +242,8 @@ export default function AdminDashboard() {
       group_name: editStudentForm.group_name,
       username: editStudentForm.username,
     };
-    // If "existing password" toggle is on, only update the plaintext column
-    // (for Show) — leave the bcrypt hash alone so login is unchanged.
-    if (editStudentForm.password.trim() && editStudentForm.passwordIsExisting) {
-      await setStudentPlainPassword(editingStudentId, editStudentForm.password.trim());
-    } else if (editStudentForm.password.trim()) {
+    // A password entered here resets the student's login (stored hashed).
+    if (editStudentForm.password.trim()) {
       fields.password = editStudentForm.password;
     }
     const result = await updateStudent(editingStudentId, fields);
@@ -321,16 +318,13 @@ export default function AdminDashboard() {
     setTeacherSuccess("Password updated.");
   };
 
-  // Save only the plaintext for Show/recovery — leaves the login hash alone.
-  // Used when the admin already knows the user's existing password and just
-  // wants it to become visible via the Show button going forward.
-  const handleSaveExistingPassword = async (id: string) => {
-    if (!editPasswordValue.trim()) return;
-    await setTeacherPlainPassword(id, editPasswordValue.trim());
-    setTeachers(await getTeachers());
-    setEditingPasswordFor(null);
-    setEditPasswordValue("");
-    setTeacherSuccess("Existing password saved (login unchanged).");
+  // Reset an account to a fresh random password. The new password is shown once
+  // (it is never stored in plaintext) so the admin can hand it to the user.
+  const handleResetPassword = async (kind: "student" | "teacher", id: string) => {
+    const password = kind === "student"
+      ? await resetStudentPassword(id)
+      : await resetTeacherPassword(id);
+    setResetResult({ id, password });
   };
 
   const handleBlockIP = async (ip: string) => {
@@ -1066,16 +1060,25 @@ export default function AdminDashboard() {
                           <td style={{ padding: "12px 14px", fontFamily: "monospace", fontSize: 13, color: C.sub }}>{s.username}</td>
                           <td style={{ padding: "12px 14px" }}>
                             <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                              <span style={{ fontFamily: "monospace", fontSize: 13, color: showPasswordFor === s.id ? C.text : C.muted }}>
-                                {showPasswordFor === s.id
-                                  ? (s.plainPassword || "— not stored")
-                                  : "••••••••"}
-                              </span>
-                              <button onClick={() => setShowPasswordFor(showPasswordFor === s.id ? null : s.id)}
-                                title={showPasswordFor === s.id ? "Hide password" : "Show password"}
-                                style={{ display: "flex", alignItems: "center", padding: "4px 6px", background: "transparent", border: `1px solid ${C.border}`, borderRadius: 6, color: C.muted, cursor: "pointer" }}>
-                                {showPasswordFor === s.id ? <EyeOff size={12} /> : <Eye size={12} />}
-                              </button>
+                              {resetResult?.id === s.id ? (
+                                <>
+                                  <span style={{ fontFamily: "monospace", fontSize: 13, color: C.accent }}>{resetResult.password}</span>
+                                  <button onClick={() => navigator.clipboard?.writeText(resetResult.password)}
+                                    title="Copy new password"
+                                    style={{ display: "flex", alignItems: "center", padding: "4px 6px", background: "transparent", border: `1px solid ${C.border}`, borderRadius: 6, color: C.muted, cursor: "pointer" }}>
+                                    <Copy size={12} />
+                                  </button>
+                                </>
+                              ) : (
+                                <>
+                                  <span style={{ fontFamily: "monospace", fontSize: 13, color: C.muted }}>••••••••</span>
+                                  <button onClick={() => handleResetPassword("student", s.id)}
+                                    title="Reset to a new password (shown once)"
+                                    style={{ display: "flex", alignItems: "center", gap: 4, padding: "4px 8px", background: "transparent", border: `1px solid ${C.border}`, borderRadius: 6, color: C.muted, fontSize: 11, fontWeight: 600, cursor: "pointer" }}>
+                                    <KeyRound size={12} /> Reset
+                                  </button>
+                                </>
+                              )}
                             </div>
                           </td>
                           <td style={{ padding: "12px 14px", fontSize: 13, color: C.muted }}>{s.group_name}</td>
@@ -1193,13 +1196,8 @@ export default function AdminDashboard() {
                                 <div>
                                   <div style={{ fontSize: 10, color: C.muted, marginBottom: 4, textTransform: "uppercase", fontWeight: 700 }}>Password <span style={{ fontWeight: 400, textTransform: "none" }}>(leave blank to keep current)</span></div>
                                   <input value={editStudentForm.password} onChange={e => setEditStudentForm(f => ({ ...f, password: e.target.value }))}
-                                    placeholder="Enter password..."
+                                    placeholder="Enter a new password..."
                                     style={{ ...sel, padding: "8px 12px" }} autoComplete="new-password" />
-                                  <label style={{ display: "flex", alignItems: "center", gap: 6, marginTop: 6, fontSize: 11, color: C.muted, cursor: "pointer" }}>
-                                    <input type="checkbox" checked={editStudentForm.passwordIsExisting}
-                                      onChange={e => setEditStudentForm(f => ({ ...f, passwordIsExisting: e.target.checked }))} />
-                                    This is the <strong style={{ color: C.sub }}>existing</strong> password (don&apos;t reset login — just make it visible in Show)
-                                  </label>
                                 </div>
                               </div>
                               {studentEditError && <p style={{ fontSize: 13, color: C.danger, marginBottom: 8 }}>{studentEditError}</p>}
@@ -1519,21 +1517,24 @@ export default function AdminDashboard() {
                         <div style={{ fontWeight: 600, fontSize: 14, color: C.text }}>{t.username}</div>
                         {t.isRoot && <div style={{ fontSize: 11, color: "#f59e0b" }}>Root</div>}
                         <div style={{ fontSize: 11, color: C.muted, marginTop: 2 }}>Last seen: {fmtLastSeen(t.lastAccessedAt)}</div>
-                        {showPasswordFor === t.id && !isProtected && (
-                          <div style={{ fontSize: 12, marginTop: 2, fontFamily: "monospace", color: t.plainPassword ? C.text : C.muted }}>
-                            {t.plainPassword
-                              ? `🔑 ${t.plainPassword}`
-                              : "— not available (created before password recovery was enabled — click Change PW to set a new one)"}
+                        {resetResult?.id === t.id && !isProtected && (
+                          <div style={{ fontSize: 12, marginTop: 2, fontFamily: "monospace", color: C.accent, display: "flex", alignItems: "center", gap: 6 }}>
+                            🔑 {resetResult.password}
+                            <button onClick={() => navigator.clipboard?.writeText(resetResult.password)}
+                              title="Copy new password"
+                              style={{ display: "flex", alignItems: "center", padding: 2, background: "transparent", border: "none", color: C.muted, cursor: "pointer" }}>
+                              <Copy size={12} />
+                            </button>
                           </div>
                         )}
                       </div>
                     </div>
                     <div style={{ display: "flex", gap: 6, alignItems: "center" }}>
                       {!isProtected && (
-                        <button onClick={() => setShowPasswordFor(showPasswordFor === t.id ? null : t.id)}
+                        <button onClick={() => handleResetPassword("teacher", t.id)}
+                          title="Reset to a new password (shown once)"
                           style={{ display: "flex", alignItems: "center", gap: 5, padding: "6px 10px", background: "transparent", border: `1px solid ${C.border}`, borderRadius: 8, color: C.muted, fontSize: 12, fontWeight: 600, cursor: "pointer" }}>
-                          {showPasswordFor === t.id ? <EyeOff size={12} /> : <Eye size={12} />}
-                          {showPasswordFor === t.id ? "Hide" : "Show"}
+                          <KeyRound size={12} /> Reset
                         </button>
                       )}
                       {!isProtected && (
@@ -1555,14 +1556,9 @@ export default function AdminDashboard() {
                         style={{ width: "100%", padding: "7px 12px", background: C.card2, border: `1px solid ${C.border}`, borderRadius: 8, color: C.text, fontSize: 13, outline: "none", fontFamily: "inherit" }} />
                       <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
                         <button onClick={() => handleChangePassword(t.id)}
-                          title="Reset the login password to this value and store it for Show"
+                          title="Set the login password to this value"
                           style={{ padding: "7px 14px", background: "var(--site-card-2)", border: "none", borderRadius: 8, color: "var(--site-text)", fontSize: 13, fontWeight: 600, cursor: "pointer" }}>
                           Set as new password
-                        </button>
-                        <button onClick={() => handleSaveExistingPassword(t.id)}
-                          title="Save this as the existing password — login is unchanged, just made visible via Show"
-                          style={{ padding: "7px 14px", background: "transparent", border: `1px solid ${C.accent}`, borderRadius: 8, color: C.accent, fontSize: 13, fontWeight: 600, cursor: "pointer" }}>
-                          Save existing (login unchanged)
                         </button>
                         <button onClick={() => setEditingPasswordFor(null)}
                           style={{ padding: "7px 12px", background: "transparent", border: `1px solid ${C.border}`, borderRadius: 8, color: C.muted, fontSize: 13, cursor: "pointer" }}>

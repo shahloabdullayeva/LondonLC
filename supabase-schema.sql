@@ -13,19 +13,17 @@
 create table if not exists teachers (
   id text primary key,
   username text unique not null,
+  -- bcrypt hash only — plaintext passwords are never stored.
   password text not null,
-  -- Plain-text copy of the password so the admin dashboard can reveal it
-  -- for password-recovery purposes. The `password` column still holds the
-  -- bcrypt hash used for login. Opt-in storage: if null, admin can reset.
-  plain_password text,
   created_at timestamptz default now(),
   last_accessed_at timestamptz,
   last_ip text,
   last_device_info jsonb
 );
 -- Additive migration for existing databases (safe to re-run):
-alter table teachers add column if not exists plain_password text;
 alter table teachers add column if not exists is_root boolean default false;
+-- Drop the legacy plaintext-password column if it exists from an older schema:
+alter table teachers drop column if exists plain_password;
 
 -- NOTE: The root admin account is NOT seeded here. Create it once from the Supabase
 -- SQL editor with a bcrypt hash (or let the first login flow you run in the app upsert
@@ -39,9 +37,8 @@ alter table teachers add column if not exists is_root boolean default false;
 create table if not exists students (
   id text primary key,
   username text unique not null,
+  -- bcrypt hash only — plaintext passwords are never stored.
   password text not null,
-  -- See note on teachers.plain_password.
-  plain_password text,
   name text not null,
   surname text not null,
   group_name text not null,
@@ -50,7 +47,8 @@ create table if not exists students (
   last_ip text,
   last_device_info jsonb
 );
-alter table students add column if not exists plain_password text;
+-- Drop the legacy plaintext-password column if it exists from an older schema:
+alter table students drop column if exists plain_password;
 alter table students add column if not exists is_premium boolean default false;
 alter table students add column if not exists grading_credits integer default 0;
 
