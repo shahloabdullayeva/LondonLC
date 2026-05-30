@@ -76,19 +76,31 @@ leaks only bcrypt hashes, not usable passwords.
 > For local dev, run `supabase functions serve` (or deploy) so `/auth/login`
 > can reach the function.
 
-## Phase 2 — Route data access through Edge Functions (~3–5 days)
+## Phase 2 — Route data access through Edge Functions (in progress)
 
-Replace direct table access with authorized Edge Functions, grouped by audience:
+A single authorized gateway (`supabase/functions/data/index.ts`) replaces ~30
+separate functions. It verifies the session token, enforces teacher-vs-self
+authorization per operation, and runs each query with the service-role key.
+
+Rollout (staged to avoid breaking the live app):
+1. **Gateway added ✅** — `data` function written, covering every account, attempt,
+   submission, premium, blocked-IP, and messaging operation. Deploy it like the
+   others (`supabase functions deploy data`; it reuses `AUTH_JWT_SECRET`).
+2. **Client cutover (next)** — point `lib/store.ts` at the gateway instead of
+   `supabase.from(...)`. This is a hard dependency: the `data` function must be
+   deployed and verified first.
+
+Operations grouped by audience:
 
 - **Student self-service** (`getSubmissions`, `submitEssay`, `changeStudentOwnPassword`,
-  `getMessages`, `sendMessage`, attempt save/read): the function checks the JWT
-  `sub` matches the row's owner.
+  `getMessages`, `sendMessage`, `saveAttempt`, access tracking): the gateway
+  checks the token `sub` matches the row owner.
 - **Admin-only** (`getStudentAccounts`, `getTeachers`, `getAttempts`,
   `getAllSubmissions`, `getPremiumRequests`, `reviewPremiumRequest`, all
-  create/update/delete account ops, `blockIP`/`unblockIP`): the function requires
+  create/update/delete account ops, `blockIP`/`unblockIP`): requires
   `role === "teacher"`.
-- AI-grading functions (`grade-essay`, `grade-task1`, `grade-speaking`) should
-  also verify the token and that the caller owns the submission.
+- Account reads (`getStudentAccounts`, `getTeachers`) strip the password hash
+  before returning.
 
 ## Phase 3 — Lock down RLS (~1 day)
 
