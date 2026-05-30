@@ -1,33 +1,19 @@
 "use client";
-import { supabase } from "@/lib/supabase";
-import bcrypt from "bcryptjs";
 
-const BCRYPT_ROUNDS = 10;
+// Data layer. Every database operation goes through the `login` and `data`
+// Edge Functions, which hold the service-role key and authorize each call. The
+// browser never touches the tables directly — see docs/security-hardening-plan.md.
 
-// Hash a password. If already hashed (bcrypt hash starts with $2), return as-is.
-async function hashPassword(plain: string): Promise<string> {
-  if (plain.startsWith("$2")) return plain;
-  return bcrypt.hash(plain, BCRYPT_ROUNDS);
-}
-
-// Compare a plain password against a stored value (supports legacy plaintext + bcrypt).
-async function verifyPassword(plain: string, stored: string): Promise<boolean> {
-  if (stored.startsWith("$2")) return bcrypt.compare(plain, stored);
-  // Legacy plaintext — accept if match, then caller should upgrade the hash
-  return plain === stored;
-}
-
-// ── Edge Function auth ─────────────────────────────────────────────────
-// Login is verified server-side by the `login` Edge Function (it holds the
-// service-role key); the browser never reads the accounts tables to log in.
 const FUNCTIONS_URL = process.env.NEXT_PUBLIC_SUPABASE_URL
   ? `${process.env.NEXT_PUBLIC_SUPABASE_URL}/functions/v1`
   : "";
 const ANON_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? "";
 const TOKEN_KEY = "llc_token";
 
-// Signed session token returned by the login function (used by later phases to
-// authorize data Edge Functions).
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type Row = Record<string, any>;
+
+// ── Session token (issued by the login function) ───────────────────────
 export function getToken(): string | null {
   if (typeof window === "undefined") return null;
   return localStorage.getItem(TOKEN_KEY);
@@ -48,6 +34,23 @@ async function postLogin(
     });
     if (!res.ok) return null;
     return await res.json();
+  } catch {
+    return null;
+  }
+}
+
+// Call an authorized operation on the `data` gateway with the session token.
+async function callData<T = unknown>(op: string, args: Record<string, unknown> = {}): Promise<T | null> {
+  if (!FUNCTIONS_URL) return null;
+  try {
+    const res = await fetch(`${FUNCTIONS_URL}/data`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json", Authorization: `Bearer ${ANON_KEY}` },
+      body: JSON.stringify({ token: getToken(), op, args }),
+    });
+    if (!res.ok) return null;
+    const j = await res.json();
+    return (j.data ?? null) as T;
   } catch {
     return null;
   }
@@ -143,23 +146,11 @@ export type AttemptData = {
   teacherId?: string;
 };
 
-// ── Helpers ────────────────────────────────────────────────────────────
-function generateUsername(name: string, surname: string): string {
-  const clean = (s: string) => s.trim().replace(/\s+/g, "").replace(/[^a-zA-Z]/g, "");
-  const num = Math.floor(1000 + Math.random() * 9000);
-  return clean(name) + clean(surname).charAt(0).toUpperCase() + num;
-}
-
-function generatePassword(): string {
-  const chars = "ABCDEFGHJKLMNPQRSTUVWXYZabcdefghjkmnpqrstuvwxyz23456789";
-  return Array.from({ length: 8 }, () => chars[Math.floor(Math.random() * chars.length)]).join("");
-}
-
 // ── Student accounts ───────────────────────────────────────────────────
 export async function getStudentAccounts(): Promise<StudentAccount[]> {
-  const { data } = await supabase.from("students").select("*").order("created_at", { ascending: false });
+  const data = await callData<Row[]>("getStudentAccounts");
   return (data ?? []).map(r => ({
-    id: r.id, username: r.username, password: r.password,
+    id: r.id, username: r.username, password: r.password ?? "",
     name: r.name, surname: r.surname, group_name: r.group_name, createdAt: r.created_at,
     lastAccessedAt: r.last_accessed_at ?? undefined,
     lastIp: r.last_ip ?? undefined,
@@ -173,17 +164,8 @@ export async function getStudentAccounts(): Promise<StudentAccount[]> {
 export async function registerStudent(
   name: string, surname: string, group: string
 ): Promise<{ username: string; password: string; id: string }> {
-  const username = generateUsername(name, surname);
-  const password = generatePassword();
-  const id = `student-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
-  const hashed = await hashPassword(password);
-  await supabase.from("students").insert({
-    id, username, password: hashed,
-    name: name.trim(), surname: surname.trim(), group_name: group.trim(),
-  });
-  // Return the generated password so the admin can share it with the student.
-  // Only the bcrypt hash is stored — the plaintext is shown once and never saved.
-  return { username, password, id };
+  const res = await callData<{ username: string; password: string; id: string }>("registerStudent", { name, surname, group });
+  return res ?? { username: "", password: "", id: "" };
 }
 
 export async function loginStudent(username: string, password: string): Promise<AuthedStudent | null> {
@@ -194,37 +176,21 @@ export async function loginStudent(username: string, password: string): Promise<
 }
 
 export async function deleteStudent(id: string): Promise<void> {
-  await supabase.from("students").delete().eq("id", id);
+  await callData("deleteStudent", { id });
 }
 
 export async function updateStudent(
   id: string,
   fields: { name?: string; surname?: string; group_name?: string; username?: string; password?: string; anticheatBypass?: boolean; isPremium?: boolean }
 ): Promise<{ ok: boolean; error?: string }> {
-  const update: Record<string, string | boolean> = {};
-  if (fields.name !== undefined) update.name = fields.name.trim();
-  if (fields.surname !== undefined) update.surname = fields.surname.trim();
-  if (fields.group_name !== undefined) update.group_name = fields.group_name.trim();
-  if (fields.username !== undefined) update.username = fields.username.trim();
-  if (fields.password !== undefined) {
-    update.password = await hashPassword(fields.password.trim());
-  }
-  if (fields.anticheatBypass !== undefined) update.anticheat_bypass = fields.anticheatBypass;
-  if (fields.isPremium !== undefined) update.is_premium = fields.isPremium;
-  const { error } = await supabase.from("students").update(update).eq("id", id);
-  if (error) {
-    if (error.code === "23505") return { ok: false, error: "Username already exists" };
-    return { ok: false, error: error.message };
-  }
-  return { ok: true };
+  return (await callData<{ ok: boolean; error?: string }>("updateStudent", { id, fields })) ?? { ok: false, error: "Network error" };
 }
 
 // ── Teacher accounts ───────────────────────────────────────────────────
-
 export async function getTeachers(): Promise<TeacherAccount[]> {
-  const { data } = await supabase.from("teachers").select("*").order("created_at", { ascending: true });
+  const data = await callData<Row[]>("getTeachers");
   return (data ?? []).map(r => ({
-    id: r.id, username: r.username, password: r.password,
+    id: r.id, username: r.username, password: r.password ?? "",
     createdAt: r.created_at,
     lastAccessedAt: r.last_accessed_at ?? undefined,
     lastIp: r.last_ip ?? undefined,
@@ -241,67 +207,39 @@ export async function findTeacher(username: string, password: string): Promise<A
 }
 
 export async function addTeacher(username: string, password: string): Promise<{ ok: boolean; error?: string }> {
-  const hashed = await hashPassword(password);
-  const { error } = await supabase.from("teachers").insert({ id: `teacher-${Date.now()}`, username, password: hashed });
-  if (error) {
-    if (error.code === "23505") return { ok: false, error: "Username already exists" };
-    return { ok: false, error: error.message };
-  }
-  return { ok: true };
+  return (await callData<{ ok: boolean; error?: string }>("addTeacher", { username, password })) ?? { ok: false, error: "Network error" };
 }
 
 export async function deleteTeacher(id: string): Promise<void> {
-  const { data } = await supabase.from("teachers").select("is_root").eq("id", id).maybeSingle();
-  if (data?.is_root) return;
-  await supabase.from("teachers").delete().eq("id", id);
+  await callData("deleteTeacher", { id });
 }
 
 export async function updateTeacherPassword(id: string, newPassword: string): Promise<void> {
-  const hashed = await hashPassword(newPassword);
-  await supabase.from("teachers").update({ password: hashed }).eq("id", id);
+  await callData("updateTeacherPassword", { id, newPassword });
 }
 
 // Reset a password to a fresh random value. Only the bcrypt hash is stored; the
 // new plaintext is returned so the admin can hand it over once, then it's gone.
 export async function resetStudentPassword(id: string): Promise<string> {
-  const password = generatePassword();
-  await supabase.from("students").update({ password: await hashPassword(password) }).eq("id", id);
-  return password;
+  return (await callData<string>("resetStudentPassword", { id })) ?? "";
 }
 
 export async function resetTeacherPassword(id: string): Promise<string> {
-  const password = generatePassword();
-  await supabase.from("teachers").update({ password: await hashPassword(password) }).eq("id", id);
-  return password;
+  return (await callData<string>("resetTeacherPassword", { id })) ?? "";
 }
 
-// Student-initiated password change. Requires the current password to match
-// before updating. Returns an error tag the UI can show directly.
+// Student-initiated password change. Requires the current password to match.
 export async function changeStudentOwnPassword(
   id: string, currentPassword: string, newPassword: string,
 ): Promise<{ ok: boolean; error?: string }> {
-  const { data } = await supabase.from("students").select("password").eq("id", id).maybeSingle();
-  if (!data) return { ok: false, error: "Account not found." };
-  const ok = await verifyPassword(currentPassword, data.password);
-  if (!ok) return { ok: false, error: "Current password is incorrect." };
-  if (newPassword.trim().length < 4) return { ok: false, error: "New password must be at least 4 characters." };
-  const hashed = await hashPassword(newPassword.trim());
-  await supabase.from("students").update({ password: hashed }).eq("id", id);
-  return { ok: true };
+  return (await callData<{ ok: boolean; error?: string }>("changeStudentOwnPassword", { id, currentPassword, newPassword })) ?? { ok: false, error: "Network error" };
 }
 
 // Teacher-initiated password change (same rules as student).
 export async function changeTeacherOwnPassword(
   id: string, currentPassword: string, newPassword: string,
 ): Promise<{ ok: boolean; error?: string }> {
-  const { data } = await supabase.from("teachers").select("password").eq("id", id).maybeSingle();
-  if (!data) return { ok: false, error: "Account not found." };
-  const ok = await verifyPassword(currentPassword, data.password);
-  if (!ok) return { ok: false, error: "Current password is incorrect." };
-  if (newPassword.trim().length < 4) return { ok: false, error: "New password must be at least 4 characters." };
-  const hashed = await hashPassword(newPassword.trim());
-  await supabase.from("teachers").update({ password: hashed }).eq("id", id);
-  return { ok: true };
+  return (await callData<{ ok: boolean; error?: string }>("changeTeacherOwnPassword", { id, currentPassword, newPassword })) ?? { ok: false, error: "Network error" };
 }
 
 // ── Session (localStorage — intentionally per-device) ──────────────────
@@ -330,33 +268,11 @@ export function clearSession() {
 
 // ── Attempts ───────────────────────────────────────────────────────────
 export async function saveAttempt(attempt: AttemptData): Promise<void> {
-  await supabase.from("attempts").upsert({
-    id: attempt.id,
-    student_id: attempt.studentId,
-    student_name: attempt.studentName,
-    student_surname: attempt.studentSurname,
-    group_name: attempt.groupName,
-    test_id: attempt.testId,
-    test_title: attempt.testTitle,
-    test_type: attempt.testType,
-    test_level: attempt.testLevel,
-    answers: attempt.answers,
-    score: attempt.score,
-    max_score: attempt.maxScore,
-    band_score: attempt.bandScore,
-    status: attempt.status,
-    cancel_reason: attempt.cancelReason ?? null,
-    started_at: attempt.startedAt,
-    submitted_at: attempt.submittedAt,
-    time_spent_seconds: attempt.timeSpentSeconds,
-    device_info: attempt.deviceInfo ?? null,
-    is_teacher_attempt: attempt.isTeacherAttempt ?? false,
-    teacher_id: attempt.teacherId ?? null,
-  });
+  await callData("saveAttempt", { attempt });
 }
 
 export async function getAttempts(): Promise<AttemptData[]> {
-  const { data } = await supabase.from("attempts").select("*").order("submitted_at", { ascending: false });
+  const data = await callData<Row[]>("getAttempts");
   return (data ?? []).map(r => ({
     id: r.id,
     studentId: r.student_id,
@@ -386,44 +302,33 @@ export async function getAttempts(): Promise<AttemptData[]> {
 export async function recordStudentAccess(
   id: string, ip: string, deviceInfo: { userAgent: string; platform: string; language: string }
 ): Promise<void> {
-  await supabase.from("students").update({
-    last_accessed_at: new Date().toISOString(),
-    last_ip: ip,
-    last_device_info: deviceInfo,
-  }).eq("id", id);
+  await callData("recordStudentAccess", { id, ip, deviceInfo });
 }
 
 export async function recordTeacherAccess(
   id: string, ip: string, deviceInfo: { userAgent: string; platform: string; language: string }
 ): Promise<void> {
-  await supabase.from("teachers").update({
-    last_accessed_at: new Date().toISOString(),
-    last_ip: ip,
-    last_device_info: deviceInfo,
-  }).eq("id", id);
+  await callData("recordTeacherAccess", { id, ip, deviceInfo });
 }
 
 // ── Blocked IPs ────────────────────────────────────────────────────────
 export async function getBlockedIPs(): Promise<string[]> {
-  const { data } = await supabase.from("blocked_ips").select("ip");
-  return (data ?? []).map(r => r.ip);
+  return (await callData<string[]>("getBlockedIPs")) ?? [];
 }
 
 export async function blockIP(ip: string): Promise<void> {
-  await supabase.from("blocked_ips").upsert({ ip });
+  await callData("blockIP", { ip });
 }
 
 export async function unblockIP(ip: string): Promise<void> {
-  await supabase.from("blocked_ips").delete().eq("ip", ip);
+  await callData("unblockIP", { ip });
 }
 
 export async function isIPBlocked(ip: string): Promise<boolean> {
-  const { data } = await supabase.from("blocked_ips").select("ip").eq("ip", ip).maybeSingle();
-  return !!data;
+  return (await callData<boolean>("isIPBlocked", { ip })) ?? false;
 }
 
 // ── Writing submissions ───────────────────────────────────────────────
-
 export type Correction = {
   type: "grammar" | "vocabulary" | "cohesion" | "style" | "spelling" | "punctuation";
   original: string;
@@ -451,28 +356,19 @@ export type WritingSubmission = {
 };
 
 export async function getSubmissions(studentId: string): Promise<WritingSubmission[]> {
-  const { data } = await supabase
-    .from("writing_submissions")
-    .select("*")
-    .eq("student_id", studentId)
-    .order("created_at", { ascending: false });
-
+  const data = await callData<Row[]>("getSubmissions", { studentId });
   return (data ?? []).map(mapSubmission);
 }
 
 export async function getAllSubmissions(): Promise<(WritingSubmission & { studentName: string })[]> {
-  const { data } = await supabase
-    .from("writing_submissions")
-    .select("*")
-    .order("created_at", { ascending: false });
-
+  const data = await callData<Row[]>("getAllSubmissions");
   return (data ?? []).map(r => ({
-    ...mapSubmission(r as Record<string, unknown>),
-    studentName: (r as Record<string, unknown>).student_name as string ?? "Unknown",
+    ...mapSubmission(r),
+    studentName: (r.student_name as string) ?? "Unknown",
   }));
 }
 
-function mapSubmission(r: Record<string, unknown>): WritingSubmission {
+function mapSubmission(r: Row): WritingSubmission {
   return {
     id: r.id as string,
     studentId: r.student_id as string,
@@ -499,27 +395,16 @@ export async function submitEssay(
   prompt: string,
   essay: string,
 ): Promise<WritingSubmission | null> {
-  const id = `ws-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
-  const wordCount = essay.trim().split(/\s+/).filter(Boolean).length;
-
-  const { error } = await supabase.from("writing_submissions").insert({
-    id,
-    student_id: studentId,
-    student_name: studentName,
-    prompt,
-    essay,
-    word_count: wordCount,
-  });
-
-  if (error) return null;
+  const res = await callData<{ id: string; wordCount: number; createdAt: string }>("submitEssay", { studentId, studentName, prompt, essay });
+  if (!res) return null;
   return {
-    id, studentId, prompt, essay, wordCount,
+    id: res.id, studentId, prompt, essay, wordCount: res.wordCount,
     taskResponse: null, coherenceCohesion: null,
     lexicalResource: null, grammarAccuracy: null,
     overallBand: null, feedback: null,
     corrections: null, strengths: null, nextSteps: null,
     gradedAt: null,
-    createdAt: new Date().toISOString(),
+    createdAt: res.createdAt,
   };
 }
 
@@ -538,15 +423,13 @@ export async function gradeEssayWithAI(
   strengths: string[];
   nextSteps: string[];
 } | null> {
-  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-  if (!supabaseUrl || !anonKey) return null;
+  if (!FUNCTIONS_URL) return null;
 
-  const res = await fetch(`${supabaseUrl}/functions/v1/hyper-task`, {
+  const res = await fetch(`${FUNCTIONS_URL}/hyper-task`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${anonKey}`,
+      Authorization: `Bearer ${ANON_KEY}`,
     },
     body: JSON.stringify({ prompt, essay }),
   });
@@ -560,10 +443,9 @@ export async function gradeEssayWithAI(
   const strengths: string[] = Array.isArray(grading.strengths) ? grading.strengths : [];
   const nextSteps: string[] = Array.isArray(grading.next_steps) ? grading.next_steps : [];
 
-  const now = new Date().toISOString();
-  await supabase
-    .from("writing_submissions")
-    .update({
+  await callData("saveGrade", {
+    submissionId,
+    grading: {
       task_response: grading.task_response,
       coherence_cohesion: grading.coherence_cohesion,
       lexical_resource: grading.lexical_resource,
@@ -573,9 +455,8 @@ export async function gradeEssayWithAI(
       corrections,
       strengths,
       next_steps: nextSteps,
-      graded_at: now,
-    })
-    .eq("id", submissionId);
+    },
+  });
 
   return {
     taskResponse: grading.task_response,
@@ -591,7 +472,6 @@ export async function gradeEssayWithAI(
 }
 
 // ── Writing Task 1 grading ────────────────────────────────────────────
-
 export async function gradeTask1WithAI(
   submissionId: string,
   imageBase64: string,
@@ -610,15 +490,13 @@ export async function gradeTask1WithAI(
   strengths: string[];
   nextSteps: string[];
 } | null> {
-  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-  if (!supabaseUrl || !anonKey) return null;
+  if (!FUNCTIONS_URL) return null;
 
-  const res = await fetch(`${supabaseUrl}/functions/v1/grade-task1`, {
+  const res = await fetch(`${FUNCTIONS_URL}/grade-task1`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${anonKey}`,
+      Authorization: `Bearer ${ANON_KEY}`,
     },
     body: JSON.stringify({
       image_base64: imageBase64,
@@ -628,26 +506,19 @@ export async function gradeTask1WithAI(
     }),
   });
 
-  if (!res.ok) {
-    console.error("[grade-task1] HTTP error", res.status, await res.text().catch(() => ""));
-    return null;
-  }
+  if (!res.ok) return null;
 
   const grading = await res.json();
   const ta = grading.task_achievement ?? grading.task_response;
-  if (ta == null) {
-    console.error("[grade-task1] Missing task_achievement in response", grading);
-    return null;
-  }
+  if (ta == null) return null;
 
   const corrections: Correction[] = Array.isArray(grading.corrections) ? grading.corrections : [];
   const strengths: string[] = Array.isArray(grading.strengths) ? grading.strengths : [];
   const nextSteps: string[] = Array.isArray(grading.next_steps) ? grading.next_steps : [];
 
-  const now = new Date().toISOString();
-  await supabase
-    .from("writing_submissions")
-    .update({
+  await callData("saveGrade", {
+    submissionId,
+    grading: {
       task_response: ta,
       coherence_cohesion: grading.coherence_cohesion,
       lexical_resource: grading.lexical_resource,
@@ -657,9 +528,8 @@ export async function gradeTask1WithAI(
       corrections,
       strengths,
       next_steps: nextSteps,
-      graded_at: now,
-    })
-    .eq("id", submissionId);
+    },
+  });
 
   return {
     taskAchievement: ta,
@@ -676,19 +546,14 @@ export async function gradeTask1WithAI(
 }
 
 export async function getStudentCredits(studentId: string): Promise<number> {
-  const { data } = await supabase.from("students").select("grading_credits").eq("id", studentId).maybeSingle();
-  return data?.grading_credits ?? 0;
+  return (await callData<number>("getStudentCredits", { studentId })) ?? 0;
 }
 
 export async function addGradingCredits(studentId: string, count: number): Promise<boolean> {
-  const { data } = await supabase.from("students").select("grading_credits").eq("id", studentId).maybeSingle();
-  const current = data?.grading_credits ?? 0;
-  const { error } = await supabase.from("students").update({ grading_credits: current + count }).eq("id", studentId);
-  return !error;
+  return (await callData<boolean>("addGradingCredits", { studentId, count })) ?? false;
 }
 
 // ── Premium requests ──────────────────────────────────────────────────
-
 export type PremiumRequest = {
   id: string;
   studentId: string;
@@ -700,26 +565,11 @@ export type PremiumRequest = {
 };
 
 export async function createPremiumRequest(studentId: string, studentName: string, credits: number = 10): Promise<boolean> {
-  const existing = await supabase
-    .from("premium_requests")
-    .select("id")
-    .eq("student_id", studentId)
-    .eq("status", "pending")
-    .maybeSingle();
-  if (existing.data) return true;
-
-  const id = `pr-${Date.now()}-${Math.random().toString(36).slice(2, 6)}`;
-  const { error } = await supabase.from("premium_requests").insert({
-    id, student_id: studentId, student_name: studentName, status: "pending", requested_credits: credits,
-  });
-  return !error;
+  return (await callData<boolean>("createPremiumRequest", { studentId, studentName, credits })) ?? false;
 }
 
 export async function getPremiumRequests(): Promise<PremiumRequest[]> {
-  const { data } = await supabase
-    .from("premium_requests")
-    .select("*")
-    .order("created_at", { ascending: false });
+  const data = await callData<Row[]>("getPremiumRequests");
   return (data ?? []).map(r => ({
     id: r.id,
     studentId: r.student_id,
@@ -732,12 +582,7 @@ export async function getPremiumRequests(): Promise<PremiumRequest[]> {
 }
 
 export async function getStudentPremiumRequest(studentId: string): Promise<PremiumRequest | null> {
-  const { data } = await supabase
-    .from("premium_requests")
-    .select("*")
-    .eq("student_id", studentId)
-    .eq("status", "pending")
-    .maybeSingle();
+  const data = await callData<Row>("getStudentPremiumRequest", { studentId });
   if (!data) return null;
   return {
     id: data.id, studentId: data.student_id, studentName: data.student_name,
@@ -747,21 +592,10 @@ export async function getStudentPremiumRequest(studentId: string): Promise<Premi
 }
 
 export async function reviewPremiumRequest(requestId: string, studentId: string, credits: number, approve: boolean): Promise<boolean> {
-  const { error } = await supabase.from("premium_requests").update({
-    status: approve ? "approved" : "rejected",
-    reviewed_at: new Date().toISOString(),
-  }).eq("id", requestId);
-  if (error) return false;
-  if (approve) {
-    const { data: student } = await supabase.from("students").select("grading_credits").eq("id", studentId).maybeSingle();
-    const current = student?.grading_credits ?? 0;
-    await supabase.from("students").update({ grading_credits: current + credits }).eq("id", studentId);
-  }
-  return true;
+  return (await callData<boolean>("reviewPremiumRequest", { requestId, studentId, credits, approve })) ?? false;
 }
 
 // ── Messaging ─────────────────────────────────────────────────────────
-
 export type Conversation = {
   id: string;
   type: "dm" | "group";
@@ -780,60 +614,13 @@ export type Message = {
   createdAt: string;
 };
 
-function dmConversationId(a: string, b: string): string {
-  return a < b ? `dm-${a}-${b}` : `dm-${b}-${a}`;
-}
-
-function groupConversationId(groupName: string): string {
-  return `group-${groupName.replace(/\s+/g, "-").toLowerCase()}`;
-}
-
 export async function ensureConversations(
   userId: string,
   userName: string,
   groupName: string
 ): Promise<Conversation[]> {
-  const { data: teachers } = await supabase
-    .from("teachers")
-    .select("id, username");
-
-  const convos: { id: string; type: "dm" | "group"; name: string; participantIds: string[] }[] = [];
-
-  for (const t of teachers ?? []) {
-    convos.push({
-      id: dmConversationId(userId, t.id),
-      type: "dm",
-      name: t.username,
-      participantIds: [userId, t.id],
-    });
-  }
-
-  convos.push({
-    id: groupConversationId(groupName),
-    type: "group",
-    name: `Study group · ${groupName}`,
-    participantIds: [userId],
-  });
-
-  for (const c of convos) {
-    await supabase.from("conversations").upsert(
-      {
-        id: c.id,
-        type: c.type,
-        name: c.name,
-        participant_ids: c.participantIds,
-      },
-      { onConflict: "id", ignoreDuplicates: true }
-    );
-  }
-
-  const { data: rows } = await supabase
-    .from("conversations")
-    .select("*")
-    .contains("participant_ids", [userId])
-    .order("last_message_at", { ascending: false, nullsFirst: false });
-
-  return (rows ?? []).map((r: Record<string, unknown>) => ({
+  const data = await callData<Row[]>("ensureConversations", { userId, userName, groupName });
+  return (data ?? []).map(r => ({
     id: r.id as string,
     type: r.type as "dm" | "group",
     name: r.name as string | null,
@@ -844,13 +631,8 @@ export async function ensureConversations(
 }
 
 export async function getMessages(conversationId: string): Promise<Message[]> {
-  const { data } = await supabase
-    .from("messages")
-    .select("*")
-    .eq("conversation_id", conversationId)
-    .order("created_at", { ascending: true });
-
-  return (data ?? []).map((r: Record<string, unknown>) => ({
+  const data = await callData<Row[]>("getMessages", { conversationId });
+  return (data ?? []).map(r => ({
     id: r.id as string,
     conversationId: r.conversation_id as string,
     senderId: r.sender_id as string,
@@ -866,34 +648,5 @@ export async function sendMessage(
   senderName: string,
   content: string
 ): Promise<Message | null> {
-  const id = `msg-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
-  const now = new Date().toISOString();
-
-  const { error } = await supabase.from("messages").insert({
-    id,
-    conversation_id: conversationId,
-    sender_id: senderId,
-    sender_name: senderName,
-    content,
-    created_at: now,
-  });
-
-  if (error) return null;
-
-  await supabase
-    .from("conversations")
-    .update({
-      last_message_at: now,
-      last_message_preview: content.slice(0, 100),
-    })
-    .eq("id", conversationId);
-
-  return {
-    id,
-    conversationId,
-    senderId,
-    senderName,
-    content,
-    createdAt: now,
-  };
+  return await callData<Message>("sendMessage", { conversationId, senderId, senderName, content });
 }

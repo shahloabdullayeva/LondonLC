@@ -3,7 +3,6 @@ import { useState, useEffect, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Eye, EyeOff, ChevronRight } from "lucide-react";
 import { saveSession, getSession, findTeacher, loginStudent, recordStudentAccess, recordTeacherAccess } from "@/lib/store";
-import { supabase } from "@/lib/supabase";
 import Brand from "@/components/Brand";
 import Link from "next/link";
 

@@ -76,19 +76,26 @@ leaks only bcrypt hashes, not usable passwords.
 > For local dev, run `supabase functions serve` (or deploy) so `/auth/login`
 > can reach the function.
 
-## Phase 2 — Route data access through Edge Functions (in progress)
+## Phase 2 — Route data access through Edge Functions ✅ DONE (code; deploy required)
 
 A single authorized gateway (`supabase/functions/data/index.ts`) replaces ~30
 separate functions. It verifies the session token, enforces teacher-vs-self
 authorization per operation, and runs each query with the service-role key.
 
-Rollout (staged to avoid breaking the live app):
-1. **Gateway added ✅** — `data` function written, covering every account, attempt,
-   submission, premium, blocked-IP, and messaging operation. Deploy it like the
-   others (`supabase functions deploy data`; it reuses `AUTH_JWT_SECRET`).
-2. **Client cutover (next)** — point `lib/store.ts` at the gateway instead of
-   `supabase.from(...)`. This is a hard dependency: the `data` function must be
-   deployed and verified first.
+1. **Gateway added ✅** — `data` function covering every account, attempt,
+   submission, premium, blocked-IP, and messaging operation.
+2. **Client cutover ✅** — `lib/store.ts` is now a thin client: every operation
+   calls the `login` or `data` function. The browser no longer creates a
+   Supabase client at all, and `@supabase/supabase-js` + `bcryptjs` were dropped
+   from the bundle.
+
+> **Deploy before merging.** Sign-in and all data now require the `data`
+> function live:
+> ```
+> supabase functions deploy data
+> ```
+> It reuses the same `AUTH_JWT_SECRET`. Test login, the admin dashboard, taking
+> a test, writing grading, and messages before relying on it.
 
 Operations grouped by audience:
 
