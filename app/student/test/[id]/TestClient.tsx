@@ -767,7 +767,7 @@ export default function TestPage() {
       });
     });
 
-    const band = bandScore(score, max, test.type);
+    const band = bandScore(score, max);
     setResult({ score, max, band });
 
     const attempt = {
@@ -830,7 +830,7 @@ export default function TestPage() {
   // ============================================================
   if (phase === "cancelled") {
     return (
-      <div style={{ minHeight: "100vh", background: "#0a0a0a", display: "flex", alignItems: "center", justifyContent: "center", padding: 24, fontFamily: "Inter, system-ui, sans-serif" }}>
+      <div style={{ minHeight: "100vh", background: "#0a0a0a", display: "flex", alignItems: "center", justifyContent: "center", padding: 24, fontFamily: "-apple-system, BlinkMacSystemFont, system-ui, Roboto, Helvetica, Arial, sans-serif" }}>
         <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }}
           style={{ maxWidth: 420, width: "100%", textAlign: "center" }}>
           <div style={{ width: 72, height: 72, borderRadius: "50%", background: "rgba(239,68,68,0.15)", border: "2px solid rgba(239,68,68,0.35)", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 24px" }}>
@@ -891,7 +891,7 @@ export default function TestPage() {
   const isReviewing = phase === "transfer";
 
   return (
-    <div className="test-zone" style={{ height: "100svh", display: "flex", flexDirection: "column", background: T.bg, fontFamily: "Inter, system-ui, sans-serif", overflow: "hidden" }}>
+    <div className="test-zone" style={{ height: "100svh", display: "flex", flexDirection: "column", background: T.bg, fontFamily: "-apple-system, BlinkMacSystemFont, system-ui, Roboto, Helvetica, Arial, sans-serif", overflow: "hidden" }}>
       {/* Test header */}
       <header className="test-header" style={{ position: "sticky", top: 0, zIndex: 20, display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 12px", minHeight: 54, gap: 8, background: T.nav, borderBottom: `1px solid ${T.border}` }}>
         {/* Left: test info — title hidden on mobile to make room for P1-P4 + Submit */}
@@ -1733,7 +1733,7 @@ function QuestionItem({
             value={answer}
             onChange={(e) => onAnswer(e.target.value)}
             placeholder="..."
-            style={{ flex: 1, maxWidth: 260, padding: "6px 12px", borderRadius: 6, fontSize: fontSize - 1, background: T.inputBg, border: `1.5px solid ${T.border}`, color: T.text, outline: "none", fontFamily: "Inter, system-ui, sans-serif" }}
+            style={{ flex: 1, maxWidth: 260, padding: "6px 12px", borderRadius: 6, fontSize: fontSize - 1, background: T.inputBg, border: `1.5px solid ${T.border}`, color: T.text, outline: "none", fontFamily: "-apple-system, BlinkMacSystemFont, system-ui, Roboto, Helvetica, Arial, sans-serif" }}
             onFocus={e => e.currentTarget.style.borderColor = T.accent}
             onBlur={e => e.currentTarget.style.borderColor = T.border}
           />
@@ -1749,7 +1749,7 @@ function QuestionItem({
                     value={answer}
                     onChange={(e) => onAnswer(e.target.value)}
                     placeholder="..."
-                    style={{ padding: "3px 10px", borderRadius: 6, fontSize: fontSize - 1, background: T.inputBg, border: `1.5px solid ${T.border}`, color: T.text, outline: "none", minWidth: 120, maxWidth: 180, fontFamily: "Inter, system-ui, sans-serif", userSelect: "text", WebkitUserSelect: "text" } as React.CSSProperties}
+                    style={{ padding: "3px 10px", borderRadius: 6, fontSize: fontSize - 1, background: T.inputBg, border: `1.5px solid ${T.border}`, color: T.text, outline: "none", minWidth: 120, maxWidth: 180, fontFamily: "-apple-system, BlinkMacSystemFont, system-ui, Roboto, Helvetica, Arial, sans-serif", userSelect: "text", WebkitUserSelect: "text" } as React.CSSProperties}
                     onFocus={e => e.currentTarget.style.borderColor = T.accent}
                     onBlur={e => e.currentTarget.style.borderColor = T.border}
                   />
@@ -1871,7 +1871,7 @@ function QuestionItem({
           {isGapFill && (
             <input type="text" value={answer} onChange={(e) => onAnswer(e.target.value)}
               placeholder="Write your answer here..."
-              style={{ padding: "9px 14px", borderRadius: 8, fontSize: fontSize - 1, background: T.inputBg, border: `1.5px solid ${T.border}`, color: T.text, outline: "none", minWidth: 200, fontFamily: "Inter, system-ui, sans-serif", userSelect: "text", WebkitUserSelect: "text" } as React.CSSProperties}
+              style={{ padding: "9px 14px", borderRadius: 8, fontSize: fontSize - 1, background: T.inputBg, border: `1.5px solid ${T.border}`, color: T.text, outline: "none", minWidth: 200, fontFamily: "-apple-system, BlinkMacSystemFont, system-ui, Roboto, Helvetica, Arial, sans-serif", userSelect: "text", WebkitUserSelect: "text" } as React.CSSProperties}
               onFocus={e => e.currentTarget.style.borderColor = T.accent}
               onBlur={e => e.currentTarget.style.borderColor = T.border}
             />
@@ -1902,7 +1902,7 @@ function WarningScreen({ test, onAccept }: { test: IELTSTest; onAccept: () => vo
   ];
 
   return (
-    <div style={{ minHeight: "100vh", background: "#0a0a0a", display: "flex", alignItems: "center", justifyContent: "center", padding: 24, fontFamily: "Inter, system-ui, sans-serif" }}>
+    <div style={{ minHeight: "100vh", background: "#0a0a0a", display: "flex", alignItems: "center", justifyContent: "center", padding: 24, fontFamily: "-apple-system, BlinkMacSystemFont, system-ui, Roboto, Helvetica, Arial, sans-serif" }}>
       <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }}
         style={{ maxWidth: 520, width: "100%", background: "#151515", border: "1px solid rgba(255,255,255,0.1)", borderRadius: 24, padding: "36px 32px", boxShadow: "0 24px 64px rgba(0,0,0,0.6)" }}>
 
@@ -1978,7 +1978,7 @@ function ResultScreen({
   };
 
   return (
-    <div style={{ minHeight: "100vh", background: "#0a0a0a", fontFamily: "Inter, system-ui, sans-serif", overflowY: "auto" }}>
+    <div style={{ minHeight: "100vh", background: "#0a0a0a", fontFamily: "-apple-system, BlinkMacSystemFont, system-ui, Roboto, Helvetica, Arial, sans-serif", overflowY: "auto" }}>
       <div style={{ display: "flex", alignItems: "center", justifyContent: "center", padding: 24 }}>
         <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }}
           style={{ maxWidth: 480, width: "100%", textAlign: "center" }}>

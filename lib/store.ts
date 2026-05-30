@@ -277,14 +277,10 @@ export async function changeTeacherOwnPassword(
 
 // ── Session (localStorage — intentionally per-device) ──────────────────
 const SESSION_KEY = "llc_session";
-const STUDENT_CACHE_KEY = "llc_student_cache";
 
 export function saveSession(session: StudentSession) {
   if (typeof window !== "undefined") {
     localStorage.setItem(SESSION_KEY, JSON.stringify(session));
-    if (!session.isAdmin) {
-      localStorage.setItem(STUDENT_CACHE_KEY, JSON.stringify({ name: session.name, surname: session.surname, group: session.group_name }));
-    }
   }
 }
 
@@ -298,14 +294,6 @@ export function getSession(): StudentSession | null {
 
 export function clearSession() {
   if (typeof window !== "undefined") localStorage.removeItem(SESSION_KEY);
-}
-
-export function getStudentCache(): { name: string; surname: string; group: string } | null {
-  if (typeof window !== "undefined") {
-    const raw = localStorage.getItem(STUDENT_CACHE_KEY);
-    if (raw) return JSON.parse(raw);
-  }
-  return null;
 }
 
 // ── Attempts ───────────────────────────────────────────────────────────
@@ -429,19 +417,6 @@ export type WritingSubmission = {
   gradedAt: string | null;
   createdAt: string;
 };
-
-export async function getLastSubmission(studentId: string): Promise<WritingSubmission | null> {
-  const { data } = await supabase
-    .from("writing_submissions")
-    .select("*")
-    .eq("student_id", studentId)
-    .order("created_at", { ascending: false })
-    .limit(1)
-    .maybeSingle();
-
-  if (!data) return null;
-  return mapSubmission(data);
-}
 
 export async function getSubmissions(studentId: string): Promise<WritingSubmission[]> {
   const { data } = await supabase

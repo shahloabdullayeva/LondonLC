@@ -6,8 +6,8 @@ import Brand from "@/components/Brand";
 import Link from "next/link";
 import { quotes, type Quote } from "@/lib/quotes";
 
-const DISPLAY = `"Fraunces", "Iowan Old Style", Georgia, serif`;
-const BODY = `"Inter", system-ui, sans-serif`;
+const DISPLAY = `-apple-system, BlinkMacSystemFont, system-ui, Roboto, Helvetica, Arial, sans-serif`;
+const BODY = `-apple-system, BlinkMacSystemFont, system-ui, Roboto, Helvetica, Arial, sans-serif`;
 
 export default function LandingPage() {
   const router = useRouter();

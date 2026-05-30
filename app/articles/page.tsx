@@ -10,7 +10,7 @@ import StudentShell from "@/components/StudentShell";
 import { starterArticles } from "@/data/articles";
 import { getSession } from "@/lib/store";
 
-const DISPLAY_FONT = `"Fraunces", "Iowan Old Style", Georgia, serif`;
+const DISPLAY_FONT = `-apple-system, BlinkMacSystemFont, system-ui, Roboto, Helvetica, Arial, sans-serif`;
 
 export default function ArticlesPage() {
   const router = useRouter();

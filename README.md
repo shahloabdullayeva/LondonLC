@@ -1,32 +1,39 @@
 # London LC — IELTS Practice Platform
 
-A timed, proctored IELTS Academic Reading practice app built with Next.js and
-Supabase. Students sit full Cambridge IELTS reading tests under exam conditions
-(60-minute timer, fullscreen enforced, tab-switch cancels the test); teachers
-manage accounts and review results from an admin dashboard.
+An IELTS practice platform for an English-learning centre, built with Next.js
+and Supabase. Students practise Reading, Listening, Writing, and Speaking under
+exam conditions and track their progress; teachers manage accounts and review
+results from an admin dashboard.
 
 ## Features
 
-- Cambridge IELTS 10–18 Academic Reading tests (34 full tests, ~1,358 questions)
-- Exam-style test runner with split-panel passage/questions layout, timer,
-  resizable divider, and multi-colour text highlighter
-- Anti-cheat: tab visibility, window blur, and fullscreen-exit all cancel the
-  attempt; copy/paste, right-click, and common keyboard shortcuts are blocked
-  during tests
-- Automatic IELTS band score calculation using the standard Cambridge
-  conversion table
-- Student dashboard with book selection and test history (per-question
-  breakdown of past attempts)
-- Teacher/admin dashboard: student accounts, teacher accounts, attempt
-  results filtered by group/type/status, practice mode, IP blocking
-- bcrypt password hashing (hashed in the browser before writing to Supabase);
-  legacy plaintext rows auto-upgrade on first login
+- **Reading & Listening tests** — 93 full timed tests (48 Reading across
+  Cambridge IELTS 10–20 Academic plus Barron's; 45 Listening across
+  Cambridge IELTS 10–20). Exam-style runner with split-panel passage/questions
+  layout, countdown timer, resizable divider, and a multi-colour highlighter.
+- **Anti-cheat** — during a test, tab switches, window blur, and exiting
+  fullscreen cancel the attempt; copy/paste, right-click, and common keyboard
+  shortcuts are blocked. Teachers can grant a per-student bypass.
+- **Automatic band scores** — raw answers are converted to an IELTS band using
+  the standard Cambridge table.
+- **Writing** — Task 1 and Task 2 editors with AI-assisted band scoring and
+  per-criterion feedback (via Supabase Edge Functions).
+- **Speaking** — practice interview with an AI examiner (text-to-speech
+  questions and AI grading).
+- **Library** — curated Articles, Podcasts, a YouTube-based Music player, and a
+  Vocabulary builder.
+- **Messages** — student ↔ teacher conversations.
+- **Dashboards** — student home with test history and per-question breakdowns;
+  teacher/admin dashboard for student and teacher accounts, results filtering,
+  practice mode, and IP blocking.
+- **Authentication** — passwords are bcrypt-hashed in the browser before being
+  written to Supabase; legacy plaintext rows are upgraded on first login.
 
 ## Tech stack
 
 - Next.js 16 (App Router, static export) + React 19 + TypeScript
-- Tailwind CSS 4, Framer Motion, Lucide icons
-- Supabase (Postgres) for persistence
+- Tailwind CSS 4, Framer Motion, Lucide icons, system fonts (no web-font downloads)
+- Supabase (Postgres + Edge Functions) for persistence and AI grading
 - Deployed to GitHub Pages via GitHub Actions
 
 ## Running locally
@@ -43,10 +50,10 @@ manage accounts and review results from an admin dashboard.
 4. Create a root admin teacher account. From the Supabase SQL editor, insert a
    row into `teachers` with a bcrypt-hashed password:
    ```sql
-   insert into teachers (id, username, password)
-   values ('admin-root', 'your-admin-username', '<bcrypt hash of your password>');
+   insert into teachers (id, username, password, is_root)
+   values ('admin-root', 'your-admin-username', '<bcrypt hash of your password>', true);
    ```
-   (You can generate a bcrypt hash with any bcrypt tool; rounds = 10.)
+   (Generate the hash with any bcrypt tool; rounds = 10.)
 5. Start the dev server:
    ```
    npm run dev
@@ -54,44 +61,62 @@ manage accounts and review results from an admin dashboard.
 6. Visit `http://localhost:3000`. Log in as a teacher (`/auth/login?admin=true`)
    to create student accounts.
 
+Run `npm run typecheck` to type-check the project.
+
 ## Deployment
 
-The app is deployed to GitHub Pages via `.github/workflows/deploy.yml`. Before
-the first deploy, add these as **repository secrets** under
+The app is deployed to GitHub Pages via `.github/workflows/deploy.yml` on every
+push to `main` (or manually via *Run workflow*). Before the first deploy, add
+these as **repository secrets** under
 `Settings → Secrets and variables → Actions`:
 
 - `NEXT_PUBLIC_SUPABASE_URL`
 - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
 
-Push to `main`, `claude/general-session-xgznl`, or
-`claude/general-session-xgznl-5PF7d` to trigger a build. Output goes to
-`./out` and is uploaded to GitHub Pages.
+The build output goes to `./out` and is published to GitHub Pages.
+
+The AI Writing and Speaking features call Supabase Edge Functions in
+`supabase/functions/`. Deploy them with the Supabase CLI and set their secrets
+(`ANTHROPIC_API_KEY`, `ELEVENLABS_API_KEY`) with `supabase secrets set` — these
+are never stored in the repo.
 
 ## Project layout
 
 ```
-app/                       Next.js App Router pages
-  page.tsx                 Landing page
-  auth/                    Login + signup
-  student/                 Student dashboard + test runner
-  admin/                   Teacher dashboard
-components/                Shared UI components
+app/                          Next.js App Router pages
+  page.tsx                    Landing page
+  auth/                       Login + signup + reset
+  student/                    Student dashboard, practice runner, library
+  admin/dashboard/            Teacher dashboard
+components/                   Shared UI components
 data/
-  ielts-tests.ts           Test type definitions + Cambridge 1 demo
-  cambridge10.ts … 18.ts   Cambridge IELTS Academic Reading tests
+  ielts-tests.ts              Test registry (combines all books)
+  cambridge10-reading.ts …    Cambridge 10–20 Reading + Listening
+  barrons-reading.ts          Barron's Reading
+  articles.ts, podcasts.ts,   Library content
+  songs.ts, vocab.ts
 lib/
-  store.ts                 Supabase data access + bcrypt auth helpers
-  supabase.ts              Supabase client
-  utils.ts                 bandScore(), formatTime()
-public/                    Static assets (logos, diagrams)
-supabase-schema.sql        Database schema + RLS policies
+  store.ts                    Supabase data access + bcrypt auth helpers
+  supabase.ts                 Supabase client
+  utils.ts                    bandScore(), formatTime()
+  site-theme.ts               Theme tokens + switcher
+supabase/functions/           Edge Functions (AI grading, text-to-speech)
+supabase-schema.sql           Database schema + RLS policies
 ```
+
+## Security notes
+
+- No secrets live in the repo. The browser uses only the public Supabase anon
+  key (supplied at build time via repository secrets); Edge Function keys are
+  read from environment variables.
+- Because the app is a static export, every Supabase call uses the anon key and
+  is governed by the Row Level Security policies in `supabase-schema.sql`. The
+  policies shipped here are permissive for ease of setup — **tighten them before
+  going to production**, and consider moving admin-only operations behind a
+  server that holds the service-role key.
 
 ## Known gaps
 
-- Cambridge 18 Tests 3 and 4 are not yet added (Tests 1 and 2 are complete)
-- Listening tests are stubbed but not yet implemented
-- General Training reading is not implemented
-- Because the app is a static export, every Supabase call uses the anon key;
-  defense-in-depth would require moving admin operations behind a server that
-  holds the service role key
+- General Training Reading is not implemented (Academic only).
+- The "request premium grading" flow is wired on the admin side but not yet
+  exposed in the student UI.

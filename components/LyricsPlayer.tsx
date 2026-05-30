@@ -311,7 +311,7 @@ export default function LyricsPlayer({ song, isAdmin = false }: { song: Song; is
           {/* Song meta + sync — ABOVE the video so it never scrolls off */}
           <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 10, flexWrap: "wrap", flexShrink: 0 }}>
             <div style={{ display: "flex", flexDirection: "column", gap: 1, minWidth: 0 }}>
-              <div style={{ fontFamily: `"Fraunces", serif`, fontSize: 20, fontWeight: 500, color: "var(--site-text)", letterSpacing: "-0.01em", lineHeight: 1.2 }}>
+              <div style={{ fontFamily: `-apple-system, BlinkMacSystemFont, system-ui, Roboto, Helvetica, Arial, sans-serif`, fontSize: 20, fontWeight: 500, color: "var(--site-text)", letterSpacing: "-0.01em", lineHeight: 1.2 }}>
                 {song.title}
               </div>
               <div style={{ fontSize: 11, color: "var(--site-text-muted)", letterSpacing: "0.06em" }}>

@@ -48,7 +48,7 @@ function downloadTask1PDF(s: WritingSubmission, studentName: string) {
 <html><head><meta charset="utf-8"><title>${esc(filename)}</title>
 <style>
   @page { margin: 14mm 14mm 16mm; }
-  body { font-family: "Iowan Old Style", Georgia, serif; color: #111; font-size: 11.5pt; line-height: 1.55; padding: 20pt 24pt; }
+  body { font-family: Georgia, "Times New Roman", serif; color: #111; font-size: 11.5pt; line-height: 1.55; padding: 20pt 24pt; }
   header { display: flex; justify-content: space-between; border-bottom: 1px solid #333; padding-bottom: 10pt; margin-bottom: 14pt; }
   .brand { font-family: ui-monospace, monospace; font-size: 10pt; letter-spacing: 0.14em; text-transform: uppercase; }
   .meta { font-size: 9.5pt; text-align: right; color: #333; }

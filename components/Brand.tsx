@@ -17,7 +17,7 @@ type BrandProps = {
 export default function Brand({ size = 20, href, suffix }: BrandProps) {
   const content = (
     <span style={{
-      fontFamily: `"Fraunces", "Iowan Old Style", Georgia, serif`,
+      fontFamily: `-apple-system, BlinkMacSystemFont, system-ui, Roboto, Helvetica, Arial, sans-serif`,
       fontWeight: 500, letterSpacing: "-0.01em",
       fontSize: size, lineHeight: 1,
       display: "inline-flex", alignItems: "baseline", gap: size * 0.22,
@@ -29,7 +29,7 @@ export default function Brand({ size = 20, href, suffix }: BrandProps) {
       </span>
       {suffix && (
         <span style={{
-          fontFamily: "Inter, system-ui, sans-serif",
+          fontFamily: "-apple-system, BlinkMacSystemFont, system-ui, Roboto, Helvetica, Arial, sans-serif",
           fontSize: Math.max(10, size * 0.55),
           fontWeight: 700, letterSpacing: "0.12em",
           textTransform: "uppercase",

@@ -100,7 +100,7 @@ function mix(a: [number, number, number], b: [number, number, number], t: number
  * Light bg → dark text / slightly darker card / faint dark borders.
  * Dark  bg → light text / slightly lighter card / faint white borders.
  */
-export function derivePalette(bgHex: string, textOverride?: string, accentOverride?: string) {
+function derivePalette(bgHex: string, textOverride?: string, accentOverride?: string) {
   const bg = hexToRgb(bgHex);
   const isDark = luminance(bg) < 0.5;
 
@@ -207,6 +207,3 @@ export function useSiteTheme(): {
 
   return { theme, setTheme, cyclePreset };
 }
-
-export const SITE_THEME_STORAGE_KEY = STORAGE_KEY;
-export const PRESET_ORDER = ORDER;

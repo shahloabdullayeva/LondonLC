@@ -72,7 +72,7 @@ function LoginContent() {
   return (
     <div style={{
       minHeight: "100vh", background: "var(--site-bg)", color: "#e5e5e5",
-      fontFamily: "Inter, system-ui, sans-serif",
+      fontFamily: "-apple-system, BlinkMacSystemFont, system-ui, Roboto, Helvetica, Arial, sans-serif",
       display: "flex", flexDirection: "column",
     }}>
       {/* Subtle glow */}

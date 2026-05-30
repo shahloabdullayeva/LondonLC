@@ -67,7 +67,7 @@ const sel: React.CSSProperties = {
   fontWeight: 500,
   outline: "none",
   cursor: "pointer",
-  fontFamily: "var(--ff-sans, Inter, system-ui, sans-serif)",
+  fontFamily: "var(--ff-sans, -apple-system, BlinkMacSystemFont, system-ui, Roboto, Helvetica, Arial, sans-serif)",
   width: "100%",
 };
 
@@ -352,7 +352,7 @@ export default function AdminDashboard() {
   ];
 
   return (
-    <div style={{ height: "100vh", display: "flex", flexDirection: "row", overflow: "hidden", background: C.bg, fontFamily: "var(--ff-sans, Inter, system-ui, sans-serif)", color: C.text }}>
+    <div style={{ height: "100vh", display: "flex", flexDirection: "row", overflow: "hidden", background: C.bg, fontFamily: "var(--ff-sans, -apple-system, BlinkMacSystemFont, system-ui, Roboto, Helvetica, Arial, sans-serif)", color: C.text }}>
 
       {/* ── Sidebar ──────────────────────────────── */}
       <aside style={{ width: 220, flexShrink: 0, background: C.card2, borderRight: `1px solid ${C.border}`, display: "flex", flexDirection: "column", overflow: "hidden" }}>
@@ -394,7 +394,7 @@ export default function AdminDashboard() {
 
         {/* Nav items */}
         <nav style={{ flex: 1, overflowY: "auto", padding: "4px 10px" }}>
-          <p style={{ fontFamily: `'JetBrains Mono', ui-monospace, monospace`, fontSize: 10, fontWeight: 500, color: C.muted, letterSpacing: "0.12em", textTransform: "uppercase", margin: "6px 10px 8px" }}>Admin</p>
+          <p style={{ fontFamily: `ui-monospace, SFMono-Regular, Menlo, Consolas, monospace`, fontSize: 10, fontWeight: 500, color: C.muted, letterSpacing: "0.12em", textTransform: "uppercase", margin: "6px 10px 8px" }}>Admin</p>
           {tabs.map(({ id, Icon, label, badge }) => (
             <button key={id} onClick={() => setActiveTab(id)}
               style={{ display: "flex", alignItems: "center", gap: 10, width: "100%", padding: "10px 12px", borderRadius: 10, border: "none", cursor: "pointer", fontWeight: 500, fontSize: 13.5, textAlign: "left", marginBottom: 2, transition: "all 0.15s",
@@ -412,7 +412,7 @@ export default function AdminDashboard() {
               tabs (not external routes) so the sidebar stays visible.
               Reading + Listening come first (they actually exist as the
               teacher's test library); the others are placeholders. */}
-          <p style={{ fontFamily: `'JetBrains Mono', ui-monospace, monospace`, fontSize: 10, fontWeight: 500, color: C.muted, letterSpacing: "0.12em", textTransform: "uppercase", margin: "18px 10px 8px" }}>Sections</p>
+          <p style={{ fontFamily: `ui-monospace, SFMono-Regular, Menlo, Consolas, monospace`, fontSize: 10, fontWeight: 500, color: C.muted, letterSpacing: "0.12em", textTransform: "uppercase", margin: "18px 10px 8px" }}>Sections</p>
           {([
             { type: "reading"   as const, Icon: BookOpen,   label: "Reading" },
             { type: "listening" as const, Icon: Headphones, label: "Listening" },
@@ -1613,7 +1613,7 @@ function TabHeader({ title, subtitle, C, quote }: {
     }}>
       <div style={{ flexShrink: 0 }}>
         <h1 style={{
-          fontFamily: `"Fraunces", "Iowan Old Style", Georgia, serif`,
+          fontFamily: `-apple-system, BlinkMacSystemFont, system-ui, Roboto, Helvetica, Arial, sans-serif`,
           fontSize: 30, fontWeight: 500, letterSpacing: "-0.015em",
           color: C.text, marginBottom: 4, lineHeight: 1.15,
         }}>{title}</h1>
@@ -1676,7 +1676,7 @@ function openSubmissionPDF(s: WritingSubmission & { studentName: string }) {
 <html><head><meta charset="utf-8"><title>${esc(s.studentName)} — Band ${s.overallBand?.toFixed(1) ?? "—"}</title>
 <style>
   @page { margin: 14mm 14mm 16mm; }
-  body { font-family: "Iowan Old Style", Georgia, serif; color: #111; font-size: 11.5pt; line-height: 1.55; padding: 20pt 24pt; }
+  body { font-family: Georgia, "Times New Roman", serif; color: #111; font-size: 11.5pt; line-height: 1.55; padding: 20pt 24pt; }
   header { display: flex; justify-content: space-between; border-bottom: 1px solid #333; padding-bottom: 10pt; margin-bottom: 14pt; }
   .brand { font-family: ui-monospace, monospace; font-size: 10pt; letter-spacing: 0.14em; text-transform: uppercase; }
   .meta { font-size: 9.5pt; text-align: right; color: #333; }
@@ -1774,7 +1774,7 @@ function WritingSubmissionsView({ C }: {
                   {s.prompt}
                 </div>
               </div>
-              <div style={{ fontSize: 11, color: C.sub, fontFamily: "'JetBrains Mono', ui-monospace, monospace", letterSpacing: "0.04em" }}>
+              <div style={{ fontSize: 11, color: C.sub, fontFamily: "ui-monospace, SFMono-Regular, Menlo, Consolas, monospace", letterSpacing: "0.04em" }}>
                 {s.wordCount} words
               </div>
               <div style={{
@@ -1809,12 +1809,12 @@ function WritingSubmissionsView({ C }: {
                 </div>
 
                 <div>
-                  <div style={{ fontSize: 10, letterSpacing: "0.14em", textTransform: "uppercase", color: C.muted, marginBottom: 8, fontFamily: "'JetBrains Mono', ui-monospace, monospace" }}>Prompt</div>
+                  <div style={{ fontSize: 10, letterSpacing: "0.14em", textTransform: "uppercase", color: C.muted, marginBottom: 8, fontFamily: "ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" }}>Prompt</div>
                   <div style={{ fontSize: 13, color: C.text, lineHeight: 1.6 }}>{s.prompt}</div>
                 </div>
 
                 <div>
-                  <div style={{ fontSize: 10, letterSpacing: "0.14em", textTransform: "uppercase", color: C.muted, marginBottom: 8, fontFamily: "'JetBrains Mono', ui-monospace, monospace" }}>Essay</div>
+                  <div style={{ fontSize: 10, letterSpacing: "0.14em", textTransform: "uppercase", color: C.muted, marginBottom: 8, fontFamily: "ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" }}>Essay</div>
                   <div style={{ fontSize: 13, color: C.text, lineHeight: 1.7, whiteSpace: "pre-line", background: C.card2, border: `1px solid ${C.border}`, borderRadius: 10, padding: "14px 16px", maxHeight: 360, overflowY: "auto" }}>
                     {s.essay}
                   </div>
@@ -1822,7 +1822,7 @@ function WritingSubmissionsView({ C }: {
 
                 {s.overallBand && (
                   <div>
-                    <div style={{ fontSize: 10, letterSpacing: "0.14em", textTransform: "uppercase", color: C.muted, marginBottom: 8, fontFamily: "'JetBrains Mono', ui-monospace, monospace" }}>AI Grading</div>
+                    <div style={{ fontSize: 10, letterSpacing: "0.14em", textTransform: "uppercase", color: C.muted, marginBottom: 8, fontFamily: "ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" }}>AI Grading</div>
                     <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 10, marginBottom: 14 }}>
                       {[
                         { label: "Task Response", val: s.taskResponse },
@@ -1851,7 +1851,7 @@ function WritingSubmissionsView({ C }: {
 
                 {corrections.length > 0 && (
                   <div>
-                    <div style={{ fontSize: 10, letterSpacing: "0.14em", textTransform: "uppercase", color: C.muted, marginBottom: 8, fontFamily: "'JetBrains Mono', ui-monospace, monospace" }}>
+                    <div style={{ fontSize: 10, letterSpacing: "0.14em", textTransform: "uppercase", color: C.muted, marginBottom: 8, fontFamily: "ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" }}>
                       Line-by-line corrections · {corrections.length}
                     </div>
                     <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
@@ -1864,7 +1864,7 @@ function WritingSubmissionsView({ C }: {
                               fontSize: 9, letterSpacing: "0.12em", textTransform: "uppercase",
                               padding: "2px 8px", borderRadius: 999,
                               background: tag.bg, color: tag.fg, marginBottom: 8,
-                              fontFamily: "'JetBrains Mono', ui-monospace, monospace",
+                              fontFamily: "ui-monospace, SFMono-Regular, Menlo, Consolas, monospace",
                             }}>{tag.label}</div>
                             <div style={{ fontSize: 13, color: C.muted, lineHeight: 1.55, marginBottom: 4, textDecoration: "line-through" }}>
                               {c.original}
@@ -1886,7 +1886,7 @@ function WritingSubmissionsView({ C }: {
                   <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
                     {s.strengths && s.strengths.length > 0 && (
                       <div style={{ padding: "12px 14px", background: C.card2, border: `1px solid ${C.border}`, borderRadius: 8 }}>
-                        <div style={{ fontSize: 10, letterSpacing: "0.12em", textTransform: "uppercase", color: C.muted, marginBottom: 8, fontFamily: "'JetBrains Mono', ui-monospace, monospace" }}>What's working</div>
+                        <div style={{ fontSize: 10, letterSpacing: "0.12em", textTransform: "uppercase", color: C.muted, marginBottom: 8, fontFamily: "ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" }}>What's working</div>
                         <ul style={{ margin: 0, paddingLeft: 16, fontSize: 13, color: C.text, lineHeight: 1.6 }}>
                           {s.strengths.map((x, i) => <li key={i}>{x}</li>)}
                         </ul>
@@ -1894,7 +1894,7 @@ function WritingSubmissionsView({ C }: {
                     )}
                     {s.nextSteps && s.nextSteps.length > 0 && (
                       <div style={{ padding: "12px 14px", background: C.card2, border: `1px solid ${C.border}`, borderRadius: 8 }}>
-                        <div style={{ fontSize: 10, letterSpacing: "0.12em", textTransform: "uppercase", color: C.muted, marginBottom: 8, fontFamily: "'JetBrains Mono', ui-monospace, monospace" }}>Next steps</div>
+                        <div style={{ fontSize: 10, letterSpacing: "0.12em", textTransform: "uppercase", color: C.muted, marginBottom: 8, fontFamily: "ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" }}>Next steps</div>
                         <ul style={{ margin: 0, paddingLeft: 16, fontSize: 13, color: C.text, lineHeight: 1.6 }}>
                           {s.nextSteps.map((x, i) => <li key={i}>{x}</li>)}
                         </ul>

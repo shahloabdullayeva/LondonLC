@@ -4,7 +4,7 @@ import Link from "next/link";
 import Brand from "@/components/Brand";
 import { supabase } from "@/lib/supabase";
 
-const DISPLAY = `"Fraunces", "Iowan Old Style", Georgia, serif`;
+const DISPLAY = `-apple-system, BlinkMacSystemFont, system-ui, Roboto, Helvetica, Arial, sans-serif`;
 
 export default function ResetPasswordPage() {
   const [email, setEmail] = useState("");
@@ -37,7 +37,7 @@ export default function ResetPasswordPage() {
   };
 
   return (
-    <div style={{ minHeight: "100vh", background: "var(--site-bg)", display: "flex", flexDirection: "column", fontFamily: "Inter, system-ui, sans-serif" }}>
+    <div style={{ minHeight: "100vh", background: "var(--site-bg)", display: "flex", flexDirection: "column", fontFamily: "-apple-system, BlinkMacSystemFont, system-ui, Roboto, Helvetica, Arial, sans-serif" }}>
       <div style={{ display: "flex", alignItems: "center", padding: "0 24px", height: 56, borderBottom: "1px solid var(--site-border)" }}>
         <Brand href="/" size={20} />
       </div>

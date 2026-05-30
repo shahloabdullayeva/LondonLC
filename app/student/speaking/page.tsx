@@ -5,7 +5,7 @@ import { Mic, MicOff, Play, SkipForward, BarChart3, RotateCcw, Volume2 } from "l
 import StudentShell from "@/components/StudentShell";
 import { getSession, type StudentSession } from "@/lib/store";
 
-const DISPLAY = `"Fraunces", "Iowan Old Style", Georgia, serif`;
+const DISPLAY = `-apple-system, BlinkMacSystemFont, system-ui, Roboto, Helvetica, Arial, sans-serif`;
 
 type SpeakingPart = { part: number; title: string; instructions: string; questions: string[] };
 

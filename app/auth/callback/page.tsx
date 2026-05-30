@@ -45,7 +45,7 @@ export default function AuthCallbackPage() {
   }, [router]);
 
   return (
-    <div style={{ minHeight: "100vh", display: "grid", placeItems: "center", background: "var(--site-bg)", color: "var(--site-text)", fontFamily: "Inter, system-ui, sans-serif" }}>
+    <div style={{ minHeight: "100vh", display: "grid", placeItems: "center", background: "var(--site-bg)", color: "var(--site-text)", fontFamily: "-apple-system, BlinkMacSystemFont, system-ui, Roboto, Helvetica, Arial, sans-serif" }}>
       <p style={{ fontSize: 14, color: "var(--site-text-muted)" }}>Signing you in…</p>
     </div>
   );

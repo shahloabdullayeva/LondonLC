@@ -6,7 +6,7 @@ import Brand from "@/components/Brand";
 import { supabase } from "@/lib/supabase";
 import { saveSession } from "@/lib/store";
 
-const DISPLAY = `"Fraunces", "Iowan Old Style", Georgia, serif`;
+const DISPLAY = `-apple-system, BlinkMacSystemFont, system-ui, Roboto, Helvetica, Arial, sans-serif`;
 
 export default function SignupPage() {
   const router = useRouter();
@@ -85,7 +85,7 @@ export default function SignupPage() {
 
   if (sent) {
     return (
-      <div style={{ minHeight: "100vh", background: "var(--site-bg)", display: "flex", flexDirection: "column", fontFamily: "Inter, system-ui, sans-serif" }}>
+      <div style={{ minHeight: "100vh", background: "var(--site-bg)", display: "flex", flexDirection: "column", fontFamily: "-apple-system, BlinkMacSystemFont, system-ui, Roboto, Helvetica, Arial, sans-serif" }}>
         <div style={{ display: "flex", alignItems: "center", padding: "0 24px", height: 56, borderBottom: "1px solid var(--site-border)" }}>
           <Brand href="/" size={20} />
         </div>
@@ -106,7 +106,7 @@ export default function SignupPage() {
   }
 
   return (
-    <div style={{ minHeight: "100vh", background: "var(--site-bg)", display: "flex", flexDirection: "column", fontFamily: "Inter, system-ui, sans-serif" }}>
+    <div style={{ minHeight: "100vh", background: "var(--site-bg)", display: "flex", flexDirection: "column", fontFamily: "-apple-system, BlinkMacSystemFont, system-ui, Roboto, Helvetica, Arial, sans-serif" }}>
       <div style={{ display: "flex", alignItems: "center", padding: "0 24px", height: 56, borderBottom: "1px solid var(--site-border)" }}>
         <Brand href="/" size={20} />
       </div>

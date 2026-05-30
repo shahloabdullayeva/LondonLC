@@ -117,7 +117,7 @@ export default function ThemeToggle({ size = 16, align = "right", variant = "inl
             padding: 16,
             boxShadow: "0 12px 28px rgba(0,0,0,0.35)",
             color: "var(--site-text)",
-            fontFamily: "Inter, system-ui, sans-serif",
+            fontFamily: "-apple-system, BlinkMacSystemFont, system-ui, Roboto, Helvetica, Arial, sans-serif",
           }}
         >
           {/* Header */}

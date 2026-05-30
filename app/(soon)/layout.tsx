@@ -8,7 +8,7 @@ export default function SoonLayout({ children }: { children: React.ReactNode }) 
   return (
     <div style={{
       minHeight: "100vh", background: "#0a0a0a", color: "#e5e5e5",
-      fontFamily: "Inter, system-ui, sans-serif",
+      fontFamily: "-apple-system, BlinkMacSystemFont, system-ui, Roboto, Helvetica, Arial, sans-serif",
       display: "flex", flexDirection: "column",
     }}>
       <nav style={{
