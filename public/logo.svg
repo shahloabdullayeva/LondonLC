@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 120" width="320" height="120">
+  <!-- White/light background implied -->
+  
+  <!-- Wave swoosh behind text -->
+  <path d="M 20 75 Q 80 20 160 60 Q 240 100 300 45" 
+        fill="none" stroke="#8b7bc8" stroke-width="22" stroke-linecap="round" opacity="0.55"/>
+  
+  <!-- London text -->
+  <text x="24" y="72" 
+        font-family="Georgia, 'Times New Roman', serif" 
+        font-size="58" 
+        font-weight="700" 
+        fill="#2d1b5e"
+        letter-spacing="-1">London</text>
+  
+  <!-- Tagline -->
+  <text x="155" y="90" 
+        font-family="Georgia, 'Times New Roman', serif" 
+        font-size="15" 
+        font-style="italic"
+        fill="#8b7bc8"
+        letter-spacing="0.3">You deserve more!</text>
+</svg>

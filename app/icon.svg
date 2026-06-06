@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <!-- Deep purple disc, edge-to-edge -->
+  <circle cx="50" cy="50" r="50" fill="#5d138e"/>
+
+  <!-- Broken inner ring — bigger radius + thicker stroke so it's visible at 16px -->
+  <circle cx="50" cy="50" r="36" fill="none"
+          stroke="#ffffff" stroke-width="5"
+          stroke-linecap="round"
+          stroke-dasharray="28 14"/>
+
+  <!-- Lightning bolt — scaled up to dominate the disc -->
+  <path d="M 60 18 L 30 56 L 46 56 L 38 82 L 72 42 L 54 42 Z"
+        fill="#ffffff"/>
+</svg>
