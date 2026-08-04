@@ -202,7 +202,7 @@ function WritingPage() {
   }, [text, session]);
 
   useEffect(() => {
-    if (!session || session.anticheatBypass) return;
+    if (!session || session.isAdmin || session.anticheatBypass) return;
     const handleVisibility = () => {
       if (document.hidden) setViolations(v => v + 1);
     };
@@ -318,7 +318,7 @@ function WritingPage() {
   };
 
   const handlePaste = (e: React.ClipboardEvent<HTMLTextAreaElement>) => {
-    if (!ANTI_PASTE_ENABLED || session?.anticheatBypass) return;
+    if (!ANTI_PASTE_ENABLED || session?.isAdmin || session?.anticheatBypass) return;
     e.preventDefault();
     setErrorMsg("Pasting is disabled. Please type your essay yourself.");
   };
@@ -501,7 +501,7 @@ function WritingPage() {
             </div>
           )}
 
-          {violations > 0 && !session?.anticheatBypass && (
+          {violations > 0 && !session?.isAdmin && !session?.anticheatBypass && (
             <div style={{ marginTop: 12, padding: "10px 14px", borderRadius: 8, background: "rgba(239,68,68,0.08)", border: "1px solid rgba(239,68,68,0.25)", color: "#fca5a5", fontSize: 13, display: "flex", alignItems: "center", gap: 8 }}>
               <span style={{ fontSize: 16 }}>&#9888;</span>
               You left this page {violations} time{violations > 1 ? "s" : ""}. This is recorded and visible to your teacher.
