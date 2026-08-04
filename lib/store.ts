@@ -261,19 +261,6 @@ export function clearSession() {
   }
 }
 
-export type SpeakingResult = { id: string; title: string; overall: number; createdAt: string };
-
-export function getSpeakingResults(studentId: string): SpeakingResult[] {
-  if (typeof window === "undefined") return [];
-  try { return JSON.parse(localStorage.getItem(`llc_speaking_${studentId}`) || "[]"); } catch { return []; }
-}
-
-export function saveSpeakingResult(studentId: string, r: SpeakingResult) {
-  if (typeof window === "undefined") return;
-  const list = getSpeakingResults(studentId);
-  localStorage.setItem(`llc_speaking_${studentId}`, JSON.stringify([r, ...list].slice(0, 50)));
-}
-
 export async function saveAttempt(attempt: AttemptData): Promise<void> {
   await callData("saveAttempt", { attempt });
 }

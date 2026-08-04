@@ -4,8 +4,8 @@ import { useRouter } from "next/navigation";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import StudentShell from "@/components/StudentShell";
 import {
-  getSession, clearSession, getAttempts, changeStudentOwnPassword, getSubmissions, getSpeakingResults,
-  type StudentSession, type AttemptData, type WritingSubmission, type SpeakingResult,
+  getSession, clearSession, getAttempts, changeStudentOwnPassword, getSubmissions,
+  type StudentSession, type AttemptData, type WritingSubmission,
 } from "@/lib/store";
 import { getTestById } from "@/data/ielts-tests";
 
@@ -38,9 +38,8 @@ export default function ProfilePage() {
   const [session, setSession] = useState<StudentSession | null>(null);
   const [attempts, setAttempts] = useState<AttemptData[]>([]);
   const [writingSubs, setWritingSubs] = useState<WritingSubmission[]>([]);
-  const [speakingResults, setSpeakingResults] = useState<SpeakingResult[]>([]);
   const [expandedId, setExpandedId] = useState<string | null>(null);
-  const [tab, setTab] = useState<"reading" | "listening" | "writing" | "speaking">("reading");
+  const [tab, setTab] = useState<"reading" | "listening" | "writing">("reading");
   const [curr, setCurr] = useState("");
   const [next, setNext] = useState("");
   const [pwMsg, setPwMsg] = useState<{ kind: "ok" | "err"; text: string } | null>(null);
@@ -53,7 +52,6 @@ export default function ProfilePage() {
     setSession(s);
     getAttempts().then(all => setAttempts(all.filter(a => a.studentId === s.id)));
     getSubmissions(s.id).then(setWritingSubs);
-    setSpeakingResults(getSpeakingResults(s.id));
   }, [router]);
 
   const completed = useMemo(() => attempts.filter(a => a.status === "completed"), [attempts]);
@@ -222,7 +220,6 @@ export default function ProfilePage() {
           ["reading", "Reading", readingAttempts.length],
           ["listening", "Listening", listeningAttempts.length],
           ["writing", "Writing", writingSubs.length],
-          ["speaking", "Speaking", speakingResults.length],
         ] as const).map(([key, label, count]) => (
           <button key={key} className={`chip${tab === key ? " on" : ""}`} onClick={() => setTab(key)}>
             {label}{count > 0 ? ` · ${count}` : ""}
@@ -240,15 +237,6 @@ export default function ProfilePage() {
               <div style={{ fontSize: 11, fontFamily: "var(--ff-mono)", color: "var(--text-3)", letterSpacing: "0.04em" }}>{w.wordCount} words · {new Date(w.gradedAt ?? w.createdAt).toLocaleDateString()}</div>
             </div>
             {scorePill(w.overallBand)}
-          </div>
-        )) : <p style={{ color: "var(--text-3)", fontSize: 13 }}>No results yet.</p>)}
-        {tab === "speaking" && (speakingResults.length ? speakingResults.map(s => (
-          <div key={s.id} className="card" style={{ display: "flex", alignItems: "center", gap: 14, padding: "14px 18px" }}>
-            <div style={{ flex: 1, minWidth: 0 }}>
-              <div style={{ fontSize: 14, color: "var(--text)", marginBottom: 2, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{s.title}</div>
-              <div style={{ fontSize: 11, fontFamily: "var(--ff-mono)", color: "var(--text-3)", letterSpacing: "0.04em" }}>{new Date(s.createdAt).toLocaleDateString()}</div>
-            </div>
-            {scorePill(s.overall)}
           </div>
         )) : <p style={{ color: "var(--text-3)", fontSize: 13 }}>No results yet.</p>)}
       </div>

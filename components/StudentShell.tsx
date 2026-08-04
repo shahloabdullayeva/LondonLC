@@ -5,7 +5,7 @@ import { usePathname, useRouter } from "next/navigation";
 import {
   User2,
   BookOpen, Headphones, PenLine,
-  FileText, Mic, Music,
+  FileText, Music,
   LogOut, Menu, X,
   UserCircle2,
 } from "lucide-react";
@@ -34,7 +34,6 @@ const STUDENT_SECTIONS: { title: string; items: NavItem[] }[] = [
       { label: "Reading", href: "/student/reading", icon: BookOpen, chev: true },
       { label: "Listening", href: "/student/listening", icon: Headphones, chev: true },
       { label: "Writing", href: "/student/writing", icon: PenLine, chev: true },
-      { label: "Speaking", href: "/student/speaking", icon: Mic },
     ],
   },
   {
@@ -59,7 +58,6 @@ const ADMIN_SECTIONS: { title: string; items: NavItem[] }[] = [
       { label: "Reading", href: "/admin/dashboard?tab=tests&type=reading", icon: BookOpen, chev: true },
       { label: "Listening", href: "/admin/dashboard?tab=tests&type=listening", icon: Headphones, chev: true },
       { label: "Writing", href: "/student/writing?practice=1", icon: PenLine, chev: true },
-      { label: "Speaking", href: "/student/speaking?practice=1", icon: Mic },
       { label: "Articles", href: "/articles", icon: FileText },
       { label: "Music", href: "/music", icon: Music },
     ],

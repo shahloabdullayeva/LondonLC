@@ -5,7 +5,7 @@ import {
   BookOpen, LogOut, Users, Award, BarChart3, Search,
   Download, CheckCircle, X, Shield, Plus, Trash2, Eye, EyeOff,
   Monitor, Ban, Headphones, ChevronRight, ChevronDown, ChevronUp, Pencil, Save,
-  PenLine, FileText, Mic, Music, UserCircle2, Lock, KeyRound, Copy,
+  PenLine, FileText, Music, UserCircle2, Lock, KeyRound, Copy,
 } from "lucide-react";
 
 import { getSession, clearSession, getAttempts, getTeachers, addTeacher, deleteTeacher, updateTeacherPassword, resetStudentPassword, resetTeacherPassword, changeTeacherOwnPassword, registerStudent, getStudentAccounts, deleteStudent, updateStudent, addGradingCredits, getBlockedIPs, blockIP, unblockIP, recordTeacherAccess, getAllSubmissions, getPremiumRequests, reviewPremiumRequest, type AttemptData, type TeacherAccount, type StudentAccount, type WritingSubmission, type Correction, type PremiumRequest } from "@/lib/store";
@@ -92,7 +92,7 @@ function AdminDashboard() {
   const [testsAnswerKeyId, setTestsAnswerKeyId] = useState<string | null>(null);
   const [search, setSearch] = useState("");
   const [filterGroup, setFilterGroup] = useState("all");
-  const [filterType, setFilterType] = useState<"all" | "reading" | "listening" | "writing" | "speaking">("all");
+  const [filterType, setFilterType] = useState<"all" | "reading" | "listening" | "writing">("all");
   const [filterStatus, setFilterStatus] = useState<"all" | "completed" | "cancelled">("all");
   const [sortBy, setSortBy] = useState<"date" | "band" | "name">("date");
   const [teachers, setTeachers] = useState<TeacherAccount[]>([]);
@@ -444,7 +444,6 @@ function AdminDashboard() {
                 <option value="reading">Reading</option>
                 <option value="listening">Listening</option>
                 <option value="writing">Writing</option>
-                <option value="speaking">Speaking</option>
               </select>
               <select value={filterStatus} onChange={e => setFilterStatus(e.target.value as typeof filterStatus)} style={sel}>
                 <option value="all">All Statuses</option>
