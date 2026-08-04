@@ -9,7 +9,6 @@ An IELTS preparation platform with mock tests across all four skills, instant sc
 - **Reading** — full passages with all standard question types, auto-scored.
 - **Listening** — timed sections with audio, transcripts, and band scores.
 - **Writing** — Task 1 and Task 2 with AI-assisted feedback.
-- **Speaking** — cue cards and prompts for all three parts.
 - **Progress tracking** — saved attempts, band history, and a results dashboard.
 - **Vocabulary and articles** — word lists and reading material.
 - **Music player** — lyrics-based listening practice.
@@ -21,7 +20,7 @@ An IELTS preparation platform with mock tests across all four skills, instant sc
 - Next.js 16 (App Router), React 19, TypeScript
 - Tailwind CSS v4, Framer Motion
 - Self-hosted API (auth and database)
-- Deployed to GitHub Pages via GitHub Actions on a custom domain
+- Static export served from a self-hosted VPS behind Caddy
 
 ## Running locally
 
