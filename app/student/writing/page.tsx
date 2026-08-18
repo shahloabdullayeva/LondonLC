@@ -252,7 +252,7 @@ function WritingPage() {
     setGradingProgress(5);
     setGradingStage("Saving your essay…");
 
-    const sub = await submitEssay(session.id, `${session.name} ${session.surname}`, prompt, text);
+    const sub = await submitEssay(session.id, `${session.name} ${session.surname}`, prompt, text, violations);
     if (!sub) {
       setStatus("error");
       setGradingProgress(0);
@@ -260,6 +260,7 @@ function WritingPage() {
       return;
     }
 
+    setViolations(0);
     setStatus("grading");
     setLastSub(sub);
     setGradingProgress(15);

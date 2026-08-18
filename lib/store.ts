@@ -330,6 +330,7 @@ export type WritingSubmission = {
   prompt: string;
   essay: string;
   wordCount: number;
+  pageLeaves: number;
   taskResponse: number | null;
   coherenceCohesion: number | null;
   lexicalResource: number | null;
@@ -350,6 +351,7 @@ function mapSubmission(r: Row): WritingSubmission {
     prompt: r.prompt as string,
     essay: r.essay as string,
     wordCount: r.word_count as number,
+    pageLeaves: (r.page_leaves as number) ?? 0,
     taskResponse: r.task_response as number | null,
     coherenceCohesion: r.coherence_cohesion as number | null,
     lexicalResource: r.lexical_resource as number | null,
@@ -377,14 +379,14 @@ export async function getAllSubmissions(): Promise<(WritingSubmission & { studen
 }
 
 export async function submitEssay(
-  studentId: string, studentName: string, prompt: string, essay: string,
+  studentId: string, studentName: string, prompt: string, essay: string, pageLeaves: number = 0,
 ): Promise<WritingSubmission | null> {
   const wordCount = essay.trim().split(/\s+/).filter(Boolean).length;
-  const g = await callData("submitEssay", { studentId, studentName, prompt, essay });
+  const g = await callData("submitEssay", { studentId, studentName, prompt, essay, pageLeaves });
   if (!(g.ok && g.data)) return null;
   const d = g.data as { id: string; wordCount: number; createdAt: string };
   return {
-    id: d.id, studentId, prompt, essay, wordCount,
+    id: d.id, studentId, prompt, essay, wordCount, pageLeaves,
     taskResponse: null, coherenceCohesion: null, lexicalResource: null, grammarAccuracy: null,
     overallBand: null, feedback: null, corrections: null, strengths: null, nextSteps: null,
     gradedAt: null, createdAt: d.createdAt,

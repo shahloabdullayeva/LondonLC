@@ -242,7 +242,7 @@ export default function WritingTask1Page() {
     setGradingStage("Saving your response…");
 
     const promptLabel = taskDescription.trim() ? `[Task 1] ${taskDescription}` : "[Task 1] Describe the visual";
-    const sub = await submitEssay(session.id, `${session.name} ${session.surname}`, promptLabel, text);
+    const sub = await submitEssay(session.id, `${session.name} ${session.surname}`, promptLabel, text, violations);
     if (!sub) {
       setStatus("error");
       setGradingProgress(0);
@@ -250,6 +250,7 @@ export default function WritingTask1Page() {
       return;
     }
 
+    setViolations(0);
     setStatus("grading");
     setLastSub(sub);
     setGradingProgress(15);

@@ -525,7 +525,12 @@ function AdminDashboard() {
                                 <div style={{ marginBottom: 16 }}>
                                   <div style={{ fontSize: 12, fontWeight: 700, color: C.muted, marginBottom: 6, textTransform: "uppercase", letterSpacing: "0.07em" }}>Prompt</div>
                                   <div style={{ fontSize: 13, color: C.sub, marginBottom: 12, lineHeight: 1.5 }}>{submissionById.get(a.id)!.prompt}</div>
-                                  <div style={{ fontSize: 12, fontWeight: 700, color: C.muted, marginBottom: 6, textTransform: "uppercase", letterSpacing: "0.07em" }}>Essay · {submissionById.get(a.id)!.wordCount} words</div>
+                                  <div style={{ fontSize: 12, fontWeight: 700, color: C.muted, marginBottom: 6, textTransform: "uppercase", letterSpacing: "0.07em" }}>
+                                    Essay · {submissionById.get(a.id)!.wordCount} words
+                                    {submissionById.get(a.id)!.pageLeaves > 0 && (
+                                      <span style={{ color: "#f87171", marginLeft: 8 }}>⚠ left page {submissionById.get(a.id)!.pageLeaves} time{submissionById.get(a.id)!.pageLeaves > 1 ? "s" : ""}</span>
+                                    )}
+                                  </div>
                                   <div style={{ fontSize: 13, color: C.text, lineHeight: 1.6, whiteSpace: "pre-wrap", maxHeight: 300, overflowY: "auto", padding: "12px 14px", background: C.card2, border: `1px solid ${C.border}`, borderRadius: 8 }}>{submissionById.get(a.id)!.essay}</div>
                                 </div>
                               )}
