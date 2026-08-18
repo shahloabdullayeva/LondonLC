@@ -11,8 +11,7 @@ export type Article = {
   curated?: boolean;
 };
 
-const imageUrl = (name: string) =>
-  `${process.env.NEXT_PUBLIC_MISSION_CONTROL}/storage/v1/object/public/images/${name}`;
+const imageUrl = (name: string) => `/media/images/${name}`;
 
 export const starterArticles: Article[] = [
   {

@@ -1,7 +1,6 @@
 import type { IELTSTest } from "./ielts-tests";
 
-const audioUrl = (name: string) =>
-  `${process.env.NEXT_PUBLIC_MISSION_CONTROL}/storage/v1/object/public/audio/${name}`;
+const audioUrl = (name: string) => `/media/audio/${name}`;
 
 export const cambridge17_listening_t1: IELTSTest = {
   id: "cam17-listening-t1",
